@@ -11,6 +11,7 @@ Claude code
   - [Markdown 版](lessons/2026-Q4-gift-of-prophecy.md)
   - [全季合集网页（13课合一，含欢迎页，按设备日期自动推荐本周学课与今日内容，可离线打开）](lessons/2026-Q4/gift-of-prophecy-all.html)
   - 逐课研读网页（单文件，可离线打开）：
+    - [本季导言（导言原文 + 全季总览）](lessons/2026-Q4/lesson-00-intro.html)
     - [第1课 当创造主说话时](lessons/2026-Q4/lesson-01.html)
     - [第2课 先知的呼召](lessons/2026-Q4/lesson-02.html)
     - [第3课 旧约先知](lessons/2026-Q4/lesson-03.html)
