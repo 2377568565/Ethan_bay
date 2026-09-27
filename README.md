@@ -9,7 +9,7 @@ Claude code
   - [PDF 版（目录与书签可点击跳转）](lessons/2026-Q3-L13-grace-love-fellowship.pdf)
 - 2026年第4季《预言的恩赐》全季剖析（13课）
   - [Markdown 版](lessons/2026-Q4-gift-of-prophecy.md)
-  - [全季合集网页（13课合一，点哪一课就只显示哪一课，可离线打开）](lessons/2026-Q4/gift-of-prophecy-all.html)
+  - [全季合集网页（13课合一，含欢迎页，按设备日期自动推荐本周学课与今日内容，可离线打开）](lessons/2026-Q4/gift-of-prophecy-all.html)
   - 逐课研读网页（单文件，可离线打开）：
     - [第1课 当创造主说话时](lessons/2026-Q4/lesson-01.html)
     - [第2课 先知的呼召](lessons/2026-Q4/lesson-02.html)
