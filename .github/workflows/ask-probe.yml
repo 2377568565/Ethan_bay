@@ -7,46 +7,16 @@ on:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
-      - name: header variants
+      - name: notice page
         run: |
-          U=https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com/ask-bridge.html
-          UA='Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.50'
+          H=https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com
           CH='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'
-          t(){ echo "== $1"; shift; curl -sS -o /dev/null -D - "$@" "$U" | grep -iE '^HTTP|content-disposition|content-type|x-frame|content-security|location' ; }
-          t "plain curl"
-          t "chrome UA" -A "$CH"
-          t "chrome doc nav, no referer" -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: document' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: none'
-          t "chrome doc nav, github referer" -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: document' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: cross-site' -H 'Referer: https://2377568565.github.io/'
-          t "chrome iframe, github referer" -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: iframe' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: cross-site' -H 'Referer: https://2377568565.github.io/'
-          t "chrome iframe, no referer" -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: iframe' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: cross-site'
-          t "referer only" -H 'Referer: https://2377568565.github.io/'
-          t "wechat iphone doc nav" -A "$UA" -H 'Accept: text/html'
-          t "wechat iphone doc, github referer" -A "$UA" -H 'Accept: text/html' -H 'Referer: https://2377568565.github.io/'
-          echo "== 404 body sample"; curl -sS -A "$CH" -H 'Sec-Fetch-Dest: iframe' -H 'Referer: https://2377568565.github.io/' "$U" | head -c 600; echo
-      - name: browsers
-        run: |
-          mkdir t && cd t && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && npx playwright install --with-deps chromium webkit >/dev/null 2>&1
-          cat > t.js <<'JS'
-          const pw=require('playwright');const U='https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com/ask-bridge.html';
-          (async()=>{for(const [name,bt,dev] of [['chromium',pw.chromium,null],['webkit-iphone',pw.webkit,pw.devices['iPhone 13']]]){
-            const b=await bt.launch();const c=await b.newContext(Object.assign({acceptDownloads:true},dev||{}));const p=await c.newPage();
-            let dl=false;p.on('download',()=>dl=true);
-            let st='-';p.on('response',r=>{if(r.url().startsWith(U))st=r.status()+' cd='+(r.headers()['content-disposition']||'-');});
-            try{await p.goto(U,{timeout:30000});}catch(e){console.log(name,'direct goto error',e.message.slice(0,120));}
-            await p.waitForTimeout(1500);
-            console.log(name,'DIRECT:',st,'download',dl,'text:',(await p.textContent('body').catch(()=>'')).trim().slice(0,30));
-            st='-';dl=false;
-            await p.goto('https://2377568565.github.io/Ethan_bay/',{timeout:60000});
-            await p.evaluate(u=>{const a=document.createElement('a');a.href=u;a.id='zz';a.textContent='go';document.body.prepend(a);},U);
-            await Promise.all([p.waitForNavigation({timeout:30000}).catch(()=>{}),p.click('#zz')]);await p.waitForTimeout(1500);
-            console.log(name,'LINK from github (with referer):',st,'download',dl,'url',p.url().slice(0,80));
-            st='-';dl=false;
-            await p.goto('https://2377568565.github.io/Ethan_bay/',{timeout:60000});
-            await p.evaluate(u=>{const a=document.createElement('a');a.href=u;a.id='zz';a.rel='noreferrer';a.textContent='go';document.body.prepend(a);},U);
-            await Promise.all([p.waitForNavigation({timeout:30000}).catch(()=>{}),p.click('#zz')]);await p.waitForTimeout(1500);
-            console.log(name,'LINK noreferrer:',st,'download',dl,'url',p.url().slice(0,80));
-            await b.close();}})();
-          JS
-          node t.js
+          nav(){ curl -sS -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: document' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: none' "$@"; }
+          echo "== notice text"; nav "$H/ask-bridge.html" | sed -e 's/<[^>]*>/ /g' | tr -s ' \n' | head -c 1500; echo
+          echo "== which header triggers it"
+          for v in "Sec-Fetch-Mode: navigate" "Sec-Fetch-Dest: document" "Sec-Fetch-Dest: iframe" "Sec-Fetch-Site: none" "Sec-Fetch-Site: cross-site" "Upgrade-Insecure-Requests: 1" "Accept: text/html"; do
+            printf '%-32s ' "$v"; curl -sS -o /dev/null -w '%{http_code}\n' -A "$CH" -H "$v" "$H/ask-bridge.html"; done
+          echo "== root"; nav -o /dev/null -w '%{http_code}\n' "$H/"
+          echo "== geo hint"; curl -sS https://ipinfo.io/country || true
