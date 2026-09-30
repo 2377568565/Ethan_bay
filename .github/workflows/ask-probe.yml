@@ -1,0 +1,36 @@
+name: ask-probe
+# 临时诊断：从 GitHub 服务器检查提问区连接页（查完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/ask-probe.yml']
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: bridge headers
+        run: |
+          U=https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com/ask-bridge.html
+          echo "== HEAD"; curl -sSI "$U" || true
+          echo "== GET headers"; curl -sS -D - -o body.html "$U" || true
+          echo "== body"; head -c 2500 body.html; echo
+          echo "== site script"; curl -sSI https://2377568565.github.io/Ethan_bay/site/03348aff02.js | head -5
+      - name: browser
+        run: |
+          mkdir t && cd t && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && npx playwright install --with-deps chromium >/dev/null 2>&1
+          cat > t.js <<'JS'
+          const {chromium}=require('playwright');
+          (async()=>{const b=await chromium.launch();const p=await b.newPage();const log=[];
+            p.on('console',m=>log.push(m.type()+': '+m.text().slice(0,300)));
+            p.on('pageerror',e=>log.push('pageerror: '+e.message));
+            p.on('requestfailed',r=>log.push('failed: '+r.url().slice(0,120)+' '+(r.failure()&&r.failure().errorText)));
+            p.on('response',r=>{const u=r.url();if(/tcloudbase|site\/[0-9a-f]{10}\.js/.test(u))log.push('resp '+r.status()+' '+u.replace(/\?.*/,'').slice(0,120)+' xfo='+(r.headers()['x-frame-options']||'-')+' csp='+(r.headers()['content-security-policy']||'-').slice(0,120));});
+            p.on('frameattached',f=>log.push('frame attached'));p.on('framenavigated',f=>{if(f!==p.mainFrame())log.push('frame navigated '+f.url().slice(0,100));});
+            await p.goto('https://2377568565.github.io/Ethan_bay/#ask',{waitUntil:'load'});
+            for(let i=0;i<70;i++){await p.waitForTimeout(1000);const t=await p.textContent('#ask .ask-items');if(!/正在连接/.test(t)){log.push('after '+i+'s');break;}}
+            console.log('ITEMS:',(await p.textContent('#ask .ask-items')).slice(0,200));
+            for(const f of p.frames())console.log('FRAME',f.url().slice(0,100));
+            console.log(log.join('\n'));await b.close();})();
+          JS
+          node t.js
