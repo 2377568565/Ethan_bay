@@ -1,5 +1,5 @@
 name: ask-probe
-# 临时诊断：从 GitHub 服务器检查提问区连接页（查完会删掉）
+# 临时诊断（查完会删掉）
 on:
   push:
     paths: ['.github/workflows/ask-probe.yml']
@@ -7,21 +7,12 @@ on:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - name: notice page text
+      - name: ntfy behaviour
         run: |
-          H=https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com
-          curl -sS -D headers.txt -A 'Mozilla/5.0 Chrome/129.0' -H 'Sec-Fetch-Mode: navigate' "$H/ask-bridge.html" -o notice.html
-          cat headers.txt
-          python3 - <<'PY'
-          import re,html
-          s=open('notice.html',encoding='utf-8',errors='replace').read()
-          print('LEN',len(s))
-          body=re.sub(r'(?s)<style.*?</style>','',s)
-          scripts=re.findall(r'(?s)<script[^>]*>(.*?)</script>',body)
-          body=re.sub(r'(?s)<script.*?</script>','',body)
-          print('TEXT:',re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',body))).strip()[:1500])
-          print('LINKS:',re.findall(r'<a[^>]*>',body)[:10])
-          for sc in scripts: print('SCRIPT:',sc.strip()[:1500])
-          PY
+          T=https://ntfy.sh/q4ask-c656a4ca18696d0b-probe
+          echo "== publish (text/plain, with Origin)"; curl -sS -D - -H 'Origin: https://2377568565.github.io' -H 'Content-Type: text/plain;charset=UTF-8' -d '{"p":"{\"x\":\"中文测试\"}","s":"abc"}' $T
+          echo; echo "== poll"; curl -sS -D - -H 'Origin: https://2377568565.github.io' "$T/json?poll=1&since=1h"
+          echo; echo "== preflight"; curl -sS -D - -o /dev/null -X OPTIONS -H 'Origin: https://2377568565.github.io' -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: content-type' $T
+          echo "== big body 3000 bytes"; python3 -c "print('{\"p\":\"' + '字'*900 + '\",\"s\":\"x\"}')" > big.txt; wc -c big.txt; curl -sS -H 'Content-Type: text/plain;charset=UTF-8' --data-binary @big.txt $T | head -c 300; echo
