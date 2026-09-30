@@ -45,7 +45,7 @@ function toCSV(S) {
   const cut = Math.floor(Date.now() / 1000) - 2 * 86400;   // 两天前的消息编号不用再记
   for (const k of Object.keys(S.seen)) if (S.seen[k] < cut) delete S.seen[k];
   console.log(`中转站消息 ${msgs.length} 条，新处理 ${out.length} 条：` + (out.map(o => o.why || 'ok').join(', ') || '无'));
-  if (JSON.stringify(S) === before) { console.log('没有变化'); return; }
+  if (JSON.stringify(S) === before && fs.existsSync(DATA)) { console.log('没有变化'); return; }
   S.updated = Math.floor(Date.now() / 1000);
   fs.mkdirSync(path.dirname(DATA), { recursive: true });
   fs.writeFileSync(DATA, JSON.stringify(S));
