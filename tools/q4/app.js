@@ -573,7 +573,7 @@ function q4copy(t){
     if(t===0){hi.textContent='第一次来提问？没有“傻问题”，只有愿意追问的心。';st.hidden=true;bd.hidden=true;return;}
     st.hidden=false;st.textContent='你一共提了 '+n+' 个问题 · 本周 '+wk+' 个';
     if(t===1){hi.textContent='欢迎回来！这周有什么新的疑问吗？';bd.hidden=true;}
-    else if(t===2){hi.textContent='这是你本周的第 '+(wk+1)+' 个问题 ✦ 好问题带来好学习。';bd.hidden=false;bd.textContent='✦ 本周提问者';}
+    else if(t===2){hi.textContent='本周已经问了 '+wk+' 个问题 ✦ 好问题带来好学习，还可以接着问。';bd.hidden=false;bd.textContent='✦ 本周提问者';}
     else{hi.textContent='本周已经问了 '+wk+' 个问题！像庇哩亚人一样“天天考查圣经”（徒17:11）。';bd.hidden=false;bd.textContent='✦✦ 本周追问者';}
     if(n>=10){bd.hidden=false;bd.textContent='✦✦✦ 庇哩亚人 · 已提 '+n+' 问';}
   }
