@@ -459,7 +459,7 @@ function q4copy(t){
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   function $(s,r){return (r||P).querySelector(s);}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  var ENV=P.dataset.env,SDK=P.dataset.sdk,ADM=(P.dataset.admins||'').split(',').filter(Boolean),MOCK=/[?&]askmock/.test(location.search);
+  var ENV=P.dataset.env,SDK=P.dataset.sdk,MOCK=/[?&]askmock/.test(location.search);
   var app=null,db=null,uid='',QS=[],RS={},filter='all',PAGE=40,more=false,started=false,busy=false;
   var card=$('.askcard'),msg=$('.ask-msg'),list=$('.ask-items');
 
@@ -470,44 +470,59 @@ function q4copy(t){
     w:function(d){localStorage.setItem('q4:mockdb',JSON.stringify(d));}
   };
   function when(d){if(!d)return 0;if(d.$date)d=d.$date;var t=new Date(d).getTime();return isNaN(t)?0:t;}
+  var ME_ADMIN=false;
+  function row(t,x){   // 数据库的一行 → 页面里用的格式
+    var o={_id:x.id,name:x.name,loc:x.loc,text:x.body,uid:x.user_id,ts:when(x.created_at)};
+    if(t==='questions')o.allow=x.allow_reply!==false;else{o.qid=x.question_id;o.admin=!!x.is_admin;}
+    return o;
+  }
+  function chk(r){if(r&&r.error)throw r.error;return (r&&r.data)||[];}
   var store={
     init:function(){
-      if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);return Promise.resolve();}
+      if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);ME_ADMIN=/[?&]askadmin/.test(location.search);return Promise.resolve();}
       if(location.protocol==='file:')return Promise.reject({code:'FILE'});
       return loadSDK().then(function(){
         app=window.cloudbase.init({env:ENV,timeout:15000});
         var auth=app.auth();
         return auth.getLoginState().then(function(st){
           if(st&&st.user)return st;
-          return auth.signInAnonymously().then(function(r){if(r&&r.error)throw r.error;return auth.getLoginState();});
-        }).then(function(){return auth.getCurrentUser();}).then(function(u){uid=(u&&(u.uid||u.id))||'';db=app.database();});
+          return auth.signInAnonymously().then(function(r){if(r&&r.error)throw r.error;});
+        }).then(function(){return auth.getCurrentUser();}).then(function(u){
+          uid=(u&&(u.uid||u.id))||'';db=app.rdb();
+          return db.rpc('q4_whoami').then(function(r){if(r&&!r.error&&r.data){if(r.data.uid)uid=r.data.uid;ME_ADMIN=!!r.data.admin;}}).catch(function(){});
+        });
       });
     },
     list:function(before){
       if(MOCK){var d=mock.q(),a=d.questions.slice().sort(function(x,y){return y.ts-x.ts;});if(before)a=a.filter(function(x){return x.ts<before;});return Promise.resolve(a.slice(0,PAGE));}
-      var q=db.collection('questions');if(before)q=q.where({ts:db.command.lt(before)});
-      return q.orderBy('ts','desc').limit(PAGE).get().then(function(r){return r.data||[];});
+      var q=db.from('questions').select('*').order('created_at',{ascending:false}).limit(PAGE);
+      if(before)q=q.lt('created_at',new Date(before).toISOString());
+      return q.then(chk).then(function(a){return a.map(function(x){return row('questions',x);});});
     },
     replies:function(ids){
       if(!ids.length)return Promise.resolve([]);
       if(MOCK){var d=mock.q();return Promise.resolve(d.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}));}
-      return db.collection('replies').where({qid:db.command.in(ids)}).orderBy('ts','asc').limit(1000).get().then(function(r){return r.data||[];});
+      return db.from('replies').select('*').in('question_id',ids).order('created_at',{ascending:true}).limit(1000)
+        .then(chk).then(function(a){return a.map(function(x){return row('replies',x);});});
     },
     add:function(coll,doc){
-      doc.uid=uid;doc.ts=Date.now();
-      if(MOCK){var d=mock.q();doc._id='m'+Date.now()+Math.random().toString(36).slice(2,6);doc._openid=uid;d[coll].push(doc);mock.w(d);return Promise.resolve(doc);}
-      doc.createdAt=db.serverDate();
-      return db.collection(coll).add(doc).then(function(r){if(r&&r.code)throw r;doc._id=r.id;doc._openid=uid;return doc;});
+      if(MOCK){var d=mock.q();doc.uid=uid;doc.ts=Date.now();doc._id='m'+Date.now()+Math.random().toString(36).slice(2,6);if(coll==='replies')doc.admin=ME_ADMIN;d[coll].push(doc);mock.w(d);return Promise.resolve(doc);}
+      var x={name:doc.name,loc:doc.loc||'',body:doc.text};
+      if(coll==='questions')x.allow_reply=doc.allow!==false;else{x.question_id=doc.qid;x.is_admin=ME_ADMIN;}
+      return db.from(coll).insert(x).select().then(chk).then(function(a){if(!a[0])throw {code:'PERMISSION'};return row(coll,a[0]);});
     },
     remove:function(coll,id){
       if(MOCK){var d=mock.q();d[coll]=d[coll].filter(function(x){return x._id!==id;});if(coll==='questions')d.replies=d.replies.filter(function(x){return x.qid!==id;});mock.w(d);return Promise.resolve();}
-      return db.collection(coll).doc(id).remove().then(function(r){if(r&&(r.code||r.deleted===0))throw r||{};});
+      return db.from(coll).delete().eq('id',id).select().then(chk).then(function(a){if(!a.length)throw {code:'PERMISSION'};});
     }
   };
   function why(e){
     var c=(e&&(e.code||e.errCode||e.error))||'',m=(e&&(e.message||e.msg))||'';c=String(c);var s=c+' '+m;
     if(c==='FILE')return '提问区需要联网使用：请用在线版打开 '+P.dataset.online+'#ask';
     if(c==='SDK_LOAD')return '提问区工具没能加载，请检查网络后点“刷新”。';
+    if(/PGRST204|42703|column/i.test(s))return '数据表还没设置好：请在云开发数据库里运行“提问区设置脚本”。（'+c+'）';
+    if(/42501|PERMISSION|permission denied|row-level security|violates/i.test(s))return '没有权限：请确认已运行“提问区设置脚本”，或刷新后再试。（'+c+'）';
+    if(/Failed to fetch|NetworkError|SERVICE_ERROR|Load failed/i.test(s)&&location.hostname==='2377568565.github.io')return '连不上提问区：请确认云开发“安全域名”里已添加 2377568565.github.io，或检查网络后点“刷新”。（'+c+'）';
     if(/INVALID_REQUEST_SOURCE|domain|origin|cors/i.test(s))return '连接被拒绝：请在云开发控制台把 2377568565.github.io 加入“安全域名”。（'+c+'）';
     if(/anonymous|ANONYMOUS|DISABLED|provider/i.test(s))return '登录失败：请在云开发控制台打开“匿名登录”。（'+c+'）';
     if(/COLLECTION|NOT_EXIST|not exist/i.test(s))return '数据表还没建好：请在云开发“数据库”里新建 questions 和 replies 两个集合。（'+c+'）';
@@ -523,8 +538,8 @@ function q4copy(t){
     return new Promise(function(ok){
       var cb='q4ip'+Date.now(),s=document.createElement('script'),t=setTimeout(function(){fin('');},5000);
       function fin(v){clearTimeout(t);try{delete window[cb];}catch(e){window[cb]=undefined;}if(s.parentNode)s.parentNode.removeChild(s);if(v){set('askloc',v);set('asklocday',day);}ok(v||c||'');}
-      window[cb]=function(d){var p=(d&&d.pro)||'',ci=(d&&d.city)||'';if(ci===p)ci='';fin((p+ci).replace(/\s+/g,''));};
-      s.charset='gbk';s.src='https://whois.pconline.com.cn/ipJson.jsp?json=true&callback='+cb;s.onerror=function(){fin('');};document.head.appendChild(s);
+      window[cb]=function(d){var p=(d&&d.pro)||'',ci=(d&&d.city)||'';if(ci===p)ci='';var v=(p+ci).replace(/\s+/g,'');if(!v&&d&&d.addr)v=String(d.addr).trim().split(/\s+/)[0]||'';fin(v);};
+      s.charset='gbk';s.src='https://whois.pconline.com.cn/ipJson.jsp?callback='+cb;   // 用 JSONP 形式（不要 json=true，否则返回纯 JSON 会被浏览器拦截）s.onerror=function(){fin('');};document.head.appendChild(s);
     });
   }
   var LOC='';
@@ -544,8 +559,8 @@ function q4copy(t){
     else{hi.textContent='本周已经问了 '+wk+' 个问题！像庇哩亚人一样“天天考查圣经”（徒17:11）。';bd.hidden=false;bd.textContent='✦✦ 本周追问者';}
     if(n>=10){bd.hidden=false;bd.textContent='✦✦✦ 庇哩亚人 · 已提 '+n+' 问';}
   }
-  function isMine(x){return !!uid&&((x._openid&&x._openid===uid)||x.uid===uid);}
-  function isAdmin(x){var o=x._openid||x.uid;return !!o&&ADM.indexOf(o)>=0;}
+  function isMine(x){return !!uid&&x.uid===uid;}
+  function isAdmin(x){return !!x.admin;}
 
   /* ---- 显示 ---- */
   function fmt(t){if(!t)return '';var d=new Date(t),z=function(n){return (n<10?'0':'')+n;};return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes());}
@@ -559,13 +574,13 @@ function q4copy(t){
     if(adm.length)h+='<span class="aq-tag gold">✦ 管理员已回答</span>';
     if(q.allow===false)h+='<span class="aq-tag">只要管理员回答</span>';
     h+='<span class="sp"></span>';
-    if(q.allow!==false||ADM.indexOf(uid)>=0)h+='<button type="button" class="aq-rb" data-reply>回复'+(rs.length?' · '+rs.length:'')+'</button>';
+    if(q.allow!==false||ME_ADMIN)h+='<button type="button" class="aq-rb" data-reply>回复'+(rs.length?' · '+rs.length:'')+'</button>';
     else if(rs.length)h+='<span class="aq-rc">'+rs.length+' 条回复</span>';
-    if(mine||ADM.indexOf(uid)>=0)h+='<button type="button" class="aq-del" data-delq>删除</button>';
+    if(mine||ME_ADMIN)h+='<button type="button" class="aq-del" data-delq>删除</button>';
     h+='</div>';
     if(rs.length){h+='<div class="aq-rs">';rs.slice().sort(function(a,b){return isAdmin(b)-isAdmin(a)||ts(a)-ts(b);}).forEach(function(r){
       var ad=isAdmin(r);h+='<div class="aq-r'+(ad?' admin':'')+'" data-rid="'+esc(r._id)+'"><p class="aq-rh"><b>'+esc(ad?(r.name||'整理者'):(r.name||'匿名'))+'</b>'+(ad?'<i class="aq-adm">管理员回答</i>':'')+
-        '<span>'+esc(r.loc||'')+' · '+esc(fmt(ts(r)))+'</span>'+((isMine(r)||ADM.indexOf(uid)>=0)?'<button type="button" class="aq-rdel" data-delr>删除</button>':'')+'</p><p class="aq-rt">'+esc(r.text)+'</p></div>';});
+        '<span>'+esc(r.loc||'')+' · '+esc(fmt(ts(r)))+'</span>'+((isMine(r)||ME_ADMIN)?'<button type="button" class="aq-rdel" data-delr>删除</button>':'')+'</p><p class="aq-rt">'+esc(r.text)+'</p></div>';});
       h+='</div>';}
     h+='<div class="aq-rf" hidden><textarea maxlength="300" rows="2" placeholder="写下你的回复（300 字以内）"></textarea><button type="button" class="btn solid" data-sendr>发送回复</button><p class="aq-rmsg"></p></div></article>';
     return h;
@@ -612,7 +627,7 @@ function q4copy(t){
     }).catch(function(e){b.disabled=false;msg.textContent=why(e);});
   }
   function sendReply(art){
-    var id=art.dataset.id,ta=art.querySelector('.aq-rf textarea'),m=art.querySelector('.aq-rmsg'),t=ta.value.trim(),n=name()||(ADM.indexOf(uid)>=0?'整理者':''),err;
+    var id=art.dataset.id,ta=art.querySelector('.aq-rf textarea'),m=art.querySelector('.aq-rmsg'),t=ta.value.trim(),n=name()||(ME_ADMIN?'整理者':''),err;
     if(!n){m.textContent='先在上面“你的称呼”里起个名字吧。';return;}
     if((err=check(t,'r'))){m.textContent=err;return;}
     m.textContent='正在发送……';
@@ -643,7 +658,7 @@ function q4copy(t){
       q4copy(s).then(function(ok){flash(b,ok?'✓ 已复制 '+a.length+' 个问题':'复制失败，请重试');});return;
     }
     if(t.closest('.ask-adminbtn')){
-      var s2='你的身份码：\n'+(uid||'（还没连上提问区）')+'\n\n把这串身份码发给网站制作者，绑定之后，你在这里发的回复会显示为“管理员回答”。';
+      var s2=ME_ADMIN?('你已经是管理员 ✓\n身份码：'+uid+'\n\n你发的回复会显示为“管理员回答”，也可以删除任何一条问题或回复。'):('你的身份码：\n'+(uid||'（还没连上提问区）')+'\n\n把这串身份码发给网站制作者，绑定之后，你在这里发的回复会显示为“管理员回答”。');
       if(uid)q4copy(uid);window.alert(s2+(uid?'\n\n（身份码已复制）':''));return;
     }
     if(!art)return;

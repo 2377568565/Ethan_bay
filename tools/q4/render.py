@@ -473,7 +473,7 @@ def qa_article(it, tail):
 
 # ---------- 提问区（腾讯云开发） ----------
 ASK_ENV = 'wenda-d8gqka1o3902489eb'
-ASK_ADMINS = []            # 管理员身份码（在提问区点“我是整理者”可看到），绑定后回答带“管理员回答”标记
+# 管理员名单存在数据库的 q4_admins 表里（见 tools/q4/ask_setup.sql）
 PINIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
          '<circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>')
 COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>'
@@ -494,7 +494,7 @@ def ask_page():
     bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
     return f'''<div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
 {top}
-<section class="askpage" data-env="{ASK_ENV}" data-sdk="{ask_sdk()}" data-admins="{",".join(ASK_ADMINS)}" data-online="{ONLINE}">
+<section class="askpage" data-env="{ASK_ENV}" data-sdk="{ask_sdk()}" data-online="{ONLINE}">
   <header class="askhead">
     <p class="eyebrow">问题彩蛋 · 提问区</p>
     <h1>提问区</h1>
