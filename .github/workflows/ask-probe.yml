@@ -9,10 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: ntfy behaviour
+      - name: ntfy poll timing
         run: |
           T=https://ntfy.sh/q4ask-c656a4ca18696d0b-probe
-          echo "== publish (text/plain, with Origin)"; curl -sS -D - -H 'Origin: https://2377568565.github.io' -H 'Content-Type: text/plain;charset=UTF-8' -d '{"p":"{\"x\":\"中文测试\"}","s":"abc"}' $T
-          echo; echo "== poll"; curl -sS -D - -H 'Origin: https://2377568565.github.io' "$T/json?poll=1&since=1h"
-          echo; echo "== preflight"; curl -sS -D - -o /dev/null -X OPTIONS -H 'Origin: https://2377568565.github.io' -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: content-type' $T
-          echo "== big body 3000 bytes"; python3 -c "print('{\"p\":\"' + '字'*900 + '\",\"s\":\"x\"}')" > big.txt; wc -c big.txt; curl -sS -H 'Content-Type: text/plain;charset=UTF-8' --data-binary @big.txt $T | head -c 300; echo
+          NOW=$(date +%s)
+          curl -sS -d 'second message' $T >/dev/null
+          for w in 1 3 6; do sleep $w; echo "== after +$w s since=all:"; curl -sS "$T/json?poll=1&since=all" | cut -c1-120; done
+          echo "== since=unix-60"; curl -sS "$T/json?poll=1&since=$((NOW-60))" | cut -c1-120
+          echo "== since=12h"; curl -sS "$T/json?poll=1&since=12h" | wc -l
