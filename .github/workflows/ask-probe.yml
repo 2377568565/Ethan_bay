@@ -1,0 +1,35 @@
+name: ask-probe
+# 临时：在线实测提问区（测完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/ask-probe.yml']
+  workflow_dispatch:
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: live test
+        run: |
+          mkdir t && cd t && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && npx playwright install --with-deps chromium webkit >/dev/null 2>&1
+          cat > t.js <<'JS'
+          const pw=require('playwright');const U='https://2377568565.github.io/Ethan_bay/?v='+Date.now()+'#ask';
+          (async()=>{
+            const b=await pw.webkit.launch(),c=await pw.chromium.launch();const errs=[];
+            async function dev(br,name,d){const ctx=await br.newContext(Object.assign({},d||{}));const p=await ctx.newPage();
+              p.on('pageerror',e=>errs.push(name+' pageerror '+e.message));p.on('console',m=>{if(m.type()==='error')errs.push(name+' console '+m.text().slice(0,160));});p.on('dialog',x=>x.accept());
+              await p.goto(U,{timeout:60000});for(let i=0;i<60;i++){await p.waitForTimeout(500);if(!/正在连接/.test(await p.textContent('#ask .ask-items')))break;}return p;}
+            const items=async p=>(await p.locator('#ask .aq').allTextContents()).map(t=>t.replace(/\s+/g,' ').slice(0,50));
+            const A=await dev(b,'iPhone(webkit)',pw.devices['iPhone 13']);
+            console.log('A 打开:',(await A.textContent('#ask .ask-items')).trim().slice(0,40));
+            await A.fill('#ask .ask-name','测试');await A.fill('#ask .ask-text','【测试】上线检查，马上删除。');await A.tap('#ask .ask-send');
+            for(let i=0;i<30;i++){await A.waitForTimeout(500);if(!/正在发送/.test(await A.textContent('#ask .ask-msg')))break;}
+            console.log('A 发送结果:',await A.textContent('#ask .ask-msg'));
+            const B=await dev(c,'Chrome',null);console.log('B（另一台设备）看到:',await items(B));
+            const del=A.locator('#ask .aq.mine [data-delq]');console.log('A 自己的删除按钮:',await del.count());
+            if(await del.count()){await del.first().tap();await A.waitForTimeout(3000);}
+            await B.tap('#ask .ask-refresh');for(let i=0;i<30;i++){await B.waitForTimeout(500);if(!/正在刷新/.test(await B.textContent('#ask .ask-items')))break;}
+            console.log('删除后 B 刷新看到:',(await B.textContent('#ask .ask-items')).trim().slice(0,60));
+            console.log('ERRORS:',errs.filter(e=>!/pconline|busuanzi|favicon/.test(e)));await b.close();await c.close();})();
+          JS
+          node t.js
