@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<link rel="preload" href="site/3c6e54d741.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="site/c7f9dea87b.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="site/40e4bf3e79.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="site/af9ea9a6b5.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。">
 <title>预言的恩赐 · 全季研读</title>
 <script>document.documentElement.classList.add('jsok','js');</script>
 <style>
-@font-face{font-family:"LessonSerif";font-weight:600;font-style:normal;font-display:swap;src:url(site/3c6e54d741.woff2) format("woff2")}
-@font-face{font-family:"LessonSerif";font-weight:900;font-style:normal;font-display:swap;src:url(site/c7f9dea87b.woff2) format("woff2")}
-@font-face{font-family:"LessonGreek";font-weight:400;font-style:normal;font-display:swap;src:url(site/be020b06da.woff2) format("woff2")}
-@font-face{font-family:"LessonGreek";font-weight:400;font-style:italic;font-display:swap;src:url(site/975136a181.woff2) format("woff2")}
-@font-face{font-family:"LessonHebrew";font-weight:400;font-style:normal;font-display:swap;src:url(site/15a9f51015.woff2) format("woff2")}
+@font-face{font-family:"LessonSerif";font-weight:600;font-style:normal;font-display:swap;src:url(site/40e4bf3e79.woff2) format("woff2")}
+@font-face{font-family:"LessonSerif";font-weight:900;font-style:normal;font-display:swap;src:url(site/af9ea9a6b5.woff2) format("woff2")}
+@font-face{font-family:"LessonGreek";font-weight:400;font-style:normal;font-display:swap;src:url(site/8df1b6000c.woff2) format("woff2")}
+@font-face{font-family:"LessonGreek";font-weight:400;font-style:italic;font-display:swap;src:url(site/b29ce0e4c7.woff2) format("woff2")}
+@font-face{font-family:"LessonHebrew";font-weight:400;font-style:normal;font-display:swap;src:url(site/9d11884357.woff2) format("woff2")}
 
 /*FONTS*/
 *,*::before,*::after{box-sizing:border-box}
@@ -689,6 +689,51 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 :root[data-theme="dark"] .sh-card .sh-wx b{color:#E2F4EA}
 @media print{.shsheet,.wxguide,.qshare{display:none!important}}
 
+/* ---------- 分享后的经文礼物 ---------- */
+.qshare-l{justify-content:flex-start;margin:2px 0 0}
+.gift{position:fixed;inset:0;z-index:135;display:grid;place-items:center;padding:18px;overflow-y:auto}
+.gift-bg{position:absolute;inset:0;background:rgba(6,10,28,.64);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s ease}
+.gift-card{position:relative;z-index:1;width:min(360px,100%);padding:18px 22px 16px;border-radius:22px;text-align:center;color:#FFF3D2;overflow:hidden;
+  border:1px solid rgba(232,207,152,.45);box-shadow:0 0 0 1px rgba(255,240,200,.08),0 26px 70px -18px rgba(240,190,80,.45),0 30px 60px -30px rgba(0,0,0,.7);
+  background:radial-gradient(circle at 12% 14%,rgba(255,255,255,.9) 0 1.2px,transparent 1.8px),radial-gradient(circle at 86% 10%,rgba(255,255,255,.8) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 74% 26%,rgba(255,240,200,.9) 0 1.4px,transparent 2px),radial-gradient(circle at 24% 34%,rgba(255,255,255,.6) 0 1px,transparent 1.5px),
+    radial-gradient(ellipse at 50% 0%,rgba(247,220,142,.30),transparent 55%),radial-gradient(ellipse at 50% 115%,rgba(233,190,120,.35),transparent 60%),
+    linear-gradient(170deg,#121A3A 0%,#261F4C 58%,#452A4C 100%);
+  opacity:0;transform:translateY(18px) scale(.92);transition:opacity .34s ease,transform .42s cubic-bezier(.2,1.3,.4,1)}
+.gift.open .gift-bg{opacity:1}
+.gift.open .gift-card{opacity:1;transform:none}
+.gift-box{width:112px;margin:0 auto -2px}
+.gift-box svg{display:block;width:100%;height:auto;overflow:visible}
+.gift-box .lid{transform-box:view-box;transform-origin:60px 46px;transition:transform .7s cubic-bezier(.3,1.5,.5,1) .45s}
+.gift-box .glow{transform-box:view-box;transform-origin:60px 50px;transform:scale(.4);opacity:0;transition:transform .9s ease .55s,opacity .9s ease .55s}
+.gift.open .gift-box .lid{transform:translate(-4px,-22px) rotate(-16deg)}
+.gift.open .gift-box .glow{transform:scale(1.15);opacity:1}
+.gift-k{margin:2px 0 4px;font-size:.74rem;font-weight:700;letter-spacing:.24em;color:#E8CF98}
+.gift-card h3{margin:0 0 6px;font-family:var(--serif);font-weight:900;font-size:1.36rem;line-height:1.4;color:#FFF6DF;letter-spacing:.03em}
+.gift-msg{margin:0 0 8px;font-size:.92rem;line-height:1.75;color:rgba(255,243,210,.86)}
+.gift-stars{margin:0 0 12px;font-size:1rem;letter-spacing:.35em;padding-left:.35em}
+.gift-stars i{font-style:normal;color:rgba(255,255,255,.16)}
+.gift-stars i.on{color:#F7DC8E;text-shadow:0 0 8px rgba(247,220,142,.8)}
+.gift.open .gift-stars i.on{animation:gpop .5s ease both}
+@keyframes gpop{0%{opacity:0;transform:scale(.3)}70%{transform:scale(1.35)}100%{opacity:1;transform:none}}
+.gift-stars i{display:inline-block}
+.gift-verse{margin:0 0 14px;padding:14px 16px 10px;border-radius:14px;background:#FFFBF0;color:#2A2410;border:1px solid #E8CF98;box-shadow:0 10px 30px -14px rgba(240,190,80,.7);text-align:left;
+  opacity:0;transform:translateY(12px);transition:opacity .5s ease .85s,transform .5s ease .85s}
+.gift.open .gift-verse{opacity:1;transform:none}
+.gift-vk{margin:0 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.2em;color:#9A7420;text-align:center}
+.gift-vt{margin:0;font-family:var(--serif);font-weight:600;font-size:1.06rem;line-height:1.85}
+.gift-vr{margin:4px 0 0;text-align:right;font-size:.82rem;color:#7B2433}
+.gift-btns{display:grid;grid-template-columns:1fr 1.25fr;gap:10px}
+.gift-btns button{min-height:44px;border-radius:12px;font:700 .96rem/1 var(--sans);letter-spacing:.06em;cursor:pointer;border:1px solid rgba(232,207,152,.55);background:rgba(255,255,255,.04);color:#FCE7B0}
+.gift-btns .ok{border-color:transparent;color:#3A2606;background:linear-gradient(135deg,#F7DC8E,#D9A93C 55%,#F2CF78);box-shadow:0 8px 22px -8px rgba(240,190,80,.8)}
+.gift-done{margin:8px 0 0;min-height:1.2em;font-size:.82rem;color:#F7DC8E}
+.gift-fall{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.gift-fall span{position:absolute;top:-24px;color:#F7DC8E;text-shadow:0 0 6px rgba(247,220,142,.8);animation:gfall linear forwards}
+@keyframes gfall{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}10%{opacity:1}100%{transform:translate3d(var(--dx,0),108vh,0) rotate(var(--rot,180deg));opacity:.15}}
+@media (prefers-reduced-motion: reduce){.gift-card,.gift-verse,.gift-box .lid,.gift-box .glow{transition:none}.gift.open .gift-stars i.on{animation:none}}
+@media print{.gift{display:none!important}}
+.sh-card .sh-tease{display:inline-block;margin-top:4px;font-weight:500;color:#9A7420}
+
 </style>
 </head>
 <body class="combined">
@@ -795,13 +840,32 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     <span class="sh-url"></span>
     <div class="sh-btns"><button type="button" class="ok" data-shcopy>复制链接</button><button type="button" data-shmore>关闭</button></div>
     <p class="sh-done" aria-live="polite"></p>
-    <p class="sh-wx" hidden><b>在微信里分享：</b>点“复制链接”，粘贴到群里即可；也可以点“转发给朋友”，按提示从右上角 <b>···</b> 转发。别人点开链接，会直接看到这一篇，也能从这里进入全季学课。</p>
+    <p class="sh-wx" hidden><b>在微信里分享：</b>点“复制链接”，粘贴到群里即可；也可以点“转发给朋友”，按提示从右上角 <b>···</b> 转发。别人点开链接，会直接看到这一篇，也能从这里进入全季学课。转发后回到“问题彩蛋”页，还有一份经文礼物等你 ✦</p>
   </div>
 </div>
 <div class="wxguide" id="wxguide" hidden>
   <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 88 C30 50 52 30 84 16" fill="none" stroke="#FCE7B0" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/><path d="M68 12 86 15 80 32" fill="none" stroke="#FCE7B0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <p>点右上角 <span style="letter-spacing:.1em">···</span><br>选择“转发给朋友”<small>点任意处关闭</small></p>
 </div>
+<div class="gift" id="gift" role="dialog" aria-modal="true" aria-labelledby="gift-h" hidden>
+  <div class="gift-bg" data-giftclose></div>
+  <div class="gift-card">
+    <div class="gift-box"><svg viewBox="0 0 120 112" aria-hidden="true"><defs><linearGradient id="gbx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBE6A6"/><stop offset="1" stop-color="#D5A23A"/></linearGradient><radialGradient id="ggl"><stop offset="0" stop-color="#FFF4CC" stop-opacity=".95"/><stop offset="1" stop-color="#FFF4CC" stop-opacity="0"/></radialGradient></defs><circle class="glow" cx="60" cy="50" r="54" fill="url(#ggl)"/><g class="base"><rect x="22" y="52" width="76" height="52" rx="6" fill="url(#gbx)"/><rect x="54" y="52" width="12" height="52" fill="#8E2F40"/><rect x="22" y="52" width="76" height="7" fill="#000" opacity=".08"/></g><g class="lid"><rect x="16" y="38" width="88" height="17" rx="5" fill="url(#gbx)"/><rect x="54" y="38" width="12" height="17" fill="#8E2F40"/><path d="M60 38C47 19 29 23 37 33c4 5 14 5 23 5zM60 38c13-19 31-15 23-5-4 5-14 5-23 5z" fill="#A83A4D"/></g></svg></div>
+    <p class="gift-k">✦ 谢谢你的分享 ✦</p>
+    <h3 id="gift-h">你把好消息传出去了</h3>
+    <p class="gift-msg"></p>
+    <p class="gift-stars" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></p>
+    <div class="gift-verse">
+      <p class="gift-vk">送你一节经文礼物</p>
+      <blockquote class="gift-vt"></blockquote>
+      <p class="gift-vr"></p>
+    </div>
+    <div class="gift-btns"><button type="button" data-giftcopy>复制经文</button><button type="button" class="ok" data-giftclose>收下礼物 ✦</button></div>
+    <p class="gift-done" aria-live="polite"></p>
+  </div>
+  <div class="gift-fall" aria-hidden="true"></div>
+</div>
+<script type="application/json" id="giftpool">[["那报佳音，传平安，报好信，传救恩的，对锡安说：你的上帝作王了！这人的脚登山何等佳美！", "以赛亚书 52:7"], ["好施舍的，必得丰裕；滋润人的，必得滋润。", "箴言 11:25"], ["我们行善，不可丧志；若不灰心，到了时候就要收成。", "加拉太书 6:9"], ["又要彼此相顾，激发爱心，勉励行善。", "希伯来书 10:24"], ["所以，你们该彼此劝慰，互相建立，正如你们素常所行的。", "帖撒罗尼迦前书 5:11"], ["你们是世上的光。城造在山上是不能隐藏的。", "马太福音 5:14"], ["你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。", "马太福音 5:16"], ["智慧人必发光如同天上的光；那使多人归义的，必发光如星，直到永永远远。", "但以理书 12:3"], ["当用各样的智慧，把基督的道理丰丰富富地存在心里，用诗章、颂词、灵歌，彼此教导，互相劝戒，心被恩感，歌颂上帝。", "歌罗西书 3:16"], ["在列邦中述说他的荣耀！在万民中述说他的奇事！", "诗篇 96:3"], ["所以，我亲爱的弟兄们，你们务要坚固，不可摇动，常常竭力多做主工；因为知道，你们的劳苦在主里面不是徒然的。", "哥林多前书 15:58"], ["有好消息从远方来，就如拿凉水给口渴的人喝。", "箴言 25:25"], ["口善应对，自觉喜乐；话合其时，何等美好。", "箴言 15:23"], ["我深信那在你们心里动了善工的，必成全这工，直到耶稣基督的日子。", "腓立比书 1:6"], ["你们若有彼此相爱的心，众人因此就认出你们是我的门徒了。", "约翰福音 13:35"], ["只要心里尊主基督为圣。有人问你们心中盼望的缘由，就要常作准备，以温柔、敬畏的心回答各人。", "彼得前书 3:15"], ["你当竭力在上帝面前得蒙喜悦，作无愧的工人，按着正意分解真理的道。", "提摩太后书 2:15"], ["耶和华万军之上帝啊，我得着你的言语就当食物吃了；你的言语是我心中的欢喜快乐，因我是称为你名下的人。", "耶利米书 15:16"], ["你的话是我脚前的灯，是我路上的光。", "诗篇 119:105"]]</script>
 <section id="home" class="home">
   <p class="eyebrow">安息日学研经指引 · 2026年第4季（10—12月）</p>
   <h1>预言的恩赐</h1>
@@ -7181,6 +7245,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
   <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；每篇都有 PDF 版，方便转发。</p>
+  <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>分享问题彩蛋</button></p>
   <div class="qcards"><a class="qcard" href="#qa1">
   <span class="spark" aria-hidden="true">✦</span>
   <span class="qt"><span class="qno">问答 01</span><span class="qday">第1课 · 星期三《被逐出园外》</span></span>
@@ -7668,6 +7733,7 @@ function q4copy(t){
     swap();
     if(!first&&!reduced){want.style.setProperty('--tin','4%');want.style.setProperty('--ryin','0deg');want.classList.remove('turn-in');void want.offsetWidth;want.classList.add('turn-in');setTimeout(function(){want.classList.remove('turn-in');},340);}
     if(window.requestAnimationFrame)requestAnimationFrame(go);
+    maybeReward();
     setTimeout(function(){go();de.style.scrollBehavior='';},120);
   }
   window.addEventListener('hashchange',route);
@@ -7770,29 +7836,80 @@ function q4copy(t){
     if(inWx){SH.querySelector('.sh-wx').hidden=false;more.textContent='转发给朋友';}
     else if(navigator.share){more.textContent='更多分享方式';}
     var shOpen=function(id){
-      var pg=document.getElementById(id);shTitle=(pg&&pg.dataset.title||document.title).replace(/ · 问题彩蛋$/,'');
+      var pg=document.getElementById(id),isList=id==='qa';shTitle=isList?'学课问题深度解答合集':(pg&&pg.dataset.title||document.title).replace(/ · 问题彩蛋$/,'');
+      SH.querySelector('#sh-h').textContent=isList?'分享问题彩蛋':'分享这篇问答';
       shUrl=(SH.dataset.base||location.href.split('#')[0])+'#'+id;
       SH.querySelector('.sh-t').textContent='“'+shTitle+'”';SH.querySelector('.sh-url').textContent=shUrl;SH.querySelector('.sh-done').textContent='';
       clearTimeout(shT);SH.hidden=false;void SH.offsetWidth;SH.classList.add('open');
     };
-    var shClose=function(){SH.classList.remove('open');shT=setTimeout(function(){SH.hidden=true;},280);};
+    var shClose=function(){SH.classList.remove('open');shT=setTimeout(function(){SH.hidden=true;maybeReward();},280);};
     document.addEventListener('click',function(e){
       var b=e.target.closest('[data-share]');
       if(b){e.preventDefault();shOpen(b.dataset.share);return;}
-      if(WG&&!WG.hidden&&e.target.closest('#wxguide')){WG.hidden=true;return;}
+      if(WG&&!WG.hidden&&e.target.closest('#wxguide')){WG.hidden=true;maybeReward();return;}
       if(SH.hidden)return;
       if(e.target.closest('[data-shcopy]')){
-        q4copy('【问题彩蛋】'+shTitle+'\n'+shUrl).then(function(ok){SH.querySelector('.sh-done').textContent=ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按上面的链接手动复制';});
+        q4copy('【问题彩蛋】'+shTitle+'\n'+shUrl).then(function(ok){var d=SH.querySelector('.sh-done');if(!ok){d.textContent='复制没有成功，请长按上面的链接手动复制';return;}markShared();d.innerHTML='✓ 已复制，可以粘贴到微信群里了'+(cur&&cur.id==='qa'?'':'<br><span class="sh-tease">分享完回到“问题彩蛋”页，有一份经文礼物等你 ✦</span>');});
         return;
       }
       if(e.target.closest('[data-shmore]')){
-        if(inWx){shClose();if(WG)WG.hidden=false;return;}
-        if(navigator.share){navigator.share({title:shTitle,text:'【问题彩蛋】'+shTitle,url:shUrl}).catch(function(){});return;}
+        if(inWx){shClose();markShared();if(WG)WG.hidden=false;return;}
+        if(navigator.share){navigator.share({title:shTitle,text:'【问题彩蛋】'+shTitle,url:shUrl}).then(function(){markShared();shClose();}).catch(function(){});return;}
         shClose();return;
       }
       if(e.target.closest('[data-shclose]'))shClose();
     });
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!SH.hidden)shClose();if(WG)WG.hidden=true;}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!SH.hidden)shClose();if(WG&&!WG.hidden){WG.hidden=true;maybeReward();}}});
+  }
+
+  /* ---------- 分享之后：回到“问题彩蛋”页，打开一份经文礼物 ---------- */
+  var GF=document.getElementById('gift'),GP=[],lastG=-1;
+  try{GP=JSON.parse(document.getElementById('giftpool').textContent);}catch(err){}
+  function markShared(){set('sharePending','1');}
+  function maybeReward(){
+    if(!GF||get('sharePending')!=='1'||!cur||cur.id!=='qa'||document.hidden)return;
+    if(!W.hidden||(SH&&!SH.hidden)||(WG&&!WG.hidden)||(HC&&!HC.hidden)||!GF.hidden)return;
+    set('sharePending','0');
+    var n=(+get('shares')||0)+1;set('shares',String(n));
+    setTimeout(function(){showGift(n);},420);
+  }
+  function giftMsg(n){
+    if(n===1)return '一个小小的转发，也许正好是别人心里在找的答案。愿这份分享成为祝福。';
+    if(n<4)return '这是你第 '+n+' 次分享。你把光传给了身边的人，谢谢你！';
+    if(n<7)return '已经分享 '+n+' 次了！“报佳音的人，他们的脚踪何等佳美。”';
+    return '已经分享 '+n+' 次！谢谢你一次又一次把好消息传出去，愿主记念你的每一次转发。';
+  }
+  function showGift(n){
+    var i=0;if(GP.length){do{i=Math.floor(Math.random()*GP.length);}while(GP.length>1&&i===lastG);}lastG=i;
+    var v=GP[i]||['',''];
+    GF.querySelector('.gift-vt').textContent='“'+v[0]+'”';GF.querySelector('.gift-vr').textContent='—— '+v[1];
+    GF.querySelector('h3').textContent=n===1?'你的第一次分享！':'你把好消息传出去了';
+    GF.querySelector('.gift-msg').textContent=giftMsg(n);
+    GF.querySelectorAll('.gift-stars i').forEach(function(s,j){s.classList.toggle('on',j<Math.min(n,7));s.style.animationDelay=(1+j*0.09)+'s';});
+    GF.querySelector('.gift-done').textContent='';
+    GF.hidden=false;void GF.offsetWidth;GF.classList.add('open');
+    if(!reduced){
+      var f=GF.querySelector('.gift-fall');f.innerHTML='';
+      for(var k=0;k<24;k++){var sp=document.createElement('span');sp.textContent='✦';
+        sp.style.left=(Math.random()*100)+'%';sp.style.fontSize=(10+Math.random()*14)+'px';
+        sp.style.animationDuration=(2.8+Math.random()*2.4)+'s';sp.style.animationDelay=(.3+Math.random()*1.4)+'s';
+        sp.style.setProperty('--dx',(Math.random()*90-45)+'px');sp.style.setProperty('--rot',(Math.random()*360-180)+'deg');f.appendChild(sp);}
+    }
+    setTimeout(function(){var b=GF.querySelector('.gift-btns .ok');if(b)b.focus({preventScroll:true});},80);
+  }
+  function hideGift(){GF.classList.remove('open');setTimeout(function(){GF.hidden=true;GF.querySelector('.gift-fall').innerHTML='';},340);}
+  if(GF){
+    document.addEventListener('click',function(e){
+      if(GF.hidden)return;
+      if(e.target.closest('[data-giftcopy]')){
+        var t=GF.querySelector('.gift-vt').textContent+'（'+GF.querySelector('.gift-vr').textContent.replace(/^——\s*/,'')+'）';
+        q4copy(t).then(function(ok){GF.querySelector('.gift-done').textContent=ok?'✓ 经文已复制，可以分享给需要的人':'请长按经文手动复制';});return;
+      }
+      if(e.target.closest('[data-giftclose]'))hideGift();
+    });
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!GF.hidden)hideGift();});
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)maybeReward();});
+    maybeReward();
   }
   if(!location.hash||location.hash==='#home')open();
 })();
