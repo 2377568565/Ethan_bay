@@ -473,20 +473,27 @@ def qa_article(it, tail):
 
 # ---------- 提问区（腾讯云开发） ----------
 ASK_ENV = 'wenda-d8gqka1o3902489eb'
+# 提问区连接页（tools/q4/ask-bridge.html）：放在云开发「静态网站托管」根目录。
+# 免费版不能添加跨域域名，但静态托管的默认域名本来就在云开发白名单里，网站经它连数据库。
+ASK_BRIDGE = 'https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com/ask-bridge.html'
 # 管理员名单存在数据库的 q4_admins 表里（见 tools/q4/ask_setup.sql）
 PINIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
          '<circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>')
 COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>'
           '<path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 
-def ask_sdk():
-    """把 CloudBase 网页工具包放到 site/ 下（文件名带内容哈希），返回在线地址"""
+def site_js(name):
+    """把 q4/ 下的脚本放到 site/ 下（文件名带内容哈希），返回在线地址"""
     import hashlib, shutil
-    src = os.path.join(Q4, 'tcb_sdk.js')
+    src = os.path.join(Q4, name)
     h = hashlib.sha1(open(src, 'rb').read()).hexdigest()[:10]
     site = os.path.join(OUT, '..', '..', 'site'); os.makedirs(site, exist_ok=True)
     shutil.copyfile(src, os.path.join(site, h + '.js'))
     return ONLINE + 'site/' + h + '.js'
+
+def ask_sdk():
+    """CloudBase 网页工具包"""
+    return site_js('tcb_sdk.js')
 
 def ask_page():
     top = (f'<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a>'
@@ -494,7 +501,7 @@ def ask_page():
     bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
     return f'''<div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
 {top}
-<section class="askpage" data-env="{ASK_ENV}" data-sdk="{ask_sdk()}" data-online="{ONLINE}">
+<section class="askpage" data-env="{ASK_ENV}" data-sdk="{ask_sdk()}" data-bridge="{ASK_BRIDGE}" data-bridgejs="{site_js('ask_bridge.js')}" data-online="{ONLINE}">
   <header class="askhead">
     <p class="eyebrow">问题彩蛋 · 提问区</p>
     <h1>提问区</h1>

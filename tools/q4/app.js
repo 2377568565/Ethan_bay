@@ -465,6 +465,38 @@ function q4copy(t){
 
   /* ---- 连接后台（或测试用的本机模拟） ---- */
   function loadSDK(){return new Promise(function(ok,no){if(window.cloudbase)return ok();var s=document.createElement('script');s.src=SDK;s.onload=function(){window.cloudbase?ok():no({code:'SDK_LOAD'});};s.onerror=function(){no({code:'SDK_LOAD'});};document.head.appendChild(s);});}
+  /* 连接页：嵌在页面里的云开发静态托管小页面，由它代为连数据库（它的地址在云开发白名单里） */
+  function bridge(){
+    return new Promise(function(ok,no){
+      var m=location.search.match(/[?&]askbridge=([^&]+)/),url=m?decodeURIComponent(m[1]):P.dataset.bridge;
+      var org=new URL(url,location.href).origin,f=document.createElement('iframe'),seq=0,wait={},booted=false,t;
+      f.src=url;f.title='提问区连接';f.tabIndex=-1;f.setAttribute('aria-hidden','true');
+      f.style.cssText='position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
+      function post(x){f.contentWindow.postMessage(x,org);}
+      function boot(){if(booted)return;booted=true;var ls=null;try{ls=JSON.parse(localStorage.getItem('q4:bls')||'null');}catch(e){}
+        post({q4:'boot',env:ENV,src:[SDK,P.dataset.bridgejs],ls:ls});}
+      function call(ch){return new Promise(function(a,b){var id=++seq;wait[id]=[a,b];post({q4:'call',id:id,chain:ch});
+        setTimeout(function(){if(wait[id]){delete wait[id];b({code:'TIMEOUT'});}},30000);});}
+      addEventListener('message',function(e){
+        if(e.source!==f.contentWindow||e.origin!==org)return;var d=e.data||{};
+        if(d.q4==='hello')boot();
+        else if(d.q4==='ls'){try{localStorage.setItem('q4:bls',JSON.stringify(d.ls));}catch(x){}}
+        else if(d.q4==='ready'){clearTimeout(t);ok({uid:d.uid,call:call});}
+        else if(d.q4==='fail'){clearTimeout(t);no(d.err||{code:'BRIDGE'});}
+        else if(d.q4==='res'&&wait[d.id]){var w=wait[d.id];delete wait[d.id];d.err?w[1](d.err):w[0](d.res);}
+      });
+      f.onload=function(){setTimeout(boot,300);};
+      t=setTimeout(function(){no({code:'BRIDGE'});},45000);
+      document.body.appendChild(f);
+    });
+  }
+  /* 和云开发数据库客户端一样的写法（from/select/order…），实际交给连接页去执行 */
+  function remoteDb(call){
+    var M=['select','order','limit','lt','gt','eq','in','insert','delete'];
+    function B(ch){var o={};M.forEach(function(k){o[k]=function(){return B(ch.concat([[k].concat([].slice.call(arguments))]));};});
+      o.then=function(a,b){return call(ch).then(a,b);};return o;}
+    return {from:function(t){return B([['from',t]]);},rpc:function(n,a){return B([['rpc',n,a||{}]]);}};
+  }
   var mock={
     q:function(){try{return JSON.parse(localStorage.getItem('q4:mockdb')||'{"questions":[],"replies":[]}');}catch(e){return {questions:[],replies:[]};}},
     w:function(d){localStorage.setItem('q4:mockdb',JSON.stringify(d));}
@@ -481,6 +513,9 @@ function q4copy(t){
     init:function(){
       if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);ME_ADMIN=/[?&]askadmin/.test(location.search);return Promise.resolve();}
       if(location.protocol==='file:')return Promise.reject({code:'FILE'});
+      function whoami(){return db.rpc('q4_whoami').then(function(r){if(r&&!r.error&&r.data){if(r.data.uid)uid=r.data.uid;ME_ADMIN=!!r.data.admin;}}).catch(function(){});}
+      if(P.dataset.bridge&&!/[?&]askdirect/.test(location.search))
+        return bridge().then(function(b){uid=b.uid||'';db=remoteDb(b.call);return whoami();});
       return loadSDK().then(function(){
         app=window.cloudbase.init({env:ENV,timeout:15000});
         var auth=app.auth();
@@ -489,7 +524,7 @@ function q4copy(t){
           return auth.signInAnonymously().then(function(r){if(r&&r.error)throw r.error;});
         }).then(function(){return auth.getCurrentUser();}).then(function(u){
           uid=(u&&(u.uid||u.id))||'';db=app.rdb();
-          return db.rpc('q4_whoami').then(function(r){if(r&&!r.error&&r.data){if(r.data.uid)uid=r.data.uid;ME_ADMIN=!!r.data.admin;}}).catch(function(){});
+          return whoami();
         });
       });
     },
@@ -520,9 +555,10 @@ function q4copy(t){
     var c=(e&&(e.code||e.errCode||e.error))||'',m=(e&&(e.message||e.msg))||'';c=String(c);var s=c+' '+m;
     if(c==='FILE')return '提问区需要联网使用：请用在线版打开 '+P.dataset.online+'#ask';
     if(c==='SDK_LOAD')return '提问区工具没能加载，请检查网络后点“刷新”。';
+    if(c==='BRIDGE'||c==='TIMEOUT')return '暂时连不上提问区（连接页没有响应），请检查网络后点“刷新”。（'+c+'）';
     if(/PGRST204|42703|column/i.test(s))return '数据表还没设置好：请在云开发数据库里运行“提问区设置脚本”。（'+c+'）';
     if(/42501|PERMISSION|permission denied|row-level security|violates/i.test(s))return '没有权限：请确认已运行“提问区设置脚本”，或刷新后再试。（'+c+'）';
-    if(/Failed to fetch|NetworkError|SERVICE_ERROR|Load failed/i.test(s)&&location.hostname==='2377568565.github.io')return '连不上提问区：请确认云开发“安全域名”里已添加 2377568565.github.io，或检查网络后点“刷新”。（'+c+'）';
+    if(/Failed to fetch|NetworkError|SERVICE_ERROR|Load failed/i.test(s))return '连不上提问区，请检查网络后点“刷新”。（'+(c||m)+'）';
     if(/INVALID_REQUEST_SOURCE|domain|origin|cors/i.test(s))return '连接被拒绝：请在云开发控制台把 2377568565.github.io 加入“安全域名”。（'+c+'）';
     if(/anonymous|ANONYMOUS|DISABLED|provider/i.test(s))return '登录失败：请在云开发控制台打开“匿名登录”。（'+c+'）';
     if(/COLLECTION|NOT_EXIST|not exist/i.test(s))return '数据表还没建好：请在云开发“数据库”里新建 questions 和 replies 两个集合。（'+c+'）';

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>提问区连接页</title>
+</head>
+<body>
+<p style="font:14px/1.6 sans-serif;color:#888;margin:24px">这是《预言的恩赐》学习网站提问区的连接页，请从网站里打开提问区：https://2377568565.github.io/Ethan_bay/#ask</p>
+<script>
+/* 提问区连接页：放在云开发「静态网站托管」里（这个地址本来就在云开发的白名单中）。
+   学习网站把它嵌在页面里，由它代为连接数据库；它只接受学习网站的指令，
+   只加载学习网站 site/ 目录下的脚本。这个文件以后不需要改动。 */
+(function(){
+  if(window.parent===window)return;
+  var ALLOW=/^(https:\/\/2377568565\.github\.io|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?)$/;
+  var SITE='https://2377568565.github.io/Ethan_bay/site/',started=false;
+  function okSrc(s,o){return typeof s==='string'&&/\/site\/[0-9a-f]{10}\.js$/.test(s)&&(s.indexOf(SITE)===0||s.indexOf(o+'/')===0);}
+  addEventListener('message',function(e){
+    var d=e.data,i;
+    if(started||e.source!==window.parent||!ALLOW.test(e.origin)||!d||d.q4!=='boot'||!d.src||!d.src.length)return;
+    for(i=0;i<d.src.length;i++)if(!okSrc(d.src[i],e.origin))return;
+    started=true;
+    window.Q4PARENT={win:e.source,origin:e.origin,env:String(d.env||''),ls:d.ls||null};
+    (function next(i){
+      if(i>=d.src.length)return;
+      var s=document.createElement('script');s.src=d.src[i];
+      s.onload=function(){next(i+1);};
+      s.onerror=function(){e.source.postMessage({q4:'fail',err:{code:'SDK_LOAD'}},e.origin);};
+      document.head.appendChild(s);
+    })(0);
+  });
+  window.parent.postMessage({q4:'hello'},'*');
+})();
+</script>
+</body>
+</html>
