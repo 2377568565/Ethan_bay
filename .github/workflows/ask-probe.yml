@@ -9,14 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: notice page
+      - name: notice page text
         run: |
           H=https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com
-          CH='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36'
-          nav(){ curl -sS -A "$CH" -H 'Accept: text/html' -H 'Sec-Fetch-Dest: document' -H 'Sec-Fetch-Mode: navigate' -H 'Sec-Fetch-Site: none' "$@"; }
-          echo "== notice text"; nav "$H/ask-bridge.html" | sed -e 's/<[^>]*>/ /g' | tr -s ' \n' | head -c 1500; echo
-          echo "== which header triggers it"
-          for v in "Sec-Fetch-Mode: navigate" "Sec-Fetch-Dest: document" "Sec-Fetch-Dest: iframe" "Sec-Fetch-Site: none" "Sec-Fetch-Site: cross-site" "Upgrade-Insecure-Requests: 1" "Accept: text/html"; do
-            printf '%-32s ' "$v"; curl -sS -o /dev/null -w '%{http_code}\n' -A "$CH" -H "$v" "$H/ask-bridge.html"; done
-          echo "== root"; nav -o /dev/null -w '%{http_code}\n' "$H/"
-          echo "== geo hint"; curl -sS https://ipinfo.io/country || true
+          curl -sS -D headers.txt -A 'Mozilla/5.0 Chrome/129.0' -H 'Sec-Fetch-Mode: navigate' "$H/ask-bridge.html" -o notice.html
+          cat headers.txt
+          python3 - <<'PY'
+          import re,html
+          s=open('notice.html',encoding='utf-8',errors='replace').read()
+          print('LEN',len(s))
+          body=re.sub(r'(?s)<style.*?</style>','',s)
+          scripts=re.findall(r'(?s)<script[^>]*>(.*?)</script>',body)
+          body=re.sub(r'(?s)<script.*?</script>','',body)
+          print('TEXT:',re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',body))).strip()[:1500])
+          print('LINKS:',re.findall(r'<a[^>]*>',body)[:10])
+          for sc in scripts: print('SCRIPT:',sc.strip()[:1500])
+          PY
