@@ -25,10 +25,10 @@ jobs:
             await A.fill('#ask .ask-name','测试');await A.fill('#ask .ask-text','【测试】上线检查，马上删除。');await A.tap('#ask .ask-send');
             for(let i=0;i<30;i++){await A.waitForTimeout(500);if(!/正在发送/.test(await A.textContent('#ask .ask-msg')))break;}
             console.log('A 发送结果:',await A.textContent('#ask .ask-msg'));
-            const B=await dev(c,'Chrome',null);console.log('B（另一台设备）看到:',await items(B));
+            const B=await dev(c,'Chrome',null);console.log('B（另一台设备）看到:',await items(B));console.log('B 能删吗(按钮数):',await B.locator('#ask .aq [data-delq]').count());
             const del=A.locator('#ask .aq.mine [data-delq]');console.log('A 自己的删除按钮:',await del.count());
             if(await del.count()){await del.first().tap();await A.waitForTimeout(3000);}
-            await B.tap('#ask .ask-refresh');for(let i=0;i<30;i++){await B.waitForTimeout(500);if(!/正在刷新/.test(await B.textContent('#ask .ask-items')))break;}
+            await B.click('#ask .ask-refresh');for(let i=0;i<30;i++){await B.waitForTimeout(500);if(!/正在刷新/.test(await B.textContent('#ask .ask-items')))break;}
             console.log('删除后 B 刷新看到:',(await B.textContent('#ask .ask-items')).trim().slice(0,60));
             console.log('ERRORS:',errs.filter(e=>!/pconline|busuanzi|favicon/.test(e)));await b.close();await c.close();})();
           JS
