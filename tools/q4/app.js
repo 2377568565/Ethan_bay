@@ -536,7 +536,7 @@ function q4copy(t){
     if(c&&get('asklocday')===day)return Promise.resolve(c);
     if(MOCK)return Promise.resolve(get('askloc')||'浙江省杭州市');
     return new Promise(function(ok){
-      var cb='q4ip'+Date.now(),s=document.createElement('script'),t=setTimeout(function(){fin('');},5000);
+      var cb='q4ip'+Date.now(),s=document.createElement('script'),t=setTimeout(function(){fin('');},8000);
       function fin(v){clearTimeout(t);try{delete window[cb];}catch(e){window[cb]=undefined;}if(s.parentNode)s.parentNode.removeChild(s);if(v){set('askloc',v);set('asklocday',day);}ok(v||c||'');}
       window[cb]=function(d){var p=(d&&d.pro)||'',ci=(d&&d.city)||'';if(ci===p)ci='';var v=(p+ci).replace(/\s+/g,'');if(!v&&d&&d.addr)v=String(d.addr).trim().split(/\s+/)[0]||'';fin(v);};
       s.charset='gbk';s.src='https://whois.pconline.com.cn/ipJson.jsp?callback='+cb;   // 用 JSONP 形式（不要 json=true，否则返回纯 JSON 会被浏览器拦截）s.onerror=function(){fin('');};document.head.appendChild(s);
@@ -616,6 +616,7 @@ function q4copy(t){
   function name(){var n=$('.ask-name').value.trim();if(n)set('askname',n);return n;}
   function send(){
     var t=$('.ask-text').value.trim(),n=name(),err;
+    if(!MOCK&&!db){msg.textContent='正在连接提问区，请稍等几秒再发。';return;}
     if(!n){msg.textContent='先给自己起个称呼吧（不用真名）。';$('.ask-name').focus();return;}
     if((err=check(t,'q'))){msg.textContent=err;return;}
     var b=$('.ask-send');b.disabled=true;msg.textContent='正在发送……';
@@ -628,6 +629,7 @@ function q4copy(t){
   }
   function sendReply(art){
     var id=art.dataset.id,ta=art.querySelector('.aq-rf textarea'),m=art.querySelector('.aq-rmsg'),t=ta.value.trim(),n=name()||(ME_ADMIN?'整理者':''),err;
+    if(!MOCK&&!db){m.textContent='正在连接提问区，请稍等几秒再发。';return;}
     if(!n){m.textContent='先在上面“你的称呼”里起个名字吧。';return;}
     if((err=check(t,'r'))){m.textContent=err;return;}
     m.textContent='正在发送……';
