@@ -273,7 +273,7 @@ def prefix(frag, no):
 
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
-JS = open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
+JS = open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <p>本页为安息日学研读辅助材料，依据《安息日学研经指引》2026年第4季整理。“学课原文”部分版权归原出版机构所有，仅供教会安息日学学习使用，请勿用于商业用途。</p>
@@ -471,29 +471,15 @@ def qa_article(it, tail):
     frag = frag.replace('</header>', f'</header>\n<p class="qshare"><button class="btn share" type="button" data-share="{it["id"]}">{SHAREIC}分享这篇</button></p>', 1)
     return f'<article class="qna">\n{frag}\n</article>'
 
-# ---------- 提问区（腾讯云开发） ----------
-ASK_ENV = 'wenda-d8gqka1o3902489eb'
-# 提问区连接页（tools/q4/ask-bridge.html）：放在云开发「静态网站托管」根目录。
-# 免费版不能添加跨域域名，但静态托管的默认域名本来就在云开发白名单里，网站经它连数据库。
-ASK_BRIDGE = 'https://wenda-d8gqka1o3902489eb-1492434734.tcloudbaseapp.com/ask-bridge.html'
-# 管理员名单存在数据库的 q4_admins 表里（见 tools/q4/ask_setup.sql）
+# ---------- 提问区：问题存在 GitHub 仓库的 data/ask.json ----------
+# 新消息先投到公开中转站 ntfy（免注册），GitHub 定时任务（.github/workflows/ask-sync.yml）验签后写进仓库。
+# 管理员名单在 data/ask-admins.json。
+ASK_TOPIC = 'q4ask-c656a4ca18696d0b'
+ASK_RELAY = 'https://ntfy.sh'
 PINIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
          '<circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>')
 COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>'
           '<path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
-
-def site_js(name):
-    """把 q4/ 下的脚本放到 site/ 下（文件名带内容哈希），返回在线地址"""
-    import hashlib, shutil
-    src = os.path.join(Q4, name)
-    h = hashlib.sha1(open(src, 'rb').read()).hexdigest()[:10]
-    site = os.path.join(OUT, '..', '..', 'site'); os.makedirs(site, exist_ok=True)
-    shutil.copyfile(src, os.path.join(site, h + '.js'))
-    return ONLINE + 'site/' + h + '.js'
-
-def ask_sdk():
-    """CloudBase 网页工具包"""
-    return site_js('tcb_sdk.js')
 
 def ask_page():
     top = (f'<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a>'
@@ -501,7 +487,7 @@ def ask_page():
     bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
     return f'''<div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
 {top}
-<section class="askpage" data-env="{ASK_ENV}" data-sdk="{ask_sdk()}" data-bridge="{ASK_BRIDGE}" data-bridgejs="{site_js('ask_bridge.js')}" data-online="{ONLINE}">
+<section class="askpage" data-topic="{ASK_TOPIC}" data-relay="{ASK_RELAY}" data-data="{ONLINE}data/ask.json" data-online="{ONLINE}">
   <header class="askhead">
     <p class="eyebrow">问题彩蛋 · 提问区</p>
     <h1>提问区</h1>

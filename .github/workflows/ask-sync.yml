@@ -1,0 +1,43 @@
+name: ask-sync
+# 提问区：把中转站里的新问题/回复验签后存进仓库 data/ask.json（并导出 data/ask.csv）。
+# 中转站只保留 12 小时，所以要定时运行；定时触发只在默认分支上生效。
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [claude/adventist-lesson-analysis-dhqrxg]
+    paths: ['data/ask-admins.json', 'tools/q4/ask_sync.js', 'tools/q4/ask_core.js', '.github/workflows/ask-sync.yml']
+permissions:
+  contents: write
+concurrency:
+  group: ask-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BRANCH: claude/adventist-lesson-analysis-dhqrxg
+      Q4_TOPIC: q4ask-c656a4ca18696d0b
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 同步
+        run: node tools/q4/ask_sync.js
+      - name: 保存到仓库
+        run: |
+          git config user.name 'ask-sync'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ask.json data/ask.csv
+          if git diff --cached --quiet; then echo '没有新内容'; exit 0; fi
+          git commit -q -m '提问区：同步新问题与回复'
+          for i in 1 2 3; do
+            git push origin HEAD:"$BRANCH" && exit 0
+            git pull --rebase -q origin "$BRANCH" || { git rebase --abort; git reset -q --hard "origin/$BRANCH"; node tools/q4/ask_sync.js; git add data/ask.json data/ask.csv; git commit -q -m '提问区：同步新问题与回复' || exit 0; }
+          done
+          exit 1

@@ -452,117 +452,99 @@ function q4copy(t){
   card.addEventListener('touchend',function(){if(y0===null)return;card.style.transition='';if(dy>90){close();}else{card.style.transform='';}y0=null;},{passive:true});
 })();
 
-/* ---------- 提问区：腾讯云开发（匿名身份）存问题与回复 ---------- */
+/* ---------- 提问区：问题存在 GitHub（data/ask.json），新消息先经中转站 ntfy 实时送达 ---------- */
 (function(){
   var P=document.querySelector('.askpage');if(!P)return;
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   function $(s,r){return (r||P).querySelector(s);}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  var ENV=P.dataset.env,SDK=P.dataset.sdk,MOCK=/[?&]askmock/.test(location.search);
-  var app=null,db=null,uid='',QS=[],RS={},filter='all',PAGE=40,more=false,started=false,busy=false;
+  var TOPIC=P.dataset.topic||'',RELAY=(P.dataset.relay||'').replace(/\/+$/,''),DATA=P.dataset.data||'',MOCK=/[?&]askmock/.test(location.search);
+  var S=null,K=null,relayOk=true,ready=false,uid='',QS=[],RS={},filter='all',PAGE=40,more=false,started=false,busy=false;
   var card=$('.askcard'),msg=$('.ask-msg'),list=$('.ask-items');
+  var A=window.Q4Ask;
 
   /* ---- 连接后台（或测试用的本机模拟） ---- */
-  function loadSDK(){return new Promise(function(ok,no){if(window.cloudbase)return ok();var s=document.createElement('script');s.src=SDK;s.onload=function(){window.cloudbase?ok():no({code:'SDK_LOAD'});};s.onerror=function(){no({code:'SDK_LOAD'});};document.head.appendChild(s);});}
-  /* 连接页：嵌在页面里的云开发静态托管小页面，由它代为连数据库（它的地址在云开发白名单里） */
-  function bridge(){
+  function net(p,ms){   // 超时与网络错误统一成 {code}
     return new Promise(function(ok,no){
-      var m=location.search.match(/[?&]askbridge=([^&]+)/),url=m?decodeURIComponent(m[1]):P.dataset.bridge;
-      var org=new URL(url,location.href).origin,f=document.createElement('iframe'),seq=0,wait={},booted=false,t;
-      f.src=url;f.title='提问区连接';f.tabIndex=-1;f.setAttribute('aria-hidden','true');
-      f.style.cssText='position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
-      function post(x){f.contentWindow.postMessage(x,org);}
-      function boot(){if(booted)return;booted=true;var ls=null;try{ls=JSON.parse(localStorage.getItem('q4:bls')||'null');}catch(e){}
-        post({q4:'boot',env:ENV,src:[SDK,P.dataset.bridgejs],ls:ls});}
-      function call(ch){return new Promise(function(a,b){var id=++seq;wait[id]=[a,b];post({q4:'call',id:id,chain:ch});
-        setTimeout(function(){if(wait[id]){delete wait[id];b({code:'TIMEOUT'});}},30000);});}
-      addEventListener('message',function(e){
-        if(e.source!==f.contentWindow||e.origin!==org)return;var d=e.data||{};
-        if(d.q4==='hello')boot();
-        else if(d.q4==='ls'){try{localStorage.setItem('q4:bls',JSON.stringify(d.ls));}catch(x){}}
-        else if(d.q4==='ready'){clearTimeout(t);ok({uid:d.uid,call:call});}
-        else if(d.q4==='fail'){clearTimeout(t);no(d.err||{code:'BRIDGE'});}
-        else if(d.q4==='res'&&wait[d.id]){var w=wait[d.id];delete wait[d.id];d.err?w[1](d.err):w[0](d.res);}
-      });
-      f.onload=function(){setTimeout(boot,300);};
-      t=setTimeout(function(){no({code:'BRIDGE'});},45000);
-      document.body.appendChild(f);
+      var t=setTimeout(function(){no({code:'TIMEOUT'});},ms||20000);
+      p.then(function(r){clearTimeout(t);ok(r);},function(e){clearTimeout(t);no(e&&e.code?e:{code:'NETWORK',message:String((e&&e.message)||e)});});
     });
   }
-  /* 和云开发数据库客户端一样的写法（from/select/order…），实际交给连接页去执行 */
-  function remoteDb(call){
-    var M=['select','order','limit','lt','gt','eq','in','insert','delete'];
-    function B(ch){var o={};M.forEach(function(k){o[k]=function(){return B(ch.concat([[k].concat([].slice.call(arguments))]));};});
-      o.then=function(a,b){return call(ch).then(a,b);};return o;}
-    return {from:function(t){return B([['from',t]]);},rpc:function(n,a){return B([['rpc',n,a||{}]]);}};
+  function lines(t){return String(t||'').split('\n').map(function(l){try{return JSON.parse(l);}catch(e){return null;}}).filter(Boolean);}
+  // 最新数据 = GitHub 上的存档 + 中转站里还没存档的新消息（中转站只保留 12 小时，存档任务会定时把它们写进 GitHub）
+  function pull(){
+    var arch=net(fetch(DATA+'?t='+Math.floor(Date.now()/30000),{cache:'no-store'}).then(function(r){
+      if(r.status===404)return A.empty();if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();
+    }));
+    return arch.then(function(d){
+      S=d||A.empty();S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
+      var since=S.last?Math.max(0,S.last-120):'12h';
+      return net(fetch(RELAY+'/'+TOPIC+'/json?poll=1&since='+since,{cache:'no-store'}).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.text();}))
+        .then(function(t){relayOk=true;return A.merge(S,lines(t));},function(){relayOk=false;});
+    }).then(function(){ME_ADMIN=S.admins.indexOf(uid)>=0;});
+  }
+  function post(P1){   // 签名后投进中转站，再马上用到本机数据上
+    return A.sign(K,P1).then(function(body){
+      return net(fetch(RELAY+'/'+TOPIC,{method:'POST',body:body}).then(function(r){
+        if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();
+      }));
+    }).then(function(m){
+      relayOk=true;return A.merge(S,[m]).then(function(out){var w=out[0]&&out[0].why;if(w)throw {code:'REJECT',message:w};});
+    });
   }
   var mock={
     q:function(){try{return JSON.parse(localStorage.getItem('q4:mockdb')||'{"questions":[],"replies":[]}');}catch(e){return {questions:[],replies:[]};}},
     w:function(d){localStorage.setItem('q4:mockdb',JSON.stringify(d));}
   };
-  function when(d){if(!d)return 0;if(d.$date)d=d.$date;var t=new Date(d).getTime();return isNaN(t)?0:t;}
   var ME_ADMIN=false;
-  function row(t,x){   // 数据库的一行 → 页面里用的格式
-    var o={_id:x.id,name:x.name,loc:x.loc,text:x.body,uid:x.user_id,ts:when(x.created_at)};
-    if(t==='questions')o.allow=x.allow_reply!==false;else{o.qid=x.question_id;o.admin=!!x.is_admin;}
-    return o;
-  }
-  function chk(r){if(r&&r.error)throw r.error;return (r&&r.data)||[];}
+  function qrow(x){return {_id:x.id,name:x.name,loc:x.loc,text:x.text,uid:x.uid,ts:x.ts,allow:x.allow!==false};}
+  function rrow(x){return {_id:x.id,qid:x.qid,name:x.name,loc:x.loc,text:x.text,uid:x.uid,ts:x.ts,admin:!!x.admin};}
   var store={
     init:function(){
-      if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);ME_ADMIN=/[?&]askadmin/.test(location.search);return Promise.resolve();}
+      if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);ME_ADMIN=/[?&]askadmin/.test(location.search);ready=true;return Promise.resolve();}
       if(location.protocol==='file:')return Promise.reject({code:'FILE'});
-      function whoami(){return db.rpc('q4_whoami').then(function(r){if(r&&!r.error&&r.data){if(r.data.uid)uid=r.data.uid;ME_ADMIN=!!r.data.admin;}}).catch(function(){});}
-      if(P.dataset.bridge&&!/[?&]askdirect/.test(location.search))
-        return bridge().then(function(b){uid=b.uid||'';db=remoteDb(b.call);return whoami();});
-      return loadSDK().then(function(){
-        app=window.cloudbase.init({env:ENV,timeout:15000});
-        var auth=app.auth();
-        return auth.getLoginState().then(function(st){
-          if(st&&st.user)return st;
-          return auth.signInAnonymously().then(function(r){if(r&&r.error)throw r.error;});
-        }).then(function(){return auth.getCurrentUser();}).then(function(u){
-          uid=(u&&(u.uid||u.id))||'';db=app.rdb();
-          return whoami();
-        });
-      });
+      if(!TOPIC||!RELAY||!DATA||!A)return Promise.reject({code:'CONFIG'});
+      if(!(window.crypto&&crypto.subtle&&window.TextEncoder))return Promise.reject({code:'OLD'});
+      return A.keys({get:get,set:set}).then(function(k){K=k;uid=k.uid;return pull();}).then(function(){ready=true;});
     },
     list:function(before){
       if(MOCK){var d=mock.q(),a=d.questions.slice().sort(function(x,y){return y.ts-x.ts;});if(before)a=a.filter(function(x){return x.ts<before;});return Promise.resolve(a.slice(0,PAGE));}
-      var q=db.from('questions').select('*').order('created_at',{ascending:false}).limit(PAGE);
-      if(before)q=q.lt('created_at',new Date(before).toISOString());
-      return q.then(chk).then(function(a){return a.map(function(x){return row('questions',x);});});
+      return (before?Promise.resolve():pull()).then(function(){
+        var a=S.questions.slice().sort(function(x,y){return y.ts-x.ts;});
+        if(before)a=a.filter(function(x){return x.ts<before;});
+        return a.slice(0,PAGE).map(qrow);
+      });
     },
     replies:function(ids){
       if(!ids.length)return Promise.resolve([]);
       if(MOCK){var d=mock.q();return Promise.resolve(d.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}));}
-      return db.from('replies').select('*').in('question_id',ids).order('created_at',{ascending:true}).limit(1000)
-        .then(chk).then(function(a){return a.map(function(x){return row('replies',x);});});
+      return Promise.resolve(S.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}).sort(function(x,y){return x.ts-y.ts;}).map(rrow));
     },
     add:function(coll,doc){
       if(MOCK){var d=mock.q();doc.uid=uid;doc.ts=Date.now();doc._id='m'+Date.now()+Math.random().toString(36).slice(2,6);if(coll==='replies')doc.admin=ME_ADMIN;d[coll].push(doc);mock.w(d);return Promise.resolve(doc);}
-      var x={name:doc.name,loc:doc.loc||'',body:doc.text};
-      if(coll==='questions')x.allow_reply=doc.allow!==false;else{x.question_id=doc.qid;x.is_admin=ME_ADMIN;}
-      return db.from(coll).insert(x).select().then(chk).then(function(a){if(!a[0])throw {code:'PERMISSION'};return row(coll,a[0]);});
+      var q=coll==='questions',x={op:q?'q':'r',id:A.rid(q?'q':'r'),name:doc.name,loc:doc.loc||'',text:doc.text};
+      if(q)x.allow=doc.allow!==false;else{x.qid=doc.qid;x.admin=ME_ADMIN;}
+      return post(x).then(function(){
+        var it=(q?S.questions:S.replies).filter(function(y){return y.id===x.id;})[0];
+        if(!it)throw {code:'REJECT',message:'bad'};return q?qrow(it):rrow(it);
+      });
     },
     remove:function(coll,id){
       if(MOCK){var d=mock.q();d[coll]=d[coll].filter(function(x){return x._id!==id;});if(coll==='questions')d.replies=d.replies.filter(function(x){return x.qid!==id;});mock.w(d);return Promise.resolve();}
-      return db.from(coll).delete().eq('id',id).select().then(chk).then(function(a){if(!a.length)throw {code:'PERMISSION'};});
+      return post({op:'d',id:A.rid('d'),target:id});
     }
   };
   function why(e){
-    var c=(e&&(e.code||e.errCode||e.error))||'',m=(e&&(e.message||e.msg))||'';c=String(c);var s=c+' '+m;
+    var c=String((e&&e.code)||''),m=String((e&&e.message)||'');
     if(c==='FILE')return '提问区需要联网使用：请用在线版打开 '+P.dataset.online+'#ask';
-    if(c==='SDK_LOAD')return '提问区工具没能加载，请检查网络后点“刷新”。';
-    if(c==='BRIDGE'||c==='TIMEOUT')return '暂时连不上提问区（连接页没有响应），请检查网络后点“刷新”。（'+c+'）';
-    if(/PGRST204|42703|column/i.test(s))return '数据表还没设置好：请在云开发数据库里运行“提问区设置脚本”。（'+c+'）';
-    if(/42501|PERMISSION|permission denied|row-level security|violates/i.test(s))return '没有权限：请确认已运行“提问区设置脚本”，或刷新后再试。（'+c+'）';
-    if(/Failed to fetch|NetworkError|SERVICE_ERROR|Load failed/i.test(s))return '连不上提问区，请检查网络后点“刷新”。（'+(c||m)+'）';
-    if(/INVALID_REQUEST_SOURCE|domain|origin|cors/i.test(s))return '连接被拒绝：请在云开发控制台把 2377568565.github.io 加入“安全域名”。（'+c+'）';
-    if(/anonymous|ANONYMOUS|DISABLED|provider/i.test(s))return '登录失败：请在云开发控制台打开“匿名登录”。（'+c+'）';
-    if(/COLLECTION|NOT_EXIST|not exist/i.test(s))return '数据表还没建好：请在云开发“数据库”里新建 questions 和 replies 两个集合。（'+c+'）';
-    if(/PERMISSION|permission|denied/i.test(s))return '没有权限：请把 questions、replies 两个集合的权限设为“读取全部数据，修改本人数据”。（'+c+'）';
+    if(c==='CONFIG')return '提问区正在准备中，很快就能使用，请稍后再来。';
+    if(c==='OLD')return '这个浏览器版本太旧，没法在提问区发言。请更新微信或换个浏览器打开。';
+    if(c==='REJECT')return ({fast:'发得太快了，请稍等十几秒再发。',limit:'今天发得有点多了，明天再来吧。',spam:'内容里有联系方式、链接或广告词，请修改后再发。',
+      closed:'提问者设置了“只要管理员回答”，这个问题不能回复。',gone:'这条内容已经被删除了，请点“刷新”。',notyours:'只能删除自己发的内容。',
+      notadmin:'只有管理员能以管理员身份回答。',dup:'这条已经发过了。',bad:'内容长度不符合要求：问题 4–500 字，回复 2–300 字，称呼 1–16 字。'})[m]||'没有发成功，请刷新后再试。（'+m+'）';
+    if(c==='HTTP_429')return '这会儿提问的人有点多，请过一分钟再试。';
+    if(c==='TIMEOUT'||c==='NETWORK')return '连不上提问区，请检查网络后点“刷新”。（'+c+'）';
     return '暂时连不上提问区，请稍后点“刷新”再试。（'+(c||m||'未知错误')+'）';
   }
 
@@ -652,7 +634,7 @@ function q4copy(t){
   function name(){var n=$('.ask-name').value.trim();if(n)set('askname',n);return n;}
   function send(){
     var t=$('.ask-text').value.trim(),n=name(),err;
-    if(!MOCK&&!db){msg.textContent='正在连接提问区，请稍等几秒再发。';return;}
+    if(!ready){msg.textContent='正在连接提问区，请稍等几秒再发。';return;}
     if(!n){msg.textContent='先给自己起个称呼吧（不用真名）。';$('.ask-name').focus();return;}
     if((err=check(t,'q'))){msg.textContent=err;return;}
     var b=$('.ask-send');b.disabled=true;msg.textContent='正在发送……';
@@ -665,7 +647,7 @@ function q4copy(t){
   }
   function sendReply(art){
     var id=art.dataset.id,ta=art.querySelector('.aq-rf textarea'),m=art.querySelector('.aq-rmsg'),t=ta.value.trim(),n=name()||(ME_ADMIN?'整理者':''),err;
-    if(!MOCK&&!db){m.textContent='正在连接提问区，请稍等几秒再发。';return;}
+    if(!ready){m.textContent='正在连接提问区，请稍等几秒再发。';return;}
     if(!n){m.textContent='先在上面“你的称呼”里起个名字吧。';return;}
     if((err=check(t,'r'))){m.textContent=err;return;}
     m.textContent='正在发送……';
@@ -687,7 +669,7 @@ function q4copy(t){
     if(t.closest('.ask-send'))return send();
     if(t.closest('.ask-locedit')){var v=window.prompt('请输入你的地区（例如：浙江省杭州市）',LOC);if(v!=null){v=v.trim().slice(0,20);if(v){LOC=v;set('askloc',v);set('asklocday',new Date().toDateString());set('asklocman','1');showLoc();}}return;}
     var chip=t.closest('.chip[data-f]');if(chip){filter=chip.dataset.f;P.querySelectorAll('.ask-filter .chip[data-f]').forEach(function(c){c.classList.toggle('on',c===chip);});render();return;}
-    if(t.closest('.ask-refresh')){list.innerHTML='<p class="ask-empty">正在刷新……</p>';if(!started||!(db||MOCK)){started=false;open();}else load();return;}
+    if(t.closest('.ask-refresh')){list.innerHTML='<p class="ask-empty">正在刷新……</p>';if(!started||!ready){started=false;open();}else load();return;}
     if(t.closest('.ask-more')){load(true);return;}
     if(t.closest('.ask-copyall')){
       var a=QS.filter(function(q){return filter==='mine'?isMine(q):filter==='answered'?(RS[q._id]||[]).some(isAdmin):true;});
