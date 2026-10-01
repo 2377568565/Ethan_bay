@@ -195,7 +195,7 @@ def main():
         nm = names.get(title.lower(), {})
         title = nm.get('title') or title
         # 栏目里已经有同名、同长度的歌（同一首传了两次）就不重复收
-        same = None if title == '未命名' else next((x for x in lst['songs'] if x['title'].lower() == title.lower() and x['id'] != sid and abs(x.get('dur', 0) - dur) < 3), None)
+        same = None if title == '未命名' else next((x for x in lst['songs'] if x['title'].lower() == title.lower() and x['id'] != sid and abs(x.get('dur', 0) - dur) <= 6), None)
         if same:
             os.remove(dst)
             done[key] = same['id']

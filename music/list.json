@@ -2,20 +2,6 @@
  "note": "音乐栏目的曲目（按这里的顺序显示）。title 曲名，sub 曲名下面的一行（中文名或说明，可空），file 文件名，dur 时长（秒）。新歌由 music_import.py 自动追加。",
  "songs": [
   {
-   "id": "be-thou-my-vision",
-   "title": "Be Thou My Vision",
-   "sub": "成为我异象",
-   "file": "be-thou-my-vision.mp3",
-   "dur": 213
-  },
-  {
-   "id": "awesome-god",
-   "title": "Awesome God",
-   "sub": "大能的神",
-   "file": "awesome-god.mp3",
-   "dur": 107
-  },
-  {
    "id": "m36bffd4d",
    "title": "A Simple Prayer",
    "sub": "简单的祷告",
@@ -72,6 +58,20 @@
    "src": "Away in a Manger.mp3"
   },
   {
+   "id": "awesome-god",
+   "title": "Awesome God",
+   "sub": "大能的神",
+   "file": "awesome-god.mp3",
+   "dur": 107
+  },
+  {
+   "id": "be-thou-my-vision",
+   "title": "Be Thou My Vision",
+   "sub": "成为我异象",
+   "file": "be-thou-my-vision.mp3",
+   "dur": 213
+  },
+  {
    "id": "m7b3f4088",
    "title": "Be Unto Your Name",
    "sub": "归于你名",
@@ -120,20 +120,20 @@
    "src": "Brahm's Lullaby.mp3"
   },
   {
-   "id": "ma1b96467",
-   "title": "Come, Thou Fount of Every Blessing",
-   "sub": "万福源头",
-   "file": "ma1b96467.mp3",
-   "dur": 218,
-   "src": "Come Thou Fount of Every Blessing.mp3"
-  },
-  {
    "id": "mf092b881",
    "title": "Come, Now Is the Time to Worship",
    "sub": "来吧，现在就来敬拜",
    "file": "mf092b881.mp3",
    "dur": 266,
    "src": "Come, Now Is The Time To Worship.mp3"
+  },
+  {
+   "id": "ma1b96467",
+   "title": "Come, Thou Fount of Every Blessing",
+   "sub": "万福源头",
+   "file": "ma1b96467.mp3",
+   "dur": 218,
+   "src": "Come Thou Fount of Every Blessing.mp3"
   },
   {
    "id": "m2fa8a887",
@@ -182,14 +182,6 @@
    "file": "m1ca60784.mp3",
    "dur": 178,
    "src": "Give Thanks.mp3"
-  },
-  {
-   "id": "m9e193418",
-   "title": "God Is Love",
-   "sub": "神就是爱",
-   "file": "m9e193418.mp3",
-   "dur": 164,
-   "src": "God is Love (with lyrics).mp3"
   },
   {
    "id": "ma876de19",
@@ -288,14 +280,6 @@
    "src": "Here I Am To Worship.mp3"
   },
   {
-   "id": "mf9cf70a3",
-   "title": "Here in This Place",
-   "sub": "在这地方",
-   "file": "mf9cf70a3.mp3",
-   "dur": 195,
-   "src": "Here In This Place (with lyrics).mp3"
-  },
-  {
    "id": "mfc1d87af",
    "title": "Here in This Place",
    "sub": "在这地方",
@@ -346,7 +330,7 @@
   {
    "id": "m7be13f9a",
    "title": "Indescribable",
-   "sub": "无可比拟",
+   "sub": "难以形容",
    "file": "m7be13f9a.mp3",
    "dur": 250,
    "src": "Indescribable.mp3"
@@ -506,7 +490,7 @@
   {
    "id": "m2da589ab",
    "title": "That's What Christmas Means to Me",
-   "sub": "这就是圣诞的意义",
+   "sub": "这就是圣诞对我的意义",
    "file": "m2da589ab.mp3",
    "dur": 233,
    "src": "That's What Christmas Means to Me.mp3"

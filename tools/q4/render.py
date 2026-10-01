@@ -380,30 +380,26 @@ def mmss(n):
     return f'{int(n) // 60}:{int(n) % 60:02d}' if n else ''
 
 def music_page():
-    cards = ''.join(f'''<article class="msong" id="music-{x['id']}" data-song="{x['id']}" data-src="{ONLINE}music/{urllib.parse.quote(x['file'])}" data-title="{html.escape(x['title'])} · 音乐">
-  <button class="ms-play" type="button" data-mplay aria-label="播放《{html.escape(x['title'])}》"><span class="ms-ic" aria-hidden="true"></span></button>
-  <div class="ms-main">
-    <h3 class="ms-t">{html.escape(x['title'])}</h3>
-    {f'<p class="ms-s">{html.escape(x["sub"])}</p>' if x.get('sub') else ''}
-    <div class="ms-bar"><i class="ms-pg" aria-hidden="true"><b></b></i><span class="ms-tm">{mmss(x.get('dur'))}</span></div>
-  </div>
-  <p class="ms-acts"><a class="btn ms-dl" href="{ONLINE}music/{urllib.parse.quote(x['file'])}" download="{html.escape(x['title'])}.mp3">⬇ 下载</a><button class="btn share" type="button" data-share="music-{x['id']}">{SHAREIC}分享</button></p>
-</article>''' for x in songs())
+    # 曲目由网页从 music/list.json 读取（收了新歌不用重新生成网页）；这里先放一份当前的清单，打开就能显示
+    lst = [{k: x.get(k, '') for k in ('id', 'title', 'sub', 'file', 'dur')} for x in songs()]
+    data = json.dumps(lst, ensure_ascii=False).replace('</', '<\\/')
     return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
 <nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
-<section class="mhome">
+<section class="mhome" data-list="{ONLINE}music/list.json" data-base="{ONLINE}music/">
   <p class="eyebrow">学课之余 · 安静聆听</p>
   <h1>音乐</h1>
   <p class="lead">学完学课，听一首诗歌。播放后可以继续去读学课或问答，音乐会缩成左下角的小窗，一直播放。</p>
-  <p class="mtools"><button class="btn solid" type="button" data-mall>▶ 全部播放</button><button class="btn" type="button" data-mloop aria-pressed="false">🔁 循环播放</button><button class="btn share" type="button" data-share="music">{SHAREIC}分享音乐栏目</button></p>
-  <div class="msongs">{cards or '<p class="mnone">音乐正在整理中，敬请期待。</p>'}</div>
-  <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“下载”。</p>
+  <p class="mtools"><button class="btn solid" type="button" data-mall>▶ 全部播放</button><button class="btn" type="button" data-mshuf aria-pressed="false">🔀 随机播放</button><button class="btn" type="button" data-mloop aria-pressed="false">🔁 循环播放</button><button class="btn share" type="button" data-share="music">{SHAREIC}分享音乐栏目</button></p>
+  <label class="msearch"><span class="sr-only">搜索歌曲</span><input type="search" class="ms-q" placeholder="搜索歌名（英文或中文）" enterkeyhint="search" autocomplete="off"><span class="ms-n" aria-live="polite"></span></label>
+  <div class="msongs"></div>
+  <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“⬇”。</p>
+  <script type="application/json" class="mdata">{data}</script>
 </section>
 <nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 </div>'''
 
 def qr_all():
-    ids = ['qa', 'ask', 'music'] + ['music-' + x['id'] for x in songs()] + [it['id'] for it in qa_data.ITEMS]
+    ids = ['qa', 'ask', 'music'] + [it['id'] for it in qa_data.ITEMS]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
             ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
