@@ -284,7 +284,8 @@ FOOT = '''<footer>
 def shell(title, desc, body, combined):
     early = ("<script>document.documentElement.classList.add('jsok'" + (",'js'" if combined else '') + ");"
              "try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');"
-             "if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}</script>")
+             "if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}"
+             + ("setTimeout(function(){document.documentElement.classList.add('ready');},25000);" if combined else '') + "</script>")
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -300,7 +301,7 @@ def shell(title, desc, body, combined):
 </style>
 </head>
 <body{' class="combined"' if combined else ''}>
-<div class="page">
+{BOOT if combined else ''}<div class="page">
 {NOJS}
 {body}
 {FOOT}
@@ -313,6 +314,11 @@ def shell(title, desc, body, combined):
 '''
 
 ONLINE = 'https://2377568565.github.io/Ethan_bay/'
+# 开场画面：网页一开始下载就显示（只靠 HTML 和 CSS），等脚本就绪（html.ready）后淡出。
+# 网页有 1.6 MB，网速慢时要等好几秒，没有它屏幕会是一片空白，大家以为“卡了”。
+BOOT = '''<div id="boot" aria-hidden="true"><div class="bt-in"><p class="bt-k">安息日学研经指引 · 2026年第4季</p><p class="bt-t">预言的恩赐</p>
+<div class="bt-bar"><i></i></div><p class="bt-m"><span class="m1">正在打开，请稍候……</span><span class="m2">网络有点慢，马上就好……</span></p></div></div>
+'''
 NOJS = f'''<div class="nojs-note" role="note">
   <p><b>你现在是在“预览模式”里阅读</b>（苹果手机在微信里直接点开 HTML 文件时就是这样）。这种模式不运行网页脚本，所以<b>欢迎页、按日期推荐、经文弹窗、翻页动画</b>都不会出现，但所有文字内容仍可阅读。</p>
   <p>完整体验请打开在线版（在微信里点链接即可，会用微信内置浏览器打开）：<br><a href="{ONLINE}">{ONLINE}</a></p>

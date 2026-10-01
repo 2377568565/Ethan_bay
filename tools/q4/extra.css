@@ -231,6 +231,23 @@ main>.yw:first-child{border-top:0;margin-top:0;padding-top:0}
 
 /* ---- 预览模式（不运行脚本，例如苹果手机微信的文件预览）---- */
 .nojs-note{display:none}
+/* 开场画面：网页还在下载、脚本还没运行时先显示，脚本就绪（html.ready）后淡出 */
+#boot{display:none}
+html.jsok #boot{display:flex;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;padding:24px;text-align:center;color:#FCE7B0;
+  background:radial-gradient(130% 85% at 50% 108%,#4a3a68 0%,#232a52 48%,#11152d 100%)}
+html.ready #boot{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility 0s linear .45s}
+#boot .bt-k{margin:0 0 10px;font-size:.82rem;letter-spacing:.24em;color:rgba(252,231,176,.72)}
+#boot .bt-t{margin:0;font-family:var(--serif);font-weight:900;font-size:2.5rem;letter-spacing:.14em;line-height:1.2}
+#boot .bt-bar{width:168px;height:3px;margin:26px auto 16px;border-radius:3px;background:rgba(252,231,176,.18);overflow:hidden}
+#boot .bt-bar i{display:block;width:38%;height:100%;border-radius:3px;background:#F3D98F;animation:btmove 1.3s ease-in-out infinite}
+#boot .bt-m{display:grid;margin:0;font-size:.92rem;color:rgba(252,231,176,.85)}
+#boot .bt-m span{grid-area:1/1}
+#boot .bt-m .m2{opacity:0;animation:btswap .5s ease 6s forwards}
+#boot .bt-m .m1{animation:btswap .5s ease 6s reverse forwards}
+@keyframes btmove{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+@keyframes btswap{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){#boot .bt-bar i{animation-duration:3s}}
+@media print{#boot{display:none!important}}
 html:not(.jsok) .nojs-note{display:block;margin:0 0 20px;padding:14px 16px;border-radius:10px;border:1px solid #C9A042;background:var(--gold-soft);font-size:.92rem;line-height:1.8}
 html:not(.jsok) .nojs-note p{margin:0}
 html:not(.jsok) .nojs-note p+p{margin-top:6px}
@@ -881,6 +898,8 @@ html.wopen .mplayer,html.bopen .mplayer{display:none}
 html.mplay .msongs{padding-bottom:72px}
 .mplayer .mp-x{width:30px;background:none;opacity:.75}
 @keyframes mpspin{to{transform:rotate(360deg)}}
+/* 已经存在这台设备上的歌：时长下面标“已缓存”，播放不用等 */
+.msong.saved .ms-tm::after{content:"已缓存";display:block;margin-top:1px;font-size:.66rem;letter-spacing:.04em;color:var(--accent);opacity:.75;text-align:right}
 /* 网络慢、正在缓冲：播放键外面转一圈 */
 .msong.buffering .ms-play::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--accent);animation:mpspin .9s linear infinite}
 .mplayer.buffering .mp-ic{animation-duration:.9s;box-shadow:inset 0 0 0 2px rgba(243,217,143,.55)}

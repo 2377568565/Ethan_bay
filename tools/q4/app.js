@@ -369,7 +369,7 @@ function q4copy(t){
       DATA=j; if(waiting&&!pop.hidden)build(parse(waiting.dataset.v)); waiting=null;
     }).catch(function(){fetching=null; if(waiting&&!pop.hidden)body.innerHTML='<p class="bload">经文加载失败，请检查网络后再点一次。</p>'; waiting=null;});
   }
-  if(src.dataset.src){var pre=function(){setTimeout(fetchData,1500);};if(document.readyState==='complete')pre();else addEventListener('load',pre);}
+  if(src.dataset.src)setTimeout(fetchData,10000);   // 经文数据有 2.6 MB：网页打开 10 秒后再在后台下载，不和打开网页抢网速
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function parse(code){
     var p=code.split('|'),b=+p[0],vs=p[1].split(';').map(function(x){var q=x.split('.');return [+q[0],+q[1]];});
@@ -465,6 +465,9 @@ window.Q4Hub=(function(){
   var H={S:null,uid:'',admin:false,relayOk:true,get:get,set:set,online:(cfg&&cfg.dataset.online)||'',
     ok:!!(A&&TOPIC&&RELAY&&DATA&&location.protocol!=='file:'&&window.crypto&&crypto.subtle&&window.TextEncoder&&window.fetch&&window.Promise)};
   var K=null,loading=null,loadedAt=0,subs=[];
+  // 上次读到的共享数据（问题、打卡、访问人次等）存在手机里：打开网页先显示它，网上的最新数据到了再更新
+  try{var C0=JSON.parse(get('askc')||'null');if(C0&&C0.v===1&&H.ok){H.S=A.norm(C0);H.cached=true;}}catch(e){}
+  function saveCache(S){try{var c={};for(var k in S)if(k!=='vault')c[k]=S[k];set('askc',JSON.stringify(c));}catch(e){}}
   function net(p,ms){   // 超时与网络错误统一成 {code}
     return new Promise(function(ok,no){
       var t=setTimeout(function(){no({code:'TIMEOUT'});},ms||20000);
@@ -502,7 +505,7 @@ window.Q4Hub=(function(){
       var S=A.norm(d||A.empty()),since=S.last?Math.max(0,S.last-120):'12h';
       return net(fetch(RELAY+'/'+TOPIC+'/json?poll=1&since='+since,{cache:'no-store'}).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.text();}))
         .then(function(t){H.relayOk=true;return A.merge(S,lines(t));},function(){H.relayOk=false;}).then(function(){return S;});
-    }).then(function(S){H.S=S;loadedAt=Date.now();loading=null;return H.who();})
+    }).then(function(S){H.S=S;H.cached=false;loadedAt=Date.now();loading=null;saveCache(S);return H.who();})
       .then(function(){mark();emit();return H.S;},function(e){loading=null;throw e;});
     return loading;
   };
@@ -927,7 +930,7 @@ window.Q4Hub=(function(){
   var CK=/^l\d+-yw-(sab|sun|mon|tue|wed|thu|fri)$/;   // 打卡放在“学课原文”每天的最后；记录仍按 l1-sun 这样的日子
   var cheers=['愿主的话成为你脚前的灯、路上的光。（诗119:105）','“你的言语一解开，就发出亮光。”（诗119:130）','“我将你的话藏在心里，免得我得罪你。”（诗119:11）',
     '“人活着不是单靠食物，乃是靠上帝口里所出的一切话。”（太4:4）','“你们要查考圣经。”（约5:39）','“这些人……天天考查圣经。”（徒17:11）'];
-  var days=[].slice.call(document.querySelectorAll('.lesson article.ywday[id]')).filter(function(s){return CK.test(s.id);});
+  var days=[].slice.call(document.querySelectorAll('.lesson article.ywday[id],.lesson .day[id]')).filter(function(s){return CK.test(s.id)||/^l\d+-sab$/.test(s.id);});   // 解读的“导言”也有打卡，和原文的安息日下午算同一天
   function ckKey(sec){return sec.id.replace('-yw-','-');}
   function mineCk(k){if(get('ck:'+k)==='1')return true;var u=H.uid&&H.uid.slice(0,12);return !!(u&&H.S&&(H.S.checks[k]||[]).indexOf(u)>=0);}
   function nCk(k){return (H.S&&H.S.checks[k]||[]).length;}
@@ -1034,8 +1037,8 @@ window.Q4Hub=(function(){
   var vis=document.querySelector('#welcome .wvisits');
   if(vis)H.on(function(S){var n=(S.hits0||+vis.dataset.base||0)+(S.hits||0),sp=vis.querySelector('span');if(n>0){sp.querySelector('b').textContent=n;sp.hidden=false;}});
   paintCk();
-  function kick(){setTimeout(function(){start(false);},1200);setTimeout(H.hit,2000);}
-  if(document.readyState==='complete')kick();else window.addEventListener('load',kick);
+  // 脚本在网页最后，运行时页面已经出来了：不等字体、图片全部下载完（网速慢时要好久），马上去读数据
+  setTimeout(function(){start(false);},200);setTimeout(H.hit,1500);
 })();
 
 /* ---------- 阅读工具：字号 · 夜间模式 · 全文搜索 · 朗读 · 继续上次阅读 ---------- */
@@ -1646,7 +1649,7 @@ window.Q4Hub=(function(){
     opts=opts||{};if(!ACC||!KE)return Promise.resolve();
     if(running)return running;
     status.msg='正在同步……';paint();
-    running=(opts.fresh?H.load(true):(H.S?Promise.resolve(H.S):H.load()))
+    running=(opts.fresh||H.cached?H.load(true):(H.S?Promise.resolve(H.S):H.load()))   /* 手机里存的旧数据不拿来同步账号 */
       .then(loadVJ).then(remoteItems).then(function(R){
         var ch=pull(R,opts.first);
         if(opts.first&&ACC){delete ACC.first;set('acct',JSON.stringify(ACC));}
@@ -1794,7 +1797,7 @@ window.Q4Hub=(function(){
   var byId={};function index(){byId={};SONGS.forEach(function(x){byId[x.id]=x;});}index();
   var A=new Audio();A.preload='auto';
   var cur='',queue=[],loop=get('mloop')==='1',shuf=get('mshuf')==='1',q='';
-  var want=false,buf=null,bufPct=-1,waitT=null,pre={},rate=[],rateT=null;   // want：想让它播着；buf：网速跟不上时先停下来缓冲；pre：提前下载好的下一首
+  var want=false,buf=null,bufPct=-1,waitT=null,pre={},rate=[],rateT=null,tapAt=0,MAXWAIT=7000;   // 缓冲最多等 7 秒就先播起来   // want：想让它播着；buf：网速跟不上时先停下来缓冲；pre：提前下载好的下一首
   var mini=el('div','mplayer');mini.hidden=true;mini.setAttribute('role','region');mini.setAttribute('aria-label','正在播放的音乐');
   mini.innerHTML='<a class="mp-go" href="#music" aria-label="回到音乐"><span class="mp-ic" aria-hidden="true">♪</span><span class="mp-tt"><span class="mp-t"></span><span class="mp-s"></span></span></a>'+
     '<button type="button" class="mp-prev" aria-label="上一首"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M5 5h2.4v14H5zM20 5v14L8.6 12z"/></svg></button>'+
@@ -1817,7 +1820,7 @@ window.Q4Hub=(function(){
     var list=shown();
     wrap.innerHTML=list.length?list.map(card).join(''):'<p class="mnone">'+(SONGS.length?'没有找到这首歌，换个字试试。':'音乐正在整理中，敬请期待。')+'</p>';
     var n=page.querySelector('.ms-n');n.textContent=q.trim()?'找到 '+list.length+' 首':'共 '+SONGS.length+' 首';
-    paint();prog();
+    paint();prog();marks();
   }
   function cardOf(id){return document.getElementById('music-'+id);}
   function makeQueue(startId){
@@ -1826,20 +1829,68 @@ window.Q4Hub=(function(){
       if(startId){ids.splice(ids.indexOf(startId),1);ids.unshift(startId);}}
     queue=ids;
   }
-  function urlOf(x){return BASE+encodeURIComponent(x.file);}
+  var BASEA=(function(){var l=document.createElement('a');l.href=BASE;return l.href;})();   // 写成完整网址，和存在手机里的一致
+  function urlOf(x){return BASEA+encodeURIComponent(x.file);}
+  /* 听过的歌存在这台设备上（浏览器的 Cache Storage），下次直接从手机里播，不用再等网络。
+     最多存 40 首，再多就先删已经不在清单里的、再删最久没听的 */
+  var BOX='q4-music',MAXSAVE=40,saved={},tried={},saving='',unlocked=false;
+  var boxOk=!!(window.caches&&window.fetch&&window.Response&&window.URL&&URL.createObjectURL);
+  function lru(){try{return JSON.parse(get('mlru')||'{}')||{};}catch(e){return {};}}
+  function touch(u){var m=lru();m[u]=Date.now();set('mlru',JSON.stringify(m));}
+  function store(){return caches.open(BOX);}
+  function keep(u,b){   // 存进手机
+    if(!boxOk||saved[u]||!b||b.size<1000)return;
+    store().then(function(c){return c.put(u,new Response(b,{headers:{'Content-Type':b.type||'audio/mp4'}}));})
+      .then(function(){saved[u]=1;touch(u);trim();marks();},function(){});
+  }
+  function trim(){
+    var ks=Object.keys(saved),live={};if(ks.length<=MAXSAVE)return;var m=lru();
+    SONGS.forEach(function(x){live[urlOf(x)]=1;});
+    ks.sort(function(a,b){return (live[a]?1:0)-(live[b]?1:0)||(m[a]||0)-(m[b]||0);});
+    ks.slice(0,ks.length-MAXSAVE).forEach(function(u){delete saved[u];delete m[u];store().then(function(c){return c.delete(u);}).catch(function(){});});
+    set('mlru',JSON.stringify(m));
+  }
+  function fromBox(id,u){   // 从手机里取出来，换成本机地址
+    return store().then(function(c){return c.match(u);}).then(function(r){return r?r.blob():null;}).then(function(b){
+      if(!b){delete saved[u];marks();return '';}
+      var o=pre[id]||(pre[id]={});if(!o.url)o.url=URL.createObjectURL(b);return o.url;
+    });
+  }
+  function marks(){[].forEach.call(wrap.querySelectorAll('.msong'),function(it){var x=byId[it.dataset.id];it.classList.toggle('saved',!!(x&&saved[urlOf(x)]));});}
+  if(boxOk)try{store().then(function(c){return c.keys();}).then(function(ks){ks.forEach(function(r){saved[r.url]=1;});marks();}).catch(function(){boxOk=false;});}catch(e){boxOk=false;}
+  function tidy(){   // 读到最新清单后：清单里已经没有的（比如换了格式的旧文件）从手机里删掉
+    if(!boxOk)return;var live={};SONGS.forEach(function(x){live[urlOf(x)]=1;});
+    Object.keys(saved).forEach(function(u){if(!live[u]){delete saved[u];store().then(function(c){return c.delete(u);}).catch(function(){});}});
+  }
   function play(id){
     var x=byId[id];if(!x)return;
-    if(id!==cur){cur=id;stopBuf();rate=[];A.src=pre[id]&&pre[id].url||urlOf(x);}   // 提前下载好的直接从手机里播
+    if(id!==cur){
+      cur=id;stopBuf();rate=[];tapAt=Date.now();
+      Object.keys(pre).forEach(function(k){var o=pre[k];if(!o.url){if(o.ctl)o.ctl.abort();delete pre[k];}});   // 后台还没下载完的先停掉，网速全给选中的这首
+      var u=urlOf(x);if(saved[u])touch(u);
+      if(pre[id]&&pre[id].url)A.src=pre[id].url;   // 提前下载好的：直接从手机里播
+      else if(saved[u]){   // 以前听过、存在手机里的
+        if(unlocked)A.removeAttribute('src');else A.src=u;   // 这次打开网页还没播过：手机要求点下去马上开始播，先用网址，取出来后马上换过去
+        fromBox(id,u).then(function(bu){
+          if(cur!==id)return;
+          if(!bu){if(!A.getAttribute('src')){A.src=u;if(want)go();}return;}
+          if(A.getAttribute('src')===bu||(A.currentTime>0.3&&!A.paused))return;
+          stopBuf();rate=[];A.src=bu;if(want)go();
+        }).catch(function(){if(cur===id&&!A.getAttribute('src')){A.src=u;if(want)go();}});
+      }
+      else A.src=u;
+    }
     if(queue.indexOf(id)<0)makeQueue(id);
     want=true;if(!rateT)rateT=setInterval(sample,500);
     try{window.dispatchEvent(new Event('q4:music'));}catch(e){}
-    if(!buf)go();
+    if(!buf&&A.getAttribute('src'))go();
     media();paint();
   }
   function go(){var p=A.play();if(p&&p.catch)p.catch(function(e){if(e&&e.name==='NotAllowedError'){want=false;stopBuf();}paint();});}
   function hold(){want=false;stopBuf();A.pause();paint();}   // 使用者按了暂停
   /* 网速跟不上时：与其一卡一卡，不如先停下来多缓冲一些。
-     按最近几秒的下载速度估算：已缓冲的部分够撑到整首下载完，就接着播，之后不会再卡 */
+     按最近几秒的下载速度估算：已缓冲的部分够撑到整首下载完，就接着播，之后不会再卡；
+     但最多只等 7 秒（刚点播放时从点的那一刻算起），到时间就先播起来 */
   function ahead(){var b=A.buffered,t=A.currentTime;for(var i=0;i<b.length;i++)if(b.start(i)<=t+0.5&&b.end(i)>t)return b.end(i)-t;return 0;}
   function sample(){   // 一直记着最近 8 秒下载到了第几秒，用来估网速
     if(!cur)return;var e=A.currentTime+ahead(),now=Date.now(),l=rate[rate.length-1];
@@ -1852,25 +1903,35 @@ window.Q4Hub=(function(){
   }
   function startBuf(){
     if(buf||!want||!cur)return;
-    var t0=Date.now();bufPct=0;
+    var t0=A.currentTime<0.5&&Date.now()-tapAt<3000?tapAt:Date.now();bufPct=0;
     buf=setInterval(function(){
-      var d=A.duration,h=ahead(),e=A.currentTime+h,now=Date.now(),g=speed();
+      var d=A.duration,h=ahead(),e=A.currentTime+h,now=Date.now(),g=speed(),waited=now-t0;
       var rest=isFinite(d)&&d>0?Math.max(0,d-e):1e9;
       var ge=0.85*g,need=g<0?1e9:ge>=1?4:ge>0.02?Math.min(rest+h,(1/ge-1)*rest+3):1e9;   // 下载比播放慢时：缓冲要够撑到整首下载完
-      if(rest<=0.5||(h>=4&&h>=need)||(now-t0>60000&&h>=3)){stopBuf();go();paint();return;}
-      if(need<1e9)bufPct=Math.max(bufPct,Math.min(99,Math.round(h/Math.max(4,need)*100)));prog();
-    },500);
+      if(rest<=0.5||(h>=4&&h>=need)||(waited>=MAXWAIT&&h>=1)){stopBuf();go();paint();return;}
+      bufPct=Math.max(bufPct,Math.min(99,Math.round(Math.max(need<1e9?h/Math.max(4,need):0,waited/MAXWAIT)*100)));prog();
+    },400);
     A.pause();paint();
   }
   function stopBuf(){if(buf){clearInterval(buf);buf=null;}clearTimeout(waitT);bufPct=-1;}
-  function prefetch(){   // 这一首已经全部下载好了，就趁空先把下一首下载到手机里，换歌时不用等
+  function prefetch(){   // 这一首已经全部下载好了：先把它存进手机，再趁空把下一首也下载好，换歌时不用等
     if(!cur||!want||!window.fetch||!window.URL||!URL.createObjectURL)return;
-    var d=A.duration;if(!(isFinite(d)&&(A.currentTime+ahead()>=d-0.5||d-A.currentTime<30)))return;
+    var d=A.duration;if(!(isFinite(d)&&A.currentTime+ahead()>=d-0.5))return;   // 这一首还没下载完时不抢网速
+    var u=byId[cur]?urlOf(byId[cur]):'';
+    if(u&&boxOk&&!saved[u]&&!tried[u]&&A.getAttribute('src')===u){   // 刚从网上下载完的这首（一般直接从浏览器缓存里拿，不用再下载）
+      if(saving)return;saving=u;tried[u]=1;
+      fetch(u,{cache:'force-cache'}).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){keep(u,b);},function(){})
+        .then(function(){saving='';prefetch();});
+      return;
+    }
+    if(saving)return;
     var i=queue.indexOf(cur),nid=queue[i+1]||(loop?queue[0]:'');if(!nid||nid===cur||pre[nid]||!byId[nid])return;
-    var o=pre[nid]={};
-    fetch(urlOf(byId[nid])).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){if(pre[nid]===o)o.url=URL.createObjectURL(b);}).catch(function(){if(pre[nid]===o)delete pre[nid];});
-    var ks=Object.keys(pre);   // 手机里最多留 3 首
-    for(var k=0;k<ks.length&&Object.keys(pre).length>3;k++){var id=ks[k];if(id===cur||id===nid)continue;if(pre[id].url&&A.src!==pre[id].url)URL.revokeObjectURL(pre[id].url);delete pre[id];}
+    var nu=urlOf(byId[nid]),o=pre[nid]={ctl:window.AbortController?new AbortController():null};
+    if(saved[nu])fromBox(nid,nu).catch(function(){if(pre[nid]===o)delete pre[nid];});
+    else fetch(nu,o.ctl?{signal:o.ctl.signal}:{}).then(function(r){if(!r.ok)throw 0;return r.blob();})
+      .then(function(b){if(pre[nid]===o)o.url=URL.createObjectURL(b);keep(nu,b);}).catch(function(){if(pre[nid]===o)delete pre[nid];});
+    var ks=Object.keys(pre);   // 内存里最多留 3 首
+    for(var k=0;k<ks.length&&Object.keys(pre).length>3;k++){var id=ks[k];if(id===cur||id===nid)continue;if(pre[id].url&&A.getAttribute('src')!==pre[id].url)URL.revokeObjectURL(pre[id].url);delete pre[id];}
   }
   function next(step,manual){
     if(!queue.length)makeQueue(cur);var i=queue.indexOf(cur)+step;
@@ -1918,7 +1979,7 @@ window.Q4Hub=(function(){
     if(A.currentTime>0.5&&!A.seeking)startBuf();
     else waitT=setTimeout(function(){if(want&&!buf&&A.readyState<3&&!A.seeking)startBuf();},900);
   });
-  A.addEventListener('playing',function(){clearTimeout(waitT);});
+  A.addEventListener('playing',function(){clearTimeout(waitT);unlocked=true;});
   A.addEventListener('progress',prefetch);A.addEventListener('canplaythrough',prefetch);
   A.addEventListener('ended',function(){if(!next(1)){var it=cur&&cardOf(cur);if(it)it.querySelector('.ms-pg b').style.width='0';}});
   A.addEventListener('error',function(){if(cur&&A.getAttribute('src'))toast('《'+((byId[cur]||{}).title||'')+'》没有加载成功，请检查网络后再试。');});
@@ -1959,8 +2020,15 @@ window.Q4Hub=(function(){
       var s=j&&Array.isArray(j.songs)?j.songs.filter(function(x){return x&&x.id&&x.file&&x.title;}):null;
       if(!s||JSON.stringify(s.map(function(x){return x.id+x.title;}))===JSON.stringify(SONGS.map(function(x){return x.id+x.title;})))return;
       SONGS=s;index();render();hit();
-    }).catch(function(){});
+    }).then(tidy,function(){});
   }
   if(onMusic())refresh();
   window.addEventListener('hashchange',function(){if(onMusic())refresh();});
+})();
+
+/* ---------- 网页就绪：开场画面淡出；稍后再换上正文字体（在线版首屏先用手机自带的字体，省下约 800 KB） ---------- */
+(function(){
+  var d=document.documentElement;d.classList.add('ready');
+  setTimeout(function(){var b=document.getElementById('boot');if(b&&b.parentNode)b.parentNode.removeChild(b);},900);
+  setTimeout(function(){d.classList.add('wf');},2500);
 })();
