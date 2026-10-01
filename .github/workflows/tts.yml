@@ -1,0 +1,156 @@
+name: tts
+# 朗读声音：按 tools/q4/tts/request.json 用开源语音模型（CPU）合成声音文件，存进仓库（试听样本或整季音频）。
+# 改动 request.json 并推送就会运行；也可以在 Actions 页面手动运行。
+on:
+  push:
+    branches: [claude/adventist-lesson-analysis-dhqrxg]
+    paths: ['tools/q4/tts/request.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tts
+  cancel-in-progress: false
+env:
+  BRANCH: claude/adventist-lesson-analysis-dhqrxg
+  CV_COMMIT: 074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      jobs: ${{ steps.p.outputs.jobs }}
+      out: ${{ steps.p.outputs.out }}
+      check: ${{ steps.p.outputs.check }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - id: p
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          r = json.load(open('tools/q4/tts/request.json'))
+          print('jobs=' + json.dumps(r['jobs'], ensure_ascii=False))
+          print('out=' + r['out'])
+          print('check=' + ('1' if r.get('check') else ''))
+          PY
+
+  gen:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        job: ${{ fromJSON(needs.plan.outputs.jobs) }}
+    env:
+      OUT: ${{ needs.plan.outputs.out }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 基础工具
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg sox libsox-dev > /dev/null
+          pip install -q --upgrade pip
+          pip install -q torch==2.3.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: 安装 Kokoro
+        if: matrix.job.engine == 'kokoro'
+        run: pip install -q "kokoro==0.9.4" "misaki[zh]==0.9.4" soundfile huggingface_hub
+      - name: 安装 CosyVoice
+        if: matrix.job.engine != 'kokoro'
+        run: |
+          git clone -q https://github.com/FunAudioLLM/CosyVoice /tmp/cv
+          cd /tmp/cv && git checkout -q "$CV_COMMIT" && git submodule update --init --recursive -q
+          pip install -q conformer==0.3.2 diffusers==0.29.0 hydra-core==1.3.2 HyperPyYAML==1.2.3 inflect==7.3.1 librosa==0.10.2 \
+            lightning==2.2.4 matplotlib==3.7.5 modelscope==1.20.0 networkx==3.1 numpy==1.26.4 omegaconf==2.3.0 onnx==1.16.0 \
+            onnxruntime==1.18.0 openai-whisper==20231117 protobuf==4.25.0 pydantic==2.7.0 rich==13.7.1 soundfile==0.12.1 \
+            transformers==4.51.3 x-transformers==2.11.24 wetext==0.0.4 einops huggingface_hub
+          python - <<'PY'
+          from huggingface_hub import snapshot_download
+          import os
+          repo = {'cosy3': 'FunAudioLLM/Fun-CosyVoice3-0.5B-2512', 'cosy2': 'FunAudioLLM/CosyVoice2-0.5B'}[os.environ['ENGINE']]
+          snapshot_download(repo, local_dir='/tmp/model')
+          PY
+        env:
+          ENGINE: ${{ matrix.job.engine }}
+      - name: 男声提示音
+        if: matrix.job.engine != 'kokoro' && matrix.job.voice == 'm' && hashFiles('tools/q4/tts/voices/m.wav') == ''
+        run: |
+          python -c "from huggingface_hub import snapshot_download; snapshot_download('FunAudioLLM/CosyVoice-300M-SFT', local_dir='/tmp/sft')"
+          python tools/q4/tts/gen.py --engine cosy3 --repo-dir /tmp/cv --make-male-prompt /tmp/sft --out x
+      - name: 合成
+        run: |
+          python tools/q4/tts/gen.py --engine "${{ matrix.job.engine }}" --voice "${{ matrix.job.voice }}" \
+            --instruct "${{ matrix.job.instruct }}" --ids "${{ matrix.job.ids }}" --kinds "${{ matrix.job.kinds }}" \
+            --lessons "${{ matrix.job.lessons }}" --maxblocks "${{ matrix.job.maxblocks || 0 }}" --name "${{ matrix.job.name }}" \
+            --out "art/$OUT" --model-dir /tmp/model --repo-dir /tmp/cv
+          if [ -f tools/q4/tts/voices/m.wav ]; then mkdir -p art/tools/q4/tts/voices && cp tools/q4/tts/voices/m.wav art/tools/q4/tts/voices/; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tts-${{ strategy.job-index }}
+          path: art
+          retention-days: 3
+
+  publish:
+    needs: [plan, gen]
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OUT: ${{ needs.plan.outputs.out }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tts-*
+          merge-multiple: true
+          path: art
+      - name: 放进仓库
+        run: |
+          ls -la "art/$OUT" | head -50
+          cp -r art/. .
+          python3 - <<'PY'
+          import glob, json, os
+          out = os.environ['OUT']
+          idx = {}
+          for f in sorted(glob.glob(os.path.join(out, '*.json'))):
+              b = os.path.basename(f)
+              if b in ('index.json', 'asr.json') or b.startswith('stats-'):
+                  continue
+              idx[b[:-5]] = json.load(open(f))
+          old = os.path.join(out, 'index.json')
+          if os.path.exists(old):
+              prev = json.load(open(old)); prev.update(idx); idx = prev
+          json.dump(idx, open(old, 'w'), ensure_ascii=False, separators=(',', ':'))
+          st = []
+          for f in glob.glob(os.path.join(out, 'stats-*.json')):
+              st += json.load(open(f)); os.remove(f)
+          for s in st:
+              print(s)
+          dur = sum(s['dur'] for s in st); took = sum(s['took'] for s in st)
+          print(f'合计音频 {dur/3600:.2f} 小时，计算 {took/3600:.2f} 小时')
+          PY
+      - name: 读音检查（语音识别比对）
+        if: needs.plan.outputs.check == '1'
+        run: |
+          pip install -q faster-whisper opencc-python-reimplemented
+          python3 tools/q4/tts/check.py "$OUT"
+      - name: 提交
+        run: |
+          git config user.name 'tts'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A "$OUT" tools/q4/tts/voices 2>/dev/null || git add -A "$OUT"
+          if git diff --cached --quiet; then echo '没有新文件'; exit 0; fi
+          git commit -q -m "朗读声音：$OUT"
+          for i in 1 2 3 4; do
+            git push origin HEAD:"$BRANCH" && exit 0
+            sleep $((i * 5)); git pull -q --rebase origin "$BRANCH"
+          done
+          exit 1

@@ -1,0 +1,12 @@
+{
+  "note": "试听样本：同一段原文（第1课星期四开头），几种开源声音各读一遍",
+  "out": "audio/try",
+  "check": true,
+  "jobs": [
+    {"name": "cv3-f", "engine": "cosy3", "voice": "f", "ids": "l1-yw-thu", "maxblocks": 4},
+    {"name": "cv3-m", "engine": "cosy3", "voice": "m", "ids": "l1-yw-thu", "maxblocks": 4},
+    {"name": "cv3-f-calm", "engine": "cosy3", "voice": "f", "instruct": "请用平稳、温和、庄重的语气，像朗读经文一样，语速稍慢。", "ids": "l1-yw-thu", "maxblocks": 4},
+    {"name": "kk-f", "engine": "kokoro", "voice": "zf_001", "ids": "l1-yw-thu", "maxblocks": 4},
+    {"name": "kk-m", "engine": "kokoro", "voice": "zm_010", "ids": "l1-yw-thu", "maxblocks": 4}
+  ]
+}
