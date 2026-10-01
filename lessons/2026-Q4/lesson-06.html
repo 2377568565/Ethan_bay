@@ -2830,7 +2830,7 @@ window.Q4Hub=(function(){
 
   /* ===== 朗读：优先播放预先录好的自然人声（微信里也能听）；没有录音的部分用手机自带的语音 ===== */
   var SY=window.speechSynthesis,canSY=!!(SY&&window.SpeechSynthesisUtterance);
-  var AC=document.querySelector('[data-audio]'),AUD=AC?AC.dataset.audio:'',AIDS={};
+  var AC=document.querySelector('[data-audio]'),AUD=AC?AC.dataset.audio:'',AIDS={},AIDX=null;
   if(AC)(AC.dataset.audioIds||'').split(' ').forEach(function(x){if(x)AIDS[x]=1;});
   function unitId(root){return root.id||((root.closest('.lesson')||{}).id)||'';}
   function fpOf(b){return b.textContent.replace(/\s+/g,'').slice(0,12);}
@@ -2881,9 +2881,9 @@ window.Q4Hub=(function(){
       A.src=AUD+id+'.mp3';A.playbackRate=T.rate;try{A.defaultPlaybackRate=T.rate;}catch(e){}
       show(title);media(title);
       var pr=A.play();if(pr&&pr.catch)pr.catch(function(){if(T.mode==='a')setPP(false);});   // 被浏览器拦下时，点 ▶ 就能开始
-      if(window.fetch)fetch(AUD+id+'.json').then(function(r){return r.ok?r.json():null;}).then(function(m){
-        if(m&&T.mode==='a'&&T.root===root&&m.h===fph(list.map(fpOf))&&m.t&&m.t.length===list.length)AT=m.t;
-      }).catch(function(){});
+      var useMeta=function(m){if(m&&T.mode==='a'&&T.root===root&&m.h===fph(list.map(fpOf))&&m.t&&m.t.length===list.length)AT=m.t;};
+      if(AIDX&&AIDX[id])useMeta(AIDX[id]);
+      else if(window.fetch)fetch(AUD+id+'.json').then(function(r){return r.ok?r.json():null;}).then(useMeta).catch(function(){});
     }
 
     /* --- 手机自带的语音（没有录音时） --- */
@@ -2932,13 +2932,25 @@ window.Q4Hub=(function(){
     bar.querySelector('.tt-pg').addEventListener('click',function(e){if(T.mode!=='a'||!A.duration)return;var r=this.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*A.duration;});
     window.addEventListener('hashchange',function(){if(T.on)stop();});
     // 每一天的解读、每一天的学课原文、每篇问题彩蛋都加一个“朗读”按钮（只有录好声音、或手机支持朗读时才显示）
+    var SLOTS=[];
     function addBtn(where,root,title){
-      var rec=AUD&&AIDS[unitId(root)];if(!rec&&!canSY)return;
-      var b=el('button','btn ttsbtn'+(rec?' rec':''),rec?'🎧 听朗读':'🔊 朗读');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);
+      var rec=AUD&&AIDS[unitId(root)],b=root._tts;
+      if(!rec&&!canSY)return;
+      if(!b){b=el('button','btn ttsbtn');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);root._tts=b;}
+      b.classList.toggle('rec',!!rec);b.textContent=rec?'🎧 听朗读':'🔊 朗读';
     }
-    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label+(/^l0-/.test(s.id)?'':' · 解读'));});
-    document.querySelectorAll('article.ywday').forEach(function(s){var r=s.querySelector('.ywhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
-    document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
+    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label+(/^l0-/.test(s.id)?'':' · 解读')]);});
+    document.querySelectorAll('article.ywday').forEach(function(s){var r=s.querySelector('.ywhead .btnrow');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label]);});
+    document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label]);});
+    function paintBtns(){SLOTS.forEach(function(x){addBtn(x[0],x[1],x[2]);});}
+    paintBtns();
+    // 录音是陆续合成上传的：页面打开后再查一次目录，新录好的部分马上出现“听朗读”（不用重新生成网页）
+    if(AUD&&window.fetch){
+      var loadIdx=function(){fetch(AUD+'index.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null;}).then(function(ix){
+        if(!ix)return;AIDX=ix;Object.keys(ix).forEach(function(k){AIDS[k]=1;});paintBtns();
+      }).catch(function(){});};
+      if(document.readyState==='complete')setTimeout(loadIdx,800);else addEventListener('load',function(){setTimeout(loadIdx,800);});
+    }
   }
 })();
 
