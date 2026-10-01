@@ -1143,6 +1143,10 @@ html.wopen .mplayer,html.bopen .mplayer{display:none}
 html.mplay .msongs{padding-bottom:72px}
 .mplayer .mp-x{width:30px;background:none;opacity:.75}
 @keyframes mpspin{to{transform:rotate(360deg)}}
+/* 网络慢、正在缓冲：播放键外面转一圈 */
+.msong.buffering .ms-play::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--accent);animation:mpspin .9s linear infinite}
+.mplayer.buffering .mp-ic{animation-duration:.9s;box-shadow:inset 0 0 0 2px rgba(243,217,143,.55)}
+@media (prefers-reduced-motion: reduce){.msong.buffering .ms-play::after{animation:none}}
 @media (prefers-reduced-motion: reduce){.mplayer .mp-ic{animation:none}}
 .mtoast{position:fixed;left:50%;top:18px;z-index:130;transform:translateX(-50%);width:min(420px,calc(100% - 32px));margin:0;padding:12px 16px;border-radius:14px;background:#1F2433;color:#F5F1E6;font-size:.9rem;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 @media print{.mplayer,.mtoast{display:none}}
@@ -1212,7 +1216,7 @@ html.mplay .msongs{padding-bottom:72px}
   <p class="winvite"><span class="q">“凡劳苦担重担的人可以到我这里来，<br>我就使你们得安息。”</span><span class="by">—— 耶稣的邀请（太11:28）</span></p>
   <div class="wrec">
     <p class="wdate"></p>
-    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
+    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">学课目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
     <p class="wclass" hidden><a href="#l1"></a></p>
     <p class="wresume" hidden></p>
     <div class="wnews" hidden></div>
@@ -1237,11 +1241,10 @@ html.mplay .msongs{padding-bottom:72px}
   </div>
   </div>
   <p class="wcredit">整理制作 · Ethan（HangZhou_XG）</p>
-  <p class="wvisits"><span id="busuanzi_container_site_pv" style="display:none">本站累计访问 <b id="busuanzi_value_site_pv"></b> 人次</span></p>
+  <p class="wvisits" data-base="368"><span hidden>本站累计访问 <b></b> 人次</span></p>
   <ol class="vpool" hidden><li data-r="来1:1、2" data-l="1" data-t="当创造主说话时">上帝既在古时借着众先知多次多方地晓谕列祖，就在这末世借着他儿子晓谕我们。</li><li data-r="赛6:8" data-l="2" data-t="先知的呼召">我又听见主的声音说：‘我可以差遣谁呢？谁肯为我们去呢？’我说：‘我在这里，请差遣我！’</li><li data-r="代下20:20" data-l="3" data-t="旧约先知">约沙法站着说：‘犹大人和耶路撒冷的居民哪，要听我说：信耶和华你们的上帝，就必立稳；信他的先知，就必亨通。’</li><li data-r="林前12:4-6" data-l="4" data-t="新约先知">恩赐原有分别，圣灵却是一位；职事也有分别，主却是一位；功用也有分别，上帝却是一位，在众人里面运行一切的事。</li><li data-r="启1:1、2" data-l="5" data-t="启示与默示">耶稣基督的启示，就是上帝赐给他，叫他将必要快成的事指示他的众仆人。他就差遣使者晓谕他的仆人约翰。约翰便将上帝的道和耶稣基督的见证，凡自己所看见的都证明出来。</li><li data-r="罗15:4" data-l="6" data-t="先知的著作">从前所写的圣经都是为教训我们写的，叫我们因圣经所生的忍耐和安慰可以得着盼望。</li><li data-r="林前10:11" data-l="7" data-t="现在请留心听！">他们遭遇这些事都要作为鉴戒，并且写在经上，正是警戒我们这末世的人。</li><li data-r="路24:27" data-l="8" data-t="解读先知著作">于是从摩西和众先知起，凡经上所指着自己的话，都给他们讲解明白了。</li><li data-r="约壹4:1" data-l="9" data-t="验证先知">亲爱的弟兄啊，一切的灵，你们不可都信，总要试验那些灵是出于上帝的不是，因为世上有许多假先知已经出来了。</li><li data-r="来4:12" data-l="10" data-t="先知权威与当代意义">上帝的道是活泼的，是有功效的，比一切两刃的剑更快，甚至魂与灵，骨节与骨髓，都能刺入、剖开，连心中的思念和主意都能辨明。</li><li data-r="摩3:7" data-l="11" data-t="先知事工在关键时刻的彰显">主耶和华若不将奥秘指示他的仆人众先知，就一无所行。</li><li data-r="珥2:28、29" data-l="12" data-t="末时的先知启示">以后，我要将我的灵浇灌凡有血气的，你们的儿女要说预言；你们的老年人要做异梦，少年人要见异象。在那些日子，我要将我的灵浇灌我的仆人和使女。</li><li data-r="提后3:16、17" data-l="13" data-t="从先知话语带来的福气">圣经都是上帝所默示的，于教训、督责、使人归正、教导人学义都是有益的，叫属上帝的人得以完全，预备行各样的善事。</li><li data-r="太11:29" data-l="13" data-t="从先知话语带来的福气">我心里柔和谦卑，你们当负我的轭，学我的样式；这样，你们心里就必得享安息。</li><li data-r="约14:3" data-l="12" data-t="末时的先知启示">我若去为你们预备了地方，就必再来接你们到我那里去，我在哪里，叫你们也在那里。</li><li data-r="启21:4" data-l="8" data-t="解读先知著作">上帝要擦去他们一切的眼泪；不再有死亡，也不再有悲哀、哭号、疼痛，因为以前的事都过去了。</li><li data-r="赛41:10" data-l="3" data-t="旧约先知">你不要害怕，因为我与你同在；不要惊惶，因为我是你的上帝。我必坚固你，我必帮助你，我必用我公义的右手扶持你。</li><li data-r="哀3:22、23" data-l="11" data-t="先知事工在关键时刻的彰显">我们不至消灭，是出于耶和华诸般的慈爱，是因他的怜悯不至断绝。每早晨这都是新的；你的诚实极其广大！</li><li data-r="提后2:13" data-l="11" data-t="先知事工在关键时刻的彰显">我们纵然失信，他仍是可信的，因为他不能背乎自己。</li><li data-r="来13:5" data-l="11" data-t="先知事工在关键时刻的彰显">我总不撇下你，也不丢弃你。</li><li data-r="林后1:3、4" data-l="13" data-t="从先知话语带来的福气">愿颂赞归与我们的主耶稣基督的父上帝，就是发慈悲的父，赐各样安慰的上帝。我们在一切患难中，他就安慰我们，叫我们能用上帝所赐的安慰去安慰那遭各样患难的人。</li><li data-r="诗34:8" data-l="7" data-t="现在请留心听！">你们要尝尝主恩的滋味，便知道他是美善；投靠他的人有福了！</li><li data-r="耶15:16" data-l="13" data-t="从先知话语带来的福气">我得着你的言语就当食物吃了；你的言语是我心中的欢喜快乐。</li><li data-r="诗119:105" data-l="3" data-t="旧约先知">你的话是我脚前的灯，是我路上的光。</li><li data-r="约8:32" data-l="7" data-t="现在请留心听！">你们必晓得真理，真理必叫你们得以自由。</li><li data-r="约20:29" data-l="13" data-t="从先知话语带来的福气">那没有看见就信的有福了。</li><li data-r="路24:32" data-l="8" data-t="解读先知著作">在路上，他和我们说话，给我们讲解圣经的时候，我们的心岂不是火热的吗？</li><li data-r="罗8:32" data-l="13" data-t="从先知话语带来的福气">上帝既不爱惜自己的儿子，为我们众人舍了，岂不也把万物和他一同白白地赐给我们吗？</li><li data-r="诗8:3、4" data-l="13" data-t="从先知话语带来的福气">我观看你指头所造的天，并你所陈设的月亮星宿，便说：人算什么，你竟顾念他！世人算什么，你竟眷顾他！</li><li data-r="启22:17" data-l="13" data-t="从先知话语带来的福气">圣灵和新妇都说：‘来！’听见的人也该说：‘来！’口渴的人也当来；愿意的都可以白白取生命的水喝。</li><li data-r="彼后3:9" data-l="6" data-t="先知的著作">主所应许的尚未成就，有人以为他是耽延，其实不是耽延，乃是宽容你们，不愿有一人沉沦，乃愿人人都悔改。</li><li data-r="结33:11" data-l="6" data-t="先知的著作">我指着我的永生起誓，我断不喜悦恶人死亡，惟喜悦恶人转离所行的道而活。</li><li data-r="赛58:11" data-l="11" data-t="先知事工在关键时刻的彰显">耶和华也必时常引导你，在干旱之地使你心满意足，骨头强壮；你必像浇灌的园子，又像水流不绝的泉源。</li><li data-r="撒上7:12" data-l="11" data-t="先知事工在关键时刻的彰显">到如今耶和华都帮助我们。</li><li data-r="太5:16" data-l="11" data-t="先知事工在关键时刻的彰显">你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。</li><li data-r="约1:14" data-l="1" data-t="当创造主说话时">道成了肉身，住在我们中间，充充满满地有恩典有真理。我们也见过他的荣光，正是父独生子的荣光。</li><li data-r="赛55:11" data-l="10" data-t="先知权威与当代意义">我口所出的话也必如此，决不徒然返回，却要成就我所喜悦的，在我发他去成就的事上必然亨通。</li><li data-r="彼后1:19" data-l="4" data-t="新约先知">我们并有先知更确的预言，如同灯照在暗处，你们在这预言上留意，直等到天发亮，晨星在你们心里出现的时候，才是好的。</li><li data-r="启1:3" data-l="5" data-t="启示与默示">念这书上预言的和那些听见又遵守其中所记载的，都是有福的，因为日期近了。</li><li data-r="帖前5:20、21" data-l="8" data-t="解读先知著作">不要藐视先知的讲论。但要凡事察验，善美的要持守。</li><li data-r="赛40:1" data-l="13" data-t="从先知话语带来的福气">你们的上帝说：你们要安慰，安慰我的百姓。</li><li data-r="士4:14" data-l="11" data-t="先知事工在关键时刻的彰显">起来！今日就是耶和华将西西拉交在你手的日子。耶和华岂不在你前头行吗？</li><li data-r="创3:9" data-l="1" data-t="当创造主说话时">耶和华上帝呼唤那人，对他说：‘你在哪里？’</li><li data-r="雅5:8" data-l="11" data-t="先知事工在关键时刻的彰显">你们也当忍耐，坚固你们的心，因为主来的日子近了。</li><li data-r="约17:21" data-l="13" data-t="从先知话语带来的福气">使他们都合而为一。正如你父在我里面，我在你里面，使他们也在我们里面，叫世人可以信你差了我来。</li><li data-r="约13:35" data-l="13" data-t="从先知话语带来的福气">你们若有彼此相爱的心，众人因此就认出你们是我的门徒了。</li><li data-r="罗10:13" data-l="12" data-t="末时的先知启示">凡求告主名的就必得救。</li><li data-r="林前2:2" data-l="4" data-t="新约先知">因为我曾定了主意，在你们中间不知道别的，只知道耶稣基督并他钉十字架。</li><li data-r="弗4:13" data-l="4" data-t="新约先知">直等到我们众人在真道上同归于一，认识上帝的儿子，得以长大成人，满有基督长成的身量。</li></ol>
 </div>
 </div>
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！下次打开，欢迎页会换上荣耀的景象。</div>
 <button class="fab" type="button" data-gohome aria-label="返回主页"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>主页</span></button>
 <div class="shsheet" id="shsheet" role="dialog" aria-modal="true" aria-labelledby="sh-h" data-base="https://2377568565.github.io/Ethan_bay/" hidden>
@@ -1389,7 +1392,7 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 <div class="lesson" id="l0" data-title="本季导言 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0" selected>导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l1">第1课 →</a></span>
 </nav>
@@ -1513,11 +1516,11 @@ html.mplay .msongs{padding-bottom:72px}
 <p class="btnrow end"><a class="btn solid" href="#l1">进入第1课 →</a></p>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l1">第1课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l1">第1课 →</a></span></nav>
 </div>
 <div class="lesson" id="l1" data-title="第1课《当创造主说话时》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1" selected>第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l0">← 导言</a><a class="btn ghost" href="#l2">第2课 →</a></span>
 </nav>
@@ -2383,11 +2386,11 @@ html.mplay .msongs{padding-bottom:72px}
 </main>
 </div>
 
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l0">← 导言</a><a class="btn ghost" href="#l2">第2课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l0">← 导言</a><a class="btn ghost" href="#l2">第2课 →</a></span></nav>
 </div>
 <div class="lesson" id="l2" data-title="第2课《先知的呼召》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2" selected>第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l1">← 第1课</a><a class="btn ghost" href="#l3">第3课 →</a></span>
 </nav>
@@ -2829,11 +2832,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l1">← 第1课</a><a class="btn ghost" href="#l3">第3课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l1">← 第1课</a><a class="btn ghost" href="#l3">第3课 →</a></span></nav>
 </div>
 <div class="lesson" id="l3" data-title="第3课《旧约先知》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3" selected>第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l2">← 第2课</a><a class="btn ghost" href="#l4">第4课 →</a></span>
 </nav>
@@ -3270,11 +3273,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l2">← 第2课</a><a class="btn ghost" href="#l4">第4课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l2">← 第2课</a><a class="btn ghost" href="#l4">第4课 →</a></span></nav>
 </div>
 <div class="lesson" id="l4" data-title="第4课《新约先知》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4" selected>第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l3">← 第3课</a><a class="btn ghost" href="#l5">第5课 →</a></span>
 </nav>
@@ -3704,11 +3707,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l3">← 第3课</a><a class="btn ghost" href="#l5">第5课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l3">← 第3课</a><a class="btn ghost" href="#l5">第5课 →</a></span></nav>
 </div>
 <div class="lesson" id="l5" data-title="第5课《启示与默示》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5" selected>第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l4">← 第4课</a><a class="btn ghost" href="#l6">第6课 →</a></span>
 </nav>
@@ -4140,11 +4143,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l4">← 第4课</a><a class="btn ghost" href="#l6">第6课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l4">← 第4课</a><a class="btn ghost" href="#l6">第6课 →</a></span></nav>
 </div>
 <div class="lesson" id="l6" data-title="第6课《先知的著作》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6" selected>第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l5">← 第5课</a><a class="btn ghost" href="#l7">第7课 →</a></span>
 </nav>
@@ -4577,11 +4580,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l5">← 第5课</a><a class="btn ghost" href="#l7">第7课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l5">← 第5课</a><a class="btn ghost" href="#l7">第7课 →</a></span></nav>
 </div>
 <div class="lesson" id="l7" data-title="第7课《现在请留心听！》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7" selected>第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l6">← 第6课</a><a class="btn ghost" href="#l8">第8课 →</a></span>
 </nav>
@@ -5016,11 +5019,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l6">← 第6课</a><a class="btn ghost" href="#l8">第8课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l6">← 第6课</a><a class="btn ghost" href="#l8">第8课 →</a></span></nav>
 </div>
 <div class="lesson" id="l8" data-title="第8课《解读先知著作》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8" selected>第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l7">← 第7课</a><a class="btn ghost" href="#l9">第9课 →</a></span>
 </nav>
@@ -5457,11 +5460,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l7">← 第7课</a><a class="btn ghost" href="#l9">第9课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l7">← 第7课</a><a class="btn ghost" href="#l9">第9课 →</a></span></nav>
 </div>
 <div class="lesson" id="l9" data-title="第9课《验证先知》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9" selected>第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l8">← 第8课</a><a class="btn ghost" href="#l10">第10课 →</a></span>
 </nav>
@@ -5893,11 +5896,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l8">← 第8课</a><a class="btn ghost" href="#l10">第10课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l8">← 第8课</a><a class="btn ghost" href="#l10">第10课 →</a></span></nav>
 </div>
 <div class="lesson" id="l10" data-title="第10课《先知权威与当代意义》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10" selected>第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l9">← 第9课</a><a class="btn ghost" href="#l11">第11课 →</a></span>
 </nav>
@@ -6329,11 +6332,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l9">← 第9课</a><a class="btn ghost" href="#l11">第11课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l9">← 第9课</a><a class="btn ghost" href="#l11">第11课 →</a></span></nav>
 </div>
 <div class="lesson" id="l11" data-title="第11课《先知事工在关键时刻的彰显》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11" selected>第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l10">← 第10课</a><a class="btn ghost" href="#l12">第12课 →</a></span>
 </nav>
@@ -6774,11 +6777,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l10">← 第10课</a><a class="btn ghost" href="#l12">第12课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l10">← 第10课</a><a class="btn ghost" href="#l12">第12课 →</a></span></nav>
 </div>
 <div class="lesson" id="l12" data-title="第12课《末时的先知启示》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12" selected>第12课 末时的先知启示</option><option value="13">第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l11">← 第11课</a><a class="btn ghost" href="#l13">第13课 →</a></span>
 </nav>
@@ -7215,11 +7218,11 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l11">← 第11课</a><a class="btn ghost" href="#l13">第13课 →</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l11">← 第11课</a><a class="btn ghost" href="#l13">第13课 →</a></span></nav>
 </div>
 <div class="lesson" id="l13" data-title="第13课《从先知话语带来的福气》 · 预言的恩赐">
 <nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
+  <a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a>
   <label class="sel"><span class="vh">切换课次</span><select data-go><option value="0">导言 本季导言</option><option value="1">第1课 当创造主说话时</option><option value="2">第2课 先知的呼召</option><option value="3">第3课 旧约先知</option><option value="4">第4课 新约先知</option><option value="5">第5课 启示与默示</option><option value="6">第6课 先知的著作</option><option value="7">第7课 现在请留心听！</option><option value="8">第8课 解读先知著作</option><option value="9">第9课 验证先知</option><option value="10">第10课 先知权威与当代意义</option><option value="11">第11课 先知事工在关键时刻的彰显</option><option value="12">第12课 末时的先知启示</option><option value="13" selected>第13课 从先知话语带来的福气</option></select></label>
   <span class="pn"><a class="btn ghost" href="#l12">← 第12课</a></span>
 </nav>
@@ -7662,10 +7665,10 @@ html.mplay .msongs{padding-bottom:72px}
 </section>
 </main>
 </div>
-<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l12">← 第12课</a></span></nav>
+<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><span class="pn"><a class="btn ghost" href="#l12">← 第12课</a></span></nav>
 </div>
 <div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
-<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a></nav>
+<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a></nav>
 <section class="qahome">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
@@ -7688,10 +7691,10 @@ html.mplay .msongs{padding-bottom:72px}
 </a><div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
   <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a></nav>
 </div>
 <div class="lesson" id="qa1" data-title="罪孽为何使人与上帝隔绝？ · 问题彩蛋">
-<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa2">下一题 →</a></span></nav>
+<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa2">下一题 →</a></span></nav>
 <article class="qna">
 <header class="cover">
   <p class="eye"><i>研经问答 · 01</i>深度解析</p>
@@ -7830,10 +7833,10 @@ html.mplay .msongs{padding-bottom:72px}
 <p class="end">✦ ✦ ✦</p>
 
 </article>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa2">下一题 →</a></span></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa2">下一题 →</a></span></nav>
 </div>
 <div class="lesson" id="qa2" data-title="罪从哪里来？ · 问题彩蛋">
-<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa1">← 上一题</a></span></nav>
+<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa1">← 上一题</a></span></nav>
 <article class="qna">
 <header class="cover">
   <p class="eye"><i>研经问答 · 02</i>深度解析</p>
@@ -8004,10 +8007,10 @@ html.mplay .msongs{padding-bottom:72px}
 <p class="end">✦ ✦ ✦</p>
 
 </article>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa1">← 上一题</a></span></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><a class="btn ghost" href="#qa1">← 上一题</a></span></nav>
 </div>
 <div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
-<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 <section class="mhome" data-list="https://2377568565.github.io/Ethan_bay/music/list.json" data-base="https://2377568565.github.io/Ethan_bay/music/">
   <p class="eyebrow">学课之余 · 安静聆听</p>
   <h1>音乐</h1>
@@ -8018,10 +8021,10 @@ html.mplay .msongs{padding-bottom:72px}
   <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“⬇”。</p>
   <script type="application/json" class="mdata">[{"id": "m36bffd4d", "title": "A Simple Prayer", "sub": "简单的祷告", "file": "m36bffd4d.mp3", "dur": 204}, {"id": "m31c13b6d", "title": "Agnus Dei", "sub": "羔羊颂", "file": "m31c13b6d.mp3", "dur": 245}, {"id": "mb20202f8", "title": "All Creatures of Our God and King", "sub": "天地万物同颂主", "file": "mb20202f8.mp3", "dur": 165}, {"id": "mfb34f020", "title": "All Is Well", "sub": "万事安好", "file": "mfb34f020.mp3", "dur": 198}, {"id": "mf1662a9f", "title": "All Night, All Day / Jesus Loves Me", "sub": "整夜整日／耶稣爱我（组曲）", "file": "mf1662a9f.mp3", "dur": 164}, {"id": "m14235f88", "title": "As the Deer", "sub": "如鹿切慕溪水", "file": "m14235f88.mp3", "dur": 140}, {"id": "m948ffde3", "title": "Away in a Manger", "sub": "远远在马槽里", "file": "m948ffde3.mp3", "dur": 261}, {"id": "awesome-god", "title": "Awesome God", "sub": "大能的神", "file": "awesome-god.mp3", "dur": 107}, {"id": "be-thou-my-vision", "title": "Be Thou My Vision", "sub": "成为我异象", "file": "be-thou-my-vision.mp3", "dur": 213}, {"id": "m7b3f4088", "title": "Be Unto Your Name", "sub": "归于你名", "file": "m7b3f4088.mp3", "dur": 187}, {"id": "m4b6c786b", "title": "Beautiful One", "sub": "美丽的主", "file": "m4b6c786b.mp3", "dur": 217}, {"id": "m59e76016", "title": "Better Is One Day", "sub": "在你殿中一日", "file": "m59e76016.mp3", "dur": 256}, {"id": "m439f6981", "title": "Blessed Be Your Name", "sub": "称颂你名", "file": "m439f6981.mp3", "dur": 273}, {"id": "m60609f6d", "title": "Born to Worship", "sub": "为敬拜而生", "file": "m60609f6d.mp3", "dur": 173}, {"id": "m09ce8fa0", "title": "Brahms' Lullaby", "sub": "勃拉姆斯摇篮曲", "file": "m09ce8fa0.mp3", "dur": 142}, {"id": "mf092b881", "title": "Come, Now Is the Time to Worship", "sub": "来吧，现在就来敬拜", "file": "mf092b881.mp3", "dur": 266}, {"id": "ma1b96467", "title": "Come, Thou Fount of Every Blessing", "sub": "万福源头", "file": "ma1b96467.mp3", "dur": 218}, {"id": "m2fa8a887", "title": "Doxology", "sub": "三一颂", "file": "m2fa8a887.mp3", "dur": 97}, {"id": "m6bec1816", "title": "Draw Me Close to You", "sub": "吸引我更靠近你", "file": "m6bec1816.mp3", "dur": 235}, {"id": "m97888197", "title": "Fairest Lord Jesus", "sub": "美哉主耶稣", "file": "m97888197.mp3", "dur": 150}, {"id": "m3057af6b", "title": "For Unto Us a Child Is Born", "sub": "有一婴孩为我们而生", "file": "m3057af6b.mp3", "dur": 179}, {"id": "mb898aa28", "title": "Forever Reign", "sub": "永远掌权", "file": "mb898aa28.mp3", "dur": 235}, {"id": "m1ca60784", "title": "Give Thanks", "sub": "献上感恩", "file": "m1ca60784.mp3", "dur": 178}, {"id": "ma876de19", "title": "God Is Love", "sub": "神就是爱", "file": "ma876de19.mp3", "dur": 167}, {"id": "m164bbd53", "title": "God Is So Good", "sub": "神真好", "file": "m164bbd53.mp3", "dur": 124}, {"id": "m99297ffc", "title": "God of All I Am", "sub": "我一切的神", "file": "m99297ffc.mp3", "dur": 219}, {"id": "me3dbf673", "title": "God of Wonders", "sub": "奇妙的神", "file": "me3dbf673.mp3", "dur": 205}, {"id": "m0b6666f0", "title": "Great Is the Lord", "sub": "主为大", "file": "m0b6666f0.mp3", "dur": 131}, {"id": "m3b99aee4", "title": "Great Light of the World", "sub": "世界的大光", "file": "m3b99aee4.mp3", "dur": 247}, {"id": "m7a296a3b", "title": "Hallelujah (Your Love Is Amazing)", "sub": "哈利路亚，你的爱奇妙", "file": "m7a296a3b.mp3", "dur": 148}, {"id": "m9b80eb84", "title": "Hark! The Herald Angels Sing", "sub": "听啊，天使高声唱", "file": "m9b80eb84.mp3", "dur": 226}, {"id": "m9120131f", "title": "He Is Exalted", "sub": "主被高举", "file": "m9120131f.mp3", "dur": 231}, {"id": "m9f4a141d", "title": "He Knows My Name", "sub": "祂知道我的名", "file": "m9f4a141d.mp3", "dur": 205}, {"id": "m14600b0a", "title": "He's Watching Over You", "sub": "祂看顾你", "file": "m14600b0a.mp3", "dur": 184}, {"id": "mbd34fcc3", "title": "Here I Am to Worship", "sub": "我来敬拜", "file": "mbd34fcc3.mp3", "dur": 283}, {"id": "mfc1d87af", "title": "Here in This Place", "sub": "在这地方", "file": "mfc1d87af.mp3", "dur": 198}, {"id": "m6e04d5bc", "title": "Here with Us", "sub": "与我们同在", "file": "m6e04d5bc.mp3", "dur": 212}, {"id": "mf93d662c", "title": "Holy, Holy, Holy", "sub": "圣哉，圣哉，圣哉", "file": "mf93d662c.mp3", "dur": 159}, {"id": "me23def48", "title": "How Great Is Our God", "sub": "我神真伟大", "file": "me23def48.mp3", "dur": 181}, {"id": "m11303c66", "title": "I Could Sing of Your Love Forever", "sub": "我要永远歌唱你的爱", "file": "m11303c66.mp3", "dur": 191}, {"id": "md5e78a59", "title": "I Will Follow", "sub": "我要跟随", "file": "md5e78a59.mp3", "dur": 229}, {"id": "m7be13f9a", "title": "Indescribable", "sub": "难以形容", "file": "m7be13f9a.mp3", "dur": 250}, {"id": "m4dc7c428", "title": "Jesus, I Am Resting, Resting", "sub": "耶稣，我今安息", "file": "m4dc7c428.mp3", "dur": 281}, {"id": "maaee39c6", "title": "Joy to the World", "sub": "普天同庆", "file": "maaee39c6.mp3", "dur": 154}, {"id": "mbd86bc5e", "title": "Joyful, Joyful, We Adore Thee", "sub": "欢欣，欢欣，我们崇拜", "file": "mbd86bc5e.mp3", "dur": 133}, {"id": "mcc873a18", "title": "Lord Most High", "sub": "至高的主", "file": "mcc873a18.mp3", "dur": 224}, {"id": "m0aed28e6", "title": "Lord, I Lift Your Name on High", "sub": "主，我高举你的名", "file": "m0aed28e6.mp3", "dur": 157}, {"id": "m8e29db5c", "title": "Made to Praise", "sub": "为赞美而造", "file": "m8e29db5c.mp3", "dur": 240}, {"id": "m398ea7fc", "title": "No Eye Had Seen", "sub": "眼睛未曾看见", "file": "m398ea7fc.mp3", "dur": 183}, {"id": "mbeebe861", "title": "O Come, All Ye Faithful", "sub": "齐来崇拜", "file": "mbeebe861.mp3", "dur": 220}, {"id": "m2ea80822", "title": "O Worship the King / This Is My Father's World", "sub": "敬拜君王／这是天父世界", "file": "m2ea80822.mp3", "dur": 182}, {"id": "ma5d403d6", "title": "Oh My Soul", "sub": "我的灵魂啊", "file": "ma5d403d6.mp3", "dur": 189}, {"id": "m0bcd6a2e", "title": "Oh, How I Love Jesus", "sub": "我何等爱耶稣", "file": "m0bcd6a2e.mp3", "dur": 230}, {"id": "mb6779411", "title": "Open the Eyes of My Heart", "sub": "开我心灵的眼睛", "file": "mb6779411.mp3", "dur": 213}, {"id": "med099505", "title": "Our God Reigns", "sub": "我神掌权", "file": "med099505.mp3", "dur": 287}, {"id": "mdef63fe0", "title": "Praise to the Lord, the Almighty", "sub": "赞美全能神", "file": "mdef63fe0.mp3", "dur": 184}, {"id": "m904d9b41", "title": "Shine, Jesus, Shine", "sub": "照亮吧，耶稣", "file": "m904d9b41.mp3", "dur": 188}, {"id": "m795016c1", "title": "Shout to the Lord", "sub": "向主欢呼", "file": "m795016c1.mp3", "dur": 212}, {"id": "mcd57a01b", "title": "Step by Step", "sub": "一步一步", "file": "mcd57a01b.mp3", "dur": 195}, {"id": "m927e29ed", "title": "Sweet Hour of Prayer / Whisper a Prayer", "sub": "祈祷良辰／轻声祷告（组曲）", "file": "m927e29ed.mp3", "dur": 214}, {"id": "m519c037c", "title": "Tell Me the Story (Hymn Medley)", "sub": "告诉我耶稣的故事（诗歌组曲）", "file": "m519c037c.mp3", "dur": 204}, {"id": "m2da589ab", "title": "That's What Christmas Means to Me", "sub": "这就是圣诞对我的意义", "file": "m2da589ab.mp3", "dur": 233}, {"id": "mc79f69ad", "title": "The Greatness of Our God", "sub": "我神何等伟大", "file": "mc79f69ad.mp3", "dur": 233}, {"id": "m25828741", "title": "The Heart of Worship", "sub": "敬拜的心", "file": "m25828741.mp3", "dur": 235}, {"id": "md50b1610", "title": "The Lord's Prayer", "sub": "主祷文", "file": "md50b1610.mp3", "dur": 129}, {"id": "m17464e37", "title": "The Very First Christmas Morning", "sub": "第一个圣诞清晨", "file": "m17464e37.mp3", "dur": 179}, {"id": "mf2e2d507", "title": "This Is My Father's World", "sub": "这是天父世界", "file": "mf2e2d507.mp3", "dur": 180}, {"id": "m94f56ccd", "title": "This Is Our God", "sub": "这是我们的神", "file": "m94f56ccd.mp3", "dur": 252}, {"id": "m8e29122a", "title": "Thy Word", "sub": "你的话", "file": "m8e29122a.mp3", "dur": 181}, {"id": "m0e371c06", "title": "We Bow Down", "sub": "我们俯伏", "file": "m0e371c06.mp3", "dur": 178}, {"id": "m73191926", "title": "We Fall Down", "sub": "俯伏敬拜", "file": "m73191926.mp3", "dur": 161}, {"id": "m0e0c6ff2", "title": "We Three Kings / What Child Is This", "sub": "三王来朝／这婴孩是谁", "file": "m0e0c6ff2.mp3", "dur": 263}, {"id": "m5b895068", "title": "Welcome to Our World", "sub": "欢迎来到我们的世界", "file": "m5b895068.mp3", "dur": 180}, {"id": "m82242908", "title": "What a Friend We Have in Jesus", "sub": "耶稣恩友", "file": "m82242908.mp3", "dur": 230}, {"id": "m4380513f", "title": "Wonderful, Merciful Savior", "sub": "奇妙慈爱的救主", "file": "m4380513f.mp3", "dur": 173}, {"id": "m1aff1d6e", "title": "You Alone", "sub": "唯有你", "file": "m1aff1d6e.mp3", "dur": 249}, {"id": "md5de6af7", "title": "You Are My All in All", "sub": "你是我的一切", "file": "md5de6af7.mp3", "dur": 166}, {"id": "m9812d719", "title": "You Are My King", "sub": "你是我的王", "file": "m9812d719.mp3", "dur": 190}, {"id": "mac9ae653", "title": "You Are So Good to Me", "sub": "你待我真好", "file": "mac9ae653.mp3", "dur": 101}, {"id": "meb258b79", "title": "You Created Me", "sub": "你创造了我", "file": "meb258b79.mp3", "dur": 213}, {"id": "m3d4d34fb", "title": "You've Given Life to Me", "sub": "你赐我生命", "file": "m3d4d34fb.mp3", "dur": 161}, {"id": "me8d6b4f1", "title": "Your Love, Oh Lord", "sub": "主啊，你的爱", "file": "me8d6b4f1.mp3", "dur": 207}]</script>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 </div>
 <div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
-<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><button class="btn share" type="button" data-share="ask"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>分享提问区</button></span></nav>
+<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn"><button class="btn share" type="button" data-share="ask"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>分享提问区</button></span></nav>
 <section class="askpage" data-topic="q4ask-c656a4ca18696d0b" data-relay="https://ntfy.sh" data-data="https://2377568565.github.io/Ethan_bay/data/ask.json" data-online="https://2377568565.github.io/Ethan_bay/">
   <header class="askhead">
     <p class="eyebrow">问题彩蛋 · 提问区</p>
@@ -8066,7 +8069,7 @@ html.mplay .msongs{padding-bottom:72px}
     </div>
   </div>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a><a class="btn gohome" href="#home" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>主页</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 </div>
 <div id="bpop" class="bpop" hidden>
   <div class="bpop-bg" data-bclose></div>
@@ -8126,7 +8129,7 @@ html.mplay .msongs{padding-bottom:72px}
   /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
   function norm(S){
     S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
-    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};return S;
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};S.hits=S.hits||0;return S;
   }
   /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
      q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理
@@ -8212,6 +8215,8 @@ html.mplay .msongs{padding-bottom:72px}
     return 'bad';
   }
 
+  /* 访问计数：打开网页时发一条 {h:1,id:'h_…'}（不带身份、不签名），只把人次加一 */
+  function hit(msg){try{var o=JSON.parse(msg);return !!(o&&o.h===1&&!o.p&&/^h_[0-9a-z]{10,24}$/.test(o.id||''));}catch(e){return false;}}
   /* 把中转站里新的消息（按时间顺序）合进数据。msgs: [{id, time(秒), message}] */
   function merge(S,msgs){
     norm(S);
@@ -8219,6 +8224,7 @@ html.mplay .msongs{padding-bottom:72px}
              .sort(function(a,b){return a.time-b.time||(a.id<b.id?-1:1);});
     var out=[];
     return msgs.reduce(function(chain,m){
+      if(hit(m.message))return chain.then(function(){S.seen[m.id]=m.time;if(m.time>(S.last||0))S.last=m.time;S.hits++;out.push({id:m.id,why:''});});
       return chain.then(function(){return open(m.message);}).then(function(r){
         S.seen[m.id]=m.time;if(m.time>(S.last||0))S.last=m.time;
         var why=r?apply(S,r.P,r.uid,m.time*1000):'sig';
@@ -8753,6 +8759,13 @@ window.Q4Hub=(function(){
       .then(function(){mark();emit();return H.S;},function(e){loading=null;throw e;});
     return loading;
   };
+  // 访问计数：打开网页时投一条不带身份的 {h:1}；同一台设备 10 分钟内只算一次；自动测试的浏览器不算
+  H.hit=function(){
+    if(!H.ok||navigator.webdriver)return;
+    var last=+get('hit')||0;if(Date.now()-last<6e5&&Date.now()>last)return;set('hit',String(Date.now()));
+    net(fetch(RELAY+'/'+TOPIC,{method:'POST',body:JSON.stringify({h:1,id:A.rid('h')})}).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();}))
+      .then(function(m){if(H.S)return A.merge(H.S,[m]).then(emit);},function(){});
+  };
   // 签名后投进中转站，再马上用到本机数据上
   H.post=function(P){
     return H.ensure().then(function(k){return A.sign(k,P);}).then(function(body){
@@ -9171,6 +9184,7 @@ window.Q4Hub=(function(){
   function ckKey(sec){return sec.id.replace('-yw-','-');}
   function mineCk(k){if(get('ck:'+k)==='1')return true;var u=H.uid&&H.uid.slice(0,12);return !!(u&&H.S&&(H.S.checks[k]||[]).indexOf(u)>=0);}
   function nCk(k){return (H.S&&H.S.checks[k]||[]).length;}
+  var CK_SHOW=10;   // 一天的打卡人数达到这么多才显示出来
   days.forEach(function(sec){
     var box=el('div','ckin');box.dataset.ck=ckKey(sec);
     box.innerHTML='<p class="ck-q">这一天的学课读完了吗？</p><button type="button" class="btn solid ck-btn">✓ 读完了，打卡</button><p class="ck-n" aria-live="polite"></p><p class="ck-cheer" hidden></p>';
@@ -9182,7 +9196,7 @@ window.Q4Hub=(function(){
       var box=sec.querySelector('.ckin');if(!box)return;var k=ckKey(sec),me=mineCk(k),n=Math.max(nCk(k),me?1:0),b=box.querySelector('.ck-btn');
       box.classList.toggle('done',me);b.textContent=me?'✓ 你已打卡':'✓ 读完了，打卡';b.disabled=me;
       box.querySelector('.ck-q').textContent=me?'这一天你已经读完了，真好！':'这一天的学课读完了吗？';
-      box.querySelector('.ck-n').innerHTML=H.S?(n?'已有 <b>'+n+'</b> 人读完这一天':'你会是第一个读完这一天的人'):'';
+      box.querySelector('.ck-n').innerHTML=H.S&&n>=CK_SHOW?'已有 <b>'+n+'</b> 人读完这一天':'';   // 人少时不显示人数
     });
     weekCard();
   }
@@ -9200,13 +9214,11 @@ window.Q4Hub=(function(){
   function weekCard(){
     var card=document.querySelector('#welcome .wtogether');if(!card)return;
     var no=D.no;if(!no){card.hidden=true;return;}
-    var keys=['sab','sun','mon','tue','wed','thu','fri'],people={},mine=0,h='';
-    keys.forEach(function(x){var k='l'+no+'-'+x,me=mineCk(k),n=Math.max(nCk(k),me?1:0);if(me)mine++;
-      (H.S&&H.S.checks[k]||[]).forEach(function(u){people[u]=1;});
-      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#l'+no+'-yw-'+x+'" title="'+DN[x]+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(H.S?n:'·')+'</span></a>';});
+    var keys=['sab','sun','mon','tue','wed','thu','fri'],mine=0,h='';   // 只显示自己读完了哪几天，不显示人数
+    keys.forEach(function(x){var k='l'+no+'-'+x,me=mineCk(k);if(me)mine++;
+      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#l'+no+'-yw-'+x+'" title="'+DN[x]+(me?' · 已读完':'')+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(me?'✓':'·')+'</span></a>';});
     card.querySelector('.wt-days').innerHTML=h;
-    var np=Object.keys(people).length;
-    card.querySelector('.wt-msg').innerHTML=H.S?('第'+no+'课本周已有 <b>'+np+'</b> 位弟兄姊妹打卡'+(mine?'，你已读完 <b>'+mine+'</b>/7 天':'；读完当天的学课原文，记得在最后打卡')):'正在读取大家的打卡……';
+    card.querySelector('.wt-msg').innerHTML=mine?('第'+no+'课本周你已读完 <b>'+mine+'</b>/7 天'+(mine===7?'，全部读完了，真好！':'，继续加油')):('读完当天的学课原文，记得在最后打卡；读完的日子会在这里打上 ✓');
     card.hidden=false;
   }
 
@@ -9271,8 +9283,11 @@ window.Q4Hub=(function(){
   }
   H.on(function(S){compute(S);if(/^#ask(-|$)/.test(location.hash))markReplies();else paint();paintCk();paintAll();});
   window.Q4Comm={paint:paintCk};   // 账号同步来的打卡马上显示
+  // 欢迎页“本站累计访问 N 人次” = 起点（以前不蒜子上的数字）+ 之后的访问
+  var vis=document.querySelector('#welcome .wvisits');
+  if(vis)H.on(function(S){var n=(S.hits0||+vis.dataset.base||0)+(S.hits||0),sp=vis.querySelector('span');if(n>0){sp.querySelector('b').textContent=n;sp.hidden=false;}});
   paintCk();
-  function kick(){setTimeout(function(){start(false);},1200);}
+  function kick(){setTimeout(function(){start(false);},1200);setTimeout(H.hit,2000);}
   if(document.readyState==='complete')kick();else window.addEventListener('load',kick);
 })();
 
@@ -9321,7 +9336,7 @@ window.Q4Hub=(function(){
   });
   applyFs(fs());applyTh(theme());
 
-  /* ===== 工具按钮：和“主页”浮动按钮并排、一样一直显示（往下读时一起变成半透明）；欢迎页、全季目录里也有 ===== */
+  /* ===== 工具按钮：和“主页”浮动按钮并排、一样一直显示（往下读时一起变成半透明）；欢迎页、学课目录里也有 ===== */
   var SVG={s:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
     a:'<span class="aa" aria-hidden="true">A<small>A</small></span>'};
   var tools=el('div','tools');tools.innerHTML='<button type="button" class="tbtn" data-rsearch aria-label="搜索">'+SVG.s+'</button><button type="button" class="tbtn" data-rsettings aria-label="阅读设置">'+SVG.a+'</button>';
@@ -10030,8 +10045,9 @@ window.Q4Hub=(function(){
   var inWx=/MicroMessenger/i.test(navigator.userAgent),de=document.documentElement;
   var SONGS=[];try{SONGS=JSON.parse(page.querySelector('.mdata').textContent)||[];}catch(e){}
   var byId={};function index(){byId={};SONGS.forEach(function(x){byId[x.id]=x;});}index();
-  var A=new Audio();A.preload='none';
+  var A=new Audio();A.preload='auto';
   var cur='',queue=[],loop=get('mloop')==='1',shuf=get('mshuf')==='1',q='';
+  var want=false,buf=null,bufPct=-1,waitT=null,pre={},rate=[],rateT=null;   // want：想让它播着；buf：网速跟不上时先停下来缓冲；pre：提前下载好的下一首
   var mini=el('div','mplayer');mini.hidden=true;mini.setAttribute('role','region');mini.setAttribute('aria-label','正在播放的音乐');
   mini.innerHTML='<a class="mp-go" href="#music" aria-label="回到音乐"><span class="mp-ic" aria-hidden="true">♪</span><span class="mp-tt"><span class="mp-t"></span><span class="mp-s"></span></span></a>'+
     '<button type="button" class="mp-prev" aria-label="上一首"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M5 5h2.4v14H5zM20 5v14L8.6 12z"/></svg></button>'+
@@ -10047,7 +10063,7 @@ window.Q4Hub=(function(){
     '<button class="ms-play" type="button" data-mplay aria-label="播放《'+esc(x.title)+'》"><span class="ms-ic" aria-hidden="true"></span></button>'+
     '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub?'<p class="ms-s">'+esc(x.sub)+'</p>':'')+'</div>'+
     '<span class="ms-tm">'+(x.dur?mmss(x.dur):'')+'</span>'+
-    '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(x.file))+'" download="'+esc(x.title)+'.mp3" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
+    '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(x.file))+'" download="'+esc(x.title+(/\.\w+$/.exec(x.file)||['.mp3'])[0])+'" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
     '<button class="ms-ib share" type="button" data-share="music-'+esc(x.id)+'" aria-label="分享《'+esc(x.title)+'》">'+SHARE+'</button></span>'+
     '<div class="ms-bar"><i class="ms-pg" aria-hidden="true"><b></b></i></div></article>';}
   function render(){
@@ -10063,13 +10079,51 @@ window.Q4Hub=(function(){
       if(startId){ids.splice(ids.indexOf(startId),1);ids.unshift(startId);}}
     queue=ids;
   }
+  function urlOf(x){return BASE+encodeURIComponent(x.file);}
   function play(id){
     var x=byId[id];if(!x)return;
-    if(id!==cur){cur=id;A.src=BASE+encodeURIComponent(x.file);}
+    if(id!==cur){cur=id;stopBuf();rate=[];A.src=pre[id]&&pre[id].url||urlOf(x);}   // 提前下载好的直接从手机里播
     if(queue.indexOf(id)<0)makeQueue(id);
+    want=true;if(!rateT)rateT=setInterval(sample,500);
     try{window.dispatchEvent(new Event('q4:music'));}catch(e){}
-    var p=A.play();if(p&&p.catch)p.catch(function(){paint();});
+    if(!buf)go();
     media();paint();
+  }
+  function go(){var p=A.play();if(p&&p.catch)p.catch(function(e){if(e&&e.name==='NotAllowedError'){want=false;stopBuf();}paint();});}
+  function hold(){want=false;stopBuf();A.pause();paint();}   // 使用者按了暂停
+  /* 网速跟不上时：与其一卡一卡，不如先停下来多缓冲一些。
+     按最近几秒的下载速度估算：已缓冲的部分够撑到整首下载完，就接着播，之后不会再卡 */
+  function ahead(){var b=A.buffered,t=A.currentTime;for(var i=0;i<b.length;i++)if(b.start(i)<=t+0.5&&b.end(i)>t)return b.end(i)-t;return 0;}
+  function sample(){   // 一直记着最近 8 秒下载到了第几秒，用来估网速
+    if(!cur)return;var e=A.currentTime+ahead(),now=Date.now(),l=rate[rate.length-1];
+    if(l&&e<l[1]-0.5)rate=[];rate.push([now,e]);while(rate.length>2&&now-rate[0][0]>8000)rate.shift();
+  }
+  function slope(a,z){var dt=(z[0]-a[0])/1000;return dt>0?(z[1]-a[1])/dt:0;}
+  function speed(){   // 每秒能下载几秒的歌；取整段和后半段里慢的那个，免得被开头一下子来的一批数据骗了
+    var n=rate.length;if(n<2||rate[n-1][0]-rate[0][0]<2500)return -1;
+    return Math.min(slope(rate[0],rate[n-1]),slope(rate[Math.floor(n/2)],rate[n-1]));
+  }
+  function startBuf(){
+    if(buf||!want||!cur)return;
+    var t0=Date.now();bufPct=0;
+    buf=setInterval(function(){
+      var d=A.duration,h=ahead(),e=A.currentTime+h,now=Date.now(),g=speed();
+      var rest=isFinite(d)&&d>0?Math.max(0,d-e):1e9;
+      var ge=0.85*g,need=g<0?1e9:ge>=1?4:ge>0.02?Math.min(rest+h,(1/ge-1)*rest+3):1e9;   // 下载比播放慢时：缓冲要够撑到整首下载完
+      if(rest<=0.5||(h>=4&&h>=need)||(now-t0>60000&&h>=3)){stopBuf();go();paint();return;}
+      if(need<1e9)bufPct=Math.max(bufPct,Math.min(99,Math.round(h/Math.max(4,need)*100)));prog();
+    },500);
+    A.pause();paint();
+  }
+  function stopBuf(){if(buf){clearInterval(buf);buf=null;}clearTimeout(waitT);bufPct=-1;}
+  function prefetch(){   // 这一首已经全部下载好了，就趁空先把下一首下载到手机里，换歌时不用等
+    if(!cur||!want||!window.fetch||!window.URL||!URL.createObjectURL)return;
+    var d=A.duration;if(!(isFinite(d)&&(A.currentTime+ahead()>=d-0.5||d-A.currentTime<30)))return;
+    var i=queue.indexOf(cur),nid=queue[i+1]||(loop?queue[0]:'');if(!nid||nid===cur||pre[nid]||!byId[nid])return;
+    var o=pre[nid]={};
+    fetch(urlOf(byId[nid])).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){if(pre[nid]===o)o.url=URL.createObjectURL(b);}).catch(function(){if(pre[nid]===o)delete pre[nid];});
+    var ks=Object.keys(pre);   // 手机里最多留 3 首
+    for(var k=0;k<ks.length&&Object.keys(pre).length>3;k++){var id=ks[k];if(id===cur||id===nid)continue;if(pre[id].url&&A.src!==pre[id].url)URL.revokeObjectURL(pre[id].url);delete pre[id];}
   }
   function next(step,manual){
     if(!queue.length)makeQueue(cur);var i=queue.indexOf(cur)+step;
@@ -10077,62 +10131,71 @@ window.Q4Hub=(function(){
     if(i<0)i=queue.length-1;
     play(queue[i]);return true;
   }
-  function stop(){A.pause();cur='';A.removeAttribute('src');try{A.load();}catch(e){}paint();prog();}
+  function stop(){want=false;stopBuf();A.pause();cur='';A.removeAttribute('src');try{A.load();}catch(e){}paint();prog();}
   function paint(){
     [].forEach.call(wrap.querySelectorAll('.msong'),function(it){
-      var on=it.dataset.id===cur,pl=on&&!A.paused,x=byId[it.dataset.id]||{};it.classList.toggle('cur',on);it.classList.toggle('playing',pl);
+      var on=it.dataset.id===cur,pl=on&&want,x=byId[it.dataset.id]||{};it.classList.toggle('cur',on);it.classList.toggle('playing',pl);it.classList.toggle('buffering',on&&!!buf);
       it.querySelector('[data-mplay]').setAttribute('aria-label',(pl?'暂停':'播放')+'《'+(x.title||'')+'》');
     });
     var show=!!cur;
     mini.hidden=!show;de.classList.toggle('mplay',show);
     if(cur){
-      var cx=byId[cur]||{};mini.querySelector('.mp-t').textContent=cx.title||'';var ms=mini.querySelector('.mp-s');ms.textContent=cx.sub||'';ms.hidden=!cx.sub;
-      var pp=mini.querySelector('.mp-pp');pp.textContent=A.paused?'▶':'❚❚';pp.setAttribute('aria-label',A.paused?'继续播放':'暂停');
-      mini.classList.toggle('paused',A.paused);
+      var cx=byId[cur]||{};mini.querySelector('.mp-t').textContent=cx.title||'';var ms=mini.querySelector('.mp-s');ms.textContent=buf?'网络慢，正在缓冲'+(bufPct>0?' '+bufPct+'%':'')+'…':(cx.sub||'');ms.hidden=!buf&&!cx.sub;
+      var pp=mini.querySelector('.mp-pp');pp.textContent=want?'❚❚':'▶';pp.setAttribute('aria-label',want?'暂停':'继续播放');
+      mini.classList.toggle('paused',!want);mini.classList.toggle('buffering',!!buf);
     }
-    var all=page.querySelector('[data-mall]');all.textContent=(cur&&!A.paused)?'❚❚ 暂停':(cur?'▶ 继续播放':'▶ 全部播放');
+    var all=page.querySelector('[data-mall]');all.textContent=(cur&&want)?'❚❚ 暂停':(cur?'▶ 继续播放':'▶ 全部播放');
     var lp=page.querySelector('[data-mloop]');lp.setAttribute('aria-pressed',loop?'true':'false');lp.classList.toggle('on',loop);
     var sh=page.querySelector('[data-mshuf]');sh.setAttribute('aria-pressed',shuf?'true':'false');sh.classList.toggle('on',shuf);
   }
   function prog(){
     var t=A.currentTime,d=A.duration||0,w=(cur&&d?Math.min(100,t/d*100):0)+'%';
     var it=cur&&cardOf(cur);
-    if(it){it.querySelector('.ms-pg b').style.width=w;it.querySelector('.ms-tm').textContent=mmss(t)+(d?' / '+mmss(d):'');}
+    if(it){it.querySelector('.ms-pg b').style.width=w;it.querySelector('.ms-tm').textContent=buf?'缓冲'+(bufPct>0?' '+bufPct+'%':'…'):mmss(t)+(d?' / '+mmss(d):'');}
     mini.querySelector('.mp-pg b').style.width=w;
+    if(buf){var ms=mini.querySelector('.mp-s');ms.textContent='网络慢，正在缓冲'+(bufPct>0?' '+bufPct+'%':'')+'…';ms.hidden=false;}
   }
   function media(){
     if(!('mediaSession' in navigator)||!cur)return;
     try{navigator.mediaSession.metadata=new MediaMetadata({title:(byId[cur]||{}).title||'',artist:(byId[cur]||{}).sub||'预言的恩赐 · 音乐',album:'预言的恩赐 · 音乐'});
       navigator.mediaSession.setActionHandler('play',function(){play(cur);});
-      navigator.mediaSession.setActionHandler('pause',function(){A.pause();});
+      navigator.mediaSession.setActionHandler('pause',hold);
       navigator.mediaSession.setActionHandler('previoustrack',function(){next(-1,true);});
       navigator.mediaSession.setActionHandler('nexttrack',function(){next(1,true);});
     }catch(e){}
   }
-  A.addEventListener('play',paint);A.addEventListener('pause',paint);A.addEventListener('timeupdate',prog);
+  A.addEventListener('play',paint);A.addEventListener('timeupdate',prog);
+  A.addEventListener('pause',function(){if(A.paused&&!buf&&want&&!A.ended&&A.getAttribute('src')){want=false;}paint();});   // 被系统暂停（来电、别的声音）也算暂停
+  A.addEventListener('waiting',function(){   // 播到一半卡住：马上停下来缓冲；刚开始播：给它一秒钟
+    clearTimeout(waitT);if(!want||buf)return;
+    if(A.currentTime>0.5&&!A.seeking)startBuf();
+    else waitT=setTimeout(function(){if(want&&!buf&&A.readyState<3&&!A.seeking)startBuf();},900);
+  });
+  A.addEventListener('playing',function(){clearTimeout(waitT);});
+  A.addEventListener('progress',prefetch);A.addEventListener('canplaythrough',prefetch);
   A.addEventListener('ended',function(){if(!next(1)){var it=cur&&cardOf(cur);if(it)it.querySelector('.ms-pg b').style.width='0';}});
   A.addEventListener('error',function(){if(cur&&A.getAttribute('src'))toast('《'+((byId[cur]||{}).title||'')+'》没有加载成功，请检查网络后再试。');});
   page.addEventListener('click',function(e){
     var t=e.target,it=t.closest('.msong'),id=it&&it.dataset.id;
-    if(t.closest('[data-mplay]')&&id){if(id===cur&&!A.paused)A.pause();else{makeQueue(id);play(id);}return;}
+    if(t.closest('[data-mplay]')&&id){if(id===cur&&want)hold();else{makeQueue(id);play(id);}return;}
     var bar=t.closest('.ms-pg');
     if(bar&&id){if(id!==cur){makeQueue(id);play(id);return;}if(A.duration){var r=bar.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*A.duration;}return;}
     if(t.closest('.ms-dl')&&inWx){e.preventDefault();toast('微信里不能直接下载：请点右上角「···」，选「在浏览器打开」，再点“⬇”。');return;}
-    if(t.closest('[data-mall]')){if(cur&&!A.paused)A.pause();else if(cur)play(cur);else{makeQueue();if(queue.length)play(queue[0]);}
+    if(t.closest('[data-mall]')){if(cur&&want)hold();else if(cur)play(cur);else{makeQueue();if(queue.length)play(queue[0]);}
       var ci=cur&&cardOf(cur);if(ci){var r=ci.getBoundingClientRect();if(r.top<0||r.bottom>innerHeight-80)ci.scrollIntoView({block:'center',behavior:'smooth'});}return;}
     if(t.closest('[data-mloop]')){loop=!loop;set('mloop',loop?'1':'');paint();return;}
     if(t.closest('[data-mshuf]')){shuf=!shuf;set('mshuf',shuf?'1':'');makeQueue(cur);paint();toast(shuf?'已开启随机播放':'已改回按顺序播放');return;}
   });
   var qT=null;page.querySelector('.ms-q').addEventListener('input',function(){var v=this.value;clearTimeout(qT);qT=setTimeout(function(){q=v;render();},150);});
   mini.addEventListener('click',function(e){
-    if(e.target.closest('.mp-pp')){e.preventDefault();if(A.paused)play(cur);else A.pause();}
-    else if(e.target.closest('.mp-prev')){e.preventDefault();if(A.currentTime>4){A.currentTime=0;if(A.paused)play(cur);}else next(-1,true);}   // 播了几秒后按“上一首”先回到这首开头
+    if(e.target.closest('.mp-pp')){e.preventDefault();if(want)hold();else play(cur);}
+    else if(e.target.closest('.mp-prev')){e.preventDefault();if(A.currentTime>4){A.currentTime=0;if(!want)play(cur);}else next(-1,true);}   // 播了几秒后按“上一首”先回到这首开头
     else if(e.target.closest('.mp-next')){e.preventDefault();next(1,true);}
     else if(e.target.closest('.mp-go')&&onMusic()){e.preventDefault();var cc=cardOf(cur);if(cc)cc.scrollIntoView({block:'center',behavior:'smooth'});}
     else if(e.target.closest('.mp-x')){e.preventDefault();stop();}
   });
   window.addEventListener('hashchange',paint);
-  window.addEventListener('q4:tts',function(){if(!A.paused)A.pause();});   // 开始听朗读时音乐先停下
+  window.addEventListener('q4:tts',function(){if(want)hold();});   // 开始听朗读时音乐先停下
   var fab=document.querySelector('.fab');   // 小窗跟着主页按钮：往下读时一起变成半透明
   if(fab&&window.MutationObserver)new MutationObserver(function(){mini.classList.toggle('glass',fab.classList.contains('glass'));}).observe(fab,{attributes:true,attributeFilter:['class']});
   function hit(){   // 分享出去的单曲链接：打开后滚到那一首，亮一下

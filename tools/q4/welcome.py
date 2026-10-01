@@ -188,6 +188,11 @@ def scene_svg():
 <g class="wspark">{_sparkles(rng, 26)}</g>
 </svg>'''
 
+# 欢迎页“本站累计访问 N 人次”的起点：换成自己计数之前不蒜子上的数字（2026-10-01 为 368）。
+# 同步任务第一次运行时会从不蒜子取最新的数字存进 data/ask.json（hits0），网页优先用那个。
+VISITS_BASE = 368
+
+
 def welcome_html(titles):
     items = ''.join(f'<li data-r="{html.escape(r)}" data-l="{n}" data-t="{html.escape(titles[n])}">{html.escape(t.replace("“", "‘").replace("”", "’"))}</li>'
                     for r, t, n in pool(titles))
@@ -202,7 +207,7 @@ def welcome_html(titles):
   <p class="winvite"><span class="q">“凡劳苦担重担的人可以到我这里来，<br>我就使你们得安息。”</span><span class="by">—— 耶稣的邀请（太11:28）</span></p>
   <div class="wrec">
     <p class="wdate"></p>
-    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
+    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">学课目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
     <p class="wclass" hidden><a href="#l1"></a></p>
     <p class="wresume" hidden></p>
     <div class="wnews" hidden></div>
@@ -227,9 +232,8 @@ def welcome_html(titles):
   </div>
   </div>
   <p class="wcredit">整理制作 · Ethan（HangZhou_XG）</p>
-  <p class="wvisits"><span id="busuanzi_container_site_pv" style="display:none">本站累计访问 <b id="busuanzi_value_site_pv"></b> 人次</span></p>
+  <p class="wvisits" data-base="{VISITS_BASE}"><span hidden>本站累计访问 <b></b> 人次</span></p>
   <ol class="vpool" hidden>{items}</ol>
 </div>
 </div>
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！下次打开，欢迎页会换上荣耀的景象。</div>'''

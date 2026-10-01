@@ -18,6 +18,20 @@ async function fetchText(url) {
     catch (e) { if (i >= 3) throw e; await new Promise(ok => setTimeout(ok, 4000 * (i + 1))); }
   }
 }
+// 换成自己计数之前，访问人次记在不蒜子（busuanzi）上：第一次同步时取它的数字当起点，之后就不再用它
+async function busuanziPV() {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 15000);
+      const r = await fetch('https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback_1', { signal: ctl.signal,
+        headers: { Referer: 'https://2377568565.github.io/Ethan_bay/index.html', 'User-Agent': 'Mozilla/5.0' } });
+      clearTimeout(t);
+      const m = /"site_pv":(\d+)/.exec(await r.text());
+      if (m) return +m[1];
+    } catch (e) { /* 再试一次 */ }
+  }
+  return 0;
+}
 function csvCell(v) { v = String(v == null ? '' : v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
 function fmt(ms) {
   const d = new Date(ms + 8 * 3600e3);   // 北京时间
@@ -58,6 +72,11 @@ function checkinsCSV(S) {
   const txt = await fetchText(`${RELAY}/${TOPIC}/json?poll=1&since=${since}`);
   const msgs = txt.split('\n').map(l => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(Boolean);
   const out = await Q4Ask.merge(S, msgs);
+  if (!S.hits0 && !process.env.Q4_RELAY) {
+    const pv = await busuanziPV();
+    S.hits0 = pv || 368;   // 取不到时用 2026-10-01 查到的 368
+    console.log(`访问人次起点${pv ? '（不蒜子）' : '（不蒜子没有回应，用已知的数字）'}：${S.hits0}`);
+  }
   const cut = Math.floor(Date.now() / 1000) - 2 * 86400;   // 两天前的消息编号不用再记
   for (const k of Object.keys(S.seen)) if (S.seen[k] < cut) delete S.seen[k];
   console.log(`中转站消息 ${msgs.length} 条，新处理 ${out.length} 条：` + (out.map(o => o.why || 'ok').join(', ') || '无'));
@@ -73,5 +92,5 @@ function checkinsCSV(S) {
     fs.writeFileSync(VAULT, JSON.stringify({ updated: S.updated, vault }));
   }
   for (const f of stale) fs.writeFileSync(OUT(f), sheets[f]);
-  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次，账号 ${Object.keys(S.accounts).length} 个` + (stale.length ? `；更新表格 ${stale.join('、')}` : ''));
+  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次，账号 ${Object.keys(S.accounts).length} 个，访问 ${(S.hits0 || 0) + S.hits} 人次` + (stale.length ? `；更新表格 ${stale.join('、')}` : ''));
 })().catch(e => { console.error(e); process.exit(1); });

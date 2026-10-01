@@ -32,7 +32,7 @@
   /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
   function norm(S){
     S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
-    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};return S;
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};S.hits=S.hits||0;return S;
   }
   /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
      q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理
@@ -118,6 +118,8 @@
     return 'bad';
   }
 
+  /* 访问计数：打开网页时发一条 {h:1,id:'h_…'}（不带身份、不签名），只把人次加一 */
+  function hit(msg){try{var o=JSON.parse(msg);return !!(o&&o.h===1&&!o.p&&/^h_[0-9a-z]{10,24}$/.test(o.id||''));}catch(e){return false;}}
   /* 把中转站里新的消息（按时间顺序）合进数据。msgs: [{id, time(秒), message}] */
   function merge(S,msgs){
     norm(S);
@@ -125,6 +127,7 @@
              .sort(function(a,b){return a.time-b.time||(a.id<b.id?-1:1);});
     var out=[];
     return msgs.reduce(function(chain,m){
+      if(hit(m.message))return chain.then(function(){S.seen[m.id]=m.time;if(m.time>(S.last||0))S.last=m.time;S.hits++;out.push({id:m.id,why:''});});
       return chain.then(function(){return open(m.message);}).then(function(r){
         S.seen[m.id]=m.time;if(m.time>(S.last||0))S.last=m.time;
         var why=r?apply(S,r.P,r.uid,m.time*1000):'sig';

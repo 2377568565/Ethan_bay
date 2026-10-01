@@ -384,7 +384,7 @@ def music_page():
     lst = [{k: x.get(k, '') for k in ('id', 'title', 'sub', 'file', 'dur')} for x in songs()]
     data = json.dumps(lst, ensure_ascii=False).replace('</', '<\\/')
     return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
-<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 <section class="mhome" data-list="{ONLINE}music/list.json" data-base="{ONLINE}music/">
   <p class="eyebrow">学课之余 · 安静聆听</p>
   <h1>音乐</h1>
@@ -395,7 +395,7 @@ def music_page():
   <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“⬇”。</p>
   <script type="application/json" class="mdata">{data}</script>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 </div>'''
 
 def qr_all():
@@ -515,9 +515,9 @@ COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" 
           '<path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 
 def ask_page():
-    top = (f'<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a>'
+    top = (f'<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a>'
            f'<span class="pn"><button class="btn share" type="button" data-share="ask">{SHAREIC}分享提问区</button></span></nav>')
-    bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
+    bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
     return f'''<div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
 {top}
 <section class="askpage" data-topic="{ASK_TOPIC}" data-relay="{ASK_RELAY}" data-data="{ONLINE}data/ask.json" data-online="{ONLINE}">
@@ -578,7 +578,7 @@ def qa_pages():
   <span class="qgo">阅读解答 →</span>
 </a>''' for it in items)
     out = [f'''<div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
-<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}</nav>
+<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}</nav>
 <section class="qahome">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
@@ -587,7 +587,7 @@ def qa_pages():
   <div class="qcards">{cards}<div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
   <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}</nav>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}</nav>
 </div>''']
     for i, it in enumerate(items):
         prev = f'<a class="btn ghost" href="#{items[i-1]["id"]}">← 上一题</a>' if i > 0 else ''
@@ -596,8 +596,8 @@ def qa_pages():
         tail = (f'<p class="btnrow qaend"><button class="btn share" type="button" data-share="{it["id"]}">{SHAREIC}分享这篇</button><a class="btn solid" href="{pdf}" target="_blank" rel="noopener">下载 PDF 版（方便转发）</a>'
                 f'<a class="btn" href="#l{it["lesson"]}-{it["day"]}">回到第{it["lesson"]}课 · {it["dayname"]}</a>'
                 f'<a class="btn egg" href="#qa">✦ 更多问题彩蛋</a></p>')
-        top = f'<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
-        bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
+        top = f'<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
+        bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
         out.append(f'<div class="lesson" id="{it["id"]}" data-title="{it["q"]} · 问题彩蛋">\n{top}\n{qa_article(it, tail)}\n{bottom}\n</div>')
     return '\n'.join(out)
 
@@ -648,11 +648,11 @@ def build_combined(nos):
         prev = f'<a class="btn ghost" href="#l{n-1}">← {lab(n-1)}</a>' if n - 1 in nos else ''
         nxt = f'<a class="btn ghost" href="#l{n+1}">{lab(n+1)} →</a>' if n + 1 in nos else ''
         bar = f'''<nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">全季目录</a>{GOHOME}
+  <a class="btn ghost" href="#home">学课目录</a>{GOHOME}
   <label class="sel"><span class="vh">切换课次</span><select data-go>{opts.replace(f'value="{n}"', f'value="{n}" selected')}</select></label>
   <span class="pn">{prev}{nxt}</span>
 </nav>'''
-        bottom = f'<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<span class="pn">{prev}{nxt}</span></nav>'
+        bottom = f'<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<span class="pn">{prev}{nxt}</span></nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{bar}\n{frags[n]}\n{bottom}\n</div>')
     body = welcome.welcome_html(titles) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
