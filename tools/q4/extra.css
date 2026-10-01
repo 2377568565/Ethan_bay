@@ -623,3 +623,13 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 .aq-meta{flex-basis:100%}
 .ae-t{flex:1 1 190px}
 @media (max-width:520px){.askentry{flex-wrap:wrap}.ae-go{margin-left:60px}}
+
+/* 地区选择 */
+.locsheet .hconf-card{width:min(340px,100%);text-align:left}
+.locsheet .hconf-ic,.locsheet h3,.locsheet .hconf-card>p{text-align:center}
+.locsheet .hconf-card>p{margin-bottom:14px}
+.loc-f{display:grid;gap:6px;margin:0 0 12px;font-size:.86rem;color:var(--ink-2)}
+.loc-f select,.loc-f input{width:100%;min-height:46px;padding:0 12px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);font:1rem/1.2 var(--sans);-webkit-appearance:none;appearance:none}
+.loc-f select{background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.loc-f select:focus,.loc-f input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.loc-auto{display:block;margin:2px auto 14px;border:0;background:none;color:var(--accent);font-size:.86rem;text-decoration:underline;cursor:pointer;min-height:32px}

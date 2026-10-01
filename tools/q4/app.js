@@ -548,20 +548,67 @@ function q4copy(t){
     return '暂时连不上提问区，请稍后点“刷新”再试。（'+(c||m||'未知错误')+'）';
   }
 
-  /* ---- 地区：按网络自动识别到“省 + 市” ---- */
-  function ipLoc(){
-    var c=get('askloc'),day=new Date().toDateString();
-    if(c&&get('asklocday')===day)return Promise.resolve(c);
-    if(MOCK)return Promise.resolve(get('askloc')||'浙江省杭州市');
+  /* ---- 地区：按网络自动识别到“省 + 市”；开着 VPN 时不乱填；也可以手动选 ---- */
+  var MAINLAND=/^(北京|天津|河北|山西|内蒙古|辽宁|吉林|黑龙江|上海|江苏|浙江|安徽|福建|江西|山东|河南|湖北|湖南|广东|广西|海南|重庆|四川|贵州|云南|西藏|陕西|甘肃|青海|宁夏|新疆)/;
+  function chinaClock(){try{return /^Asia\/(Shanghai|Chongqing|Chungking|Harbin|Urumqi|Kashgar)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone||'');}catch(e){return false;}}
+  function script(src,charset,ms,read){   // 用 <script> 取第三方的查询结果（JSONP），失败或超时都返回空
     return new Promise(function(ok){
-      var cb='q4ip'+Date.now(),s=document.createElement('script'),t=setTimeout(function(){fin('');},8000);
-      function fin(v){clearTimeout(t);try{delete window[cb];}catch(e){window[cb]=undefined;}if(s.parentNode)s.parentNode.removeChild(s);if(v){set('askloc',v);set('asklocday',day);}ok(v||c||'');}
-      window[cb]=function(d){var p=(d&&d.pro)||'',ci=(d&&d.city)||'';if(ci===p)ci='';var v=(p+ci).replace(/\s+/g,'');if(!v&&d&&d.addr)v=String(d.addr).trim().split(/\s+/)[0]||'';fin(v);};
-      s.charset='gbk';s.src='https://whois.pconline.com.cn/ipJson.jsp?callback='+cb;   // 用 JSONP 形式（不要 json=true，否则返回纯 JSON 会被浏览器拦截）s.onerror=function(){fin('');};document.head.appendChild(s);
+      var s=document.createElement('script'),t=setTimeout(function(){fin('');},ms);
+      function fin(v){clearTimeout(t);if(s.parentNode)s.parentNode.removeChild(s);ok(v||'');}
+      read(fin,s);if(charset)s.charset=charset;s.onerror=function(){fin('');};s.src=src;document.head.appendChild(s);
     });
   }
-  var LOC='';
-  function showLoc(){$('.ask-locv').textContent=LOC?LOC+(get('asklocman')?'':'（自动识别）'):'地区未识别';}
+  function pconline(){   // 太平洋网络：要用 callback=（JSONP），不要加 json=true，否则返回纯 JSON 会被浏览器拦截
+    var cb='q4ip'+Date.now();
+    return script('https://whois.pconline.com.cn/ipJson.jsp?callback='+cb,'gbk',6000,function(fin){
+      window[cb]=function(d){try{delete window[cb];}catch(e){window[cb]=undefined;}
+        var p=(d&&d.pro)||'',ci=(d&&d.city)||'';if(ci===p)ci='';var v=(p+ci).replace(/\s+/g,'');
+        if(!v&&d&&d.addr)v=String(d.addr).trim().split(/\s+/)[0]||'';fin(v);};
+    });
+  }
+  function sohu(){       // 搜狐：备用，结果放在全局变量 returnCitySN 里
+    return script('https://pv.sohu.com/cityjson?ie=utf-8','',6000,function(fin,s){
+      s.onload=function(){var d=window.returnCitySN,v=String((d&&d.cname)||'').replace(/\s+/g,'');fin(/^(CHINA|中国|)$/i.test(v)?'':v);};
+    });
+  }
+  function afterLoad(f){if(document.readyState==='complete')setTimeout(f,0);else addEventListener('load',function(){setTimeout(f,0);});}
+  var LOC='',LOCVPN=false;
+  function ipLoc(force){
+    var c=get('askloc')||'',day=new Date().toDateString();
+    if(!force&&c&&(get('asklocman')==='1'||get('asklocday')===day))return Promise.resolve(c);   // 手动选的一直有效；自动识别的每天更新一次
+    if(MOCK)return Promise.resolve(c||'浙江省杭州市');
+    return pconline().then(function(v){return v||sohu();}).then(function(v){
+      LOCVPN=false;
+      if(v&&!MAINLAND.test(v)&&chinaClock()){LOCVPN=true;v='';}   // 手机是北京时间、网络却在境外：多半开着 VPN
+      if(v){set('askloc',v);set('asklocday',day);set('asklocman','');return v;}
+      return force?'':c;
+    });
+  }
+  function showLoc(){$('.ask-locv').textContent=LOC?LOC+(get('asklocman')==='1'?'':'（自动识别）'):(LOCVPN?'没认出地区（开着 VPN？）':'地区未识别');}
+  var LS=null;
+  function openLoc(){
+    if(!LS){LS=document.querySelector('.locsheet');if(!LS)return;document.body.appendChild(LS);LS.addEventListener('click',locClick);
+      LS.addEventListener('keydown',function(e){if(e.key==='Escape')closeLoc();});}
+    var sel=LS.querySelector('.loc-pro'),city=LS.querySelector('.loc-city'),pro='';
+    [].slice.call(sel.options).forEach(function(o){if(o.value&&LOC.indexOf(o.value)===0&&o.value.length>pro.length)pro=o.value;});
+    sel.value=pro;city.value=pro?LOC.slice(pro.length):'';
+    LS.hidden=false;void LS.offsetWidth;LS.classList.add('open');setTimeout(function(){sel.focus({preventScroll:true});},60);
+  }
+  function closeLoc(){LS.classList.remove('open');setTimeout(function(){LS.hidden=true;},220);}
+  function locClick(e){
+    var t=e.target;
+    if(t.closest('[data-locok]')){
+      var pro=LS.querySelector('.loc-pro').value,ci=LS.querySelector('.loc-city').value.replace(/\s+/g,'').slice(0,12);
+      if(!pro){LS.querySelector('.loc-pro').focus();return;}
+      var v=pro==='海外'?(ci||'海外'):pro+(ci&&ci!==pro?ci:'');
+      LOC=v;set('askloc',v);set('asklocman','1');set('asklocday',new Date().toDateString());showLoc();closeLoc();return;
+    }
+    if(t.closest('[data-locauto]')){
+      set('asklocman','');LOC='';$('.ask-locv').textContent='正在识别地区…';closeLoc();
+      ipLoc(true).then(function(v){LOC=v;showLoc();});return;
+    }
+    if(t.closest('[data-locno]'))closeLoc();
+  }
 
   /* ---- 本机这个身份的提问统计：界面随之变化 ---- */
   function weekStart(){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+1)%7));return d.getTime();}   // 每周从安息日算起
@@ -667,7 +714,7 @@ function q4copy(t){
   P.addEventListener('click',function(e){
     var t=e.target,art=t.closest('.aq');
     if(t.closest('.ask-send'))return send();
-    if(t.closest('.ask-locedit')){var v=window.prompt('请输入你的地区（例如：浙江省杭州市）',LOC);if(v!=null){v=v.trim().slice(0,20);if(v){LOC=v;set('askloc',v);set('asklocday',new Date().toDateString());set('asklocman','1');showLoc();}}return;}
+    if(t.closest('.ask-locedit')){openLoc();return;}
     var chip=t.closest('.chip[data-f]');if(chip){filter=chip.dataset.f;P.querySelectorAll('.ask-filter .chip[data-f]').forEach(function(c){c.classList.toggle('on',c===chip);});render();return;}
     if(t.closest('.ask-refresh')){list.innerHTML='<p class="ask-empty">正在刷新……</p>';if(!started||!ready){started=false;open();}else load();return;}
     if(t.closest('.ask-more')){load(true);return;}
@@ -694,7 +741,7 @@ function q4copy(t){
   function open(){
     if(started)return;started=true;
     $('.ask-name').value=get('askname')||'';
-    ipLoc().then(function(v){LOC=v;showLoc();});
+    afterLoad(function(){ipLoc().then(function(v){LOC=v;showLoc();});});   // 页面加载完再查地区，不拖慢页面（微信顶部进度条）
     store.init().then(function(){load();}).catch(function(e){list.innerHTML='<p class="ask-empty err">'+esc(why(e))+'</p>';started=false;});
   }
   window.q4ask={open:open};
