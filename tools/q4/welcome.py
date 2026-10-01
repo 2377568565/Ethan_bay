@@ -195,6 +195,7 @@ def welcome_html(titles):
     return f'''<div id="welcome" class="welcome" role="dialog" aria-modal="true" aria-labelledby="wtitle" tabindex="-1" hidden>
 {scene_svg()}
 <div class="winner">
+  <button class="wacct" type="button" data-acct aria-label="账号：登录后在不同设备之间同步"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4.8 19.5c1.2-3.6 4-5.4 7.2-5.4s6 1.8 7.2 5.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="ac-n">账号</span></button>
   <button class="wx" type="button" data-wclose aria-label="关闭欢迎页">×</button>
   <p class="weyebrow">安息日学研经指引 · 2026年第4季</p>
   <h2 id="wtitle" class="wtitle">预言的恩赐</h2>

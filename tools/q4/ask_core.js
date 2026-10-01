@@ -5,7 +5,7 @@
 (function(root){
   var C=(typeof globalThis!=='undefined'&&globalThis.crypto)||root.crypto;
   var BAD=/(加微|微信号|vx|v信|威信|QQ群|扣扣|代开|发票|贷款|网贷|博彩|彩票|棋牌|兼职|刷单|返利|https?:\/\/|www\.)/i;
-  var ID=/^[qrdvpca]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
+  var ID=/^[qrdvpcauw]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
   function b64u(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
   function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
   function enc(s){return new TextEncoder().encode(s);}
@@ -32,10 +32,11 @@
   /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
   function norm(S){
     S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
-    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};return S;
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};return S;
   }
   /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
-     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理 */
+     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理
+     u 账号（把这台设备的身份用密码加密后存起来） · w 账号同步的数据（用密码加密的设置、笔记等，只有本人能写） */
   function apply(S,P,uid,t){
     norm(S);
     var admin=S.admins.indexOf(uid)>=0,day=t-864e5,q,i,list;
@@ -99,6 +100,20 @@
       if(typeof P.pin==='boolean'){if(P.pin)q.pin=t;else delete q.pin;}
       if(typeof P.qa==='string'){if(QA.test(P.qa))q.qa=P.qa;else if(!P.qa)delete q.qa;}
       return '';
+    }
+    if(P.op==='u'){   // 账号 = 账号名的哈希 aid → 身份码 + 用密码加密的身份钥匙；同一身份可以重新提交（改密码）
+      if(!/^[0-9a-f]{32}$/.test(P.aid||'')||!str(P.ek,1600)||!/^[A-Za-z0-9_-]+$/.test(P.ek))return 'bad';
+      var ac=S.accounts[P.aid];
+      if(ac&&ac.uid!==uid)return 'taken';
+      S.accounts[P.aid]={uid:uid,ek:P.ek,ts:t};return '';
+    }
+    if(P.op==='w'){   // 同步数据：每格 slot 一段密文；空内容表示删除
+      var ac2=S.accounts[P.aid];if(!ac2)return 'noacct';if(ac2.uid!==uid)return 'notyours';
+      if(!/^[0-9a-f]{16}$/.test(P.slot||'')||typeof P.d!=='string'||P.d.length>2900||!/^[A-Za-z0-9_-]*$/.test(P.d))return 'bad';
+      var V=S.vault[P.aid]||(S.vault[P.aid]={});
+      if(!P.d){delete V[P.slot];return '';}
+      if(!V[P.slot]&&Object.keys(V).length>=3000)return 'limit';
+      V[P.slot]={d:P.d,ts:t};return '';
     }
     return 'bad';
   }

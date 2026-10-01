@@ -344,6 +344,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);font-si
 @media (min-width:880px){.winner{max-width:980px;gap:16px}.winner{padding-top:clamp(20px,4vh,44px)}.winvite,.wrec{max-width:640px;width:100%;justify-self:center}.wcard{background:rgba(12,16,46,.36)}.wcards{grid-template-columns:1.2fr 1fr;align-items:stretch}}
 .wx{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,248,234,.35);background:rgba(10,16,48,.25);color:#FFF8EA;font:400 22px/1 var(--sans);cursor:pointer}
 .weyebrow{margin:0;font-size:.78rem;letter-spacing:.24em;color:rgba(255,241,210,.82)}
+@media (max-width:879px){.weyebrow{margin-top:max(0px,calc(62px - clamp(28px,6vh,64px)))}}   /* 给左上角“账号”、右上角 × 留出位置 */
 .wtitle{margin:0;font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,10vw,4.2rem);letter-spacing:.16em;line-height:1.1;color:#FFF3D2;text-shadow:0 0 24px rgba(255,214,130,.55),0 2px 0 rgba(90,50,20,.25)}
 .winvite{margin:0;display:grid;gap:8px;font-family:var(--serif);font-weight:600}
 .winvite .q{font-size:clamp(1.12rem,4.2vw,1.45rem);line-height:1.8;color:#FFFFFF;text-shadow:0 1px 14px rgba(10,16,48,.6)}
@@ -1052,6 +1053,32 @@ html.sheetopen{overflow:hidden}
 .aq-img{flex:none;min-height:30px;padding:2px 12px;border:1px solid #E3C98F;border-radius:999px;background:#FFF6DD;color:#7A5410;font:500 .8rem/1 var(--sans);cursor:pointer}
 @media print{.imgsheet,.bpop-img,.gift-vimg,.wimg,.aq-img,[data-imgqa]{display:none}}
 
+/* 账号（欢迎页左上角）与登录 / 注册面板 */
+.wacct{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:6px;max-width:46%;height:40px;padding:0 14px 0 11px;border-radius:999px;
+  border:1px solid rgba(255,248,234,.35);background:rgba(10,16,48,.25);color:#FFF8EA;font:600 .9rem/1 var(--sans);letter-spacing:.04em;cursor:pointer}
+.wacct .ic{flex:none;width:18px;height:18px}
+.wacct .ac-n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wacct.in{border-color:rgba(243,217,143,.75);color:#F3D98F}
+.acctsheet .ac-lead,.acctsheet .ac-k{margin:6px 0 12px;font-size:.92rem;line-height:1.7;color:var(--ink-2)}
+.acctsheet .ac-tabs{margin:0 0 6px}
+.acctsheet .ac-f label{display:block;margin:12px 0 0}
+.acctsheet .ac-f label>span{display:block;margin:0 0 5px;font-size:.84rem;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.acctsheet .ac-f input[type=password],.acctsheet .ac-f input:not([type]),.acctsheet .ac-f input[type=text]{box-sizing:border-box;width:100%;height:48px;padding:0 14px;border:1px solid var(--rule);border-radius:12px;
+  background:var(--paper);color:var(--ink);font:400 16px/1 var(--sans)}
+.acctsheet .ac-f input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.acctsheet .ac-show{display:flex!important;align-items:center;gap:6px;margin:10px 0 0!important;font-size:.86rem;color:var(--muted)}
+.acctsheet .ac-show input{width:18px;height:18px;margin:0}
+.acctsheet .ac-msg{min-height:1.4em;margin:10px 0 8px;font-size:.9rem;color:var(--ink-2)}
+.acctsheet .ac-go{display:block;width:100%;min-height:48px;font-size:1rem}
+.acctsheet .ac-tip{margin:12px 0 0;font-size:.84rem;line-height:1.7;color:var(--muted)}
+.acctsheet .ac-bad{color:#B3261E}
+.acctsheet .ac-me{margin:8px 0 2px;font-size:1.02rem}
+.acctsheet .ac-st{min-height:1.4em;margin:0 0 10px;font-size:.88rem;color:#3E7A5E}
+.acctsheet .ac-list{margin:0 0 6px;padding-left:1.2em;font-size:.9rem;line-height:1.85;color:var(--ink-2)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .acctsheet .ac-bad{color:#F2B8B5}:root:not([data-theme="light"]) .acctsheet .ac-st{color:#8FD0AE}}
+:root[data-theme="dark"] .acctsheet .ac-bad{color:#F2B8B5}
+:root[data-theme="dark"] .acctsheet .ac-st{color:#8FD0AE}
+
 </style>
 </head>
 <body>
@@ -1213,7 +1240,7 @@ html.sheetopen{overflow:hidden}
 (function(root){
   var C=(typeof globalThis!=='undefined'&&globalThis.crypto)||root.crypto;
   var BAD=/(加微|微信号|vx|v信|威信|QQ群|扣扣|代开|发票|贷款|网贷|博彩|彩票|棋牌|兼职|刷单|返利|https?:\/\/|www\.)/i;
-  var ID=/^[qrdvpca]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
+  var ID=/^[qrdvpcauw]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
   function b64u(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
   function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
   function enc(s){return new TextEncoder().encode(s);}
@@ -1240,10 +1267,11 @@ html.sheetopen{overflow:hidden}
   /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
   function norm(S){
     S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
-    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};return S;
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};S.accounts=S.accounts||{};S.vault=S.vault||{};return S;
   }
   /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
-     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理 */
+     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理
+     u 账号（把这台设备的身份用密码加密后存起来） · w 账号同步的数据（用密码加密的设置、笔记等，只有本人能写） */
   function apply(S,P,uid,t){
     norm(S);
     var admin=S.admins.indexOf(uid)>=0,day=t-864e5,q,i,list;
@@ -1307,6 +1335,20 @@ html.sheetopen{overflow:hidden}
       if(typeof P.pin==='boolean'){if(P.pin)q.pin=t;else delete q.pin;}
       if(typeof P.qa==='string'){if(QA.test(P.qa))q.qa=P.qa;else if(!P.qa)delete q.qa;}
       return '';
+    }
+    if(P.op==='u'){   // 账号 = 账号名的哈希 aid → 身份码 + 用密码加密的身份钥匙；同一身份可以重新提交（改密码）
+      if(!/^[0-9a-f]{32}$/.test(P.aid||'')||!str(P.ek,1600)||!/^[A-Za-z0-9_-]+$/.test(P.ek))return 'bad';
+      var ac=S.accounts[P.aid];
+      if(ac&&ac.uid!==uid)return 'taken';
+      S.accounts[P.aid]={uid:uid,ek:P.ek,ts:t};return '';
+    }
+    if(P.op==='w'){   // 同步数据：每格 slot 一段密文；空内容表示删除
+      var ac2=S.accounts[P.aid];if(!ac2)return 'noacct';if(ac2.uid!==uid)return 'notyours';
+      if(!/^[0-9a-f]{16}$/.test(P.slot||'')||typeof P.d!=='string'||P.d.length>2900||!/^[A-Za-z0-9_-]*$/.test(P.d))return 'bad';
+      var V=S.vault[P.aid]||(S.vault[P.aid]={});
+      if(!P.d){delete V[P.slot];return '';}
+      if(!V[P.slot]&&Object.keys(V).length>=3000)return 'limit';
+      V[P.slot]={d:P.d,ts:t};return '';
     }
     return 'bad';
   }
@@ -1821,6 +1863,8 @@ window.Q4Hub=(function(){
     if(H.uid||!get('sk')||!H.ok)return Promise.resolve(H.uid);
     return A.keys({get:get,set:set}).then(function(k){K=k;H.uid=k.uid;mark();return H.uid;},function(){return '';});
   };
+  // 登录 / 退出账号后换了身份钥匙：清掉缓存，重新算身份码
+  H.reset=function(){K=null;H.uid='';H.admin=false;return H.who().then(function(u){mark();emit();return u;});};
   // 要发东西时才生成钥匙（第一次发言、点“我也想知道”、打卡）
   H.ensure=function(){
     if(K)return Promise.resolve(K);
@@ -1858,7 +1902,7 @@ window.Q4Hub=(function(){
     if(c==='OLD')return '这个浏览器版本太旧，用不了这个功能。请更新微信或换个浏览器打开。';
     if(c==='REJECT')return ({fast:'发得太快了，请稍等十几秒再发。',limit:'今天发得有点多了，明天再来吧。',spam:'内容里有联系方式、链接或广告词，请修改后再发。',
       closed:'提问者设置了“只要管理员回答”，这个问题不能回复。',gone:'这条内容已经被删除了，请点“刷新”。',notyours:'只能删除自己发的内容。',
-      notadmin:'只有管理员能做这件事。',dup:'这条已经发过了。',bad:'内容长度不符合要求：问题 4–500 字，回复 2–300 字，讨论回答 2–500 字，称呼 1–16 字。'})[m]||'没有发成功，请刷新后再试。（'+m+'）';
+      notadmin:'只有管理员能做这件事。',dup:'这条已经发过了。',taken:'这个账号已经有人用了，换一个吧。',noacct:'没有这个账号。',bad:'内容长度不符合要求：问题 4–500 字，回复 2–300 字，讨论回答 2–500 字，称呼 1–16 字。'})[m]||'没有发成功，请刷新后再试。（'+m+'）';
     if(c==='HTTP_429')return '这会儿用的人有点多，请过一分钟再试。';
     if(c==='TIMEOUT'||c==='NETWORK')return '连不上网络，请检查网络后再试。（'+c+'）';
     return '暂时连不上，请稍后再试。（'+(c||m||'未知错误')+'）';
@@ -2481,6 +2525,7 @@ window.Q4Hub=(function(){
     if(hb)hb.hidden=!r;
   }
   paintResume();
+  window.Q4Reader={fs:function(v){applyFs(+v||1);},th:applyTh,resume:paintResume};   // 账号同步来的设置、阅读位置马上生效
 
   /* ===== 全文搜索 ===== */
   var SS=sheet('rsearch','搜索全季内容','<h3>搜索全季内容</h3><p class="sr-tip">13 课解读、学课原文、问题彩蛋都能搜。多个词用空格分开。</p>'+
@@ -2787,6 +2832,298 @@ window.Q4Hub=(function(){
   },true);
   document.querySelectorAll('article.qna').forEach(function(art){var r=art.parentNode.querySelector('.qshare');if(!r)return;
     var b=el('button','btn','🖼 生成图片');b.type='button';b.setAttribute('data-imgqa','');r.appendChild(b);});
+})();
+
+/* ---------- 账号（可选）：登录后，设置、笔记、行动勾选、读到哪里、提问身份在不同设备之间同步 ----------
+   不登录一切照旧。账号名的哈希 = 账号编号；密码在本机算出两把钥匙（PBKDF2）：一把加密数据（AES-GCM），一把给每项数据编格子号（HMAC）。
+   网上（GitHub 公开仓库）只存密文，谁也看不到内容；忘记密码无法找回。
+   注册 = 把这台设备的身份钥匙（发问题、打卡用的那把）加密后存到账号里；在别的设备登录就取回同一个身份。 */
+(function(){
+  var H=window.Q4Hub;if(!H||!document.body.classList.contains('combined'))return;
+  var SUB=window.crypto&&crypto.subtle,get=H.get,set=H.set;
+  function del(k){try{localStorage.removeItem('q4:'+k);}catch(e){}}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function enc(s){return new TextEncoder().encode(s);}
+  function b64u(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+  function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+  function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2);}).join('');}
+  function fnv(s){var h=0x811c9dc5;for(var i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),0x01000193)>>>0;}return h.toString(36)+'.'+s.length;}
+  var VURL=H.online+'data/vault.json';
+  var NOTE=/^l\d+-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d+$/,CHUNK=600;
+
+  /* ===== 钥匙 ===== */
+  function uname(s){s=String(s||'');if(s.normalize)s=s.normalize('NFKC');return s.trim().toLowerCase();}
+  function okName(u){return /^[一-鿿A-Za-z0-9_.\-]{2,20}$/.test(u);}
+  function aidOf(u){return SUB.digest('SHA-256',enc('q4acct|'+u)).then(function(h){return hex(h).slice(0,32);});}
+  function derive(u,pw){
+    return SUB.importKey('raw',enc(pw),'PBKDF2',false,['deriveBits'])
+      .then(function(k){return SUB.deriveBits({name:'PBKDF2',salt:enc('q4acct|'+u),iterations:120000,hash:'SHA-256'},k,512);});
+  }
+  var KE=null,KM=null;   // 加密钥匙、格子号钥匙
+  function useRaw(raw){
+    var a=new Uint8Array(raw);
+    return Promise.all([SUB.importKey('raw',a.slice(0,32),{name:'AES-GCM'},false,['encrypt','decrypt']),
+                        SUB.importKey('raw',a.slice(32,64),{name:'HMAC',hash:'SHA-256'},false,['sign'])])
+      .then(function(ks){KE=ks[0];KM=ks[1];});
+  }
+  function seal(obj){var iv=crypto.getRandomValues(new Uint8Array(12));
+    return SUB.encrypt({name:'AES-GCM',iv:iv},KE,enc(JSON.stringify(obj))).then(function(ct){var o=new Uint8Array(12+ct.byteLength);o.set(iv);o.set(new Uint8Array(ct),12);return b64u(o);});}
+  function unseal(s){
+    try{var a=unb64u(s);}catch(e){return Promise.resolve(null);}
+    return SUB.decrypt({name:'AES-GCM',iv:a.slice(0,12)},KE,a.slice(12)).then(function(pt){return JSON.parse(new TextDecoder().decode(pt));},function(){return null;});
+  }
+  function slotOf(k,i){return SUB.sign('HMAC',KM,enc(k+'#'+i)).then(function(h){return hex(h).slice(0,16);});}
+
+  /* ===== 本机状态 ===== */
+  var ACC=null;try{ACC=JSON.parse(get('acct')||'null');}catch(e){}
+  var VS={};try{VS=JSON.parse(get('vstate')||'{}')||{};}catch(e){}
+  function saveVS(){set('vstate',JSON.stringify(VS));}
+  var status={t:0,msg:'',err:''};
+
+  /* ===== 本机数据 ⇄ 同步项 ===== */
+  function noteKeys(){return [].slice.call(document.querySelectorAll('.my textarea[data-k]')).map(function(t){return t.dataset.k;}).filter(function(k){return NOTE.test(k);});}
+  var ACTS={};[].slice.call(document.querySelectorAll('.acts input[data-k]')).forEach(function(c){var m=/^(l\d+)-/.exec(c.dataset.k);if(m)(ACTS[m[1]]=ACTS[m[1]]||[]).push(c.dataset.k);});
+  function settingsVal(){
+    var o={},keys={fs:'fs',th:'theme',rate:'rate',name:'askname'};
+    Object.keys(keys).forEach(function(x){var v=get(keys[x]);if(v)o[x]=v;});
+    if(get('asklocman')==='1'&&get('askloc'))o.loc=get('askloc');
+    return Object.keys(o).length?JSON.stringify(o):'';
+  }
+  function snapshot(withResume){
+    var m={set:settingsVal()};
+    noteKeys().forEach(function(k){m['n:'+k]=get(k)||'';});
+    Object.keys(ACTS).forEach(function(l){var on=ACTS[l].filter(function(k){return get(k)==='1';});m['a:'+l]=on.length?JSON.stringify(on):'';});
+    if(withResume)m.r=get('resume')||'';
+    return m;
+  }
+  function applyItem(k,v){
+    if(k==='set'){
+      var o={};try{o=JSON.parse(v||'{}')||{};}catch(e){}
+      var keys={fs:'fs',th:'theme',rate:'rate',name:'askname'};
+      Object.keys(keys).forEach(function(x){if(o[x])set(keys[x],String(o[x]));});
+      if(o.loc){set('askloc',o.loc);set('asklocsrc','man');set('asklocman','1');set('asklocat',String(Date.now()));}
+      if(window.Q4Reader){Q4Reader.fs(get('fs'));Q4Reader.th(get('theme')||'auto');}
+      var an=document.querySelector('#ask .ask-name');if(an&&o.name&&!an.value)an.value=o.name;
+    }else if(k.indexOf('n:')===0){
+      var nk=k.slice(2);if(v)set(nk,v);else del(nk);
+      var ta=document.querySelector('.my textarea[data-k="'+nk+'"]');
+      if(ta&&document.activeElement!==ta){ta.value=v||'';if(v){var d=ta.closest('details');if(d)d.open=true;}var sv=ta.parentNode.querySelector('.saved');if(sv)sv.textContent=v?'已从账号同步':'';}
+    }else if(k.indexOf('a:')===0){
+      var on=[];try{on=JSON.parse(v||'[]')||[];}catch(e){}
+      (ACTS[k.slice(2)]||[]).forEach(function(ck){var y=on.indexOf(ck)>=0;set(ck,y?'1':'0');var c=document.querySelector('.acts input[data-k="'+ck+'"]');if(c)c.checked=y;});
+    }else if(k==='r'){
+      if(v)set('resume',v);if(window.Q4Reader)Q4Reader.resume();
+    }
+  }
+
+  /* ===== 网上的数据（存档 vault.json + 中转站里的新消息） ===== */
+  var VJ=null,vjFor=-1,DEC={};   // DEC：格子 → 解开后的内容（按格子+时间缓存）
+  function loadVJ(){
+    var up=(H.S&&H.S.updated)||0;if(VJ&&vjFor===up)return Promise.resolve(VJ);
+    return fetch(VURL+'?t='+Math.floor(Date.now()/30000),{cache:'no-store'}).then(function(r){return r.ok?r.json():{};},function(){return {};})
+      .then(function(j){VJ=((j&&j.vault)||{})[ACC.aid]||{};vjFor=up;return VJ;});
+  }
+  function remoteSlots(){
+    var o={},live=(H.S&&H.S.vault&&H.S.vault[ACC.aid])||{},base=VJ||{};
+    Object.keys(base).forEach(function(s){o[s]=base[s];});
+    Object.keys(live).forEach(function(s){if(!o[s]||live[s].ts>=o[s].ts)o[s]=live[s];});
+    return o;
+  }
+  function remoteItems(){
+    var sl=remoteSlots();
+    return Promise.all(Object.keys(sl).map(function(s){
+      var x=sl[s],c=DEC[s];if(c&&c.ts===x.ts)return c.v;
+      return unseal(x.d).then(function(v){DEC[s]={ts:x.ts,v:v};return v;});
+    })).then(function(list){
+      var g={};
+      list.forEach(function(p){if(!p||typeof p.k!=='string')return;var it=g[p.k];if(!it||p.t>it.t)g[p.k]=it={t:p.t,n:p.n,parts:{}};if(p.t===it.t)it.parts[p.i]=p.v;});
+      var out={};
+      Object.keys(g).forEach(function(k){var it=g[k],v='';for(var i=0;i<it.n;i++){if(typeof it.parts[i]!=='string')return;v+=it.parts[i];}out[k]={v:v,t:it.t,n:it.n};});
+      return out;
+    });
+  }
+
+  /* ===== 同步 ===== */
+  var running=null,queue=[],lastR=0;
+  function pull(R,first){
+    var cur=snapshot(true),changed=0;
+    Object.keys(R).forEach(function(k){
+      var r=R[k],st=VS[k],lv=cur[k]!=null?cur[k]:'';
+      if(st&&r.t<=st.t)return;   // 已经是最新
+      var localEdited=st?fnv(lv)!==st.h:(!first&&lv!=='');
+      if(localEdited&&st&&st.lt&&st.lt>r.t)return;   // 两边都改了：本机的更新，稍后上传
+      if(lv!==r.v){applyItem(k,r.v);changed++;}
+      VS[k]={h:fnv(r.v),t:r.t,n:r.n};
+    });
+    saveVS();return changed;
+  }
+  function pushChanged(withResume){
+    var cur=snapshot(withResume),now=Date.now(),jobs=[];
+    Object.keys(cur).forEach(function(k){
+      var v=cur[k],h=fnv(v),st=VS[k];
+      if(!st&&!v)return;if(st&&st.h===h)return;
+      if(k==='r'&&!withResume)return;
+      jobs.push({k:k,v:v,t:now,old:(st&&st.n)||0});
+      VS[k]={h:h,t:now,n:Math.max(1,Math.ceil(v.length/CHUNK)),lt:now,pending:1};
+    });
+    saveVS();
+    jobs.forEach(function(j){queue.push(j);});
+    return drain();
+  }
+  var draining=null;
+  function drain(){
+    if(draining)return draining;
+    draining=(function step(){
+      var j=queue.shift();if(!j){draining=null;return Promise.resolve();}
+      var n=Math.max(1,Math.ceil(j.v.length/CHUNK)),parts=[];
+      for(var i=0;i<n;i++)parts.push(j.v.slice(i*CHUNK,(i+1)*CHUNK));
+      var seq=Promise.resolve();
+      parts.forEach(function(pv,i){seq=seq.then(function(){return Promise.all([slotOf(j.k,i),seal({k:j.k,v:pv,i:i,n:n,t:j.t})]);})
+        .then(function(a){return send({op:'w',id:H.rid('w'),aid:ACC.aid,slot:a[0],d:a[1]});});});
+      for(var x=n;x<j.old;x++)(function(x){seq=seq.then(function(){return slotOf(j.k,x);}).then(function(s){return send({op:'w',id:H.rid('w'),aid:ACC.aid,slot:s,d:''});});})(x);
+      return seq.then(function(){if(VS[j.k]&&VS[j.k].t===j.t){delete VS[j.k].pending;saveVS();}status.t=Date.now();status.err='';paint();return step();},
+        function(e){queue.unshift(j);draining=null;status.err=H.why(e);paint();throw e;});
+    })();
+    return draining;
+  }
+  function send(P){   // 每条之间稍隔一会儿，免得中转站嫌太快
+    var go=function(n){return H.post(P).catch(function(e){if(e&&e.code==='HTTP_429'&&n<3)return new Promise(function(ok){setTimeout(ok,8000*(n+1));}).then(function(){return go(n+1);});throw e;});};
+    return new Promise(function(ok){setTimeout(ok,700);}).then(function(){return go(0);});
+  }
+  function sync(opts){
+    opts=opts||{};if(!ACC||!KE)return Promise.resolve();
+    if(running)return running;
+    status.msg='正在同步……';paint();
+    running=(opts.fresh?H.load(true):(H.S?Promise.resolve(H.S):H.load()))
+      .then(loadVJ).then(remoteItems).then(function(R){
+        var ch=pull(R,opts.first);
+        if(opts.first&&ACC){delete ACC.first;set('acct',JSON.stringify(ACC));}
+        return pushChanged(opts.resume||Date.now()-lastR>120000).then(function(){if(opts.resume||Date.now()-lastR>120000)lastR=Date.now();return ch;});
+      })
+      .then(function(ch){status.msg='';status.t=Date.now();status.err='';running=null;paint();return ch;},
+            function(e){status.msg='';status.err=H.why(e);running=null;paint();});
+    return running;
+  }
+
+  /* ===== 登录 / 注册 / 退出 ===== */
+  function register(u,pw){
+    var aid;
+    return aidOf(u).then(function(a){aid=a;return H.load(true);}).then(function(S){
+      if(S.accounts&&S.accounts[aid])throw {msg:'这个账号已经有人用了，换一个吧。如果是你自己的账号，请点上面的“登录”。'};
+      return Promise.all([H.ensure(),derive(u,pw)]);
+    }).then(function(a){
+      var raw=a[1],sk=null;try{sk=JSON.parse(get('sk'));}catch(e){}
+      if(!sk)throw {msg:'没能准备好这台设备的身份，请刷新后再试。'};
+      return useRaw(raw).then(function(){return seal({sk:sk,u:u});}).then(function(ek){
+        return H.post({op:'u',id:H.rid('u'),aid:aid,ek:ek});
+      }).then(function(){return login2(u,aid,raw,true);});
+    });
+  }
+  function login(u,pw){
+    var aid,raw;
+    return aidOf(u).then(function(a){aid=a;return Promise.all([H.load(true),derive(u,pw)]);}).then(function(r){
+      var S=r[0];raw=r[1];var ac=S.accounts&&S.accounts[aid];
+      if(!ac)throw {msg:'没有这个账号。新用户请点上面的“注册”。'};
+      return useRaw(raw).then(function(){return unseal(ac.ek);}).then(function(box){
+        if(!box||!box.sk||!box.sk.d)throw {msg:'密码不对，请再试一次。'};
+        var cur=get('sk');
+        if(cur&&cur!==JSON.stringify(box.sk)&&!get('sk_prev'))set('sk_prev',cur);   // 这台设备原来的身份留着，退出时换回来
+        set('sk',JSON.stringify(box.sk));
+        return H.reset();
+      }).then(function(){return login2(u,aid,raw,false);});
+    });
+  }
+  function login2(u,aid,raw,fresh){
+    ACC={u:u,aid:aid,r:b64u(raw),first:fresh?0:1};set('acct',JSON.stringify(ACC));
+    VS={};saveVS();VJ=null;DEC={};
+    return sync({fresh:false,first:!fresh,resume:true});
+  }
+  function logout(){
+    ACC=null;KE=KM=null;del('acct');del('vstate');VS={};VJ=null;DEC={};queue=[];
+    var prev=get('sk_prev');if(prev){set('sk',prev);del('sk_prev');}else del('sk');
+    return H.reset();
+  }
+
+  /* ===== 界面：欢迎页左上角“账号” ===== */
+  var SH=el('div','hconf rsheet acctsheet');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','账号');SH.hidden=true;
+  SH.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><button type="button" class="rs-x" data-close aria-label="关闭">×</button><div class="rs-body"></div></div>';
+  document.body.appendChild(SH);
+  var BODY=SH.querySelector('.rs-body'),tab='in';
+  function openSheet(){paint(true);SH.hidden=false;void SH.offsetWidth;SH.classList.add('open');document.documentElement.classList.add('sheetopen');
+  }
+  function closeSheet(){SH.classList.remove('open');document.documentElement.classList.remove('sheetopen');setTimeout(function(){SH.hidden=true;},220);}
+  function when(t){if(!t)return '';var s=Math.round((Date.now()-t)/1000);return s<60?'刚刚':s<3600?Math.floor(s/60)+' 分钟前':new Date(t).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+  function paint(force){
+    document.querySelectorAll('[data-acct]').forEach(function(b){var n=b.querySelector('.ac-n');if(n)n.textContent=ACC?ACC.u:'账号';b.classList.toggle('in',!!ACC);});
+    if(!force&&(SH.hidden||!ACC))return;   // 面板关着不用画；没登录时不打断正在填的表单
+    if(ACC){
+      var st=status.err?'<span class="ac-bad">同步没有成功：'+esc(status.err)+'</span>':status.msg?esc(status.msg):status.t?'✓ 已同步 · '+when(status.t):'';
+      BODY.innerHTML='<h3>账号</h3><p class="ac-me">已登录：<b>'+esc(ACC.u)+'</b></p><p class="ac-st" role="status">'+st+'</p>'+
+        '<p class="ac-k">在别的手机、电脑或微信里登录这个账号，下面这些都会同步过去：</p>'+
+        '<ul class="ac-list"><li>字号、夜间模式、朗读速度、称呼</li><li>你发过的问题、回复和打卡（同一个身份）</li><li>“写下我的回答”里写的内容</li><li>“我们的行动”的勾选</li><li>读到哪里（继续上次阅读）</li></ul>'+
+        '<div class="hconf-btns"><button type="button" data-acsync>立即同步</button><button type="button" data-acout>退出登录</button></div>';
+      return;
+    }
+    if(!H.ok||!SUB){BODY.innerHTML='<h3>账号</h3><p class="ac-lead">'+esc(H.why({code:location.protocol==='file:'?'FILE':'OLD'}))+'</p>';return;}
+    var up=tab==='up';
+    BODY.innerHTML='<h3>账号</h3><p class="ac-lead">不登录也能正常使用。登录后，换手机、用电脑或在微信里打开，你的设置、发过的问题和写下的回答都会同步过来。</p>'+
+      '<div class="rs-seg ac-tabs" role="tablist"><button type="button" role="tab" data-actab="in" class="'+(up?'':'on')+'">登录</button><button type="button" role="tab" data-actab="up" class="'+(up?'on':'')+'">注册新账号</button></div>'+
+      '<form class="ac-f" autocomplete="on">'+
+      '<label><span>账号</span><input class="ac-u" name="username" autocomplete="username" maxlength="20" placeholder="例如：杭州小羊" autocapitalize="off" spellcheck="false"></label>'+
+      '<label><span>密码</span><input class="ac-p" name="password" type="password" autocomplete="'+(up?'new':'current')+'-password" maxlength="64" placeholder="'+(up?'至少 6 位，不要太简单':'输入密码')+'"></label>'+
+      (up?'<label><span>确认密码</span><input class="ac-p2" type="password" autocomplete="new-password" maxlength="64" placeholder="再输入一次密码"></label>':'')+
+      '<label class="ac-show"><input type="checkbox" class="ac-sh"> 显示密码</label>'+
+      '<p class="ac-msg" role="status"></p>'+
+      '<button type="submit" class="btn solid ac-go">'+(up?'注册并登录':'登录')+'</button>'+
+      (up?'<p class="ac-tip">请记住密码。你的笔记先用密码加密，再保存到网上，谁也看不到；也因此<b>忘记密码就无法找回</b>。</p>':'<p class="ac-tip">还没有账号？点上面的“注册新账号”。</p>')+
+      '</form>';
+  }
+  var WEAK=/^(123456|1234567|12345678|123456789|111111|000000|666666|888888|abc123|password|qwerty|654321|123123)$/i;
+  SH.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.closest('[data-close]')){closeSheet();return;}
+    var tb=t.closest('[data-actab]');if(tb){var u=SH.querySelector('.ac-u');var keep=u&&u.value;tab=tb.dataset.actab;paint(true);if(keep)SH.querySelector('.ac-u').value=keep;return;}
+    if(t.closest('.ac-sh')){SH.querySelectorAll('.ac-p,.ac-p2').forEach(function(i){i.type=t.checked?'text':'password';});return;}
+    if(t.closest('[data-acsync]')){sync({fresh:true,resume:true});return;}
+    if(t.closest('[data-acout]')){
+      if(!window.confirm('退出登录后，这台设备不再同步。已经在这台设备上的笔记会保留。确定退出吗？'))return;
+      logout().then(function(){tab='in';paint(true);});return;
+    }
+  });
+  SH.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+  SH.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=SH.querySelector('.ac-msg'),go=SH.querySelector('.ac-go');
+    var u=uname(SH.querySelector('.ac-u').value),pw=SH.querySelector('.ac-p').value,p2=SH.querySelector('.ac-p2');
+    function say(s,bad){msg.textContent=s;msg.classList.toggle('ac-bad',!!bad);}
+    if(!okName(u))return say('账号要 2–20 个字，只能用中文、字母、数字（以及 _ . -）。',true);
+    if(tab==='up'){
+      if(pw.length<6)return say('密码至少 6 位。',true);
+      if(WEAK.test(pw))return say('这个密码太常见了，容易被猜到，换一个吧。',true);
+      if(p2&&p2.value!==pw)return say('两次输入的密码不一样。',true);
+    }else if(!pw)return say('请输入密码。',true);
+    go.disabled=true;say(tab==='up'?'正在注册……':'正在登录……');
+    (tab==='up'?register(u,pw):login(u,pw)).then(function(){
+      go.disabled=false;paint(true);
+      var st=SH.querySelector('.ac-st');if(st)st.textContent=tab==='up'?'✓ 注册成功，已登录。以后在别的设备登录这个账号即可同步。':'✓ 登录成功，已同步。';
+    },function(err){go.disabled=false;say(err&&err.msg?err.msg:H.why(err),true);});
+  });
+  document.addEventListener('click',function(e){if(e.target.closest('[data-acct]')){e.preventDefault();openSheet();}});
+
+  /* ===== 自动同步 ===== */
+  function changedSinceSync(){if(!ACC||!KE)return false;var cur=snapshot(false);return Object.keys(cur).some(function(k){var st=VS[k];return st?st.h!==fnv(cur[k]):!!cur[k];});}
+  setInterval(function(){if(!document.hidden&&(queue.length||changedSinceSync()))sync();},8000);   // 写完笔记、改了设置，几秒后自动上传；上次没传成功的也会再传
+  document.addEventListener('visibilitychange',function(){if(!ACC||!KE)return;if(document.hidden)sync({resume:true});else sync({fresh:true});});
+  H.on(function(){if(ACC&&KE&&!running&&!draining)loadVJ().then(remoteItems).then(function(R){pull(R,false);}).catch(function(){});});   // 别处刷新了数据，顺便看看账号里有没有新内容
+  function boot(){
+    paint(true);
+    if(!ACC)return;
+    if(!SUB){return;}
+    useRaw(unb64u(ACC.r)).then(function(){return sync({fresh:true,first:!!ACC.first,resume:false});});
+  }
+  if(document.readyState==='complete')setTimeout(boot,1500);else addEventListener('load',function(){setTimeout(boot,1500);});
+  paint();
 })();
 
 </script>

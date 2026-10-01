@@ -6,6 +6,7 @@ const { Q4Ask } = require('./ask_core.js');
 const ROOT = path.join(__dirname, '..', '..');
 const DATA = path.join(ROOT, 'data', 'ask.json');
 const ADMINS = path.join(ROOT, 'data', 'ask-admins.json');
+const VAULT = path.join(ROOT, 'data', 'vault.json');   // 账号同步的加密数据单独放，平时打开网页的人不用下载
 const OUT = name => path.join(ROOT, 'data', name);
 const TOPIC = process.env.Q4_TOPIC;
 const RELAY = (process.env.Q4_RELAY || 'https://ntfy.sh').replace(/\/+$/, '');
@@ -50,6 +51,7 @@ function checkinsCSV(S) {
 (async () => {
   if (!TOPIC) throw new Error('Q4_TOPIC 没有设置');
   const S = Q4Ask.norm(readJSON(DATA, {}));
+  S.vault = (readJSON(VAULT, {}) || {}).vault || {};
   const before = JSON.stringify(S);
   S.admins = readJSON(ADMINS, []).filter(u => /^[0-9a-f]{32}$/.test(u));
   const since = S.last ? Math.max(0, S.last - 120) : 'all';
@@ -66,8 +68,10 @@ function checkinsCSV(S) {
   fs.mkdirSync(path.dirname(DATA), { recursive: true });
   if (JSON.stringify(S) !== before || !fs.existsSync(DATA)) {
     S.updated = Math.floor(Date.now() / 1000);
-    fs.writeFileSync(DATA, JSON.stringify(S));
+    const { vault, ...pub } = S;
+    fs.writeFileSync(DATA, JSON.stringify(pub));
+    fs.writeFileSync(VAULT, JSON.stringify({ updated: S.updated, vault }));
   }
   for (const f of stale) fs.writeFileSync(OUT(f), sheets[f]);
-  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次` + (stale.length ? `；更新表格 ${stale.join('、')}` : ''));
+  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次，账号 ${Object.keys(S.accounts).length} 个` + (stale.length ? `；更新表格 ${stale.join('、')}` : ''));
 })().catch(e => { console.error(e); process.exit(1); });
