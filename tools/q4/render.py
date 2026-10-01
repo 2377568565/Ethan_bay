@@ -367,8 +367,43 @@ def qr_svg(url):
     d = ''.join(f'M{x},{y}h1v1h-1z' for y in range(n) for x in range(n) if m[y][x])
     return f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="{n}" height="{n}" fill="#fff"/><path d="{d}" fill="#111"/></svg>'
 
+def songs():
+    """音乐栏目的曲目：仓库 music/list.json（只列出 MP3 文件确实存在的）"""
+    d = os.path.normpath(os.path.join(Q4, '..', '..', 'music'))
+    try:
+        lst = json.load(open(os.path.join(d, 'list.json'), encoding='utf-8'))['songs']
+    except (OSError, ValueError, KeyError):
+        return []
+    return [x for x in lst if os.path.exists(os.path.join(d, x['file']))]
+
+def mmss(n):
+    return f'{int(n) // 60}:{int(n) % 60:02d}' if n else ''
+
+def music_page():
+    cards = ''.join(f'''<article class="msong" id="music-{x['id']}" data-song="{x['id']}" data-src="{ONLINE}music/{urllib.parse.quote(x['file'])}" data-title="{html.escape(x['title'])} · 音乐">
+  <button class="ms-play" type="button" data-mplay aria-label="播放《{html.escape(x['title'])}》"><span class="ms-ic" aria-hidden="true"></span></button>
+  <div class="ms-main">
+    <h3 class="ms-t">{html.escape(x['title'])}</h3>
+    {f'<p class="ms-s">{html.escape(x["sub"])}</p>' if x.get('sub') else ''}
+    <div class="ms-bar"><i class="ms-pg" aria-hidden="true"><b></b></i><span class="ms-tm">{mmss(x.get('dur'))}</span></div>
+  </div>
+  <p class="ms-acts"><a class="btn ms-dl" href="{ONLINE}music/{urllib.parse.quote(x['file'])}" download="{html.escape(x['title'])}.mp3">⬇ 下载</a><button class="btn share" type="button" data-share="music-{x['id']}">{SHAREIC}分享</button></p>
+</article>''' for x in songs())
+    return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
+<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+<section class="mhome">
+  <p class="eyebrow">学课之余 · 安静聆听</p>
+  <h1>音乐</h1>
+  <p class="lead">学完学课，听一首诗歌。播放后可以继续去读学课或问答，音乐会缩成左下角的小窗，一直播放。</p>
+  <p class="mtools"><button class="btn solid" type="button" data-mall>▶ 全部播放</button><button class="btn" type="button" data-mloop aria-pressed="false">🔁 循环播放</button><button class="btn share" type="button" data-share="music">{SHAREIC}分享音乐栏目</button></p>
+  <div class="msongs">{cards or '<p class="mnone">音乐正在整理中，敬请期待。</p>'}</div>
+  <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“下载”。</p>
+</section>
+<nav class="lessonbar bottom"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
+</div>'''
+
 def qr_all():
-    ids = ['qa', 'ask'] + [it['id'] for it in qa_data.ITEMS]
+    ids = ['qa', 'ask', 'music'] + ['music-' + x['id'] for x in songs()] + [it['id'] for it in qa_data.ITEMS]
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
             ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
@@ -608,7 +643,7 @@ def build_combined(nos):
     <p>罪关上了伊甸园的门，却没有让上帝就此沉默。祂在园中呼唤“你在哪里？”<span class="ref">（创3:9）</span>，先知们一个接一个回答“我在这里，请差遣我！”<span class="ref">（赛6:8）</span>。本季十三课，讲的就是这位不肯沉默的上帝：祂借着先知说话，借着圣经存话，借着儿子亲自来说，又借着圣灵一直说到末时。</p>
     <p>点下面任意一课，页面就只显示那一课：先读“解读”，再对照“学课原文”，两排按钮可以随时切换。</p>
   </div>
-  <p class="btnrow hbtns"><a class="btn solid" href="#welcome" data-welcome>✦ 回到欢迎页</a><a class="btn" href="#l0">阅读本季导言</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a></p>
+  <p class="btnrow hbtns"><a class="btn solid" href="#welcome" data-welcome>✦ 回到欢迎页</a><a class="btn" href="#l0">阅读本季导言</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><a class="btn music" href="#music">♪ 音乐</a></p>
   <div class="cards">{"".join(cards)}</div>
   <p class="homeend">{GOHOME.replace('主页', '返回主页（欢迎页）')}</p>
 </section>'''
@@ -624,7 +659,7 @@ def build_combined(nos):
         bottom = f'<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<span class="pn">{prev}{nxt}</span></nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{bar}\n{frags[n]}\n{bottom}\n</div>')
-    body = welcome.welcome_html(titles) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + ask_page())
+    body = welcome.welcome_html(titles) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)

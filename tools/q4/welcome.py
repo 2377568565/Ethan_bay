@@ -202,7 +202,7 @@ def welcome_html(titles):
   <p class="winvite"><span class="q">“凡劳苦担重担的人可以到我这里来，<br>我就使你们得安息。”</span><span class="by">—— 耶稣的邀请（太11:28）</span></p>
   <div class="wrec">
     <p class="wdate"></p>
-    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a></p>
+    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
     <p class="wclass" hidden><a href="#l1"></a></p>
     <p class="wresume" hidden></p>
     <div class="wnews" hidden></div>
