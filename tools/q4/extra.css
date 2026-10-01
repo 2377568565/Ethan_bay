@@ -633,3 +633,8 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 .loc-f select{background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
 .loc-f select:focus,.loc-f input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .loc-auto{display:block;margin:2px auto 14px;border:0;background:none;color:var(--accent);font-size:.86rem;text-decoration:underline;cursor:pointer;min-height:32px}
+.loc-gps{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:46px;margin:0 0 6px;border-radius:12px;font-size:1rem}
+.loc-gps .ic{width:18px;height:18px}
+.locsheet .loc-or{margin:6px 0 10px;font-size:.8rem;color:var(--ink-3,var(--ink-2));text-align:center}
+.loc-msg{margin:0 0 6px;min-height:0;font-size:.84rem;line-height:1.6;color:var(--accent);text-align:center}
+.loc-msg:empty{display:none}

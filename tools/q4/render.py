@@ -520,10 +520,13 @@ def ask_page():
     <div class="hconf-card">
       <div class="hconf-ic">{PINIC}</div>
       <h3 id="loc-t">选择你的地区</h3>
-      <p>只显示到省和市，大家看到的就是这一行。</p>
+      <p>只显示到省和市。用手机定位时，只把大概位置换成城市名，不保存具体位置。</p>
+      <button type="button" class="btn solid loc-gps" data-locgps>{PINIC}用手机定位（更准）</button>
+      <p class="loc-or">或者自己选择</p>
       <label class="loc-f"><span>省份</span><select class="loc-pro"><option value="">请选择</option><option value="北京市">北京市</option><option value="天津市">天津市</option><option value="河北省">河北省</option><option value="山西省">山西省</option><option value="内蒙古自治区">内蒙古自治区</option><option value="辽宁省">辽宁省</option><option value="吉林省">吉林省</option><option value="黑龙江省">黑龙江省</option><option value="上海市">上海市</option><option value="江苏省">江苏省</option><option value="浙江省">浙江省</option><option value="安徽省">安徽省</option><option value="福建省">福建省</option><option value="江西省">江西省</option><option value="山东省">山东省</option><option value="河南省">河南省</option><option value="湖北省">湖北省</option><option value="湖南省">湖南省</option><option value="广东省">广东省</option><option value="广西壮族自治区">广西壮族自治区</option><option value="海南省">海南省</option><option value="重庆市">重庆市</option><option value="四川省">四川省</option><option value="贵州省">贵州省</option><option value="云南省">云南省</option><option value="西藏自治区">西藏自治区</option><option value="陕西省">陕西省</option><option value="甘肃省">甘肃省</option><option value="青海省">青海省</option><option value="宁夏回族自治区">宁夏回族自治区</option><option value="新疆维吾尔自治区">新疆维吾尔自治区</option><option value="香港">香港</option><option value="澳门">澳门</option><option value="台湾">台湾</option><option value="海外">海外</option></select></label>
       <label class="loc-f"><span>城市（可以不填）</span><input class="loc-city" maxlength="12" placeholder="例如：杭州市" autocomplete="off"></label>
-      <button type="button" class="loc-auto" data-locauto>改回自动识别</button>
+      <p class="loc-msg" role="status"></p>
+      <button type="button" class="loc-auto" data-locauto>按网络重新识别</button>
       <div class="hconf-btns"><button type="button" data-locno>取消</button><button type="button" class="ok" data-locok>确定</button></div>
     </div>
   </div>

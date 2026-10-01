@@ -572,26 +572,72 @@ function q4copy(t){
     });
   }
   function afterLoad(f){if(document.readyState==='complete')setTimeout(f,0);else addEventListener('load',function(){setTimeout(f,0);});}
-  var LOC='',LOCVPN=false;
-  function ipLoc(force){
-    var c=get('askloc')||'',day=new Date().toDateString();
-    if(!force&&c&&(get('asklocman')==='1'||get('asklocday')===day))return Promise.resolve(c);   // 手动选的一直有效；自动识别的每天更新一次
-    if(MOCK)return Promise.resolve(c||'浙江省杭州市');
-    return pconline().then(function(v){return v||sohu();}).then(function(v){
-      LOCVPN=false;
-      if(v&&!MAINLAND.test(v)&&chinaClock()){LOCVPN=true;v='';}   // 手机是北京时间、网络却在境外：多半开着 VPN
-      if(v){set('askloc',v);set('asklocday',day);set('asklocman','');return v;}
-      return force?'':c;
+  /* 手机定位：浏览器先弹窗问“是否允许获取位置”；同意后把大概位置（约 1 公里）换成“省 + 市”，经纬度本身不保存 */
+  var T2S={'臺':'台','灣':'湾','縣':'县','園':'园','東':'东','雲':'云','義':'义','蘭':'兰','蓮':'莲','門':'门','連':'连','區':'区','鄉':'乡','鎮':'镇','國':'国','華':'华','龍':'龙','興':'兴','寧':'宁','廣':'广','陽':'阳','島':'岛','頭':'头','關':'关','開':'开','澤':'泽','濱':'滨','亞':'亚','爾':'尔','聖':'圣','維':'维','納':'纳','約':'约','紐':'纽','倫':'伦','蘇':'苏','邊':'边','漢':'汉','韓':'韩','馬':'马','來':'来','禮':'礼','麗':'丽','歐':'欧','羅':'罗','愛':'爱','臘':'腊','奧':'奥','烏':'乌'};
+  function simp(t){return String(t||'').replace(/[\u4e00-\u9fff]/g,function(ch){return T2S[ch]||ch;});}
+  function place(cc,prov,city,country){
+    cc=(cc||'').toUpperCase();prov=simp(prov);city=simp(city);
+    if(cc==='CN'){if(/香港/.test(prov+city))return '香港';if(/澳门/.test(prov+city))return '澳门';return prov?prov+(city&&city!==prov?city:''):'';}
+    if(cc==='TW')return '台湾'+(prov||city);
+    if(cc==='HK')return '香港';if(cc==='MO')return '澳门';
+    return simp(country)+(city||prov);
+  }
+  function bdc(la,lo){   // BigDataCloud：大陆能到“省 + 市”，台湾到县市
+    return net(fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+la+'&longitude='+lo+'&localityLanguage=zh').then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();}),10000)
+      .then(function(d){var adm=((d&&d.localityInfo)||{}).administrative||[],lv5='';
+        adm.forEach(function(x){if(x.adminLevel===5&&!lv5)lv5=x.name||'';});
+        return place(d.countryCode,d.principalSubdivision,d.countryCode==='CN'?lv5:d.city,d.countryName);},function(){return '';});
+  }
+  function osm(la,lo){   // OpenStreetMap：备用
+    return net(fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&accept-language=zh-CN,zh&lat='+la+'&lon='+lo).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();}),10000)
+      .then(function(d){var a=(d&&d.address)||{},f=function(x){return String(x||'').split(';')[0];},cc=String(a.country_code||'').toUpperCase(),ci=f(a.city||a.town||a.county);
+        if(cc==='CN'&&!/市$/.test(ci))ci='';return place(cc,f(a.state||a.province)||(cc==='CN'?ci:''),ci,f(a.country));},function(){return '';});
+  }
+  function gpsLoc(){
+    return new Promise(function(ok){
+      if(!navigator.geolocation)return ok({err:'none'});
+      setTimeout(function(){ok({err:'fail'});},20000);   // 没理会询问弹窗时，浏览器会一直等；最多等 20 秒
+      navigator.geolocation.getCurrentPosition(function(p){ok({la:p.coords.latitude.toFixed(2),lo:p.coords.longitude.toFixed(2)});},
+        function(e){ok({err:e&&e.code===1?'deny':'fail'});},{enableHighAccuracy:false,timeout:15000,maximumAge:6e5});
+    }).then(function(r){
+      if(r.err){if(r.err==='deny')set('asklocgps','no');return {err:r.err};}
+      return bdc(r.la,r.lo).then(function(v){return v||osm(r.la,r.lo);}).then(function(v){return v?{v:v}:{err:'name'};});
     });
   }
-  function showLoc(){$('.ask-locv').textContent=LOC?LOC+(get('asklocman')==='1'?'':'（自动识别）'):(LOCVPN?'没认出地区（开着 VPN？）':'地区未识别');}
+  var LOC='',LOCSRC='',LOCVPN=false;
+  function saveLoc(v,src){LOC=v;LOCSRC=src;set('askloc',v);set('asklocsrc',src);set('asklocat',String(Date.now()));set('asklocman',src==='man'?'1':'');}
+  function ipLoc(){
+    return pconline().then(function(v){return v||sohu();}).then(function(v){
+      LOCVPN=false;v=v.replace(/^(台湾|香港|澳门)(省|特别行政区)/,'$1');
+      if(v&&!MAINLAND.test(v)&&chinaClock()){LOCVPN=true;v='';}   // 手机是北京时间、网络却在境外：多半开着 VPN
+      return v;
+    });
+  }
+  // 先用手动选的；再用手机定位（30 天内有效，第一次会弹窗询问）；不允许定位就按网络识别
+  function findLoc(mode){
+    var c=get('askloc')||'',src=get('asklocsrc')||(get('asklocman')==='1'?'man':(c?'ip':'')),age=Date.now()-(+get('asklocat')||0);
+    if(!get('asklocat')&&get('asklocday')===new Date().toDateString())age=0;
+    if(!mode&&c&&(src==='man'||(src==='gps'&&age<30*864e5)||(src==='ip'&&age<864e5))){LOC=c;LOCSRC=src;return Promise.resolve(c);}
+    if(MOCK){LOC=c||'浙江省杭州市';LOCSRC=src||'ip';return Promise.resolve(LOC);}
+    var useGps=mode==='gps'||(mode!=='ip'&&get('asklocgps')!=='no');
+    return (useGps?gpsLoc():Promise.resolve({err:'skip'})).then(function(g){
+      if(g.v){saveLoc(g.v,'gps');return g;}
+      if(mode==='gps')return g;   // 是用户点了“用手机定位”：失败就说明原因，不悄悄换成按网络识别
+      return ipLoc().then(function(v){if(v)saveLoc(v,'ip');else if(mode){LOC='';LOCSRC='';}else{LOC=c;LOCSRC=src;}return {v:v,err:g.err};});
+    });
+  }
+  function showLoc(){
+    var tag={gps:'（手机定位）',ip:'（按网络识别）'}[LOCSRC]||'';
+    $('.ask-locv').textContent=LOC?LOC+tag:(LOCVPN?'没认出地区（开着 VPN？）':'地区未识别');
+  }
   var LS=null;
   function openLoc(){
     if(!LS){LS=document.querySelector('.locsheet');if(!LS)return;document.body.appendChild(LS);LS.addEventListener('click',locClick);
       LS.addEventListener('keydown',function(e){if(e.key==='Escape')closeLoc();});}
     var sel=LS.querySelector('.loc-pro'),city=LS.querySelector('.loc-city'),pro='';
-    [].slice.call(sel.options).forEach(function(o){if(o.value&&LOC.indexOf(o.value)===0&&o.value.length>pro.length)pro=o.value;});
-    sel.value=pro;city.value=pro?LOC.slice(pro.length):'';
+    var L=LOC.replace(/^(台湾|香港|澳门)(省|特别行政区)/,'$1');
+    [].slice.call(sel.options).forEach(function(o){if(o.value&&L.indexOf(o.value)===0&&o.value.length>pro.length)pro=o.value;});
+    sel.value=pro;city.value=pro?L.slice(pro.length):'';LS.querySelector('.loc-msg').textContent='';
     LS.hidden=false;void LS.offsetWidth;LS.classList.add('open');setTimeout(function(){sel.focus({preventScroll:true});},60);
   }
   function closeLoc(){LS.classList.remove('open');setTimeout(function(){LS.hidden=true;},220);}
@@ -600,12 +646,16 @@ function q4copy(t){
     if(t.closest('[data-locok]')){
       var pro=LS.querySelector('.loc-pro').value,ci=LS.querySelector('.loc-city').value.replace(/\s+/g,'').slice(0,12);
       if(!pro){LS.querySelector('.loc-pro').focus();return;}
-      var v=pro==='海外'?(ci||'海外'):pro+(ci&&ci!==pro?ci:'');
-      LOC=v;set('askloc',v);set('asklocman','1');set('asklocday',new Date().toDateString());showLoc();closeLoc();return;
+      saveLoc(pro==='海外'?(ci||'海外'):pro+(ci&&ci!==pro?ci:''),'man');showLoc();closeLoc();return;
     }
-    if(t.closest('[data-locauto]')){
-      set('asklocman','');LOC='';$('.ask-locv').textContent='正在识别地区…';closeLoc();
-      ipLoc(true).then(function(v){LOC=v;showLoc();});return;
+    var mode=t.closest('[data-locgps]')?'gps':t.closest('[data-locauto]')?'ip':'';
+    if(mode){
+      var m=LS.querySelector('.loc-msg');m.textContent=mode==='gps'?'正在定位……（如果弹出询问，请点“允许”）':'正在按网络识别……';
+      findLoc(mode).then(function(r){
+        if(r&&r.v){showLoc();closeLoc();return;}
+        m.textContent=mode==='gps'?({deny:'没有得到定位权限。可以在手机“设置 → 微信（或浏览器）→ 位置”里允许，或直接在上面选择。',none:'这个浏览器不支持定位，请在上面选择。'}[r&&r.err]||'定位没有成功，请在上面选择地区。'):'没识别出来，请在上面选择地区。';
+        showLoc();
+      });return;
     }
     if(t.closest('[data-locno]'))closeLoc();
   }
@@ -741,7 +791,7 @@ function q4copy(t){
   function open(){
     if(started)return;started=true;
     $('.ask-name').value=get('askname')||'';
-    afterLoad(function(){ipLoc().then(function(v){LOC=v;showLoc();});});   // 页面加载完再查地区，不拖慢页面（微信顶部进度条）
+    afterLoad(function(){findLoc().then(showLoc);});   // 页面加载完再查地区，不拖慢页面（微信顶部进度条）
     store.init().then(function(){load();}).catch(function(e){list.innerHTML='<p class="ask-empty err">'+esc(why(e))+'</p>';started=false;});
   }
   window.q4ask={open:open};
