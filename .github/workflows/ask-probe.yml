@@ -1,0 +1,47 @@
+name: ask-probe
+# 临时：上线后从 GitHub 服务器打开真实网站检查朗读（查完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/ask-probe.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE: https://2377568565.github.io/Ethan_bay/
+    steps:
+      - name: 声音文件
+        run: |
+          for f in audio/kk-f/index.json audio/kk-f/l1-yw-thu.mp3 audio/kk-f/l1-thu.mp3 audio/kk-f/qa1.mp3; do
+            printf '%s ' "$f"; curl -sS -m 30 -o /dev/null -w '%{http_code} %{content_type} %{size_download}\n' "$BASE$f"
+          done
+          printf '分段请求 '; curl -sS -m 30 -r 1000-1999 -o /dev/null -w '%{http_code} %{size_download}\n' "${BASE}audio/kk-f/l1-yw-thu.mp3"
+      - name: 模拟微信打开并播放
+        run: |
+          npm i --no-save --silent playwright-core@1.47.2
+          cat > probe.js <<'JS'
+          const {chromium}=require('playwright-core');
+          (async()=>{
+            const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--autoplay-policy=no-user-gesture-required']});const errs=[];
+            const c=await b.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,timezoneId:'Asia/Shanghai',locale:'zh-CN',
+              userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.50(0x18003231) NetType/WIFI Language/zh_CN'});
+            await c.addInitScript(()=>{Object.defineProperty(window,'speechSynthesis',{value:undefined});window.SpeechSynthesisUtterance=undefined;});
+            const p=await c.newPage();
+            p.on('pageerror',e=>errs.push('pageerror: '+e.message));
+            p.on('console',m=>{if(m.type()==='error'&&!/busuanzi|pconline|sohu|Failed to load resource/.test(m.text()))errs.push('console: '+m.text().slice(0,160));});
+            await p.goto(process.env.BASE+'?today=2026-10-01',{waitUntil:'load'});await p.waitForTimeout(4000);
+            await p.tap('#wgo');await p.waitForTimeout(2500);
+            const btn=await p.evaluate(()=>({全部听朗读:document.querySelectorAll('.ttsbtn.rec').length,原文:(document.querySelector('#l1-yw-thu .ttsbtn')||{}).textContent||'无',解读:(document.querySelector('#l1-thu .ttsbtn')||{}).textContent||'无'}));
+            console.log('按钮:',JSON.stringify(btn));
+            await p.locator('#l1-yw-thu .ttsbtn').tap();await p.waitForTimeout(9000);
+            const st=await p.evaluate(()=>({条:!document.querySelector('.ttsbar').hidden,标题:document.querySelector('.ttsbar .tt-t').textContent,时间:document.querySelector('.ttsbar .tt-tm').textContent,高亮:(document.querySelector('.speaking')||{textContent:'无'}).textContent.slice(0,24)}));
+            console.log('原文播放 9 秒:',JSON.stringify(st));
+            await p.locator('.ttsbar .tt-x').tap();
+            await p.evaluate(()=>{location.hash='#l1-thu';});await p.waitForTimeout(1500);
+            await p.locator('#l1-thu .ttsbtn').tap();await p.waitForTimeout(9000);
+            const st2=await p.evaluate(()=>({标题:document.querySelector('.ttsbar .tt-t').textContent,时间:document.querySelector('.ttsbar .tt-tm').textContent,高亮:(document.querySelector('.speaking')||{textContent:'无'}).textContent.slice(0,24)}));
+            console.log('解读播放 9 秒:',JSON.stringify(st2));
+            console.log('错误:',errs.length?errs:'无');await b.close();if(errs.length)process.exit(1);
+          })();
+          JS
+          node probe.js
