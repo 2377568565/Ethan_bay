@@ -9,9 +9,12 @@
 本地也能用：python3 tools/q4/music_import.py --dir 放歌的文件夹（需要 ffmpeg）
 MP3 / M4A / FLAC / WAV / 视频都可以，ZIP 压缩包会自动解开。
 
-处理：只取声音，统一音量（loudnorm），压成 96 kbps 的 MP3（约 0.7 MB/分钟），去掉封面和其它标签；
-存成 music/<编号>.mp3，曲名取自文件名（或歌曲标签），追加到 music/list.json；
+处理：只取声音，统一音量（loudnorm），压成 48 kbps 的 HE-AAC（.m4a，约 0.36 MB/分钟，听感接近 96 kbps 的 MP3，
+大小只有一半，网速慢时少卡）；去掉封面和其它标签。HE-AAC 要用完整版的 fdk-aac（music.yml 会现场编译），
+没有时改用 64 kbps 的 AAC-LC。
+存成 music/<编号>.m4a，曲名取自文件名（或歌曲标签），追加到 music/list.json；
 在 music/sources.json 里记下收过哪些文件，下次只收新的。
+--reencode：把已经收过的歌从原始文件按现在的格式重新压一遍（编号、曲名不变；--keep-old 时先留着旧文件）。
 """
 import argparse, hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.parse, urllib.request, zipfile
 
@@ -63,10 +66,42 @@ def clean_title(t):
     return '' if EMPTY.fullmatch(t) else t
 
 
-def encode(src, dst, kbps):
-    run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-vn', '-map', '0:a:0', '-map_metadata', '-1',
-         '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ac', '2', '-ar', '44100',
-         '-c:a', 'libmp3lame', '-b:a', f'{kbps}k', '-id3v2_version', '3', dst])
+FMT = {'heaac': ('.m4a', 48), 'aac': ('.m4a', 64), 'mp3': ('.mp3', 96)}   # 格式：扩展名、每秒千比特
+
+
+def fdk_ok(profile):
+    """fdkaac 能不能压这种格式（Ubuntu 自带的 libfdk-aac 去掉了 HE-AAC）"""
+    if not shutil.which('fdkaac'):
+        return False
+    with tempfile.TemporaryDirectory() as t:
+        w, o = os.path.join(t, 'a.wav'), os.path.join(t, 'a.m4a')
+        subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'sine=d=1', '-ac', '2', '-ar', '44100', w], capture_output=True)
+        r = subprocess.run(['fdkaac', '-S', '-p', str(profile), '-b', '48000', '-o', o, w], capture_output=True)
+        return r.returncode == 0 and os.path.exists(o)
+
+
+def fmt_of(codec):
+    if codec == 'heaac' and not fdk_ok(5):
+        print('fdkaac 不支持 HE-AAC，改用 AAC-LC 64 kbps', flush=True)
+        return 'aac'
+    return codec
+
+
+def encode(src, dst, codec, kbps):
+    pre = ['ffmpeg', '-v', 'error', '-y', '-i', src, '-vn', '-map', '0:a:0', '-map_metadata', '-1',
+           '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ac', '2', '-ar', '44100']
+    if codec == 'mp3':
+        run(pre + ['-c:a', 'libmp3lame', '-b:a', f'{kbps}k', '-id3v2_version', '3', dst])
+    elif codec == 'aac' and not shutil.which('fdkaac'):
+        run(pre + ['-c:a', 'aac', '-b:a', f'{kbps}k', '-movflags', '+faststart', dst])
+    else:   # ffmpeg 解码、统一音量 → fdkaac 压缩（HE-AAC 或 AAC-LC）；moov 放在前面，边下边播
+        dec = subprocess.Popen(pre + ['-f', 'wav', '-'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        enc = subprocess.run(['fdkaac', '-S', '-p', '5' if codec == 'heaac' else '2', '-b', str(kbps * 1000), '-I', '--moov-before-mdat', '-o', dst, '-'],
+                             stdin=dec.stdout, capture_output=True)
+        dec.stdout.close()
+        err = dec.stderr.read().decode('utf-8', 'replace')
+        if dec.wait() or enc.returncode or not os.path.exists(dst) or os.path.getsize(dst) < 1000:
+            raise RuntimeError('压缩失败：' + (err + enc.stderr.decode('utf-8', 'replace'))[-300:])
 
 
 def save_stream(r, dst):
@@ -149,7 +184,9 @@ def main():
     ap.add_argument('--release', default='', help='Release 的标签或名称')
     ap.add_argument('--dir', default='', help='本地放歌的文件夹')
     ap.add_argument('--music', default=os.path.join(ROOT, 'music'))
-    ap.add_argument('--kbps', type=int, default=96)
+    ap.add_argument('--codec', default='heaac', choices=sorted(FMT))
+    ap.add_argument('--reencode', action='store_true', help='把已收的歌换成现在的格式重新压一遍')
+    ap.add_argument('--keep-old', action='store_true', help='重新压时先不删旧文件')
     a = ap.parse_args()
     os.makedirs(a.music, exist_ok=True)
     LIST, SRC = os.path.join(a.music, 'list.json'), os.path.join(a.music, 'sources.json')
@@ -170,7 +207,11 @@ def main():
         sys.exit('请指定 --release 或 --dir')
     items = sorted((it for it in items if ext(it['name']) in EXT or ext(it['name']) == '.zip'), key=lambda x: x['name'].lower())
     todo = [it for it in items if it['key'] not in done]
-    used = sum(os.path.getsize(os.path.join(a.music, f)) for f in os.listdir(a.music) if f.endswith('.mp3'))
+    codec = fmt_of(a.codec)
+    EXT_OUT, KBPS = FMT[codec]
+    if a.reencode:
+        return reencode(a, lst, done, items, codec, LIST, SRC)
+    used = sum(os.path.getsize(os.path.join(a.music, f)) for f in os.listdir(a.music) if ext(f) in ('.mp3', '.m4a'))
     print(f'找到 {len(items)} 个文件，新的 {len(todo)} 个；音乐目录现在 {used / 1048576:.0f} MB', flush=True)
     st = {'added': 0, 'used': used, 'failed': 0}
 
@@ -185,9 +226,9 @@ def main():
         sid, n = base, 1
         while any(s['id'] == sid and s.get('src') != name for s in lst['songs']):   # 编号撞了（极少见）就加个尾号
             sid, n = f'{base}{n}', n + 1
-        kbps = a.kbps if st['used'] + dur * a.kbps * 125 <= SITE_BUDGET else 64   # 快超过网站容量时自动压得更小
-        dst = os.path.join(a.music, sid + '.mp3')
-        encode(src, dst, kbps)
+        kbps = KBPS if st['used'] + dur * KBPS * 125 <= SITE_BUDGET else KBPS * 2 // 3   # 快超过网站容量时自动压得更小
+        dst = os.path.join(a.music, sid + EXT_OUT)
+        encode(src, dst, codec, kbps)
         size = os.path.getsize(dst)
         # 曲名：文件名可靠时用文件名（整理者自己起的），否则用歌曲标签
         cands = [name, tag_title] if named else [tag_title, re.sub(r'\.(?=.*\.)', ' ', name)]   # 附件名里的点原来是空格
@@ -201,12 +242,12 @@ def main():
             done[key] = same['id']
             print(f'  已经有《{same["title"]}》，跳过', flush=True)
             return
-        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': sid + '.mp3', 'dur': round(dur), 'src': name}
+        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': sid + EXT_OUT, 'dur': round(dur), 'src': name}
         lst['songs'] = [s for s in lst['songs'] if s['id'] != sid] + [song]
         done[key] = sid
         st['used'] += size
         st['added'] += 1
-        print(f'  → {sid}.mp3 《{title}》 {dur / 60:.1f} 分钟，{size / 1048576:.1f} MB（{kbps} kbps）', flush=True)
+        print(f'  → {sid}{EXT_OUT} 《{title}》 {dur / 60:.1f} 分钟，{size / 1048576:.1f} MB（{kbps} kbps）', flush=True)
         if st['added'] % 10 == 0:   # 每收 10 首存一次，中途出问题也不白做
             save(LIST, SRC, lst, done)
 
@@ -252,6 +293,49 @@ def main():
     untitled = [s['file'] for s in lst['songs'] if s['title'] == '未命名']
     if untitled:
         print(f'有 {len(untitled)} 首没找到曲名，请在 music/list.json 里补上：', ', '.join(untitled))
+
+
+def reencode(a, lst, done, items, codec, LIST, SRC):
+    """已经收过的歌：从原始文件按现在的格式重新压一遍（编号、曲名都不变）"""
+    EXT_OUT, KBPS = FMT[codec]
+    by_key = {it['key']: it for it in items}
+    todo = [s for s in lst['songs'] if ext(s['file']) != EXT_OUT]
+    print(f'要换成 {codec}（{KBPS} kbps {EXT_OUT}）的歌：{len(todo)} 首', flush=True)
+    ok = bad = 0
+    with tempfile.TemporaryDirectory() as tmp:
+        for i, s in enumerate(todo, 1):
+            it = next((by_key[k] for k, v in done.items() if v == s['id'] and k in by_key), None)
+            print(f"[{i}/{len(todo)}] 《{s['title']}》", flush=True)
+            if not it:
+                print('  找不到原始文件，保留现在的', flush=True)
+                bad += 1
+                continue
+            src = it.get('path') or os.path.join(tmp, 'src' + ext(it['name']))
+            dst = os.path.join(a.music, s['id'] + EXT_OUT)
+            try:
+                if not it.get('path'):
+                    it['get'](src)
+                encode(src, dst, codec, KBPS)
+                old = os.path.join(a.music, s['file'])
+                if not a.keep_old and os.path.exists(old) and old != dst:
+                    os.remove(old)
+                s['file'] = s['id'] + EXT_OUT
+                s['dur'] = round(probe(dst)[0]) or s.get('dur', 0)
+                ok += 1
+                print(f'  → {s["file"]} {os.path.getsize(dst) / 1048576:.2f} MB', flush=True)
+            except Exception as e:
+                bad += 1
+                if os.path.exists(dst) and ext(s['file']) != EXT_OUT:
+                    os.remove(dst)
+                print(f'  失败，保留原来的：{e}', flush=True)
+            finally:
+                if not it.get('path') and os.path.exists(src):
+                    os.remove(src)
+            if ok and ok % 10 == 0:
+                save(LIST, SRC, lst, done)
+    save(LIST, SRC, lst, done)
+    total = sum(os.path.getsize(os.path.join(a.music, s['file'])) for s in lst['songs'] if os.path.exists(os.path.join(a.music, s['file'])))
+    print(f'完成：换好 {ok} 首，没换 {bad} 首；网页用到的音乐共 {total / 1048576:.0f} MB')
 
 
 def save(LIST, SRC, lst, done):
