@@ -1,13 +1,105 @@
 {
-  "note": "试听样本：同一段原文（第1课星期四开头），几种开源声音各读一遍",
-  "out": "audio/try",
-  "check": true,
-  "rev": 4,
-  "jobs": [
-    {"name": "cv3-f", "engine": "cosy3", "voice": "f", "ids": "l1-yw-thu", "maxblocks": 4},
-    {"name": "cv3-m", "engine": "cosy3", "voice": "m", "ids": "l1-yw-thu", "maxblocks": 4},
-    {"name": "cv3-f-calm", "engine": "cosy3", "voice": "f", "instruct": "请用平稳、温和、庄重的语气，像朗读经文一样，语速稍慢。", "ids": "l1-yw-thu", "maxblocks": 4},
-    {"name": "kk-f", "engine": "kokoro", "voice": "zf_001", "ids": "l1-yw-thu", "maxblocks": 4},
-    {"name": "kk-m", "engine": "kokoro", "voice": "zm_010", "ids": "l1-yw-thu", "maxblocks": 4}
-  ]
+ "note": "全季学课原文（每课一个任务并行），声音 A：CosyVoice3 女声",
+ "out": "audio/cv3-f",
+ "check": false,
+ "jobs": [
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "0"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "1"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "2"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "3"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "4"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "5"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "6"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "7"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "8"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "9"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "10"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "11"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "12"
+  },
+  {
+   "name": "",
+   "engine": "cosy3",
+   "voice": "f",
+   "kinds": "yw",
+   "lessons": "13"
+  }
+ ]
 }

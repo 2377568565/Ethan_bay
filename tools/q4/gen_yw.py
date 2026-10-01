@@ -45,7 +45,7 @@ def day_article(key, dayname, date, title, paras, lesson_title=None, head_extra=
     body='\n'.join(paras)
     nxt = {'sab':'sun','sun':'mon','mon':'tue','tue':'wed','wed':'thu','thu':'fri'}.get(key)
     nxtname = dict(DAYS).get(nxt,'')
-    nav = f'<a class="btn ghost" href="#{key}">返回本日解读</a>'
+    nav = f'<a class="btn" href="#{key}">接着看本日解读 →</a>'
     if nxt: nav += f'<a class="btn ghost" href="#yw-{nxt}">下一天原文：{nxtname} →</a>'
     else: nav += '<a class="btn ghost" href="#sab">原文读完，开始逐日解读 →</a>'
     return f'''<article class="ywday" id="yw-{key}">

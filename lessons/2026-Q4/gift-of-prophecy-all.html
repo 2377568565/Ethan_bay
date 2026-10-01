@@ -630,12 +630,24 @@ footer .credit{color:var(--ink-2);font-size:.82rem;letter-spacing:.02em;margin:0
 .btn.gohome{border-color:var(--gold);color:var(--gold)}
 .btn.gohome:hover{background:var(--gold-soft)}
 .homeend{display:flex;justify-content:center;margin:22px 0 0}
-.fab{position:fixed;right:16px;bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 16px 0 13px;
-  border:1px solid rgba(232,207,152,.6);border-radius:999px;background:rgba(20,26,56,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  color:#FCE7B0;font:700 .92rem/1 var(--sans);letter-spacing:.06em;box-shadow:0 10px 26px -10px rgba(10,14,40,.6);cursor:pointer;
-  opacity:0;transform:translateY(18px) scale(.96);pointer-events:none;transition:opacity .25s ease,transform .25s ease}
+/* 主页按钮一直显示：往下读时变成半透明“玻璃”，透过它仍看得清后面的字；往上滑慢慢恢复全色 */
+:root{--gl-bg:rgba(255,255,255,.1);--gl-edge:rgba(255,255,255,.75);--gl-ink:#7A2233;--gl-halo:rgba(255,255,255,.95);--gl-shade:rgba(40,30,20,.22)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gl-bg:rgba(255,255,255,.07);--gl-edge:rgba(255,255,255,.3);--gl-ink:#F3D98F;--gl-halo:rgba(0,0,0,.85);--gl-shade:rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{--gl-bg:rgba(255,255,255,.07);--gl-edge:rgba(255,255,255,.3);--gl-ink:#F3D98F;--gl-halo:rgba(0,0,0,.85);--gl-shade:rgba(0,0,0,.5)}
+.fab{position:fixed;right:16px;bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 17px 0 14px;
+  border:1px solid rgba(232,207,152,.6);border-radius:999px;background-color:rgba(20,26,56,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  color:#FCE7B0;font:700 .95rem/1 var(--sans);letter-spacing:.06em;box-shadow:0 10px 26px -10px rgba(10,14,40,.6);cursor:pointer;overflow:hidden;isolation:isolate;
+  transition:background-color .7s ease,border-color .7s ease,color .7s ease,box-shadow .7s ease,text-shadow .7s ease,-webkit-backdrop-filter .7s ease,backdrop-filter .7s ease,bottom .25s ease}
+.fab::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;transition:opacity .7s ease;
+  background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.12) 38%,rgba(255,255,255,0) 60%,rgba(255,255,255,.18) 100%)}
 .fab .ic{width:18px;height:18px}
-.fab.on{opacity:1;transform:none;pointer-events:auto}
+.fab.glass,.tbtn.glass{background-color:var(--gl-bg);border-color:var(--gl-edge);color:var(--gl-ink);text-shadow:0 0 4px var(--gl-halo),0 0 1px var(--gl-halo);
+  -webkit-backdrop-filter:blur(.5px) saturate(1.6);backdrop-filter:blur(.5px) saturate(1.6);
+  box-shadow:inset 0 1px 1px var(--gl-edge),inset 0 -1px 2px rgba(255,255,255,.18),0 8px 22px -12px var(--gl-shade);
+  transition-duration:.35s}
+.fab.glass::before,.tbtn.glass::before{opacity:.5;transition-duration:.35s}
+.fab.glass .ic,.tbtn.glass .ic{filter:drop-shadow(0 0 2px var(--gl-halo))}
+html.ttson .fab,html.ttson .tools{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 64px)}
 html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 .hconf{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px}
 .hconf-bg{position:absolute;inset:0;background:rgba(8,12,30,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .22s ease}
@@ -934,7 +946,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 .ckin.pop{animation:ckpop .7s ease}
 @keyframes ckpop{0%{transform:scale(1)}35%{transform:scale(1.03)}100%{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.ckin.pop{animation:none}}
-.wtogether .wt-days{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:8px 0 10px}
+.wtogether .wt-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0 10px}
 .wt-d{display:grid;justify-items:center;gap:2px;padding:6px 0;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:inherit;text-decoration:none}
 .wt-d .wt-a{font-size:.74rem;opacity:.8}
 .wt-d .wt-n{font-weight:700;font-variant-numeric:tabular-nums}
@@ -969,10 +981,12 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 @media print{.ckin,.dsc{display:none}}
 
 /* 阅读工具：浮动按钮（跟“主页”按钮一起出现） */
-.tools{position:fixed;right:calc(16px + var(--fabw,96px) + 8px);bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
-.tools.on{opacity:1;transform:none;pointer-events:auto}
-html.wopen .tools,html.bopen .tools,html.ttson .tools{display:none}
-.tbtn{display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);box-shadow:0 4px 14px rgba(0,0,0,.16);cursor:pointer}
+.tools{position:fixed;right:calc(16px + var(--fabw,96px) + 8px);bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;transition:bottom .25s ease}
+html.wopen .tools,html.bopen .tools{display:none}
+.tbtn{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:999px;border:1px solid var(--rule);background-color:var(--surface);color:var(--ink-2);box-shadow:0 4px 14px rgba(0,0,0,.16);cursor:pointer;overflow:hidden;isolation:isolate;
+  transition:background-color .7s ease,border-color .7s ease,color .7s ease,box-shadow .7s ease,-webkit-backdrop-filter .7s ease,backdrop-filter .7s ease}
+.tbtn::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;opacity:0;transition:opacity .7s ease;
+  background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.12) 38%,rgba(255,255,255,0) 60%,rgba(255,255,255,.18) 100%)}
 .tbtn .ic{width:19px;height:19px}
 .aa{font:700 16px/1 var(--serif);letter-spacing:-.02em}.aa small{font-size:11px}
 .wtools,.hometools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 0}
@@ -982,8 +996,11 @@ html.wopen .tools,html.bopen .tools,html.ttson .tools{display:none}
 .hometools .btn{display:inline-flex;align-items:center;gap:6px}
 .hometools .ic{width:16px;height:16px}.hometools .aa{font-size:14px}
 /* 弹出面板：阅读设置、搜索 */
-.rsheet .hconf-card{width:min(420px,100%);max-height:calc(100vh - 40px);overflow:auto;text-align:left}
-.rsheet h3{text-align:center}
+.rsheet .hconf-card{width:min(420px,100%);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);display:flex;flex-direction:column;overflow:hidden;padding:0;text-align:left}
+.rs-body{overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:24px 22px 18px}
+.rs-x{position:absolute;top:10px;right:10px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;background:var(--paper);color:var(--muted);font:400 1.3rem/36px var(--sans);cursor:pointer}
+.rs-x:hover{color:var(--ink)}
+.rsheet h3{text-align:center;padding:0 34px}
 .rs-k{margin:14px 0 6px;font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--muted)}
 .rs-seg{display:flex;gap:6px}
 .rs-seg button{flex:1;min-height:44px;padding:0 4px;white-space:nowrap;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink-2);font-family:var(--sans);cursor:pointer}
@@ -1007,6 +1024,13 @@ html.sheetopen{overflow:hidden}
 .ttsbtn{margin-left:6px}
 .ttsbar{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:60;transform:translateX(-50%);display:flex;align-items:center;gap:8px;width:min(560px,calc(100% - 24px));padding:8px 8px 8px 16px;border-radius:999px;background:#1F2433;color:#F5F1E6;box-shadow:0 8px 28px rgba(0,0,0,.3)}
 .ttsbar .tt-t{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.86rem}
+.ttsbar .tt-tm{flex:none;font-size:.76rem;opacity:.72;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.ttsbar .tt-tm:empty{display:none}
+.ttsbar .tt-pg{position:absolute;left:24px;right:24px;top:0;height:12px;cursor:pointer}
+.ttsbar .tt-pg::before{content:"";position:absolute;left:0;right:0;top:3px;height:3px;border-radius:3px;background:rgba(255,255,255,.14)}
+.ttsbar .tt-pg b{position:absolute;left:0;top:3px;height:3px;width:0;border-radius:3px;background:#F3D98F;transition:width .25s linear}
+@media (max-width:379px){.ttsbar .tt-tm{display:none}}
+.ttsbtn.rec{border-color:var(--gold);color:var(--gold)}
 .ttsbar button{flex:none;min-width:40px;height:40px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:inherit;font:600 .84rem/1 var(--sans);cursor:pointer}
 .speaking{background:rgba(255,213,79,.28);box-shadow:0 0 0 6px rgba(255,213,79,.28);border-radius:4px;transition:background .3s ease}
 @media print{.tools,.ttsbar,.ttsbtn,.hometools{display:none}}
@@ -1124,15 +1148,6 @@ html.sheetopen{overflow:hidden}
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！下次打开，欢迎页会换上荣耀的景象。</div>
 <button class="fab" type="button" data-gohome aria-label="返回主页"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>主页</span></button>
-<div class="hconf" id="hconf" role="alertdialog" aria-modal="true" aria-labelledby="hconf-t" aria-describedby="hconf-d" hidden>
-  <div class="hconf-bg" data-hno></div>
-  <div class="hconf-card">
-    <div class="hconf-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.2 12 4l8.5 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8v9.7h4.4v-5.6h3.2v5.6H18V9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-    <h3 id="hconf-t">是否确定返回主页？</h3>
-    <p id="hconf-d">将打开欢迎页。之后点欢迎页右上角的 ×，就能回到现在的阅读位置。</p>
-    <div class="hconf-btns"><button type="button" data-hno>取消</button><button type="button" class="ok" data-hok>确定</button></div>
-  </div>
-</div>
 <div class="shsheet" id="shsheet" role="dialog" aria-modal="true" aria-labelledby="sh-h" data-base="https://2377568565.github.io/Ethan_bay/" hidden>
   <div class="sh-bg" data-shclose></div>
   <div class="sh-card">
@@ -1158,7 +1173,7 @@ html.sheetopen{overflow:hidden}
     <div class="wg-btns"><button type="button" class="ok" data-wgdone>✓ 我已转发</button><button type="button" data-wgcancel>先不转发</button></div>
   </div>
 </div>
-<div class="sh-qrs" hidden><svg data-for="home" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM14,3h1v1h-1zM20,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM15,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM21,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM18,7h1v1h-1zM22,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM2,10h1v1h-1zM8,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM27,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM9,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM23,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM25,12h1v1h-1zM2,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM17,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM30,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM16,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM19,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM28,17h1v1h-1zM30,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM10,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM12,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM21,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM27,20h1v1h-1zM30,20h1v1h-1zM2,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM13,21h1v1h-1zM16,21h1v1h-1zM22,21h1v1h-1zM26,21h1v1h-1zM2,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM19,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM13,23h1v1h-1zM15,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM18,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM15,26h1v1h-1zM17,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM22,27h1v1h-1zM25,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM21,28h1v1h-1zM24,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM16,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM28,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1z" fill="#111"/></svg><svg data-for="qa" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM13,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM18,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM2,10h1v1h-1zM6,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM30,10h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM9,11h1v1h-1zM11,11h1v1h-1zM16,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM2,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM30,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM16,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM24,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM2,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM29,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM6,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM2,16h1v1h-1zM3,16h1v1h-1zM4,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM20,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM13,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM26,20h1v1h-1zM28,20h1v1h-1zM30,20h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM21,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM15,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM14,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM30,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM12,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM25,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1z" fill="#111"/></svg><svg data-for="ask" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM6,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM12,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM4,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM12,21h1v1h-1zM15,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM6,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM13,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM25,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM13,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa1" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM26,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM4,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM21,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM17,33h1v1h-1zM20,33h1v1h-1zM23,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa2" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM13,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM11,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM11,21h1v1h-1zM12,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM10,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg></div>
+<div class="sh-qrs" hidden><svg data-for="home" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM14,3h1v1h-1zM20,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM15,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM21,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM18,7h1v1h-1zM22,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM2,10h1v1h-1zM8,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM27,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM9,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM23,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM25,12h1v1h-1zM2,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM17,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM30,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM16,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM19,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM28,17h1v1h-1zM30,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM10,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM12,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM21,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM27,20h1v1h-1zM30,20h1v1h-1zM2,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM13,21h1v1h-1zM16,21h1v1h-1zM22,21h1v1h-1zM26,21h1v1h-1zM2,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM19,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM13,23h1v1h-1zM15,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM18,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM15,26h1v1h-1zM17,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM22,27h1v1h-1zM25,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM21,28h1v1h-1zM24,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM16,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM28,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1z" fill="#111"/></svg><svg data-for="qa" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM13,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM18,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM2,10h1v1h-1zM6,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM30,10h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM9,11h1v1h-1zM11,11h1v1h-1zM16,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM2,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM30,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM16,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM24,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM2,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM29,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM6,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM2,16h1v1h-1zM3,16h1v1h-1zM4,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM20,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM13,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM26,20h1v1h-1zM28,20h1v1h-1zM30,20h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM21,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM15,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM14,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM30,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM12,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM25,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1z" fill="#111"/></svg><svg data-for="ask" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM6,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM12,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM4,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM12,21h1v1h-1zM15,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM6,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM13,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM25,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM13,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa1" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM26,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM4,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM21,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM17,33h1v1h-1zM20,33h1v1h-1zM23,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa2" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM13,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM11,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM11,21h1v1h-1zM12,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM10,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg></div><div id="audiocfg" hidden data-audio="https://2377568565.github.io/Ethan_bay/audio/cv3-f/" data-audio-ids=""></div>
 <div class="gift" id="gift" role="dialog" aria-modal="true" aria-labelledby="gift-h" hidden>
   <div class="gift-bg" data-giftclose></div>
   <div class="gift-card">
@@ -1468,7 +1483,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l1-yw-sab">
   <header class="ywhead">
@@ -1483,7 +1498,7 @@ html.sheetopen{overflow:hidden}
 <p>上帝最终的计划，是要在我们里面恢复祂的形像，就是那因罪而被破坏的形像。这正是救赎计划的核心：恢复；而这恢复将在上帝创造“新天新地，有义居在其中”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="60|3.13">彼后3：13</span>）</span>时达到完全。直到那日来临前，上帝仍会对我们说话，祂也仍会借着祂的先知来成就这件事。</p>
 <p class="ynote">■研究本周学课，为10月3日安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-sab">返回本日解读</a><a class="btn ghost" href="#l1-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-sab">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-sun">
   <header class="ywhead">
@@ -1500,7 +1515,7 @@ html.sheetopen{overflow:hidden}
 <p>亚当和夏娃享有与上帝面对面的交通。作为有智慧的受造者，他们能与上帝相会，聆听祂的吩咐。身为上帝美丽园子的管理者，他们在照料各样活的花草树木与飞禽走兽时，也不断在知识与能力上成长。每天，他们还有特别的时间，在“天起了凉风”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="0|3.8">创3：8</span>）</span>的时候与上帝相聚。尤其是安息日，作为上帝创造工作中不可或缺的一部分，原是上帝与祂儿女之间特别分别出来、用来交通的时间<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="0|2.2;2.3">创2：2、3</span>；出</span><span class="ref"><span class="bref" role="button" tabindex="0" data-v="0|20.8;20.9;20.10;20.11">20：8-11</span>）</span>。在那一天，我们的始祖以一种特别的方式经历上帝对他们的爱与眷顾。</p>
 <p class="yq" id="l1-yw-sun-q2">今日的我们，距离伊甸园已有数千年之久，很难想象罪尚未进入世界之前伊甸园是怎样的光景。然而，即使到了今天，大自然仍如何让我们看见上帝起初创造的痕迹呢？</p><p class="yqlink"><a class="toans" href="#l1-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-sun">返回本日解读</a><a class="btn ghost" href="#l1-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-sun">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-mon">
   <header class="ywhead">
@@ -1518,7 +1533,7 @@ html.sheetopen{overflow:hidden}
 <p>其实，撒但的话充满了错误。他向他们隐瞒了悖逆的后果。他们一违背上帝，眼睛立刻就“明亮了”，看见自己“赤身露体”。上帝那作为遮盖的光明与荣耀的“外袍”<span class="ref">（诗</span><span class="ref">104：1、2）</span>，就是反映上帝“形像”的记号，如今已失去了。他们不再被上帝为他们预备的遮盖所覆庇。难怪亚当和夏娃要躲避他们的创造主<span class="ref">（虽然实际上根本不可能躲过上帝）</span>。他们想要藏起来，因为罪使人产生罪咎，而人在罪咎之中就会想逃离上帝的面。</p>
 <p class="yq" id="l1-yw-mon-q2">你自己曾有过这样的经历吗？当你犯罪之后，羞愧是否曾使你想要躲避上帝？</p><p class="yqlink"><a class="toans" href="#l1-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-mon">返回本日解读</a><a class="btn ghost" href="#l1-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-mon">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-tue">
   <header class="ywhead">
@@ -1537,7 +1552,7 @@ html.sheetopen{overflow:hidden}
 <p>保罗所说的确十分深刻。我们都是破碎的人，不断去做那些自己明知不该做的事。有谁不曾经历过这种现实呢？</p>
 <p>保罗说，我们唯一的盼望，就是借着“我们的主耶稣基督”得蒙拯救<span class="ref">（罗</span><span class="ref"><span class="bref" role="button" tabindex="0" data-v="44|7.25">7：25</span>）</span>。这也正是为什么上帝仍然不断寻找我们，要领我们归向耶稣；因为惟有祂能塑造我们恢复祂的形像，也惟有祂能拯救我们脱离罪所带来的毁坏。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-tue">返回本日解读</a><a class="btn ghost" href="#l1-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-tue">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-wed">
   <header class="ywhead">
@@ -1555,7 +1570,7 @@ html.sheetopen{overflow:hidden}
 <p><span class="bref" role="button" tabindex="0" data-v="0|3.15">创3：15</span>，也就是人们所称的“第一个福音应许”，尽管是在如此悲惨的情况赐下，仍然充满盼望，它不只是给他们，也给我们。那位将要来的救赎主之应许，使人能够与罪为敌，也使人对将来人类的得救怀抱盼望。其实，在亚当和夏娃离开伊甸园之前，上帝为他们预备衣服，这本身就是一个象征性的行动，预表他们将来要得着的救赎。借着耶稣未来的死与复活，人与上帝之间的交通终必恢复<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|14.1;14.2;14.3">约14：1-3</span>）</span>。也就是说，就在伊甸园里，在罪刚进入之后，人类立刻就得到了盼望与应许：罪的问题终必解决。罪一出现，救主的应许也随之而来。</p>
 <p class="yq" id="l1-yw-wed-q2">当你做了不该做的事之后，曾经有过怎样的感受？罪咎？羞愧？自我厌恶？它给你带来了什么后果？而你对上帝的信心以及福音的应许，又如何使你不至于完全放弃信仰？</p><p class="yqlink"><a class="toans" href="#l1-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-wed">返回本日解读</a><a class="btn ghost" href="#l1-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-wed">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-thu">
   <header class="ywhead">
@@ -1574,7 +1589,7 @@ html.sheetopen{overflow:hidden}
 <p>在耶稣升天之后，圣灵仍然继续引导我们“明白一切的真理”，并且向我们说明“将来的事”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|16.13">约16：13</span>）</span>。</p>
 <p class="yq" id="l1-yw-thu-q2">知道耶稣和祂的爱、祂的品格，以及祂的自我牺牲，向我们显明了父上帝真正的样式，这带给你多大的安慰呢？</p><p class="yqlink"><a class="toans" href="#l1-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-thu">返回本日解读</a><a class="btn ghost" href="#l1-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-thu">接着看本日解读 →</a><a class="btn ghost" href="#l1-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l1-yw-fri">
   <header class="ywhead">
@@ -1590,7 +1605,7 @@ html.sheetopen{overflow:hidden}
 <p>在这些痛苦的思想之中，年轻的艾伦做了两个梦，开始改变她对上帝的看法。但直到她遇见卫理公会传道人里维·史托克曼之后，她才真正明白并感受到上帝的爱与恩典。那彷佛是在她绝望之中，上帝亲自对她说话。她后来写道：“信心如今占据了我的心。我感受到一种无法形容的对上帝的爱，也有祂的灵为我作见证，证明我的罪已蒙赦免。我对天父的看法改变了。我如今看祂是一位慈爱温柔的父亲，而不是一位严厉的暴君，强迫人盲目顺服。我的心深深而热切地转向祂，爱祂。”─《怀爱伦传略》，原文第39页。同时，怀爱伦也明白了“死后的状态”这项教义，并逐渐领会到一个永远燃烧的地狱并不存在。她对上帝及其爱的全新认识，彻底改变了她的态度。正如接下来每个星期五我们将要学习的，怀爱伦深深爱上了耶稣，并且终其一生事奉祂。</p>
 <p class="ynote">欲了解更多内容，请至网址：https://whiteestate.org/absg/1</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l1-fri">返回本日解读</a><a class="btn ghost" href="#l1-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l1-fri">接着看本日解读 →</a><a class="btn ghost" href="#l1-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 
 </section>
@@ -2309,7 +2324,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l2-yw-sab">
   <header class="ywhead">
@@ -2326,7 +2341,7 @@ html.sheetopen{overflow:hidden}
 <p>上周我们学到，在伊甸园堕落之后，上帝就开始设法重新恢复与人类之间的交通。本周我们要查考历史中几个重要时刻，看见上帝如何呼召先知，使祂的子民重新对准祂向这个堕落世界所传达的信息。</p>
 <p class="ynote">■研究本周学课，为10月10日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-sab">返回本日解读</a><a class="btn ghost" href="#l2-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-sab">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-sun">
   <header class="ywhead">
@@ -2345,7 +2360,7 @@ html.sheetopen{overflow:hidden}
 <p>亚伯拉罕的时代和我们今天有许多相似之处。正如在亚伯拉罕的时代，异教与偶像崇拜盛行，今天世界上许多彼此竞争的思想体系，也同样企图消除基督教，或将之边缘化。与主流文化形成对比的是，上帝今日的子民蒙召要在日常与人互动中忠心的反映出祂的形像，包括宣讲三天使信息<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="65|14.6;14.7;14.8;14.9;14.10;14.11;14.12">启14：6-12</span>）</span>。</p>
 <p class="yq" id="l2-yw-sun-q2">圣经说，亚伯兰“信耶和华，耶和华就以此为他的义”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="0|15.6">创15：6</span>）</span>。你如何看见福音的应许在这节经文中被显明出来？而这又能带给你什么盼望呢？</p><p class="yqlink"><a class="toans" href="#l2-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-sun">返回本日解读</a><a class="btn ghost" href="#l2-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-sun">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-mon">
   <header class="ywhead">
@@ -2364,7 +2379,7 @@ html.sheetopen{overflow:hidden}
 <p>真正的复兴，是从人的心和家庭开始的。家庭是教会的基石，也是社会不可或缺的基本单位。家庭中的复兴，会把属天的爱扩展到教会、社区，乃至整个国家。这正是上帝对基督徒家庭的旨意。复兴也会激励上帝的子民投入使命。</p>
 <p class="yq" id="l2-yw-mon-q3">今天，在我们的家庭、内心和教会中，是否也存在某些偶像呢？</p><p class="yqlink"><a class="toans" href="#l2-mon-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-mon">返回本日解读</a><a class="btn ghost" href="#l2-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-mon">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-tue">
   <header class="ywhead">
@@ -2382,7 +2397,7 @@ html.sheetopen{overflow:hidden}
 <p>然而，以赛亚的先知呼召并不容易。百姓觉得他对毁灭的预告荒谬可笑，就像今天许多人在听见罪的后果之警告时也有同样的反应<span class="ref">（罗</span><span class="ref">6：23）</span>。以赛亚对他的时代，以及对我们这时代所发出的先知之声，是清楚明白的<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="22|2.4">赛2：4</span>；<span class="bref" role="button" tabindex="0" data-v="22|5.20">5：20</span>）</span>。正是因为这个国家拒绝实行公义，也不愿改革，耶路撒冷才会走向毁灭。当基督再来时，同样的罪也将成为地上恶人灭亡的记号。</p>
 <p class="yq" id="l2-yw-tue-q2">请重读一遍〈以赛亚书〉53章，把其中所有耶稣为我们所做的事都标记下来。从先知所启示、关于基督之死为我们成就之事中，你个人能得着什么极大的盼望？</p><p class="yqlink"><a class="toans" href="#l2-tue-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-tue">返回本日解读</a><a class="btn ghost" href="#l2-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-tue">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-wed">
   <header class="ywhead">
@@ -2400,7 +2415,7 @@ html.sheetopen{overflow:hidden}
 <p>想想〈但以理书〉2章；这章经文写于基督降生前五百多年，但以理却如此准确地描绘了四个世界大帝国的兴衰，甚至一直延伸到我们这时代<span class="ref">（也</span><span class="ref">就是雕像的脚和脚趾）</span>，明显指向现代欧洲各国；正如这预言清楚教导的，他们“必与别种人搀杂，却不能彼此相合，正如铁与泥不能相合一样”<span class="ref">（但2：</span><span class="ref">43）</span>。这段对欧洲的预言实在令人惊叹。直到今日，尽管通婚频繁，也曾多方努力追求统一，欧洲大陆仍是一个个分立的国家，各有不同的法律、风俗与传统。甚至就在苏联解体前几年，几乎没有任何情报机构预见它会垮台，而但以理的预言却给了我们充分的理由去信靠上帝的先知。</p>
 <p class="yq" id="l2-yw-wed-q2">〈但以理书〉2章中的各个国度，都如预言所说相继兴起又消逝。这件事应当如何帮助我们更加信靠那关于下一个将要来临之上帝永恒国度的预言<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="26|2.44">但2：44</span>）</span>？</p><p class="yqlink"><a class="toans" href="#l2-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-wed">返回本日解读</a><a class="btn ghost" href="#l2-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-wed">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-thu">
   <header class="ywhead">
@@ -2417,7 +2432,7 @@ html.sheetopen{overflow:hidden}
 <p>像古时的先知一样，我们今天也蒙召要宣讲悔改与信心的信息，以及基督之义的全备真理<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="65|14.6;14.7;14.8;14.9;14.10;14.11;14.12">启14：6-12</span>）</span>。正如他对施洗约翰所做的，撒但也可能利用不确定感，使我们怀疑上帝在我们生命中的使命。若我们记得上帝过去如何带领我们，就不必灰心丧志，特别是在事情进展不如人意时；约翰就是如此，他被囚，后来又因一个邪恶的妇人和一个意志软弱的男人而被杀。无论人怎样对待我们，我们都可以凭信心向上帝呼求，祂必应允我们。祂已应许赐给我们能力去成就祂的旨意<span class="ref">（徒1：</span><span class="ref">8）</span>。在这个后基督教、甚至非基督教的世界里，无论处境如何，我们都必须忠心为基督作见证。</p>
 <p class="yq" id="l2-yw-thu-q3">你是否也曾像监牢里的约翰那样，完全不明白为什么这些恶事会发生在自己身上？在那样的时刻，你是如何仍然持守对上帝的信心与信靠的呢？</p><p class="yqlink"><a class="toans" href="#l2-thu-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-thu">返回本日解读</a><a class="btn ghost" href="#l2-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-thu">接着看本日解读 →</a><a class="btn ghost" href="#l2-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l2-yw-fri">
   <header class="ywhead">
@@ -2435,7 +2450,7 @@ html.sheetopen{overflow:hidden}
 <p>下周，我们将更仔细地来看旧约先知承担的特殊工作与挑战；而我们也将看到，其中有一些情况同样反映在怀爱伦的生平与事奉上，正如我们下星期五将要学习的。</p>
 <p class="ynote">欲了解更多内容，请至网址：https：//whiteestate.org/absg/2</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l2-fri">返回本日解读</a><a class="btn ghost" href="#l2-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l2-fri">接着看本日解读 →</a><a class="btn ghost" href="#l2-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l2-yandu">
@@ -2755,7 +2770,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l3-yw-sab">
   <header class="ywhead">
@@ -2771,7 +2786,7 @@ html.sheetopen{overflow:hidden}
 <p>那么，从这几位蒙特别呼召的上帝仆人身上，我们可以学到什么呢？</p>
 <p class="ynote">■研究本周学课，10月17日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-sab">返回本日解读</a><a class="btn ghost" href="#l3-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-sab">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-sun">
   <header class="ywhead">
@@ -2789,7 +2804,7 @@ html.sheetopen{overflow:hidden}
 <p>关键也许可以从他的这句话中找到：“我为耶和华─万军之上帝大发热心；因为以色列人背弃了你的约，毁坏了你的坛，用刀杀了你的先知，只剩下我一个人，他们还要寻索我的命。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="10|19.10">王上19：10</span>）</span>这听起来像是他正在哀叹自己在事奉上的失败。他已经尽了最大的努力，背道的情况却依然存在，好像凭他一人能阻挡这股洪流似的。无论事情最终的全貌是什么，我们都可以清楚看见，这位上帝的仆人也一样的拥有人性的脆弱。换句话说，以利亚确实“与我们是一样性情的人”。</p>
 <p class="yq" id="l3-yw-sun-q3">为什么我们有时也很容易对自己的人生或所做的事产生一种“失败”的感觉？当你灰心时，可以抓住哪些圣经应许，帮助你走过低潮呢？</p><p class="yqlink"><a class="toans" href="#l3-sun-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-sun">返回本日解读</a><a class="btn ghost" href="#l3-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-sun">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-mon">
   <header class="ywhead">
@@ -2808,7 +2823,7 @@ html.sheetopen{overflow:hidden}
 <p>圣经中有许多例子，让我们看见先知过着怎样的生活。在这里，扫罗奉他父亲基士之命，去寻找走失的驴。他身边的仆人建议他不要放弃寻找，因为“这城里有一位神人，是众人所尊重的”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="8|9.6">撒上9：6</span>）</span>。这里对先知撒母耳的描述，正好显出人们对上帝先知所期待的特质。圣经中的真先知被称为“神人”，部分原因就是他们蒙拣选要在生命中彰显上帝的品格。同时，即使某些“神人”确实是先知，也不表示他们就是毫无缺点的人。</p>
 <p class="yq" id="l3-yw-mon-q3">你所认识、那些最受人尊敬的“神人”当中，有谁真的是完全没有瑕疵的呢？</p><p class="yqlink"><a class="toans" href="#l3-mon-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-mon">返回本日解读</a><a class="btn ghost" href="#l3-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-mon">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-tue">
   <header class="ywhead">
@@ -2825,7 +2840,7 @@ html.sheetopen{overflow:hidden}
 <p>先知也与祭司互动。身为上帝先知的摩西，膏立了亚伦和他的儿子，成为以色列最早的祭司<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="2|8.10">利8：10</span>-</span><span class="ref">13）</span>。有时祭司也会借着先知领受上帝责备的话<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="27|6.9">何6：9</span>；<span class="bref" role="button" tabindex="0" data-v="38|2.1;2.2;2.3">玛2：1-3</span>）</span>。其中一个鲜明范例，就是以利全家因其败坏的行径受到责备<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="8|2.27">撒上2：27</span>-</span><span class="ref">36）</span>。这些责备的话极其严厉，是针对那些蒙赐特权之人中泛滥的腐败现象。</p>
 <p>先知也是百姓的教师<span class="ref">（代下34章）</span>。他们向祭司、君王和全国百姓传达上帝的信息<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|5.31">耶5：31</span>；<span class="bref" role="button" tabindex="0" data-v="25|22.26">结22：26</span>）</span>。先知也向周围列国说话，说明上帝对他们的计划；这个主题在旧约先知的信息中一再出现<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="22|60.1;60.2;60.3">赛60：1-3</span>；<span class="bref" role="button" tabindex="0" data-v="22|62.1;62.2">62：1、2</span>）</span>。先知不但要忠心传讲上帝交付给他们的信息，有时还奉命把这些信息写下来并保存起来<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="13|13.22">代下13：22</span>）</span>。再次说明，不论先知有多少人性上的软弱<span class="ref">（而他们人人都有这些脆弱之处）</span>，他们仍然是祷告的人、宣讲上帝话语的人，也是服事上帝与祂子民的人<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|42.4">耶42：4</span>；<span class="bref" role="button" tabindex="0" data-v="11|22.15;22.16;22.17">王下22：15-17</span>）</span>。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-tue">返回本日解读</a><a class="btn ghost" href="#l3-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-tue">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-wed">
   <header class="ywhead">
@@ -2842,7 +2857,7 @@ html.sheetopen{overflow:hidden}
 <p>“女先知”户勒大，在王的仆人把“律法书”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="11|22.8">王下22：8</span>）</span>念给约西亚王听之后，朝中重要臣仆就向她求问<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="11|22.14">王下22：14</span>；<span class="bref" role="button" tabindex="0" data-v="13|34.22">代下34：22</span>）</span>；而且王听了之后，就“撕裂衣服”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="11|22.11">王下22：11</span>）</span>。这显然是一件极其严肃的事，而王也确实如此看待，所以他的人立刻去找户勒大。她已从上帝那里领受了有关犹大将要面对审判的信息。约西亚王后来推行的改革，正是出自户勒大的先知性信息，并且使上帝对祂子民的审判得以避免。</p>
 <p class="yq" id="l3-yw-wed-q3">无论是男先知还是女先知，虽然是蒙上帝特别的呼召，但先知同样也是一个需要恩典的罪人。从他们的故事中，你能得到什么盼望呢？</p><p class="yqlink"><a class="toans" href="#l3-wed-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-wed">返回本日解读</a><a class="btn ghost" href="#l3-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-wed">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-thu">
   <header class="ywhead">
@@ -2862,7 +2877,7 @@ html.sheetopen{overflow:hidden}
 <p>米该雅所承受、要他说谎的压力，很可能和那些亚舍拉假先知所感受到的压力一样；但米该雅并没有随从这种迎合大众的做法，反而等候上帝告诉他该说什么<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="10|22.14">王上22：14</span>）</span>。</p>
 <p class="yq" id="l3-yw-thu-q2">无论你是不是先知，跟随当下、人云亦云，总是很容易。既然文化本身可以败坏至极，那么对基督徒来说为什么随波逐流并不是个好主意呢？</p><p class="yqlink"><a class="toans" href="#l3-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-thu">返回本日解读</a><a class="btn ghost" href="#l3-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-thu">接着看本日解读 →</a><a class="btn ghost" href="#l3-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l3-yw-fri">
   <header class="ywhead">
@@ -2877,7 +2892,7 @@ html.sheetopen{overflow:hidden}
 <p>在圣灵的引导下，怀爱伦的先知事工鼓励了众信徒，也把他们带回圣经真理。到了1860年，她已在这个刚起步的基督复临安息日会宗派，以及其向全世界宣讲三天使信息的使命中，扮演关键角色。上帝也引导这群信徒在1863年正式组织基督复临安息日会。在后来的数十年间，怀爱伦的先知声音对建立全球性的复临医疗与教育体系，产生了深远影响。然而，她事奉中最重要的贡献仍是她的著作，总计约有十万页。怀爱伦受默示的著作，直到今日仍持续在世界各地发声。</p>
 <p class="ynote">欲了解更多内容，请至网址：https：//whiteestate.org/absg/3</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l3-fri">返回本日解读</a><a class="btn ghost" href="#l3-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l3-fri">接着看本日解读 →</a><a class="btn ghost" href="#l3-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l3-yandu">
@@ -3196,7 +3211,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l4-yw-sab">
   <header class="ywhead">
@@ -3211,7 +3226,7 @@ html.sheetopen{overflow:hidden}
 <p>本周我们将查考新约中预言的恩赐，看看先知做了些什么、哪些人行使了先知的职分、先知与使徒之间有何比较，以及假先知所带来的危险。</p>
 <p class="ynote">■研究本周学课，为10月24日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-sab">返回本日解读</a><a class="btn ghost" href="#l4-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-sab">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-sun">
   <header class="ywhead">
@@ -3230,7 +3245,7 @@ html.sheetopen{overflow:hidden}
 <p>在那之前，基督借着祂的生、死和复活，把永生赐给我们每一个人。唯一的问题是：我们是否愿意接受？</p>
 <p class="yq" id="l4-yw-sun-q2">请思想这件事：耶稣─那位创造主<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|1.1;1.2;1.3">约1：1-3</span>）</span>─竟然也是那位为你的罪死在十字架上的主。这项奇妙的真理教导了我们哪些关于上帝爱我们的事实呢？</p><p class="yqlink"><a class="toans" href="#l4-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-sun">返回本日解读</a><a class="btn ghost" href="#l4-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-sun">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-mon">
   <header class="ywhead">
@@ -3248,7 +3263,7 @@ html.sheetopen{overflow:hidden}
 <p>另外，我们从新约使徒所写的内容中也知道，耶稣几乎是他们一切书写的中心。无论从哪个角度来看，祂的生平牺牲复活、祂大祭司的事奉，以及复临，都是他们最核心的焦点。</p>
 <p class="yq" id="l4-yw-mon-q2">我们今日所拥有、关于使徒和先知论到耶稣生平及其作为之话语的正式记录，惟有圣经。这件事应当如何帮助我们明白：为什么在我们所相信有关耶稣和祂为我们受死的事上，圣经必须拥有最终的权威？</p><p class="yqlink"><a class="toans" href="#l4-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-mon">返回本日解读</a><a class="btn ghost" href="#l4-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-mon">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-tue">
   <header class="ywhead">
@@ -3265,7 +3280,7 @@ html.sheetopen{overflow:hidden}
 <p>〈使徒行传〉提到两位先知：犹大和西拉<span class="ref">（两人都没有写下任何圣经书卷）</span>；他们“用许多话劝勉弟兄，坚固他们”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|15.32">徒15：32</span>）</span>。的确，有时候先知必须发出警告，甚至是严厉的警告；但他们同时也会视情况需要说鼓励的话，尤其是在艰难的时刻。对那些需要听见这些话的人来说，其中所包含的盼望与应许，无疑是极其宝贵的。鼓励人的工作，也同样是在说预言的脉络中被提到的<span class="ref">（林</span><span class="ref">前14：31）</span>。在患难与逼迫之中，预言的恩赐一直是鼓励与盼望的来源。</p>
 <p>在<span class="bref" role="button" tabindex="0" data-v="65|22.6">启22：6</span>，耶稣被称为“众先知的上帝”，而祂的话语是“真实可信的”。当然，凡是出于上帝仆人的话，只要他们是在替上帝说话，也必定同样是“真实可信”的。在这个几乎没有多少事值得信任的世界里，我们确实可以信靠主借着先知所说的话，尤其是祂在圣经中的话语；因为圣经是我们最终、也是最高的权威。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-tue">返回本日解读</a><a class="btn ghost" href="#l4-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-tue">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-wed">
   <header class="ywhead">
@@ -3282,7 +3297,7 @@ html.sheetopen{overflow:hidden}
 <p>在<span class="bref" role="button" tabindex="0" data-v="55|1.4">多1：4</span>，保罗称提多为“照着我们共信之道作我真儿子的”。保罗把一项任务交给提多，就是要为克里特的信徒设立领袖，而那是一个极具挑战的群体。保罗也给这位年轻的提多属灵上的劝勉，教导他该如何面对这项重要责任，最后并嘱咐他说：“这些事你要讲明，劝诫人，用各等权柄责备人；不可叫人轻看你。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="55|2.15">多2：15</span>）</span></p>
 <p class="yq" id="l4-yw-wed-q2">无论男女老少，我们都能在上帝的工作中扮演一个角色。你的角色是什么？而你又能如何做得更多呢？</p><p class="yqlink"><a class="toans" href="#l4-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-wed">返回本日解读</a><a class="btn ghost" href="#l4-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-wed">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-thu">
   <header class="ywhead">
@@ -3301,7 +3316,7 @@ html.sheetopen{overflow:hidden}
 <p>凭信而活，戴上“公义的护心镜”，用“真理”束腰，并且借着祷告降服于圣灵，扎根于祂的话语之中─这些都是保守我们不致在属灵和神学上走偏的途径。</p>
 <p class="yq" id="l4-yw-thu-q3">面对席卷这个世界的各样迷惑，你可以做些什么，使自己装备得更好呢？</p><p class="yqlink"><a class="toans" href="#l4-thu-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-thu">返回本日解读</a><a class="btn ghost" href="#l4-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-thu">接着看本日解读 →</a><a class="btn ghost" href="#l4-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l4-yw-fri">
   <header class="ywhead">
@@ -3318,7 +3333,7 @@ html.sheetopen{overflow:hidden}
 <p>怀爱伦也相信，凡自称承接基督先知职分的人，都必须教导“基督所教导的事。祂所讲的，不只是祂亲自所说的，也包括祂借着旧约一切先知和教师所说的。人的教训在这里都被排除了。”─《历代愿望》，原文第826页。怀爱伦在她的基督徒经历中，始终把耶稣和圣经放在核心位置。下个星期五，我们将进一步探讨她对启示与默示的看法。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/4</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l4-fri">返回本日解读</a><a class="btn ghost" href="#l4-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l4-fri">接着看本日解读 →</a><a class="btn ghost" href="#l4-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l4-yandu">
@@ -3630,7 +3645,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l5-yw-sab">
   <header class="ywhead">
@@ -3645,7 +3660,7 @@ html.sheetopen{overflow:hidden}
 <p>本周的课程将特别查考这种多重形式的“启示－默示”过程，并且特别聚焦在上帝如何以口述、书写和具象化表达等方式，把祂的信息传达给人。</p>
 <p class="ynote">■研究本周学课，为10月31日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-sab">返回本日解读</a><a class="btn ghost" href="#l5-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-sab">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-sun">
   <header class="ywhead">
@@ -3661,7 +3676,7 @@ html.sheetopen{overflow:hidden}
 <p>圣经是上帝向历世历代全人类所传信息的默示记录。它告诉我们世界如何被创造，又如何悲惨地堕落，也告诉我们上帝奇妙的救赎计划，以及地球最终如何被恢复。即使有些圣经叙事看来简短而有所选择，它们仍然始终可靠，因为这是上帝在对我们说话<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="54|3.16">提后3：16</span>；<span class="bref" role="button" tabindex="0" data-v="60|1.19">彼后1：19</span>-</span><span class="ref">21）</span>。</p>
 <p class="yq" id="l5-yw-sun-q2">大自然固然清楚指向创造主的大能与慈爱，但为什么我们仍然如此迫切需要书面的话语呢？上帝的话语告诉了我们哪些单靠自然本身无法告诉我们的事？</p><p class="yqlink"><a class="toans" href="#l5-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-sun">返回本日解读</a><a class="btn ghost" href="#l5-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-sun">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-mon">
   <header class="ywhead">
@@ -3680,7 +3695,7 @@ html.sheetopen{overflow:hidden}
 <p>向原始受众传达先知信息的方式，可以是口头的<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="60|1.19;1.20;1.21">彼后1：19-21</span>）</span>，也可以是书面的<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|20.30;20.31">约20：30、31</span>）</span>，甚至可以透过具象化的行动来表达<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="25|4.1;4.2;4.3;4.4;4.5;4.6;4.7;4.8">结4：1-8</span>）</span>。</p>
 <p class="yq" id="l5-yw-mon-q2">虽然我们对圣经如何受默示、以及默示整体如何运作，仍然有许多未解的问题，但为什么我们仍必须信靠圣经是上帝所默示的话呢？</p><p class="yqlink"><a class="toans" href="#l5-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-mon">返回本日解读</a><a class="btn ghost" href="#l5-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-mon">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-tue">
   <header class="ywhead">
@@ -3698,7 +3713,7 @@ html.sheetopen{overflow:hidden}
 <p>那么，耶稣基督自己呢？福音书记载，祂在地上的事奉期间曾“用指头在地上画字”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|8.6">约8：6</span>）</span>，就只有这一次而已。除此之外，我们没有任何记录显示耶稣还写过别的东西。但祂却“正像有权柄的人，不像他们的文士”，教训人、传讲信息<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="39|7.29">太7：29</span>）</span>。祂的一些听众甚至承认说：“从来没有像他这样说话的！”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|7.40;7.46">约7：40，46</span>）</span>耶稣主要是以上帝信息之口头传递者的身份来说话。祂的信息并不因为祂自己没有写下任何圣经书卷，就少了权威或约束力。</p>
 <p class="yq" id="l5-yw-tue-q2">想到上帝竟然有拣选一些先知，但他们的著作却没有收录于圣经中，这是多么值得深思的一件事！为什么这些非正典先知也同样带有权威呢？</p><p class="yqlink"><a class="toans" href="#l5-tue-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-tue">返回本日解读</a><a class="btn ghost" href="#l5-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-tue">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-wed">
   <header class="ywhead">
@@ -3718,7 +3733,7 @@ html.sheetopen{overflow:hidden}
 <p>我们也应当记得，先知在记录别人的情感与愿望时，也会表达出他们自己作为人的反应<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="26|8.27">但8：27</span>；启22：</span><span class="ref">8、9）</span>。此外，圣经中既记载了许多值得效法的好榜样，也记载了许多应当避免的反面例子<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="45|10.1;10.2;10.3;10.4;10.5;10.6;10.7;10.8;10.9;10.10;10.11">林前10：1-11</span>）</span>。</p>
 <p>因此，我们读经时应当记住：圣经虽然不是用完美无瑕的人类语言写成的，却承载着毫无错误的信息，而且这信息必能经得起时间的考验。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-wed">返回本日解读</a><a class="btn ghost" href="#l5-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-wed">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-thu">
   <header class="ywhead">
@@ -3737,7 +3752,7 @@ html.sheetopen{overflow:hidden}
 <p class="yq" id="l5-yw-thu-q2">如果今天有人要用一种具象化的方式，提醒我们自己正陷在老底嘉的景况中，那可能会是什么样子呢？</p><p class="yqlink"><a class="toans" href="#l5-thu-q2">看参考解答 →</a></p>
 <p><span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="65|3.14;3.15;3.16;3.17;3.18">启3：14-18</span>）</span></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-thu">返回本日解读</a><a class="btn ghost" href="#l5-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-thu">接着看本日解读 →</a><a class="btn ghost" href="#l5-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l5-yw-fri">
   <header class="ywhead">
@@ -3755,7 +3770,7 @@ html.sheetopen{overflow:hidden}
 <p>了解怀爱伦如何看待启示与默示，能帮助我们避免走向极端，并且更审慎地以理解之心阅读她的劝勉。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/5</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l5-fri">返回本日解读</a><a class="btn ghost" href="#l5-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l5-fri">接着看本日解读 →</a><a class="btn ghost" href="#l5-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l5-yandu">
@@ -4066,7 +4081,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l6-yw-sab">
   <header class="ywhead">
@@ -4081,7 +4096,7 @@ html.sheetopen{overflow:hidden}
 <p>请思考先知著作中那么多不同的写作风格和文体：叙事、历史、诗歌、哀歌和书信等等，不胜枚举。上帝所拣选的作者们，把圣灵引导他们所要传达的内容，用人的语言写了出来。本周我们将探讨他们的写作、文书助手<span class="ref">（书记）</span>的使用，以及在研读一些较难理解的经文时需留意的事项。</p>
 <p class="ynote">■研究本周的学课，为11月7日安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-sab">返回本日解读</a><a class="btn ghost" href="#l6-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-sab">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-sun">
   <header class="ywhead">
@@ -4099,7 +4114,7 @@ html.sheetopen{overflow:hidden}
 <p>值得注意的是，我们今日所保留下来有关耶稣的一切教导，都是透过上帝所拣选、托付这些宝贵真理的人，以书面形式传给我们的。这显示上帝深信祂的信息会借着祂的使者被忠实记录并保存下来。</p>
 <p class="yq" id="l6-yw-sun-q2">如果有人说，我们不能信靠圣经，因为我们并没有原始手稿，你会如何回答？为什么这其实是一个站不住脚的论点呢？</p><p class="yqlink"><a class="toans" href="#l6-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-sun">返回本日解读</a><a class="btn ghost" href="#l6-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-sun">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-mon">
   <header class="ywhead">
@@ -4117,7 +4132,7 @@ html.sheetopen{overflow:hidden}
 <p>圣经中也包含先知文学、历史、诗歌与比喻。耶利米曾奉命把他所有的信息写成一卷书<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|36.2">耶36：2</span>）</span>；而新约大部分的著作则是写给个人或群体的书信。不同表达形式的权威于彼此之间并没有高低之分。保罗的书信应当被看作和古时先知的信息具有同等分量，因为保罗在书信中清楚证实他也是受圣灵默示的<span class="ref">（见林</span><span class="ref">前<span class="bref" role="button" tabindex="0" data-v="23|7.10;7.12">7：10，12，40</span>）</span>。</p>
 <p class="yq" id="l6-yw-mon-q2">有些学术研究过分强调圣经中的人性元素，却削弱了其中的神性。为什么这样的作法必然会把人引向属灵的败坏呢？</p><p class="yqlink"><a class="toans" href="#l6-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-mon">返回本日解读</a><a class="btn ghost" href="#l6-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-mon">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-tue">
   <header class="ywhead">
@@ -4134,7 +4149,7 @@ html.sheetopen{overflow:hidden}
 <p>许多注释家认为，保罗书信之间文体风格的差异，与他使用书记有关。彼得的两封书信也被认为可能有同样的情形：“虽然〈彼得后书〉的语言风格与〈彼得前书〉不同，这个事实很可能可以合理地解释为：彼得……在写作希腊文书信时，使用了书记的帮助。如果保罗这样一位对希腊文十分熟悉的人尚且使用书记，那么彼得的母语既是亚兰语，认为他也曾如此做就更合乎情理；而这些书记无疑也会对他希腊文书信中的措辞产生一定影响。”─《基督复临安息日会圣经注释》卷五，原文第186页。</p>
 <p>这说明了一件事：在忠实传达上帝使者的思想与意思的同时，所采用的词汇和句子结构，可能会反映出所使用之文书助手不同的写作能力。受默示的是思想本身，而不一定是表达这些思想的特定字句。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-tue">返回本日解读</a><a class="btn ghost" href="#l6-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-tue">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-wed">
   <header class="ywhead">
@@ -4154,7 +4169,7 @@ html.sheetopen{overflow:hidden}
 <p>犹大似乎引用了〈以诺一书〉1章9节；这是一部在两约之间时期成书、非正典的犹太著作。保罗虽然没有直接提及作者姓名，却也曾引用希腊哲学家的话<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="43|17.28">徒17：28</span>和<span class="bref" role="button" tabindex="0" data-v="55|1.12">多1：12</span>）。</span></p>
 <p class="yq" id="l6-yw-wed-q2">虽然圣经作者经常透过异象和异梦直接领受启示，但这并不表示圣灵不会同时感动这些使者从其他来源选取材料。为什么这是一个我们必须记住的重要观念呢？</p><p class="yqlink"><a class="toans" href="#l6-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-wed">返回本日解读</a><a class="btn ghost" href="#l6-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-wed">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-thu">
   <header class="ywhead">
@@ -4172,7 +4187,7 @@ html.sheetopen{overflow:hidden}
 <p>即使我们无法解决每一处看似错误或彼此矛盾的地方，我们仍然会发现，它们对整体信息的核心并没有实质影响。因此，我们可以有把握地相信：尽管上帝的使者带有人性的局限，圣经中的神圣真理仍然被忠实地启示出来。</p>
 <p class="yq" id="l6-yw-thu-q2">你认为为什么上帝拣选会犯错的人作祂主要的使者，而不是选择无罪的天使呢？</p><p class="yqlink"><a class="toans" href="#l6-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-thu">返回本日解读</a><a class="btn ghost" href="#l6-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-thu">接着看本日解读 →</a><a class="btn ghost" href="#l6-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l6-yw-fri">
   <header class="ywhead">
@@ -4191,7 +4206,7 @@ html.sheetopen{overflow:hidden}
 <p>正如前面所述、但仍值得再次强调的，她也曾纠正那些以为她所写的每个字都直接来自天上的人。她说：“有些时候，必须陈述一般性的事；一般性的思想也必须占据人的心思；一般性的信件也必须写出来，并且要传达工人彼此之间流通的资讯。这样的话语、这样的资讯，并不是在上帝圣灵特别的默示之下赐下的。”─《信息选粹》卷三，原文第58页。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/6</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l6-fri">返回本日解读</a><a class="btn ghost" href="#l6-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l6-fri">接着看本日解读 →</a><a class="btn ghost" href="#l6-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l6-yandu">
@@ -4503,7 +4518,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l7-yw-sab">
   <header class="ywhead">
@@ -4518,7 +4533,7 @@ html.sheetopen{overflow:hidden}
 <p>圣经中的先知常常蒙召去传达那些人们并不想听的信息。因此，许多先知遭受批评、排斥，甚至被威胁、被杀害<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="57|11.32;11.33;11.34;11.35;11.36;11.37;11.38">来11：32-38</span>）</span>。然而，尽管如此，上帝的先知仍然忠心宣讲祂所交付的信息，因为对他们来说，来自上帝的先知性引导并不是可有可无的；那是攸关生命的指示，是为上帝子民预备的。因此，这些信息必须被传达出来，不管先知个人要付上多大的代价。</p>
 <p class="ynote">■研究本周学课，为11月14日安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-sab">返回本日解读</a><a class="btn ghost" href="#l7-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-sab">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-sun">
   <header class="ywhead">
@@ -4535,7 +4550,7 @@ html.sheetopen{overflow:hidden}
 <p>以色列人对于进入应许之地所要面对的挑战确实有合理的恐惧；“但当人使自己的心陷入不信时，他们就把自己置于撒但的控制之下，而没有人能知道他会把他们引到什么地步。”─怀爱伦，《先祖与先知》，原文第389页。就在这一刻，摩西面对了一场几乎难以承担的领导危机。百姓的恐惧很快就膨胀成对亚伦和摩西的怒气，并进一步演变成公开悖逆上帝。当百姓想要另立新的领袖来取代上帝所拣选的这位先知兼领袖<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="4|34.10;34.11;34.12">申34：10-12</span>；</span><span class="ref"><span class="bref" role="button" tabindex="0" data-v="3|14.4">民14：4</span>）</span>时，约书亚和迦勒就撕裂衣服，恳求百姓即使心中害怕，也仍要信靠上帝：“耶和华若喜悦我们，就必将我们领进那地，把地赐给我们；那地原是流奶与蜜之地。但你们不可背叛耶和华，也不要怕那地的居民。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="3|14.8;14.9">民14：8、9</span>）</span></p>
 <p class="yq" id="l7-yw-sun-q3">当一切顺利时，信靠上帝当然比较容易，不是吗？但当灾难临到时呢？当信靠上帝意味着要离开舒适圈、甚至带来不便时，你应对得如何呢？</p><p class="yqlink"><a class="toans" href="#l7-sun-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-sun">返回本日解读</a><a class="btn ghost" href="#l7-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-sun">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-mon">
   <header class="ywhead">
@@ -4553,7 +4568,7 @@ html.sheetopen{overflow:hidden}
 <p>有时，人会以为只要拒绝或毁掉上帝的信息或祂的使者，信息本身就会消失。然而，我们不愿听从上帝借先知说的话，并不能抹去上帝对我们所说的信息。相反地，我们的轻慢只会加重因蓄意忽视或悖逆而临到我们和家人的伤害。耶利米对约雅敬王结局的预言，是向每一个人发出的严肃警告<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|36.30;36.31">耶36：30、31</span>）</span>：若忽视上帝对我们的警告，后果要由自己承担，因为我们必收取自己罪恶与败坏结出的果子。</p>
 <p class="yq" id="l7-yw-mon-q3">即使祂的子民一再悖逆，上帝仍坚持不懈地想要靠近并挽回他们。这件事向我们显明了上帝充满爱的本性是怎样的？</p><p class="yqlink"><a class="toans" href="#l7-mon-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-mon">返回本日解读</a><a class="btn ghost" href="#l7-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-mon">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-tue">
   <header class="ywhead">
@@ -4572,7 +4587,7 @@ html.sheetopen{overflow:hidden}
 <p>然而，就在犹大历史这最后的时刻，上帝借着耶利米先知之声所赐下的引导与安慰，所换来的不是谦卑、信心与悔改，而是讥笑、嘲弄与轻蔑。</p>
 <p class="yq" id="l7-yw-tue-q2">他们戏弄上帝的使者，藐视上帝的言语，讥诮祂的先知。我们今天当然不会做出这种事─真是这样吗？</p><p class="yqlink"><a class="toans" href="#l7-tue-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-tue">返回本日解读</a><a class="btn ghost" href="#l7-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-tue">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-wed">
   <header class="ywhead">
@@ -4589,7 +4604,7 @@ html.sheetopen{overflow:hidden}
 <p>他们的人生，确实就是说一套、做一套。他们对待先知也是如此。譬如，他们修饰先知的坟墓，自以为这是在尊崇信仰；但在真正重要的事上，例如因先知的话而悔改，他们却拒绝去做。换句话说，他们想要和先知的权威及感召力有关系，却不要先知信息真正的内容。他们一面修整上帝仆人的坟墓和墓碑，一面心里想着：若是自己活在当时，绝不会流上帝使者的血。然而，就在那时，他们其实正计划着要杀害一位远超过先知的人─就是弥赛亚本身。</p>
 <p class="yq" id="l7-yw-wed-q2">我们要如何确保自己不会在原则上犯同样的错─外表看来很虔诚，内心却充满悖逆、贪婪与仇恨呢？</p><p class="yqlink"><a class="toans" href="#l7-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-wed">返回本日解读</a><a class="btn ghost" href="#l7-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-wed">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-thu">
   <header class="ywhead">
@@ -4607,7 +4622,7 @@ html.sheetopen{overflow:hidden}
 <p>上帝从不浪费一字一句。当祂说话时，祂的话是永存的。祂话语的能力与功效永不止息<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="22|40.8">赛40：8</span>）</span>。这些话是赐给我们作鉴戒的，因为我们正是“这末世的人”<span class="ref">（林前10：</span><span class="ref">11）</span>。如果这句话在当时已经成立，那么对今天的我们来说，岂不是更加适用吗？</p>
 <p class="yq" id="l7-yw-thu-q2">当你读到圣经中那些悖逆与不信的记载时，你能从中得出哪些教训，好帮助自己避免犯下类似的错误呢？</p><p class="yqlink"><a class="toans" href="#l7-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-thu">返回本日解读</a><a class="btn ghost" href="#l7-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-thu">接着看本日解读 →</a><a class="btn ghost" href="#l7-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l7-yw-fri">
   <header class="ywhead">
@@ -4623,7 +4638,7 @@ html.sheetopen{overflow:hidden}
 <p>怀爱伦深信，她先知恩赐真正的证明，在于上帝所赐给她的信息本身。她相信，若人是真诚地寻求真理，终究会看出她的恩赐是真实而可信的。她信靠上帝会在这些人追求更深理解的路上引导他们；但她也写道，上帝已经赐给我们足够的证据，“使我们的信心可以站在真理这一边。”─《教会证言》卷四，原文第231页。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/7</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l7-fri">返回本日解读</a><a class="btn ghost" href="#l7-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l7-fri">接着看本日解读 →</a><a class="btn ghost" href="#l7-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l7-yandu">
@@ -4942,7 +4957,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l8-yw-sab">
   <header class="ywhead">
@@ -4957,7 +4972,7 @@ html.sheetopen{overflow:hidden}
 <p>这些经历凸显出正确理解先知著作所带来的正面结果。反之，对预言的错误理解，却可能导致属灵上的灾难。</p>
 <p class="ynote">■研究本周学课，为11月21日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-sab">返回本日解读</a><a class="btn ghost" href="#l8-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-sab">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-sun">
   <header class="ywhead">
@@ -4975,7 +4990,7 @@ html.sheetopen{overflow:hidden}
 <blockquote class="yquote">“旧约是用图像和象征来表达的福音；新约则是实体。两者同样不可缺少。”─怀爱伦，《信息选粹》卷二，原文第104页。的确，新约乃是旧约那受默示的解释者。</blockquote>
 <p class="yq" id="l8-yw-sun-q2">为什么在研读圣经时，认识到自己带有预设立场是如此重要？为什么我们最重要的预设，必须是信靠圣经是上帝的话，并让它来评判我们，而不是由我们去评判它呢？</p><p class="yqlink"><a class="toans" href="#l8-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-sun">返回本日解读</a><a class="btn ghost" href="#l8-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-sun">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-mon">
   <header class="ywhead">
@@ -4992,7 +5007,7 @@ html.sheetopen{overflow:hidden}
 <p class="yq" id="l8-yw-mon-q2">阅读<span class="bref" role="button" tabindex="0" data-v="45|16.20">林前16：20</span>。这节经文该如何应用在我们今天的时代与文化中？</p><p class="yqlink"><a class="toans" href="#l8-mon-q2">看参考解答 →</a></p>
 <p>在新约时代的希腊文化中，亲人和亲密朋友彼此问安时，常会以亲吻作为表示。保罗在<span class="bref" role="button" tabindex="0" data-v="44|16.16">罗16：16</span>，<span class="bref" role="button" tabindex="0" data-v="45|16.20">林前16：20</span>，<span class="bref" role="button" tabindex="0" data-v="46|13.12">林后13：12</span>，以及<span class="bref" role="button" tabindex="0" data-v="51|5.26">帖前5：26</span>中，都曾吩咐基督徒彼此以这种温暖、亲切的方式问安。从上下文来看，我们可以汲取出其中的圣经原则：要以温暖的方式接待信徒，使他们感受到自己是上帝家中的一分子。在某些文化里，亲吻并不合宜，那么握手、拥抱或鞠躬可能是更符合文化习惯的表达方式。然而，不论具体的文化形式如何，保罗都是在鼓励我们，要在教会聚会中使人感受到被爱和接纳。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-mon">返回本日解读</a><a class="btn ghost" href="#l8-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-mon">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-tue">
   <header class="ywhead">
@@ -5010,7 +5025,7 @@ html.sheetopen{overflow:hidden}
 <p>当耶稣被圣灵引到旷野时<span class="ref">（太4：</span><span class="ref">1-11 ；<span class="bref" role="button" tabindex="0" data-v="41|4.1;4.2;4.3;4.4;4.5;4.6;4.7;4.8;4.9;4.10;4.11;4.12;4.13">路4：1-13</span>）</span>，“撒但以光明天使的样式，来到试探的旷野，要迷惑基督。”─怀爱伦，刊于《复临评论与安息日通讯》，1888年12月18日。在与基督的对话中，撒但错引了<span class="bref" role="button" tabindex="0" data-v="18|91.11;91.12">诗91：11、12</span>，暗示上帝甚至会保护那些故意把自己暴露在危险之中的人。伊甸园和旷野中的试探经历，都证实了善恶之争的存在，而这场争战也包括对上帝话语之解释─无论是口传还是书面。这些经历应当帮助我们认识到：在理解圣经经文时，忠于其上下文的语境是何等重要。</p>
 <p class="yq" id="l8-yw-tue-q2">既然如此，为什么我们必须避免落入一种试探：为了证明自己的观点，即使它们本身可能正确，而把经文从上下文中抽离出来呢？</p><p class="yqlink"><a class="toans" href="#l8-tue-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-tue">返回本日解读</a><a class="btn ghost" href="#l8-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-tue">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-wed">
   <header class="ywhead">
@@ -5028,7 +5043,7 @@ html.sheetopen{overflow:hidden}
 <p>我们应当始终追求纯正的教义<span class="ref">（提后</span><span class="ref"><span class="bref" role="button" tabindex="0" data-v="39|4.1;4.2;4.3;4.4;4.5">4：1-5</span>）</span>。一项非常重要的原则，就是要专注于我们已经明白、清楚可知的部分，并从这些地方继续建立理解；很多时候，随着时间过去，这样的做法会帮助我们明白目前还不清楚的事。在永恒来到之前，总会有一些问题尚未得到解答。</p>
 <p class="yq" id="l8-yw-wed-q3">请想一想，你是否曾经有过这样的经验：某件你原本不明白、且非常困扰你的事，后来终于有了解释？这样的经历应当如何帮助你，在面对上帝话语中那些目前你还不明白的事时，仍然选择信靠祂呢？</p><p class="yqlink"><a class="toans" href="#l8-wed-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-wed">返回本日解读</a><a class="btn ghost" href="#l8-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-wed">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-thu">
   <header class="ywhead">
@@ -5046,7 +5061,7 @@ html.sheetopen{overflow:hidden}
 <p>腓利对〈以赛亚书〉以及其他旧约经文的讲解，带领那位太监受了浸<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|8.35;8.36;8.37;8.38;8.39">徒8：35-39</span>；参<span class="bref" role="button" tabindex="0" data-v="18|51.12">诗51：12</span>）</span>。我们对圣经的讲解，也应当有同样的目的<span class="ref">（见约</span><span class="ref">17：17）</span>。</p>
 <p class="yq" id="l8-yw-thu-q2">虽然有时我们确实需要别人帮助我们理解经文，但为什么在自己所相信的事上，我们仍然必须在心里有清楚而坚定的把握呢？</p><p class="yqlink"><a class="toans" href="#l8-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-thu">返回本日解读</a><a class="btn ghost" href="#l8-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-thu">接着看本日解读 →</a><a class="btn ghost" href="#l8-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l8-yw-fri">
   <header class="ywhead">
@@ -5065,7 +5080,7 @@ html.sheetopen{overflow:hidden}
 <p>怀爱伦的先知性著作，是赐给我们的一项美好恩赐。正确阅读这些著作非常重要，因为它们能够─也确实已经─成为数百万人的祝福。若这些著作被误用、曲解，实在是令人痛惜的事。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/8</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l8-fri">返回本日解读</a><a class="btn ghost" href="#l8-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l8-fri">接着看本日解读 →</a><a class="btn ghost" href="#l8-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l8-yandu">
@@ -5383,7 +5398,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l9-yw-sab">
   <header class="ywhead">
@@ -5398,7 +5413,7 @@ html.sheetopen{overflow:hidden}
 <p>预言的恩赐比任何钻石都更宝贵；然而，一个人若自称拥有这项恩赐，并不能只凭表面就接受他的说法。这样的宣称必须经过考验。本周我们将查考圣经中的先知，借此找出圣经用来验证先知真伪的原则。</p>
 <p class="ynote">■研究本周学课，为11月28日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-sab">返回本日解读</a><a class="btn ghost" href="#l9-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-sab">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-sun">
   <header class="ywhead">
@@ -5416,7 +5431,7 @@ html.sheetopen{overflow:hidden}
 <p>虽然可见的现象显示有超自然能力在运作，但这并不自动表示经历这些现象的人就是受上帝默示的。撒但也能展现超自然能力。没有任何单一证据足以确立一个人的先知事工。除了身体现象之外，先知还必须受考验。超自然显现本身并不是辨识真正预言恩赐的试金石。唯有一位先知同时符合圣经所提出的所有标准，我们才能确认此人真是上帝的使者。可惜的是，历史上一直充满假先知<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="39|7.15">太7：15</span>）</span>。</p>
 <p class="yq" id="l9-yw-sun-q3">在某些文化中，超自然现象比其他文化更常见。然而，当我们要分辨某种超自然现象是否真出于上帝时，为什么仍然必须格外谨慎呢？</p><p class="yqlink"><a class="toans" href="#l9-sun-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-sun">返回本日解读</a><a class="btn ghost" href="#l9-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-sun">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-mon">
   <header class="ywhead">
@@ -5434,7 +5449,7 @@ html.sheetopen{overflow:hidden}
 <p>救赎计划的旧约根基是从上帝自己在<span class="bref" role="button" tabindex="0" data-v="0|3.15">创3：15</span>所赐下的第一个预言开始建立的。献祭制度则具体预表了这项计划；至于上帝的羔羊─耶稣基督─将如何来到世上、如何生活、又如何为全人类而死，这些细节则在后来的预言中一步一步更清楚地被启示出来。圣经记录显示，当上帝的子民能够理解更多时，祂就进一步展开真理。这使真理的理解能在每一个世代中逐渐加深。这就是所谓“展开的真理”或“渐进的真理”。也就是说，后来的世代常常会比先前的世代更深入明白上帝的真理。</p>
 <p>然而，关键点是我们无论如何都不可忽略的, 就是：真理启示绝不会与上帝先前已赐下的真理互相矛盾。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-mon">返回本日解读</a><a class="btn ghost" href="#l9-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-mon">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-tue">
   <header class="ywhead">
@@ -5452,7 +5467,7 @@ html.sheetopen{overflow:hidden}
 <p>那些高举耶稣的先知，不会试图建立自己的跟从者，也不会宣扬自己<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|4.12">徒4：12</span>）</span>。他们会乐意服事，而不是利用那些奉差遣去服事的人。同时，正如我们明天将看到的，上帝的先知也是人，和我们其余的人一样，都是需要福音的罪人。</p>
 <p class="yq" id="l9-yw-tue-q2">为什么明白这件事─耶稣完全是上帝，却又代替我们而死，担当了我们罪的刑罚─对我们的信仰如此重要？如果失去这项教导，我们又会失去什么？</p><p class="yqlink"><a class="toans" href="#l9-tue-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-tue">返回本日解读</a><a class="btn ghost" href="#l9-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-tue">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-wed">
   <header class="ywhead">
@@ -5470,7 +5485,7 @@ html.sheetopen{overflow:hidden}
 <p>虽然先知的呼召十分艰难，但许多先知在事奉中仍然结出了“好果子”。例如，摩西成功地带领以色列人穿越旷野<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="4|34.10;34.11;34.12">申34：10-12</span>）</span>。哈该的忠心鼓励了犹大的居民重新开始建造那座已停工十九年的第二圣殿<span class="ref">（该</span><span class="ref"><span class="bref" role="button" tabindex="0" data-v="4|1.12">1：12</span>）</span>。以赛亚毫不退缩的事奉，服事了犹大四位君王，带领他们度过动荡的时期，并指向弥赛亚<span class="ref">（赛39：</span><span class="ref">5、6；53：4-6）</span>。我们也不能忘记但以理发自内心的认罪<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="26|9.15">但9：15</span>）</span>，或耶利米流泪的委身<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|9.1">耶9：1</span>）</span>。尽管先知常常遭受逼迫与苛待，上帝的先知始终显出对上帝和祂子民真诚的爱，这正是结果子之事奉的标记。</p>
 <p class="yq" id="l9-yw-wed-q2">曾有多少次，上帝的仆人或使女因着他们的行动或性格上的缺失而让你失望？从这样的经历中，你能学到什么重要功课呢？</p><p class="yqlink"><a class="toans" href="#l9-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-wed">返回本日解读</a><a class="btn ghost" href="#l9-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-wed">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-thu">
   <header class="ywhead">
@@ -5488,7 +5503,7 @@ html.sheetopen{overflow:hidden}
 <p>有条件的预言是指那些是否成就要视人对上帝信息之回应而定的预言。如果人改变了自己的态度和行为，预告的事就可能不会发生。尼尼微人把约拿的预言放在心上，改变了自己的行为，所以上帝没有毁灭他们<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="31|3.10">拿3：10</span>）</span>。后来，当后世的人忘记了这个来自先知的警告，尼尼微再度成为一个邪恶、残暴的地方时，上帝就毁灭了它。上帝知道未来，但我们不知道；而我们的选择，在很大程度上决定了我们未来的实况。</p>
 <p class="yq" id="l9-yw-thu-q3">为什么明白“有条件的预言” 这个概念很重要？这种理解又能如何大大帮助我们更正确掌握圣经真理呢？</p><p class="yqlink"><a class="toans" href="#l9-thu-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-thu">返回本日解读</a><a class="btn ghost" href="#l9-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-thu">接着看本日解读 →</a><a class="btn ghost" href="#l9-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l9-yw-fri">
   <header class="ywhead">
@@ -5506,7 +5521,7 @@ html.sheetopen{overflow:hidden}
 <p>一个很好的起点，是她那本篇幅不长、却最广受欢迎的《喜乐的泉源》。接着，可以阅读《历代之争丛书》五卷，它从〈创世记〉到〈启示录〉一路铺陈“善恶之争”的主题。她的著作有纸本与电子版多种形式可取得<span class="ref">（见EGWWritings.org）</span>，并已被翻译成多种语言。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/9</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l9-fri">返回本日解读</a><a class="btn ghost" href="#l9-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l9-fri">接着看本日解读 →</a><a class="btn ghost" href="#l9-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l9-yandu">
@@ -5819,7 +5834,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l10-yw-sab">
   <header class="ywhead">
@@ -5833,7 +5848,7 @@ html.sheetopen{overflow:hidden}
 <p>人常常会被授权代表公司，甚至代表国家发言。但那些代替上帝说话的人又是怎样呢？本周我们将查考，圣经中的先知究竟拥有怎样的权威；以及那些从未写下任何圣经书卷的先知─例如拿单、施洗约翰，当然也包括怀爱伦─他们是否也拥有某种权威，若有，又是何种权威。</p>
 <p class="ynote">■研究本周学课，为12月5日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-sab">返回本日解读</a><a class="btn ghost" href="#l10-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-sab">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-sun">
   <header class="ywhead">
@@ -5851,7 +5866,7 @@ html.sheetopen{overflow:hidden}
 <p>摩西知道自己曾经失败过。他记得自己上一次与以色列同胞接触时，他的权柄曾受到质疑<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="1|2.14">出2：14</span>）</span>。上帝明白摩西心中的不安，也耐心处理他的惧怕。摩西所有可以推辞的理由都被一一除去；但即便如此，他仍然抗拒这个呼召。他的惧怕已经越过了单纯的不安，变成了不信。借着他的迟疑，他其实是在质疑上帝是否真能使用他。到了这个地步，上帝便向这位不情愿的先知发出明确而不容推辞的命令，要他立刻行动<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="1|3.14;3.15;3.16;3.17">出3：14-17</span>）</span>。</p>
 <p class="yq" id="l10-yw-sun-q3">你也许不是先知，但在你的一生中，上帝呼召你为祂做的是什么？而你又当如何最好地预备自己去回应这个呼召呢？</p><p class="yqlink"><a class="toans" href="#l10-sun-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-sun">返回本日解读</a><a class="btn ghost" href="#l10-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-sun">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-mon">
   <header class="ywhead">
@@ -5868,7 +5883,7 @@ html.sheetopen{overflow:hidden}
 <p>四福音书都记载了耶稣那超越世俗的先知性权威。耶稣赦免罪<span class="ref">（可2：</span><span class="ref">10、11）</span>，赶逐鬼魔<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="40|3.15">可3：15</span>）</span>，并且知道人心里所想的<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|2.24;2.25">约2：24、25</span>）</span>。祂使死人复活，也赐下永生<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|10.28">约10：28</span>）</span>。当耶稣在地上作我们的救赎主时，祂行使的是父上帝赐给祂的权柄<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|17.2">约17：2</span>）</span>；而且祂时时倚靠父、与父同工<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|5.19">约5：19</span>）</span>，也常常回到圣经，因为祂宣告圣经正是为祂作见证的。耶稣也拥有绝对的权威，并且能把这权威赐给祂的门徒<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="40|6.7">可6：7</span>）</span>。作为上帝的道，祂的见证也曾借着祂所说话的众先知传达出来<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="65|19.10">启19：10</span>）</span>。</p>
 <p class="yq" id="l10-yw-mon-q3">即使耶稣已给出这么多证据，仍然有人拒绝祂。我们既已有这么多相信的理由，我们要如何谨慎，免得自己也落入同样不信的陷阱呢？</p><p class="yqlink"><a class="toans" href="#l10-mon-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-mon">返回本日解读</a><a class="btn ghost" href="#l10-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-mon">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-tue">
   <header class="ywhead">
@@ -5887,7 +5902,7 @@ html.sheetopen{overflow:hidden}
 <p>在古代，书写材料稀少而昂贵。此外，许多人也不识字，因此，上帝借着先知口头传讲的话语就显得格外重要。</p>
 <p>在圣灵的大能之下，上帝的话语，无论是口传还是书写，都能刺入人心，显明罪恶，带来改革与恢复。上帝的话呼召我们悔改并顺服<span class="ref">（徒5：</span><span class="ref">29；另见<span class="bref" role="button" tabindex="0" data-v="57|4.12">来4：12</span>）</span>。而这往往正是许多本该更明白的人拒绝它的原因：他们不喜欢上帝的话对自己生命所提出的要求。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-tue">返回本日解读</a><a class="btn ghost" href="#l10-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-tue">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-wed">
   <header class="ywhead">
@@ -5904,7 +5919,7 @@ html.sheetopen{overflow:hidden}
 <p>早期教会面对许多挑战，例如教会组织、使命架构，以及如何辨识并斥责他们中间的异端与不道德行为。从很实际的层面来看，那运行在早期教会中的预言恩赐，对教会的保存与保护发挥了极其关键的作用<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|13.1;13.2">徒13：1、2</span>）</span>。事实上，若没有预言恩赐帮助教会建立组织，并推动它向前开展使命，很难想象早期教会要如何起步。</p>
 <p class="yq" id="l10-yw-wed-q2">有些人对“有组织的宗教”抱持怀疑态度。但不论其中有什么挑战，成为一个有组织之教会体系的一部分究竟有哪些益处？当你成为一个远大于自己的整体其中的一分子时，你能付出什么，又能从中得着什么呢？</p><p class="yqlink"><a class="toans" href="#l10-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-wed">返回本日解读</a><a class="btn ghost" href="#l10-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-wed">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-thu">
   <header class="ywhead">
@@ -5921,7 +5936,7 @@ html.sheetopen{overflow:hidden}
 <p>大卫犯了奸淫和杀人的罪之后，上帝差遣先知拿单去责备他<span class="ref">（撒下12：</span><span class="ref">7-14）</span>。虽然拿单没有写下任何圣经书卷，但大卫并没有质疑拿单的权威；因为先知著作的权威是建立在它们出于默示，而不是在它们是否被收入圣经正典之中。然而，所有真正的非正典先知，尤其是圣经完成之后的先知─特别是像怀爱伦这样的现代先知─都把自己置于圣经的权威之下。他们的信息必须接受圣经的检验，也不能取代圣经作为信仰与教义的来源。</p>
 <p class="yq" id="l10-yw-thu-q3">怀爱伦曾写道：“主盼望你们研读圣经。祂并没有赐下任何额外的亮光，来取代祂的话。这亮光乃是要把混乱的心思带回祂的话语；而祂的话若被吃下、消化，就会成为灵魂的生命血液。”─《信息选粹》卷三，原文第29页。我们作为教会，在多大程度上真正留心遵行了她所说的这些话呢？</p><p class="yqlink"><a class="toans" href="#l10-thu-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-thu">返回本日解读</a><a class="btn ghost" href="#l10-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-thu">接着看本日解读 →</a><a class="btn ghost" href="#l10-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l10-yw-fri">
   <header class="ywhead">
@@ -5939,7 +5954,7 @@ html.sheetopen{overflow:hidden}
 <p>怀爱伦的著作虽然不在圣经之内，但上帝仍然使用她，引导那些活在地球历史最后时期的信徒。她的著作直到今日，仍然带着先知性的权威并切合人们实际的需要。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/10</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l10-fri">返回本日解读</a><a class="btn ghost" href="#l10-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l10-fri">接着看本日解读 →</a><a class="btn ghost" href="#l10-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l10-yandu">
@@ -6255,7 +6270,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l11-yw-sab">
   <header class="ywhead">
@@ -6272,7 +6287,7 @@ html.sheetopen{overflow:hidden}
 <p>本周的课程将回顾救恩历史中的几个关键时刻，看看上帝如何借着先知向祂的子民以及更广大的世界清楚显明祂的旨意。我们也将探讨怀爱伦受默示的事奉在复临运动成长的重要时刻中所扮演的角色。</p>
 <p class="ynote">■研究本周学课，为12月12日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-sab">返回本日解读</a><a class="btn ghost" href="#l11-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-sab">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-sun">
   <header class="ywhead">
@@ -6290,7 +6305,7 @@ html.sheetopen{overflow:hidden}
 <p>上帝不仅把洪水的事告诉挪亚，也拯救了方舟中的人；祂还与挪亚和一切受造之物立约，应许不再用洪水毁灭世界<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="0|9.8;9.9;9.10;9.11;9.12;9.13;9.14;9.15;9.16;9.17">创9：8-17</span>）</span>。每一道彩虹都承载着这个应许，也承载着救赎的盼望。</p>
 <p class="yq" id="l11-yw-sun-q2">下次你看见彩虹时，请思考其中所包含的应许。知道上帝必持守祂的应许为什么应当使你得着安慰呢？</p><p class="yqlink"><a class="toans" href="#l11-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-sun">返回本日解读</a><a class="btn ghost" href="#l11-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-sun">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-mon">
   <header class="ywhead">
@@ -6308,7 +6323,7 @@ html.sheetopen{overflow:hidden}
 <p>底波拉的先知事工，见证了上帝在困苦与压迫之中的信实。当上帝把给巴拉的信息交给她时，她并没有质疑是否真能召集足够的军队，也没有争辩说以色列人太过软弱、根本不可能得胜；相反地，她带着信心传达信息，并鼓励巴拉放下疑惧，信靠上帝的眷顾。</p>
 <p class="yq" id="l11-yw-mon-q2">当眼前的情势看起来毫无盼望时，我们要如何学习信靠上帝呢？</p><p class="yqlink"><a class="toans" href="#l11-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-mon">返回本日解读</a><a class="btn ghost" href="#l11-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-mon">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-tue">
   <header class="ywhead">
@@ -6327,7 +6342,7 @@ html.sheetopen{overflow:hidden}
 <p>上帝警告我们，若随从自己的私欲，终将带来破碎、痛苦，甚至最后导向死亡。但若我们跟从祂的声音，“耶和华也必时常引导你，在干旱之地使你心满意足，骨头强壮；你必像浇灌的园子，又像水流不绝的泉源。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="22|58.11">赛58：11</span>）</span></p>
 <p class="yq" id="l11-yw-tue-q3">我们属肉体的本性会在不知不觉中推动我们悖逆上帝。为了不向这种本性屈服，我们需要作出哪些选择呢？</p><p class="yqlink"><a class="toans" href="#l11-tue-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-tue">返回本日解读</a><a class="btn ghost" href="#l11-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-tue">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-wed">
   <header class="ywhead">
@@ -6345,7 +6360,7 @@ html.sheetopen{overflow:hidden}
 <p>然而，即使他们身在被掳之地，上帝仍然没有使祂的子民失去盼望。尽管他们一再失败，上帝仍然应许：“必有一位救赎主来到锡安─雅各族中转离过犯的人那里。”<span class="ref">（赛59：</span><span class="ref">20）</span></p>
 <p class="yq" id="l11-yw-wed-q2">请思想：即使以色列人离开祂，上帝仍然信实。你在自己的人生中曾如何看见上帝这份慈爱品格的真实？如果祂不是如此忍耐且慈爱，你如今会在哪里呢？</p><p class="yqlink"><a class="toans" href="#l11-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-wed">返回本日解读</a><a class="btn ghost" href="#l11-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-wed">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-thu">
   <header class="ywhead">
@@ -6363,7 +6378,7 @@ html.sheetopen{overflow:hidden}
 <p>我们今天也同样蒙召，要像约翰一样作见证。我们也必须持守耶稣的见证<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="65|19.10">启19：10</span>）</span>─就是祂借着先知为自己所作的见证。我们未必像约翰那样领受异象，但我们仍可以一面耐心等候基督再来，一面见证祂在我们生命中的作为，并且留意我们得拯救的征兆。</p>
 <p class="yq" id="l11-yw-thu-q2">请想一想，我们已经领受了这么多亮光。既然我们蒙恩而拥有了这许多的亮光 ，那么有什么责任也随之落在我们身上呢？</p><p class="yqlink"><a class="toans" href="#l11-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-thu">返回本日解读</a><a class="btn ghost" href="#l11-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-thu">接着看本日解读 →</a><a class="btn ghost" href="#l11-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l11-yw-fri">
   <header class="ywhead">
@@ -6382,7 +6397,7 @@ html.sheetopen{overflow:hidden}
 <p>简单地说，若没有怀爱伦的事奉，就不会有我们今天所认识的基督复临安息日会。她是在关键时刻被上帝兴起的使者。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/11</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l11-fri">返回本日解读</a><a class="btn ghost" href="#l11-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l11-fri">接着看本日解读 →</a><a class="btn ghost" href="#l11-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l11-yandu">
@@ -6700,7 +6715,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l12-yw-sab">
   <header class="ywhead">
@@ -6714,7 +6729,7 @@ html.sheetopen{overflow:hidden}
 <p>那么，当圣灵在古时赐下预言的恩赐时，上帝是否也设下了某种“日落条款”呢？在耶稣再来之前，这项恩赐是否会在某个时刻停止运作呢？上周我们学到，上帝在关键时刻曾借着先知向祂的子民说话。本周，我们要查考末时的预言恩赐─它特殊的功能与持续性，以及随着耶稣第二次降临日益临近，怀爱伦先知事工所扮演的角色。</p>
 <p class="ynote">■学习本周学课，为12月19日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-sab">返回本日解读</a><a class="btn ghost" href="#l12-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-sab">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-sun">
   <header class="ywhead">
@@ -6732,7 +6747,7 @@ html.sheetopen{overflow:hidden}
 <p>因此，我们可以推想，约珥的预言既然也指向相似的征兆，就必定与末时有关：“我要显出奇事，有血，有火，有烟柱。日头要变为黑暗，月亮要变为血，这都在耶和华大而可畏的日子未到以前。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="28|2.30;2.31">珥2：30、31</span>）</span></p>
 <p class="yq" id="l12-yw-sun-q2">请思想：有多少预言都已经照着所说的那样应验了。这件事为什么应当帮助我们，在那些尚未应验的事上─例如耶稣第二次降临─更加信靠上帝呢？</p><p class="yqlink"><a class="toans" href="#l12-sun-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-sun">返回本日解读</a><a class="btn ghost" href="#l12-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-sun">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-mon">
   <header class="ywhead">
@@ -6752,7 +6767,7 @@ html.sheetopen{overflow:hidden}
 <p>因此，〈约珥书〉2章最终将在未来得到完全应验。正如约珥和彼得所做的，末时的先知也将呼召人悔改，指向耶稣，并为上帝末时的教会提供引导。</p>
 <p class="yq" id="l12-yw-mon-q2">群众看见这些超自然现象时，起初竟以为那不过是某种自然现象。他们甚至认为那些人只是喝醉了！<span class="ref">（喝</span><span class="ref">醉的人会突然说外语吗？）</span>虽然这样的反应很不合理，但究竟是人心的哪些特质，使人即使面对超自然现象，仍试图用自然方式解释呢？</p><p class="yqlink"><a class="toans" href="#l12-mon-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-mon">返回本日解读</a><a class="btn ghost" href="#l12-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-mon">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-tue">
   <header class="ywhead">
@@ -6769,7 +6784,7 @@ html.sheetopen{overflow:hidden}
 <p>让我们来看先知的某些共同特征：</p>
 <ol class="yol" style="list-style:none;padding-left:0"><li>❶先知是上帝所呼召的<span class="ref">（见<span class="bref" role="button" tabindex="0" data-v="10|19.16;19.19;19.20;19.21">王上19：16，19-21</span>；赛6章）</span>。他们往往觉得自己不配，也不愿意承担这份责任，但最终还是顺服了。</li><li>❷上帝借着异象、梦境或可听见的话语向先知说话。有时上帝启示未来将要发生的事；有时祂也会让他们知道有关国家或人民当前的情况<span class="ref">（但2章）</span>。</li><li>❸圣经描述了一些身体现象：先知可能失去体力，甚至停止呼吸；但他们也可能被新的力量所充满<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="26|10.8;10.9;10.10;10.18;10.19">但10：8-10，18、19</span>）</span>。</li><li>❹先知用不同方式传达信息─口头宣讲<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|21.10;21.11;21.12">徒21：10-12</span>）</span>、象征性行动<span class="ref">（结4章）</span>，或借着书信<span class="ref">（启2、3章）</span>。有些先知也使用文书助手<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="23|36.1;36.2;36.3;36.4">耶36：1-4</span>）</span>。</li><li>❺先知的信息必须与先前众先知的信息一致，因为上帝不会自相矛盾<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="22|8.20">赛8：20</span>）</span>。</li><li>❻先知的信息内容并他个人生活所带出的结果，都会为其信息乃是出于上帝来作见证<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="39|7.15;7.16;7.17;7.18;7.19;7.20">太7：15-20</span>）</span>。</li><li>❼撒但总是试图仿冒出于上帝的事；预言的恩赐也是如此。到了末时，将会有假先知出现<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="39|24.24">太24：24</span>；<span class="bref" role="button" tabindex="0" data-v="60|2.1">彼后2：1</span>）</span>。</li></ol>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-tue">返回本日解读</a><a class="btn ghost" href="#l12-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-tue">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-wed">
   <header class="ywhead">
@@ -6788,7 +6803,7 @@ html.sheetopen{overflow:hidden}
 <p><span class="bref" role="button" tabindex="0" data-v="65|12.17">启12：17</span>显示，耶稣是借着这项预言的恩赐，使祂的教会显得清楚可辨。这意味着，正如上帝曾差遣先知到旧约的以色列和犹大，或差遣使徒约翰到早期基督教会一样，在地球历史的末后时期，也必定会有先知兴起。</p>
 <p class="yq" id="l12-yw-wed-q2">你曾看见哪些证据，显示怀爱伦的事奉确实可被公正地视为“预言之灵”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="65|19.10">启19：10</span>）</span>运作的一个例证呢？</p><p class="yqlink"><a class="toans" href="#l12-wed-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-wed">返回本日解读</a><a class="btn ghost" href="#l12-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-wed">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-thu">
   <header class="ywhead">
@@ -6805,7 +6820,7 @@ html.sheetopen{overflow:hidden}
 <p>正如我们在<span class="bref" role="button" tabindex="0" data-v="28|2.28;2.29;2.30;2.31">珥2：28-31</span>所看到的，末时的预言恩赐将向年轻人和长者、男性和女性开放。上帝要借着圣灵所拣选的人说话。每当圣灵在末时拣选一位使者时，他或她的信息，必定会高举耶稣、呼召人悔改，并预备人去完成上帝的使命。这三个特征，也正是怀爱伦先知事工的标记。她一生在讲道和写作中都高举耶稣和圣经；她呼召复临信徒和其他人发自内心地悔改；她也催促众人投入上帝寻找失丧之人的使命。</p>
 <p class="yq" id="l12-yw-thu-q2">对于我们借着怀爱伦的事奉所领受的美好恩赐，你有多善加运用呢？</p><p class="yqlink"><a class="toans" href="#l12-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-thu">返回本日解读</a><a class="btn ghost" href="#l12-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-thu">接着看本日解读 →</a><a class="btn ghost" href="#l12-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l12-yw-fri">
   <header class="ywhead">
@@ -6822,7 +6837,7 @@ html.sheetopen{overflow:hidden}
 <p>当人把生命献给耶稣时，撒但就极其愤怒，并且竭尽所能，要贬抑上帝先知的声音。他的一些手段是把怀爱伦的先知恩赐说成“已不合时宜”。毕竟，她生活和写作的时代，与我们今天大不相同。另一种方式，则是借着质疑她先知性的宣称，指控她是假先知，来引发人的怀疑。然而，使怀爱伦变得“无关紧要”最有效的方法，还是使今天这一代人不再亲自阅读她的著作。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/12</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l12-fri">返回本日解读</a><a class="btn ghost" href="#l12-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l12-fri">接着看本日解读 →</a><a class="btn ghost" href="#l12-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l12-yandu">
@@ -7141,7 +7156,7 @@ html.sheetopen{overflow:hidden}
   <header class="parthead">
     <p class="k">第一部分</p>
     <h2>学课原文</h2>
-    <p>先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。</p>
+    <p>先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。</p>
   </header>
 <article class="ywday" id="l13-yw-sab">
   <header class="ywhead">
@@ -7157,7 +7172,7 @@ html.sheetopen{overflow:hidden}
 <p>神圣历史显示许多人并不愿意；愿我们靠着上帝的恩典不犯同样的错。</p>
 <p class="ynote">■研究本周学课，为12月26日的安息日预备。</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-sab">返回本日解读</a><a class="btn ghost" href="#l13-yw-sun">下一天原文：星期日 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-sab">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-sun">下一天原文：星期日 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-sun">
   <header class="ywhead">
@@ -7176,7 +7191,7 @@ html.sheetopen{overflow:hidden}
 <p>如果耶稣─上帝的道─在起初就已存在，后来成了肉身，住在我们中间，那么顺理成章地说，耶稣本来就是上帝借着先知所赐下一切话语和信息的核心。即使有些先知所传的信息并没有明白提到耶稣，他们仍是受圣灵感动说话的。</p>
 <p class="yq" id="l13-yw-sun-q3">请想一想，宇宙是何等浩瀚；而创造这一切的那一位─耶稣─竟也是为我们而死的那一位。这带给你何等大的盼望呢？</p><p class="yqlink"><a class="toans" href="#l13-sun-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-sun">返回本日解读</a><a class="btn ghost" href="#l13-yw-mon">下一天原文：星期一 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-sun">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-mon">下一天原文：星期一 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-mon">
   <header class="ywhead">
@@ -7194,7 +7209,7 @@ html.sheetopen{overflow:hidden}
 <blockquote class="yquote">“凡是已经被圣经深深打动，并把圣经视为上帝声音、渴望遵行其中教导的人，都应当天天学习，天天领受那为每一位真正相信圣灵恩赐的人所预备的属灵热诚与能力。”─怀爱伦，刊于《时兆》，1910年3月8日。真正的预言恩赐，总是高举圣经，总是把男女老少带回上帝的话语，并视其为信仰与生活唯一的准则。</blockquote>
 <p class="yq" id="l13-yw-mon-q3">为什么耶稣在向往以马忤斯去的那两位门徒表明身份之前，要先把他们引到圣经面前？这件事告诉我们，上帝的话语对我们而言，为什么必须是信仰根本的基础？</p><p class="yqlink"><a class="toans" href="#l13-mon-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-mon">返回本日解读</a><a class="btn ghost" href="#l13-yw-tue">下一天原文：星期二 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-mon">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-tue">下一天原文：星期二 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-tue">
   <header class="ywhead">
@@ -7211,7 +7226,7 @@ html.sheetopen{overflow:hidden}
 <p>但对那些心是敞开的人，耶稣应许，他们必“晓得真理”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="42|8.32">约8：32</span>）</span>。预言的恩赐，就是上帝用来分辨真理与错误、光明与黑暗的方式。从某个角度来说，在这么多不同宗派当中，我们其实并不难认出真理。若你坚持不放弃第七日安息日─这项有坚实圣经根据的真理─那么你几乎已经排除了99.5％的选项，因为绝大多数教会并不遵守第四条诫命。如果你又坚持不接受“死人会立刻上天堂与耶稣同在”，也不接受“他们现在就在地狱里受苦，而且将永远如此”的说法，那又会如何呢？</p>
 <p>那么，你又已经排除了剩下0.5％中的绝大多数，甚至可能全部。除了基督复临安息日会之外，你还能往哪里去呢？</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-tue">返回本日解读</a><a class="btn ghost" href="#l13-yw-wed">下一天原文：星期三 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-tue">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-wed">下一天原文：星期三 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-wed">
   <header class="ywhead">
@@ -7229,7 +7244,7 @@ html.sheetopen{overflow:hidden}
 <p>使徒保罗曾警告，那些立志在基督耶稣里敬虔度日的人，必要遭受逼迫<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="54|3.12">提后3：12</span>）</span>。在前头艰难的日子里，我们将需要安慰与盼望的话语。预言的恩赐，正是上帝在耶稣再来接祂子民回家之前，用来抚慰并坚固祂百姓的方式。</p>
 <p class="yq" id="l13-yw-wed-q3">你生命中哪一个层面，特别需要听见安慰与盼望的话语？而在上帝安慰了我们之后，祂又赐能力给我们去做什么呢？<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="46|1.3;1.4">林后1：3、4</span>）</span></p><p class="yqlink"><a class="toans" href="#l13-wed-q3">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-wed">返回本日解读</a><a class="btn ghost" href="#l13-yw-thu">下一天原文：星期四 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-wed">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-thu">下一天原文：星期四 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-thu">
   <header class="ywhead">
@@ -7246,7 +7261,7 @@ html.sheetopen{overflow:hidden}
 <p>这种合一乃是圣灵借着祂所赐下的恩赐所成就的工作。<span class="bref" role="button" tabindex="0" data-v="48|4.11;4.12;4.13;4.14;4.15">弗4：11-15</span>告诉我们，圣灵的恩赐是为了装备信徒、建立基督的身体，“直等到我们众人在真道上同归于一，认识上帝的儿子，得以长大成人，满有基督长成的身量。”<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="48|4.13">弗4：13</span>）</span>而预言的恩赐─这项圣灵标志性的恩赐之一─对于使上帝的子民合一尤其重要，特别是在耶稣第二次降临日益临近之时，好叫他们能信靠主耶稣基督，并且得救<span class="ref">（<span class="bref" role="button" tabindex="0" data-v="43|16.31">徒16：31</span>）</span>。</p>
 <p class="yq" id="l13-yw-thu-q2">基督复临安息日会或许是全球最多元的新教教会群体之一，在这样的时代背景之下，我们要如何活出能助人相信耶稣的合一精神？又有哪些力量正在威胁这种合一呢？</p><p class="yqlink"><a class="toans" href="#l13-thu-q2">看参考解答 →</a></p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-thu">返回本日解读</a><a class="btn ghost" href="#l13-yw-fri">下一天原文：星期五 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-thu">接着看本日解读 →</a><a class="btn ghost" href="#l13-yw-fri">下一天原文：星期五 →</a></p>
 </article>
 <article class="ywday" id="l13-yw-fri">
   <header class="ywhead">
@@ -7263,7 +7278,7 @@ html.sheetopen{overflow:hidden}
 <p><span class="ref">（<span class="bref" role="button" tabindex="0" data-v="18|34.8">诗34：8</span>）</span>这些信息呼召我们采取圣洁的行动，经历生命的改变，投入个人布道，并且过一种服事他人的生活。当我们仰望耶稣的再来时，这正是我们为了完成向世界发出最后宣告之角色所不可缺少的预备。</p>
 <p class="ynote">欲了解更多内容，请造访：https：//whiteestate.org/absg/13</p>
   </div>
-  <p class="btnrow end"><a class="btn ghost" href="#l13-fri">返回本日解读</a><a class="btn ghost" href="#l13-sab">原文读完，开始逐日解读 →</a></p>
+  <p class="btnrow end"><a class="btn" href="#l13-fri">接着看本日解读 →</a><a class="btn ghost" href="#l13-sab">原文读完，开始逐日解读 →</a></p>
 </article>
 </section>
 <header class="parthead jdhead" id="l13-yandu">
@@ -8266,7 +8281,7 @@ function q4copy(t){
     var dstr='今天是 <b>'+D.m+'月'+D.d+'日 '+D.dn+'</b>';
     if(D.no){
       dt.innerHTML=dstr+' · 本周学课：第'+D.no+'课';
-      go.href='#l'+D.no+'-'+D.key;
+      go.href='#l'+D.no+'-'+(D.key==='sum'?'':'yw-')+D.key;   // 先读当天的学课原文；读完打卡后，需要时再看解读
       if(D.sabbath)btn('今日安息日学课堂 →','第'+D.no+'课《'+titleOf(D.no)+'》· 知信行与讨论');
       else btn('进入今日学课 →','第'+D.no+'课《'+titleOf(D.no)+'》· '+(D.key==='sab'?'导言':D.dn));
     }else if(D.before){
@@ -8276,7 +8291,7 @@ function q4copy(t){
       dt.innerHTML=dstr+' · 本季学课已经学完';
       go.href='#home'; btn('本季已学完 →','回顾全季十三课');
     }
-    if(D.next){cl.hidden=false;var ca=cl.querySelector('a');ca.href='#l'+D.next+'-sab';ca.textContent='今天下午开始新课：第'+D.next+'课《'+titleOf(D.next)+'》';}
+    if(D.next){cl.hidden=false;var ca=cl.querySelector('a');ca.href='#l'+D.next+'-yw-sab';ca.textContent='今天下午开始新课：第'+D.next+'课《'+titleOf(D.next)+'》';}
     var mins=Math.floor(secs/60),h=Math.floor(mins/60),mm=mins%60;
     W.querySelector('.wmin').textContent=(h?h+' 小时 ':'')+mm+' 分钟';
     var lit=Math.min(12,Math.floor(secs/300));
@@ -8303,33 +8318,28 @@ function q4copy(t){
   window.addEventListener('hashchange',function(){if(!W.hidden&&location.hash&&location.hash!=='#home')close(false);});
   document.querySelectorAll('[data-welcome]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();open();});});
 
-  /* ---------- 随时返回主页（欢迎页）：先确认，再打开欢迎页；关掉欢迎页就回到原来的位置 ---------- */
-  var HC=document.getElementById('hconf'),fab=document.querySelector('.fab');
-  if(HC){
-    var hcT=null,back=null;
-    var ask=function(){clearTimeout(hcT);back=document.activeElement;if(fab)fab.classList.remove('on');HC.hidden=false;void HC.offsetWidth;HC.classList.add('open');setTimeout(function(){HC.querySelector('[data-hok]').focus({preventScroll:true});},40);};
-    var shut=function(){HC.classList.remove('open');hcT=setTimeout(function(){HC.hidden=true;},240);};
-    document.addEventListener('click',function(e){
-      if(e.target.closest('[data-gohome]')){e.preventDefault();e.stopPropagation();ask();return;}
-      if(HC.hidden)return;
-      if(e.target.closest('[data-hok]')){e.preventDefault();shut();open();return;}
-      if(e.target.closest('[data-hno]')){e.preventDefault();shut();if(back&&back.focus)back.focus({preventScroll:true});}
-    },true);
-    document.addEventListener('keydown',function(e){if(!HC.hidden&&e.key==='Escape'){e.stopPropagation();shut();}},true);
-  }
+  /* ---------- 随时返回主页（欢迎页）：点一下直接打开；关掉欢迎页（或点“继续上次阅读”）就回到原来的位置 ---------- */
+  var fab=document.querySelector('.fab');
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('[data-gohome]'))return;
+    e.preventDefault();e.stopPropagation();
+    if(fab)fab.classList.remove('on');
+    if(window.Q4Remember)window.Q4Remember();   // 先记下正在读的段落
+    open();
+  },true);
   if(fab){
-    // 往下读时藏起来，不挡字；往回滑一下就出现，3 秒不动又自动收起；宽屏放在正文右侧空白处，一直显示
-    var wide=window.matchMedia?matchMedia('(min-width:1360px)'):{matches:false},lastY=window.scrollY,fT=null;
-    var show=function(v){fab.classList.toggle('on',v);};
+    // 一直显示（老人家也找得到）：往下读时变成半透明的“玻璃”，不挡字；往上滑慢慢恢复全色；宽屏在正文右侧空白处，一直全色
+    var wide=window.matchMedia?matchMedia('(min-width:1360px)'):{matches:false},lastY=window.scrollY;
+    var glass=function(v){if(fab.classList.contains('glass')!==v)fab.classList.toggle('glass',v);};
+    var hold=0;
+    fab.classList.add('on');
+    window.addEventListener('hashchange',function(){hold=Date.now()+1200;glass(false);});   // 刚跳到新的一段：先全色显示，开始往下读再变透明
     addEventListener('scroll',function(){
       var y=window.scrollY,dy=y-lastY;lastY=y;
-      if(!W.hidden||!HC||!HC.hidden)return;
-      if(wide.matches){show(y>240);return;}
-      var end=y+innerHeight>document.documentElement.scrollHeight-260;
-      if(y<240||end||dy>3){clearTimeout(fT);show(false);}
-      else if(dy<-3){show(true);clearTimeout(fT);fT=setTimeout(function(){show(false);},3000);}
+      if(!W.hidden||Date.now()<hold)return;
+      if(wide.matches||y<160||y+innerHeight>document.documentElement.scrollHeight-200){glass(false);return;}
+      if(dy>4)glass(true);else if(dy<-4)glass(false);
     },{passive:true});
-    window.addEventListener('hashchange',function(){clearTimeout(fT);show(false);});
   }
 
   /* ---------- 分享：微信分享 / 复制链接 / 系统分享；电脑上显示二维码 ---------- */
@@ -9019,20 +9029,22 @@ window.Q4Hub=(function(){
   window.addEventListener('hashchange',onRoute);onRoute();paint();
 
   /* ===== 2. 读完打卡 ===== */
-  var CK=/^l\d+-(sab|sun|mon|tue|wed|thu|fri|sum)$/;
+  var CK=/^l\d+-yw-(sab|sun|mon|tue|wed|thu|fri)$/;   // 打卡放在“学课原文”每天的最后；记录仍按 l1-sun 这样的日子
   var cheers=['愿主的话成为你脚前的灯、路上的光。（诗119:105）','“你的言语一解开，就发出亮光。”（诗119:130）','“我将你的话藏在心里，免得我得罪你。”（诗119:11）',
     '“人活着不是单靠食物，乃是靠上帝口里所出的一切话。”（太4:4）','“你们要查考圣经。”（约5:39）','“这些人……天天考查圣经。”（徒17:11）'];
-  var days=[].slice.call(document.querySelectorAll('.lesson section.day[id]')).filter(function(s){return CK.test(s.id);});
+  var days=[].slice.call(document.querySelectorAll('.lesson article.ywday[id]')).filter(function(s){return CK.test(s.id);});
+  function ckKey(sec){return sec.id.replace('-yw-','-');}
   function mineCk(k){if(get('ck:'+k)==='1')return true;var u=H.uid&&H.uid.slice(0,12);return !!(u&&H.S&&(H.S.checks[k]||[]).indexOf(u)>=0);}
   function nCk(k){return (H.S&&H.S.checks[k]||[]).length;}
   days.forEach(function(sec){
-    var box=el('div','ckin');box.dataset.ck=sec.id;
+    var box=el('div','ckin');box.dataset.ck=ckKey(sec);
     box.innerHTML='<p class="ck-q">这一天的学课读完了吗？</p><button type="button" class="btn solid ck-btn">✓ 读完了，打卡</button><p class="ck-n" aria-live="polite"></p><p class="ck-cheer" hidden></p>';
-    sec.appendChild(box);
+    var nav=[].slice.call(sec.children).filter(function(x){return x.classList.contains('btnrow');}).pop();   // 放在“查看本日解读 / 下一天原文”按钮的上面
+    sec.insertBefore(box,nav||null);
   });
   function paintCk(){
     days.forEach(function(sec){
-      var box=sec.querySelector('.ckin');if(!box)return;var k=sec.id,me=mineCk(k),n=Math.max(nCk(k),me?1:0),b=box.querySelector('.ck-btn');
+      var box=sec.querySelector('.ckin');if(!box)return;var k=ckKey(sec),me=mineCk(k),n=Math.max(nCk(k),me?1:0),b=box.querySelector('.ck-btn');
       box.classList.toggle('done',me);b.textContent=me?'✓ 你已打卡':'✓ 读完了，打卡';b.disabled=me;
       box.querySelector('.ck-q').textContent=me?'这一天你已经读完了，真好！':'这一天的学课读完了吗？';
       box.querySelector('.ck-n').innerHTML=H.S?(n?'已有 <b>'+n+'</b> 人读完这一天':'你会是第一个读完这一天的人'):'';
@@ -9053,13 +9065,13 @@ window.Q4Hub=(function(){
   function weekCard(){
     var card=document.querySelector('#welcome .wtogether');if(!card)return;
     var no=D.no;if(!no){card.hidden=true;return;}
-    var keys=['sab','sun','mon','tue','wed','thu','fri','sum'],people={},mine=0,h='';
+    var keys=['sab','sun','mon','tue','wed','thu','fri'],people={},mine=0,h='';
     keys.forEach(function(x){var k='l'+no+'-'+x,me=mineCk(k),n=Math.max(nCk(k),me?1:0);if(me)mine++;
       (H.S&&H.S.checks[k]||[]).forEach(function(u){people[u]=1;});
-      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#'+k+'" title="'+DN[x]+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(H.S?n:'·')+'</span></a>';});
+      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#l'+no+'-yw-'+x+'" title="'+DN[x]+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(H.S?n:'·')+'</span></a>';});
     card.querySelector('.wt-days').innerHTML=h;
     var np=Object.keys(people).length;
-    card.querySelector('.wt-msg').innerHTML=H.S?('第'+no+'课本周已有 <b>'+np+'</b> 位弟兄姊妹打卡'+(mine?'，你已读完 <b>'+mine+'</b>/8 部分':'；读完一天的学课，记得在那一页最后打卡')):'正在读取大家的打卡……';
+    card.querySelector('.wt-msg').innerHTML=H.S?('第'+no+'课本周已有 <b>'+np+'</b> 位弟兄姊妹打卡'+(mine?'，你已读完 <b>'+mine+'</b>/7 天':'；读完当天的学课原文，记得在最后打卡')):'正在读取大家的打卡……';
     card.hidden=false;
   }
 
@@ -9138,7 +9150,7 @@ window.Q4Hub=(function(){
   var de=document.documentElement,reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function sheet(cls,label,inner){   // 统一样式的弹出面板（沿用“返回主页”确认框的外观）
     var s=el('div','hconf rsheet '+cls);s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');s.setAttribute('aria-label',label);s.hidden=true;
-    s.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card">'+inner+'</div>';document.body.appendChild(s);
+    s.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><button type="button" class="rs-x" data-close aria-label="关闭">×</button><div class="rs-body">'+inner+'</div></div>';document.body.appendChild(s);
     s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});
     s.addEventListener('keydown',function(e){if(e.key==='Escape')close(s);});
     return s;
@@ -9173,14 +9185,16 @@ window.Q4Hub=(function(){
   });
   applyFs(fs());applyTh(theme());
 
-  /* ===== 工具按钮：跟着“主页”浮动按钮一起出现，不挡字；欢迎页、全季目录里也有 ===== */
+  /* ===== 工具按钮：和“主页”浮动按钮并排、一样一直显示（往下读时一起变成半透明）；欢迎页、全季目录里也有 ===== */
   var SVG={s:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
     a:'<span class="aa" aria-hidden="true">A<small>A</small></span>'};
   var tools=el('div','tools');tools.innerHTML='<button type="button" class="tbtn" data-rsearch aria-label="搜索">'+SVG.s+'</button><button type="button" class="tbtn" data-rsettings aria-label="阅读设置">'+SVG.a+'</button>';
   document.body.appendChild(tools);
   var fab=document.querySelector('.fab');
-  function syncTools(){if(!fab)return;tools.classList.toggle('on',fab.classList.contains('on'));tools.style.setProperty('--fabw',fab.offsetWidth+'px');}
+  function syncTools(){if(!fab)return;var g=fab.classList.contains('glass');tools.querySelectorAll('.tbtn').forEach(function(b){b.classList.toggle('glass',g);});tools.style.setProperty('--fabw',fab.offsetWidth+'px');}
   if(fab&&window.MutationObserver)new MutationObserver(syncTools).observe(fab,{attributes:true,attributeFilter:['class']});
+  if(fab&&window.ResizeObserver)new ResizeObserver(syncTools).observe(fab);   // 字号变了，主页按钮变宽，工具按钮跟着让位
+  syncTools();
   var wrec=document.querySelector('#welcome .wrec');
   if(wrec){var wt=el('p','wtools','<button type="button" data-rsearch>'+SVG.s+'搜索全季内容</button><button type="button" data-rsettings>'+SVG.a+'字号 · 夜间模式</button>');
     var wb=wrec.querySelector('.wbtns');wb.parentNode.insertBefore(wt,wb.nextSibling);}
@@ -9206,7 +9220,7 @@ window.Q4Hub=(function(){
     return {a:(sec&&sec.id)||L.id,label:label,sec:sec||L};
   }
   var BLK='h1,h2,h3,p,li,blockquote,td';
-  var SKIP='.lessonbar,.nav,.ckin,.dsc,.my,.btnrow,.qshare,nav,footer,.askpage,.vpool,.cover .from,.when,script,style';
+  var SKIP='.lessonbar,.nav,.ckin,.dsc,.my,.btnrow,.qshare,nav,footer,.askpage,.vpool,.cover .from,.when,.yqlink,script,style';   // 和 tts/speech.py 的分段规则一致
   function blocks(root){
     return [].slice.call(root.querySelectorAll(BLK)).filter(function(b){
       if(b.closest(SKIP))return false;if(b.tagName!=='P'&&b.querySelector('p,li'))return false;return true;
@@ -9226,6 +9240,7 @@ window.Q4Hub=(function(){
     set('resume',JSON.stringify({a:w.a,i:i,label:w.label,ts:Date.now()}));paintResume();
   }
   addEventListener('scroll',function(){clearTimeout(saveT);saveT=setTimeout(remember,700);},{passive:true});
+  window.Q4Remember=function(){clearTimeout(saveT);remember();};
   function saved(){try{var r=JSON.parse(get('resume')||'null');return r&&document.getElementById(r.a)?r:null;}catch(e){return null;}}
   function jump(a,target){
     var go=function(){if(target){target.scrollIntoView({block:'center'});target.classList.add('hit');setTimeout(function(){target.classList.remove('hit');},2400);}};
@@ -9280,21 +9295,72 @@ window.Q4Hub=(function(){
   });
   function openSearch(){open(SS);var q=SS.querySelector('.sr-q');if(!q.value&&get('lastq'))q.value=get('lastq');setTimeout(function(){q.focus();if(q.value)q.select();},80);}
 
-  /* ===== 朗读 ===== */
-  var SY=window.speechSynthesis,T={on:false,q:[],i:0,u:null,started:false,rate:+rate()};
-  if(SY&&window.SpeechSynthesisUtterance){
+  /* ===== 朗读：优先播放预先录好的自然人声（微信里也能听）；没有录音的部分用手机自带的语音 ===== */
+  var SY=window.speechSynthesis,canSY=!!(SY&&window.SpeechSynthesisUtterance);
+  var AC=document.querySelector('[data-audio]'),AUD=AC?AC.dataset.audio:'',AIDS={};
+  if(AC)(AC.dataset.audioIds||'').split(' ').forEach(function(x){if(x)AIDS[x]=1;});
+  function unitId(root){return root.id||((root.closest('.lesson')||{}).id)||'';}
+  function fpOf(b){return b.textContent.replace(/\s+/g,'').slice(0,12);}
+  function fph(list){var s=list.join('|'),h=0x811c9dc5;for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);h=Math.imul((h^(c&255))>>>0,0x01000193)>>>0;h=Math.imul((h^(c>>>8))>>>0,0x01000193)>>>0;}return ('0000000'+h.toString(16)).slice(-8);}
+  if(canSY||AUD){
     var bar=el('div','ttsbar');bar.hidden=true;bar.setAttribute('role','region');bar.setAttribute('aria-label','朗读');
-    bar.innerHTML='<span class="tt-t">正在朗读</span><button type="button" class="tt-pp" aria-label="暂停">❚❚</button><button type="button" class="tt-rate" aria-label="朗读速度"></button><button type="button" class="tt-x" aria-label="停止朗读">✕</button>';
+    bar.innerHTML='<i class="tt-pg" aria-hidden="true"><b></b></i><span class="tt-t">正在朗读</span><span class="tt-tm"></span><button type="button" class="tt-pp" aria-label="暂停">❚❚</button><button type="button" class="tt-rate" aria-label="朗读速度"></button><button type="button" class="tt-x" aria-label="停止朗读">✕</button>';
     document.body.appendChild(bar);
-    var voice=null;
-    function pickVoice(){var vs=SY.getVoices()||[];voice=vs.filter(function(v){return /^zh[-_]CN/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang)&&!/HK|TW/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang);})[0]||null;}
-    pickVoice();if(SY.addEventListener)SY.addEventListener('voiceschanged',pickVoice);
-    function speakable(t){return t.replace(/(\d+):(\d+)(?:[-–](\d+))?/g,function(m,c,v,v2){return c+'章'+v+'节'+(v2?'到'+v2+'节':'');}).replace(/[→↔✦❚]/g,'，').replace(/\s+/g,' ').trim();}
-    function pieces(t){var out=[];t.replace(/([。！？；])/g,'$1\u0001').split('\u0001').forEach(function(s){if(out.length&&(out[out.length-1]+s).length<120)out[out.length-1]+=s;else out.push(s);});return out.filter(function(s){return s.trim();});}
+    var ppB=bar.querySelector('.tt-pp'),tmS=bar.querySelector('.tt-tm'),pgB=bar.querySelector('.tt-pg b'),ttS=bar.querySelector('.tt-t');
+    var T={on:false,mode:'',root:null,title:'',rate:+rate()};
+    function setPP(playing){ppB.textContent=playing?'❚❚':'▶';ppB.setAttribute('aria-label',playing?'暂停':'继续');}
     function setRateLabel(){var r=String(T.rate);bar.querySelector('.tt-rate').textContent=(RATES.filter(function(x){return x[0]===r;})[0]||['','正常'])[1]+'速';}
-    function mark(b){document.querySelectorAll('.speaking').forEach(function(x){x.classList.remove('speaking');});if(b){b.classList.add('speaking');b.scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});}}
+    function inView(b){var r=b.getBoundingClientRect();return r.top>60&&r.bottom<innerHeight-90;}
+    function mark(b,scroll){document.querySelectorAll('.speaking').forEach(function(x){x.classList.remove('speaking');});if(b){b.classList.add('speaking');if(scroll!==false&&!inView(b))b.scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});}}
+    function mmss(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+('0'+t%60).slice(-2);}
+    function short(t){return t.replace(/《[^》]*》/,'').replace(/学课原文$/,'原文');}   // 底部条上放得下：第1课 · 星期四 · 原文
+    function show(title){ttS.textContent=short(title);tmS.textContent='';pgB.style.width='0';setPP(true);setRateLabel();bar.hidden=false;de.classList.add('ttson');}
+
+    /* --- 录好的声音 --- */
+    var A=null,AT=null;   // AT：每段开始的秒数（和网页段落对得上时才有）
+    function media(title){
+      if(!('mediaSession' in navigator))return;
+      try{navigator.mediaSession.metadata=new MediaMetadata({title:title,artist:'预言的恩赐 · 学课朗读',album:'2026年第4季安息日学'});
+        navigator.mediaSession.setActionHandler('play',function(){if(A)A.play();});
+        navigator.mediaSession.setActionHandler('pause',function(){if(A)A.pause();});
+        navigator.mediaSession.setActionHandler('seekbackward',function(){if(A)A.currentTime=Math.max(0,A.currentTime-10);});
+        navigator.mediaSession.setActionHandler('seekforward',function(){if(A)A.currentTime=Math.min(A.duration||1e9,A.currentTime+10);});
+      }catch(e){}
+    }
+    function playAudio(root,title,id){
+      var list=blocks(root),cur=-1;
+      if(!A){A=new Audio();A.preload='auto';
+        A.addEventListener('timeupdate',function(){
+          if(T.mode!=='a')return;var t=A.currentTime,d=A.duration||0;
+          tmS.textContent=mmss(t)+(d?' / '+mmss(d):'');pgB.style.width=(d?Math.min(100,t/d*100):0)+'%';
+          if(!AT)return;var i=-1;for(var k=0;k<AT.length;k++){if(AT[k]>=0&&AT[k]<=t+0.15)i=k;}
+          if(i!==T.cur){T.cur=i;mark(T.list[i]||null);}
+        });
+        A.addEventListener('playing',function(){if(T.mode==='a'){ttS.textContent=short(T.title);setPP(true);}});
+        A.addEventListener('waiting',function(){if(T.mode==='a')ttS.textContent='正在加载声音……';});
+        A.addEventListener('pause',function(){if(T.mode==='a')setPP(false);});
+        A.addEventListener('ended',function(){if(T.mode!=='a')return;var r=T.root;stop();var ck=r&&r.querySelector('.ckin');
+          if(ck&&!ck.classList.contains('done')){ck.scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});ck.classList.add('pop');setTimeout(function(){ck.classList.remove('pop');},1600);}});
+        A.addEventListener('error',function(){if(T.mode!=='a')return;var r=T.root,ti=T.title;stop();
+          if(canSY)speak(r,ti);else window.alert('朗读声音没有加载成功，请检查网络后再试一次。');});
+      }
+      AT=null;T={on:true,mode:'a',root:root,title:title,rate:+rate(),list:list,cur:-1};
+      A.src=AUD+id+'.mp3';A.playbackRate=T.rate;try{A.defaultPlaybackRate=T.rate;}catch(e){}
+      show(title);media(title);
+      var pr=A.play();if(pr&&pr.catch)pr.catch(function(){if(T.mode==='a')setPP(false);});   // 被浏览器拦下时，点 ▶ 就能开始
+      if(window.fetch)fetch(AUD+id+'.json').then(function(r){return r.ok?r.json():null;}).then(function(m){
+        if(m&&T.mode==='a'&&T.root===root&&m.h===fph(list.map(fpOf))&&m.t&&m.t.length===list.length)AT=m.t;
+      }).catch(function(){});
+    }
+
+    /* --- 手机自带的语音（没有录音时） --- */
+    var voice=null;
+    function pickVoice(){if(!canSY)return;var vs=SY.getVoices()||[];voice=vs.filter(function(v){return /^zh[-_]CN/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang)&&!/HK|TW/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang);})[0]||null;}
+    if(canSY){pickVoice();if(SY.addEventListener)SY.addEventListener('voiceschanged',pickVoice);}
+    function speakable(t){return t.replace(/(\d+)\s*[:：]\s*(\d+)(?:\s*[-–]\s*(\d+))?/g,function(m,c,v,v2){return c+'章'+v+'节'+(v2?'到'+v2+'节':'');}).replace(/看参考解答|↩\s*回到原文问题|https?[:：]\/\/\S+/g,'').replace(/[→↔✦❚─]/g,'，').replace(/\s+/g,' ').trim();}
+    function pieces(t){var out=[];t.replace(/([。！？；])/g,'$1\u0001').split('\u0001').forEach(function(s){if(out.length&&(out[out.length-1]+s).length<120)out[out.length-1]+=s;else out.push(s);});return out.filter(function(s){return s.trim();});}
     function next(){
-      if(!T.on)return;if(T.i>=T.q.length){stop();return;}
+      if(!T.on||T.mode!=='s')return;if(T.i>=T.q.length){stop();return;}
       var item=T.q[T.i++];mark(item.b);
       var u=new SpeechSynthesisUtterance(item.t);u.lang='zh-CN';try{if(voice)u.voice=voice;}catch(e){}u.rate=T.rate;T.u=u;
       u.onstart=function(){T.started=true;};
@@ -9302,25 +9368,42 @@ window.Q4Hub=(function(){
       u.onerror=function(e){if(T.u===u&&e.error!=='interrupted'&&e.error!=='canceled')next();};
       SY.speak(u);
     }
-    function start(root,title){
-      stop();var q=[];
+    function speak(root,title){
+      var q=[];
       blocks(root).forEach(function(b){if(!b.offsetParent)return;pieces(speakable(b.textContent)).forEach(function(t){q.push({b:b,t:t});});});
-      if(!q.length)return;T={on:true,q:q,i:0,u:null,started:false,rate:+rate()};
-      bar.querySelector('.tt-t').textContent='正在朗读：'+title;bar.querySelector('.tt-pp').textContent='❚❚';bar.querySelector('.tt-pp').setAttribute('aria-label','暂停');setRateLabel();
-      bar.hidden=false;de.classList.add('ttson');next();
-      setTimeout(function(){if(T.on&&!T.started&&!SY.speaking){stop();window.alert('这个浏览器暂时不支持朗读。可以换手机自带的浏览器（如 Safari）打开试试。');}},4000);
+      if(!q.length)return;T={on:true,mode:'s',root:root,title:title,q:q,i:0,u:null,started:false,rate:+rate()};
+      show(title);next();
+      setTimeout(function(){if(T.on&&T.mode==='s'&&!T.started&&!SY.speaking){stop();window.alert('这个浏览器暂时不支持朗读。可以换手机自带的浏览器（如 Safari）打开试试。');}},4000);
     }
-    function stop(){T.on=false;T.u=null;try{SY.cancel();}catch(e){}mark(null);bar.hidden=true;de.classList.remove('ttson');}
+
+    function start(root,title){
+      stop();var id=unitId(root);
+      if(AUD&&AIDS[id])playAudio(root,title,id);else if(canSY)speak(root,title);
+    }
+    function stop(){
+      if(T.mode==='a'&&A){try{A.pause();}catch(e){}}
+      if(T.mode==='s'){try{SY.cancel();}catch(e){}}
+      T={on:false,mode:'',root:null,title:'',rate:+rate()};AT=null;mark(null);bar.hidden=true;de.classList.remove('ttson');
+    }
     bar.addEventListener('click',function(e){
       if(e.target.closest('.tt-x'))stop();
-      else if(e.target.closest('.tt-pp')){var b=e.target.closest('.tt-pp');if(SY.paused){SY.resume();b.textContent='❚❚';b.setAttribute('aria-label','暂停');}else{SY.pause();b.textContent='▶';b.setAttribute('aria-label','继续');}}
+      else if(e.target.closest('.tt-pp')){
+        if(T.mode==='a'){if(A.paused){A.play();}else A.pause();}
+        else if(T.mode==='s'){if(SY.paused){SY.resume();setPP(true);}else{SY.pause();setPP(false);}}
+      }
       else if(e.target.closest('.tt-rate')){var i=RATES.map(function(r){return r[0];}).indexOf(String(T.rate));T.rate=+RATES[(i+1)%RATES.length][0];set('rate',String(T.rate));setRateLabel();
-        if(T.on){T.i=Math.max(0,T.i-1);T.u=null;SY.cancel();setTimeout(next,60);}}
+        if(T.mode==='a'){A.playbackRate=T.rate;}
+        else if(T.mode==='s'&&T.on){T.i=Math.max(0,T.i-1);T.u=null;SY.cancel();setTimeout(next,60);}}
     });
+    // 进度条：点一下跳到那里
+    bar.querySelector('.tt-pg').addEventListener('click',function(e){if(T.mode!=='a'||!A.duration)return;var r=this.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*A.duration;});
     window.addEventListener('hashchange',function(){if(T.on)stop();});
-    // 每一天的解读、每一天的学课原文、每篇问题彩蛋都加一个“朗读”按钮
-    function addBtn(where,root,title){var b=el('button','btn ttsbtn','🔊 朗读');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);}
-    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
+    // 每一天的解读、每一天的学课原文、每篇问题彩蛋都加一个“朗读”按钮（只有录好声音、或手机支持朗读时才显示）
+    function addBtn(where,root,title){
+      var rec=AUD&&AIDS[unitId(root)];if(!rec&&!canSY)return;
+      var b=el('button','btn ttsbtn'+(rec?' rec':''),rec?'🎧 听朗读':'🔊 朗读');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);
+    }
+    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label+(/^l0-/.test(s.id)?'':' · 解读'));});
     document.querySelectorAll('article.ywday').forEach(function(s){var r=s.querySelector('.ywhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
     document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
   }
@@ -9339,8 +9422,8 @@ window.Q4Hub=(function(){
 
   /* ---- 面板 ---- */
   var SH=el('div','hconf rsheet imgsheet');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
-  SH.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><h3>分享图片</h3><p class="im-tip"></p><div class="im-box"><p class="im-wait">正在生成图片……</p><img class="im-img" alt="分享图片" hidden></div>'+
-    '<div class="hconf-btns"><a class="btn im-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div>';
+  SH.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><button type="button" class="rs-x" data-close aria-label="关闭">×</button><div class="rs-body"><h3>分享图片</h3><p class="im-tip"></p><div class="im-box"><p class="im-wait">正在生成图片……</p><img class="im-img" alt="分享图片" hidden></div>'+
+    '<div class="hconf-btns"><a class="btn im-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div></div>';
   document.body.appendChild(SH);
   SH.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close();});
   SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});

@@ -202,7 +202,7 @@ def reorder(h):
     yw = h[m.start():m.end()]; h = h[:m.start()] + h[m.end():]
     yw = yw.replace('<p class="k">第二部分</p>', '<p class="k">第一部分</p>', 1)
     yw = re.sub(r'(<h2>学课原文</h2>\s*<p>)[^<]*(</p>)',
-                r'\1先读原文。每天标题下的“查看本日解读”可直接翻到当天的解读；原文里的思考题下有“看参考解答”。\2', yw, 1)
+                r'\1先读原文。每天读完，点最后的“接着看本日解读”就能深入当天的解读（标题下也有）；原文里的思考题下有“看参考解答”。\2', yw, 1)
     jd = ('<header class="parthead jdhead" id="yandu">\n  <p class="k">第二部分</p>\n  <h2>逐日解读</h2>\n'
           '  <p>读完原文，再逐日深入：核心概述、以经解经、思考问答、需要提升的认知、上帝的心意、我们的行动。'
           '标着“学课原题”的问答，可点“回到原文问题”翻回原文。</p>\n</header>\n')
@@ -375,17 +375,16 @@ def qr_all():
 SHAREIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/>'
            '<circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/>'
            '<path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
+# 朗读录音：.github/workflows/tts.yml 合成后存在仓库 audio/<声音>/ 下（每部分一个 MP3 + 一个分段时间表）。
+# 这里写明网页用哪一套声音；生成网页时列出已经录好的部分，这些部分的“听朗读”在微信里也能用。
+TTS_VOICE = 'cv3-f'
+def audio_cfg():
+    d = os.path.normpath(os.path.join(Q4, '..', '..', 'audio', TTS_VOICE))
+    ids = sorted(f[:-4] for f in os.listdir(d) if f.endswith('.mp3')) if os.path.isdir(d) else []
+    return f'<div id="audiocfg" hidden data-audio="{ONLINE}audio/{TTS_VOICE}/" data-audio-ids="{" ".join(ids)}"></div>'
+
 def homeui():
     return f'''<button class="fab" type="button" data-gohome aria-label="返回主页">{HOUSE}<span>主页</span></button>
-<div class="hconf" id="hconf" role="alertdialog" aria-modal="true" aria-labelledby="hconf-t" aria-describedby="hconf-d" hidden>
-  <div class="hconf-bg" data-hno></div>
-  <div class="hconf-card">
-    <div class="hconf-ic">{HOUSE}</div>
-    <h3 id="hconf-t">是否确定返回主页？</h3>
-    <p id="hconf-d">将打开欢迎页。之后点欢迎页右上角的 ×，就能回到现在的阅读位置。</p>
-    <div class="hconf-btns"><button type="button" data-hno>取消</button><button type="button" class="ok" data-hok>确定</button></div>
-  </div>
-</div>
 <div class="shsheet" id="shsheet" role="dialog" aria-modal="true" aria-labelledby="sh-h" data-base="{ONLINE}" hidden>
   <div class="sh-bg" data-shclose></div>
   <div class="sh-card">
@@ -625,7 +624,7 @@ def build_combined(nos):
         bottom = f'<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">全季目录</a>{GOHOME}<span class="pn">{prev}{nxt}</span></nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{bar}\n{frags[n]}\n{bottom}\n</div>')
-    body = welcome.welcome_html(titles) + '\n' + homeui() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + ask_page())
+    body = welcome.welcome_html(titles) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)
