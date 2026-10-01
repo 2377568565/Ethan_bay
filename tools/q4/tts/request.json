@@ -2,6 +2,7 @@
   "note": "试听样本：同一段原文（第1课星期四开头），几种开源声音各读一遍",
   "out": "audio/try",
   "check": true,
+  "rev": 2,
   "jobs": [
     {"name": "cv3-f", "engine": "cosy3", "voice": "f", "ids": "l1-yw-thu", "maxblocks": 4},
     {"name": "cv3-m", "engine": "cosy3", "voice": "m", "ids": "l1-yw-thu", "maxblocks": 4},
