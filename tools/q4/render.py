@@ -377,7 +377,7 @@ SHAREIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="1
            '<path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 # 朗读录音：.github/workflows/tts.yml 合成后存在仓库 audio/<声音>/ 下（每部分一个 MP3 + 一个分段时间表）。
 # 这里写明网页用哪一套声音；生成网页时列出已经录好的部分，这些部分的“听朗读”在微信里也能用。
-TTS_VOICE = 'cv3-f'
+TTS_VOICE = 'kk-f'   # 试听后选定：D 女声 · 轻快（Kokoro zf_001）
 def audio_cfg():
     d = os.path.normpath(os.path.join(Q4, '..', '..', 'audio', TTS_VOICE))
     ids = sorted(f[:-4] for f in os.listdir(d) if f.endswith('.mp3')) if os.path.isdir(d) else []

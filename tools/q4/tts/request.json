@@ -1,104 +1,104 @@
 {
- "note": "全季学课原文（每课一个任务并行），声音 A：CosyVoice3 女声",
- "out": "audio/cv3-f",
+ "note": "全季朗读：原文、解读、问答文章（每课一个任务并行），声音 D：Kokoro 女声 zf_001",
+ "out": "audio/kk-f",
  "check": false,
  "jobs": [
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "0"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "1"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "2"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "3"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "4"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "5"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "6"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "7"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "8"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "9"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "10"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "11"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "12"
   },
   {
    "name": "",
-   "engine": "cosy3",
-   "voice": "f",
-   "kinds": "yw",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "kinds": "yw,jd,qa",
    "lessons": "13"
   }
  ]
