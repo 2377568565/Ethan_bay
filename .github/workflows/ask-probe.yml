@@ -1,0 +1,37 @@
+name: ask-probe
+# 临时：检查欢迎页的访问人数（不蒜子）为什么不显示（查完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/ask-probe.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BASE: https://2377568565.github.io/Ethan_bay/
+    steps:
+      - name: 不蒜子
+        run: |
+          printf '脚本: '; curl -sS -m 20 -o /tmp/bsz.js -w '%{http_code} %{size_download} %{content_type}\n' https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js || true
+          head -c 300 /tmp/bsz.js; echo
+          printf '接口: '; curl -sS -m 20 -H "Referer: $BASE" -H 'User-Agent: Mozilla/5.0' "https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback_1" -w '  [%{http_code}]\n' || true
+          printf '接口(首页): '; curl -sS -m 20 -H "Referer: https://2377568565.github.io/Ethan_bay/index.html" -H 'User-Agent: Mozilla/5.0' "https://busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback_2" -w '  [%{http_code}]\n' || true
+          printf 'vercount: '; curl -sS -m 20 -o /dev/null -w '%{http_code} %{size_download}\n' https://events.vercount.one/js || true
+      - name: 浏览器里看
+        run: |
+          npm i --no-save --silent playwright-core@1.47.2
+          cat > probe.js <<'JS'
+          const {chromium}=require('playwright-core');
+          (async()=>{
+            const b=await chromium.launch({executablePath:'/usr/bin/google-chrome'});const log=[];
+            const c=await b.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,locale:'zh-CN'});
+            const p=await c.newPage();
+            p.on('console',m=>{if(m.type()==='error')log.push('console: '+m.text().slice(0,200));});
+            p.on('requestfailed',r=>{if(/busuanzi/.test(r.url()))log.push('失败: '+r.url().slice(0,120)+' '+(r.failure()||{}).errorText);});
+            p.on('response',r=>{if(/busuanzi/.test(r.url()))log.push('响应: '+r.status()+' '+r.url().slice(0,120));});
+            await p.goto(process.env.BASE+'?today=2026-10-01',{waitUntil:'load'});await p.waitForTimeout(15000);
+            console.log(await p.evaluate(()=>{const c=document.getElementById('busuanzi_container_site_pv'),v=document.getElementById('busuanzi_value_site_pv');return 'container display='+(c&&c.style.display)+' value='+(v&&v.textContent);}));
+            console.log(log.join('\n'));await b.close();
+          })();
+          JS
+          node probe.js
