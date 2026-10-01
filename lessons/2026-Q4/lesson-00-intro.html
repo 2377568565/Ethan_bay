@@ -2627,12 +2627,18 @@ window.Q4Hub=(function(){
     function addBtn(where,root,title){
       var rec=AUD&&AIDS[unitId(root)],b=root._tts;
       if(!rec&&!canSY)return;
+      if(typeof where==='function')where=where();   // 标题下原本没有按钮行（全季总览、本课总结）时，需要时再加一行
       if(!b){b=el('button','btn ttsbtn');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);root._tts=b;}
       b.classList.toggle('rec',!!rec);b.textContent=rec?'🎧 听朗读':'🔊 朗读';
     }
-    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label+(/^l0-/.test(s.id)?'':' · 解读')]);});
+    document.querySelectorAll('section.day').forEach(function(s){
+      var h=s.querySelector('.dayhead'),r=h&&h.querySelector('.btnrow'),w=where(s);if(!h||!w)return;
+      if(!r)r=function(){var x=h.querySelector('.btnrow');if(!x){x=el('p','btnrow');h.appendChild(x);}return x;};
+      SLOTS.push([r,s,w.label+(/^l0-|-sum$/.test(s.id)?'':' · 解读')]);
+    });
     document.querySelectorAll('article.ywday').forEach(function(s){var r=s.querySelector('.ywhead .btnrow');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label]);});
-    document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);if(r&&w)SLOTS.push([r,s,w.label]);});
+    document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);var L=s.closest('.lesson');
+      if(r&&w)SLOTS.push([r,s,(L&&L.dataset.title?L.dataset.title.replace(/ · 问题彩蛋$/,''):w.label)]);});
     function paintBtns(){SLOTS.forEach(function(x){addBtn(x[0],x[1],x[2]);});}
     paintBtns();
     // 录音是陆续合成上传的：页面打开后再查一次目录，新录好的部分马上出现“听朗读”（不用重新生成网页）
