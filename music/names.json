@@ -1,0 +1,333 @@
+{
+ "note": "收歌时自动套用：键是整理后的曲名（不分大小写），title 显示的曲名，sub 显示在曲名下面的中文名。中文名多为意译，可以改。",
+ "names": {
+  "a simple prayer": {
+   "title": "A Simple Prayer",
+   "sub": "简单的祷告"
+  },
+  "agnus dei": {
+   "title": "Agnus Dei",
+   "sub": "羔羊颂"
+  },
+  "all creatures of our god and king": {
+   "title": "All Creatures of Our God and King",
+   "sub": "天地万物同颂主"
+  },
+  "all is well": {
+   "title": "All Is Well",
+   "sub": "万事安好"
+  },
+  "all night, all day jesus loves me medley": {
+   "title": "All Night, All Day / Jesus Loves Me",
+   "sub": "整夜整日／耶稣爱我（组曲）"
+  },
+  "as the deer": {
+   "title": "As the Deer",
+   "sub": "如鹿切慕溪水"
+  },
+  "away in a manger": {
+   "title": "Away in a Manger",
+   "sub": "远远在马槽里"
+  },
+  "awesome god": {
+   "title": "Awesome God",
+   "sub": "大能的神"
+  },
+  "be thou my vision": {
+   "title": "Be Thou My Vision",
+   "sub": "成为我异象"
+  },
+  "be unto your name": {
+   "title": "Be Unto Your Name",
+   "sub": "归于你名"
+  },
+  "beautiful one": {
+   "title": "Beautiful One",
+   "sub": "美丽的主"
+  },
+  "better is one day": {
+   "title": "Better Is One Day",
+   "sub": "在你殿中一日"
+  },
+  "blessed be your name": {
+   "title": "Blessed Be Your Name",
+   "sub": "称颂你名"
+  },
+  "born to worship": {
+   "title": "Born to Worship",
+   "sub": "为敬拜而生"
+  },
+  "brahm's lullaby": {
+   "title": "Brahms' Lullaby",
+   "sub": "勃拉姆斯摇篮曲"
+  },
+  "come thou fount of every blessing": {
+   "title": "Come, Thou Fount of Every Blessing",
+   "sub": "万福源头"
+  },
+  "come, now is the time to worship": {
+   "title": "Come, Now Is the Time to Worship",
+   "sub": "来吧，现在就来敬拜"
+  },
+  "doxology": {
+   "title": "Doxology",
+   "sub": "三一颂"
+  },
+  "draw me close to you": {
+   "title": "Draw Me Close to You",
+   "sub": "吸引我更靠近你"
+  },
+  "fairest lord jesus": {
+   "title": "Fairest Lord Jesus",
+   "sub": "美哉主耶稣"
+  },
+  "for unto us a child is born": {
+   "title": "For Unto Us a Child Is Born",
+   "sub": "有一婴孩为我们而生"
+  },
+  "forever reign": {
+   "title": "Forever Reign",
+   "sub": "永远掌权"
+  },
+  "give thanks": {
+   "title": "Give Thanks",
+   "sub": "献上感恩"
+  },
+  "god is love": {
+   "title": "God Is Love",
+   "sub": "神就是爱"
+  },
+  "god is so good": {
+   "title": "God Is So Good",
+   "sub": "神真好"
+  },
+  "god of all i am": {
+   "title": "God of All I Am",
+   "sub": "我一切的神"
+  },
+  "god of wonders": {
+   "title": "God of Wonders",
+   "sub": "奇妙的神"
+  },
+  "great is the lord": {
+   "title": "Great Is the Lord",
+   "sub": "主为大"
+  },
+  "great light of the world": {
+   "title": "Great Light of the World",
+   "sub": "世界的大光"
+  },
+  "hallelujah (your love is amazing)": {
+   "title": "Hallelujah (Your Love Is Amazing)",
+   "sub": "哈利路亚，你的爱奇妙"
+  },
+  "hark the herald angels sing": {
+   "title": "Hark! The Herald Angels Sing",
+   "sub": "听啊，天使高声唱"
+  },
+  "he is exalted": {
+   "title": "He Is Exalted",
+   "sub": "主被高举"
+  },
+  "he knows my name": {
+   "title": "He Knows My Name",
+   "sub": "祂知道我的名"
+  },
+  "here i am to worship": {
+   "title": "Here I Am to Worship",
+   "sub": "我来敬拜"
+  },
+  "here in this place": {
+   "title": "Here in This Place",
+   "sub": "在这地方"
+  },
+  "here with us": {
+   "title": "Here with Us",
+   "sub": "与我们同在"
+  },
+  "he's watching over you": {
+   "title": "He's Watching Over You",
+   "sub": "祂看顾你"
+  },
+  "holy, holy, holy": {
+   "title": "Holy, Holy, Holy",
+   "sub": "圣哉，圣哉，圣哉"
+  },
+  "how great is our god": {
+   "title": "How Great Is Our God",
+   "sub": "我神真伟大"
+  },
+  "i could sing of your love forever": {
+   "title": "I Could Sing of Your Love Forever",
+   "sub": "我要永远歌唱你的爱"
+  },
+  "i will follow": {
+   "title": "I Will Follow",
+   "sub": "我要跟随"
+  },
+  "indescribable": {
+   "title": "Indescribable",
+   "sub": "无可比拟"
+  },
+  "jesus, i am resting, resting": {
+   "title": "Jesus, I Am Resting, Resting",
+   "sub": "耶稣，我今安息"
+  },
+  "joy to the world": {
+   "title": "Joy to the World",
+   "sub": "普天同庆"
+  },
+  "joyful, joyful we adore thee": {
+   "title": "Joyful, Joyful, We Adore Thee",
+   "sub": "欢欣，欢欣，我们崇拜"
+  },
+  "lord most high": {
+   "title": "Lord Most High",
+   "sub": "至高的主"
+  },
+  "lord, i lift your name on high": {
+   "title": "Lord, I Lift Your Name on High",
+   "sub": "主，我高举你的名"
+  },
+  "made to praise": {
+   "title": "Made to Praise",
+   "sub": "为赞美而造"
+  },
+  "no eye had seen": {
+   "title": "No Eye Had Seen",
+   "sub": "眼睛未曾看见"
+  },
+  "o come all ye faithful": {
+   "title": "O Come, All Ye Faithful",
+   "sub": "齐来崇拜"
+  },
+  "o worship the king this is my father's world": {
+   "title": "O Worship the King / This Is My Father's World",
+   "sub": "敬拜君王／这是天父世界"
+  },
+  "oh my soul": {
+   "title": "Oh My Soul",
+   "sub": "我的灵魂啊"
+  },
+  "oh, how i love jesus": {
+   "title": "Oh, How I Love Jesus",
+   "sub": "我何等爱耶稣"
+  },
+  "open the eyes of my heart": {
+   "title": "Open the Eyes of My Heart",
+   "sub": "开我心灵的眼睛"
+  },
+  "our god reigns": {
+   "title": "Our God Reigns",
+   "sub": "我神掌权"
+  },
+  "praise to the lord almighty": {
+   "title": "Praise to the Lord, the Almighty",
+   "sub": "赞美全能神"
+  },
+  "shine, jesus, shine": {
+   "title": "Shine, Jesus, Shine",
+   "sub": "照亮吧，耶稣"
+  },
+  "shout to the lord": {
+   "title": "Shout to the Lord",
+   "sub": "向主欢呼"
+  },
+  "step by step": {
+   "title": "Step by Step",
+   "sub": "一步一步"
+  },
+  "sweet hour of prayer whisper a prayer medley": {
+   "title": "Sweet Hour of Prayer / Whisper a Prayer",
+   "sub": "祈祷良辰／轻声祷告（组曲）"
+  },
+  "tell me the story hymn medley": {
+   "title": "Tell Me the Story (Hymn Medley)",
+   "sub": "告诉我耶稣的故事（诗歌组曲）"
+  },
+  "that's what christmas means to me": {
+   "title": "That's What Christmas Means to Me",
+   "sub": "这就是圣诞的意义"
+  },
+  "the greatness of our god": {
+   "title": "The Greatness of Our God",
+   "sub": "我神何等伟大"
+  },
+  "the heart of worship": {
+   "title": "The Heart of Worship",
+   "sub": "敬拜的心"
+  },
+  "the lord's prayer": {
+   "title": "The Lord's Prayer",
+   "sub": "主祷文"
+  },
+  "the very first christmas morning": {
+   "title": "The Very First Christmas Morning",
+   "sub": "第一个圣诞清晨"
+  },
+  "this is my father's world": {
+   "title": "This Is My Father's World",
+   "sub": "这是天父世界"
+  },
+  "this is our god": {
+   "title": "This Is Our God",
+   "sub": "这是我们的神"
+  },
+  "thy word": {
+   "title": "Thy Word",
+   "sub": "你的话"
+  },
+  "we bow down": {
+   "title": "We Bow Down",
+   "sub": "我们俯伏"
+  },
+  "we fall down": {
+   "title": "We Fall Down",
+   "sub": "俯伏敬拜"
+  },
+  "we three kings what child is this": {
+   "title": "We Three Kings / What Child Is This",
+   "sub": "三王来朝／这婴孩是谁"
+  },
+  "welcome to our world": {
+   "title": "Welcome to Our World",
+   "sub": "欢迎来到我们的世界"
+  },
+  "what a friend we have in jesus hymn 164 hymnology season 7": {
+   "title": "What a Friend We Have in Jesus",
+   "sub": "耶稣恩友"
+  },
+  "wonderful, merciful, savior": {
+   "title": "Wonderful, Merciful Savior",
+   "sub": "奇妙慈爱的救主"
+  },
+  "you alone": {
+   "title": "You Alone",
+   "sub": "唯有你"
+  },
+  "you are my all in all": {
+   "title": "You Are My All in All",
+   "sub": "你是我的一切"
+  },
+  "you are my king": {
+   "title": "You Are My King",
+   "sub": "你是我的王"
+  },
+  "you are so good to me": {
+   "title": "You Are So Good to Me",
+   "sub": "你待我真好"
+  },
+  "you created me": {
+   "title": "You Created Me",
+   "sub": "你创造了我"
+  },
+  "your love, oh lord": {
+   "title": "Your Love, Oh Lord",
+   "sub": "主啊，你的爱"
+  },
+  "you've given life to me": {
+   "title": "You've Given Life to Me",
+   "sub": "你赐我生命"
+  }
+ }
+}
