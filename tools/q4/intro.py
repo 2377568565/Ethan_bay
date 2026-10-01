@@ -1,7 +1,8 @@
 """本季导言章：学课原文（导言两页）+ 全季总览解读（取自全季剖析 Markdown 的 〇—四 部分）。"""
 import re, html
 
-MD_PATH = '/home/user/Ethan_bay/lessons/2026-Q4-gift-of-prophecy.md'
+import os as _os
+MD_PATH = _os.path.normpath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'lessons', '2026-Q4-gift-of-prophecy.md'))
 
 def inline(s, fmt):
     s = html.escape(s, quote=False)

@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<link rel="preload" href="site/1fd4e14370.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="site/25dfb0e6a8.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="site/8d05464707.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="site/c39f7b5dc5.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。">
 <title>预言的恩赐 · 全季研读</title>
-<script>document.documentElement.classList.add('jsok','js');</script>
+<script>document.documentElement.classList.add('jsok','js');try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
-@font-face{font-family:"LessonSerif";font-weight:600;font-style:normal;font-display:swap;src:url(site/1fd4e14370.woff2) format("woff2")}
-@font-face{font-family:"LessonSerif";font-weight:900;font-style:normal;font-display:swap;src:url(site/25dfb0e6a8.woff2) format("woff2")}
-@font-face{font-family:"LessonGreek";font-weight:400;font-style:normal;font-display:swap;src:url(site/defa836a3e.woff2) format("woff2")}
-@font-face{font-family:"LessonGreek";font-weight:400;font-style:italic;font-display:swap;src:url(site/4feaf51e6e.woff2) format("woff2")}
-@font-face{font-family:"LessonHebrew";font-weight:400;font-style:normal;font-display:swap;src:url(site/7a8a035589.woff2) format("woff2")}
+@font-face{font-family:"LessonSerif";font-weight:600;font-style:normal;font-display:swap;src:url(site/8d05464707.woff2) format("woff2")}
+@font-face{font-family:"LessonSerif";font-weight:900;font-style:normal;font-display:swap;src:url(site/c39f7b5dc5.woff2) format("woff2")}
+@font-face{font-family:"LessonGreek";font-weight:400;font-style:normal;font-display:swap;src:url(site/2cc6beacd8.woff2) format("woff2")}
+@font-face{font-family:"LessonGreek";font-weight:400;font-style:italic;font-display:swap;src:url(site/747d15300c.woff2) format("woff2")}
+@font-face{font-family:"LessonHebrew";font-weight:400;font-style:normal;font-display:swap;src:url(site/04d7d6faea.woff2) format("woff2")}
 
 /*FONTS*/
 *,*::before,*::after{box-sizing:border-box}
@@ -51,7 +51,8 @@ body{margin:0}
   --accent:#E08A9A;--accent-soft:#2E1C22;--slate:#9DB4CC;--slate-soft:#1C2632;--gold:#D8B46A;--gold-soft:#2A2518;
 }
 @media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
-body{background:var(--paper);color:var(--ink);font:400 16.5px/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+html{font-size:calc(100% * var(--fs,1))}
+body{background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}
 p{margin:0}
 a{color:var(--accent)}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
@@ -234,7 +235,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);font-si
   .kxx{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:560px){
-  body{font-size:16px}
+  body{font-size:calc(16px * var(--fs,1))}
   .page{padding-inline:16px;padding-block:24px 56px}
   .nav{margin-inline:-16px;padding-inline:16px}
   .arc{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -353,11 +354,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);font-si
 @media (min-width:1600px) and (min-height:900px){.winner{zoom:1.22}}
 .wcard{text-align:left;padding:16px 18px;border-radius:14px;background:rgba(12,16,46,.42);border:1px solid rgba(255,221,150,.32);box-shadow:0 10px 40px -12px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .glory .wcard{background:rgba(22,40,90,.38);border-color:rgba(255,230,170,.6)}
-.wcard .wk{margin:0 0 8px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.14em;color:#F5D48C;font-weight:700}
-.wshuf{font:inherit;font-weight:400;letter-spacing:.04em;color:#FFF8EA;background:rgba(255,248,234,.1);border:1px solid rgba(255,248,234,.35);border-radius:999px;padding:3px 12px;cursor:pointer}
+.wcard .wk{margin:0 0 8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 10px;font-size:.76rem;letter-spacing:.14em;color:#F5D48C;font-weight:700}
+.wshuf{white-space:nowrap;font:inherit;font-weight:400;letter-spacing:.04em;color:#FFF8EA;background:rgba(255,248,234,.1);border:1px solid rgba(255,248,234,.35);border-radius:999px;padding:3px 12px;cursor:pointer}
 .wvt{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(1.04rem,3.6vw,1.2rem);line-height:1.9;color:#FFFFFF}
 .wvr{margin:8px 0 0;font-size:.84rem;color:rgba(255,236,196,.92)}
-.wvr a{color:#F5D48C}
+.wvr a{color:#F5D48C;white-space:nowrap}
 .wrec{display:grid;gap:10px;justify-items:center}
 .wdate{margin:0;font-size:.9rem;letter-spacing:.06em;color:rgba(255,248,234,.92)}
 .wdate b{color:#F5D48C;font-weight:700}
@@ -900,6 +901,135 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 .loc-msg{margin:0 0 6px;min-height:0;font-size:.84rem;line-height:1.6;color:var(--accent);text-align:center}
 .loc-msg:empty{display:none}
 
+/* 提问区：我也想知道 / 置顶 / 已整理成彩蛋 / 管理 */
+.aq-vote{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:2px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink-2);font:500 .8rem/1 var(--sans);cursor:pointer}
+.aq-vote b{min-width:1.4em;padding:2px 6px;border-radius:999px;background:var(--surface);color:var(--accent);font-weight:700;text-align:center}
+.aq-vote.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.aq-vote:disabled{opacity:.6}
+.aq.pinned{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.aq-pin{margin:0 0 6px;font-size:.76rem;font-weight:700;letter-spacing:.08em;color:var(--accent)}
+.aq-feat{display:inline-block;margin:0 0 10px;font-size:.84rem;color:#7A5410;text-decoration:none;border-bottom:1px dashed currentColor}
+.aq-admin{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);font-size:.8rem;color:var(--muted)}
+.aq-admin button,.aq-admin select{min-height:30px;padding:2px 10px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink-2);font:500 .8rem/1 var(--sans);max-width:100%}
+.ask-filter{flex-wrap:wrap}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .aq-feat{color:#F3D98F}}
+:root[data-theme="dark"] .aq-feat{color:#F3D98F}
+
+/* 提醒：新回答 / 新文章 */
+.nbadge{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:6px;padding:0 6px;border-radius:999px;background:#C8102E;color:#fff;font:700 .72rem/1 var(--sans);vertical-align:middle}
+.qcard.isnew{border-color:#C8102E}
+.qcard.isnew .qno::after{content:'新';display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#C8102E;color:#fff;font-size:.7rem;letter-spacing:0}
+.ae-new{display:block;margin-top:4px;font-style:normal;font-weight:700;color:#C8102E;font-size:.84rem}
+.wnews{display:grid;gap:8px;margin-top:12px}
+.wnew,.wresume a{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;background:rgba(255,248,225,.92);color:#5B3F0C;text-decoration:none;font-size:.92rem;line-height:1.5;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.wnew .st{color:#C8102E}
+.wresume{margin:12px 0 0}
+/* 读完打卡 */
+.ckin{margin:26px 0 6px;padding:18px 16px;border:1px dashed var(--rule);border-radius:16px;text-align:center;background:var(--paper)}
+.ckin .ck-q{margin:0 0 10px;font-family:var(--serif);font-weight:700;font-size:1.02rem;color:var(--ink)}
+.ckin .ck-btn{min-height:46px;padding:0 26px;font-size:1rem}
+.ckin .ck-n{margin:10px 0 0;font-size:.86rem;color:var(--muted)}
+.ckin .ck-n b{color:var(--accent)}
+.ckin .ck-cheer{margin:8px 0 0;font-size:.88rem;line-height:1.7;color:var(--gold)}
+.ckin.done{border-style:solid;border-color:#D3AE5C;background:var(--gold-soft)}
+.ckin.done .ck-btn{background:var(--surface);color:var(--gold);border:1px solid #D3AE5C;opacity:1}
+.ckin.pop{animation:ckpop .7s ease}
+@keyframes ckpop{0%{transform:scale(1)}35%{transform:scale(1.03)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.ckin.pop{animation:none}}
+.wtogether .wt-days{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:8px 0 10px}
+.wt-d{display:grid;justify-items:center;gap:2px;padding:6px 0;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:inherit;text-decoration:none}
+.wt-d .wt-a{font-size:.74rem;opacity:.8}
+.wt-d .wt-n{font-weight:700;font-variant-numeric:tabular-nums}
+.wt-d.me{background:rgba(240,211,133,.35);border-color:#F0D385}
+.wt-d.today{outline:2px solid #F0D385;outline-offset:1px}
+.wt-msg{margin:0;font-size:.86rem;line-height:1.6}
+/* 讨论区 */
+.dsc{margin:10px 0 4px}
+.dsc-bar{display:flex;flex-wrap:wrap;gap:8px}
+.dsc-bar button{min-height:34px;padding:2px 14px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--ink-2);font:500 .84rem/1 var(--sans);cursor:pointer}
+.dsc-bar .dsc-tg[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.dsc-bar b{color:var(--accent)}
+.dsc-form{margin:10px 0 0;padding:12px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.dsc-form label{display:grid;gap:6px;font-size:.84rem;color:var(--ink-2)}
+.dsc-form input{min-height:42px;padding:0 12px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);font:1rem var(--sans)}
+.dsc-tip{margin:8px 0;font-size:.8rem;color:var(--muted);line-height:1.6}
+.dsc-btns{display:flex;gap:8px;justify-content:flex-end;margin:0}
+.dsc-msg{margin:6px 0 0;font-size:.84rem;color:var(--accent)}
+.dsc-msg:empty{display:none}
+.dsc-list{display:grid;gap:8px;margin-top:10px}
+.dsc-empty{margin:0;font-size:.86rem;color:var(--muted);line-height:1.7}
+.dsc-a{padding:10px 12px;border-radius:12px;background:var(--paper);border:1px solid var(--rule)}
+.dsc-a.mine{border-color:var(--accent)}
+.dsc-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin:0 0 4px;font-size:.82rem;color:var(--muted)}
+.dsc-h b{color:var(--ink);font-size:.9rem}
+.dsc-h i{font-style:normal;padding:0 6px;border-radius:999px;background:var(--accent);color:var(--surface);font-size:.7rem}
+.dsc-t{margin:0 0 6px;white-space:pre-wrap;line-height:1.8}
+.dsc-f{display:flex;gap:8px;margin:0}
+.dsc-f button{min-height:30px;padding:2px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--ink-2);font:500 .8rem/1 var(--sans);cursor:pointer}
+.dsc-f .dsc-v.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.dsc-f .dsc-del{color:var(--muted)}
+@media print{.ckin,.dsc{display:none}}
+
+/* 阅读工具：浮动按钮（跟“主页”按钮一起出现） */
+.tools{position:fixed;right:calc(16px + var(--fabw,96px) + 8px);bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.tools.on{opacity:1;transform:none;pointer-events:auto}
+html.wopen .tools,html.bopen .tools,html.ttson .tools{display:none}
+.tbtn{display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);box-shadow:0 4px 14px rgba(0,0,0,.16);cursor:pointer}
+.tbtn .ic{width:19px;height:19px}
+.aa{font:700 16px/1 var(--serif);letter-spacing:-.02em}.aa small{font-size:11px}
+.wtools,.hometools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 0}
+.wtools button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:inherit;font:500 .86rem/1 var(--sans);cursor:pointer}
+.wtools .ic{width:16px;height:16px}.wtools .aa{font-size:14px}.wtools .aa small{font-size:10px}
+.hometools{justify-content:flex-start;margin:0 0 14px}
+.hometools .btn{display:inline-flex;align-items:center;gap:6px}
+.hometools .ic{width:16px;height:16px}.hometools .aa{font-size:14px}
+/* 弹出面板：阅读设置、搜索 */
+.rsheet .hconf-card{width:min(420px,100%);max-height:calc(100vh - 40px);overflow:auto;text-align:left}
+.rsheet h3{text-align:center}
+.rs-k{margin:14px 0 6px;font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--muted)}
+.rs-seg{display:flex;gap:6px}
+.rs-seg button{flex:1;min-height:44px;padding:0 4px;white-space:nowrap;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink-2);font-family:var(--sans);cursor:pointer}
+.rs-seg button.on{border-color:var(--accent);background:var(--accent);color:var(--surface)}
+.rs-prev{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--paper);font-family:var(--serif);line-height:1.8}
+.rs-note{margin:14px 0;font-size:.8rem;color:var(--muted);text-align:center}
+.hconf-btns.one{grid-template-columns:1fr}
+.sr-tip{margin:0 0 10px;font-size:.82rem;color:var(--muted);text-align:center}
+.sr-f{display:flex;gap:8px}
+.sr-q{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);font:1rem var(--sans)}
+.sr-f .btn{min-height:46px;padding:0 16px}
+.sr-n{margin:10px 0 6px;font-size:.84rem;color:var(--muted)}
+.sr-list{display:grid;gap:6px;margin-bottom:14px}
+.sr-g{margin:8px 0 -2px;font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.sr-hit{display:block;width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink-2);font:.9rem/1.7 var(--sans);text-align:left;cursor:pointer}
+.sr-hit mark,.sr-list mark{background:#FFE58A;color:#3A2A00;border-radius:3px;padding:0 1px}
+.hit{animation:hit 2.4s ease}
+@keyframes hit{0%,60%{background:rgba(255,213,79,.55);box-shadow:0 0 0 6px rgba(255,213,79,.55)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
+html.sheetopen{overflow:hidden}
+/* 朗读 */
+.ttsbtn{margin-left:6px}
+.ttsbar{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:60;transform:translateX(-50%);display:flex;align-items:center;gap:8px;width:min(560px,calc(100% - 24px));padding:8px 8px 8px 16px;border-radius:999px;background:#1F2433;color:#F5F1E6;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.ttsbar .tt-t{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.86rem}
+.ttsbar button{flex:none;min-width:40px;height:40px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:inherit;font:600 .84rem/1 var(--sans);cursor:pointer}
+.speaking{background:rgba(255,213,79,.28);box-shadow:0 0 0 6px rgba(255,213,79,.28);border-radius:4px;transition:background .3s ease}
+@media print{.tools,.ttsbar,.ttsbtn,.hometools{display:none}}
+
+/* 分享图片 */
+.imgsheet{z-index:200}
+.imgsheet .hconf-card{text-align:center}
+.im-tip{margin:0 0 10px;font-size:.86rem;color:var(--ink-2)}
+.im-box{display:grid;place-items:center;min-height:240px;margin:0 0 14px;border-radius:14px;background:var(--paper);overflow:hidden}
+.im-img{display:block;width:100%;height:auto;-webkit-touch-callout:default;user-select:auto}
+.im-wait{margin:0;font-size:.9rem;color:var(--muted)}
+.imgsheet .im-dl{display:grid;place-items:center;min-height:44px;border-radius:12px;background:var(--accent);color:var(--surface);font:700 1rem/1 var(--sans);text-decoration:none}
+.imgsheet .im-dl[hidden]{display:none}
+.imgsheet .hconf-btns:has(.im-dl[hidden]){grid-template-columns:1fr}
+.wvbtns{display:inline-flex;flex:none;gap:6px}
+.bpop-img{margin-right:8px;min-height:32px;padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);font:600 .8rem/1 var(--sans);cursor:pointer;align-self:center}
+.bpop-head{align-items:center}
+.gift-vimg{margin-left:6px}
+.aq-img{flex:none;min-height:30px;padding:2px 12px;border:1px solid #E3C98F;border-radius:999px;background:#FFF6DD;color:#7A5410;font:500 .8rem/1 var(--sans);cursor:pointer}
+@media print{.imgsheet,.bpop-img,.gift-vimg,.wimg,.aq-img,[data-imgqa]{display:none}}
+
 </style>
 </head>
 <body class="combined">
@@ -966,12 +1096,19 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     <p class="wdate"></p>
     <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a></p>
     <p class="wclass" hidden><a href="#l1"></a></p>
+    <p class="wresume" hidden></p>
+    <div class="wnews" hidden></div>
   </div>
   <div class="wcards">
   <div class="wcard wverse">
-    <p class="wk"><span>今日经文 · 从本季学课中随机选出</span><button class="wshuf" type="button">换一节 ↻</button></p>
+    <p class="wk"><span>今日经文 · 从本季学课中随机选出</span><span class="wvbtns"><button class="wshuf wimg" type="button" data-imgverse="welcome">做成图片</button><button class="wshuf" type="button">换一节 ↻</button></span></p>
     <blockquote class="wvt"></blockquote>
     <p class="wvr"></p>
+  </div>
+  <div class="wcard wtogether" hidden>
+    <p class="wk"><span>本周共读 · 读完打卡</span></p>
+    <div class="wt-days"></div>
+    <p class="wt-msg"></p>
   </div>
   <div class="wcard wprog">
     <p class="wk"><span>本周研读</span><b class="wmin"></b></p>
@@ -1023,7 +1160,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     <div class="wg-btns"><button type="button" class="ok" data-wgdone>✓ 我已转发</button><button type="button" data-wgcancel>先不转发</button></div>
   </div>
 </div>
-<div class="sh-qrs" hidden><svg data-for="qa" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM13,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM18,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM2,10h1v1h-1zM6,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM30,10h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM9,11h1v1h-1zM11,11h1v1h-1zM16,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM2,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM30,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM16,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM24,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM2,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM29,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM6,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM2,16h1v1h-1zM3,16h1v1h-1zM4,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM20,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM13,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM26,20h1v1h-1zM28,20h1v1h-1zM30,20h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM21,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM15,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM14,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM30,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM12,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM25,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1z" fill="#111"/></svg><svg data-for="ask" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM6,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM12,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM4,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM12,21h1v1h-1zM15,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM6,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM13,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM25,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM13,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa1" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM26,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM4,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM21,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM17,33h1v1h-1zM20,33h1v1h-1zM23,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa2" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM13,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM11,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM11,21h1v1h-1zM12,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM10,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg></div>
+<div class="sh-qrs" hidden><svg data-for="home" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM14,3h1v1h-1zM20,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM15,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM21,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM18,7h1v1h-1zM22,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM2,10h1v1h-1zM8,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM27,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM9,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM23,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM25,12h1v1h-1zM2,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM16,13h1v1h-1zM17,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM27,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM30,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM16,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM19,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM28,17h1v1h-1zM30,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM10,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM12,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM21,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM27,20h1v1h-1zM30,20h1v1h-1zM2,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM13,21h1v1h-1zM16,21h1v1h-1zM22,21h1v1h-1zM26,21h1v1h-1zM2,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM19,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM13,23h1v1h-1zM15,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM18,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM15,26h1v1h-1zM17,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM22,27h1v1h-1zM25,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM21,28h1v1h-1zM24,28h1v1h-1zM26,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM16,29h1v1h-1zM21,29h1v1h-1zM23,29h1v1h-1zM24,29h1v1h-1zM28,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1z" fill="#111"/></svg><svg data-for="qa" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="33" height="33" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM13,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM20,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM27,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM20,3h1v1h-1zM21,3h1v1h-1zM22,3h1v1h-1zM24,3h1v1h-1zM30,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM14,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM22,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM27,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM18,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM30,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM10,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM2,10h1v1h-1zM6,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM27,10h1v1h-1zM30,10h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM9,11h1v1h-1zM11,11h1v1h-1zM16,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM2,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM26,12h1v1h-1zM30,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM13,13h1v1h-1zM16,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM24,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM2,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM19,14h1v1h-1zM20,14h1v1h-1zM21,14h1v1h-1zM22,14h1v1h-1zM25,14h1v1h-1zM29,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM6,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM2,16h1v1h-1zM3,16h1v1h-1zM4,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM20,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM13,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM26,20h1v1h-1zM28,20h1v1h-1zM30,20h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM21,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM10,23h1v1h-1zM15,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM22,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM14,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM30,24h1v1h-1zM2,25h1v1h-1zM8,25h1v1h-1zM12,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM26,25h1v1h-1zM29,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM30,26h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM8,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM25,27h1v1h-1zM30,27h1v1h-1zM2,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM13,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1z" fill="#111"/></svg><svg data-for="ask" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM6,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM6,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM12,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM26,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM14,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM4,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM12,21h1v1h-1zM15,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM14,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM6,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM13,23h1v1h-1zM14,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM25,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM15,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM12,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM13,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa1" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM11,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM7,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM17,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM26,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM3,21h1v1h-1zM5,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM13,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM4,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM21,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM12,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM17,33h1v1h-1zM20,33h1v1h-1zM23,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><svg data-for="qa2" viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM12,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM16,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM23,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM13,6h1v1h-1zM18,6h1v1h-1zM19,6h1v1h-1zM20,6h1v1h-1zM24,6h1v1h-1zM25,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM13,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM10,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM12,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM17,13h1v1h-1zM19,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM3,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM11,15h1v1h-1zM14,15h1v1h-1zM15,15h1v1h-1zM16,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM21,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM26,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM7,21h1v1h-1zM11,21h1v1h-1zM12,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM18,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM10,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM17,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM22,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM19,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM19,33h1v1h-1zM22,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg></div>
 <div class="gift" id="gift" role="dialog" aria-modal="true" aria-labelledby="gift-h" hidden>
   <div class="gift-bg" data-giftclose></div>
   <div class="gift-card">
@@ -1034,7 +1171,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     <p class="gift-stars" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></p>
     <div class="gift-verse">
       <p class="gift-vk">送你一节经文礼物</p>
-      <button type="button" class="gift-vcopy" data-giftcopy>复制</button>
+      <button type="button" class="gift-vcopy" data-giftcopy>复制</button><button type="button" class="gift-vcopy gift-vimg" data-imgverse="gift">做成图片</button>
       <blockquote class="gift-vt"></blockquote>
       <p class="gift-vr"></p>
     </div>
@@ -7785,7 +7922,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
       <h2>大家的问题 <small class="ask-n"></small></h2>
       <button class="btn ask-copyall" type="button"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>一键复制全部</button>
     </div>
-    <p class="ask-filter"><button class="chip on" type="button" data-f="all">全部</button><button class="chip" type="button" data-f="mine">我的提问</button><button class="chip" type="button" data-f="answered">有管理员回答</button><button class="chip ask-refresh" type="button">↻ 刷新</button></p>
+    <p class="ask-filter"><button class="chip on" type="button" data-f="all">全部</button><button class="chip" type="button" data-f="mine">我的提问</button><button class="chip" type="button" data-f="answered">有管理员回答</button><button class="chip" type="button" data-f="hot">最多人想知道</button><button class="chip ask-refresh" type="button">↻ 刷新</button></p>
     <div class="ask-items"><p class="ask-empty">正在连接提问区…</p></div>
     <p class="ask-morep"><button class="btn ask-more" type="button" hidden>加载更多</button></p>
   </div>
@@ -7814,7 +7951,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     <div class="bpop-grip" aria-hidden="true"></div>
     <header class="bpop-head">
       <div><p class="bpop-k">经文 · 三版本对照</p><h3 id="bpop-t"></h3></div>
-      <button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
+      <button class="bpop-img" type="button" data-imgverse="bpop">做成图片</button><button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
     </header>
     <nav class="bpop-tabs" aria-label="版本">
       <button type="button" data-sec="cuv" class="on">和合本</button><button type="button" data-sec="en">NKJV</button><button type="button" data-sec="og">原文 · 直译</button>
@@ -7828,7 +7965,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <p>本页为安息日学研读辅助材料，依据《安息日学研经指引》2026年第4季整理。“学课原文”部分版权归原出版机构所有，仅供教会安息日学学习使用，请勿用于商业用途。</p>
   <p>经文引自和合本（上帝版）。怀爱伦著作引文依英文原著译出，页码为英文原文页码；学课中已有译文的，沿用学课译文。</p>
-  <p>“写下我的回答”和行动勾选只保存在你自己的浏览器里，不会上传。</p>
+  <p>“写下我的回答”和行动勾选只保存在你自己的浏览器里；只有你点“分享我的回答”时，回答才会公开到讨论区。</p>
 </footer>
 </div>
 <script>
@@ -7839,7 +7976,7 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
 (function(root){
   var C=(typeof globalThis!=='undefined'&&globalThis.crypto)||root.crypto;
   var BAD=/(加微|微信号|vx|v信|威信|QQ群|扣扣|代开|发票|贷款|网贷|博彩|彩票|棋牌|兼职|刷单|返利|https?:\/\/|www\.)/i;
-  var ID=/^[qrd]_[0-9a-z]{10,24}$/;
+  var ID=/^[qrdvpca]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
   function b64u(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
   function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
   function enc(s){return new TextEncoder().encode(s);}
@@ -7863,50 +8000,83 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     }catch(e){return Promise.resolve(null);}
   }
 
-  /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因 */
+  /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
+  function norm(S){
+    S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};return S;
+  }
+  /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
+     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理 */
   function apply(S,P,uid,t){
-    var admin=(S.admins||[]).indexOf(uid)>=0,day=t-864e5,n,q,i;
-    function has(id){return S.questions.some(function(x){return x.id===id;})||S.replies.some(function(x){return x.id===id;});}
-    if(has(P.id))return 'dup';
-    if(P.op==='q'||P.op==='r'){
-      var name=typeof P.name==='string'?P.name.trim():'',text=typeof P.text==='string'?P.text.trim():'',loc=typeof P.loc==='string'?P.loc.trim():'';
-      if(name.length<1||name.length>16||loc.length>30)return 'bad';
-      if(!admin&&(BAD.test(text)||BAD.test(name)||/1[3-9]\d{9}/.test(text)))return 'spam';
-      var mine=(P.op==='q'?S.questions:S.replies).filter(function(x){return x.uid===uid;});
-      if(!admin&&mine.some(function(x){return x.ts>t-15e3;}))return 'fast';
-      n=mine.filter(function(x){return x.ts>day;}).length;
-      if(!admin&&n>=(P.op==='q'?10:30))return 'limit';
-      if(P.op==='q'){
-        if(text.length<4||text.length>500)return 'bad';
-        S.questions.push({id:P.id,uid:uid,name:name,loc:loc,text:text,allow:P.allow!==false,ts:t});
-      }else{
-        if(text.length<2||text.length>300||!ID.test(P.qid||''))return 'bad';
-        q=S.questions.filter(function(x){return x.id===P.qid;})[0];
-        if(!q)return 'gone';
-        if(!q.allow&&q.uid!==uid&&!admin)return 'closed';
-        if(P.admin&&!admin)return 'notadmin';
-        S.replies.push({id:P.id,qid:q.id,uid:uid,name:name,loc:loc,text:text,admin:!!(P.admin&&admin),ts:t});
+    norm(S);
+    var admin=S.admins.indexOf(uid)>=0,day=t-864e5,q,i,list;
+    function find(arr,id){for(var j=0;j<arr.length;j++)if(arr[j].id===id)return arr[j];return null;}
+    function text(min,max){var x=typeof P.text==='string'?P.text.trim():'';return x.length>=min&&x.length<=max?x:null;}
+    function who(){
+      var name=typeof P.name==='string'?P.name.trim():'',loc=typeof P.loc==='string'?P.loc.trim():'';
+      return name.length>=1&&name.length<=16&&loc.length<=30?{name:name,loc:loc}:null;
+    }
+    function busy(arr,max){   // 防刷：15 秒内只能发一条；每天有上限（管理员不限）
+      if(admin)return '';var mine=arr.filter(function(x){return x.uid===uid;});
+      if(mine.some(function(x){return x.ts>t-15e3;}))return 'fast';
+      return mine.filter(function(x){return x.ts>day;}).length>=max?'limit':'';
+    }
+    if(P.op==='q'||P.op==='r'||P.op==='a'){
+      if(find(S.questions,P.id)||find(S.replies,P.id)||find(S.answers,P.id))return 'dup';
+      var w=who();if(!w)return 'bad';
+      var tx=text(P.op==='q'?4:2,P.op==='r'?300:500);if(tx===null)return 'bad';
+      if(!admin&&(BAD.test(tx)||BAD.test(w.name)||/1[3-9]\d{9}/.test(tx)))return 'spam';
+      list=P.op==='q'?S.questions:P.op==='r'?S.replies:S.answers;
+      var why=busy(list,P.op==='q'?10:30);if(why)return why;
+      if(P.op==='q'){S.questions.push({id:P.id,uid:uid,name:w.name,loc:w.loc,text:tx,allow:P.allow!==false,ts:t});return '';}
+      if(P.op==='a'){
+        if(!NOTE.test(P.k||''))return 'bad';
+        S.answers.push({id:P.id,k:P.k,uid:uid,name:w.name,loc:w.loc,text:tx,ts:t});return '';
       }
+      q=find(S.questions,P.qid);
+      if(!q)return 'gone';
+      if(!q.allow&&q.uid!==uid&&!admin)return 'closed';
+      if(P.admin&&!admin)return 'notadmin';
+      S.replies.push({id:P.id,qid:q.id,uid:uid,name:w.name,loc:w.loc,text:tx,admin:!!(P.admin&&admin),ts:t});
       return '';
     }
     if(P.op==='d'){
       if(!ID.test(P.target||''))return 'bad';
-      for(i=0;i<S.questions.length;i++)if(S.questions[i].id===P.target){
-        if(S.questions[i].uid!==uid&&!admin)return 'notyours';
-        S.questions.splice(i,1);S.replies=S.replies.filter(function(r){return r.qid!==P.target;});return '';
-      }
-      for(i=0;i<S.replies.length;i++)if(S.replies[i].id===P.target){
-        if(S.replies[i].uid!==uid&&!admin)return 'notyours';
-        S.replies.splice(i,1);return '';
+      var groups=[S.questions,S.replies,S.answers];
+      for(var g=0;g<groups.length;g++)for(i=0;i<groups[g].length;i++)if(groups[g][i].id===P.target){
+        if(groups[g][i].uid!==uid&&!admin)return 'notyours';
+        groups[g].splice(i,1);delete S.votes[P.target];
+        if(g===0)S.replies=S.replies.filter(function(r){return r.qid!==P.target;});
+        return '';
       }
       return 'gone';
+    }
+    if(P.op==='v'){   // 同一个人对同一条只算一次；on=false 表示收回
+      if(!find(S.questions,P.target)&&!find(S.answers,P.target))return 'gone';
+      var vs=S.votes[P.target]||[],at=vs.indexOf(uid);
+      if(P.on===false){if(at>=0)vs.splice(at,1);}else if(at<0)vs.push(uid);
+      if(vs.length)S.votes[P.target]=vs;else delete S.votes[P.target];
+      return '';
+    }
+    if(P.op==='c'){   // 读完打卡：每个人每一天的学课只记一次，只存身份码的前 12 位
+      if(!DAY.test(P.k||''))return 'bad';
+      var cs=S.checks[P.k]||(S.checks[P.k]=[]),u=uid.slice(0,12);
+      if(cs.indexOf(u)<0)cs.push(u);
+      return '';
+    }
+    if(P.op==='p'){   // 管理员：置顶 / 标记“已整理成问题彩蛋”
+      if(!admin)return 'notadmin';
+      q=find(S.questions,P.target);if(!q)return 'gone';
+      if(typeof P.pin==='boolean'){if(P.pin)q.pin=t;else delete q.pin;}
+      if(typeof P.qa==='string'){if(QA.test(P.qa))q.qa=P.qa;else if(!P.qa)delete q.qa;}
+      return '';
     }
     return 'bad';
   }
 
   /* 把中转站里新的消息（按时间顺序）合进数据。msgs: [{id, time(秒), message}] */
   function merge(S,msgs){
-    S.seen=S.seen||{};
+    norm(S);
     msgs=msgs.filter(function(m){return m&&m.event==='message'&&typeof m.message==='string'&&!S.seen[m.id];})
              .sort(function(a,b){return a.time-b.time||(a.id<b.id?-1:1);});
     var out=[];
@@ -7932,9 +8102,9 @@ html.wopen .fab,html.bopen .fab,html:not(.js) .fab{display:none}
     P.v=1;P.pk=K.pk;P.t=Date.now();var p=JSON.stringify(P);
     return C.subtle.sign({name:'ECDSA',hash:'SHA-256'},K.k,enc(p)).then(function(sig){return JSON.stringify({p:p,s:b64u(sig)});});
   }
-  function empty(){return {v:1,updated:0,last:0,seen:{},admins:[],questions:[],replies:[]};}
+  function empty(){return norm({v:1,updated:0,last:0});}
 
-  root.Q4Ask={open:open,apply:apply,merge:merge,keys:keys,sign:sign,rid:rid,uidOf:uidOf,empty:empty};
+  root.Q4Ask={open:open,apply:apply,merge:merge,norm:norm,DAY:DAY,NOTE:NOTE,keys:keys,sign:sign,rid:rid,uidOf:uidOf,empty:empty};
 })(typeof module!=='undefined'&&module.exports?module.exports:this);
 
 /* 复制文字：优先用剪贴板接口，不行就退回老办法（微信等内置浏览器） */
@@ -7966,6 +8136,7 @@ function q4copy(t){
   var NO=(diff>=0&&diff<=7*NL)?(diff===0?1:Math.floor((diff-1)/7)+1):0,dd=NO?diff-7*(NO-1):-1;
   var D={no:NO,before:diff<0,after:diff>7*NL,sabbath:dd===7,next:(dd===7&&NO<NL)?NO+1:0,m:today.getMonth()+1,d:today.getDate()};
   D.key=NO?(dd===7?'sum':KEYS[dd]):null; D.dn=['星期日','星期一','星期二','星期三','星期四','星期五','安息日'][today.getDay()];
+  window.Q4Today=D;
   if(D.no&&document.getElementById('l'+D.no)){
     var pre='l'+D.no+'-';
     document.querySelectorAll('a[href="#'+pre+D.key+'"],a[href="#'+pre+'yw-'+D.key+'"]').forEach(function(a){if(a.closest('.nav'))a.classList.add('today');});
@@ -8128,7 +8299,7 @@ function q4copy(t){
     var a=e.target.closest('a[href^="#"]');
     if(a){var h=a.getAttribute('href');close(h==='#home');if(location.hash===h)e.preventDefault();return;}
     if(e.target.closest('[data-wclose]'))close(true);
-    if(e.target.closest('.wshuf'))verse();
+    if(e.target.closest('.wshuf:not(.wimg)'))verse();
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!W.hidden)close(true);});
   window.addEventListener('hashchange',function(){if(!W.hidden&&location.hash&&location.hash!=='#home')close(false);});
@@ -8391,19 +8562,15 @@ function q4copy(t){
   card.addEventListener('touchend',function(){if(y0===null)return;card.style.transition='';if(dy>90){close();}else{card.style.transform='';}y0=null;},{passive:true});
 })();
 
-/* ---------- 提问区：问题存在 GitHub（data/ask.json），新消息先经中转站 ntfy 实时送达 ---------- */
-(function(){
-  var P=document.querySelector('.askpage');if(!P)return;
+/* ---------- 共享数据：提问、回复、讨论、打卡都存在 GitHub（data/ask.json），新消息先经中转站 ntfy 实时送达 ---------- */
+window.Q4Hub=(function(){
+  var A=window.Q4Ask,cfg=document.querySelector('.askpage');
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
-  function $(s,r){return (r||P).querySelector(s);}
-  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  var TOPIC=P.dataset.topic||'',RELAY=(P.dataset.relay||'').replace(/\/+$/,''),DATA=P.dataset.data||'',MOCK=/[?&]askmock/.test(location.search);
-  var S=null,K=null,relayOk=true,ready=false,uid='',QS=[],RS={},filter='all',PAGE=40,more=false,started=false,busy=false;
-  var card=$('.askcard'),msg=$('.ask-msg'),list=$('.ask-items');
-  var A=window.Q4Ask;
-
-  /* ---- 连接后台（或测试用的本机模拟） ---- */
+  var TOPIC=(cfg&&cfg.dataset.topic)||'',RELAY=((cfg&&cfg.dataset.relay)||'').replace(/\/+$/,''),DATA=(cfg&&cfg.dataset.data)||'';
+  var H={S:null,uid:'',admin:false,relayOk:true,get:get,set:set,online:(cfg&&cfg.dataset.online)||'',
+    ok:!!(A&&TOPIC&&RELAY&&DATA&&location.protocol!=='file:'&&window.crypto&&crypto.subtle&&window.TextEncoder&&window.fetch&&window.Promise)};
+  var K=null,loading=null,loadedAt=0,subs=[];
   function net(p,ms){   // 超时与网络错误统一成 {code}
     return new Promise(function(ok,no){
       var t=setTimeout(function(){no({code:'TIMEOUT'});},ms||20000);
@@ -8411,46 +8578,92 @@ function q4copy(t){
     });
   }
   function lines(t){return String(t||'').split('\n').map(function(l){try{return JSON.parse(l);}catch(e){return null;}}).filter(Boolean);}
+  function emit(){subs.forEach(function(f){try{f(H.S);}catch(e){}});}
+  function mark(){H.admin=!!(H.uid&&H.S&&H.S.admins.indexOf(H.uid)>=0);}
+  H.net=net;
+  H.on=function(f){subs.push(f);if(H.S)try{f(H.S);}catch(e){}};
+  H.rid=function(p){return A.rid(p);};
+  H.why=function(e){return why(e);};
+  // 这台设备已经有钥匙时算出身份码（不会新建钥匙）
+  H.who=function(){
+    if(H.uid||!get('sk')||!H.ok)return Promise.resolve(H.uid);
+    return A.keys({get:get,set:set}).then(function(k){K=k;H.uid=k.uid;mark();return H.uid;},function(){return '';});
+  };
+  // 要发东西时才生成钥匙（第一次发言、点“我也想知道”、打卡）
+  H.ensure=function(){
+    if(K)return Promise.resolve(K);
+    if(!H.ok)return Promise.reject({code:location.protocol==='file:'?'FILE':(TOPIC&&A?'OLD':'CONFIG')});
+    return A.keys({get:get,set:set}).then(function(k){K=k;H.uid=k.uid;mark();return k;});
+  };
   // 最新数据 = GitHub 上的存档 + 中转站里还没存档的新消息（中转站只保留 12 小时，存档任务会定时把它们写进 GitHub）
-  function pull(){
-    var arch=net(fetch(DATA+'?t='+Math.floor(Date.now()/30000),{cache:'no-store'}).then(function(r){
+  H.load=function(force){
+    if(!H.ok)return Promise.reject({code:location.protocol==='file:'?'FILE':(TOPIC&&A?'OLD':'CONFIG')});
+    if(loading)return loading;
+    if(!force&&H.S&&Date.now()-loadedAt<20000)return Promise.resolve(H.S);
+    loading=net(fetch(DATA+'?t='+Math.floor(Date.now()/30000),{cache:'no-store'}).then(function(r){
       if(r.status===404)return A.empty();if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();
-    }));
-    return arch.then(function(d){
-      S=d||A.empty();S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
-      var since=S.last?Math.max(0,S.last-120):'12h';
+    })).then(function(d){
+      var S=A.norm(d||A.empty()),since=S.last?Math.max(0,S.last-120):'12h';
       return net(fetch(RELAY+'/'+TOPIC+'/json?poll=1&since='+since,{cache:'no-store'}).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.text();}))
-        .then(function(t){relayOk=true;return A.merge(S,lines(t));},function(){relayOk=false;});
-    }).then(function(){ME_ADMIN=S.admins.indexOf(uid)>=0;});
-  }
-  function post(P1){   // 签名后投进中转站，再马上用到本机数据上
-    return A.sign(K,P1).then(function(body){
-      return net(fetch(RELAY+'/'+TOPIC,{method:'POST',body:body}).then(function(r){
-        if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();
-      }));
+        .then(function(t){H.relayOk=true;return A.merge(S,lines(t));},function(){H.relayOk=false;}).then(function(){return S;});
+    }).then(function(S){H.S=S;loadedAt=Date.now();loading=null;return H.who();})
+      .then(function(){mark();emit();return H.S;},function(e){loading=null;throw e;});
+    return loading;
+  };
+  // 签名后投进中转站，再马上用到本机数据上
+  H.post=function(P){
+    return H.ensure().then(function(k){return A.sign(k,P);}).then(function(body){
+      return net(fetch(RELAY+'/'+TOPIC,{method:'POST',body:body}).then(function(r){if(!r.ok)throw {code:'HTTP_'+r.status};return r.json();}));
     }).then(function(m){
-      relayOk=true;return A.merge(S,[m]).then(function(out){var w=out[0]&&out[0].why;if(w)throw {code:'REJECT',message:w};});
+      H.relayOk=true;if(!H.S)H.S=A.empty();
+      return A.merge(H.S,[m]).then(function(out){var w=out[0]&&out[0].why;mark();emit();if(w)throw {code:'REJECT',message:w};});
     });
+  };
+  function why(e){
+    var c=String((e&&e.code)||''),m=String((e&&e.message)||'');
+    if(c==='FILE')return '这个功能需要联网使用：请用在线版打开 '+H.online;
+    if(c==='CONFIG')return '这个功能正在准备中，很快就能使用。';
+    if(c==='OLD')return '这个浏览器版本太旧，用不了这个功能。请更新微信或换个浏览器打开。';
+    if(c==='REJECT')return ({fast:'发得太快了，请稍等十几秒再发。',limit:'今天发得有点多了，明天再来吧。',spam:'内容里有联系方式、链接或广告词，请修改后再发。',
+      closed:'提问者设置了“只要管理员回答”，这个问题不能回复。',gone:'这条内容已经被删除了，请点“刷新”。',notyours:'只能删除自己发的内容。',
+      notadmin:'只有管理员能做这件事。',dup:'这条已经发过了。',bad:'内容长度不符合要求：问题 4–500 字，回复 2–300 字，讨论回答 2–500 字，称呼 1–16 字。'})[m]||'没有发成功，请刷新后再试。（'+m+'）';
+    if(c==='HTTP_429')return '这会儿用的人有点多，请过一分钟再试。';
+    if(c==='TIMEOUT'||c==='NETWORK')return '连不上网络，请检查网络后再试。（'+c+'）';
+    return '暂时连不上，请稍后再试。（'+(c||m||'未知错误')+'）';
   }
+  return H;
+})();
+
+/* ---------- 提问区 ---------- */
+(function(){
+  var P=document.querySelector('.askpage');if(!P)return;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function $(s,r){return (r||P).querySelector(s);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var MOCK=/[?&]askmock/.test(location.search),H=window.Q4Hub,net=H.net;
+  var ready=false,uid='',QS=[],RS={},filter='all',PAGE=40,more=false,started=false,busy=false;
+  var card=$('.askcard'),msg=$('.ask-msg'),list=$('.ask-items');
+
+  /* ---- 连接后台（或测试用的本机模拟） ---- */
   var mock={
     q:function(){try{return JSON.parse(localStorage.getItem('q4:mockdb')||'{"questions":[],"replies":[]}');}catch(e){return {questions:[],replies:[]};}},
     w:function(d){localStorage.setItem('q4:mockdb',JSON.stringify(d));}
   };
   var ME_ADMIN=false;
-  function qrow(x){return {_id:x.id,name:x.name,loc:x.loc,text:x.text,uid:x.uid,ts:x.ts,allow:x.allow!==false};}
+  function sync(){uid=H.uid;ME_ADMIN=H.admin;}
+  function qrow(x){var vs=(H.S&&H.S.votes[x.id])||[];
+    return {_id:x.id,name:x.name,loc:x.loc,text:x.text,uid:x.uid,ts:x.ts,allow:x.allow!==false,votes:vs.length,voted:!!uid&&vs.indexOf(uid)>=0,pin:x.pin||0,qa:x.qa||''};}
   function rrow(x){return {_id:x.id,qid:x.qid,name:x.name,loc:x.loc,text:x.text,uid:x.uid,ts:x.ts,admin:!!x.admin};}
   var store={
     init:function(){
       if(MOCK){uid=get('mockuid')||('u'+Math.random().toString(36).slice(2,10));set('mockuid',uid);ME_ADMIN=/[?&]askadmin/.test(location.search);ready=true;return Promise.resolve();}
-      if(location.protocol==='file:')return Promise.reject({code:'FILE'});
-      if(!TOPIC||!RELAY||!DATA||!A)return Promise.reject({code:'CONFIG'});
-      if(!(window.crypto&&crypto.subtle&&window.TextEncoder))return Promise.reject({code:'OLD'});
-      return A.keys({get:get,set:set}).then(function(k){K=k;uid=k.uid;return pull();}).then(function(){ready=true;});
+      return H.ensure().then(function(){return H.load(true);}).then(function(){sync();ready=true;});
     },
     list:function(before){
       if(MOCK){var d=mock.q(),a=d.questions.slice().sort(function(x,y){return y.ts-x.ts;});if(before)a=a.filter(function(x){return x.ts<before;});return Promise.resolve(a.slice(0,PAGE));}
-      return (before?Promise.resolve():pull()).then(function(){
-        var a=S.questions.slice().sort(function(x,y){return y.ts-x.ts;});
+      return (before?Promise.resolve():H.load(true)).then(function(){
+        sync();var a=H.S.questions.slice().sort(function(x,y){return y.ts-x.ts;});
         if(before)a=a.filter(function(x){return x.ts<before;});
         return a.slice(0,PAGE).map(qrow);
       });
@@ -8458,34 +8671,26 @@ function q4copy(t){
     replies:function(ids){
       if(!ids.length)return Promise.resolve([]);
       if(MOCK){var d=mock.q();return Promise.resolve(d.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}));}
-      return Promise.resolve(S.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}).sort(function(x,y){return x.ts-y.ts;}).map(rrow));
+      return Promise.resolve(H.S.replies.filter(function(x){return ids.indexOf(x.qid)>=0;}).sort(function(x,y){return x.ts-y.ts;}).map(rrow));
     },
     add:function(coll,doc){
       if(MOCK){var d=mock.q();doc.uid=uid;doc.ts=Date.now();doc._id='m'+Date.now()+Math.random().toString(36).slice(2,6);if(coll==='replies')doc.admin=ME_ADMIN;d[coll].push(doc);mock.w(d);return Promise.resolve(doc);}
-      var q=coll==='questions',x={op:q?'q':'r',id:A.rid(q?'q':'r'),name:doc.name,loc:doc.loc||'',text:doc.text};
+      var q=coll==='questions',x={op:q?'q':'r',id:H.rid(q?'q':'r'),name:doc.name,loc:doc.loc||'',text:doc.text};
       if(q)x.allow=doc.allow!==false;else{x.qid=doc.qid;x.admin=ME_ADMIN;}
-      return post(x).then(function(){
-        var it=(q?S.questions:S.replies).filter(function(y){return y.id===x.id;})[0];
+      return H.post(x).then(function(){
+        sync();var it=(q?H.S.questions:H.S.replies).filter(function(y){return y.id===x.id;})[0];
         if(!it)throw {code:'REJECT',message:'bad'};return q?qrow(it):rrow(it);
       });
     },
     remove:function(coll,id){
       if(MOCK){var d=mock.q();d[coll]=d[coll].filter(function(x){return x._id!==id;});if(coll==='questions')d.replies=d.replies.filter(function(x){return x.qid!==id;});mock.w(d);return Promise.resolve();}
-      return post({op:'d',id:A.rid('d'),target:id});
-    }
+      return H.post({op:'d',id:H.rid('d'),target:id});
+    },
+    vote:function(id,on){return H.post({op:'v',id:H.rid('v'),target:id,on:on}).then(sync);},
+    pin:function(id,o){o.op='p';o.id=H.rid('p');o.target=id;return H.post(o);}
   };
-  function why(e){
-    var c=String((e&&e.code)||''),m=String((e&&e.message)||'');
-    if(c==='FILE')return '提问区需要联网使用：请用在线版打开 '+P.dataset.online+'#ask';
-    if(c==='CONFIG')return '提问区正在准备中，很快就能使用，请稍后再来。';
-    if(c==='OLD')return '这个浏览器版本太旧，没法在提问区发言。请更新微信或换个浏览器打开。';
-    if(c==='REJECT')return ({fast:'发得太快了，请稍等十几秒再发。',limit:'今天发得有点多了，明天再来吧。',spam:'内容里有联系方式、链接或广告词，请修改后再发。',
-      closed:'提问者设置了“只要管理员回答”，这个问题不能回复。',gone:'这条内容已经被删除了，请点“刷新”。',notyours:'只能删除自己发的内容。',
-      notadmin:'只有管理员能以管理员身份回答。',dup:'这条已经发过了。',bad:'内容长度不符合要求：问题 4–500 字，回复 2–300 字，称呼 1–16 字。'})[m]||'没有发成功，请刷新后再试。（'+m+'）';
-    if(c==='HTTP_429')return '这会儿提问的人有点多，请过一分钟再试。';
-    if(c==='TIMEOUT'||c==='NETWORK')return '连不上提问区，请检查网络后点“刷新”。（'+c+'）';
-    return '暂时连不上提问区，请稍后点“刷新”再试。（'+(c||m||'未知错误')+'）';
-  }
+  function why(e){var c=String((e&&e.code)||'');if(c==='FILE')return '提问区需要联网使用：请用在线版打开 '+P.dataset.online+'#ask';return H.why(e);}
+
 
   /* ---- 地区：按网络自动识别到“省 + 市”；开着 VPN 时不乱填；也可以手动选 ---- */
   var MAINLAND=/^(北京|天津|河北|山西|内蒙古|辽宁|吉林|黑龙江|上海|江苏|浙江|安徽|福建|江西|山东|河南|湖北|湖南|广东|广西|海南|重庆|四川|贵州|云南|西藏|陕西|甘肃|青海|宁夏|新疆)/;
@@ -8619,19 +8824,27 @@ function q4copy(t){
   /* ---- 显示 ---- */
   function fmt(t){if(!t)return '';var d=new Date(t),z=function(n){return (n<10?'0':'')+n;};return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes());}
   function ts(x){return x.ts||when(x.createdAt);}
+  function articles(){return [].slice.call(document.querySelectorAll('.lesson[id^="qa"][data-title]')).filter(function(x){return /^qa\d+$/.test(x.id);})
+    .map(function(x){return {id:x.id,t:x.dataset.title.replace(/ · 问题彩蛋$/,'')};});}
+  function featLink(q){if(!q.qa)return '';var a=articles().filter(function(x){return x.id===q.qa;})[0];
+    return a?'<a class="aq-feat" href="#'+a.id+'">✦ 已整理成问题彩蛋《'+esc(a.t)+'》→</a>':'';}
+  function featSelect(q){return '<select data-featsel aria-label="标记已整理成问题彩蛋"><option value="">'+(q.qa?'取消“已整理”标记':'标记已整理成彩蛋…')+'</option>'+
+    articles().map(function(a){return '<option value="'+a.id+'"'+(a.id===q.qa?' selected':'')+'>'+esc(a.t)+'</option>';}).join('')+'</select>';}
   function item(q){
     var rs=RS[q._id]||[],adm=rs.filter(isAdmin),mine=isMine(q);
-    var h='<article class="aq'+(mine?' mine':'')+(adm.length?' answered':'')+'" data-id="'+esc(q._id)+'">'+
+    var h='<article class="aq'+(mine?' mine':'')+(adm.length?' answered':'')+(q.pin?' pinned':'')+'" data-id="'+esc(q._id)+'">'+(q.pin?'<p class="aq-pin">📌 置顶</p>':'')+
       '<header class="aq-h"><span class="aq-av" aria-hidden="true">'+esc((q.name||'友').slice(0,1))+'</span><span class="aq-who"><b>'+esc(q.name||'匿名')+'</b>'+(mine?'<i class="aq-me">我</i>':'')+
       '<span class="aq-meta">'+esc(q.loc||'地区未知')+' · '+esc(fmt(ts(q)))+'</span></span><button type="button" class="aq-copy" data-copyq>复制</button></header>'+
-      '<p class="aq-t">'+esc(q.text)+'</p><div class="aq-f">';
-    if(adm.length)h+='<span class="aq-tag gold">✦ 管理员已回答</span>';
+      '<p class="aq-t">'+esc(q.text)+'</p>'+featLink(q)+'<div class="aq-f">';
+    if(!MOCK)h+='<button type="button" class="aq-vote'+(q.voted?' on':'')+'" data-vote aria-pressed="'+(q.voted?'true':'false')+'">🙋 我也想知道'+(q.votes?'<b>'+q.votes+'</b>':'')+'</button>';
+    if(adm.length)h+='<span class="aq-tag gold">✦ 管理员已回答</span><button type="button" class="aq-img" data-qimg>🖼 生成图片</button>';
     if(q.allow===false)h+='<span class="aq-tag">只要管理员回答</span>';
     h+='<span class="sp"></span>';
     if(q.allow!==false||ME_ADMIN)h+='<button type="button" class="aq-rb" data-reply>回复'+(rs.length?' · '+rs.length:'')+'</button>';
     else if(rs.length)h+='<span class="aq-rc">'+rs.length+' 条回复</span>';
     if(mine||ME_ADMIN)h+='<button type="button" class="aq-del" data-delq>删除</button>';
     h+='</div>';
+    if(ME_ADMIN&&!MOCK)h+='<div class="aq-admin"><span>管理：</span><button type="button" data-pin>'+(q.pin?'取消置顶':'📌 置顶')+'</button>'+featSelect(q)+'</div>';
     if(rs.length){h+='<div class="aq-rs">';rs.slice().sort(function(a,b){return isAdmin(b)-isAdmin(a)||ts(a)-ts(b);}).forEach(function(r){
       var ad=isAdmin(r);h+='<div class="aq-r'+(ad?' admin':'')+'" data-rid="'+esc(r._id)+'"><p class="aq-rh"><b>'+esc(ad?(r.name||'整理者'):(r.name||'匿名'))+'</b>'+(ad?'<i class="aq-adm">管理员回答</i>':'')+
         '<span>'+esc(r.loc||'')+' · '+esc(fmt(ts(r)))+'</span>'+((isMine(r)||ME_ADMIN)?'<button type="button" class="aq-rdel" data-delr>删除</button>':'')+'</p><p class="aq-rt">'+esc(r.text)+'</p></div>';});
@@ -8640,10 +8853,13 @@ function q4copy(t){
     return h;
   }
   function render(){
-    var a=QS.filter(function(q){return filter==='mine'?isMine(q):filter==='answered'?(RS[q._id]||[]).some(isAdmin):true;});
+    var a=QS.filter(function(q){return filter==='mine'?isMine(q):filter==='answered'?(RS[q._id]||[]).some(isAdmin):filter==='hot'?q.votes>0:true;});
+    if(filter==='hot')a.sort(function(x,y){return (y.votes-x.votes)||(ts(y)-ts(x));});
+    else if(filter==='all')a.sort(function(x,y){return ((y.pin||0)-(x.pin||0))||(ts(y)-ts(x));});   // 置顶的排在最前
     $('.ask-n').textContent=QS.length?'（'+QS.length+(more?'+':'')+'）':'';
-    list.innerHTML=a.length?a.map(item).join(''):'<p class="ask-empty">'+(filter==='mine'?'你还没有提过问题。':filter==='answered'?'还没有管理员回答过的问题。':'还没有人提问，来做第一个提问的人吧！')+'</p>';
+    list.innerHTML=a.length?a.map(item).join(''):'<p class="ask-empty">'+(filter==='mine'?'你还没有提过问题。':filter==='answered'?'还没有管理员回答过的问题。':filter==='hot'?'还没有人点过“我也想知道”。看到想知道答案的问题，就点一下吧。':'还没有人提问，来做第一个提问的人吧！')+'</p>';
     $('.ask-more').hidden=!more||filter!=='all';
+    var hot=P.querySelector('.chip[data-f="hot"]');if(hot)hot.hidden=MOCK;
     tier();
   }
   function load(append){
@@ -8708,7 +8924,9 @@ function q4copy(t){
     if(t.closest('.ask-refresh')){list.innerHTML='<p class="ask-empty">正在刷新……</p>';if(!started||!ready){started=false;open();}else load();return;}
     if(t.closest('.ask-more')){load(true);return;}
     if(t.closest('.ask-copyall')){
-      var a=QS.filter(function(q){return filter==='mine'?isMine(q):filter==='answered'?(RS[q._id]||[]).some(isAdmin):true;});
+      var a=QS.filter(function(q){return filter==='mine'?isMine(q):filter==='answered'?(RS[q._id]||[]).some(isAdmin):filter==='hot'?q.votes>0:true;});
+    if(filter==='hot')a.sort(function(x,y){return (y.votes-x.votes)||(ts(y)-ts(x));});
+    else if(filter==='all')a.sort(function(x,y){return ((y.pin||0)-(x.pin||0))||(ts(y)-ts(x));});   // 置顶的排在最前
       if(!a.length)return;var b=t.closest('.ask-copyall');
       var s='【预言的恩赐 · 提问区】共 '+a.length+' 个问题（复制于 '+fmt(Date.now())+'）\n\n'+a.map(function(q,i){return qText(q,i+1);}).join('\n\n');
       q4copy(s).then(function(ok){flash(b,ok?'✓ 已复制 '+a.length+' 个问题':'复制失败，请重试');});return;
@@ -8720,10 +8938,22 @@ function q4copy(t){
     if(!art)return;
     var q=QS.filter(function(x){return x._id===art.dataset.id;})[0];if(!q)return;
     if(t.closest('[data-copyq]')){var cb=t.closest('[data-copyq]');q4copy(qText(q,0)).then(function(ok){flash(cb,ok?'✓ 已复制':'失败');});return;}
+    if(t.closest('[data-vote]')){
+      var vb=t.closest('[data-vote]'),on=!q.voted;if(vb.disabled)return;vb.disabled=true;
+      store.vote(q._id,on).then(function(){var vs=H.S.votes[q._id]||[];q.votes=vs.length;q.voted=vs.indexOf(uid)>=0;render();},
+        function(e){vb.disabled=false;window.alert(why(e));});return;
+    }
+    if(t.closest('[data-pin]')){
+      store.pin(q._id,{pin:!q.pin}).then(function(){var x=H.S.questions.filter(function(y){return y.id===q._id;})[0];q.pin=(x&&x.pin)||0;render();},function(e){window.alert(why(e));});return;
+    }
     if(t.closest('[data-reply]')){var f=art.querySelector('.aq-rf');f.hidden=!f.hidden;if(!f.hidden)f.querySelector('textarea').focus();return;}
     if(t.closest('[data-sendr]'))return sendReply(art);
     if(t.closest('[data-delq]')){if(!window.confirm('确定删除这个问题吗？删除后不能恢复。'))return;store.remove('questions',q._id).then(function(){QS=QS.filter(function(x){return x._id!==q._id;});render();}).catch(function(e){window.alert('删除没有成功：'+why(e));});return;}
     var rd=t.closest('[data-delr]');if(rd){var rid=rd.closest('.aq-r').dataset.rid;if(!window.confirm('确定删除这条回复吗？'))return;store.remove('replies',rid).then(function(){RS[q._id]=(RS[q._id]||[]).filter(function(x){return x._id!==rid;});render();}).catch(function(e){window.alert('删除没有成功：'+why(e));});}
+  });
+  P.addEventListener('change',function(e){
+    var sel=e.target.closest('[data-featsel]');if(!sel)return;var art=sel.closest('.aq'),q=QS.filter(function(x){return x._id===art.dataset.id;})[0];if(!q)return;
+    store.pin(q._id,{qa:sel.value}).then(function(){q.qa=sel.value;render();},function(e2){window.alert(why(e2));});
   });
   $('.ask-text').addEventListener('input',function(){$('.ask-count').textContent=this.value.length+' / 500';});
 
@@ -8735,6 +8965,505 @@ function q4copy(t){
   }
   window.q4ask={open:open};
   if(/^#ask(?:-|$)/.test(location.hash))open();
+})();
+
+/* ---------- 大家一起：新回答提醒 · 问题彩蛋新文章 · 读完打卡 · 讨论区 ---------- */
+(function(){
+  var H=window.Q4Hub;if(!H||!document.body.classList.contains('combined'))return;
+  var get=H.get,set=H.set,D=window.Q4Today||{};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function fmt(t){var d=new Date(t),z=function(n){return (n<10?'0':'')+n;};return (d.getMonth()+1)+'月'+d.getDate()+'日 '+z(d.getHours())+':'+z(d.getMinutes());}
+  var DN={sab:'安息日下午',sun:'星期日',mon:'星期一',tue:'星期二',wed:'星期三',thu:'星期四',fri:'星期五',sum:'安息日课堂'};
+  var AB={sab:'安',sun:'日',mon:'一',tue:'二',wed:'三',thu:'四',fri:'五',sum:'课'};
+
+  /* ===== 1. 提醒 ===== */
+  var arts=[].slice.call(document.querySelectorAll('.lesson[id^="qa"]')).map(function(x){return x.id;}).filter(function(id){return /^qa\d+$/.test(id);});
+  var seenArts=null;try{seenArts=JSON.parse(get('qaseen')||'null');}catch(e){}
+  if(!seenArts){seenArts=arts.slice();set('qaseen',JSON.stringify(seenArts));}   // 第一次来：现有的文章都不算“新”
+  var unseen=[];
+  function newArts(){return arts.filter(function(id){return seenArts.indexOf(id)<0;});}
+  function artTitle(id){var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
+  function markArt(id){if(arts.indexOf(id)>=0&&seenArts.indexOf(id)<0){seenArts.push(id);set('qaseen',JSON.stringify(seenArts));paint();}}
+  function compute(S){
+    unseen=[];if(!H.uid||!S)return;
+    var mine={},w=+get('rseen')||0;
+    S.questions.forEach(function(q){if(q.uid===H.uid)mine[q.id]=1;});
+    unseen=S.replies.filter(function(r){return mine[r.qid]&&r.uid!==H.uid&&r.ts>w;});
+  }
+  function markReplies(){
+    if(!H.S)return;var mx=+get('rseen')||0;
+    H.S.replies.forEach(function(r){if(r.ts>mx)mx=r.ts;});set('rseen',String(mx));unseen=[];paint();
+  }
+  function paint(){
+    var na=newArts(),nr=unseen.length,adm=unseen.some(function(r){return r.admin;});
+    document.querySelectorAll('a.btn.egg[href="#qa"],a.wbtn.egg').forEach(function(a){
+      var b=a.querySelector('.nbadge');
+      if(na.length||nr){if(!b){b=el('span','nbadge');a.appendChild(b);}b.textContent=nr?String(nr):'新';b.setAttribute('aria-label',nr?nr+' 条新回答':'有新文章');}
+      else if(b)b.parentNode.removeChild(b);
+    });
+    document.querySelectorAll('.qcard[href]').forEach(function(c){c.classList.toggle('isnew',na.indexOf(c.getAttribute('href').slice(1))>=0);});
+    var ae=document.querySelector('.askentry .ae-t');
+    if(ae){var x=ae.querySelector('.ae-new');if(nr){if(!x){x=el('em','ae-new');ae.appendChild(x);}x.textContent='你的问题有 '+nr+' 条新回答'+(adm?'，管理员已回答':'');}else if(x)x.parentNode.removeChild(x);}
+    var wn=document.querySelector('#welcome .wnews');
+    if(wn){
+      var h='';
+      if(nr)h+='<a class="wnew" href="#ask"><span class="st">✦</span>你的问题有 <b>'+nr+'</b> 条新回答'+(adm?'，管理员已回答':'')+' →</a>';
+      na.forEach(function(id){h+='<a class="wnew" href="#'+id+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
+      wn.innerHTML=h;wn.hidden=!h;
+    }
+  }
+  function onRoute(){
+    var h=decodeURIComponent(location.hash.slice(1));
+    if(/^qa\d+/.test(h))markArt(h.split('-')[0]);
+    if(/^ask(-|$)/.test(h)&&H.S)markReplies();
+  }
+  window.addEventListener('hashchange',onRoute);onRoute();paint();
+
+  /* ===== 2. 读完打卡 ===== */
+  var CK=/^l\d+-(sab|sun|mon|tue|wed|thu|fri|sum)$/;
+  var cheers=['愿主的话成为你脚前的灯、路上的光。（诗119:105）','“你的言语一解开，就发出亮光。”（诗119:130）','“我将你的话藏在心里，免得我得罪你。”（诗119:11）',
+    '“人活着不是单靠食物，乃是靠上帝口里所出的一切话。”（太4:4）','“你们要查考圣经。”（约5:39）','“这些人……天天考查圣经。”（徒17:11）'];
+  var days=[].slice.call(document.querySelectorAll('.lesson section.day[id]')).filter(function(s){return CK.test(s.id);});
+  function mineCk(k){if(get('ck:'+k)==='1')return true;var u=H.uid&&H.uid.slice(0,12);return !!(u&&H.S&&(H.S.checks[k]||[]).indexOf(u)>=0);}
+  function nCk(k){return (H.S&&H.S.checks[k]||[]).length;}
+  days.forEach(function(sec){
+    var box=el('div','ckin');box.dataset.ck=sec.id;
+    box.innerHTML='<p class="ck-q">这一天的学课读完了吗？</p><button type="button" class="btn solid ck-btn">✓ 读完了，打卡</button><p class="ck-n" aria-live="polite"></p><p class="ck-cheer" hidden></p>';
+    sec.appendChild(box);
+  });
+  function paintCk(){
+    days.forEach(function(sec){
+      var box=sec.querySelector('.ckin');if(!box)return;var k=sec.id,me=mineCk(k),n=Math.max(nCk(k),me?1:0),b=box.querySelector('.ck-btn');
+      box.classList.toggle('done',me);b.textContent=me?'✓ 你已打卡':'✓ 读完了，打卡';b.disabled=me;
+      box.querySelector('.ck-q').textContent=me?'这一天你已经读完了，真好！':'这一天的学课读完了吗？';
+      box.querySelector('.ck-n').innerHTML=H.S?(n?'已有 <b>'+n+'</b> 人读完这一天':'你会是第一个读完这一天的人'):'';
+    });
+    weekCard();
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.ckin .ck-btn');if(!b||b.disabled)return;
+    var box=b.closest('.ckin'),k=box.dataset.ck;
+    set('ck:'+k,'1');b.disabled=true;paintCk();   // 先在本机记下，马上有反馈
+    var c=box.querySelector('.ck-cheer');c.textContent=cheers[Math.floor(Math.random()*cheers.length)];c.hidden=false;box.classList.add('pop');
+    setTimeout(function(){box.classList.remove('pop');},900);
+    H.post({op:'c',id:H.rid('c'),k:k}).then(paintCk,function(){/* 没联网也没关系：本机已记下；下次联网再补 */set('ckpend',JSON.stringify(pend().concat([k])));});
+  });
+  function pend(){try{return JSON.parse(get('ckpend')||'[]');}catch(e){return [];}}
+  function flush(){var p=pend();if(!p.length||!H.ok)return;set('ckpend','[]');p.forEach(function(k,i){setTimeout(function(){H.post({op:'c',id:H.rid('c'),k:k}).catch(function(){set('ckpend',JSON.stringify(pend().concat([k])));});},i*400);});}
+  // 欢迎页“本周共读”
+  function weekCard(){
+    var card=document.querySelector('#welcome .wtogether');if(!card)return;
+    var no=D.no;if(!no){card.hidden=true;return;}
+    var keys=['sab','sun','mon','tue','wed','thu','fri','sum'],people={},mine=0,h='';
+    keys.forEach(function(x){var k='l'+no+'-'+x,me=mineCk(k),n=Math.max(nCk(k),me?1:0);if(me)mine++;
+      (H.S&&H.S.checks[k]||[]).forEach(function(u){people[u]=1;});
+      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#'+k+'" title="'+DN[x]+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(H.S?n:'·')+'</span></a>';});
+    card.querySelector('.wt-days').innerHTML=h;
+    var np=Object.keys(people).length;
+    card.querySelector('.wt-msg').innerHTML=H.S?('第'+no+'课本周已有 <b>'+np+'</b> 位弟兄姊妹打卡'+(mine?'，你已读完 <b>'+mine+'</b>/8 部分':'；读完一天的学课，记得在那一页最后打卡')):'正在读取大家的打卡……';
+    card.hidden=false;
+  }
+
+  /* ===== 3. 讨论区：把“写下我的回答”分享给大家 ===== */
+  var notes=[].slice.call(document.querySelectorAll('.lesson .my textarea[data-k]')).filter(function(t){return /^l\d+-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d+$/.test(t.dataset.k);});
+  notes.forEach(function(ta){
+    var box=el('div','dsc');box.dataset.dk=ta.dataset.k;
+    box.innerHTML='<div class="dsc-bar"><button type="button" class="dsc-tg" aria-expanded="false">💬 大家的回答</button><button type="button" class="dsc-sh">分享我的回答</button></div>'+
+      '<div class="dsc-form" hidden><label><span>你的称呼（大家看到的名字，不用真名）</span><input class="dsc-name" maxlength="16"></label>'+
+      '<p class="dsc-tip">分享后所有人都能看到这条回答，以及你的称呼和地区（省市）。</p><p class="dsc-btns"><button type="button" class="btn ghost dsc-cancel">取消</button><button type="button" class="btn solid dsc-go">确认分享</button></p></div>'+
+      '<p class="dsc-msg" role="status"></p><div class="dsc-list" hidden></div>';
+    var my=ta.closest('.my');my.parentNode.insertBefore(box,my.nextSibling);
+  });
+  function answersOf(k){return H.S?H.S.answers.filter(function(a){return a.k===k;}):[];}
+  function votesOf(id){return (H.S&&H.S.votes[id])||[];}
+  function paintDsc(box){
+    var k=box.dataset.dk,list=answersOf(k),tg=box.querySelector('.dsc-tg'),open=tg.getAttribute('aria-expanded')==='true';
+    tg.innerHTML='💬 大家的回答'+(H.S?(list.length?' · <b>'+list.length+'</b>':' · 还没有'):'');
+    var L=box.querySelector('.dsc-list');L.hidden=!open;if(!open)return;
+    if(!H.S){L.innerHTML='<p class="dsc-empty">正在读取……</p>';return;}
+    if(!list.length){L.innerHTML='<p class="dsc-empty">还没有人分享回答。写下你的回答后，点“分享我的回答”，帮助大家一起思考。</p>';return;}
+    list=list.slice().sort(function(a,b){return votesOf(b.id).length-votesOf(a.id).length||a.ts-b.ts;});
+    L.innerHTML=list.map(function(a){
+      var vs=votesOf(a.id),mine=H.uid&&a.uid===H.uid,on=H.uid&&vs.indexOf(H.uid)>=0;
+      return '<div class="dsc-a'+(mine?' mine':'')+'" data-aid="'+esc(a.id)+'"><p class="dsc-h"><b>'+esc(a.name)+'</b>'+(mine?'<i>我</i>':'')+'<span>'+esc(a.loc||'')+(a.loc?' · ':'')+esc(fmt(a.ts))+'</span></p>'+
+        '<p class="dsc-t">'+esc(a.text)+'</p><p class="dsc-f"><button type="button" class="dsc-v'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'">👍 有帮助'+(vs.length?' <b>'+vs.length+'</b>':'')+'</button>'+
+        ((mine||H.admin)?'<button type="button" class="dsc-del">删除</button>':'')+'</p></div>';
+    }).join('');
+  }
+  function paintAll(){document.querySelectorAll('.dsc').forEach(paintDsc);}
+  function say(box,t){box.querySelector('.dsc-msg').textContent=t||'';}
+  function share(box){
+    var ta=document.querySelector('.my textarea[data-k="'+box.dataset.dk+'"]'),text=(ta&&ta.value||'').trim(),name=(box.querySelector('.dsc-name').value||'').trim();
+    if(text.length<2){say(box,'先在上面“写下我的回答”里写几句，再分享。');var d=ta&&ta.closest('details');if(d){d.open=true;ta.focus();}return;}
+    if(text.length>500){say(box,'回答太长了，分享的部分请控制在 500 字以内。');return;}
+    if(!name){box.querySelector('.dsc-name').focus();say(box,'先填一个称呼。');return;}
+    set('askname',name);say(box,'正在分享……');
+    var go=box.querySelector('.dsc-go');go.disabled=true;
+    H.post({op:'a',id:H.rid('a'),k:box.dataset.dk,name:name,loc:get('askloc')||'',text:text}).then(function(){
+      go.disabled=false;box.querySelector('.dsc-form').hidden=true;say(box,'✓ 已分享，大家都能看到了。');
+      box.querySelector('.dsc-tg').setAttribute('aria-expanded','true');paintDsc(box);
+    },function(e){go.disabled=false;say(box,H.why(e));});
+  }
+  document.addEventListener('click',function(e){
+    var box=e.target.closest('.dsc');if(!box)return;var t=e.target;
+    if(t.closest('.dsc-tg')){var tg=box.querySelector('.dsc-tg'),o=tg.getAttribute('aria-expanded')!=='true';tg.setAttribute('aria-expanded',o?'true':'false');paintDsc(box);if(o&&!H.S)start(true);return;}
+    if(t.closest('.dsc-sh')){var f=box.querySelector('.dsc-form');f.hidden=!f.hidden;say(box,'');var ni=box.querySelector('.dsc-name');if(!ni.value)ni.value=get('askname')||'';if(!f.hidden)(ni.value?box.querySelector('.dsc-go'):ni).focus();return;}
+    if(t.closest('.dsc-cancel')){box.querySelector('.dsc-form').hidden=true;say(box,'');return;}
+    if(t.closest('.dsc-go')){share(box);return;}
+    var a=t.closest('.dsc-a');if(!a)return;var id=a.dataset.aid;
+    if(t.closest('.dsc-v')){var vb=t.closest('.dsc-v'),on=vb.getAttribute('aria-pressed')!=='true';vb.disabled=true;
+      H.post({op:'v',id:H.rid('v'),target:id,on:on}).then(function(){paintDsc(box);},function(e2){vb.disabled=false;say(box,H.why(e2));});return;}
+    if(t.closest('.dsc-del')){if(!window.confirm('确定删除这条回答吗？'))return;
+      H.post({op:'d',id:H.rid('d'),target:id}).then(function(){paintDsc(box);},function(e2){say(box,H.why(e2));});}
+  });
+
+  /* ===== 读取数据：页面加载完以后再读，不拖慢页面 ===== */
+  var started=false;
+  function start(force){
+    if(!H.ok)return;if(started&&!force)return;started=true;
+    H.load(force).then(function(){flush();},function(){paintCk();});
+  }
+  H.on(function(S){compute(S);if(/^#ask(-|$)/.test(location.hash))markReplies();else paint();paintCk();paintAll();});
+  paintCk();
+  function kick(){setTimeout(function(){start(false);},1200);}
+  if(document.readyState==='complete')kick();else window.addEventListener('load',kick);
+})();
+
+/* ---------- 阅读工具：字号 · 夜间模式 · 全文搜索 · 朗读 · 继续上次阅读 ---------- */
+(function(){
+  if(!document.body.classList.contains('combined'))return;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  var de=document.documentElement,reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function sheet(cls,label,inner){   // 统一样式的弹出面板（沿用“返回主页”确认框的外观）
+    var s=el('div','hconf rsheet '+cls);s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');s.setAttribute('aria-label',label);s.hidden=true;
+    s.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card">'+inner+'</div>';document.body.appendChild(s);
+    s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});
+    s.addEventListener('keydown',function(e){if(e.key==='Escape')close(s);});
+    return s;
+  }
+  function open(s){s.hidden=false;void s.offsetWidth;s.classList.add('open');de.classList.add('sheetopen');}
+  function close(s){s.classList.remove('open');de.classList.remove('sheetopen');setTimeout(function(){s.hidden=true;},220);}
+
+  /* ===== 字号与夜间模式 ===== */
+  var FS=[[0.9,'小'],[1,'标准'],[1.12,'大'],[1.25,'特大'],[1.4,'超大']],THEMES=[['auto','跟随手机'],['light','白天'],['dark','夜间']],RATES=[['0.8','慢'],['1','正常'],['1.25','快']];
+  var RS=sheet('rset','阅读设置','<h3>阅读设置</h3>'+
+    '<p class="rs-k">字号</p><div class="rs-seg rs-fs">'+FS.map(function(f,i){return '<button type="button" data-fs="'+f[0]+'" style="font-size:'+(13+i*2)+'px">'+f[1]+'</button>';}).join('')+'</div>'+
+    '<p class="rs-prev">“你的话是我脚前的灯，是我路上的光。”（诗119:105）</p>'+
+    '<p class="rs-k">夜间模式</p><div class="rs-seg rs-th">'+THEMES.map(function(t){return '<button type="button" data-th="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>'+
+    '<p class="rs-k">朗读速度</p><div class="rs-seg rs-rate">'+RATES.map(function(r){return '<button type="button" data-rate="'+r[0]+'">'+r[1]+'</button>';}).join('')+'</div>'+
+    '<p class="rs-note">这些设置只保存在这台设备上。</p><div class="hconf-btns one"><button type="button" class="ok" data-close>完成</button></div>');
+  function fs(){return +(get('fs')||1);}
+  function theme(){return get('theme')||'auto';}
+  function rate(){return get('rate')||'1';}
+  function applyFs(v){if(v===1)de.style.removeProperty('--fs');else de.style.setProperty('--fs',String(v));}
+  function applyTh(t){if(t==='light'||t==='dark')de.setAttribute('data-theme',t);else de.removeAttribute('data-theme');}
+  function paintRS(){
+    RS.querySelectorAll('[data-fs]').forEach(function(b){b.classList.toggle('on',+b.dataset.fs===fs());});
+    RS.querySelectorAll('[data-th]').forEach(function(b){b.classList.toggle('on',b.dataset.th===theme());});
+    RS.querySelectorAll('[data-rate]').forEach(function(b){b.classList.toggle('on',b.dataset.rate===rate());});
+  }
+  RS.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.fs){set('fs',b.dataset.fs);applyFs(+b.dataset.fs);}
+    if(b.dataset.th){set('theme',b.dataset.th);applyTh(b.dataset.th);}
+    if(b.dataset.rate){set('rate',b.dataset.rate);if(T.on&&T.u)T.rate=+b.dataset.rate;}
+    paintRS();
+  });
+  applyFs(fs());applyTh(theme());
+
+  /* ===== 工具按钮：跟着“主页”浮动按钮一起出现，不挡字；欢迎页、全季目录里也有 ===== */
+  var SVG={s:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    a:'<span class="aa" aria-hidden="true">A<small>A</small></span>'};
+  var tools=el('div','tools');tools.innerHTML='<button type="button" class="tbtn" data-rsearch aria-label="搜索">'+SVG.s+'</button><button type="button" class="tbtn" data-rsettings aria-label="阅读设置">'+SVG.a+'</button>';
+  document.body.appendChild(tools);
+  var fab=document.querySelector('.fab');
+  function syncTools(){if(!fab)return;tools.classList.toggle('on',fab.classList.contains('on'));tools.style.setProperty('--fabw',fab.offsetWidth+'px');}
+  if(fab&&window.MutationObserver)new MutationObserver(syncTools).observe(fab,{attributes:true,attributeFilter:['class']});
+  var wrec=document.querySelector('#welcome .wrec');
+  if(wrec){var wt=el('p','wtools','<button type="button" data-rsearch>'+SVG.s+'搜索全季内容</button><button type="button" data-rsettings>'+SVG.a+'字号 · 夜间模式</button>');
+    var wb=wrec.querySelector('.wbtns');wb.parentNode.insertBefore(wt,wb.nextSibling);}
+  var home=document.getElementById('home');
+  if(home){var ht=el('p','hometools','<button type="button" class="btn ghost" data-rsearch>'+SVG.s+'搜索</button><button type="button" class="btn ghost" data-rsettings>'+SVG.a+'字号 · 夜间</button><button type="button" class="btn ghost" data-rresume hidden>📖 继续上次阅读</button>');
+    home.insertBefore(ht,home.firstChild);}
+  document.addEventListener('click',function(e){
+    if(e.target.closest('[data-rsettings]')){e.preventDefault();paintRS();open(RS);}
+    else if(e.target.closest('[data-rsearch]')){e.preventDefault();openSearch();}
+    else if(e.target.closest('[data-rresume]')){e.preventDefault();resume();}
+  });
+
+  /* ===== 在哪里：给搜索结果、继续阅读用的“第几课 · 星期几” ===== */
+  var SEC='section.day,article.ywday,article.qna,section.ov';
+  function lessonName(L){
+    var m=/^l(\d+)$/.exec(L.id);if(m){if(m[1]==='0')return '本季导言';var c=document.querySelector('.card[href="#'+L.id+'"] .ct');return '第'+m[1]+'课'+(c?'《'+c.textContent.trim()+'》':'');}
+    if(/^qa\d+$/.test(L.id)){var h=L.querySelector('.qna h1');return '问题彩蛋《'+(h?h.textContent.trim():'')+'》';}
+    return L.dataset.title||'';
+  }
+  function where(x){
+    var L=x.closest('.lesson');if(!L)return null;var sec=x.closest(SEC),label=lessonName(L);
+    if(sec&&sec.matches('section.day,article.ywday')){var dn=sec.querySelector('.when .dn');label+=' · '+(dn?dn.textContent.trim():'')+(sec.matches('.ywday')?' · 学课原文':'');}
+    return {a:(sec&&sec.id)||L.id,label:label,sec:sec||L};
+  }
+  var BLK='h1,h2,h3,p,li,blockquote,td';
+  var SKIP='.lessonbar,.nav,.ckin,.dsc,.my,.btnrow,.qshare,nav,footer,.askpage,.vpool,.cover .from,.when,script,style';
+  function blocks(root){
+    return [].slice.call(root.querySelectorAll(BLK)).filter(function(b){
+      if(b.closest(SKIP))return false;if(b.tagName!=='P'&&b.querySelector('p,li'))return false;return true;
+    });
+  }
+
+  /* ===== 继续上次阅读 ===== */
+  var lastSave=0,saveT=null;
+  function cur(){var h=decodeURIComponent(location.hash.slice(1));return /^(l\d+|qa\d+)(-|$)/.test(h);}
+  function remember(){
+    if(!cur()||de.classList.contains('wopen'))return;
+    var y=Math.round(innerHeight*0.35),x=document.elementFromPoint(innerWidth/2,y);if(!x)return;
+    var w=where(x);if(!w)return;
+    var list=blocks(w.sec),i=-1;   // 取屏幕这一高度上的第一段（引文框、列表等都算）
+    for(var k=0;k<list.length;k++){var rc=list[k].getBoundingClientRect();if(rc.height&&rc.bottom>y){i=k;break;}}
+    if(i<0)return;
+    set('resume',JSON.stringify({a:w.a,i:i,label:w.label,ts:Date.now()}));paintResume();
+  }
+  addEventListener('scroll',function(){clearTimeout(saveT);saveT=setTimeout(remember,700);},{passive:true});
+  function saved(){try{var r=JSON.parse(get('resume')||'null');return r&&document.getElementById(r.a)?r:null;}catch(e){return null;}}
+  function jump(a,target){
+    var go=function(){if(target){target.scrollIntoView({block:'center'});target.classList.add('hit');setTimeout(function(){target.classList.remove('hit');},2400);}};
+    if(decodeURIComponent(location.hash.slice(1))!==a){location.hash=a;setTimeout(go,420);}else go();
+  }
+  function resume(){
+    var r=saved();if(!r)return;var sec=document.getElementById(r.a);
+    var W=document.getElementById('welcome');if(W&&!W.hidden){var x=W.querySelector('[data-wclose]');if(x)x.click();}
+    jump(r.a,blocks(sec)[r.i]||null);
+  }
+  function paintResume(){
+    var r=saved(),w=document.querySelector('#welcome .wresume'),hb=document.querySelector('[data-rresume]');
+    if(w){if(r){w.innerHTML='<a href="#'+esc(r.a)+'" data-rresume>📖 继续上次阅读：'+esc(r.label)+' →</a>';w.hidden=false;}else w.hidden=true;}
+    if(hb)hb.hidden=!r;
+  }
+  paintResume();
+
+  /* ===== 全文搜索 ===== */
+  var SS=sheet('rsearch','搜索全季内容','<h3>搜索全季内容</h3><p class="sr-tip">13 课解读、学课原文、问题彩蛋都能搜。多个词用空格分开。</p>'+
+    '<form class="sr-f" role="search"><input type="search" class="sr-q" placeholder="例如：但以理 异象" enterkeyhint="search" autocomplete="off"><button type="submit" class="btn solid">搜索</button></form>'+
+    '<p class="sr-n" role="status"></p><div class="sr-list"></div><div class="hconf-btns one"><button type="button" data-close>关闭</button></div>');
+  var IDX=null;
+  function index(){
+    if(IDX)return IDX;IDX=[];
+    document.querySelectorAll('.lesson').forEach(function(L){
+      if(L.id==='ask')return;
+      blocks(L).forEach(function(b){var t=b.textContent.replace(/\s+/g,' ').trim();if(t.length<2)return;IDX.push({el:b,t:t,low:t.toLowerCase()});});
+    });
+    return IDX;
+  }
+  function snip(t,terms){
+    var low=t.toLowerCase(),i=low.indexOf(terms[0]),a=Math.max(0,i-24),s=(a?'…':'')+t.slice(a,a+90)+(a+90<t.length?'…':'');
+    var h=esc(s);terms.forEach(function(w){if(!w)return;h=h.replace(new RegExp(esc(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),function(m){return '<mark>'+m+'</mark>';});});return h;
+  }
+  var hits=[];
+  function search(q){
+    var terms=q.toLowerCase().split(/\s+/).filter(Boolean),n=SS.querySelector('.sr-n'),list=SS.querySelector('.sr-list');
+    if(!terms.length){n.textContent='';list.innerHTML='';return;}
+    hits=index().filter(function(x){return terms.every(function(w){return x.low.indexOf(w)>=0;});});
+    n.textContent=hits.length?'找到 '+hits.length+' 处'+(hits.length>80?'，先显示前 80 处':''):'没有找到。换个说法，或少写几个字试试。';
+    var groups=[],last=null;
+    hits.slice(0,80).forEach(function(x,i){var w=where(x.el);if(!w)return;if(!last||last.label!==w.label){last={label:w.label,items:[]};groups.push(last);}last.items.push('<button type="button" class="sr-hit" data-i="'+i+'">'+snip(x.t,terms)+'</button>');});
+    list.innerHTML=groups.map(function(g){return '<p class="sr-g">'+esc(g.label)+'</p>'+g.items.join('');}).join('');
+  }
+  SS.querySelector('.sr-f').addEventListener('submit',function(e){e.preventDefault();var q=SS.querySelector('.sr-q');search(q.value);q.blur();set('lastq',q.value);});
+  var typing=null;SS.querySelector('.sr-q').addEventListener('input',function(){var v=this.value;clearTimeout(typing);typing=setTimeout(function(){if(v.trim().length>=2)search(v);},350);});
+  SS.querySelector('.sr-list').addEventListener('click',function(e){
+    var b=e.target.closest('.sr-hit');if(!b)return;var x=hits[+b.dataset.i];if(!x)return;var w=where(x.el);
+    close(SS);var W=document.getElementById('welcome');if(W&&!W.hidden){var c=W.querySelector('[data-wclose]');if(c)c.click();}
+    var d=x.el.closest('details');if(d)d.open=true;
+    jump(w.a,x.el);
+  });
+  function openSearch(){open(SS);var q=SS.querySelector('.sr-q');if(!q.value&&get('lastq'))q.value=get('lastq');setTimeout(function(){q.focus();if(q.value)q.select();},80);}
+
+  /* ===== 朗读 ===== */
+  var SY=window.speechSynthesis,T={on:false,q:[],i:0,u:null,started:false,rate:+rate()};
+  if(SY&&window.SpeechSynthesisUtterance){
+    var bar=el('div','ttsbar');bar.hidden=true;bar.setAttribute('role','region');bar.setAttribute('aria-label','朗读');
+    bar.innerHTML='<span class="tt-t">正在朗读</span><button type="button" class="tt-pp" aria-label="暂停">❚❚</button><button type="button" class="tt-rate" aria-label="朗读速度"></button><button type="button" class="tt-x" aria-label="停止朗读">✕</button>';
+    document.body.appendChild(bar);
+    var voice=null;
+    function pickVoice(){var vs=SY.getVoices()||[];voice=vs.filter(function(v){return /^zh[-_]CN/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang)&&!/HK|TW/i.test(v.lang);})[0]||vs.filter(function(v){return /^zh/i.test(v.lang);})[0]||null;}
+    pickVoice();if(SY.addEventListener)SY.addEventListener('voiceschanged',pickVoice);
+    function speakable(t){return t.replace(/(\d+):(\d+)(?:[-–](\d+))?/g,function(m,c,v,v2){return c+'章'+v+'节'+(v2?'到'+v2+'节':'');}).replace(/[→↔✦❚]/g,'，').replace(/\s+/g,' ').trim();}
+    function pieces(t){var out=[];t.replace(/([。！？；])/g,'$1\u0001').split('\u0001').forEach(function(s){if(out.length&&(out[out.length-1]+s).length<120)out[out.length-1]+=s;else out.push(s);});return out.filter(function(s){return s.trim();});}
+    function setRateLabel(){var r=String(T.rate);bar.querySelector('.tt-rate').textContent=(RATES.filter(function(x){return x[0]===r;})[0]||['','正常'])[1]+'速';}
+    function mark(b){document.querySelectorAll('.speaking').forEach(function(x){x.classList.remove('speaking');});if(b){b.classList.add('speaking');b.scrollIntoView({block:'center',behavior:reduced?'auto':'smooth'});}}
+    function next(){
+      if(!T.on)return;if(T.i>=T.q.length){stop();return;}
+      var item=T.q[T.i++];mark(item.b);
+      var u=new SpeechSynthesisUtterance(item.t);u.lang='zh-CN';try{if(voice)u.voice=voice;}catch(e){}u.rate=T.rate;T.u=u;
+      u.onstart=function(){T.started=true;};
+      u.onend=function(){if(T.u===u)next();};
+      u.onerror=function(e){if(T.u===u&&e.error!=='interrupted'&&e.error!=='canceled')next();};
+      SY.speak(u);
+    }
+    function start(root,title){
+      stop();var q=[];
+      blocks(root).forEach(function(b){if(!b.offsetParent)return;pieces(speakable(b.textContent)).forEach(function(t){q.push({b:b,t:t});});});
+      if(!q.length)return;T={on:true,q:q,i:0,u:null,started:false,rate:+rate()};
+      bar.querySelector('.tt-t').textContent='正在朗读：'+title;bar.querySelector('.tt-pp').textContent='❚❚';bar.querySelector('.tt-pp').setAttribute('aria-label','暂停');setRateLabel();
+      bar.hidden=false;de.classList.add('ttson');next();
+      setTimeout(function(){if(T.on&&!T.started&&!SY.speaking){stop();window.alert('这个浏览器暂时不支持朗读。可以换手机自带的浏览器（如 Safari）打开试试。');}},4000);
+    }
+    function stop(){T.on=false;T.u=null;try{SY.cancel();}catch(e){}mark(null);bar.hidden=true;de.classList.remove('ttson');}
+    bar.addEventListener('click',function(e){
+      if(e.target.closest('.tt-x'))stop();
+      else if(e.target.closest('.tt-pp')){var b=e.target.closest('.tt-pp');if(SY.paused){SY.resume();b.textContent='❚❚';b.setAttribute('aria-label','暂停');}else{SY.pause();b.textContent='▶';b.setAttribute('aria-label','继续');}}
+      else if(e.target.closest('.tt-rate')){var i=RATES.map(function(r){return r[0];}).indexOf(String(T.rate));T.rate=+RATES[(i+1)%RATES.length][0];set('rate',String(T.rate));setRateLabel();
+        if(T.on){T.i=Math.max(0,T.i-1);T.u=null;SY.cancel();setTimeout(next,60);}}
+    });
+    window.addEventListener('hashchange',function(){if(T.on)stop();});
+    // 每一天的解读、每一天的学课原文、每篇问题彩蛋都加一个“朗读”按钮
+    function addBtn(where,root,title){var b=el('button','btn ttsbtn','🔊 朗读');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);}
+    document.querySelectorAll('section.day').forEach(function(s){var r=s.querySelector('.dayhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
+    document.querySelectorAll('article.ywday').forEach(function(s){var r=s.querySelector('.ywhead .btnrow');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
+    document.querySelectorAll('article.qna').forEach(function(s){var r=s.parentNode.querySelector('.qshare');var w=where(s);if(r&&w)addBtn(r,s,w.label);});
+  }
+})();
+
+/* ---------- 生成分享图片：经文 · 问题彩蛋文章 · 管理员回答（微信里长按图片即可保存或转发） ---------- */
+(function(){
+  if(!document.body.classList.contains('combined'))return;
+  var cv=document.createElement('canvas');if(!cv.getContext||!cv.toDataURL)return;
+  var W=1080,HH=1440,PAD=120;
+  var SERIF='"LessonSerif","Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif';
+  var SANS=getComputedStyle(document.body).fontFamily||'sans-serif';
+  var mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(navigator.userAgent);
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function clean(t){return String(t||'').replace(/\s+/g,' ').replace(/\s*([，。、；：！？”’）》])\s*/g,'$1').trim();}
+
+  /* ---- 面板 ---- */
+  var SH=el('div','hconf rsheet imgsheet');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
+  SH.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><h3>分享图片</h3><p class="im-tip"></p><div class="im-box"><p class="im-wait">正在生成图片……</p><img class="im-img" alt="分享图片" hidden></div>'+
+    '<div class="hconf-btns"><a class="btn im-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div>';
+  document.body.appendChild(SH);
+  SH.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close();});
+  SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  function open(){SH.querySelector('.im-img').hidden=true;SH.querySelector('.im-wait').hidden=false;SH.querySelector('.im-dl').hidden=true;
+    SH.querySelector('.im-tip').textContent=mobile?'图片生成后，长按图片就可以保存，或直接发送给朋友。':'图片生成后，点“保存图片”下载到电脑，再发到微信。';
+    SH.hidden=false;void SH.offsetWidth;SH.classList.add('open');document.documentElement.classList.add('sheetopen');}
+  function close(){SH.classList.remove('open');document.documentElement.classList.remove('sheetopen');setTimeout(function(){SH.hidden=true;},220);}
+
+  /* ---- 画布工具 ---- */
+  function qrImg(id){
+    var svg=document.querySelector('.sh-qrs svg[data-for="'+id+'"]')||document.querySelector('.sh-qrs svg[data-for="home"]');
+    if(!svg)return Promise.resolve(null);
+    var s=new XMLSerializer().serializeToString(svg);if(!/xmlns=/.test(s))s=s.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');
+    return new Promise(function(ok){var im=new Image();im.onload=function(){ok(im);};im.onerror=function(){ok(null);};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);});
+  }
+  var NOHEAD=/[，。、；：！？”’）》〉」』…·]/,NOTAIL=/[（“‘《〈「『]$/;
+  function wrap(ctx,text,maxW){
+    var lines=[],line='';
+    for(var i=0;i<text.length;i++){
+      var ch=text[i];if(ch==='\n'){lines.push(line);line='';continue;}
+      var t=line+ch;
+      if(line&&ctx.measureText(t).width>maxW){
+        if(NOHEAD.test(ch)){lines.push(t);line='';}
+        else{var carry='';while(NOTAIL.test(line)&&line.length>1){carry=line.slice(-1)+carry;line=line.slice(0,-1);}lines.push(line);line=carry+ch;}   // 开括号、前引号不留在行尾
+      }
+      else line=t;
+    }
+    if(line)lines.push(line);return lines;
+  }
+  function balance(ctx,text,ls,maxW){   // 标题：让各行长短均匀，避免最后一行只剩一两个字
+    if(ls.length<2||/\n/.test(text))return ls;var w=ctx.measureText(text).width/ls.length;
+    for(var k=0;k<12;k++){var t=wrap(ctx,text,Math.min(maxW,w+k*ctx.measureText('字').width*0.5));if(t.length===ls.length)return t;}return ls;
+  }
+  function fit(ctx,text,font,size,min,maxW,maxLines,bal){   // 字太多就缩小字号；再放不下就截断加省略号
+    for(var s=size;s>=min;s-=2){ctx.font=font(s);var ls=wrap(ctx,text,maxW);if(ls.length<=maxLines)return {s:s,lines:bal?balance(ctx,text,ls,maxW):ls};}
+    ctx.font=font(min);var all=wrap(ctx,text,maxW),cut=all.slice(0,maxLines);
+    cut[maxLines-1]=cut[maxLines-1].replace(/[，。、；：！？]?$/,'').slice(0,-1)+'……';return {s:min,lines:cut};
+  }
+  function rrect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function frame(ctx,eyebrow){
+    var g=ctx.createLinearGradient(0,0,0,HH);g.addColorStop(0,'#FCF7EB');g.addColorStop(1,'#F2E3C3');ctx.fillStyle=g;ctx.fillRect(0,0,W,HH);
+    var gl=ctx.createRadialGradient(W/2,180,20,W/2,180,620);gl.addColorStop(0,'rgba(255,236,170,.55)');gl.addColorStop(1,'rgba(255,236,170,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,HH);
+    ctx.strokeStyle='#C9A55A';ctx.lineWidth=3;rrect(ctx,44,44,W-88,HH-88,30);ctx.stroke();
+    ctx.strokeStyle='rgba(201,165,90,.45)';ctx.lineWidth=1.5;rrect(ctx,58,58,W-116,HH-116,24);ctx.stroke();
+    ctx.fillStyle='#B98E35';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font='600 30px '+SANS;ctx.fillText('✦  '+eyebrow+'  ✦',W/2,150);
+  }
+  function footer(ctx,qr,line1,line2){
+    var y=1120;ctx.strokeStyle='rgba(122,34,51,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(PAD,y);ctx.lineTo(W-PAD,y);ctx.stroke();
+    var q=200,qx=PAD,qy=y+44;ctx.fillStyle='#fff';rrect(ctx,qx-10,qy-10,q+20,q+20,16);ctx.fill();
+    if(qr)ctx.drawImage(qr,qx,qy,q,q);
+    ctx.textAlign='left';ctx.fillStyle='#7A2233';ctx.font='700 38px '+SANS;ctx.fillText(line1,qx+q+50,qy+60);
+    ctx.fillStyle='#5A4A36';ctx.font='400 28px '+SANS;ctx.fillText(line2,qx+q+50,qy+112);
+    ctx.fillStyle='#9A8A70';ctx.font='400 24px '+SANS;ctx.fillText('整理制作 · Ethan（HangZhou_XG）',qx+q+50,qy+170);
+  }
+  function block(ctx,lines,size,lh,x,y,align,color,font){ctx.textAlign=align;ctx.fillStyle=color;ctx.font=font;lines.forEach(function(l,i){ctx.fillText(l,x,y+i*size*lh);});return y+lines.length*size*lh;}
+
+  /* ---- 三种图片 ---- */
+  function drawVerse(ctx,c){
+    frame(ctx,'预言的恩赐 · 经文');
+    ctx.fillStyle='rgba(185,142,53,.3)';ctx.font='900 200px '+SERIF;ctx.textAlign='left';ctx.fillText('“',PAD-36,350);
+    var txt=clean(c.text).replace(/^“|”$/g,''),lh=1.7,f=null;
+    for(var s=66;s>=34;s-=2){ctx.font='600 '+s+'px '+SERIF;var ls=wrap(ctx,txt,W-2*PAD);if(ls.length*s*lh<=620){f={s:s,lines:ls};break;}}   // 经文区：360–980，下面留给出处
+    if(!f)f=fit(ctx,txt,function(s){return '600 '+s+'px '+SERIF;},34,34,W-2*PAD,Math.floor(620/(34*lh)));
+    var h=f.lines.length*f.s*lh,top=360+f.s+Math.max(0,(620-h)/2);
+    var end=block(ctx,f.lines,f.s,lh,PAD,top,'left','#2B2118','600 '+f.s+'px '+SERIF);
+    ctx.textAlign='right';ctx.fillStyle='#7A2233';ctx.font='600 36px '+SANS;ctx.fillText('—— '+c.ref,W-PAD,Math.min(end-f.s*lh+f.s+70,1070));
+  }
+  function drawArticle(ctx,c){
+    frame(ctx,'问题彩蛋 · 研经问答');
+    var t=fit(ctx,c.title.split('\n').map(clean).filter(Boolean).join('\n'),function(s){return '900 '+s+'px '+SERIF;},84,56,W-2*PAD,3,true);
+    var y=block(ctx,t.lines,t.s,1.35,W/2,300,'center','#2B2118','900 '+t.s+'px '+SERIF);
+    if(c.sub){ctx.font='500 32px '+SANS;var sl=wrap(ctx,clean(c.sub),W-2*PAD).slice(0,2);y=block(ctx,sl,32,1.6,W/2,y+30,'center','#7A2233','500 32px '+SANS);}
+    ctx.strokeStyle='#C9A55A';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-60,y+30);ctx.lineTo(W/2+60,y+30);ctx.stroke();
+    var b=fit(ctx,clean(c.text),function(s){return '400 '+s+'px '+SERIF;},42,34,W-2*PAD,Math.max(4,Math.floor((1060-(y+90))/(42*1.75))));
+    block(ctx,b.lines,b.s,1.75,PAD,y+100,'left','#3A2E22','400 '+b.s+'px '+SERIF);
+  }
+  function drawAnswer(ctx,c){
+    frame(ctx,'提问区 · 管理员回答');
+    ctx.textAlign='left';ctx.fillStyle='#7A2233';ctx.font='900 44px '+SERIF;ctx.fillText('问',PAD,290);
+    var q=fit(ctx,clean(c.q),function(s){return '700 '+s+'px '+SERIF;},50,38,W-2*PAD-80,5);
+    var y=block(ctx,q.lines,q.s,1.6,PAD+80,290,'left','#2B2118','700 '+q.s+'px '+SERIF);
+    y=Math.max(y+40,420);ctx.fillStyle='#B98E35';ctx.font='900 44px '+SERIF;ctx.fillText('答',PAD,y+20);
+    var a=fit(ctx,clean(c.a),function(s){return '400 '+s+'px '+SERIF;},42,32,W-2*PAD-80,Math.max(4,Math.floor((1070-y)/(42*1.7))));
+    block(ctx,a.lines,a.s,1.7,PAD+80,y+20,'left','#3A2E22','400 '+a.s+'px '+SERIF);
+  }
+  function make(card){
+    open();
+    var fonts=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('600 48px LessonSerif'),document.fonts.load('900 48px LessonSerif')]).catch(function(){}):Promise.resolve();
+    Promise.all([fonts,qrImg(card.qr)]).then(function(r){
+      cv.width=W;cv.height=HH;var ctx=cv.getContext('2d');
+      ({verse:drawVerse,article:drawArticle,answer:drawAnswer})[card.kind](ctx,card);
+      footer(ctx,r[1],'长按识别二维码',card.qrText||'阅读本季安息日学研读');
+      var url=cv.toDataURL('image/jpeg',0.92),img=SH.querySelector('.im-img');
+      img.src=url;img.hidden=false;SH.querySelector('.im-wait').hidden=true;
+      var dl=SH.querySelector('.im-dl');dl.href=url;dl.hidden=mobile;
+    }).catch(function(){SH.querySelector('.im-wait').textContent='图片没有生成成功，请再试一次。';});
+  }
+  window.Q4Card=make;
+
+  /* ---- 入口 ---- */
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-imgverse]');
+    if(b){
+      e.preventDefault();e.stopPropagation();var w=b.dataset.imgverse,text='',ref='';
+      if(w==='welcome'){text=(document.querySelector('#welcome .wvt')||{}).textContent;ref=((document.querySelector('#welcome .wvr')||{}).textContent||'').replace(/^——\s*/,'').replace(/\s*·\s*出自.*$/,'');}
+      else if(w==='gift'){text=(document.querySelector('#gift .gift-vt')||{}).textContent;ref=((document.querySelector('#gift .gift-vr')||{}).textContent||'').replace(/^——\s*/,'');}
+      else if(w==='bpop'){var ps=document.querySelectorAll('#bpop .bs[data-sec="cuv"] .bv');text=[].map.call(ps,function(p){var c=p.cloneNode(true),s=c.querySelector('sup');if(s)s.remove();return c.textContent;}).join('');ref=(document.getElementById('bpop-t')||{}).textContent;}
+      if(text)make({kind:'verse',text:text,ref:ref||'',qr:'home'});
+      return;
+    }
+    b=e.target.closest('[data-imgqa]');
+    if(b){var L=b.closest('.lesson'),art=L&&L.querySelector('article.qna');if(!art)return;
+      var h1=art.querySelector('.cover h1'),sub=art.querySelector('.cover .sub'),paras=[].slice.call(art.querySelectorAll('p')).filter(function(p){
+        var t=p.textContent.trim();return !p.closest('.cover,.qshare,.btnrow,blockquote,.hl,figure,aside,table')&&t.length>40&&!/[\u0590-\u05FF\u0370-\u03FF]/.test(t)&&!/（和合本）$/.test(t);});
+      make({kind:'article',title:h1?(h1.innerText||h1.textContent):'',sub:sub?sub.textContent:'',text:paras.slice(0,2).map(function(p){return p.textContent;}).join(''),qr:L.id,qrText:'阅读这篇问答的全文'});return;}
+    b=e.target.closest('[data-qimg]');
+    if(b){var a=b.closest('.aq'),qt=a&&a.querySelector('.aq-t'),ad=a&&a.querySelector('.aq-r.admin .aq-rt');if(!qt||!ad)return;
+      make({kind:'answer',q:qt.textContent,a:ad.textContent,qr:'ask',qrText:'来提问区一起讨论'});}
+  },true);
+  document.querySelectorAll('article.qna').forEach(function(art){var r=art.parentNode.querySelector('.qshare');if(!r)return;
+    var b=el('button','btn','🖼 生成图片');b.type='button';b.setAttribute('data-imgqa','');r.appendChild(b);});
 })();
 
 </script>

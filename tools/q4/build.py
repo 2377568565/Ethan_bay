@@ -3,7 +3,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 from fontTools import subset
 import os
-S = os.environ.get('Q4_WORK', '/tmp/claude-0/-home-user-Ethan-bay/7a8f6135-8731-54b9-8b54-015171d16fd2/scratchpad')
+S = os.environ.get('Q4_WORK') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '.work')   # 字体与圣经数据：python3 tools/q4/fetch_assets.py 会下载到这里
 src, out = sys.argv[1], sys.argv[2]
 html = open(src, encoding='utf-8').read()
 body = re.sub(r'<style.*?</style>|<script.*?</script>', '', html, flags=re.S)
@@ -20,7 +20,7 @@ chars = ''.join(sorted(c for c in chars if not c.isspace() or c == ' '))
 def sub(font, keep):
     o = subset.Options(); o.flavor = 'woff2'; o.layout_features = ['*']; o.notdef_outline = True
     s = subset.Subsetter(o); s.populate(text=keep); s.subset(font)
-    b = io.BytesIO(); font.flavor = 'woff2'; font.save(b); return b.getvalue()
+    b = io.BytesIO(); font.flavor = 'woff2'; font.recalcTimestamp = False; font.save(b); return b.getvalue()   # 不写入当前时间：同样的内容每次生成的字体文件都一样
 faces = []
 for w in (600, 900):
     f = instancer.instantiateVariableFont(TTFont(f'{S}/fonts/serif.ttf'), {'wght': w})

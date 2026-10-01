@@ -5,7 +5,7 @@
 (function(root){
   var C=(typeof globalThis!=='undefined'&&globalThis.crypto)||root.crypto;
   var BAD=/(加微|微信号|vx|v信|威信|QQ群|扣扣|代开|发票|贷款|网贷|博彩|彩票|棋牌|兼职|刷单|返利|https?:\/\/|www\.)/i;
-  var ID=/^[qrd]_[0-9a-z]{10,24}$/;
+  var ID=/^[qrdvpca]_[0-9a-z]{10,24}$/,DAY=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri|sum)$/,NOTE=/^l\d{1,2}-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d{1,2}$/,QA=/^qa\d{1,3}$/;
   function b64u(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
   function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
   function enc(s){return new TextEncoder().encode(s);}
@@ -29,50 +29,83 @@
     }catch(e){return Promise.resolve(null);}
   }
 
-  /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因 */
+  /* 补齐数据里可能缺的部分（老的存档只有问题和回复） */
+  function norm(S){
+    S.seen=S.seen||{};S.admins=S.admins||[];S.questions=S.questions||[];S.replies=S.replies||[];
+    S.answers=S.answers||[];S.votes=S.votes||{};S.checks=S.checks||{};return S;
+  }
+  /* 把一条验过签的消息用到数据上。t = 服务器时间（毫秒）。返回 '' 表示成功，否则是不通过的原因
+     q 提问 · r 回复 · a 讨论区回答 · d 删除 · v “我也想知道/有帮助” · c 读完打卡 · p 管理员置顶/标记已整理 */
   function apply(S,P,uid,t){
-    var admin=(S.admins||[]).indexOf(uid)>=0,day=t-864e5,n,q,i;
-    function has(id){return S.questions.some(function(x){return x.id===id;})||S.replies.some(function(x){return x.id===id;});}
-    if(has(P.id))return 'dup';
-    if(P.op==='q'||P.op==='r'){
-      var name=typeof P.name==='string'?P.name.trim():'',text=typeof P.text==='string'?P.text.trim():'',loc=typeof P.loc==='string'?P.loc.trim():'';
-      if(name.length<1||name.length>16||loc.length>30)return 'bad';
-      if(!admin&&(BAD.test(text)||BAD.test(name)||/1[3-9]\d{9}/.test(text)))return 'spam';
-      var mine=(P.op==='q'?S.questions:S.replies).filter(function(x){return x.uid===uid;});
-      if(!admin&&mine.some(function(x){return x.ts>t-15e3;}))return 'fast';
-      n=mine.filter(function(x){return x.ts>day;}).length;
-      if(!admin&&n>=(P.op==='q'?10:30))return 'limit';
-      if(P.op==='q'){
-        if(text.length<4||text.length>500)return 'bad';
-        S.questions.push({id:P.id,uid:uid,name:name,loc:loc,text:text,allow:P.allow!==false,ts:t});
-      }else{
-        if(text.length<2||text.length>300||!ID.test(P.qid||''))return 'bad';
-        q=S.questions.filter(function(x){return x.id===P.qid;})[0];
-        if(!q)return 'gone';
-        if(!q.allow&&q.uid!==uid&&!admin)return 'closed';
-        if(P.admin&&!admin)return 'notadmin';
-        S.replies.push({id:P.id,qid:q.id,uid:uid,name:name,loc:loc,text:text,admin:!!(P.admin&&admin),ts:t});
+    norm(S);
+    var admin=S.admins.indexOf(uid)>=0,day=t-864e5,q,i,list;
+    function find(arr,id){for(var j=0;j<arr.length;j++)if(arr[j].id===id)return arr[j];return null;}
+    function text(min,max){var x=typeof P.text==='string'?P.text.trim():'';return x.length>=min&&x.length<=max?x:null;}
+    function who(){
+      var name=typeof P.name==='string'?P.name.trim():'',loc=typeof P.loc==='string'?P.loc.trim():'';
+      return name.length>=1&&name.length<=16&&loc.length<=30?{name:name,loc:loc}:null;
+    }
+    function busy(arr,max){   // 防刷：15 秒内只能发一条；每天有上限（管理员不限）
+      if(admin)return '';var mine=arr.filter(function(x){return x.uid===uid;});
+      if(mine.some(function(x){return x.ts>t-15e3;}))return 'fast';
+      return mine.filter(function(x){return x.ts>day;}).length>=max?'limit':'';
+    }
+    if(P.op==='q'||P.op==='r'||P.op==='a'){
+      if(find(S.questions,P.id)||find(S.replies,P.id)||find(S.answers,P.id))return 'dup';
+      var w=who();if(!w)return 'bad';
+      var tx=text(P.op==='q'?4:2,P.op==='r'?300:500);if(tx===null)return 'bad';
+      if(!admin&&(BAD.test(tx)||BAD.test(w.name)||/1[3-9]\d{9}/.test(tx)))return 'spam';
+      list=P.op==='q'?S.questions:P.op==='r'?S.replies:S.answers;
+      var why=busy(list,P.op==='q'?10:30);if(why)return why;
+      if(P.op==='q'){S.questions.push({id:P.id,uid:uid,name:w.name,loc:w.loc,text:tx,allow:P.allow!==false,ts:t});return '';}
+      if(P.op==='a'){
+        if(!NOTE.test(P.k||''))return 'bad';
+        S.answers.push({id:P.id,k:P.k,uid:uid,name:w.name,loc:w.loc,text:tx,ts:t});return '';
       }
+      q=find(S.questions,P.qid);
+      if(!q)return 'gone';
+      if(!q.allow&&q.uid!==uid&&!admin)return 'closed';
+      if(P.admin&&!admin)return 'notadmin';
+      S.replies.push({id:P.id,qid:q.id,uid:uid,name:w.name,loc:w.loc,text:tx,admin:!!(P.admin&&admin),ts:t});
       return '';
     }
     if(P.op==='d'){
       if(!ID.test(P.target||''))return 'bad';
-      for(i=0;i<S.questions.length;i++)if(S.questions[i].id===P.target){
-        if(S.questions[i].uid!==uid&&!admin)return 'notyours';
-        S.questions.splice(i,1);S.replies=S.replies.filter(function(r){return r.qid!==P.target;});return '';
-      }
-      for(i=0;i<S.replies.length;i++)if(S.replies[i].id===P.target){
-        if(S.replies[i].uid!==uid&&!admin)return 'notyours';
-        S.replies.splice(i,1);return '';
+      var groups=[S.questions,S.replies,S.answers];
+      for(var g=0;g<groups.length;g++)for(i=0;i<groups[g].length;i++)if(groups[g][i].id===P.target){
+        if(groups[g][i].uid!==uid&&!admin)return 'notyours';
+        groups[g].splice(i,1);delete S.votes[P.target];
+        if(g===0)S.replies=S.replies.filter(function(r){return r.qid!==P.target;});
+        return '';
       }
       return 'gone';
+    }
+    if(P.op==='v'){   // 同一个人对同一条只算一次；on=false 表示收回
+      if(!find(S.questions,P.target)&&!find(S.answers,P.target))return 'gone';
+      var vs=S.votes[P.target]||[],at=vs.indexOf(uid);
+      if(P.on===false){if(at>=0)vs.splice(at,1);}else if(at<0)vs.push(uid);
+      if(vs.length)S.votes[P.target]=vs;else delete S.votes[P.target];
+      return '';
+    }
+    if(P.op==='c'){   // 读完打卡：每个人每一天的学课只记一次，只存身份码的前 12 位
+      if(!DAY.test(P.k||''))return 'bad';
+      var cs=S.checks[P.k]||(S.checks[P.k]=[]),u=uid.slice(0,12);
+      if(cs.indexOf(u)<0)cs.push(u);
+      return '';
+    }
+    if(P.op==='p'){   // 管理员：置顶 / 标记“已整理成问题彩蛋”
+      if(!admin)return 'notadmin';
+      q=find(S.questions,P.target);if(!q)return 'gone';
+      if(typeof P.pin==='boolean'){if(P.pin)q.pin=t;else delete q.pin;}
+      if(typeof P.qa==='string'){if(QA.test(P.qa))q.qa=P.qa;else if(!P.qa)delete q.qa;}
+      return '';
     }
     return 'bad';
   }
 
   /* 把中转站里新的消息（按时间顺序）合进数据。msgs: [{id, time(秒), message}] */
   function merge(S,msgs){
-    S.seen=S.seen||{};
+    norm(S);
     msgs=msgs.filter(function(m){return m&&m.event==='message'&&typeof m.message==='string'&&!S.seen[m.id];})
              .sort(function(a,b){return a.time-b.time||(a.id<b.id?-1:1);});
     var out=[];
@@ -98,7 +131,7 @@
     P.v=1;P.pk=K.pk;P.t=Date.now();var p=JSON.stringify(P);
     return C.subtle.sign({name:'ECDSA',hash:'SHA-256'},K.k,enc(p)).then(function(sig){return JSON.stringify({p:p,s:b64u(sig)});});
   }
-  function empty(){return {v:1,updated:0,last:0,seen:{},admins:[],questions:[],replies:[]};}
+  function empty(){return norm({v:1,updated:0,last:0});}
 
-  root.Q4Ask={open:open,apply:apply,merge:merge,keys:keys,sign:sign,rid:rid,uidOf:uidOf,empty:empty};
+  root.Q4Ask={open:open,apply:apply,merge:merge,norm:norm,DAY:DAY,NOTE:NOTE,keys:keys,sign:sign,rid:rid,uidOf:uidOf,empty:empty};
 })(typeof module!=='undefined'&&module.exports?module.exports:this);

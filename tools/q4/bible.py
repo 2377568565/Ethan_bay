@@ -2,9 +2,9 @@
 import re, json, os, html, unicodedata
 
 import os
-S = os.environ.get('Q4_WORK', '/tmp/claude-0/-home-user-Ethan-bay/7a8f6135-8731-54b9-8b54-015171d16fd2/scratchpad')   # 放字体与圣经数据的工作目录，见 tools/q4/README.md
+S = os.environ.get('Q4_WORK') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '.work')   # 字体与圣经数据：python3 tools/q4/fetch_assets.py 会下载到这里
 BD = os.path.join(S, 'bible')
-Q4 = os.path.join(S, 'q4')
+Q4 = os.path.dirname(os.path.abspath(__file__))
 
 # (STEP 代码, 中文全名, 英文名, [中文简称...])
 BOOKS = [
@@ -239,7 +239,7 @@ def nkjv_choice(refs):
     ranked = sorted(score, key=lambda k: (-score[k], k))
     return set(ranked[:NKJV_LIMIT])
 
-ZHLIT = json.load(open(os.path.join(S, 'zhlit', 'zhlit.json'), encoding='utf-8'))   # 中文直译（按原文逐字释义译出）
+ZHLIT = json.load(open(os.path.join(Q4, 'zhlit', 'zhlit.json'), encoding='utf-8'))   # 中文直译（按原文逐字释义译出）
 _orig_cache = None
 def payload(refs, nkjv_ok):
     global _orig_cache

@@ -10,7 +10,7 @@ Q4 = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, Q4); sys.path.insert(0, os.path.join(Q4, 'data'))
 from gen_yw import build as build_yw, merged, DAYS
 
-OUT = '/home/user/Ethan_bay/lessons/2026-Q4'
+OUT = os.path.normpath(os.path.join(Q4, '..', '..', 'lessons', '2026-Q4'))   # 仓库里的 lessons/2026-Q4
 Q_START = datetime.date(2026, 9, 26)          # 第1课安息日下午
 DAYNAMES = dict(DAYS)
 CN_WEEK = ['安息日下午', '星期日', '星期一', '星期二', '星期三', '星期四', '星期五']
@@ -245,7 +245,7 @@ POPUP = '''<div id="bpop" class="bpop" hidden>
     <div class="bpop-grip" aria-hidden="true"></div>
     <header class="bpop-head">
       <div><p class="bpop-k">经文 · 三版本对照</p><h3 id="bpop-t"></h3></div>
-      <button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
+      <button class="bpop-img" type="button" data-imgverse="bpop">做成图片</button><button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
     </header>
     <nav class="bpop-tabs" aria-label="版本">
       <button type="button" data-sec="cuv" class="on">和合本</button><button type="button" data-sec="en">NKJV</button><button type="button" data-sec="og">原文 · 直译</button>
@@ -278,11 +278,13 @@ FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <p>本页为安息日学研读辅助材料，依据《安息日学研经指引》2026年第4季整理。“学课原文”部分版权归原出版机构所有，仅供教会安息日学学习使用，请勿用于商业用途。</p>
   <p>经文引自和合本（上帝版）。怀爱伦著作引文依英文原著译出，页码为英文原文页码；学课中已有译文的，沿用学课译文。</p>
-  <p>“写下我的回答”和行动勾选只保存在你自己的浏览器里，不会上传。</p>
+  <p>“写下我的回答”和行动勾选只保存在你自己的浏览器里；只有你点“分享我的回答”时，回答才会公开到讨论区。</p>
 </footer>'''
 
 def shell(title, desc, body, combined):
-    early = ("<script>document.documentElement.classList.add('jsok'" + (",'js'" if combined else '') + ");</script>")
+    early = ("<script>document.documentElement.classList.add('jsok'" + (",'js'" if combined else '') + ");"
+             "try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');"
+             "if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}</script>")
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -367,7 +369,8 @@ def qr_svg(url):
 
 def qr_all():
     ids = ['qa', 'ask'] + [it['id'] for it in qa_data.ITEMS]
-    return ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids)
+    return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
+            ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
 SHAREIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/>'
            '<circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/>'
@@ -443,7 +446,7 @@ def gift_html():
     <p class="gift-stars" aria-hidden="true">{stars}</p>
     <div class="gift-verse">
       <p class="gift-vk">送你一节经文礼物</p>
-      <button type="button" class="gift-vcopy" data-giftcopy>复制</button>
+      <button type="button" class="gift-vcopy" data-giftcopy>复制</button><button type="button" class="gift-vcopy gift-vimg" data-imgverse="gift">做成图片</button>
       <blockquote class="gift-vt"></blockquote>
       <p class="gift-vr"></p>
     </div>
@@ -510,7 +513,7 @@ def ask_page():
       <h2>大家的问题 <small class="ask-n"></small></h2>
       <button class="btn ask-copyall" type="button">{COPYIC}一键复制全部</button>
     </div>
-    <p class="ask-filter"><button class="chip on" type="button" data-f="all">全部</button><button class="chip" type="button" data-f="mine">我的提问</button><button class="chip" type="button" data-f="answered">有管理员回答</button><button class="chip ask-refresh" type="button">↻ 刷新</button></p>
+    <p class="ask-filter"><button class="chip on" type="button" data-f="all">全部</button><button class="chip" type="button" data-f="mine">我的提问</button><button class="chip" type="button" data-f="answered">有管理员回答</button><button class="chip" type="button" data-f="hot">最多人想知道</button><button class="chip ask-refresh" type="button">↻ 刷新</button></p>
     <div class="ask-items"><p class="ask-empty">正在连接提问区…</p></div>
     <p class="ask-morep"><button class="btn ask-more" type="button" hidden>加载更多</button></p>
   </div>

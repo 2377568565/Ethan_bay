@@ -1,8 +1,20 @@
-import pymupdf, json, re, sys, html
-PDF='/root/.claude/uploads/7a8f6135-8731-54b9-8b54-015171d16fd2/d03e8250-16051.pdf'
-doc=pymupdf.open(PDF)
+import json, re, sys, html, os
+# 学课原文来自《安息日学研经指引》2026年第4季的 PDF。仓库里不放 PDF，只放从中提取出的文字块缓存 pdf_blocks.json；
+# 若要从 PDF 重新提取：Q4_PDF=那份PDF的路径 python3 extract.py --cache
+HERE=os.path.dirname(os.path.abspath(__file__))
+CACHE=os.path.join(HERE,'pdf_blocks.json')
+PDF=os.environ.get('Q4_PDF','')
+doc=None
+if PDF and os.path.exists(PDF):
+    import pymupdf
+    doc=pymupdf.open(PDF)
+_cache=None
 END='。？！”」）)?!'
 def page_blocks(pno):
+    global _cache
+    if doc is None:
+        if _cache is None: _cache=json.load(open(CACHE,encoding='utf-8'))
+        return [dict(b) for b in _cache[str(pno)]]
     p=doc[pno]; W=p.rect.width; mid=W/2
     out=[]
     for b in p.get_text('dict')['blocks']:
@@ -40,6 +52,8 @@ def merge(blocks):
         else: res.append(dict(b))
     return res
 if __name__=='__main__':
+    if sys.argv[1:2]==['--cache']:
+        json.dump({str(i):page_blocks(i) for i in range(len(doc))},open(CACHE,'w',encoding='utf-8'),ensure_ascii=False,separators=(',',':'));sys.exit()
     for pno in map(int,sys.argv[1:]):
         print(f'===== page {pno+1}')
         for b in merge(page_blocks(pno)):

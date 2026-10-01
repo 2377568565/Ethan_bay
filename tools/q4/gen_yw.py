@@ -1,5 +1,5 @@
-import re, html, sys, json
-sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
+import re, html, sys, json, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from extract import page_blocks
 END = '。？！”」）)?!'
 DAYS = [('sab','安息日下午'),('sun','星期日'),('mon','星期一'),('tue','星期二'),('wed','星期三'),('thu','星期四'),('fri','星期五')]

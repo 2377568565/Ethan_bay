@@ -203,12 +203,19 @@ def welcome_html(titles):
     <p class="wdate"></p>
     <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">全季目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a></p>
     <p class="wclass" hidden><a href="#l1"></a></p>
+    <p class="wresume" hidden></p>
+    <div class="wnews" hidden></div>
   </div>
   <div class="wcards">
   <div class="wcard wverse">
-    <p class="wk"><span>今日经文 · 从本季学课中随机选出</span><button class="wshuf" type="button">换一节 ↻</button></p>
+    <p class="wk"><span>今日经文 · 从本季学课中随机选出</span><span class="wvbtns"><button class="wshuf wimg" type="button" data-imgverse="welcome">做成图片</button><button class="wshuf" type="button">换一节 ↻</button></span></p>
     <blockquote class="wvt"></blockquote>
     <p class="wvr"></p>
+  </div>
+  <div class="wcard wtogether" hidden>
+    <p class="wk"><span>本周共读 · 读完打卡</span></p>
+    <div class="wt-days"></div>
+    <p class="wt-msg"></p>
   </div>
   <div class="wcard wprog">
     <p class="wk"><span>本周研读</span><b class="wmin"></b></p>
