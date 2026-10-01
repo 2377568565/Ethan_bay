@@ -1,0 +1,69 @@
+name: ask-probe
+# 临时：上线后检查（m4a 播放、手机缓存、开场画面、导言打卡）；查完会删掉
+on:
+  push:
+    paths: ['.github/workflows/ask-probe.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BASE: https://2377568565.github.io/Ethan_bay/
+    steps:
+      - name: 等网站更新
+        run: |
+          for i in $(seq 1 80); do
+            if curl -sS -m 30 "$BASE?nocache=$i" | grep -q 'id="boot"'; then echo "已更新（第 $i 次）"; exit 0; fi
+            sleep 10
+          done
+          echo '网站还没更新'; exit 1
+      - name: 音乐文件
+        run: |
+          curl -sS -m 30 -I "${BASE}music/m82242908.m4a" | grep -iE '^HTTP|content-type|content-length'
+          python3 - <<'PY'
+          import json, os, urllib.request
+          base = os.environ['BASE']
+          songs = json.load(urllib.request.urlopen(base + 'music/list.json?x=2'))['songs']
+          bad = []
+          for s in songs:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(base + 'music/' + s['file'], method='HEAD'), timeout=30) as f:
+                      if f.status != 200: bad.append((s['file'], f.status))
+              except Exception as e: bad.append((s['file'], str(e)))
+          print(len(songs), '首，全部 m4a:', all(s['file'].endswith('.m4a') for s in songs), '打不开的:', bad or '无')
+          PY
+      - name: 模拟微信
+        run: |
+          npm i --no-save --silent playwright-core@1.47.2
+          cat > probe.js <<'JS'
+          const {chromium}=require('playwright-core');
+          (async()=>{
+            const b=await chromium.launch({executablePath:'/usr/bin/google-chrome'});const errs=[];
+            const c=await b.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,timezoneId:'Asia/Shanghai',locale:'zh-CN',
+              userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.50(0x18003231) NetType/WIFI Language/zh_CN'});
+            const p=await c.newPage();
+            p.on('pageerror',e=>errs.push('pageerror: '+e.message));
+            p.on('console',m=>{if(m.type()==='error'&&!/pconline|sohu|Failed to load resource/.test(m.text()))errs.push('console: '+m.text().slice(0,160));});
+            await p.goto(process.env.BASE,{waitUntil:'domcontentloaded'});
+            console.log('开场画面在:',await p.evaluate(()=>!!document.getElementById('boot')));
+            await p.waitForLoadState('load');await p.waitForTimeout(5000);
+            console.log(await p.evaluate(()=>({开场画面已去掉:!document.getElementById('boot'),ready:document.documentElement.classList.contains('ready'),正文字体:document.documentElement.classList.contains('wf'),
+              访问:document.querySelector('#welcome .wvisits').textContent.trim(),目录按钮:[...document.querySelectorAll('#welcome .wbtns a')].map(a=>a.textContent.trim())[1]})));
+            await p.evaluate(()=>{location.hash='#l1-sab';});await p.waitForTimeout(1500);
+            console.log('解读·导言打卡框:',await p.locator('#l1-sab .ckin').count());
+            await p.evaluate(()=>{location.hash='#music';});await p.waitForTimeout(2500);
+            await p.locator('#music-m82242908 [data-mplay]').scrollIntoViewIfNeeded();await p.locator('#music-m82242908 [data-mplay]').tap();
+            const st=()=>p.evaluate(()=>({cur:(document.querySelector('.msong.cur .ms-t')||{}).textContent,tm:(document.querySelector('.msong.cur .ms-tm')||{}).textContent,saved:[...document.querySelectorAll('.msong.saved .ms-t')].map(x=>x.textContent).join('、')}));
+            await p.waitForTimeout(8000);console.log('播 m4a 8 秒:',JSON.stringify(await st()));
+            await p.waitForTimeout(8000);
+            console.log('手机里存的:',await p.evaluate(async()=>{const c=await caches.open('q4-music');return (await c.keys()).map(r=>r.url.split('/').pop()).join(', ');}));
+            await p.reload({waitUntil:'load'});await p.waitForTimeout(3000);
+            await p.evaluate(()=>{location.hash='#music';});await p.waitForTimeout(2500);
+            console.log('重新打开后标“已缓存”的:',(await st()).saved);
+            const t0=Date.now();await p.locator('#music-m82242908 [data-mplay]').scrollIntoViewIfNeeded();await p.locator('#music-m82242908 [data-mplay]').tap();
+            let s;for(let i=0;i<50;i++){await p.waitForTimeout(200);s=await st();if(/^0:0[1-9]/.test(s.tm||''))break;}
+            console.log('再听同一首:',((Date.now()-t0)/1000).toFixed(1),'秒出声',JSON.stringify(s));
+            console.log('错误:',errs.length?errs:'无');await b.close();if(errs.length)process.exit(1);
+          })();
+          JS
+          node probe.js
