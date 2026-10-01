@@ -59,12 +59,15 @@ function checkinsCSV(S) {
   const cut = Math.floor(Date.now() / 1000) - 2 * 86400;   // 两天前的消息编号不用再记
   for (const k of Object.keys(S.seen)) if (S.seen[k] < cut) delete S.seen[k];
   console.log(`中转站消息 ${msgs.length} 条，新处理 ${out.length} 条：` + (out.map(o => o.why || 'ok').join(', ') || '无'));
-  if (JSON.stringify(S) === before && fs.existsSync(DATA)) { console.log('没有变化'); return; }
-  S.updated = Math.floor(Date.now() / 1000);
+  // 表格每次都按当前存档重新导出，内容没变就不动文件（表格格式升级后也会自动补上）
+  const sheets = { 'ask.csv': askCSV(S), 'discuss.csv': discussCSV(S), 'checkins.csv': checkinsCSV(S) };
+  const stale = Object.keys(sheets).filter(f => { try { return fs.readFileSync(OUT(f), 'utf8') !== sheets[f]; } catch (e) { return true; } });
+  if (JSON.stringify(S) === before && fs.existsSync(DATA) && !stale.length) { console.log('没有变化'); return; }
   fs.mkdirSync(path.dirname(DATA), { recursive: true });
-  fs.writeFileSync(DATA, JSON.stringify(S));
-  fs.writeFileSync(OUT('ask.csv'), askCSV(S));
-  fs.writeFileSync(OUT('discuss.csv'), discussCSV(S));
-  fs.writeFileSync(OUT('checkins.csv'), checkinsCSV(S));
-  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次`);
+  if (JSON.stringify(S) !== before || !fs.existsSync(DATA)) {
+    S.updated = Math.floor(Date.now() / 1000);
+    fs.writeFileSync(DATA, JSON.stringify(S));
+  }
+  for (const f of stale) fs.writeFileSync(OUT(f), sheets[f]);
+  console.log(`已写入：问题 ${S.questions.length} 个，回复 ${S.replies.length} 条，讨论回答 ${S.answers.length} 条，打卡 ${Object.values(S.checks).reduce((n, a) => n + a.length, 0)} 次` + (stale.length ? `；更新表格 ${stale.join('、')}` : ''));
 })().catch(e => { console.error(e); process.exit(1); });
