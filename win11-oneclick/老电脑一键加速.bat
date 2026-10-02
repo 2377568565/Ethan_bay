@@ -220,7 +220,8 @@ function Get-ActiveSchemeGuid {
 
 # 读取电源设置的当前值；输出里最后两个十六进制数分别是“插电”和“电池”时的值
 function Get-PowerValue($scheme, $alias) {
-    $out = (powercfg /q $scheme SUB_PROCESSOR $alias 2>$null) -join "`n"
+    # 用 /qh：睿频、散热方式默认是隐藏设置，/q 查不到
+    $out = (powercfg /qh $scheme SUB_PROCESSOR $alias 2>$null) -join "`n"
     $m = [regex]::Matches($out, '0x([0-9a-fA-F]{8})')
     if ($m.Count -ge 2) {
         return @{ AC = [Convert]::ToInt32($m[$m.Count - 2].Groups[1].Value, 16)
@@ -262,6 +263,25 @@ function Enable-Cooling {
         $backup | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $CoolBackupFile -Encoding UTF8
     }
 
+    if (-not $firstTime) {
+        # 旧版本没能备份隐藏设置：在改动之前把缺的补进备份
+        try {
+            $bk = Get-Content -LiteralPath $CoolBackupFile -Raw -Encoding UTF8 | ConvertFrom-Json
+            $have = @($bk.Settings | ForEach-Object { $_.Alias })
+            $list = @($bk.Settings)
+            $changed = $false
+            foreach ($c in $CoolSettings) {
+                if ($have -contains $c.Alias) { continue }
+                $v = Get-PowerValue $bk.Scheme $c.Alias
+                if ($v) { $list += [pscustomobject]@{ Alias = $c.Alias; AC = $v.AC; DC = $v.DC }; $changed = $true }
+            }
+            if ($changed) {
+                $bk.Settings = $list
+                $bk | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $CoolBackupFile -Encoding UTF8
+            }
+        } catch {}
+    }
+
     foreach ($c in $CoolSettings) {
         if (-not (Get-PowerValue $scheme $c.Alias)) { Write-Bad "这台电脑不支持：$($c.Desc)"; continue }
         powercfg /setacvalueindex $scheme SUB_PROCESSOR $c.Alias $c.Value | Out-Null
@@ -269,6 +289,12 @@ function Enable-Cooling {
         Write-Ok $c.Desc
     }
     powercfg /setactive $scheme | Out-Null
+
+    $boost = Get-PowerValue $scheme 'PERFBOOSTMODE'
+    if ($boost -and $boost.AC -eq 0 -and $boost.DC -eq 0) {
+        Write-Ok '验证：睿频已关闭（插电和电池都生效）'
+        Write-Info '   自己确认：任务管理器 -> 性能 -> CPU，“速度”以后最高只会到 1.8 GHz 左右（以前会冲到 3~4 GHz）'
+    }
 
     try {
         Set-MpPreference -ScanAvgCPULoadFactor 20 -EnableLowCpuPriority $true -ErrorAction Stop
@@ -474,7 +500,7 @@ foreach ($b in $browsers) {
     $total += $f
     Write-Info ('{0,-20} {1,8} MB' -f "$($b.Name) 浏览器缓存", [math]::Round($f / 1MB))
 }
-try { Delete-DeliveryOptimizationCache -Force -ErrorAction Stop | Out-Null; Write-Info ('{0,-20} {1,8}' -f '更新传递优化缓存', '已清空') } catch {}
+try { Delete-DeliveryOptimizationCache -Force -ErrorAction Stop *> $null; Write-Info ('{0,-20} {1,8}' -f '更新传递优化缓存', '已清空') } catch {}
 Write-Ok ('磁盘垃圾共清理约 {0} MB（回收站没有动）' -f [math]::Round($total / 1MB))
 
 # ---------------------------------------------------------------------------
@@ -484,6 +510,10 @@ if (Invoke-MemoryReclaim) { Write-Ok '已回收闲置内存' }
 $memAfter = Get-MemUsedGB
 $diskAfter = Get-CFreeGB
 Write-Info ("已用内存：{0} GB -> {1} GB    C 盘剩余：{2} GB -> {3} GB" -f $memBefore, $memAfter, $diskBefore, $diskAfter)
+$memTotal = [math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize / 1MB, 1)
+if ($memAfter / $memTotal -lt 0.5) {
+    Write-Info ("内存总共 {0} GB，只用了 {1} GB，非常充裕，本来就没什么可回收的——内存不是这台电脑慢的原因。" -f $memTotal, $memAfter)
+}
 
 # ---------------------------------------------------------------------------
 Write-Title '第 5 步：启动实时专注'

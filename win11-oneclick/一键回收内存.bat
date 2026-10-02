@@ -93,6 +93,10 @@ if (Invoke-MemoryReclaim) {
     $freed = [math]::Round($before - $after, 2)
     if ($freed -lt 0) { $freed = 0 }
     Write-Ok ("已用内存：{0} GB  ->  {1} GB（释放约 {2} GB）" -f $before, $after, $freed)
+    $total = [math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize / 1MB, 1)
+    if ($freed -lt 0.1 -and $after / $total -lt 0.5) {
+        Write-Info ("内存总共 {0} GB，只用了 {1} GB，非常充裕，本来就没什么可回收的。" -f $total, $after)
+    }
 }
 Write-Info '5 秒后自动关闭...'
 Start-Sleep -Seconds 5
