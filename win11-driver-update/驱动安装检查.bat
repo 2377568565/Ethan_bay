@@ -93,6 +93,11 @@ foreach ($d in @(Get-PnpDevice -Class Display -ErrorAction SilentlyContinue)) {
     }
 }
 
+# 驱动装一半时 NVIDIA 卡可能跑到“其他设备”里（不在显示适配器分类），单独找一下
+foreach ($x in @(Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Where-Object { $_.InstanceId -match '^PCI\\VEN_10DE' -and $_.Class -ne 'Display' })) {
+    Out-Bad ("NVIDIA 显卡不在“显示适配器”里：{0}  分类 {1}  状态 {2}  —— 驱动没装好" -f $x.FriendlyName, $x.Class, $x.Status)
+}
+
 # 让 NVIDIA 显卡“说句话”：nvidia-smi 能读出显卡信息，说明显卡和驱动真的能用
 $smi = Join-Path $env:WINDIR 'System32\nvidia-smi.exe'
 if (Test-Path -LiteralPath $smi) {
