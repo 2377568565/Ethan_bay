@@ -11,7 +11,7 @@ if errorlevel 1 pause
 exit /b
 #>
 # 驱动安装检查：显卡驱动更新后，检查新驱动是否装上、MX150 错误代码 43 是否消失、更新后有没有再出现黑屏/蓝屏/驱动崩溃
-# 只读取信息，不做任何修改。
+# 只读取信息；唯一的改动“停用 MX150 独显”只在它仍然出错时才会问你，不同意就不改。
 
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
@@ -161,6 +161,24 @@ if ($intelOk -and $nvOk -and -not $nv43) {
     if ($nvOk -and $nv43) { Out-Bad '驱动更新了但 MX150 还是错误代码 43 —— 更可能是 BIOS 或显卡硬件的问题，不影响笔记本屏幕显示（屏幕由 Intel 核显负责）' }
 }
 Out-Info '接下来正常用几天，再黑屏或蓝屏时，重新运行本检查，把报告发给我对比。'
+
+# 上次蓝屏就是 NVIDIA 驱动（nvlddmkm.sys）引起的。驱动更新后 MX150 仍然出错时，可以直接停用它：
+# 笔记本屏幕本来就由 Intel 核显负责显示，停用独显后 NVIDIA 驱动不再运行，也就不会再因它蓝屏。
+$nvDev = Get-PnpDevice -Class Display -ErrorAction SilentlyContinue | Where-Object { $_.FriendlyName -match 'NVIDIA' } | Select-Object -First 1
+if ($nvDev -and ($nv43 -or $nvErr.Count -gt 0 -or $dumps.Count -gt 0)) {
+    Write-Host ''
+    Write-Host '  MX150 仍然有问题。可以先把它停用：屏幕照常由 Intel 核显显示，日常使用、看视频都不受影响，' -ForegroundColor Cyan
+    Write-Host '  只是玩大型游戏时没有独显加速；而 NVIDIA 驱动不再运行，就不会再因为它蓝屏/黑屏。' -ForegroundColor Cyan
+    $ans = Read-Host '  现在停用 MX150 吗？输入 y 回车，直接回车跳过'
+    if ($ans -match '^[yY]') {
+        try {
+            Disable-PnpDevice -InstanceId $nvDev.InstanceId -Confirm:$false -ErrorAction Stop
+            Out-Ok '已停用 MX150（想恢复：右键开始按钮 -> 设备管理器 -> 显示适配器 -> 右键 NVIDIA GeForce MX150 -> 启用设备）'
+        } catch {
+            Out-Bad "停用失败：$($_.Exception.Message)"
+        }
+    }
+}
 
 $desktop = [Environment]::GetFolderPath('Desktop')
 try {
