@@ -231,6 +231,10 @@ if ($dumps.Count -eq 0) {
             elseif ($n -match '(?i)^(memory_corruption|ntkrnlmp|ntoskrnl|hardware)') { Out-Bad '指向内存损坏 / 系统内核 —— 内存条嫌疑很大，务必做内存检测' }
             else { Out-Bad "肇事驱动是 $n" }
         }
+        if (-not $img.Success) {
+            Out-Bad '没能自动读出肇事驱动（可能符号没下载成功）。请把桌面上的“蓝屏分析详情.txt”发给我；'
+            Out-Info '   或者下载 NirSoft 的 BlueScreenView（免费绿色版）打开 C:\Windows\Minidump 查看。'
+        }
         Out-Info '完整分析已保存到桌面：蓝屏分析详情.txt'
     } else {
         Out-Info '没有分析转储文件。也可以下载 NirSoft 的 BlueScreenView（免费绿色版）打开 C:\Windows\Minidump 查看“肇事驱动”。'
