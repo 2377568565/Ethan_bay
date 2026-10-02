@@ -5,11 +5,12 @@ if %errorlevel% neq 0 (
     powershell -NoProfile -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
     exit /b
 )
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.File]::ReadAllText('%~f0', [Text.Encoding]::UTF8))"
+set "PCFOCUS_SELF=%~f0"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.File]::ReadAllText($env:PCFOCUS_SELF, [Text.Encoding]::UTF8))"
 if errorlevel 1 pause
 exit /b
 #>
-# 老电脑一键加速：开启专注模式 -> 磁盘清理 -> 回收内存 -> 关闭占 CPU 的程序（需确认）-> 实时专注
+# 老电脑一键加速：开启专注模式 -> 磁盘清理 -> 回收内存 -> 实时专注（后台小窗口）-> 关闭占 CPU 的程序（需确认）
 # 原则: 只删缓存和临时文件，不碰个人文件和回收站；系统进程不碰；专注模式设置可用“恢复默认设置.bat”撤销。
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
@@ -201,6 +202,98 @@ function Remove-OldFiles([string]$dir, [datetime]$cut) {
     return $freed
 }
 
+# 实时专注：持续给前台程序提速、给后台占 CPU 的程序降速；按 Q 退出时全部恢复
+function Start-LiveFocusLoop {
+    Write-Title '实时专注（窗口开着时一直生效）'
+    Write-Info '你正在用的程序：优先级调高；后台偷偷占 CPU 的程序：优先级调低（不会被关闭）'
+    Write-Host '  不用时点开这个窗口按 Q 键退出，所有程序会自动恢复原样。' -ForegroundColor Yellow
+    Write-Info ''
+
+    $interval = 2
+    $orig = @{}       # pid -> 原优先级
+    $state = @{}      # pid -> 'fg' / 'bg'
+    $prevCpu = @{}    # pid -> 上次累计 CPU 毫秒
+    $protCache = @{}  # pid -> 是否受保护
+    $lastFg = ''
+    try {
+        while ($true) {
+            $fgProc = Get-Process -Id ([FocusNative]::GetForegroundPid()) -ErrorAction SilentlyContinue
+            $fgName = ''
+            if ($fgProc) { $fgName = $fgProc.ProcessName }
+
+            $lowered = @()
+            foreach ($p in Get-Process) {
+                $cpu = $null
+                try { $cpu = $p.TotalProcessorTime.TotalMilliseconds } catch {}
+                if ($null -eq $cpu) { continue }   # 读不到的都是系统进程
+                $pct = 0
+                if ($prevCpu.ContainsKey($p.Id)) { $pct = ($cpu - $prevCpu[$p.Id]) / ($interval * 10 * $Cores) }
+                $prevCpu[$p.Id] = $cpu
+
+                if (-not $protCache.ContainsKey($p.Id)) { $protCache[$p.Id] = Test-ProtectedProc $p }
+                if ($protCache[$p.Id]) { continue }
+
+                $want = ''
+                if ($fgName -and $p.ProcessName -eq $fgName) { $want = 'fg' }
+                elseif ($pct -ge 3) { $want = 'bg' }
+
+                try {
+                    if ($want -eq 'fg' -and $state[$p.Id] -ne 'fg') {
+                        if (-not $orig.ContainsKey($p.Id)) { $orig[$p.Id] = $p.PriorityClass }
+                        if ($orig[$p.Id] -eq 'Normal' -or $orig[$p.Id] -eq 'BelowNormal') { $p.PriorityClass = 'AboveNormal' }
+                        $state[$p.Id] = 'fg'
+                    } elseif ($want -ne 'fg' -and $state[$p.Id] -eq 'fg') {
+                        $p.PriorityClass = $orig[$p.Id]   # 不再是前台了：恢复原优先级
+                        $state.Remove($p.Id)
+                    }
+                    if ($want -eq 'bg' -and -not $state.ContainsKey($p.Id)) {
+                        if (-not $orig.ContainsKey($p.Id)) { $orig[$p.Id] = $p.PriorityClass }
+                        if ($orig[$p.Id] -eq 'Normal') {
+                            $p.PriorityClass = 'BelowNormal'
+                            $state[$p.Id] = 'bg'
+                            $lowered += $p.ProcessName
+                        }
+                    }
+                } catch {}
+            }
+
+            if ($fgName -and $fgName -ne $lastFg) {
+                Write-Host ("  [{0}] 当前程序：{1}  -> 已优先" -f (Get-Date -Format 'HH:mm:ss'), $fgName) -ForegroundColor Green
+                $lastFg = $fgName
+            }
+            foreach ($n in ($lowered | Sort-Object -Unique)) {
+                Write-Host ("  [{0}] 后台程序：{1}  -> 已降速" -f (Get-Date -Format 'HH:mm:ss'), $n) -ForegroundColor DarkYellow
+            }
+
+            $quit = $false
+            for ($i = 0; $i -lt ($interval * 5); $i++) {
+                Start-Sleep -Milliseconds 200
+                while ([Console]::KeyAvailable) {
+                    if (([Console]::ReadKey($true)).Key -eq 'Q') { $quit = $true }
+                }
+                if ($quit) { break }
+            }
+            if ($quit) { break }
+        }
+    } finally {
+        $n = 0
+        foreach ($id in @($orig.Keys)) {
+            $p = Get-Process -Id $id -ErrorAction SilentlyContinue
+            if ($p) { try { $p.PriorityClass = $orig[$id]; $n++ } catch {} }
+        }
+        Write-Ok "已退出实时专注，$n 个程序的优先级已恢复原样"
+    }
+}
+
+# 由第 4 步启动的独立小窗口只跑实时专注
+if ($env:PCFOCUS_MODE -eq 'live') {
+    try { $Host.UI.RawUI.WindowTitle = '实时专注（按 Q 退出）' } catch {}
+    Start-LiveFocusLoop
+    Write-Info '3 秒后自动关闭...'
+    Start-Sleep -Seconds 3
+    exit 0
+}
+
 $memBefore = Get-MemUsedGB
 $diskBefore = Get-CFreeGB
 
@@ -308,7 +401,20 @@ $diskAfter = Get-CFreeGB
 Write-Info ("已用内存：{0} GB -> {1} GB    C 盘剩余：{2} GB -> {3} GB" -f $memBefore, $memAfter, $diskBefore, $diskAfter)
 
 # ---------------------------------------------------------------------------
-Write-Title '第 4 步：关闭占用 CPU 高的程序（需要你确认）'
+Write-Title '第 4 步：启动实时专注'
+$running = Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -like "*PCFOCUS_MODE='live'*" }
+if ($running) {
+    Write-Ok '实时专注已经在运行了，跳过'
+} else {
+    Start-Process powershell.exe -WindowStyle Minimized -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `$env:PCFOCUS_MODE='live'; Invoke-Expression ([IO.File]::ReadAllText(`$env:PCFOCUS_SELF, [Text.Encoding]::UTF8))"
+    Write-Ok '实时专注已在后台启动（任务栏上最小化的“实时专注”窗口）'
+    Write-Info '   它会一直给你正在用的程序提速、给后台程序降速。'
+    Write-Info '   不用时点开那个窗口按 Q 退出，所有程序自动恢复原样。'
+}
+
+# ---------------------------------------------------------------------------
+Write-Title '第 5 步：关闭占用 CPU 高的程序（需要你确认）'
 $null = Get-CimInstance Win32_PerfFormattedData_PerfProc_Process -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 $procs = Get-CimInstance Win32_PerfFormattedData_PerfProc_Process -ErrorAction SilentlyContinue |
@@ -363,87 +469,8 @@ if ($candidates.Count -eq 0) {
     }
 }
 
-# ---------------------------------------------------------------------------
-Write-Title '第 5 步：实时专注（这个窗口开着时一直生效）'
-Write-Info '你正在用的程序：优先级调高；后台偷偷占 CPU 的程序：优先级调低（不会被关闭）'
-Write-Info '可以把这个窗口最小化，正常用电脑就行。'
-Write-Host '  不用时按 Q 键退出，所有程序会自动恢复原样。（请不要直接点 X 关窗口）' -ForegroundColor Yellow
-Write-Info ''
-
-$interval = 2
-$orig = @{}       # pid -> 原优先级
-$state = @{}      # pid -> 'fg' / 'bg'
-$prevCpu = @{}    # pid -> 上次累计 CPU 毫秒
-$protCache = @{}  # pid -> 是否受保护
-$lastFg = ''
-try {
-    while ($true) {
-        $fgProc = Get-Process -Id ([FocusNative]::GetForegroundPid()) -ErrorAction SilentlyContinue
-        $fgName = ''
-        if ($fgProc) { $fgName = $fgProc.ProcessName }
-
-        $lowered = @()
-        foreach ($p in Get-Process) {
-            $cpu = $null
-            try { $cpu = $p.TotalProcessorTime.TotalMilliseconds } catch {}
-            if ($null -eq $cpu) { continue }   # 读不到的都是系统进程
-            $pct = 0
-            if ($prevCpu.ContainsKey($p.Id)) { $pct = ($cpu - $prevCpu[$p.Id]) / ($interval * 10 * $Cores) }
-            $prevCpu[$p.Id] = $cpu
-
-            if (-not $protCache.ContainsKey($p.Id)) { $protCache[$p.Id] = Test-ProtectedProc $p }
-            if ($protCache[$p.Id]) { continue }
-
-            $want = ''
-            if ($fgName -and $p.ProcessName -eq $fgName) { $want = 'fg' }
-            elseif ($pct -ge 3) { $want = 'bg' }
-
-            try {
-                if ($want -eq 'fg' -and $state[$p.Id] -ne 'fg') {
-                    if (-not $orig.ContainsKey($p.Id)) { $orig[$p.Id] = $p.PriorityClass }
-                    if ($orig[$p.Id] -eq 'Normal' -or $orig[$p.Id] -eq 'BelowNormal') { $p.PriorityClass = 'AboveNormal' }
-                    $state[$p.Id] = 'fg'
-                } elseif ($want -ne 'fg' -and $state[$p.Id] -eq 'fg') {
-                    $p.PriorityClass = $orig[$p.Id]   # 不再是前台了：恢复原优先级
-                    $state.Remove($p.Id)
-                }
-                if ($want -eq 'bg' -and -not $state.ContainsKey($p.Id)) {
-                    if (-not $orig.ContainsKey($p.Id)) { $orig[$p.Id] = $p.PriorityClass }
-                    if ($orig[$p.Id] -eq 'Normal') {
-                        $p.PriorityClass = 'BelowNormal'
-                        $state[$p.Id] = 'bg'
-                        $lowered += $p.ProcessName
-                    }
-                }
-            } catch {}
-        }
-
-        if ($fgName -and $fgName -ne $lastFg) {
-            Write-Host ("  [{0}] 当前程序：{1}  -> 已优先" -f (Get-Date -Format 'HH:mm:ss'), $fgName) -ForegroundColor Green
-            $lastFg = $fgName
-        }
-        foreach ($n in ($lowered | Sort-Object -Unique)) {
-            Write-Host ("  [{0}] 后台程序：{1}  -> 已降速" -f (Get-Date -Format 'HH:mm:ss'), $n) -ForegroundColor DarkYellow
-        }
-
-        $quit = $false
-        for ($i = 0; $i -lt ($interval * 5); $i++) {
-            Start-Sleep -Milliseconds 200
-            while ([Console]::KeyAvailable) {
-                if (([Console]::ReadKey($true)).Key -eq 'Q') { $quit = $true }
-            }
-            if ($quit) { break }
-        }
-        if ($quit) { break }
-    }
-} finally {
-    $n = 0
-    foreach ($id in @($orig.Keys)) {
-        $p = Get-Process -Id $id -ErrorAction SilentlyContinue
-        if ($p) { try { $p.PriorityClass = $orig[$id]; $n++ } catch {} }
-    }
-    Write-Ok "已退出实时专注，$n 个程序的优先级已恢复原样"
-}
-Write-Info '3 秒后自动关闭...'
-Start-Sleep -Seconds 3
+Write-Host ''
+Write-Ok '全部完成！实时专注会在后台小窗口里继续工作。'
+Write-Info '5 秒后关闭本窗口...'
+Start-Sleep -Seconds 5
 exit 0
