@@ -389,6 +389,47 @@ function Restart-Explorer {
 }
 
 # ---------------------------------------------------------------------------
+# 6. 杀毒减负（Antimalware Service Executable 占 CPU 高）
+# ---------------------------------------------------------------------------
+function Invoke-DefenderTune {
+    Write-Title 'Windows 自带杀毒（任务管理器里叫 Antimalware Service Executable）'
+    try {
+        $av = @(Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct -ErrorAction Stop)
+        Write-Info '在 Windows 安全中心登记的杀毒软件：'
+        foreach ($a in $av) { Write-Info "   - $($a.displayName)" }
+    } catch {}
+
+    $st = $null
+    try { $st = Get-MpComputerStatus -ErrorAction Stop } catch {}
+    $mode = ''
+    if ($st) { $mode = "$($st.AMRunningMode)" }
+    if (-not $st -or $mode -match 'Passive|Not running') {
+        Write-Ok "Windows 自带杀毒已让位给其他杀毒软件（$mode），基本不占资源，不用处理"
+        return
+    }
+
+    Write-Info "运行模式：$mode —— 说明它现在是这台电脑的主力杀毒。"
+    Write-Info '   如果上面列表里只有 Windows Defender、没有腾讯电脑管家，'
+    Write-Info '   说明电脑管家没有接管系统杀毒，删掉 Defender 等于电脑没有完整的病毒防护。'
+    Write-Info '   新装的系统它会先做一遍全盘扫描、更新病毒库，前几天占用高是正常的，之后会安静很多。'
+
+    $pref = Get-MpPreference
+    Write-Info ("当前：扫描时 CPU 上限 {0}%，低优先级扫描 {1}" -f $pref.ScanAvgCPULoadFactor, $pref.EnableLowCpuPriority)
+    $ans = Read-Host '  输入 y 开启减负（扫描 CPU 上限 20% + 低优先级），输入 r 恢复默认，直接回车跳过'
+    try {
+        if ($ans -match '^[yY]') {
+            Set-MpPreference -ScanAvgCPULoadFactor 20 -EnableLowCpuPriority $true -ErrorAction Stop
+            Write-Ok '已开启：杀毒扫描最多占 20% CPU，并且会给你正在用的程序让路'
+        } elseif ($ans -match '^[rR]') {
+            Set-MpPreference -ScanAvgCPULoadFactor 50 -EnableLowCpuPriority $false -ErrorAction Stop
+            Write-Ok '已恢复默认设置'
+        }
+    } catch {
+        Write-Bad "设置失败：$($_.Exception.Message)"
+    }
+}
+
+# ---------------------------------------------------------------------------
 # 菜单
 # ---------------------------------------------------------------------------
 while ($true) {
@@ -400,6 +441,7 @@ while ($true) {
     Write-Host '  3. 恢复默认   重新开启睿频（打游戏 / 剪视频时用）'
     Write-Host '  4. 电脑体检   内存条、硬盘、驱动、后台更新、开机自启'
     Write-Host '  5. 重启任务栏 任务栏 / 桌面卡死、点不动时用'
+    Write-Host '  6. 杀毒减负   Antimalware Service Executable 占 CPU 高时用'
     Write-Host '  0. 退出'
     $choice = Read-Host '请输入数字后回车'
     switch ($choice.Trim()) {
@@ -408,7 +450,8 @@ while ($true) {
         '3' { Disable-CoolMode }
         '4' { Invoke-Checkup }
         '5' { Restart-Explorer }
+        '6' { Invoke-DefenderTune }
         '0' { exit 0 }
-        default { Write-Bad '请输入 0~5 之间的数字' }
+        default { Write-Bad '请输入 0~6 之间的数字' }
     }
 }
