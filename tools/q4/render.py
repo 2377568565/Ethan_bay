@@ -374,7 +374,7 @@ def qr_svg(url):
     return f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="{n}" height="{n}" fill="#fff"/><path d="{d}" fill="#111"/></svg>'
 
 def songs():
-    """音乐栏目的曲目：仓库 music/list.json（只列出 MP3 文件确实存在的）"""
+    """音乐栏目的曲目：仓库 music/list.json（只列出音乐文件确实存在的）"""
     d = os.path.normpath(os.path.join(Q4, '..', '..', 'music'))
     try:
         lst = json.load(open(os.path.join(d, 'list.json'), encoding='utf-8'))['songs']
@@ -387,7 +387,7 @@ def mmss(n):
 
 def music_page():
     # 曲目由网页从 music/list.json 读取（收了新歌不用重新生成网页）；这里先放一份当前的清单，打开就能显示
-    lst = [{k: x.get(k, '') for k in ('id', 'title', 'sub', 'file', 'dur')} for x in songs()]
+    lst = [{k: x[k] for k in ('id', 'title', 'sub', 'file', 'dur', 'type', 'alt') if k in x} for x in songs()]
     data = json.dumps(lst, ensure_ascii=False).replace('</', '<\\/')
     return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
 <nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>

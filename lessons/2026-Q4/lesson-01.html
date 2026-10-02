@@ -4033,7 +4033,7 @@ window.Q4Hub=(function(){
     '<button class="ms-play" type="button" data-mplay aria-label="播放《'+esc(x.title)+'》"><span class="ms-ic" aria-hidden="true"></span></button>'+
     '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub?'<p class="ms-s">'+esc(x.sub)+'</p>':'')+'</div>'+
     '<span class="ms-tm">'+(x.dur?mmss(x.dur):'')+'</span>'+
-    '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(x.file))+'" download="'+esc(x.title+(/\.\w+$/.exec(x.file)||['.mp3'])[0])+'" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
+    '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(fileOf(x)))+'" download="'+esc(x.title+(/\.\w+$/.exec(fileOf(x))||['.mp3'])[0])+'" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
     '<button class="ms-ib share" type="button" data-share="music-'+esc(x.id)+'" aria-label="分享《'+esc(x.title)+'》">'+SHARE+'</button></span>'+
     '<div class="ms-bar"><i class="ms-pg" aria-hidden="true"><b></b></i></div></article>';}
   function render(){
@@ -4050,7 +4050,10 @@ window.Q4Hub=(function(){
     queue=ids;
   }
   var BASEA=(function(){var l=document.createElement('a');l.href=BASE;return l.href;})();   // 写成完整网址，和存在手机里的一致
-  function urlOf(x){return BASEA+encodeURIComponent(x.file);}
+  // OGG（Opus / Vorbis）较旧的苹果手机放不出来：放不了时改用备用的 AAC（list.json 里的 alt）
+  var PROBE=document.createElement('audio');
+  function fileOf(x){return x.alt&&x.type&&!(PROBE.canPlayType&&PROBE.canPlayType(x.type))?x.alt:x.file;}
+  function urlOf(x){return BASEA+encodeURIComponent(fileOf(x));}
   /* 听过的歌存在这台设备上（浏览器的 Cache Storage），下次直接从手机里播，不用再等网络。
      最多存 40 首，再多就先删已经不在清单里的、再删最久没听的 */
   var BOX='q4-music',MAXSAVE=40,saved={},tried={},saving='',unlocked=false;

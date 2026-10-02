@@ -15,6 +15,8 @@ MP3 / M4A / FLAC / WAV / 视频都可以，ZIP 压缩包会自动解开。
 存成 music/<编号>.m4a，曲名取自文件名（或歌曲标签），追加到 music/list.json；
 在 music/sources.json 里记下收过哪些文件，下次只收新的。
 --reencode：把已经收过的歌从原始文件按现在的格式重新压一遍（编号、曲名不变；--keep-old 时先留着旧文件）。
+--codec keep：不压缩，原样放上去（MP3 / M4A / OGG）。OGG（Opus、Vorbis）在较旧的苹果手机上放不出来，
+所以另外压一份 48 kbps HE-AAC 备用（list.json 里的 alt），网页按手机能不能放 OGG 自动选。
 """
 import argparse, hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.parse, urllib.request, zipfile
 
@@ -55,6 +57,8 @@ def clean_title(t):
     t = (t or '').strip()
     if ext(t) in EXT:
         t = os.path.splitext(t)[0]
+    t = re.sub(r'\s*\(\d{1,2}\)$', '', t)   # 下载重名时加的“(1)”
+    t = re.sub(r'\s*[-–—|｜]?\s*official\s+cover$', '', t, flags=re.I)
     if ' ' not in t and len(re.findall(r'[-_.]', t)) >= 2:   # “What-A-Friend-We-Have”“Be.Thou.My.Vision”
         t = re.sub(r'[-_.]+', ' ', t)
     t = JUNK.sub('', t)
@@ -85,6 +89,18 @@ def fmt_of(codec):
         print('fdkaac 不支持 HE-AAC，改用 AAC-LC 64 kbps', flush=True)
         return 'aac'
     return codec
+
+
+KEEP = {'.mp3': '', '.m4a': '', '.ogg': 'audio/ogg', '.oga': 'audio/ogg', '.opus': 'audio/ogg'}   # 可以原样放上去的格式
+
+
+def codec_name(path):
+    try:
+        out = run(['ffprobe', '-v', 'error', '-select_streams', 'a:0', '-show_entries', 'stream=codec_name', '-of', 'csv=p=0', path]).stdout
+        return out.strip()
+    except FileNotFoundError:
+        m = re.search(r'Audio:\s*(\w+)', subprocess.run(['ffmpeg', '-hide_banner', '-i', path], capture_output=True, text=True).stderr)
+        return m[1] if m else ''
 
 
 def encode(src, dst, codec, kbps):
@@ -184,7 +200,7 @@ def main():
     ap.add_argument('--release', default='', help='Release 的标签或名称')
     ap.add_argument('--dir', default='', help='本地放歌的文件夹')
     ap.add_argument('--music', default=os.path.join(ROOT, 'music'))
-    ap.add_argument('--codec', default='heaac', choices=sorted(FMT))
+    ap.add_argument('--codec', default='heaac', choices=sorted(FMT) + ['keep'])
     ap.add_argument('--reencode', action='store_true', help='把已收的歌换成现在的格式重新压一遍')
     ap.add_argument('--keep-old', action='store_true', help='重新压时先不删旧文件')
     a = ap.parse_args()
@@ -207,7 +223,8 @@ def main():
         sys.exit('请指定 --release 或 --dir')
     items = sorted((it for it in items if ext(it['name']) in EXT or ext(it['name']) == '.zip'), key=lambda x: x['name'].lower())
     todo = [it for it in items if it['key'] not in done]
-    codec = fmt_of(a.codec)
+    keep = a.codec == 'keep'
+    codec = fmt_of('heaac' if keep else a.codec)   # keep 时用它压备用的那一份，以及不能原样放的格式
     EXT_OUT, KBPS = FMT[codec]
     if a.reencode:
         return reencode(a, lst, done, items, codec, LIST, SRC)
@@ -227,8 +244,19 @@ def main():
         while any(s['id'] == sid and s.get('src') != name for s in lst['songs']):   # 编号撞了（极少见）就加个尾号
             sid, n = f'{base}{n}', n + 1
         kbps = KBPS if st['used'] + dur * KBPS * 125 <= SITE_BUDGET else KBPS * 2 // 3   # 快超过网站容量时自动压得更小
-        dst = os.path.join(a.music, sid + EXT_OUT)
-        encode(src, dst, codec, kbps)
+        extra = {}
+        if keep and ext(name) in KEEP:   # 原样放上去
+            out_ext = '.ogg' if KEEP[ext(name)] else ext(name)
+            dst = os.path.join(a.music, sid + out_ext)
+            shutil.copyfile(src, dst)
+            if KEEP[ext(name)]:   # OGG：注明编码，另压一份 HE-AAC 给放不了 OGG 的手机
+                extra['type'] = 'audio/ogg; codecs="%s"' % (codec_name(src) or 'opus')
+                encode(src, os.path.join(a.music, sid + EXT_OUT), codec, kbps)
+                extra['alt'] = sid + EXT_OUT
+        else:
+            out_ext = EXT_OUT
+            dst = os.path.join(a.music, sid + out_ext)
+            encode(src, dst, codec, kbps)
         size = os.path.getsize(dst)
         # 曲名：文件名可靠时用文件名（整理者自己起的），否则用歌曲标签
         cands = [name, tag_title] if named else [tag_title, re.sub(r'\.(?=.*\.)', ' ', name)]   # 附件名里的点原来是空格
@@ -239,15 +267,18 @@ def main():
         same = None if title == '未命名' else next((x for x in lst['songs'] if x['title'].lower() == title.lower() and x['id'] != sid and abs(x.get('dur', 0) - dur) <= 6), None)
         if same:
             os.remove(dst)
+            if extra.get('alt'):
+                os.remove(os.path.join(a.music, extra['alt']))
             done[key] = same['id']
             print(f'  已经有《{same["title"]}》，跳过', flush=True)
             return
-        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': sid + EXT_OUT, 'dur': round(dur), 'src': name}
+        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': os.path.basename(dst), 'dur': round(dur), 'src': name}
+        song.update(extra)
         lst['songs'] = [s for s in lst['songs'] if s['id'] != sid] + [song]
         done[key] = sid
         st['used'] += size
         st['added'] += 1
-        print(f'  → {sid}{EXT_OUT} 《{title}》 {dur / 60:.1f} 分钟，{size / 1048576:.1f} MB（{kbps} kbps）', flush=True)
+        print(f'  → {os.path.basename(dst)} 《{title}》 {dur / 60:.1f} 分钟，{size / 1048576:.1f} MB' + ('（原样）' if keep and ext(name) in KEEP else f'（{kbps} kbps）') + (f'，备用 {extra["alt"]}' if extra.get('alt') else ''), flush=True)
         if st['added'] % 10 == 0:   # 每收 10 首存一次，中途出问题也不白做
             save(LIST, SRC, lst, done)
 

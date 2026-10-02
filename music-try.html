@@ -3,82 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>音乐音质对比试听</title>
+<title>音乐格式对比试听</title>
 <meta name="robots" content="noindex">
 <style>
-:root{--paper:#F6F2EA;--surface:#fff;--ink:#1E2233;--muted:#6B6F80;--rule:#E3DCCD;--accent:#7A2233;--gold:#B8862A;--soft:#F3EBDD}
-@media (prefers-color-scheme:dark){:root{--paper:#11141A;--surface:#181C24;--ink:#E8EAEF;--muted:#949BAA;--rule:#2C323E;--accent:#E08A9A;--gold:#D8B46A;--soft:#20252F}}
+:root{--paper:#F6F2EA;--surface:#fff;--ink:#1E2233;--muted:#6B6F80;--rule:#E3DCCD;--accent:#7A2233;--gold:#B8862A;--soft:#F3EBDD;--warn:#9A5B12}
+@media (prefers-color-scheme:dark){:root{--paper:#11141A;--surface:#181C24;--ink:#E8EAEF;--muted:#949BAA;--rule:#2C323E;--accent:#E08A9A;--gold:#D8B46A;--soft:#20252F;--warn:#E3A35A}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 -apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
 main{max-width:640px;margin:0 auto;padding:24px 16px 60px}
 h1{font-size:1.5rem;margin:0 0 6px}
-h2{font-size:1.15rem;margin:28px 0 8px}
 .lead{color:var(--muted);margin:0 0 14px;font-size:.95rem}
-.key{background:var(--soft);border-radius:14px;padding:10px 14px;margin:0 0 14px;font-size:.92rem}
-.key p{margin:4px 0}
-.key b{display:inline-block;min-width:1.6em;color:var(--accent)}
-.tip{font-size:.9rem;color:var(--muted);margin:0 0 16px}
+.note{background:var(--soft);border-radius:14px;padding:10px 14px;margin:0 0 16px;font-size:.9rem}
+.note p{margin:4px 0}
+.warn{border:1px solid var(--warn);color:var(--warn);border-radius:12px;padding:8px 12px;margin:0 0 16px;font-size:.9rem}
 .card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:12px 16px 14px;margin:0 0 14px}
-.card h3{font-size:1.06rem;margin:0}
-.card .sub{color:var(--muted);font-size:.86rem;margin:0 0 6px}
-.row{margin:10px 0 0}
-.row .lab{display:flex;align-items:baseline;gap:8px;font-size:.92rem}
-.row .lab b{color:var(--accent);font-size:1rem}
-.row .lab span{color:var(--muted);font-size:.8rem;margin-left:auto;white-space:nowrap}
-audio{width:100%;height:40px;margin-top:2px}
-.btn{display:inline-block;margin:6px 0 0;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:none;color:var(--accent);font:inherit;font-size:.92rem;cursor:pointer}
-.btn.solid{background:var(--accent);color:var(--surface)}
-.ans{margin:8px 0 0;font-size:.92rem;color:var(--gold)}
-.end{background:var(--soft);border-radius:14px;padding:12px 16px;margin-top:22px;font-size:.94rem}
+.card h2{font-size:1.06rem;margin:0}
+.card .sub{color:var(--muted);font-size:.86rem;margin:0 0 4px}
+.row{margin:12px 0 0}
+.row .lab{font-size:.94rem;line-height:1.55}
+.row .lab b{color:var(--accent);margin-right:4px}
+.row .meta{display:block;color:var(--muted);font-size:.8rem}
+.row .no{color:var(--warn);font-size:.8rem}
+audio{width:100%;height:40px;margin-top:4px}
+.end{background:var(--soft);border-radius:14px;padding:12px 16px;margin-top:22px;font-size:.92rem}
 .end p{margin:6px 0}
 </style>
 </head>
 <body>
 <main>
-  <h1>音乐音质对比试听</h1>
-  <p class="lead">同一段歌，三个版本。音量都已经统一（和网页上一样），只差在压缩方式。特意挑了每首歌里<b>高音最多的一段</b>，这是最容易听出差别的地方。</p>
-  <div class="key">
-    <p><b>A</b>原始：你上传的文件，只统一了音量</p>
-    <p><b>B</b>现在：网页上正在用的（48 kbps，整个音乐栏目 95 MB）</p>
-    <p><b>C</b>备选：64 kbps（整个音乐栏目约 127 MB）</p>
+  <h1>音乐格式对比试听</h1>
+  <p class="lead">都是整首歌，下面标了每个文件的大小（越小打开越快、越不容易卡）。请戴上耳机，在安静的地方听。</p>
+  <div id="warn" class="warn" hidden>这台手机放不了 OGG（较旧的苹果手机常见），下面标着“OGG”的几项会播不出来。网页上的音乐栏目遇到这种手机会自动改放 AAC 备用版。</div>
+  <div class="note">
+    <p>· 你上传的 OGG 里面其实是 <b>Opus</b> 编码（OGG 里较新的一种，低码率时比 Vorbis 更好），所以这里的 OGG 都用 Opus。</p>
+    <p>· “原声”没有统一音量；其余的都和网页上一样统一了音量。声音大一点，人常常会觉得“更好听”，比较时请留意。</p>
   </div>
-  <p class="tip">请戴上耳机，在安静的地方听。留意镲片的“沙沙”声、“丝”这类齿音、气声和吉他弦的亮度。</p>
-
-  <div id="open"></div>
-
-  <h2>盲听小测验（可选）</h2>
-  <p class="tip">不看标签再听一次：下面每首的甲、乙、丙是随机打乱的。先猜哪个是 A 原始，再点“揭晓”。如果猜不出来，说明差别很小。</p>
-  <div id="blind"></div>
-
+  <div id="list"></div>
   <div class="end">
-    <p><b>怎么决定：</b></p>
-    <p>· 听不出 B 和 A 的差别 → 保持现在，不用改。</p>
-    <p>· B 明显发闷，而 C 和 A 差不多 → 告诉我“换成 64”，我把 82 首都重新压一遍。</p>
+    <p><b>怎么看：</b></p>
+    <p>· OGG（约 70 kbps）比现在的 AAC（48 kbps）文件大一半左右，听起来好一些是正常的；要看的是：多出来的大小值不值得。</p>
+    <p>· “再转成 AAC”是压了两遍，一般会比直接从原声压的差一点。</p>
+    <p>听完告诉我你的选择，例如“全部换成 OGG 70k”或“保持 AAC”，我就照着改。</p>
   </div>
 </main>
 <script>
-var BASE='audio/music-try/';
+var OGG='audio/ogg; codecs="opus"';
+var T='audio/music-try/';
 var SONGS=[
-  {id:'btmv',title:'Be Thou My Vision',sub:'成为我异象',from:'2:19'},
-  {id:'ag',title:'Awesome God',sub:'大能的神',from:'1:02'}
+  {title:'My Redeemer Is Faithful and True',sub:'我的救赎主信实又真实 · 你新上传的歌',rows:[
+    ['1','原声：你上传的 OGG','Opus 138 kbps · 3.69 MB · 网页上现在放的就是它','music/m8755065e.ogg',1],
+    ['2','OGG 压到 2 MB 以内','Opus 70 kbps · 1.87 MB',T+'rdm-ogg.ogg',1],
+    ['3','原声转成 AAC','HE-AAC 48 kbps · 1.30 MB · 放不了 OGG 的手机用的就是它','music/m8755065e.m4a',0],
+    ['4','第 2 个再转成 AAC','HE-AAC 48 kbps · 1.30 MB',T+'rdm-ogg-aac.m4a',0]]},
+  {title:'Be Thou My Vision',sub:'成为我异象',rows:[
+    ['1','网页上现在的 AAC','HE-AAC 48 kbps · 1.24 MB','music/be-thou-my-vision.m4a',0],
+    ['2','原声：你上传的 MP3','MP3 128 kbps · 3.26 MB',T+'btmv-orig.mp3',0],
+    ['3','原声转成 OGG，压到 2 MB 以内','Opus 71 kbps · 1.81 MB',T+'btmv-ogg.ogg',1],
+    ['4','第 3 个再转成 AAC','HE-AAC 48 kbps · 1.24 MB',T+'btmv-ogg-aac.m4a',0]]},
+  {title:'Awesome God',sub:'大能的神',rows:[
+    ['1','网页上现在的 AAC','HE-AAC 48 kbps · 0.63 MB','music/awesome-god.m4a',0],
+    ['2','原声：你上传的 MP3','MP3 128 kbps · 1.64 MB',T+'ag-orig.mp3',0],
+    ['3','原声转成 OGG，压到 2 MB 以内','Opus 72 kbps · 0.92 MB',T+'ag-ogg.ogg',1],
+    ['4','第 3 个再转成 AAC','HE-AAC 48 kbps · 0.63 MB',T+'ag-ogg-aac.m4a',0]]}
 ];
-var V={a:['A','原始','.mp3','1.4 MB'],b:['B','现在 48 kbps','.m4a','211 KB'],c:['C','备选 64 kbps','.m4a','280 KB']};
+var canOgg=!!document.createElement('audio').canPlayType(OGG);
+if(!canOgg)document.getElementById('warn').hidden=false;
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-function row(id,k,lab,note){return '<div class="row"><div class="lab"><b>'+lab+'</b>'+note+'</div><audio controls preload="none" src="'+BASE+id+'-'+k+V[k][2]+'"></audio></div>';}
-var h='',g='';
-SONGS.forEach(function(s,i){
-  h+='<section class="card"><h3>'+esc(s.title)+'</h3><p class="sub">'+esc(s.sub)+' · 从 '+s.from+' 开始的 35 秒</p>';
-  ['a','b','c'].forEach(function(k){h+=row(s.id,k,V[k][0],esc(V[k][1])+'<span>这一段 '+V[k][3]+'</span>');});
-  h+='</section>';
-  var ks=['a','b','c'];for(var j=2;j>0;j--){var r=Math.floor(Math.random()*(j+1)),t=ks[j];ks[j]=ks[r];ks[r]=t;}
-  var names=['甲','乙','丙'];
-  g+='<section class="card"><h3>'+esc(s.title)+'</h3>';
-  ks.forEach(function(k,n){g+=row(s.id,k,names[n],'');});
-  g+='<button type="button" class="btn" data-i="'+i+'">揭晓</button><p class="ans" hidden>'+ks.map(function(k,n){return names[n]+' = '+V[k][0]+'（'+V[k][1]+'）';}).join('　')+'</p></section>';
-});
-document.getElementById('open').innerHTML=h;
-document.getElementById('blind').innerHTML=g;
-document.addEventListener('click',function(e){var b=e.target.closest('.btn[data-i]');if(!b)return;b.nextElementSibling.hidden=false;b.hidden=true;});
+document.getElementById('list').innerHTML=SONGS.map(function(s){
+  return '<section class="card"><h2>'+esc(s.title)+'</h2><p class="sub">'+esc(s.sub)+'</p>'+s.rows.map(function(r){
+    return '<div class="row"><div class="lab"><b>'+r[0]+'</b>'+esc(r[1])+(r[4]&&!canOgg?' <span class="no">（这台手机放不了）</span>':'')+
+      '<span class="meta">'+esc(r[2])+'</span></div><audio controls preload="none" src="'+esc(r[3])+'"></audio></div>';
+  }).join('')+'</section>';
+}).join('');
 // 同一时间只播一个
 document.addEventListener('play',function(e){document.querySelectorAll('audio').forEach(function(x){if(x!==e.target)x.pause();});},true);
 </script>

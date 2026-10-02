@@ -84,7 +84,10 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
 3. 曲名用文件名（去掉“with lyrics”“Official Video”“歌词版”、开头的序号之类）；附件区的文件名不可靠时用歌曲标签。
    要改曲名、中文名（`sub`）、顺序，直接改 `list.json`。
 - 本地也能用：`python3 tools/q4/music_import.py --dir 放歌的文件夹`（需要 ffmpeg）。
-- 音质对比试听页：`music-try.html`（两首歌各取高音最多的 35 秒，A 原始只统一音量 / B 现在 48 kbps / C 64 kbps，片段在 `audio/music-try/`；带盲听小测验）。
+- 原样放上去：`--codec keep`（MP3 / M4A / OGG 不压缩）。OGG（Opus / Vorbis）在较旧的苹果手机上放不出来，所以另压一份 48 kbps HE-AAC，
+  `list.json` 里记 `type`（如 `audio/ogg; codecs="opus"`）和 `alt`（备用文件），网页用 `canPlayType` 判断这台手机能不能放，放不了就改放 `alt`。
+  现在《My Redeemer Is Faithful and True》就是这样放的（整理者上传的 Opus 138 kbps 原样，3.7 MB）。
+- 格式对比试听页：`music-try.html`（整首歌：网页现在的 AAC / 原声 / 原声转 OGG〔Opus 约 70 kbps，2 MB 以内〕/ OGG 再转 AAC；文件在 `audio/music-try/`）。
 
 ## 打开速度（大陆网络连 GitHub 比较慢）
 在线版 `index.html` 约 1.6 MB（压缩后约 430 KB），脚本在最后，整页下载完按钮才能用。为了不让人以为“卡了”：
