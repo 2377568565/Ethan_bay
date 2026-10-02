@@ -1,0 +1,12 @@
+name: history-check
+# 临时：核对《基督教两千年家谱》引用的网址能打开、页面里确实有相关内容（查完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/history-check.yml', 'tools/q4/history_sources.py']
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/q4/history_sources.py --check
