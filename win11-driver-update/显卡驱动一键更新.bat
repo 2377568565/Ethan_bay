@@ -74,7 +74,7 @@ function Test-Signed($file, $vendorPattern) {
 function Install-Package($file, $silentArgs, $name) {
     Write-Info "正在安装 $name（大约 3~10 分钟，屏幕可能会闪烁）..."
     $p = Start-Process -FilePath $file -ArgumentList $silentArgs -Wait -PassThru
-    if ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010 -or $p.ExitCode -eq 1) {
+    if ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010) {
         Write-Ok "$name 安装完成（返回码 $($p.ExitCode)）"
         return $true
     }
