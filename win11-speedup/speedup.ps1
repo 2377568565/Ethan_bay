@@ -42,6 +42,8 @@ $Explain = @{
     'wmiprvse'              = '系统管理组件'
     'audiodg'               = '系统声音'
     'powershell'            = '本脚本自身'
+    'qqpcrtp'               = '腾讯电脑管家实时防护（在扫描文件）'
+    'qqpctray'              = '腾讯电脑管家'
 }
 
 # 这些进程绝不提供“结束”选项
@@ -118,6 +120,23 @@ function Show-Bar($label, $pct) {
     Write-Host ("  {0}  [{1}] {2,3}%" -f $label, $bar, $pct) -ForegroundColor $color
 }
 
+function Test-DoubleAntivirus {
+    $tencent = Get-Process -Name QQPCRTP -ErrorAction SilentlyContinue
+    if (-not $tencent) { return $false }
+    $mode = ''
+    try { $mode = "$((Get-MpComputerStatus -ErrorAction Stop).AMRunningMode)" } catch { return $false }
+    return ($mode -eq 'Normal')
+}
+
+function Write-DoubleAntivirusHint {
+    Write-Bad '腾讯电脑管家和 Windows 自带杀毒（Defender）两个实时防护同时在运行！'
+    Write-Info '   每个新文件、每次下载都会被两个杀毒各扫一遍，还会互相扫对方的文件，CPU 和硬盘占用翻倍。'
+    Write-Info '   建议只留一个：'
+    Write-Info '   A. 只用 Windows 自带杀毒（推荐，轻、和系统集成好）：卸载腾讯电脑管家，Defender 会自动全面接手。'
+    Write-Info '   B. 只用腾讯电脑管家：在它的设置里接管 Windows 安全中心，接管成功后 Defender 会自动进入被动模式。'
+    Write-Info '      接管后再运行菜单 6，“登记的杀毒软件”里应能看到腾讯电脑管家。'
+}
+
 # ---------------------------------------------------------------------------
 # 1. 卡顿急救
 # ---------------------------------------------------------------------------
@@ -153,6 +172,7 @@ function Invoke-LagRescue {
         Write-Info '   新装的系统前几天尤其多：插着电源开机放一晚上让它跑完，之后会好很多。不要强行关掉它们。'
         $found = $true
     }
+    if (Test-DoubleAntivirus) { Write-DoubleAntivirusHint; $found = $true }
     if (-not $found) { Write-Ok '资源占用不高。如果仍然卡，多半是过热降频或驱动问题，可以运行菜单 4「电脑体检」' }
 
     # 列出最占资源的程序：CPU 前 8 + 内存前 5
@@ -409,6 +429,7 @@ function Invoke-DefenderTune {
     }
 
     Write-Info "运行模式：$mode —— 说明它现在是这台电脑的主力杀毒。"
+    if (Test-DoubleAntivirus) { Write-DoubleAntivirusHint }
     Write-Info '   如果上面列表里只有 Windows Defender、没有腾讯电脑管家，'
     Write-Info '   说明电脑管家没有接管系统杀毒，删掉 Defender 等于电脑没有完整的病毒防护。'
     Write-Info '   新装的系统它会先做一遍全盘扫描、更新病毒库，前几天占用高是正常的，之后会安静很多。'
