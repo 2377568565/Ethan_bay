@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """《基督教两千年家谱》页面引用的资料：编号 → (说明, 网址, 用来核对的关键词)。
 python3 tools/q4/history_sources.py --check 会逐个打开网址，核对页面里确实有这些关键词（GitHub 上的 history-check.yml 用它）。"""
-import json, re, sys, urllib.request
+import json, re, sys, urllib.parse, urllib.request
 
 B = 'https://www.britannica.com/'
 SRC = {
@@ -78,20 +78,81 @@ SRC = {
  'tjc':       ('真耶稣教会（1917年创立）', 'https://tjc.org/', ['True Jesus']),
 }
 
+NA = 'https://www.newadvent.org/'
+MORE = {   # 同一条资料的备选网址（第一个核对通过的就用它）
+ 'pliny':     ['https://sourcebooks.fordham.edu/source/pliny1.asp'],
+ 'ignatius':  ('伊格那丢《致马内夏人书》第9章（约公元110年）', NA + 'fathers/0105.htm', ['Magnesians']),
+ 'nicaea_ce': ('天主教百科全书：第一次尼西亚会议', NA + 'cathen/11044a.htm', ['Nicaea']),
+ 'creed_ce':  ('天主教百科全书：尼西亚信经', NA + 'cathen/11049a.htm', ['Creed']),
+ 'ephesus_ce':('天主教百科全书：以弗所会议', NA + 'cathen/05491a.htm', ['Nestorius']),
+ 'chalc_ce':  ('天主教百科全书：迦克墩会议', NA + 'cathen/03555a.htm', ['Chalcedon']),
+ 'schism_ce': ('天主教百科全书：东方分裂', NA + 'cathen/13535a.htm', ['Cerularius']),
+ 'wald_ce':   ('天主教百科全书：瓦典西人', NA + 'cathen/15527b.htm', ['Waldo']),
+ 'wyc_ce':    ('天主教百科全书：威克里夫', NA + 'cathen/15722a.htm', ['Wyclif']),
+ 'hus_ce':    ('天主教百科全书：胡斯', NA + 'cathen/07584b.htm', ['Huss']),
+ 'luther_ce': ('天主教百科全书：马丁·路德', NA + 'cathen/09438b.htm', ['Luther']),
+ 'theses_txt':('《九十五条论纲》全文（英译）', 'https://www.luther.de/en/95thesen.html', ['indulgence']),
+ 'schleitheim':('《施莱特海姆信条》（1527年，重洗派）', 'https://gameo.org/index.php?title=Schleitheim_Confession_(Anabaptist,_1527)', ['Schleitheim']),
+ 'lbc1689':   ('《1689年伦敦浸信会信条》', 'https://www.the1689confession.com/', ['Baptist']),
+ 'sdb_org':   ('安息日浸信会总会', 'https://seventhdaybaptist.org/', ['Sabbath']),
+ 'ag_hist':   ('神召会历史（1914年）', 'https://ag.org/About/About-the-AG/History', ['1914']),
+ 'egw_est':   ('怀爱伦著作托管会：怀爱伦生平', 'https://whiteestate.org/about/egwbio/', ['Ellen']),
+ 'wcrc2':     ('世界归正教会联盟', 'https://wcrc.eu/', ['Reformed']),
+ 'bwa2':      ('世界浸信会联盟', 'https://baptistworld.org/', ['Baptist']),
+}
+for k, v in MORE.items():
+    if isinstance(v, list):
+        d, u, w = SRC[k]; SRC[k] = (d, [u] + v, w)
+    else:
+        SRC[k] = v
+
+UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
+
+
+def fetch(url):
+    r = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': UA, 'Accept-Language': 'en'}), timeout=60)
+    return r.status, r.geturl(), r.read().decode('utf-8', 'replace')
+
+
+def wayback(url):
+    """网站拒绝程序访问时，用网页时光机（archive.org）存的副本核对内容"""
+    j = json.load(urllib.request.urlopen('https://archive.org/wayback/available?url=' + urllib.parse.quote(url, safe=''), timeout=60))
+    snap = (j.get('archived_snapshots') or {}).get('closest') or {}
+    if not snap.get('available'):
+        raise RuntimeError('网页时光机里没有')
+    return fetch(snap['url'])[2], snap.get('timestamp', '')
+
+
 def check():
-    ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
+    import time
     out = {}
-    for k, (desc, url, keys) in SRC.items():
-        try:
-            r = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': ua, 'Accept-Language': 'en'}), timeout=40)
-            body = r.read().decode('utf-8', 'replace')
-            title = re.sub(r'\s+', ' ', (re.search(r'<title[^>]*>(.*?)</title>', body, re.S | re.I) or [None, ''])[1]).strip()[:90]
+    for k, (desc, urls, keys) in SRC.items():
+        urls = urls if isinstance(urls, list) else [urls]
+        res = None
+        for url in urls:
+            host = urllib.parse.urlsplit(url).netloc
+            for attempt in range(3):
+                try:
+                    if 'adventist.org' in host:
+                        time.sleep(4)
+                    st, final, body = fetch(url); how = 'live'
+                    break
+                except Exception as e:
+                    code = getattr(e, 'code', 0)
+                    if code == 429 and attempt < 2:
+                        time.sleep(15 * (attempt + 1)); continue
+                    try:
+                        body, ts = wayback(url); st, final, how = code, url, 'archive ' + ts
+                    except Exception as e2:
+                        st, final, body, how = code, url, '', 'fail: ' + str(e)[:60] + ' / ' + str(e2)[:60]
+                    break
+            title = re.sub(r'\s+', ' ', (re.search(r'<title[^>]*>(.*?)</title>', body, re.S | re.I) or [None, ''])[1]).strip()[:80]
             miss = [w for w in keys if w.lower() not in body.lower()]
-            out[k] = {'ok': not miss, 'status': r.status, 'final': r.geturl(), 'title': title, 'missing': miss}
-        except Exception as e:
-            out[k] = {'ok': False, 'status': getattr(e, 'code', 0), 'error': str(e)[:120]}
-        o = out[k]
-        print(('OK  ' if o['ok'] else 'BAD ') + k, o.get('status'), o.get('final', url) if o.get('final') != url else '', o.get('title', o.get('error', '')), ('缺 ' + str(o['missing'])) if o.get('missing') else '', flush=True)
+            res = {'ok': bool(body) and not miss, 'url': url, 'final': final, 'how': how, 'status': st, 'title': title, 'missing': miss}
+            if res['ok']:
+                break
+        out[k] = res
+        print(('OK  ' if res['ok'] else 'BAD ') + k.ljust(12), res['how'][:30].ljust(30), res['url'], '|', res['title'], ('缺' + str(res['missing'])) if res['missing'] and res['title'] else '', flush=True)
     print(sum(o['ok'] for o in out.values()), '/', len(out), '可用')
     return out
 
