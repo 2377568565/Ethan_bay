@@ -2,7 +2,7 @@
  "note": "改动这个文件并推送，就会把 release（标签或名称）里的新歌收进音乐栏目（只收新的），放进 folder 写的文件夹（没有就新建；不写就放进“某年某月 新收录”）。codec：opus（OGG，约 70 kbps，现在用的）/ heaac / aac / mp3 / keep（原样）；reencode=true 时把已收的歌按 codec 重新压一遍。",
  "release": "Music",
  "rev": 3,
- "codec": "heaac",
+ "codec": "opus",
  "reencode": false,
  "folder": ""
 }
