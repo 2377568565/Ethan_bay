@@ -71,16 +71,20 @@ function Test-Signed($file, $vendorPattern) {
     return $false
 }
 
-function Install-Package($file, $silentArgs, $name) {
+# 判断装没装好以“驱动版本有没有变成新的”为准；安装程序的返回码各家不统一（Intel 装好了也可能返回 1000）
+function Install-Package($file, $silentArgs, $name, $check) {
     Write-Info "正在安装 $name（大约 3~10 分钟，屏幕可能会闪烁）..."
     $p = Start-Process -FilePath $file -ArgumentList $silentArgs -Wait -PassThru
-    if ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010) {
+    Start-Sleep -Seconds 3
+    if ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010 -or (& $check)) {
         Write-Ok "$name 安装完成（返回码 $($p.ExitCode)）"
         return $true
     }
     Write-Bad "$name 静默安装没成功（返回码 $($p.ExitCode)），改为打开安装界面，请按提示一路点“下一步”"
+    Write-Host '       装完后点安装界面上的“完成”（不要点“立即重启”），本窗口会接着往下走。' -ForegroundColor Yellow
     $p = Start-Process -FilePath $file -Wait -PassThru
-    return ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010)
+    Start-Sleep -Seconds 3
+    return ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010 -or (& $check))
 }
 
 function Get-GpuVersion($pattern) {
@@ -145,7 +149,7 @@ if (-not $intelOld) {
         $file = Join-Path $WorkDir ([IO.Path]::GetFileName($intelUrl))
         if (Get-Download @($intelUrl) $file) {
             if (Test-Signed $file 'Intel') {
-                if (Install-Package $file '-s' 'Intel 核显驱动') { $installed += 'Intel 核显驱动' }
+                if (Install-Package $file '-s' 'Intel 核显驱动' { $v = Get-GpuVersion 'Intel'; $v -and $v -ne $intelOld }) { $installed += 'Intel 核显驱动' }
             }
         } else {
             Write-Bad 'Intel 驱动下载失败。可以手动打开下面的网页下载安装：'
@@ -198,7 +202,7 @@ if (-not $nvOld) {
             if (Get-Download @($nvUrl, $alt) $file) {
                 if (Test-Signed $file 'NVIDIA') {
                     # -s 静默，-clean 清洁安装（清掉旧驱动的残留设置），-noreboot 最后统一重启
-                    if (Install-Package $file '-s -clean -noreboot -noeula' 'NVIDIA 显卡驱动') { $installed += 'NVIDIA 显卡驱动' }
+                    if (Install-Package $file '-s -clean -noreboot -noeula' 'NVIDIA 显卡驱动' { $v = Get-GpuVersion 'NVIDIA'; $v -and $v -ne $nvOld }) { $installed += 'NVIDIA 显卡驱动' }
                 }
             } else {
                 Write-Bad 'NVIDIA 驱动下载失败。请手动打开 https://www.nvidia.cn/drivers/ 选 GeForce MX150 下载安装'
