@@ -10,7 +10,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.F
 if errorlevel 1 pause
 exit /b
 #>
-# 黑屏深度诊断：分析蓝屏转储找出“肇事”驱动、显卡错误详情、第三方驱动、崩溃前后的系统事件、开机方式统计
+# 黑屏深度诊断：分析蓝屏转储找出「肇事」驱动、显卡错误详情、第三方驱动、崩溃前后的系统事件、开机方式统计
 # 只读取信息；唯一会安装东西的是微软官方调试工具 WinDbg（用来读蓝屏文件），安装前会先问你。
 
 $ErrorActionPreference = 'Continue'
@@ -19,7 +19,7 @@ try { $Host.UI.RawUI.WindowTitle = '黑屏深度诊断' } catch {}
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。' -ForegroundColor Yellow
+    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。' -ForegroundColor Yellow
     exit 1
 }
 
@@ -163,7 +163,7 @@ foreach ($m in @(Get-CimInstance Win32_PhysicalMemory)) {
     Out-Info ("{0} {1}  {2} GB  {3} MHz  电压 {4} mV  类型代码 {5}" -f "$($m.Manufacturer)".Trim(), "$($m.PartNumber)".Trim(), [math]::Round($m.Capacity / 1GB), $m.ConfiguredClockSpeed, $m.ConfiguredVoltage, $m.SMBIOSMemoryType)
     if ("$($m.PartNumber)" -match 'HMA82G6AFR8N-UH') {
         Out-Ok '这是 SK hynix 原厂 16GB DDR4-2400 笔记本内存（双面 2Rx8），规格和这台电脑完全匹配，纸面兼容性没问题'
-        Out-Info '   但“规格对”不等于“这根条子没坏”，蓝屏 0x50 仍然需要做内存检测来排除'
+        Out-Info '   但「规格对」不等于「这根条子没坏」，蓝屏 0x50 仍然需要做内存检测来排除'
     }
 }
 $md = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-MemoryDiagnostics-Results' })
@@ -210,7 +210,7 @@ if ($dumps.Count -eq 0) {
                 winget install --id Microsoft.WinDbg -e --accept-source-agreements --accept-package-agreements
                 $cdb = Find-Cdb
             } else {
-                Out-Bad '这台电脑没有 winget，请在微软应用商店搜索“WinDbg”安装，然后再运行一次本诊断'
+                Out-Bad '这台电脑没有 winget，请在微软应用商店搜索「WinDbg」安装，然后再运行一次本诊断'
             }
         }
     }
@@ -235,12 +235,12 @@ if ($dumps.Count -eq 0) {
             else { Out-Bad "肇事驱动是 $n" }
         }
         if (-not $img.Success) {
-            Out-Bad '没能自动读出肇事驱动（可能符号没下载成功）。请把桌面上的“蓝屏分析详情.txt”发给我；'
+            Out-Bad '没能自动读出肇事驱动（可能符号没下载成功）。请把桌面上的「蓝屏分析详情.txt」发给我；'
             Out-Info '   或者下载 NirSoft 的 BlueScreenView（免费绿色版）打开 C:\Windows\Minidump 查看。'
         }
         Out-Info '完整分析已保存到桌面：蓝屏分析详情.txt'
     } else {
-        Out-Info '没有分析转储文件。也可以下载 NirSoft 的 BlueScreenView（免费绿色版）打开 C:\Windows\Minidump 查看“肇事驱动”。'
+        Out-Info '没有分析转储文件。也可以下载 NirSoft 的 BlueScreenView（免费绿色版）打开 C:\Windows\Minidump 查看「肇事驱动」。'
     }
 }
 
@@ -248,7 +248,7 @@ if ($dumps.Count -eq 0) {
 $reportPath = Join-Path $desktop '黑屏深度诊断报告.txt'
 try {
     $report | Out-File -LiteralPath $reportPath -Encoding UTF8
-    Write-Host "`n报告已保存到桌面：黑屏深度诊断报告.txt（还有“蓝屏分析详情.txt”如果生成了的话），发给我分析" -ForegroundColor Green
+    Write-Host "`n报告已保存到桌面：黑屏深度诊断报告.txt（还有「蓝屏分析详情.txt」如果生成了的话），发给我分析" -ForegroundColor Green
 } catch {}
 Write-Host ''
 Read-Host '按回车关闭' | Out-Null

@@ -11,7 +11,7 @@ if errorlevel 1 pause
 exit /b
 #>
 # 全面体检：软件 + 硬件，重点找蓝屏的真正原因
-# 只读取信息；最后的“系统文件修复”“内存检测”都会先问你。
+# 只读取信息；最后的「系统文件修复」「内存检测」都会先问你。
 # 每写一行就立刻存到桌面的报告里——就算中途蓝屏，已经查完的部分也不会丢。
 
 $ErrorActionPreference = 'Continue'
@@ -20,7 +20,7 @@ try { $Host.UI.RawUI.WindowTitle = '全面体检' } catch {}
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。' -ForegroundColor Yellow
+    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。' -ForegroundColor Yellow
     exit 1
 }
 
@@ -88,7 +88,7 @@ $crashSinceBoot = @(Get-ChildItem -LiteralPath (Join-Path $env:WINDIR 'Minidump'
 if ($kp41.Count -gt 0) { $findings.Add("最近 3 天有 $($kp41.Count) 次蓝屏/死机") }
 
 # ---------------------------------------------------------------------------
-Out-Title '4. 逐个分析蓝屏文件，找出“肇事者”'
+Out-Title '4. 逐个分析蓝屏文件，找出「肇事者」'
 function Find-Cdb {
     foreach ($p in @("${env:ProgramFiles(x86)}\Windows Kits\10\Debuggers\x64\cdb.exe", "$env:ProgramFiles\Windows Kits\10\Debuggers\x64\cdb.exe")) {
         if (Test-Path -LiteralPath $p) { return $p }
@@ -107,7 +107,7 @@ $cdb = Find-Cdb
 if ($dumps.Count -eq 0) {
     Out-Info '没有蓝屏文件'
 } elseif (-not $cdb) {
-    Out-Bad '没装 WinDbg，无法分析（运行“黑屏深度诊断.bat”问到时输入 y 安装）'
+    Out-Bad '没装 WinDbg，无法分析（运行「黑屏深度诊断.bat」问到时输入 y 安装）'
 } else {
     $symDir = Join-Path $env:SystemDrive 'symbols'
     foreach ($d in $dumps) {
@@ -246,7 +246,7 @@ if ($ans -match '^[yY]') {
     sfc.exe /scannow
     Add-Content -LiteralPath $ReportPath -Value "`n系统文件修复已运行，返回码 $LASTEXITCODE" -Encoding UTF8
 }
-$ans = Read-Host '  运行 Windows 内存检测（会弹窗让你选“立即重启并检查”，约 15~30 分钟）？输入 y 回车，直接回车跳过'
+$ans = Read-Host '  运行 Windows 内存检测（会弹窗让你选「立即重启并检查」，约 15~30 分钟）？输入 y 回车，直接回车跳过'
 if ($ans -match '^[yY]') { Start-Process mdsched.exe }
 
 Read-Host '按回车关闭' | Out-Null

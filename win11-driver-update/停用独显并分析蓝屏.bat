@@ -13,7 +13,7 @@ exit /b
 # 停用独显并分析蓝屏：
 #   1. 停用 NVIDIA MX150（先问你）。笔记本屏幕由 Intel 核显显示，停用后照常使用，NVIDIA 驱动不再运行就不会再因它蓝屏
 #   2. 用 WinDbg 分析最近 3 次蓝屏，确认肇事驱动
-# 想恢复独显：设备管理器 -> 显示适配器（或“其他设备”）-> 右键 NVIDIA / 视频控制器 -> 启用设备
+# 想恢复独显：设备管理器 -> 显示适配器（或「其他设备」）-> 右键 NVIDIA / 视频控制器 -> 启用设备
 
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
@@ -21,7 +21,7 @@ try { $Host.UI.RawUI.WindowTitle = '停用独显并分析蓝屏' } catch {}
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。' -ForegroundColor Yellow
+    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。' -ForegroundColor Yellow
     exit 1
 }
 
@@ -40,7 +40,7 @@ Out-Line "停用独显并分析蓝屏    $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
 
 # ---------------------------------------------------------------------------
 Out-Title '1. 找到 NVIDIA 独显（不管它现在在哪个分类、有没有驱动）'
-# VEN_10DE = NVIDIA；驱动装一半时它可能不在“显示适配器”里，而在“其他设备”里叫“视频控制器 / 3D 视频控制器”
+# VEN_10DE = NVIDIA；驱动装一半时它可能不在「显示适配器」里，而在「其他设备」里叫「视频控制器 / 3D 视频控制器」
 $nv = @(Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Where-Object { $_.InstanceId -match '^PCI\\VEN_10DE' })
 if ($nv.Count -eq 0) {
     Out-Bad '没找到 NVIDIA 设备（可能已经被停用或 BIOS 里关掉了）'
@@ -88,7 +88,7 @@ $culprits = @()
 if ($dumps.Count -eq 0) {
     Out-Info '没有蓝屏转储文件'
 } elseif (-not $cdb) {
-    Out-Bad '没找到 WinDbg（先运行一次“黑屏深度诊断.bat”并在问到时输入 y 安装）'
+    Out-Bad '没找到 WinDbg（先运行一次「黑屏深度诊断.bat」并在问到时输入 y 安装）'
 } else {
     $symDir = Join-Path $env:SystemDrive 'symbols'
     $desktop = [Environment]::GetFolderPath('Desktop')

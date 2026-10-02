@@ -88,7 +88,7 @@ namespace AudioFix {
             return id;
         }
 
-        // 取消所有“已启用”的播放设备的静音；音量低于 minVolume 时调到 setVolume
+        // 取消所有「已启用」的播放设备的静音；音量低于 minVolume 时调到 setVolume
         public static EndpointInfo[] UnmuteAll(float minVolume, float setVolume) {
             var result = new List<EndpointInfo>();
             var en = (IMMDeviceEnumerator)new MMDeviceEnumerator();
@@ -252,7 +252,7 @@ if ($count -gt 0) {
 } else {
     Write-Host "`n仍然没有可用的播放设备。请按下面的顺序检查：" -ForegroundColor Yellow
     Write-Host '  1. 耳机/音箱是否插好；外接显示器的话，喇叭可能走的是 HDMI'
-    Write-Host '  2. 到电脑品牌官网（联想/戴尔/惠普/华硕等）下载并安装对应型号的“音频驱动”'
+    Write-Host '  2. 到电脑品牌官网（联想/戴尔/惠普/华硕等）下载并安装对应型号的「音频驱动」'
     Write-Host '  3. 设置 -> Windows 更新 -> 高级选项 -> 可选更新 里安装音频相关驱动'
     Write-Host '  4. 设置 -> 系统 -> 声音 -> 疑难解答'
 }

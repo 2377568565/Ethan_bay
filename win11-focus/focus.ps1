@@ -39,7 +39,7 @@ public static class FocusNative {
         return (int)pid;
     }
 
-    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的“动画效果”开关
+    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的「动画效果」开关
     public static bool GetAnimation() {
         int v = 1;
         SystemParametersInfo(0x1042, 0, ref v, 0);
@@ -59,7 +59,7 @@ $ClassicMenuKey = 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905b
 # 专注模式要改的设置（每一项都会先备份原值）
 $Tweaks = @(
     @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl'; Name = 'Win32PrioritySeparation'; Type = 'DWord'; Value = 38;
-       Desc = '前台程序获得更多 CPU 时间（系统“调整以优化程序性能”的加强版）' },
+       Desc = '前台程序获得更多 CPU 时间（系统「调整以优化程序性能」的加强版）' },
     @{ Key = 'HKCU:\Control Panel\Desktop'; Name = 'MenuShowDelay'; Type = 'String'; Value = '100';
        Desc = '菜单弹出等待时间 400 毫秒 -> 100 毫秒' },
     @{ Key = 'HKCU:\Control Panel\Desktop\WindowMetrics'; Name = 'MinAnimate'; Type = 'String'; Value = '0';
@@ -98,7 +98,7 @@ function Get-FocusStatus {
 function Enable-FocusMode {
     Write-Title '开启专注模式'
     if (-not (Test-Path -LiteralPath $BackupFile)) {
-        # 只在第一次开启时备份，避免重复开启时把“原始值”覆盖掉
+        # 只在第一次开启时备份，避免重复开启时把「原始值」覆盖掉
         $backup = @{
             Tweaks      = @(foreach ($t in $Tweaks) {
                               $cur = Get-RegValue $t.Key $t.Name
@@ -129,7 +129,7 @@ function Enable-FocusMode {
     try {
         New-Item -Path "$ClassicMenuKey\InprocServer32" -Force | Out-Null
         Set-Item -Path "$ClassicMenuKey\InprocServer32" -Value '' -ErrorAction Stop
-        Write-Ok '右键菜单换成经典样式，弹出更快（不用再点“显示更多选项”）'
+        Write-Ok '右键菜单换成经典样式，弹出更快（不用再点「显示更多选项」）'
     } catch {
         Write-Bad "右键菜单设置失败：$($_.Exception.Message)"
     }
@@ -140,7 +140,7 @@ function Enable-FocusMode {
     Write-Ok '专注模式已开启。部分动画设置要注销或重启一次后完全生效。'
 
     Write-Title '建议顺手做：关掉没用的开机自启动'
-    Write-Info '马上为你打开任务管理器的“启动应用”页面：'
+    Write-Info '马上为你打开任务管理器的「启动应用」页面：'
     Write-Info '把不认识/用不到的（如各种更新助手、网盘、播放器、电脑管家等）右键 -> 禁用。'
     Write-Info '禁用只是不让它开机自动运行，软件本身还在，随时可以再启用。'
     try { Start-Process taskmgr.exe -ArgumentList '/0 /startup' } catch { Start-Process taskmgr.exe }
@@ -154,7 +154,7 @@ function Show-DiskHint {
         $pd = Get-PhysicalDisk -ErrorAction Stop | Where-Object { $_.DeviceId -eq "$dn" }
         if ($pd -and "$($pd.MediaType)" -eq 'HDD') {
             Write-Title '重要发现'
-            Write-Bad '系统装在机械硬盘上！这是“打开软件/网页慢”的头号原因。'
+            Write-Bad '系统装在机械硬盘上！这是「打开软件/网页慢」的头号原因。'
             Write-Info '   换一块固态硬盘（几百块钱）重装系统，打开速度通常能快好几倍，比任何优化都管用。'
         }
     } catch {}
@@ -316,7 +316,7 @@ while ($true) {
     Write-Host ("  专注模式：{0}" -f (Get-FocusStatus))
     Write-Host '  1. 开启专注模式   前台程序优先、关动画和透明、右键菜单秒开、禁后台应用'
     Write-Host '  2. 实时专注       窗口开着时，持续给当前程序提速、给后台程序降速'
-    Write-Host '  3. 管理开机自启   打开任务管理器的“启动应用”页面'
+    Write-Host '  3. 管理开机自启   打开任务管理器的「启动应用」页面'
     Write-Host '  4. 恢复默认       撤销第 1 项的全部改动'
     Write-Host '  0. 退出'
     $choice = Read-Host '请输入数字后回车'

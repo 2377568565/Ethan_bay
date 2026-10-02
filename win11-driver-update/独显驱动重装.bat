@@ -28,7 +28,7 @@ function Write-Info($m)  { Write-Host "  $m" }
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。'
+    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。'
     exit 1
 }
 
@@ -65,7 +65,7 @@ $UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
 # ---------------------------------------------------------------------------
 $Referer = 'https://www.nvidia.com/'
 
-# 系统代理（clash 等打开“系统代理”后写在这里）
+# 系统代理（clash 等打开「系统代理」后写在这里）
 function Get-SystemProxy {
     try {
         $p = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -ErrorAction Stop
@@ -167,7 +167,7 @@ try {
     Enable-ComputerRestore -Drive "$env:SystemDrive\" -ErrorAction SilentlyContinue
     New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore' -Name SystemRestorePointCreationFrequency -Value 0 -PropertyType DWord -Force | Out-Null
     Checkpoint-Computer -Description '重装独显驱动之前' -RestorePointType MODIFY_SETTINGS -ErrorAction Stop
-    Write-Ok '已创建还原点“重装独显驱动之前”'
+    Write-Ok '已创建还原点「重装独显驱动之前」'
 } catch {
     Write-Bad "还原点没创建成功：$($_.Exception.Message)"
     $ans = Read-Host '  没有还原点也继续吗？输入 y 继续，直接回车退出'
@@ -248,7 +248,7 @@ Write-Progress -Id 1 -ParentId 0 -Activity '删除旧驱动包' -Completed
 $dsKey = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching'
 New-Item -Path $dsKey -Force | Out-Null
 Set-ItemProperty -Path $dsKey -Name SearchOrderConfig -Value 0 -Type DWord
-Write-Ok '已关闭“自动从 Windows 更新下载驱动”（以后想打开：设置 -> 系统 -> 系统信息 -> 高级系统设置 -> 硬件 -> 设备安装设置 -> 是）'
+Write-Ok '已关闭「自动从 Windows 更新下载驱动」（以后想打开：设置 -> 系统 -> 系统信息 -> 高级系统设置 -> 硬件 -> 设备安装设置 -> 是）'
 
 # ---------------------------------------------------------------------------
 Set-Step 6 '重新启用独显（现在没有 NVIDIA 驱动，不会崩）'
@@ -315,7 +315,7 @@ if ($ok) {
     exit 0
 }
 
-Write-Info '重启后运行“驱动安装检查.bat”，把报告发给我。如果之后又蓝屏，运行“停用独显并分析蓝屏.bat”把独显停用。'
+Write-Info '重启后运行「驱动安装检查.bat」，把报告发给我。如果之后又蓝屏，运行「停用独显并分析蓝屏.bat」把独显停用。'
 Write-Host ''
 Write-Host '  60 秒后自动重启，按 N 取消。' -ForegroundColor Yellow
 $cancel = $false

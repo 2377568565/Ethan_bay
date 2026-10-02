@@ -12,7 +12,7 @@ exit /b
 #>
 # 驱动安装检查（独显重装后用）：
 #   新 NVIDIA 驱动有没有装上、MX150 错误代码 43 有没有消失、显卡能不能真正工作、重装之后有没有再蓝屏（并分析是谁造成的）
-# 只读取信息；唯一的改动“停用 MX150”只在它仍然出错时才会问你，不同意就不改。
+# 只读取信息；唯一的改动「停用 MX150」只在它仍然出错时才会问你，不同意就不改。
 # 报告保存到桌面：驱动安装检查报告.txt（边查边存，中途蓝屏也不会丢）
 
 $ErrorActionPreference = 'Continue'
@@ -21,7 +21,7 @@ try { $Host.UI.RawUI.WindowTitle = '驱动安装检查' } catch {}
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。' -ForegroundColor Yellow
+    Write-Host '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。' -ForegroundColor Yellow
     exit 1
 }
 
@@ -50,7 +50,7 @@ function Get-NvShort($ver) {
 $os = Get-CimInstance Win32_OperatingSystem
 Out-Line "驱动安装检查报告    生成时间：$(Get-Date -Format 'yyyy-MM-dd HH:mm')    本次开机：$($os.LastBootUpTime.ToString('yyyy-MM-dd HH:mm'))" 'Cyan'
 
-# 以最近一次“重装独显驱动之前”（没有就用“更新显卡驱动之前”）还原点的时间作为起点
+# 以最近一次「重装独显驱动之前」（没有就用「更新显卡驱动之前」）还原点的时间作为起点
 $since = (Get-Date).AddDays(-1)
 $sinceName = ''
 try {
@@ -65,7 +65,7 @@ try {
 
 # ---------------------------------------------------------------------------
 Out-Title '1. 还原点'
-if ($sinceName) { Out-Ok ("还原点“{0}”（{1:MM-dd HH:mm}）存在，出问题可以退回。下面的稳定性从这个时间开始统计" -f $sinceName, $since) }
+if ($sinceName) { Out-Ok ("还原点「{0}」（{1:MM-dd HH:mm}）存在，出问题可以退回。下面的稳定性从这个时间开始统计" -f $sinceName, $since) }
 else { Out-Bad '没找到重装前的还原点，稳定性按最近 24 小时统计' }
 
 # ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ foreach ($d in @(Get-PnpDevice -PresentOnly -ErrorAction SilentlyContinue | Wher
 }
 if (-not $nvFound) { Out-Bad '没找到 NVIDIA 显卡' }
 
-# 让 NVIDIA 显卡“说句话”：nvidia-smi 能读出显卡信息，说明显卡和驱动真的能一起工作
+# 让 NVIDIA 显卡「说句话」：nvidia-smi 能读出显卡信息，说明显卡和驱动真的能一起工作
 $smiOk = $false
 $smi = Join-Path $env:WINDIR 'System32\nvidia-smi.exe'
 if ((Test-Path -LiteralPath $smi) -and -not $nvDisabled) {
@@ -119,7 +119,7 @@ $nvErr = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'nv
 $whea = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-WHEA-Logger'; StartTime = $since })
 $dumps = @(Get-ChildItem -LiteralPath (Join-Path $env:WINDIR 'Minidump') -Filter *.dmp -ErrorAction SilentlyContinue | Where-Object { $_.LastWriteTime -ge $since } | Sort-Object LastWriteTime -Descending)
 if ($kp41.Count -eq 0) { Out-Ok '没有蓝屏 / 死机' } else { Out-Bad "蓝屏 / 死机 $($kp41.Count) 次" }
-if ($tdr.Count -eq 0) { Out-Ok '没有“显卡驱动停止响应”' } else { Out-Bad "显卡驱动停止响应后恢复 $($tdr.Count) 次" }
+if ($tdr.Count -eq 0) { Out-Ok '没有「显卡驱动停止响应」' } else { Out-Bad "显卡驱动停止响应后恢复 $($tdr.Count) 次" }
 if ($nvErr.Count -eq 0) { Out-Ok '没有 NVIDIA 驱动报错' } else { Out-Bad "NVIDIA 驱动报错 $($nvErr.Count) 次" }
 if ($whea.Count -eq 0) { Out-Ok '没有硬件错误' } else { Out-Bad "硬件错误 $($whea.Count) 条" }
 
@@ -170,7 +170,7 @@ if ($nvDisabled) {
     else { Out-Bad "重装后又蓝屏 $($kp41.Count) 次，肇事模块：$((@($culprits | Sort-Object -Unique)) -join '、')。把报告发给我。" }
 } elseif (-not $nvOk) {
     $verdict = 'notinstalled'
-    Out-Bad '新驱动没装上。把“独显驱动重装”窗口的截图和本报告发给我。'
+    Out-Bad '新驱动没装上。把「独显驱动重装」窗口的截图和本报告发给我。'
 } else {
     Out-Bad "MX150 有其他错误（代码 $nvCode），把报告发给我。"
 }

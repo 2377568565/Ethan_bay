@@ -21,7 +21,7 @@ function Write-Info($m)  { Write-Host "  $m" }
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。'
+    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。'
     exit 1
 }
 try { $Host.UI.RawUI.WindowTitle = "一键回收内存" } catch {}

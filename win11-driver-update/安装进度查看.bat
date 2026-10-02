@@ -10,7 +10,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.F
 if errorlevel 1 pause
 exit /b
 #>
-# 安装进度查看：每 3 秒刷新一次，看“显卡驱动一键更新”是不是还在干活（只看不改）。按 Q 退出。
+# 安装进度查看：每 3 秒刷新一次，看「显卡驱动一键更新」是不是还在干活（只看不改）。按 Q 退出。
 
 $ErrorActionPreference = 'SilentlyContinue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}

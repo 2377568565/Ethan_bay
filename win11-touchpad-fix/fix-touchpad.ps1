@@ -78,19 +78,19 @@ $k = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad\Status'
 $en = $null
 try { $en = (Get-ItemProperty -Path $k -Name Enabled -ErrorAction Stop).Enabled } catch {}
 if ($en -eq 0) {
-    Write-Bad '触摸板在系统设置里被关掉了！马上为你打开设置页面，把“触摸板”开关打开即可'
+    Write-Bad '触摸板在系统设置里被关掉了！马上为你打开设置页面，把「触摸板」开关打开即可'
 } else {
     Write-Info '为你打开触摸板设置页面，请确认：'
 }
-Write-Info '   1) 最上面的“触摸板”开关是“开”'
-Write-Info '   2) 展开它，勾选“连接鼠标时让触摸板保持打开状态”（不勾的话插着鼠标触摸板会自动失效）'
+Write-Info '   1) 最上面的「触摸板」开关是「开」'
+Write-Info '   2) 展开它，勾选「连接鼠标时让触摸板保持打开状态」（不勾的话插着鼠标触摸板会自动失效）'
 Start-Process 'ms-settings:devices-touchpad'
 
 if ($needDriver) {
     Write-Host "`n下一步：安装缺失的驱动" -ForegroundColor Yellow
     Write-Info '方法 1：设置 -> Windows 更新 -> 高级选项 -> 可选更新 -> 驱动程序更新，全部勾上安装，然后重启'
-    Write-Info '方法 2：去机械革命官网“服务支持”，按型号下载“芯片组 / Serial IO / 触摸板”驱动安装'
-    Write-Info '方法 3：用 Intel 官方的“英特尔驱动程序和支持助理”自动检测安装'
+    Write-Info '方法 2：去机械革命官网「服务支持」，按型号下载「芯片组 / Serial IO / 触摸板」驱动安装'
+    Write-Info '方法 3：用 Intel 官方的「英特尔驱动程序和支持助理」自动检测安装'
     try { Start-Process 'ms-settings:windowsupdate-optionalupdates' } catch {}
 }
 

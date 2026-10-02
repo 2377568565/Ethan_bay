@@ -27,7 +27,7 @@ function Write-Info($m)  { Write-Host "  $m" }
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。'
+    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。'
     exit 1
 }
 
@@ -42,7 +42,7 @@ Write-Host '  全程需要联网，下载约 1GB，插上电源。' -ForegroundC
 # ---------------------------------------------------------------------------
 $Referer = 'https://www.nvidia.com/'
 
-# 系统代理（clash 等打开“系统代理”后写在这里）
+# 系统代理（clash 等打开「系统代理」后写在这里）
 function Get-SystemProxy {
     try {
         $p = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -ErrorAction Stop
@@ -131,7 +131,7 @@ function Test-Signed($file, $vendorPattern) {
     return $false
 }
 
-# 判断装没装好以“驱动版本有没有变成新的”为准；安装程序的返回码各家不统一（Intel 装好了也可能返回 1000）
+# 判断装没装好以「驱动版本有没有变成新的」为准；安装程序的返回码各家不统一（Intel 装好了也可能返回 1000）
 function Install-Package($file, $silentArgs, $name, $check) {
     Write-Info "正在安装 $name（大约 3~10 分钟，屏幕可能会闪烁）..."
     $p = Start-Process -FilePath $file -ArgumentList $silentArgs -Wait -PassThru
@@ -140,8 +140,8 @@ function Install-Package($file, $silentArgs, $name, $check) {
         Write-Ok "$name 安装完成（返回码 $($p.ExitCode)）"
         return $true
     }
-    Write-Bad "$name 静默安装没成功（返回码 $($p.ExitCode)），改为打开安装界面，请按提示一路点“下一步”"
-    Write-Host '       装完后点安装界面上的“完成”（不要点“立即重启”），本窗口会接着往下走。' -ForegroundColor Yellow
+    Write-Bad "$name 静默安装没成功（返回码 $($p.ExitCode)），改为打开安装界面，请按提示一路点「下一步」"
+    Write-Host '       装完后点安装界面上的「完成」（不要点「立即重启」），本窗口会接着往下走。' -ForegroundColor Yellow
     $p = Start-Process -FilePath $file -Wait -PassThru
     Start-Sleep -Seconds 3
     return ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010 -or (& $check))
@@ -162,7 +162,7 @@ try {
     # 默认 24 小时内只能建一个还原点，临时放开
     New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore' -Name SystemRestorePointCreationFrequency -Value 0 -PropertyType DWord -Force | Out-Null
     Checkpoint-Computer -Description '更新显卡驱动之前' -RestorePointType MODIFY_SETTINGS -ErrorAction Stop
-    Write-Ok '已创建还原点“更新显卡驱动之前”（出问题时：设置 -> 系统 -> 恢复 -> 高级启动 -> 系统还原）'
+    Write-Ok '已创建还原点「更新显卡驱动之前」（出问题时：设置 -> 系统 -> 恢复 -> 高级启动 -> 系统还原）'
 } catch {
     Write-Bad "还原点没创建成功：$($_.Exception.Message)"
     $ans = Read-Host '  没有还原点也继续安装吗？输入 y 继续，直接回车退出'
@@ -288,7 +288,7 @@ if ($installed.Count -eq 0) {
     exit 0
 }
 Write-Ok ("已安装：{0}" -f ($installed -join '、'))
-Write-Info '重启之后新驱动才会完全生效。重启后可以再运行一次“黑屏深度诊断.bat”，看 MX150 的错误代码 43 还在不在。'
+Write-Info '重启之后新驱动才会完全生效。重启后可以再运行一次「黑屏深度诊断.bat」，看 MX150 的错误代码 43 还在不在。'
 Write-Info '安装包在 %TEMP%\DriverUpdate，确认没问题后可以删掉。'
 Write-Host ''
 Write-Host '  60 秒后自动重启。请先保存好正在编辑的文件。按 N 键取消重启。' -ForegroundColor Yellow

@@ -244,7 +244,7 @@ Write-Ok ('磁盘垃圾共清理约 {0} MB' -f [math]::Round($total / 1MB))
 
 if (Test-Path -LiteralPath "$env:SystemDrive\Windows.old") {
     Write-Bad '发现 C:\Windows.old（重装前的旧系统，通常有十几到几十 GB）'
-    Write-Info '   确认不需要旧系统里的文件后，可以在：设置 -> 系统 -> 存储 -> 临时文件 -> 勾选“以前的 Windows 安装” -> 删除'
+    Write-Info '   确认不需要旧系统里的文件后，可以在：设置 -> 系统 -> 存储 -> 临时文件 -> 勾选「以前的 Windows 安装」 -> 删除'
 }
 
 # ---------------------------------------------------------------------------

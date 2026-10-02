@@ -10,7 +10,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.F
 if errorlevel 1 pause
 exit /b
 #>
-# 恢复默认设置：撤销“老电脑一键加速”第 1 步（专注模式）和第 2 步（降温）的全部改动
+# 恢复默认设置：撤销「老电脑一键加速」第 1 步（专注模式）和第 2 步（降温）的全部改动
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
 
@@ -21,7 +21,7 @@ function Write-Info($m)  { Write-Host "  $m" }
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。'
+    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。'
     exit 1
 }
 try { $Host.UI.RawUI.WindowTitle = "恢复默认设置" } catch {}
@@ -46,7 +46,7 @@ public static class FocusNative {
         return (int)pid;
     }
 
-    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的“动画效果”开关
+    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的「动画效果」开关
     public static bool GetAnimation() {
         int v = 1;
         SystemParametersInfo(0x1042, 0, ref v, 0);

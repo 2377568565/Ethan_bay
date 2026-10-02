@@ -46,7 +46,7 @@ $Explain = @{
     'qqpctray'              = '腾讯电脑管家'
 }
 
-# 这些进程绝不提供“结束”选项
+# 这些进程绝不提供「结束」选项
 $ProtectedNames = @(
     'system', 'idle', 'registry', 'memory compression', 'smss', 'csrss', 'wininit', 'winlogon',
     'services', 'lsass', 'lsaiso', 'svchost', 'dwm', 'explorer', 'fontdrvhost', 'sihost', 'ctfmon',
@@ -134,7 +134,7 @@ function Write-DoubleAntivirusHint {
     Write-Info '   建议只留一个：'
     Write-Info '   A. 只用 Windows 自带杀毒（推荐，轻、和系统集成好）：卸载腾讯电脑管家，Defender 会自动全面接手。'
     Write-Info '   B. 只用腾讯电脑管家：在它的设置里接管 Windows 安全中心，接管成功后 Defender 会自动进入被动模式。'
-    Write-Info '      接管后再运行菜单 6，“登记的杀毒软件”里应能看到腾讯电脑管家。'
+    Write-Info '      接管后再运行菜单 6，「登记的杀毒软件」里应能看到腾讯电脑管家。'
 }
 
 # ---------------------------------------------------------------------------
@@ -161,14 +161,14 @@ function Invoke-LagRescue {
         Write-Bad 'CPU 频率被压得很低，很可能是过热降频 —— 建议开启菜单 2「降温模式」，并清灰换硅脂'
         $found = $true
     }
-    # 系统后台任务专挑“电脑空闲”时运行，所以常见“放一会儿再回来就很卡”
+    # 系统后台任务专挑「电脑空闲」时运行，所以常见「放一会儿再回来就很卡」
     $bgNames = 'msmpeng', 'mpdefendercoreservice', 'tiworker', 'trustedinstaller', 'mousocoreworker',
                'searchindexer', 'searchprotocolhost', 'searchfilterhost', 'compattelrunner'
     $bg = @($s.Procs | Where-Object { $bgNames -contains $_.Name.ToLower() -and $_.Cpu -ge 5 })
     if ($bg.Count -gt 0) {
         $bgCpu = [math]::Round(($bg | Measure-Object Cpu -Sum).Sum)
         Write-Bad "系统后台任务（杀毒扫描 / 系统更新 / 搜索索引）正在占用约 $bgCpu% 的 CPU"
-        Write-Info '   Windows 会专门挑电脑“空闲没人用”的时候做这些事，所以放一会儿再回来会特别卡。'
+        Write-Info '   Windows 会专门挑电脑「空闲没人用」的时候做这些事，所以放一会儿再回来会特别卡。'
         Write-Info '   新装的系统前几天尤其多：插着电源开机放一晚上让它跑完，之后会好很多。不要强行关掉它们。'
         $found = $true
     }
@@ -242,7 +242,7 @@ function Clear-TempFiles {
 # ---------------------------------------------------------------------------
 function Get-MaxCpuState {
     $out = (powercfg /q SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 2>$null) -join "`n"
-    # 输出最后两个十六进制值分别是“插电”和“电池”时的设置
+    # 输出最后两个十六进制值分别是「插电」和「电池」时的设置
     $m = [regex]::Matches($out, '0x([0-9a-fA-F]{8})')
     if ($m.Count -ge 2) {
         return @([Convert]::ToInt32($m[$m.Count - 2].Groups[1].Value, 16),
@@ -266,11 +266,11 @@ function Get-CoolModeText {
 
 function Enable-CoolMode {
     Write-Title '开启降温模式'
-    # 高性能 / 卓越性能方案发热大，先切回“平衡”
+    # 高性能 / 卓越性能方案发热大，先切回「平衡」
     $active = (powercfg /getactivescheme) -join ''
     if ($active -match '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c|e9a42b02-d5df-448d-aa00-03f14749eb61') {
         powercfg /setactive SCHEME_BALANCED | Out-Null
-        Write-Ok '电源计划已从“高性能”切回“平衡”'
+        Write-Ok '电源计划已从「高性能」切回「平衡」'
     }
     Set-MaxCpuState 99
     Write-Ok 'CPU 最大状态设为 99%（= 关闭睿频）'
@@ -299,7 +299,7 @@ function Invoke-Checkup {
     $up = (Get-Date) - $os.LastBootUpTime
     Write-Info ("已连续运行：{0} 天 {1} 小时" -f $up.Days, $up.Hours)
     if ($up.TotalDays -gt 3) {
-        Write-Bad '很久没重启了。注意“关机”在 Win11 下不会真正清空，要点“重启”才行'
+        Write-Bad '很久没重启了。注意「关机」在 Win11 下不会真正清空，要点「重启」才行'
     }
 
     Write-Title '内存条'
@@ -353,7 +353,7 @@ function Invoke-Checkup {
             Write-Info "   - $n"
         }
         Write-Info '   解决：设置 -> Windows 更新 -> 高级选项 -> 可选更新 -> 驱动程序更新，全部安装；'
-        Write-Info '         或去机械革命官网“服务支持”下载对应型号的驱动（芯片组、散热/电源管理驱动尤其重要）'
+        Write-Info '         或去机械革命官网「服务支持」下载对应型号的驱动（芯片组、散热/电源管理驱动尤其重要）'
     }
 
     Write-Title '温度与散热'
@@ -387,7 +387,7 @@ function Invoke-Checkup {
     Write-Info "共 $($startup.Count) 个开机自启动项："
     foreach ($st in $startup) { Write-Info "   - $($st.Name)" }
     if ($startup.Count -gt 6) {
-        Write-Bad '自启动项偏多。按 Ctrl+Shift+Esc 打开任务管理器 -> 启动应用，把用不到的设为“已禁用”'
+        Write-Bad '自启动项偏多。按 Ctrl+Shift+Esc 打开任务管理器 -> 启动应用，把用不到的设为「已禁用」'
     }
 
     Write-Title '建议'

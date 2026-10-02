@@ -11,7 +11,7 @@ if errorlevel 1 pause
 exit /b
 #>
 # 老电脑一键加速：开启专注模式 -> 降低 CPU 温度 -> 磁盘清理 -> 回收内存 -> 实时专注（后台小窗口）-> 关闭占 CPU 的程序（需确认）
-# 原则: 只删缓存和临时文件，不碰个人文件和回收站；系统进程不碰；专注模式设置可用“恢复默认设置.bat”撤销。
+# 原则: 只删缓存和临时文件，不碰个人文件和回收站；系统进程不碰；专注模式设置可用「恢复默认设置.bat」撤销。
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
 
@@ -22,7 +22,7 @@ function Write-Info($m)  { Write-Host "  $m" }
 
 $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点“是”。'
+    Write-Bad '需要管理员权限，请双击 bat 文件并在弹窗里点「是」。'
     exit 1
 }
 try { $Host.UI.RawUI.WindowTitle = "老电脑一键加速" } catch {}
@@ -107,7 +107,7 @@ public static class FocusNative {
         return (int)pid;
     }
 
-    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的“动画效果”开关
+    // SPI_GETCLIENTAREAANIMATION / SPI_SETCLIENTAREAANIMATION：系统设置里的「动画效果」开关
     public static bool GetAnimation() {
         int v = 1;
         SystemParametersInfo(0x1042, 0, ref v, 0);
@@ -209,7 +209,7 @@ $CoolBackupFile = Join-Path $BackupDir 'cooling-backup.json'
 $CoolSettings = @(
     @{ Alias = 'PERFBOOSTMODE';   Value = 0;  Desc = '彻底关闭睿频（最有效的一项，满载温度通常降 10~20 度）' },
     @{ Alias = 'PROCTHROTTLEMAX'; Value = 99; Desc = 'CPU 最大状态 99%（关闭睿频的双保险）' },
-    @{ Alias = 'SYSCOOLPOL';      Value = 1;  Desc = '散热方式改为“主动”：先让风扇转快，不够再降频' }
+    @{ Alias = 'SYSCOOLPOL';      Value = 1;  Desc = '散热方式改为「主动」：先让风扇转快，不够再降频' }
 )
 
 function Get-ActiveSchemeGuid {
@@ -218,7 +218,7 @@ function Get-ActiveSchemeGuid {
     return $null
 }
 
-# 读取电源设置的当前值；输出里最后两个十六进制数分别是“插电”和“电池”时的值
+# 读取电源设置的当前值；输出里最后两个十六进制数分别是「插电」和「电池」时的值
 function Get-PowerValue($scheme, $alias) {
     # 用 /qh：睿频、散热方式默认是隐藏设置，/q 查不到
     $out = (powercfg /qh $scheme SUB_PROCESSOR $alias 2>$null) -join "`n"
@@ -231,11 +231,11 @@ function Get-PowerValue($scheme, $alias) {
 }
 
 function Enable-Cooling {
-    # 高性能 / 卓越性能方案发热大，先切回“平衡”
+    # 高性能 / 卓越性能方案发热大，先切回「平衡」
     $origScheme = Get-ActiveSchemeGuid
     if ($origScheme -match '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c|e9a42b02-d5df-448d-aa00-03f14749eb61') {
         powercfg /setactive SCHEME_BALANCED | Out-Null
-        Write-Ok '电源计划从“高性能”切回“平衡”'
+        Write-Ok '电源计划从「高性能」切回「平衡」'
     }
     $scheme = Get-ActiveSchemeGuid
     if (-not $scheme) { Write-Bad '读取不到电源计划，跳过降温设置'; return }
@@ -293,7 +293,7 @@ function Enable-Cooling {
     $boost = Get-PowerValue $scheme 'PERFBOOSTMODE'
     if ($boost -and $boost.AC -eq 0 -and $boost.DC -eq 0) {
         Write-Ok '验证：睿频已关闭（插电和电池都生效）'
-        Write-Info '   自己确认：任务管理器 -> 性能 -> CPU，“速度”以后最高只会到 1.8 GHz 左右（以前会冲到 3~4 GHz）'
+        Write-Info '   自己确认：任务管理器 -> 性能 -> CPU，「速度」以后最高只会到 1.8 GHz 左右（以前会冲到 3~4 GHz）'
     }
 
     try {
@@ -303,7 +303,7 @@ function Enable-Cooling {
 
     if ($firstTime) {
         Write-Info ''
-        Write-Info '软件能做的是“少发热”；如果这样还是很烫，就是散热硬件的问题了：'
+        Write-Info '软件能做的是「少发热」；如果这样还是很烫，就是散热硬件的问题了：'
         Write-Info '   - 2018 年的笔记本，风扇积灰、硅脂干了最常见：找电脑店清灰 + 换硅脂，通常再降 15~25 度'
         Write-Info '   - 别放在床上/被子上用，底部进风口堵住会很烫；垫个散热支架效果明显'
     }
@@ -419,7 +419,7 @@ if (-not $needApply) {
 } else {
     $firstTime = -not (Test-Path -LiteralPath $BackupFile)
     if ($firstTime) {
-        # 只在第一次开启时备份，避免把“原始值”覆盖掉
+        # 只在第一次开启时备份，避免把「原始值」覆盖掉
         $backup = @{
             Tweaks      = @(foreach ($t in $Tweaks) {
                               $cur = Get-RegValue $t.Key $t.Name
@@ -430,7 +430,7 @@ if (-not $needApply) {
         }
         New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
         $backup | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $BackupFile -Encoding UTF8
-        Write-Ok '原设置已备份（用“恢复默认设置.bat”可一键撤销）'
+        Write-Ok '原设置已备份（用「恢复默认设置.bat」可一键撤销）'
     }
     foreach ($t in $Tweaks) {
         try {
@@ -523,7 +523,7 @@ if ($running) {
     Write-Ok '实时专注已经在运行了，跳过'
 } else {
     Start-Process powershell.exe -WindowStyle Minimized -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `$env:PCFOCUS_MODE='live'; Invoke-Expression ([IO.File]::ReadAllText(`$env:PCFOCUS_SELF, [Text.Encoding]::UTF8))"
-    Write-Ok '实时专注已在后台启动（任务栏上最小化的“实时专注”窗口）'
+    Write-Ok '实时专注已在后台启动（任务栏上最小化的「实时专注」窗口）'
     Write-Info '   它会一直给你正在用的程序提速、给后台程序降速。'
     Write-Info '   不用时点开那个窗口按 Q 退出，所有程序自动恢复原样。'
 }
