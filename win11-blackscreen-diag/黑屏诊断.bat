@@ -42,7 +42,8 @@ $since = (Get-Date).AddDays(-$Days)
 function Get-SysEvents($provider, $ids) {
     $f = @{ LogName = 'System'; StartTime = $since; ProviderName = $provider }
     if ($ids) { $f.Id = $ids }
-    return @(Get-WinEvent -FilterHashtable $f -ErrorAction SilentlyContinue)
+    # 日志来源不存在时 Get-WinEvent 会直接报错（The parameter is incorrect），这里吞掉
+    try { return @(Get-WinEvent -FilterHashtable $f -ErrorAction Stop) } catch { return @() }
 }
 
 function Get-EventField($e, $name) {
@@ -193,7 +194,8 @@ if ($mods.Count -eq 1) {
     Out-Info '开机时主板要先“认”内存条，认不好就卡在这一步，画面出不来。'
     $findings.Add('重点怀疑新换的 16G 内存条：做内存检测（下面可一键启动）；最直接的验证是换回原来的 8G 用几天，黑屏不再出现就是新内存条的问题，找卖家换一根兼容性好的（DDR4 2400/2666，单根 16G）')
 }
-$memDiag = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-MemoryDiagnostics-Results' } -MaxEvents 1 -ErrorAction SilentlyContinue)
+$memDiag = @()
+try { $memDiag = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-MemoryDiagnostics-Results' } -MaxEvents 1 -ErrorAction Stop) } catch {}
 if ($memDiag.Count -gt 0) {
     Out-Info ("上次内存检测（{0:yyyy-MM-dd}）：{1}" -f $memDiag[0].TimeCreated, ($memDiag[0].Message -split "`n")[0])
 } else {

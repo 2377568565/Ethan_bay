@@ -42,6 +42,9 @@ function Get-EventField($e, $name) {
     } catch {}
     return ''
 }
+# 日志来源不存在时 Get-WinEvent 会直接报错（The parameter is incorrect），统一吞掉
+function Get-EvSafe { try { Get-WinEvent @args -ErrorAction Stop } catch { } }
+
 function To-Hex($v) {
     try { return ('0x{0:X}' -f [uint64]$v) } catch { return "$v" }
 }
@@ -61,7 +64,7 @@ Out-Info "系统安装日期：$($os.InstallDate)    本次开机：$($os.LastBo
 
 # ---------------------------------------------------------------------------
 Out-Title '2. 所有蓝屏 / 意外关机记录（含参数）'
-$kp41 = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Power'; Id = 41; StartTime = $since } -ErrorAction SilentlyContinue)
+$kp41 = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Power'; Id = 41; StartTime = $since })
 $crashTimes = @()
 foreach ($e in ($kp41 | Sort-Object TimeCreated)) {
     $bug = Get-EventField $e 'BugcheckCode'
@@ -70,9 +73,9 @@ foreach ($e in ($kp41 | Sort-Object TimeCreated)) {
     $crashTimes += $e.TimeCreated
 }
 if ($kp41.Count -eq 0) { Out-Ok '没有意外关机记录' }
-$bc = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-WER-SystemErrorReporting'; Id = 1001; StartTime = $since } -ErrorAction SilentlyContinue)
+$bc = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-WER-SystemErrorReporting'; Id = 1001; StartTime = $since })
 foreach ($e in $bc) { Out-Info ("{0:yyyy-MM-dd HH:mm}  {1}" -f $e.TimeCreated, (($e.Message -replace '\s+', ' ').Trim())) }
-$u6008 = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'EventLog'; Id = 6008; StartTime = $since } -ErrorAction SilentlyContinue)
+$u6008 = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'EventLog'; Id = 6008; StartTime = $since })
 foreach ($e in $u6008) { Out-Info ("{0:yyyy-MM-dd HH:mm}  {1}" -f $e.TimeCreated, (($e.Message -replace '\s+', ' ').Trim())) }
 
 # ---------------------------------------------------------------------------
@@ -81,9 +84,9 @@ foreach ($t in $crashTimes) {
     # 意外关机记录是在下一次开机时写的，往前找上一次开机之前的最后一批事件
     $prevEvents = @()
     foreach ($log in 'System', 'Application') {
-        $prevEvents += @(Get-WinEvent -FilterHashtable @{ LogName = $log; StartTime = $t.AddHours(-12); EndTime = $t.AddSeconds(-1); Level = 1, 2, 3 } -ErrorAction SilentlyContinue)
+        $prevEvents += @(Get-EvSafe -FilterHashtable @{ LogName = $log; StartTime = $t.AddHours(-12); EndTime = $t.AddSeconds(-1); Level = 1, 2, 3 })
     }
-    $bootStart = Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-General'; Id = 12; StartTime = $t.AddMinutes(-10); EndTime = $t.AddMinutes(1) } -MaxEvents 1 -ErrorAction SilentlyContinue
+    $bootStart = Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-General'; Id = 12; StartTime = $t.AddMinutes(-10); EndTime = $t.AddMinutes(1) } -MaxEvents 1
     if ($bootStart) { $prevEvents = @($prevEvents | Where-Object { $_.TimeCreated -lt $bootStart.TimeCreated }) }
     $last = $prevEvents | Sort-Object TimeCreated -Descending | Select-Object -First 1
     Out-Info ("-- {0:yyyy-MM-dd HH:mm} 那次 --" -f $t)
@@ -99,7 +102,7 @@ if ($crashTimes.Count -eq 0) { Out-Info '没有可分析的意外关机' }
 
 # ---------------------------------------------------------------------------
 Out-Title '4. 开机方式统计（快速启动 / 冷启动 / 休眠恢复）'
-$kb = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Boot'; Id = 27; StartTime = $since } -ErrorAction SilentlyContinue)
+$kb = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Boot'; Id = 27; StartTime = $since })
 $types = @{ '0' = 0; '1' = 0; '2' = 0 }
 foreach ($e in $kb) {
     $bt = Get-EventField $e 'BootType'
@@ -125,7 +128,7 @@ foreach ($svc in 'NVDisplay.ContainerLocalSystem', 'igfxCUIService2.0.0.0', 'cpl
 }
 $nvPkgs = @(pnputil /enum-drivers 2>$null | Out-String) -split "(\r?\n){2,}" | Where-Object { $_ -match 'nvidia|nvlddmkm|nv_dispi|nvmi|nvhm' }
 Out-Info "系统里的 NVIDIA 驱动包：$($nvPkgs.Count) 个"
-$nvEvents = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'nvlddmkm'; StartTime = $since } -ErrorAction SilentlyContinue)
+$nvEvents = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'nvlddmkm'; StartTime = $since })
 Out-Info "NVIDIA 驱动报错事件：$($nvEvents.Count) 条"
 
 # ---------------------------------------------------------------------------
@@ -163,7 +166,7 @@ foreach ($m in @(Get-CimInstance Win32_PhysicalMemory)) {
         Out-Info '   但“规格对”不等于“这根条子没坏”，蓝屏 0x50 仍然需要做内存检测来排除'
     }
 }
-$md = @(Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-MemoryDiagnostics-Results' } -ErrorAction SilentlyContinue)
+$md = @(Get-EvSafe -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-MemoryDiagnostics-Results' })
 foreach ($e in $md) { Out-Info ("内存检测 {0:yyyy-MM-dd}：{1}" -f $e.TimeCreated, (($e.Message -replace '\s+', ' ').Trim())) }
 if ($md.Count -eq 0) { Out-Bad '还没有做过内存检测' }
 
