@@ -62,13 +62,6 @@ function Get-FolderMB($p) {
 }
 
 $UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 Edg/130.0'
-$WorkDir = Join-Path $env:TEMP 'DriverUpdate'
-New-Item -ItemType Directory -Path $WorkDir -Force | Out-Null
-
-Write-Host ''
-Write-Host '  注意：安装显卡驱动时屏幕会闪烁、黑几秒，都是正常的，请不要强制关机，也不要合上盖子。' -ForegroundColor Yellow
-Write-Host '  全程需要联网，下载约 1GB，插上电源。' -ForegroundColor Yellow
-
 # ---------------------------------------------------------------------------
 $Referer = 'https://www.nvidia.com/'
 
@@ -187,10 +180,18 @@ $WorkDir = Join-Path $env:TEMP 'DriverUpdate'
 New-Item -ItemType Directory -Path $WorkDir -Force | Out-Null
 $pkg = Get-ChildItem -LiteralPath $WorkDir -Filter '*notebook*.exe' -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 $file = $null
+$signedOk = $false
 if ($pkg -and $pkg.Length -gt 100MB) {
-    Write-Ok "使用之前下载好的：$($pkg.Name)"
-    $file = $pkg.FullName
-} else {
+    Write-Info "找到之前下载好的：$($pkg.Name)，先校验它是否完整"
+    if (Test-Signed $pkg.FullName 'NVIDIA') {
+        $file = $pkg.FullName
+        $signedOk = $true
+    } else {
+        Write-Bad '之前下载的文件不完整或损坏，删掉重新下载'
+        Remove-Item -LiteralPath $pkg.FullName -Force -ErrorAction SilentlyContinue
+    }
+}
+if (-not $file) {
     $nvUrl = $null
     foreach ($apiHost in 'gfwsl.geforce.com', 'gfwsl.geforce.cn') {
         foreach ($osId in 135, 57) {
@@ -211,7 +212,7 @@ if ($pkg -and $pkg.Length -gt 100MB) {
     }
 }
 if (-not $file) { Write-Bad '没拿到 NVIDIA 驱动安装包。到这里为止没有改动任何东西。关掉 clash 再试，或把截图发给我。'; Read-Host '按回车关闭' | Out-Null; exit 0 }
-if (-not (Test-Signed $file 'NVIDIA')) { Read-Host '按回车关闭' | Out-Null; exit 0 }
+if (-not $signedOk -and -not (Test-Signed $file 'NVIDIA')) { Read-Host '按回车关闭' | Out-Null; exit 0 }
 $target = ''
 if ([IO.Path]::GetFileName($file) -match '^(\d{3}\.\d{2})') { $target = $Matches[1] }
 Write-Info "将要安装的版本：$target"
@@ -230,7 +231,8 @@ Start-Sleep -Seconds 3
 
 # ---------------------------------------------------------------------------
 Set-Step 5 '删除系统里所有 NVIDIA 驱动包（旧的和装了一半的）'
-$pkgs = @(Invoke-WithProgress '列出系统里的第三方驱动包' { Get-WindowsDriver -Online -ErrorAction SilentlyContinue | Where-Object { $_.ProviderName -match 'NVIDIA' } | Select-Object Driver, OriginalFileName, Version, ClassName } 60 @())
+$pkgs = @(Invoke-WithProgress '列出系统里的第三方驱动包' { Get-WindowsDriver -Online -ErrorAction SilentlyContinue | Where-Object { $_.ProviderName -match 'NVIDIA' } | Select-Object Driver, OriginalFileName, Version, ClassName } 60 @() |
+    Where-Object { $_ -and $_.Driver })
 if ($pkgs.Count -eq 0) { Write-Ok '没有 NVIDIA 驱动包需要删除' }
 $k = 0
 foreach ($p in $pkgs) {
@@ -262,8 +264,11 @@ $proc = Start-Process -FilePath $file -ArgumentList '-s -clean -noreboot -noeula
 $null = $proc.Handle   # 先取一次句柄，结束后才能读到返回码
 $sw = [Diagnostics.Stopwatch]::StartNew()
 $estSec = 600
+$maxSec = 40 * 60
 $phase = ''
+$timedOut = $false
 while ($true) {
+    if ($sw.Elapsed.TotalSeconds -gt $maxSec) { $timedOut = $true; break }
     $children = @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
         ($_.ExecutablePath -match '\\NVIDIA' -and $_.Name -match 'setup|nvi2|install') -or $_.Name -match '^(drvinst|dpinst)\.exe$' })
     $running = (-not $proc.HasExited) -or $children.Count -gt 0
@@ -276,14 +281,19 @@ while ($true) {
         $phase = '正在安装驱动组件'
         $pct = [math]::Min(90, 35 + [int]($sw.Elapsed.TotalSeconds / $estSec * 55))
     } else {
-        $phase = "正在解压安装包（已解压 $extracted MB）"
-        $pct = [math]::Min(35, [int]($extracted / 1500 * 35))
+        $phase = '正在解压安装包'
+        if ($extracted -gt 0) { $phase += "（已解压 $extracted MB）" }
+        $pct = [math]::Min(35, [math]::Max([int]($extracted / 1500 * 35), [int]($sw.Elapsed.TotalSeconds / 180 * 30)))
     }
     Write-Progress -Id 1 -ParentId 0 -Activity '安装 NVIDIA 驱动' -Status ("{0}    已用时 {1:mm\:ss}，通常 5~10 分钟" -f $phase, $sw.Elapsed) -PercentComplete $pct
     Start-Sleep -Seconds 2
 }
 Write-Progress -Id 1 -ParentId 0 -Activity '安装 NVIDIA 驱动' -Completed
-Write-Info ("安装程序结束，用时 {0:mm\:ss}，返回码 {1}" -f $sw.Elapsed, $proc.ExitCode)
+if ($timedOut) {
+    Write-Bad '已经等了 40 分钟，安装还没有结束。不再等待，直接检查结果（安装程序可能还在后台运行）。'
+} else {
+    Write-Info ("安装程序结束，用时 {0:mm\:ss}，返回码 {1}" -f $sw.Elapsed, $proc.ExitCode)
+}
 Start-Sleep -Seconds 5
 
 # ---------------------------------------------------------------------------
