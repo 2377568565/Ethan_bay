@@ -149,7 +149,7 @@ MORE = {   # 同一条资料的备选网址（第一个核对通过的就用它�
  'menno_wiki':('门诺·西门斯（维基百科英文版）', 'https://en.wikipedia.org/wiki/Menno_Simons', ['Mennonite']),
  # 第六轮
  'larue':     ('复临百科全书（ESDA）：拉鲁（Abram La Rue, 1822—1903）', ['https://encyclopedia.adventist.org/assets/pdf/article-7cjp.pdf', 'https://www.adventist.asia/news/how-did-one-mans-journey-start-a-global-movement-1/', 'https://sites.google.com/site/adventisminchina/individuals/1-expatriates/larue'], ['Hong']),
- 'gc1863':    ('全球总会的成立（1863年5月21日，125间教会、3500名信徒）', ['https://en.wikipedia.org/wiki/General_Conference_of_Seventh-day_Adventists', 'https://adventistreview.org/magazine-article/a-pivotal-session/'], ['1863']),
+ 'gc1863':    ('全球总会的成立（1863年5月21日，125间教会、3500名信徒）', ['https://adventistreview.org/magazine-article/a-pivotal-session/', 'https://www.rmcsda.org/the-annals-of-adventist-history-the-birth-of-a-denomination/', 'https://en.wikipedia.org/wiki/History_of_the_Seventh-day_Adventist_Church'], ['3,500']),
  'edson_wiki':('希兰·爱德森（维基百科英文版）', 'https://en.wikipedia.org/wiki/Hiram_Edson', ['Edson']),
  # 书籍（没有网址）：怀爱伦著作按英文原著页码引用
  'gc120':     ('怀爱伦《善恶之争》（The Great Controversy, 1911年版）英文原著第120页', None, []),
@@ -204,7 +204,7 @@ FACTS = {
  'egw_wiki': [r'Casco Bay|baptized', r'[Dd]isfellowship|expelled|removed', r'Avondale', r'Europe'],
  'egw_est': [r'1858', r'1863|health reform', r'1848|little paper', r'Europe', r'1881'],
  'sda_china': [r'La ?Rue', r'190\d', r'Canton|Guangzhou|Shanghai'],
- 'larue': [r'1888', r'Hong ?[Kk]ong', r'self-supporting|ship'], 'gc1863': [r'3,?500', r'125'], 'edson_wiki': [r'wept', r'1844'],
+ 'larue': [r'1888', r'Hong ?[Kk]ong', r'self-supporting|ship'], 'gc1863': [r'3,?500', r'125 churches|125 congregations|125'], 'edson_wiki': [r'wept', r'1844'],
 }
 
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
@@ -234,7 +234,10 @@ def plain(body):
 def check():
     import time
     out = {}
+    only = next((a.split('=', 1)[1].split(',') for a in sys.argv if a.startswith('--only=')), None)
     for k, (desc, urls, keys) in SRC.items():
+        if only and k not in only:
+            continue
         if urls is None:
             continue
         urls = urls if isinstance(urls, list) else [urls]
