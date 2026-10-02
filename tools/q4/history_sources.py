@@ -121,7 +121,7 @@ MORE = {   # 同一条资料的备选网址（第一个核对通过的就用它�
  # 第三轮：路德、怀爱伦人物特写，弟兄会
  'luther_pref':('路德《拉丁文著作全集序言》（1545年，回忆自己怎样明白罗马书1:17）', ['https://christianhistoryinstitute.org/magazine/article/luthers-breakthrough', 'https://www.checkluther.com/wp-content/uploads/1545-Preface-to-the-Complete-Edition-of-Luther%E2%80%99s-Latin-Works.pdf'], ['paradise']),
  'luther_worms':('路德在沃尔姆斯帝国会议上的答辩（1521年4月18日）', ['https://christianhistoryinstitute.org/magazine/article/diet-of-worms', 'https://en.wikipedia.org/wiki/Diet_of_Worms'], ['conscience']),
- 'luther_name':('路德《真诚劝勉众基督徒谨防叛乱》（1522年），《路德文集》（Luther's Works）英文版第45卷第70—71页', None, []),
+ 'luther_name':('路德《真诚劝勉众基督徒谨防叛乱》（1522年），《路德文集》（Luther’s Works）英文版第45卷第70—71页', None, []),
  'brethren':  ('普利茅斯弟兄会（达秘、时代论）', [B + 'topic/Plymouth-Brethren', 'https://en.wikipedia.org/wiki/Plymouth_Brethren'], ['Darby']),
  'nee':       ('倪柝声与聚会处（地方教会）', [B + 'biography/Watchman-Nee', 'https://en.wikipedia.org/wiki/Watchman_Nee'], ['Brethren']),
  'egw_wiki':  ('怀爱伦（维基百科英文版，作为补充核对）', 'https://en.wikipedia.org/wiki/Ellen_G._White', ['Gorham']),
