@@ -99,12 +99,56 @@ MORE = {   # 同一条资料的备选网址（第一个核对通过的就用它�
  'egw_est':   ('怀爱伦著作托管会：怀爱伦生平', 'https://whiteestate.org/about/egwbio/', ['Ellen']),
  'wcrc2':     ('世界归正教会联盟', 'https://wcrc.eu/', ['Reformed']),
  'bwa2':      ('世界浸信会联盟', 'https://baptistworld.org/', ['Baptist']),
+ # 第二轮：大英百科拒绝程序访问、网页时光机里也没有的，换成其他可靠来源
+ 'ephesus':   [NA + 'cathen/05491a.htm'],
+ 'east':      [NA + 'cathen/10755a.htm', 'https://en.wikipedia.org/wiki/Xi%27an_Stele'],
+ 'augustine': [NA + 'cathen/02084a.htm'],
+ 'tertullian':[NA + 'cathen/15047a.htm', NA + 'cathen/14520c.htm'],
+ 'presby':    [B + 'topic/Presbyterianism', B + 'biography/John-Knox', 'https://en.wikipedia.org/wiki/Presbyterianism'],
+ 'baptist':   [B + 'biography/John-Smyth', 'https://en.wikipedia.org/wiki/John_Smyth_(Baptist_minister)'],
+ 'williams':  ['https://en.wikipedia.org/wiki/First_Baptist_Church_in_America', 'https://www.firstbaptistchurchinamerica.org/'],
+ 'sdb':       ['https://en.wikipedia.org/wiki/Seventh_Day_Baptists'],
+ 'disciples': [B + 'topic/Disciples-of-Christ', 'https://en.wikipedia.org/wiki/Restoration_Movement'],
+ 'adventist': ['https://en.wikipedia.org/wiki/Millerites'],
+ 'sda_china': ['https://en.wikipedia.org/wiki/Abram_La_Rue', 'https://en.wikipedia.org/wiki/Seventh-day_Adventist_Church_in_China'],
+ 'wmc':       ['https://worldmethodistcouncil.org/', 'https://en.wikipedia.org/wiki/World_Methodist_Council'],
+ 'taylor':    ['https://omf.org/about/our-history/', 'https://en.wikipedia.org/wiki/Hudson_Taylor'],
+ 'pliny_txt': ('小普林尼致图拉真的信（英译全文，福特汉姆大学古代史资料集）', 'https://sourcebooks.fordham.edu/source/pliny1.asp', ['Christ']),
+ 'socrates':  ('苏格拉底（教会史家）《教会史》第5卷第22章（约公元440年）', NA + 'fathers/26125.htm', ['sabbath']),
+ 'sozomen':   ('索宗曼《教会史》第7卷第19章（约公元445年）', NA + 'fathers/26027.htm', ['Sabbath']),
+ 'fraser':    ('Fraser GE, Shavlik DJ. Ten years of life: Is it a matter of choice? Arch Intern Med 2001;161:1645-52（PubMed 11434797）', 'https://pubmed.ncbi.nlm.nih.gov/11434797/', ['Adventists']),
+ 'sda_coming2':('官方信仰第25条：基督复临（英文版信仰全文）', 'https://www.adventist.org/beliefs/fundamental-beliefs/restoration/second-coming-of-christ/', ['coming']),
 }
+
 for k, v in MORE.items():
     if isinstance(v, list):
         d, u, w = SRC[k]; SRC[k] = (d, [u] + v, w)
     else:
         SRC[k] = v
+SRC['sda_brit'] = (SRC['sda_brit'][0], SRC['sda_brit'][1], ['Adventist'])
+SRC['disciples'] = (SRC['disciples'][0], SRC['disciples'][1], ['Stone'])
+SRC['sdb'] = (SRC['sdb'][0], SRC['sdb'][1], ['1671'])
+SRC['adventist'] = (SRC['adventist'][0], SRC['adventist'][1], ['Miller'])
+
+# 页面里引用的具体说法：在原网页里找出对应的原句，打印出来人工核对（--facts）
+FACTS = {
+ 'pew': [r'2\.18 billion', r'Catholics', r'Protestants', r'Orthodox', r'Pentecostal', r'other Christian'],
+ 'sda_stats': [r'[Mm]embers', r'[Cc]hurches', r'countries'],
+ 'lwf': [r'million'], 'wcrc2': [r'million'], 'wmc': [r'million'], 'anglicancomm': [r'million'], 'bwa2': [r'million'],
+ 'laodicea': [r'Canon XXIX', r'judaize'], 'justin': [r'day called Sunday', r'first day'], 'ignatius': [r"Lord's [Dd]ay"],
+ 'pliny_txt': [r'fixed day', r'before it was light'], 'socrates': [r'sabbath of every week'], 'sozomen': [r'assemble together on the Sabbath'],
+ 'sunday321': [r'321', r'Constantine'], 'sda_hist': [r'3,?500', r'Oakes|Preston', r'Edson', r'Bates', r'1863'],
+ 'tertullian': [r'[Tt]rinitas', r'Tertullian'], 'wesley': [r'Aldersgate', r'warmed'], 'egw_est': [r'1844', r'vision'],
+ 'miller': [r'1831', r'1844'], 'ag_hist': [r'1914'], 'tjc': [r'1917'], 'morrison': [r'1807'], 'schism': [r'1054'],
+ 'theodosius': [r'380'], 'east': [r'China', r'781|635'], 'sda_china': [r'1888', r'1902'], 'taylor': [r'1865'],
+ 'williams': [r'1638'], 'sdb': [r'1671', r'Newport'], 'baptist': [r'1609', r'Amsterdam'], 'presby': [r'Knox', r'1560'],
+ 'disciples': [r'1832'], 'gregory': [r'590'], 'waldenses': [r'Waldo', r'1532|Chanforan'], 'wycliffe': [r'1382|English'],
+ 'hus': [r'1415'], 'gutenberg': [r'145\d'], 'anglican': [r'1534'], 'calvin': [r'1536'], 'anabapt': [r'1525'],
+ 'trent': [r'1545', r'1563'], 'menno': [r'Mennonite'], 'westminster': [r'1646'], 'methodism': [r'1784'],
+ 'pentecost': [r'Topeka|1901', r'Azusa'], 'vatican2': [r'1962', r'1965'], 'milan': [r'313'], 'nicaea': [r'325'],
+ 'chalcedon': [r'451'], 'ephesus': [r'431'], 'oriental': [r'Ethiopia', r'Sabbath|Saturday'], 'ricci': [r'1583|1582'],
+ 'fraser': [r'7\.28', r'4\.42'], 'sda_trinity': [r'Trinity'], 'sda_coming2': [r'visible|literal'],
+}
 
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
 
@@ -123,6 +167,13 @@ def wayback(url):
     return fetch(snap['url'])[2], snap.get('timestamp', '')
 
 
+def plain(body):
+    t = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', body, flags=re.S | re.I)
+    t = re.sub(r'<[^>]+>', ' ', t)
+    t = t.replace('&nbsp;', ' ').replace('&#8217;', "'").replace('&rsquo;', "'").replace('&amp;', '&')
+    return re.sub(r'\s+', ' ', t)
+
+
 def check():
     import time
     out = {}
@@ -133,8 +184,9 @@ def check():
             host = urllib.parse.urlsplit(url).netloc
             for attempt in range(3):
                 try:
-                    if 'adventist.org' in host:
-                        time.sleep(4)
+                    if host.endswith('www.adventist.org'):
+                        body, ts = wayback(url); st, final, how = 200, url, 'archive ' + ts
+                        break
                     st, final, body = fetch(url); how = 'live'
                     break
                 except Exception as e:
@@ -149,11 +201,26 @@ def check():
             title = re.sub(r'\s+', ' ', (re.search(r'<title[^>]*>(.*?)</title>', body, re.S | re.I) or [None, ''])[1]).strip()[:80]
             miss = [w for w in keys if w.lower() not in body.lower()]
             res = {'ok': bool(body) and not miss, 'url': url, 'final': final, 'how': how, 'status': st, 'title': title, 'missing': miss}
+            res['body'] = body
             if res['ok']:
                 break
         out[k] = res
         print(('OK  ' if res['ok'] else 'BAD ') + k.ljust(12), res['how'][:30].ljust(30), res['url'], '|', res['title'], ('缺' + str(res['missing'])) if res['missing'] and res['title'] else '', flush=True)
     print(sum(o['ok'] for o in out.values()), '/', len(out), '可用')
+    if '--facts' in sys.argv:
+        print('\n======== 原文核对 ========')
+        for k, pats in FACTS.items():
+            o = out.get(k)
+            if not o or not o.get('body'):
+                print('##', k, '（没有内容）'); continue
+            t = plain(o['body'])
+            print('##', k, o['url'])
+            for pat in pats:
+                ms = list(re.finditer(pat, t))[:2]
+                if not ms:
+                    print('   [' + pat + '] 没找到')
+                for m in ms:
+                    print('   [' + pat + ']', t[max(0, m.start() - 160):m.end() + 160])
     return out
 
 if __name__ == '__main__':

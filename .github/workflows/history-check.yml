@@ -9,4 +9,4 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/q4/history_sources.py --check
+      - run: python3 tools/q4/history_sources.py --check --facts
