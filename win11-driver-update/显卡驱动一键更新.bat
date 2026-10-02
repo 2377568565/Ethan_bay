@@ -120,6 +120,7 @@ function Install-NvidiaFromWindowsUpdate {
 
 # 只安装带有效官方签名的文件
 function Test-Signed($file, $vendorPattern) {
+    Write-Info '正在校验数字签名（文件很大，约需 1~3 分钟，窗口不动是正常的）...'
     $sig = Get-AuthenticodeSignature -LiteralPath $file
     $subject = "$($sig.SignerCertificate.Subject)"
     if ($sig.Status -eq 'Valid' -and $subject -match $vendorPattern) {
