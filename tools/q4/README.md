@@ -84,6 +84,7 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
 3. 曲名用文件名（去掉“with lyrics”“Official Video”“歌词版”、开头的序号之类）；附件区的文件名不可靠时用歌曲标签。
    要改曲名、中文名（`sub`）、顺序，直接改 `list.json`。
 - 本地也能用：`python3 tools/q4/music_import.py --dir 放歌的文件夹`（需要 ffmpeg）。
+- 音质对比试听页：`music-try.html`（两首歌各取高音最多的 35 秒，A 原始只统一音量 / B 现在 48 kbps / C 64 kbps，片段在 `audio/music-try/`；带盲听小测验）。
 
 ## 打开速度（大陆网络连 GitHub 比较慢）
 在线版 `index.html` 约 1.6 MB（压缩后约 430 KB），脚本在最后，整页下载完按钮才能用。为了不让人以为“卡了”：
