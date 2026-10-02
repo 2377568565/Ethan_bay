@@ -63,10 +63,16 @@ try {
     }
 } catch {}
 
+$rebootPending = $sinceName -and ($since -gt $os.LastBootUpTime)
+
 # ---------------------------------------------------------------------------
 Out-Title '1. 还原点'
 if ($sinceName) { Out-Ok ("还原点「{0}」（{1:MM-dd HH:mm}）存在，出问题可以退回。下面的稳定性从这个时间开始统计" -f $sinceName, $since) }
 else { Out-Bad '没找到重装前的还原点，稳定性按最近 24 小时统计' }
+if ($rebootPending) {
+    Out-Bad ("驱动是在 {0:HH:mm} 装的，但电脑是 {1:HH:mm} 开机的 —— 装完以后还没有重启过！" -f $since, $os.LastBootUpTime)
+    Out-Info '   新显卡驱动要重启后才能真正加载，没重启前出现错误代码 43 很常见，下面的结论都要重启后再看。'
+}
 
 # ---------------------------------------------------------------------------
 Out-Title '2. 显卡驱动'
@@ -155,6 +161,12 @@ $verdict = ''
 if ($nvDisabled) {
     $verdict = 'disabled'
     Out-Info 'MX150 现在是停用状态，所以没法判断新驱动好不好。想测试就去设备管理器启用它，用一段时间后再运行本检查。'
+} elseif ($rebootPending) {
+    $verdict = 'reboot'
+    Out-Bad '新驱动装完还没重启，现在还不能下结论。'
+    Out-Info '  请先重启电脑，开机后再运行一次本检查：'
+    Out-Info '  - 重启后错误代码 43 消失 → 独显修好了'
+    Out-Info '  - 重启后还是错误代码 43 → 才说明是显卡本身的问题'
 } elseif ($nvOk -and $nvCode -eq 0 -and $kp41.Count -eq 0) {
     $verdict = 'good'
     Out-Line '  [正常] 新驱动装好了，MX150 错误代码 43 已经消失，到目前为止没有蓝屏。' 'Green'
