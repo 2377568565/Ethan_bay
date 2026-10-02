@@ -21,9 +21,21 @@ python3 tools/q4/render.py all        # 重新生成全部课程页、合集页�
 - `welcome.py`：欢迎页；`intro.py`：导言；`gen_yw.py` 与 `extract.py`：学课原文部分。
 - `bible.py`：经文识别与弹窗数据；`build.py`：字体子集化；`online.py`：拆出在线版（`index.html` + `site/`）。
 - `qa_data.py` 与 `qa/`：问题彩蛋的文章（网页与 PDF 共用），`qa/build.py` 生成 PDF。
+- 问题彩蛋里内容特别多的专题可以单独做成一个网页：在 `qa_data.py` 里写 `url='xxx.html'`，卡片和学课里的入口就直接打开它（见下面“基督教两千年家谱”）。
 - `zhlit/zhlit.json`：中文直译。
 - `ask_core.js`：线上互动的共同规则（验签、防刷、谁能回复/删除/置顶），网页和 GitHub 同步任务共用；`render.py` 会把它放进网页。
 - `ask_sync.js`：GitHub 同步任务运行的脚本。
+
+## 专题网页：基督教两千年家谱（`history.html`）
+```sh
+python3 tools/q4/history.py           # 生成仓库根目录的 history.html（经文用 .work 里的和合本）
+```
+- `history_text.py`：各章正文；`history_data.py`：年表、教派名片、对照表、光谱、人物、常见问题、图表数字；`history_svg.py`：三张家谱图。
+- 文字里的记号：`{{c:键}}` 资料出处（自动编号，点了能看出处）；`{{v:徒2:42}}` 整段经文；`{{ref:章}}` 跳到某一章。
+- `history_sources.py`：每条资料的说明、网址和核对用的关键词。`python3 tools/q4/history_sources.py --check --facts` 会逐个打开网址，
+  并把网页里和正文说法对应的原句打印出来，方便人工核对（大陆网络打不开的网站，可以放到 GitHub Actions 上跑）。
+- `history_checked.py`：核对通过的网址（直接打开的，或用网页时光机存档核对的）。页面只用这里面的网址；新加的资料没核对过，生成时会提示。
+- 怀爱伦著作等书籍按英文原著页码引用，没有网址。
 
 ## 线上互动：数据存在 GitHub 仓库里
 提问区、“我也想知道”、读经打卡、讨论区都用同一套机制。

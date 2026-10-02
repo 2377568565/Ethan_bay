@@ -885,11 +885,13 @@ window.Q4Hub=(function(){
 
   /* ===== 1. 提醒 ===== */
   var arts=[].slice.call(document.querySelectorAll('.lesson[id^="qa"]')).map(function(x){return x.id;}).filter(function(id){return /^qa\d+$/.test(id);});
+  var EXT={};   // 独立网页的问答（例如 history.html）：卡片上有 data-art
+  document.querySelectorAll('.qcard[data-art]').forEach(function(c){var id=c.dataset.art;EXT[id]={href:c.getAttribute('href'),title:c.dataset.title||''};if(arts.indexOf(id)<0)arts.push(id);});
   var seenArts=null;try{seenArts=JSON.parse(get('qaseen')||'null');}catch(e){}
   if(!seenArts){seenArts=arts.slice();set('qaseen',JSON.stringify(seenArts));}   // 第一次来：现有的文章都不算“新”
   var unseen=[];
   function newArts(){return arts.filter(function(id){return seenArts.indexOf(id)<0;});}
-  function artTitle(id){var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
+  function artTitle(id){if(EXT[id])return EXT[id].title;var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
   function markArt(id){if(arts.indexOf(id)>=0&&seenArts.indexOf(id)<0){seenArts.push(id);set('qaseen',JSON.stringify(seenArts));paint();}}
   function compute(S){
     unseen=[];if(!H.uid||!S)return;
@@ -908,14 +910,14 @@ window.Q4Hub=(function(){
       if(na.length||nr){if(!b){b=el('span','nbadge');a.appendChild(b);}b.textContent=nr?String(nr):'新';b.setAttribute('aria-label',nr?nr+' 条新回答':'有新文章');}
       else if(b)b.parentNode.removeChild(b);
     });
-    document.querySelectorAll('.qcard[href]').forEach(function(c){c.classList.toggle('isnew',na.indexOf(c.getAttribute('href').slice(1))>=0);});
+    document.querySelectorAll('.qcard[href]').forEach(function(c){c.classList.toggle('isnew',na.indexOf(c.dataset.art||c.getAttribute('href').slice(1))>=0);});
     var ae=document.querySelector('.askentry .ae-t');
     if(ae){var x=ae.querySelector('.ae-new');if(nr){if(!x){x=el('em','ae-new');ae.appendChild(x);}x.textContent='你的问题有 '+nr+' 条新回答'+(adm?'，管理员已回答':'');}else if(x)x.parentNode.removeChild(x);}
     var wn=document.querySelector('#welcome .wnews');
     if(wn){
       var h='';
       if(nr)h+='<a class="wnew" href="#ask"><span class="st">✦</span>你的问题有 <b>'+nr+'</b> 条新回答'+(adm?'，管理员已回答':'')+' →</a>';
-      na.forEach(function(id){h+='<a class="wnew" href="#'+id+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
+      na.forEach(function(id){h+='<a class="wnew" href="'+(EXT[id]?esc(EXT[id].href)+'" data-art="'+id:'#'+id)+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
       wn.innerHTML=h;wn.hidden=!h;
     }
   }
@@ -925,6 +927,7 @@ window.Q4Hub=(function(){
     if(/^ask(-|$)/.test(h)&&H.S)markReplies();
   }
   window.addEventListener('hashchange',onRoute);onRoute();paint();
+  document.addEventListener('click',function(e){var a=e.target.closest('a[data-art]');if(a)markArt(a.dataset.art);});
 
   /* ===== 2. 读完打卡 ===== */
   var CK=/^l\d+-yw-(sab|sun|mon|tue|wed|thu|fri)$/;   // 打卡放在“学课原文”每天的最后；记录仍按 l1-sun 这样的日子

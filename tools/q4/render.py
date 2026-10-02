@@ -413,7 +413,7 @@ def music_page():
 </div>'''
 
 def qr_all():
-    ids = ['qa', 'ask', 'music'] + [it['id'] for it in qa_data.ITEMS]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
+    ids = ['qa', 'ask', 'music'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
             ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
@@ -582,21 +582,23 @@ def ask_page():
 </div>'''
 
 def qa_pages():
-    items = qa_data.ITEMS
-    cards = ''.join(f'''<a class="qcard" href="#{it['id']}">
+    items = [it for it in qa_data.ITEMS if not it.get('url')]      # 有 url 的是独立网页，只放卡片
+    def href(it):
+        return f'href="{it["url"]}" data-art="{it["id"]}" data-title="{it["q"]}"' if it.get('url') else f'href="#{it["id"]}"'
+    cards = ''.join(f'''<a class="qcard{' qext' if it.get('url') else ''}" {href(it)}>
   <span class="spark" aria-hidden="true">✦</span>
   <span class="qt"><span class="qno">问答 {it['no']:02d}</span><span class="qday">第{it['lesson']}课 · {it['dayname']}</span></span>
   <span class="qq">{it['q']}</span>
   <span class="qs">{it['sub']}</span>
   <span class="qx">{it['teaser']}</span>
-  <span class="qgo">阅读解答 →</span>
-</a>''' for it in items)
+  <span class="qgo">{'打开专题网页 →' if it.get('url') else '阅读解答 →'}</span>
+</a>''' for it in qa_data.ITEMS)
     out = [f'''<div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
 <nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}</nav>
 <section class="qahome">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
-  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；每篇都有 PDF 版，方便转发。</p>
+  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；问答文章都附 PDF 版，专题网页可以直接转发链接。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa">{SHAREIC}分享问题彩蛋</button></p>
   <div class="qcards">{cards}<div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
   <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
@@ -626,7 +628,8 @@ def build_combined(nos):
         if n in frags:
             i = frags[n].find(f'id="l{n}-{it["day"]}"'); j = frags[n].find('</header>', i)
             assert i >= 0 and j > i, it['id']
-            frags[n] = frags[n][:j] + f'  <p class="qchip"><a href="#{it["id"]}">✦ 问题彩蛋：{it["q"]}</a></p>\n  ' + frags[n][j:]
+            link = f'href="{it["url"]}" data-art="{it["id"]}"' if it.get('url') else f'href="#{it["id"]}"'
+            frags[n] = frags[n][:j] + f'  <p class="qchip"><a {link}>✦ 问题彩蛋：{it["q"]}</a></p>\n  ' + frags[n][j:]
     nos = [0] + list(nos)
     opts = ''.join(f'<option value="{n}">{lab(n)} {titles[n]}</option>' for n in nos)
     cards = ['''<a class="card intro" href="#l0">

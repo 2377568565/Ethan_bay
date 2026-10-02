@@ -7135,6 +7135,7 @@ html.mplay .msongs{padding-bottom:72px}
     <h2>末时的余民</h2>
     <p class="btnrow"><a class="btn" href="#l12-yw-wed">阅读本日学课原文 →</a></p>
     <p class="texts"><span class="bref" role="button" tabindex="0" data-v="65|12.17">启12:17</span>；<span class="bref" role="button" tabindex="0" data-v="65|19.10">启19:10</span>；<span class="bref" role="button" tabindex="0" data-v="65|22.8;22.9">启22:8、9</span>；<span class="bref" role="button" tabindex="0" data-v="45|1.6;1.7">林前1:6、7</span></p>
+    <p class="qchip"><a href="history.html" data-art="qa3">✦ 问题彩蛋：基督教两千年家谱</a></p>
   </header>
 <div class="lens">
 <h3>核心概述</h3>
@@ -7712,7 +7713,7 @@ html.mplay .msongs{padding-bottom:72px}
 <section class="qahome">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
-  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；每篇都有 PDF 版，方便转发。</p>
+  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；问答文章都附 PDF 版，专题网页可以直接转发链接。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>分享问题彩蛋</button></p>
   <div class="qcards"><a class="qcard" href="#qa1">
   <span class="spark" aria-hidden="true">✦</span>
@@ -7728,6 +7729,13 @@ html.mplay .msongs{padding-bottom:72px}
   <span class="qs">上帝创造了一切，难道罪也是上帝造的吗？</span>
   <span class="qx">不是。上帝造了“自由”，受造者用这份自由造出了“罪”。</span>
   <span class="qgo">阅读解答 →</span>
+</a><a class="qcard qext" href="history.html" data-art="qa3" data-title="基督教两千年家谱">
+  <span class="spark" aria-hidden="true">✦</span>
+  <span class="qt"><span class="qno">问答 03</span><span class="qday">第12课 · 星期三《末时的余民》</span></span>
+  <span class="qq">基督教两千年家谱</span>
+  <span class="qs">复临安息日会从哪里来？各大教派怎样分出来、有什么不同？</span>
+  <span class="qx">像家谱一样从耶稣一直画到今天：各教派的来历、核心信仰、与复临信仰的异同，还有路德和怀爱伦的人物特写；每个说法都附出处。</span>
+  <span class="qgo">打开专题网页 →</span>
 </a><div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
   <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
@@ -9178,11 +9186,13 @@ window.Q4Hub=(function(){
 
   /* ===== 1. 提醒 ===== */
   var arts=[].slice.call(document.querySelectorAll('.lesson[id^="qa"]')).map(function(x){return x.id;}).filter(function(id){return /^qa\d+$/.test(id);});
+  var EXT={};   // 独立网页的问答（例如 history.html）：卡片上有 data-art
+  document.querySelectorAll('.qcard[data-art]').forEach(function(c){var id=c.dataset.art;EXT[id]={href:c.getAttribute('href'),title:c.dataset.title||''};if(arts.indexOf(id)<0)arts.push(id);});
   var seenArts=null;try{seenArts=JSON.parse(get('qaseen')||'null');}catch(e){}
   if(!seenArts){seenArts=arts.slice();set('qaseen',JSON.stringify(seenArts));}   // 第一次来：现有的文章都不算“新”
   var unseen=[];
   function newArts(){return arts.filter(function(id){return seenArts.indexOf(id)<0;});}
-  function artTitle(id){var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
+  function artTitle(id){if(EXT[id])return EXT[id].title;var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
   function markArt(id){if(arts.indexOf(id)>=0&&seenArts.indexOf(id)<0){seenArts.push(id);set('qaseen',JSON.stringify(seenArts));paint();}}
   function compute(S){
     unseen=[];if(!H.uid||!S)return;
@@ -9201,14 +9211,14 @@ window.Q4Hub=(function(){
       if(na.length||nr){if(!b){b=el('span','nbadge');a.appendChild(b);}b.textContent=nr?String(nr):'新';b.setAttribute('aria-label',nr?nr+' 条新回答':'有新文章');}
       else if(b)b.parentNode.removeChild(b);
     });
-    document.querySelectorAll('.qcard[href]').forEach(function(c){c.classList.toggle('isnew',na.indexOf(c.getAttribute('href').slice(1))>=0);});
+    document.querySelectorAll('.qcard[href]').forEach(function(c){c.classList.toggle('isnew',na.indexOf(c.dataset.art||c.getAttribute('href').slice(1))>=0);});
     var ae=document.querySelector('.askentry .ae-t');
     if(ae){var x=ae.querySelector('.ae-new');if(nr){if(!x){x=el('em','ae-new');ae.appendChild(x);}x.textContent='你的问题有 '+nr+' 条新回答'+(adm?'，管理员已回答':'');}else if(x)x.parentNode.removeChild(x);}
     var wn=document.querySelector('#welcome .wnews');
     if(wn){
       var h='';
       if(nr)h+='<a class="wnew" href="#ask"><span class="st">✦</span>你的问题有 <b>'+nr+'</b> 条新回答'+(adm?'，管理员已回答':'')+' →</a>';
-      na.forEach(function(id){h+='<a class="wnew" href="#'+id+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
+      na.forEach(function(id){h+='<a class="wnew" href="'+(EXT[id]?esc(EXT[id].href)+'" data-art="'+id:'#'+id)+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
       wn.innerHTML=h;wn.hidden=!h;
     }
   }
@@ -9218,6 +9228,7 @@ window.Q4Hub=(function(){
     if(/^ask(-|$)/.test(h)&&H.S)markReplies();
   }
   window.addEventListener('hashchange',onRoute);onRoute();paint();
+  document.addEventListener('click',function(e){var a=e.target.closest('a[data-art]');if(a)markArt(a.dataset.art);});
 
   /* ===== 2. 读完打卡 ===== */
   var CK=/^l\d+-yw-(sab|sun|mon|tue|wed|thu|fri)$/;   // 打卡放在“学课原文”每天的最后；记录仍按 l1-sun 这样的日子
