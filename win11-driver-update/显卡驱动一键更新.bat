@@ -40,6 +40,8 @@ Write-Host '  注意：安装显卡驱动时屏幕会闪烁、黑几秒，都是
 Write-Host '  全程需要联网，下载约 1GB，插上电源。' -ForegroundColor Yellow
 
 # ---------------------------------------------------------------------------
+$Referer = 'https://www.nvidia.com/'
+
 function Get-Download($urls, $dest) {
     foreach ($u in $urls) {
         if (-not $u) { continue }
@@ -50,7 +52,7 @@ function Get-Download($urls, $dest) {
             if ((Test-Path -LiteralPath $dest) -and (Get-Item -LiteralPath $dest).Length -gt 10MB) { return $true }
         } catch {}
         try {
-            Invoke-WebRequest -Uri $u -OutFile $dest -UseBasicParsing -UserAgent $UA -TimeoutSec 3600 -ErrorAction Stop
+            Invoke-WebRequest -Uri $u -OutFile $dest -UseBasicParsing -UserAgent $UA -Headers @{ Referer = $Referer } -TimeoutSec 3600 -ErrorAction Stop
             if ((Test-Path -LiteralPath $dest) -and (Get-Item -LiteralPath $dest).Length -gt 10MB) { return $true }
         } catch {
             Write-Bad "这个地址下载失败：$($_.Exception.Message)"
@@ -198,14 +200,19 @@ if (-not $nvOld) {
             Write-Ok '已经是最新版，跳过'
         } else {
             $file = Join-Path $WorkDir ([IO.Path]::GetFileName(([Uri]$nvUrl).AbsolutePath))
-            $alt = $nvUrl -replace '://us\.download\.nvidia\.com', '://cn.download.nvidia.com'
-            if (Get-Download @($nvUrl, $alt) $file) {
+            # 同一个文件在 NVIDIA 几个官方下载服务器上都有。中国站（cn.）开着代理/VPN 时常返回 403，
+            # 所以依次换着试：美国站 -> 国际站 -> 主站 -> 中国站
+            $path = ([Uri]$nvUrl).AbsolutePath
+            $mirrors = @('us.download.nvidia.com', 'international.download.nvidia.com', 'download.nvidia.com', 'cn.download.nvidia.com') |
+                ForEach-Object { "https://$_$path" }
+            if (Get-Download $mirrors $file) {
                 if (Test-Signed $file 'NVIDIA') {
                     # -s 静默，-clean 清洁安装（清掉旧驱动的残留设置），-noreboot 最后统一重启
                     if (Install-Package $file '-s -clean -noreboot -noeula' 'NVIDIA 显卡驱动' { $v = Get-GpuVersion 'NVIDIA'; $v -and $v -ne $nvOld }) { $installed += 'NVIDIA 显卡驱动' }
                 }
             } else {
-                Write-Bad 'NVIDIA 驱动下载失败。请手动打开 https://www.nvidia.cn/drivers/ 选 GeForce MX150 下载安装'
+                Write-Bad 'NVIDIA 驱动所有下载地址都失败了。如果开着 clash 等代理，关掉代理再运行一次；'
+                Write-Info "   或者用浏览器打开这个地址手动下载：https://us.download.nvidia.com$path"
             }
         }
     }
