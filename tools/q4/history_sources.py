@@ -118,6 +118,21 @@ MORE = {   # 同一条资料的备选网址（第一个核对通过的就用它�
  'sozomen':   ('索宗曼《教会史》第7卷第19章（约公元445年）', NA + 'fathers/26027.htm', ['Sabbath']),
  'fraser':    ('Fraser GE, Shavlik DJ. Ten years of life: Is it a matter of choice? Arch Intern Med 2001;161:1645-52（PubMed 11434797）', 'https://pubmed.ncbi.nlm.nih.gov/11434797/', ['Adventists']),
  'sda_coming2':('官方信仰第25条：基督复临（英文版信仰全文）', 'https://www.adventist.org/beliefs/fundamental-beliefs/restoration/second-coming-of-christ/', ['coming']),
+ # 第三轮：路德、怀爱伦人物特写，弟兄会
+ 'luther_pref':('路德《拉丁文著作全集序言》（1545年，回忆自己怎样明白罗马书1:17）', ['https://christianhistoryinstitute.org/magazine/article/luthers-breakthrough', 'https://www.checkluther.com/wp-content/uploads/1545-Preface-to-the-Complete-Edition-of-Luther%E2%80%99s-Latin-Works.pdf'], ['paradise']),
+ 'luther_worms':('路德在沃尔姆斯帝国会议上的答辩（1521年4月18日）', ['https://christianhistoryinstitute.org/magazine/article/diet-of-worms', 'https://en.wikipedia.org/wiki/Diet_of_Worms'], ['conscience']),
+ 'luther_name':('路德《真诚劝勉众基督徒谨防叛乱》（1522年）：“不要称自己为路德派，而要称为基督徒”', ['https://en.wikipedia.org/wiki/History_of_Lutheranism', 'https://en.wikipedia.org/wiki/Martin_Luther'], ['Lutheran']),
+ 'brethren':  ('普利茅斯弟兄会（达秘、时代论）', [B + 'topic/Plymouth-Brethren', 'https://en.wikipedia.org/wiki/Plymouth_Brethren'], ['Darby']),
+ 'nee':       ('倪柝声与聚会处（地方教会）', [B + 'biography/Watchman-Nee', 'https://en.wikipedia.org/wiki/Watchman_Nee'], ['Brethren']),
+ 'egw_wiki':  ('怀爱伦（维基百科英文版，作为补充核对）', 'https://en.wikipedia.org/wiki/Ellen_G._White', ['Gorham']),
+ # 书籍（没有网址）：怀爱伦著作按英文原著页码引用
+ 'gc120':     ('怀爱伦《善恶之争》（The Great Controversy, 1911年版）英文原著第120页', None, []),
+ 'gc148':     ('怀爱伦《善恶之争》英文原著第148页', None, []),
+ 'gc595':     ('怀爱伦《善恶之争》英文原著第595页', None, []),
+ 'gc_intro':  ('怀爱伦《善恶之争》作者序言（英文原著第 xi—xii 页）', None, []),
+ 'cm125':     ('怀爱伦《书报员事工》（Colporteur Ministry）英文原著第125页（原载《评论与通讯》1903年1月20日）', None, []),
+ 'ls125':     ('怀爱伦《生平梗概》（Life Sketches of Ellen G. White）英文原著第125页', None, []),
+ 'ls196':     ('怀爱伦《生平梗概》英文原著第196页', None, []),
 }
 
 for k, v in MORE.items():
@@ -148,6 +163,11 @@ FACTS = {
  'pentecost': [r'Topeka|1901', r'Azusa'], 'vatican2': [r'1962', r'1965'], 'milan': [r'313'], 'nicaea': [r'325'],
  'chalcedon': [r'451'], 'ephesus': [r'431'], 'oriental': [r'Ethiopia', r'Sabbath|Saturday'], 'ricci': [r'1583|1582'],
  'fraser': [r'7\.28', r'4\.42'], 'sda_trinity': [r'Trinity'], 'sda_coming2': [r'visible|literal'],
+ 'luther': [r'Eisleben', r'Erfurt', r'1505', r'Wartburg', r'Bora', r'Jews', r'[Pp]easants', r'Here I stand', r'1546'],
+ 'luther_pref': [r'paradise'], 'luther_worms': [r'captive to the Word', r'Here I stand'], 'luther_name': [r'call themselves'],
+ 'egw_est': [r'Gorham', r'twin', r'stone', r'nine', r'December', r'1846', r'5,000', r'40 books', r'translated', r'visions', r'Australia', r'1915', r'Elmshaven'],
+ 'egw_wiki': [r'Casco Bay|baptized', r'1843', r'most translated', r'Elmshaven'],
+ 'brethren': [r'Darby', r'Plymouth', r'1831|1827', r'[Rr]apture|dispensation'], 'nee': [r'192\d', r'Brethren'],
 }
 
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
@@ -178,6 +198,8 @@ def check():
     import time
     out = {}
     for k, (desc, urls, keys) in SRC.items():
+        if urls is None:
+            continue
         urls = urls if isinstance(urls, list) else [urls]
         res = None
         for url in urls:
