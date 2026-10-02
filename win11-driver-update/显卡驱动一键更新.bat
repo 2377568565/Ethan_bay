@@ -42,21 +42,78 @@ Write-Host '  全程需要联网，下载约 1GB，插上电源。' -ForegroundC
 # ---------------------------------------------------------------------------
 $Referer = 'https://www.nvidia.com/'
 
+# 系统代理（clash 等打开“系统代理”后写在这里）
+function Get-SystemProxy {
+    try {
+        $p = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -ErrorAction Stop
+        if ($p.ProxyEnable -eq 1 -and $p.ProxyServer) {
+            $v = "$($p.ProxyServer)"
+            if ($v -match 'https=([^;]+)') { return $Matches[1] }
+            if ($v -match '^[^=;]+$') { return $v }
+        }
+    } catch {}
+    return $null
+}
+
+function Test-Downloaded($dest) {
+    return ((Test-Path -LiteralPath $dest) -and (Get-Item -LiteralPath $dest).Length -gt 10MB)
+}
+
+# 依次尝试：curl 直连（绕过代理） -> curl 走系统代理 -> BITS -> Invoke-WebRequest
 function Get-Download($urls, $dest) {
+    $curl = Join-Path $env:WINDIR 'System32\curl.exe'
+    $proxy = Get-SystemProxy
     foreach ($u in $urls) {
         if (-not $u) { continue }
         Write-Info "下载：$u"
+        $ways = @()
+        if (Test-Path -LiteralPath $curl) {
+            $ways += @{ Name = '直连（绕过代理）'; Args = @('--noproxy', '*') }
+            if ($proxy) { $ways += @{ Name = "走代理 $proxy"; Args = @('--proxy', "http://$proxy") } }
+        }
+        foreach ($w in $ways) {
+            Remove-Item -LiteralPath $dest -Force -ErrorAction SilentlyContinue
+            $a = @('-L', '-f', '--retry', '2', '--connect-timeout', '20', '-A', $UA, '-e', $Referer, '-o', $dest) + $w.Args + @($u)
+            & $curl @a
+            if ($LASTEXITCODE -eq 0 -and (Test-Downloaded $dest)) { Write-Ok "下载成功（$($w.Name)）"; return $true }
+            Write-Bad "$($w.Name) 失败（curl 返回 $LASTEXITCODE）"
+        }
         Remove-Item -LiteralPath $dest -Force -ErrorAction SilentlyContinue
         try {
             Start-BitsTransfer -Source $u -Destination $dest -DisplayName '下载显卡驱动' -ErrorAction Stop
-            if ((Test-Path -LiteralPath $dest) -and (Get-Item -LiteralPath $dest).Length -gt 10MB) { return $true }
+            if (Test-Downloaded $dest) { Write-Ok '下载成功（BITS）'; return $true }
         } catch {}
         try {
             Invoke-WebRequest -Uri $u -OutFile $dest -UseBasicParsing -UserAgent $UA -Headers @{ Referer = $Referer } -TimeoutSec 3600 -ErrorAction Stop
-            if ((Test-Path -LiteralPath $dest) -and (Get-Item -LiteralPath $dest).Length -gt 10MB) { return $true }
+            if (Test-Downloaded $dest) { Write-Ok '下载成功（WebRequest）'; return $true }
         } catch {
             Write-Bad "这个地址下载失败：$($_.Exception.Message)"
         }
+    }
+    return $false
+}
+
+# 备用方案：从 Windows 更新（微软服务器）安装 NVIDIA 驱动，不经过 NVIDIA 的下载服务器
+function Install-NvidiaFromWindowsUpdate {
+    Write-Info '正在向 Windows 更新查询 NVIDIA 驱动（可能要 1~5 分钟）...'
+    try {
+        $session = New-Object -ComObject Microsoft.Update.Session
+        $searcher = $session.CreateUpdateSearcher()
+        $result = $searcher.Search("IsInstalled=0 and Type='Driver'")
+        $coll = New-Object -ComObject Microsoft.Update.UpdateColl
+        foreach ($u in $result.Updates) {
+            if ($u.Title -match 'NVIDIA') { Write-Info "   找到：$($u.Title)"; [void]$coll.Add($u) }
+        }
+        if ($coll.Count -eq 0) { Write-Bad 'Windows 更新里没有可用的 NVIDIA 新驱动'; return $false }
+        Write-Info '   正在下载...'
+        $dl = $session.CreateUpdateDownloader(); $dl.Updates = $coll; [void]$dl.Download()
+        Write-Info '   正在安装（屏幕可能会闪烁）...'
+        $ins = $session.CreateUpdateInstaller(); $ins.Updates = $coll
+        $r = $ins.Install()
+        if ($r.ResultCode -eq 2 -or $r.ResultCode -eq 3) { Write-Ok '已通过 Windows 更新安装 NVIDIA 驱动'; return $true }
+        Write-Bad "Windows 更新安装没成功（结果码 $($r.ResultCode)）"
+    } catch {
+        Write-Bad "Windows 更新查询失败：$($_.Exception.Message)"
     }
     return $false
 }
@@ -200,10 +257,9 @@ if (-not $nvOld) {
             Write-Ok '已经是最新版，跳过'
         } else {
             $file = Join-Path $WorkDir ([IO.Path]::GetFileName(([Uri]$nvUrl).AbsolutePath))
-            # 同一个文件在 NVIDIA 几个官方下载服务器上都有。中国站（cn.）开着代理/VPN 时常返回 403，
-            # 所以依次换着试：美国站 -> 国际站 -> 主站 -> 中国站
+            # 同一个文件在 NVIDIA 几个官方下载服务器上都有；每个地址都会先直连（绕过 clash 等代理）再走代理
             $path = ([Uri]$nvUrl).AbsolutePath
-            $mirrors = @('us.download.nvidia.com', 'international.download.nvidia.com', 'download.nvidia.com', 'cn.download.nvidia.com') |
+            $mirrors = @('cn.download.nvidia.com', 'us.download.nvidia.com', 'international.download.nvidia.com') |
                 ForEach-Object { "https://$_$path" }
             if (Get-Download $mirrors $file) {
                 if (Test-Signed $file 'NVIDIA') {
@@ -211,8 +267,13 @@ if (-not $nvOld) {
                     if (Install-Package $file '-s -clean -noreboot -noeula' 'NVIDIA 显卡驱动' { $v = Get-GpuVersion 'NVIDIA'; $v -and $v -ne $nvOld }) { $installed += 'NVIDIA 显卡驱动' }
                 }
             } else {
-                Write-Bad 'NVIDIA 驱动所有下载地址都失败了。如果开着 clash 等代理，关掉代理再运行一次；'
-                Write-Info "   或者用浏览器打开这个地址手动下载：https://us.download.nvidia.com$path"
+                Write-Bad 'NVIDIA 官网所有下载地址都失败了，改用 Windows 更新安装 NVIDIA 驱动'
+                if (Install-NvidiaFromWindowsUpdate) {
+                    $installed += 'NVIDIA 显卡驱动（来自 Windows 更新）'
+                } else {
+                    Write-Bad '都没成功。请彻底退出 clash（右键托盘图标 -> 退出，TUN 模式也要关）后再运行一次；'
+                    Write-Info "   或者用浏览器打开这个地址手动下载：https://us.download.nvidia.com$path"
+                }
             }
         }
     }
