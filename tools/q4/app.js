@@ -1864,6 +1864,7 @@ window.Q4Hub=(function(){
   var BASEA=(function(){var l=document.createElement('a');l.href=BASE;return l.href;})();   // 写成完整网址，和存在手机里的一致
   // OGG（Opus / Vorbis）较旧的苹果手机放不出来：放不了时改用备用的 AAC（list.json 里的 alt）
   var PROBE=document.createElement('audio');
+  function total(){var d=A.duration;return isFinite(d)&&d>0?d:((cur&&byId[cur]||{}).dur||0);}   // 有的手机读不出 OGG 的总长（Infinity），用清单里记的
   function canType(t){return !t||!!(PROBE.canPlayType&&PROBE.canPlayType(t));}
   function fileOf(x){return x.alt&&!canType(x.type)?x.alt:x.file;}
   function playable(x){return canType(x.type)||!!x.alt;}
@@ -1944,7 +1945,7 @@ window.Q4Hub=(function(){
     if(buf||!want||!cur)return;
     var t0=A.currentTime<0.5&&Date.now()-tapAt<3000?tapAt:Date.now();bufPct=0;
     buf=setInterval(function(){
-      var d=A.duration,h=ahead(),e=A.currentTime+h,now=Date.now(),g=speed(),waited=now-t0;
+      var d=total(),h=ahead(),e=A.currentTime+h,now=Date.now(),g=speed(),waited=now-t0;
       var rest=isFinite(d)&&d>0?Math.max(0,d-e):1e9;
       var ge=0.85*g,need=g<0?1e9:ge>=1?4:ge>0.02?Math.min(rest+h,(1/ge-1)*rest+3):1e9;   // 下载比播放慢时：缓冲要够撑到整首下载完
       if(rest<=0.5||(h>=4&&h>=need)||(waited>=MAXWAIT&&h>=1)){stopBuf();go();paint();return;}
@@ -1955,7 +1956,7 @@ window.Q4Hub=(function(){
   function stopBuf(){if(buf){clearInterval(buf);buf=null;}clearTimeout(waitT);bufPct=-1;}
   function prefetch(){   // 这一首已经全部下载好了：先把它存进手机，再趁空把下一首也下载好，换歌时不用等
     if(!cur||!want||!window.fetch||!window.URL||!URL.createObjectURL)return;
-    var d=A.duration;if(!(isFinite(d)&&A.currentTime+ahead()>=d-0.5))return;   // 这一首还没下载完时不抢网速
+    var d=total();if(!(d&&A.currentTime+ahead()>=d-1))return;   // 这一首还没下载完时不抢网速
     var u=byId[cur]?urlOf(byId[cur]):'';
     if(u&&boxOk&&!saved[u]&&!tried[u]&&A.getAttribute('src')===u){   // 刚从网上下载完的这首（一般直接从浏览器缓存里拿，不用再下载）
       if(saving)return;saving=u;tried[u]=1;
@@ -1998,7 +1999,7 @@ window.Q4Hub=(function(){
     var sh=page.querySelector('[data-mshuf]');sh.setAttribute('aria-pressed',shuf?'true':'false');sh.classList.toggle('on',shuf);
   }
   function prog(){
-    var t=A.currentTime,d=A.duration||0,w=(cur&&d?Math.min(100,t/d*100):0)+'%';
+    var t=A.currentTime,d=total(),w=(cur&&d?Math.min(100,t/d*100):0)+'%';
     var it=cur&&cardOf(cur);
     if(it){it.querySelector('.ms-pg b').style.width=w;it.querySelector('.ms-tm').textContent=buf?'缓冲'+(bufPct>0?' '+bufPct+'%':'…'):mmss(t)+(d?' / '+mmss(d):'');}
     mini.querySelector('.mp-pg b').style.width=w;
@@ -2030,7 +2031,7 @@ window.Q4Hub=(function(){
     if(fl){e.preventDefault();var hh=fl.getAttribute('href');if(location.hash!==hh)location.hash=hh;else sync();return;}
     if(t.closest('[data-mplay]')&&id){if(id===cur&&want)hold();else{makeQueue(id);play(id);}return;}
     var bar=t.closest('.ms-pg');
-    if(bar&&id){if(id!==cur){makeQueue(id);play(id);return;}if(A.duration){var r=bar.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*A.duration;}return;}
+    if(bar&&id){if(id!==cur){makeQueue(id);play(id);return;}var tt=total();if(tt){var r=bar.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*tt;}return;}
     if(t.closest('.ms-dl')&&inWx){e.preventDefault();toast('微信里不能直接下载：请点右上角「···」，选「在浏览器打开」，再点“⬇”。');return;}
     if(t.closest('[data-mall]')){if(cur&&want)hold();else if(cur)play(cur);else{makeQueue();if(queue.length)play(queue[0]);}
       var ci=cur&&cardOf(cur);if(ci){var r=ci.getBoundingClientRect();if(r.top<0||r.bottom>innerHeight-80)ci.scrollIntoView({block:'center',behavior:'smooth'});}return;}

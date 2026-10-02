@@ -1134,6 +1134,26 @@ html.sheetopen{overflow:hidden}
 .ms-pg b{position:absolute;left:0;top:6px;height:4px;width:0;border-radius:4px;background:var(--accent);transition:width .25s linear}
 @media (max-width:359px){.ms-tm{display:none}}
 .mnote,.mnone{margin:0;font-size:.86rem;color:var(--muted)}
+/* 音乐的文件夹 */
+.msongs.folders{gap:10px}
+.mfold{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--rule);border-radius:16px;background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:0 6px 18px -14px rgba(0,0,0,.45)}
+.mfold:active{transform:scale(.99)}
+.mf-ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--gold-soft);color:var(--gold)}
+.mf-main{display:grid;gap:1px;min-width:0}
+.mf-n{font-family:var(--serif);font-size:1.08rem;line-height:1.35}
+.mf-new{display:inline-block;margin-left:8px;padding:0 7px;border-radius:999px;background:var(--accent);color:var(--surface);font:600 .7rem/1.6 var(--sans);font-style:normal;vertical-align:2px}
+.mf-s{font-size:.88rem;color:var(--ink);opacity:.78}
+.mf-c{font-size:.8rem;color:var(--muted)}
+.mf-on{display:none;color:var(--accent);font-weight:600}
+.mfold.on{border-color:var(--accent)}
+.mfold.on .mf-on{display:inline}
+.mf-go{font-size:1.6rem;line-height:1;color:var(--muted)}
+.mf-head{display:grid;gap:2px;margin:2px 0 6px}
+.mf-back{justify-self:start;padding:6px 14px 6px 10px;margin:0 0 6px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);text-decoration:none;font-size:.92rem}
+.mf-title{margin:0;font-family:var(--serif);font-size:1.3rem}
+.mf-sub{margin:0;font-size:.9rem;color:var(--muted)}
+.ms-f{color:var(--muted)}
+.mwarn{margin:0;padding:10px 14px;border:1px solid var(--accent);border-radius:12px;color:var(--accent);font-size:.9rem;line-height:1.7}
 /* 小窗：离开音乐页时在左下角继续播放（在主页按钮那一行的上面） */
 .mplayer{position:fixed;left:16px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 56px);z-index:41;display:flex;align-items:center;gap:6px;
   width:min(370px,calc(100% - 32px));height:50px;padding:0 6px;border-radius:999px;overflow:hidden;isolation:isolate;
@@ -3578,7 +3598,8 @@ window.Q4Hub=(function(){
 })();
 
 /* ---------- 音乐：一首接一首播放；离开音乐页去读学课或问答时，缩成左下角的小窗继续播放 ----------
-   曲目清单在 music/list.json：网页先用生成时放进来的一份，打开后再读最新的（收了新歌不用重新生成网页）。 */
+   曲目清单在 music/list.json：网页先用生成时放进来的一份，打开后再读最新的（收了新歌不用重新生成网页）。
+   歌分放在文件夹里：#music 是文件夹列表，#music-f-<文件夹> 是一个文件夹里的歌，#music-<歌> 打开那首歌所在的文件夹并滚到它。 */
 (function(){
   var page=document.getElementById('music');if(!page||!document.body.classList.contains('combined'))return;
   var box=page.querySelector('.mhome'),LIST=box.dataset.list,BASE=box.dataset.base,wrap=page.querySelector('.msongs');
@@ -3590,8 +3611,14 @@ window.Q4Hub=(function(){
   var SHARE='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
   var DL='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var inWx=/MicroMessenger/i.test(navigator.userAgent),de=document.documentElement;
-  var SONGS=[];try{SONGS=JSON.parse(page.querySelector('.mdata').textContent)||[];}catch(e){}
-  var byId={};function index(){byId={};SONGS.forEach(function(x){byId[x.id]=x;});}index();
+  var SONGS=[],FOLDERS=[],folder='';   // folder：现在打开的文件夹（'' 表示文件夹列表）
+  function take(j){if(Array.isArray(j)){SONGS=j;FOLDERS=[];}else if(j){SONGS=j.songs||[];FOLDERS=(j.folders||[]).filter(function(f){return f&&f.id&&f.name;});}}
+  try{take(JSON.parse(page.querySelector('.mdata').textContent));}catch(e){}
+  var byId={},FMAP={};function index(){byId={};FMAP={};SONGS.forEach(function(x){byId[x.id]=x;});FOLDERS.forEach(function(f){FMAP[f.id]=f;});}index();
+  function folderOf(x){return x&&x.folder&&FMAP[x.folder]?x.folder:'other';}   // 没写文件夹的歌放进“其他诗歌”
+  function flist(){var l=FOLDERS.slice();if(SONGS.some(function(x){return folderOf(x)==='other';}))l.push({id:'other',name:'其他诗歌',sub:''});return l;}
+  function inFolder(fid){return SONGS.filter(function(x){return folderOf(x)===fid;});}
+  function ordered(){if(!FOLDERS.length)return SONGS;var o=[];flist().forEach(function(f){o=o.concat(inFolder(f.id));});return o;}
   var A=new Audio();A.preload='auto';
   var cur='',queue=[],loop=get('mloop')==='1',shuf=get('mshuf')==='1',q='';
   var want=false,buf=null,bufPct=-1,waitT=null,pre={},rate=[],rateT=null,tapAt=0,MAXWAIT=7000;   // 缓冲最多等 7 秒就先播起来   // want：想让它播着；buf：网速跟不上时先停下来缓冲；pre：提前下载好的下一首
@@ -3605,18 +3632,43 @@ window.Q4Hub=(function(){
   var toastEl=el('p','mtoast');toastEl.hidden=true;toastEl.setAttribute('role','status');document.body.appendChild(toastEl);var toastT=null;
   function toast(s){toastEl.textContent=s;toastEl.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){toastEl.hidden=true;},6000);}
   function onMusic(){return /^#music(-|$)/.test(location.hash);}
-  function shown(){var k=q.trim().toLowerCase();return SONGS.filter(function(x){return !k||(x.title+' '+(x.sub||'')).toLowerCase().indexOf(k)>=0;});}
-  function card(x){return '<article class="msong" id="music-'+esc(x.id)+'" data-id="'+esc(x.id)+'" data-title="'+esc(x.title+(x.sub?'（'+x.sub+'）':''))+' · 音乐">'+
+  function shown(){   // 现在列出来的歌（搜索结果 / 这个文件夹的 / 文件夹列表时是全部）；“全部播放”就按这个顺序
+    var k=q.trim().toLowerCase();
+    if(k)return ordered().filter(function(x){return (x.title+' '+(x.sub||'')).toLowerCase().indexOf(k)>=0;});
+    return folder&&FOLDERS.length?inFolder(folder):ordered();
+  }
+  function mins(list){var t=0;list.forEach(function(x){t+=x.dur||0;});t=Math.round(t/60);return t>=60?'约 '+Math.floor(t/60)+' 小时'+(t%60?' '+t%60+' 分钟':''):'约 '+Math.max(1,t)+' 分钟';}
+  function isNew(f){   // 只给最新的那个文件夹标“新”（30 天内建的）
+    var d=Date.parse(f.date||''),top=0;FOLDERS.forEach(function(x){top=Math.max(top,Date.parse(x.date||'')||0);});
+    return d&&d===top&&Date.now()-d<30*864e5;
+  }
+  function fcard(f){var l=inFolder(f.id);return '<a class="mfold" href="#music-f-'+esc(f.id)+'" data-f="'+esc(f.id)+'">'+
+    '<span class="mf-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M3 6.5A2.5 2.5 0 0 1 5.5 4h4l2 2.2h7A2.5 2.5 0 0 1 21 8.7v8.8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></svg></span>'+
+    '<span class="mf-main"><b class="mf-n">'+esc(f.name)+(isNew(f)?'<i class="mf-new">新</i>':'')+'</b>'+(f.sub?'<span class="mf-s">'+esc(f.sub)+'</span>':'')+
+    '<span class="mf-c">'+l.length+' 首 · '+mins(l)+'<span class="mf-on"> · 正在播放</span></span></span><span class="mf-go" aria-hidden="true">›</span></a>';}
+  function card(x,withF){var fn=withF&&FOLDERS.length?(FMAP[x.folder]||{name:'其他诗歌'}).name:'';
+    return '<article class="msong" id="music-'+esc(x.id)+'" data-id="'+esc(x.id)+'" data-title="'+esc(x.title+(x.sub?'（'+x.sub+'）':''))+' · 音乐">'+
     '<button class="ms-play" type="button" data-mplay aria-label="播放《'+esc(x.title)+'》"><span class="ms-ic" aria-hidden="true"></span></button>'+
-    '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub?'<p class="ms-s">'+esc(x.sub)+'</p>':'')+'</div>'+
+    '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub||fn?'<p class="ms-s">'+esc(x.sub||'')+(fn?'<span class="ms-f">'+(x.sub?' · ':'')+esc(fn)+'</span>':'')+'</p>':'')+'</div>'+
     '<span class="ms-tm">'+(x.dur?mmss(x.dur):'')+'</span>'+
     '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(fileOf(x)))+'" download="'+esc(x.title+(/\.\w+$/.exec(fileOf(x))||['.mp3'])[0])+'" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
     '<button class="ms-ib share" type="button" data-share="music-'+esc(x.id)+'" aria-label="分享《'+esc(x.title)+'》">'+SHARE+'</button></span>'+
     '<div class="ms-bar"><i class="ms-pg" aria-hidden="true"><b></b></i></div></article>';}
   function render(){
-    var list=shown();
-    wrap.innerHTML=list.length?list.map(card).join(''):'<p class="mnone">'+(SONGS.length?'没有找到这首歌，换个字试试。':'音乐正在整理中，敬请期待。')+'</p>';
-    var n=page.querySelector('.ms-n');n.textContent=q.trim()?'找到 '+list.length+' 首':'共 '+SONGS.length+' 首';
+    if(folder&&!FMAP[folder]&&folder!=='other')folder='';   // 文件夹已经没有了
+    var list=shown(),k=q.trim(),n=page.querySelector('.ms-n'),h;
+    if(!SONGS.length)h='<p class="mnone">音乐正在整理中，敬请期待。</p>';
+    else if(k){h=list.length?list.map(function(x){return card(x,true);}).join(''):'<p class="mnone">没有找到这首歌，换个字试试。</p>';n.textContent='找到 '+list.length+' 首';}
+    else if(!FOLDERS.length){h=list.map(function(x){return card(x);}).join('');n.textContent='共 '+SONGS.length+' 首';}
+    else if(folder){
+      var f=FMAP[folder]||{name:'其他诗歌',sub:''};
+      h='<div class="mf-head"><a class="mf-back" href="#music">‹ 全部文件夹</a><h2 class="mf-title">'+esc(f.name)+'</h2>'+(f.sub?'<p class="mf-sub">'+esc(f.sub)+'</p>':'')+'</div>'+
+        list.map(function(x){return card(x);}).join('');
+      n.textContent='共 '+list.length+' 首';
+    }
+    else{h=flist().map(fcard).join('');n.textContent=flist().length+' 个文件夹 · 共 '+SONGS.length+' 首';}
+    if(SONGS.length&&!SONGS.some(playable))h='<p class="mwarn">'+NOPLAY+'</p>'+h;
+    wrap.innerHTML=h;wrap.classList.toggle('folders',!k&&!folder&&!!FOLDERS.length);
     paint();prog();marks();
   }
   function cardOf(id){return document.getElementById('music-'+id);}
@@ -3629,7 +3681,10 @@ window.Q4Hub=(function(){
   var BASEA=(function(){var l=document.createElement('a');l.href=BASE;return l.href;})();   // 写成完整网址，和存在手机里的一致
   // OGG（Opus / Vorbis）较旧的苹果手机放不出来：放不了时改用备用的 AAC（list.json 里的 alt）
   var PROBE=document.createElement('audio');
-  function fileOf(x){return x.alt&&x.type&&!(PROBE.canPlayType&&PROBE.canPlayType(x.type))?x.alt:x.file;}
+  function canType(t){return !t||!!(PROBE.canPlayType&&PROBE.canPlayType(t));}
+  function fileOf(x){return x.alt&&!canType(x.type)?x.alt:x.file;}
+  function playable(x){return canType(x.type)||!!x.alt;}
+  var NOPLAY='这台手机暂时放不了这里的音乐（音乐是 OGG 格式，较旧的苹果手机放不了）。请把手机系统更新到最新，或换用安卓手机、电脑打开。';
   function urlOf(x){return BASEA+encodeURIComponent(fileOf(x));}
   /* 听过的歌存在这台设备上（浏览器的 Cache Storage），下次直接从手机里播，不用再等网络。
      最多存 40 首，再多就先删已经不在清单里的、再删最久没听的 */
@@ -3664,6 +3719,7 @@ window.Q4Hub=(function(){
   }
   function play(id){
     var x=byId[id];if(!x)return;
+    if(!playable(x)){toast(NOPLAY);return;}
     if(id!==cur){
       cur=id;stopBuf();rate=[];tapAt=Date.now();
       Object.keys(pre).forEach(function(k){var o=pre[k];if(!o.url){if(o.ctl)o.ctl.abort();delete pre[k];}});   // 后台还没下载完的先停掉，网速全给选中的这首
@@ -3745,7 +3801,9 @@ window.Q4Hub=(function(){
       var on=it.dataset.id===cur,pl=on&&want,x=byId[it.dataset.id]||{};it.classList.toggle('cur',on);it.classList.toggle('playing',pl);it.classList.toggle('buffering',on&&!!buf);
       it.querySelector('[data-mplay]').setAttribute('aria-label',(pl?'暂停':'播放')+'《'+(x.title||'')+'》');
     });
-    var show=!!cur;
+    var show=!!cur,cf=cur&&byId[cur]?folderOf(byId[cur]):'';
+    [].forEach.call(wrap.querySelectorAll('.mfold'),function(f){f.classList.toggle('on',!!cf&&f.dataset.f===cf&&want);});
+    if(cur)mini.querySelector('.mp-go').setAttribute('href','#music-'+cur);
     mini.hidden=!show;de.classList.toggle('mplay',show);
     if(cur){
       var cx=byId[cur]||{};mini.querySelector('.mp-t').textContent=cx.title||'';var ms=mini.querySelector('.mp-s');ms.textContent=buf?'网络慢，正在缓冲'+(bufPct>0?' '+bufPct+'%':'')+'…':(cx.sub||'');ms.hidden=!buf&&!cx.sub;
@@ -3785,6 +3843,8 @@ window.Q4Hub=(function(){
   A.addEventListener('error',function(){if(cur&&A.getAttribute('src'))toast('《'+((byId[cur]||{}).title||'')+'》没有加载成功，请检查网络后再试。');});
   page.addEventListener('click',function(e){
     var t=e.target,it=t.closest('.msong'),id=it&&it.dataset.id;
+    var fl=t.closest('.mfold,.mf-back');   // 文件夹和“全部文件夹”：自己换网址（不让翻页动画接手，它不触发 hashchange）
+    if(fl){e.preventDefault();var hh=fl.getAttribute('href');if(location.hash!==hh)location.hash=hh;else sync();return;}
     if(t.closest('[data-mplay]')&&id){if(id===cur&&want)hold();else{makeQueue(id);play(id);}return;}
     var bar=t.closest('.ms-pg');
     if(bar&&id){if(id!==cur){makeQueue(id);play(id);return;}if(A.duration){var r=bar.getBoundingClientRect();A.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*A.duration;}return;}
@@ -3799,27 +3859,41 @@ window.Q4Hub=(function(){
     if(e.target.closest('.mp-pp')){e.preventDefault();if(want)hold();else play(cur);}
     else if(e.target.closest('.mp-prev')){e.preventDefault();if(A.currentTime>4){A.currentTime=0;if(!want)play(cur);}else next(-1,true);}   // 播了几秒后按“上一首”先回到这首开头
     else if(e.target.closest('.mp-next')){e.preventDefault();next(1,true);}
-    else if(e.target.closest('.mp-go')&&onMusic()){e.preventDefault();var cc=cardOf(cur);if(cc)cc.scrollIntoView({block:'center',behavior:'smooth'});}
+    else if(e.target.closest('.mp-go')&&cur){e.preventDefault();var h='#music-'+cur;if(location.hash!==h)location.hash=h;else{sync();hit();}}   // 回到音乐页这首歌所在的文件夹
     else if(e.target.closest('.mp-x')){e.preventDefault();stop();}
   });
   window.addEventListener('hashchange',paint);
   window.addEventListener('q4:tts',function(){if(want)hold();});   // 开始听朗读时音乐先停下
   var fab=document.querySelector('.fab');   // 小窗跟着主页按钮：往下读时一起变成半透明
   if(fab&&window.MutationObserver)new MutationObserver(function(){mini.classList.toggle('glass',fab.classList.contains('glass'));}).observe(fab,{attributes:true,attributeFilter:['class']});
-  function hit(){   // 分享出去的单曲链接：打开后滚到那一首，亮一下
-    var m=/^#music-(.+)$/.exec(decodeURIComponent(location.hash));if(!m)return;
-    var it=cardOf(m[1]);if(it){it.scrollIntoView({block:'center'});it.classList.add('hit');setTimeout(function(){it.classList.remove('hit');},2600);}
+  function top(){var s=page.querySelector('.msearch');if(s)window.scrollTo(0,Math.max(0,s.getBoundingClientRect().top+window.pageYOffset-12));}
+  function sync(){   // 按网址打开文件夹：#music → 文件夹列表；#music-f-x → 文件夹 x；#music-<歌> → 那首歌所在的文件夹
+    if(!onMusic())return;
+    var h=decodeURIComponent(location.hash),m,nf=folder,song=null;
+    if(h==='#music')nf='';
+    else if((m=/^#music-f-(.+)$/.exec(h)))nf=m[1];
+    else if((m=/^#music-(.+)$/.exec(h))&&byId[m[1]]){song=m[1];nf=FOLDERS.length?folderOf(byId[song]):'';}
+    var changed=nf!==folder;folder=nf;
+    if(q&&(changed||(song&&!shown().some(function(x){return x.id===song;})))){q='';page.querySelector('.ms-q').value='';changed=true;}   // 换文件夹时清掉搜索
+    if(changed){render();if(!song)setTimeout(top,0);}
   }
-  window.addEventListener('hashchange',hit);
-  render();hit();
+  function hit(){   // 分享出去的单曲链接：打开后滚到那一首，亮一下（等页面切换的滚动做完再滚）
+    var m=/^#music-(.+)$/.exec(decodeURIComponent(location.hash));if(!m||/^f-/.test(m[1]))return;
+    setTimeout(function(){var it=cardOf(m[1]);if(it){it.scrollIntoView({block:'center'});it.classList.add('hit');setTimeout(function(){it.classList.remove('hit');},2600);}},200);
+  }
+  window.addEventListener('hashchange',function(){sync();hit();});
+  sync();render();hit();
   // 读最新的曲目清单（收了新歌马上出现）
   var fetched=false;
   function refresh(){
     if(fetched||!window.fetch)return;fetched=true;
     fetch(LIST+'?t='+Math.floor(Date.now()/60000),{cache:'no-cache'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
-      var s=j&&Array.isArray(j.songs)?j.songs.filter(function(x){return x&&x.id&&x.file&&x.title;}):null;
-      if(!s||JSON.stringify(s.map(function(x){return x.id+x.title;}))===JSON.stringify(SONGS.map(function(x){return x.id+x.title;})))return;
-      SONGS=s;index();render();hit();
+      var s=j&&Array.isArray(j.songs)?j.songs.filter(function(x){return x&&x.id&&x.file&&x.title;}):null;if(!s)return;
+      var sig=function(ss,ff){return JSON.stringify([ss.map(function(x){return [x.id,x.title,x.sub,x.folder,x.file];}),(ff||[]).map(function(f){return [f.id,f.name,f.sub];})]);};
+      if(sig(s,j.folders)===sig(SONGS,FOLDERS))return;
+      take({songs:s,folders:j.folders||[]});index();
+      if(/^#music-[^f]|^#music-f[^-]/.test(location.hash)){folder='\u0000';sync();}   // 分享的单曲链接：新清单里才有的歌也能打开
+      render();hit();
     }).then(tidy,function(){});
   }
   if(onMusic())refresh();

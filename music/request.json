@@ -3,6 +3,6 @@
  "release": "Music",
  "rev": 3,
  "codec": "opus",
- "reencode": true,
+ "reencode": false,
  "folder": ""
 }
