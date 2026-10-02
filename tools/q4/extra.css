@@ -874,6 +874,26 @@ html.sheetopen{overflow:hidden}
 .ms-pg b{position:absolute;left:0;top:6px;height:4px;width:0;border-radius:4px;background:var(--accent);transition:width .25s linear}
 @media (max-width:359px){.ms-tm{display:none}}
 .mnote,.mnone{margin:0;font-size:.86rem;color:var(--muted)}
+/* 音乐的文件夹 */
+.msongs.folders{gap:10px}
+.mfold{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--rule);border-radius:16px;background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:0 6px 18px -14px rgba(0,0,0,.45)}
+.mfold:active{transform:scale(.99)}
+.mf-ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--gold-soft);color:var(--gold)}
+.mf-main{display:grid;gap:1px;min-width:0}
+.mf-n{font-family:var(--serif);font-size:1.08rem;line-height:1.35}
+.mf-new{display:inline-block;margin-left:8px;padding:0 7px;border-radius:999px;background:var(--accent);color:var(--surface);font:600 .7rem/1.6 var(--sans);font-style:normal;vertical-align:2px}
+.mf-s{font-size:.88rem;color:var(--ink);opacity:.78}
+.mf-c{font-size:.8rem;color:var(--muted)}
+.mf-on{display:none;color:var(--accent);font-weight:600}
+.mfold.on{border-color:var(--accent)}
+.mfold.on .mf-on{display:inline}
+.mf-go{font-size:1.6rem;line-height:1;color:var(--muted)}
+.mf-head{display:grid;gap:2px;margin:2px 0 6px}
+.mf-back{justify-self:start;padding:6px 14px 6px 10px;margin:0 0 6px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);text-decoration:none;font-size:.92rem}
+.mf-title{margin:0;font-family:var(--serif);font-size:1.3rem}
+.mf-sub{margin:0;font-size:.9rem;color:var(--muted)}
+.ms-f{color:var(--muted)}
+.mwarn{margin:0;padding:10px 14px;border:1px solid var(--accent);border-radius:12px;color:var(--accent);font-size:.9rem;line-height:1.7}
 /* 小窗：离开音乐页时在左下角继续播放（在主页按钮那一行的上面） */
 .mplayer{position:fixed;left:16px;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 56px);z-index:41;display:flex;align-items:center;gap:6px;
   width:min(370px,calc(100% - 32px));height:50px;padding:0 6px;border-radius:999px;overflow:hidden;isolation:isolate;

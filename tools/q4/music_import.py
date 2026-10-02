@@ -9,16 +9,18 @@
 本地也能用：python3 tools/q4/music_import.py --dir 放歌的文件夹（需要 ffmpeg）
 MP3 / M4A / FLAC / WAV / 视频都可以，ZIP 压缩包会自动解开。
 
-处理：只取声音，统一音量（loudnorm），压成 48 kbps 的 HE-AAC（.m4a，约 0.36 MB/分钟，听感接近 96 kbps 的 MP3，
+处理（现在 request.json 用 codec=opus：压成 OGG〔Opus，约 70 kbps〕；以下是 heaac 的说明）：只取声音，统一音量（loudnorm），压成 48 kbps 的 HE-AAC（.m4a，约 0.36 MB/分钟，听感接近 96 kbps 的 MP3，
 大小只有一半，网速慢时少卡）；去掉封面和其它标签。HE-AAC 要用完整版的 fdk-aac（music.yml 会现场编译），
 没有时改用 64 kbps 的 AAC-LC。
 存成 music/<编号>.m4a，曲名取自文件名（或歌曲标签），追加到 music/list.json；
 在 music/sources.json 里记下收过哪些文件，下次只收新的。
 --reencode：把已经收过的歌从原始文件按现在的格式重新压一遍（编号、曲名不变；--keep-old 时先留着旧文件）。
+--folder 名字：这一批新歌放进哪个文件夹（没有就新建，排在最后）；不写时放进“某年某月 新收录”。
+--request music/request.json：从这个文件读 release、codec、reencode、folder（GitHub 上的 music.yml 用它）。
 --codec keep：不压缩，原样放上去（MP3 / M4A / OGG）。OGG（Opus、Vorbis）在较旧的苹果手机上放不出来，
 所以另外压一份 48 kbps HE-AAC 备用（list.json 里的 alt），网页按手机能不能放 OGG 自动选。
 """
-import argparse, hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.parse, urllib.request, zipfile
+import argparse, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.parse, urllib.request, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
@@ -70,7 +72,9 @@ def clean_title(t):
     return '' if EMPTY.fullmatch(t) else t
 
 
-FMT = {'heaac': ('.m4a', 48), 'aac': ('.m4a', 64), 'mp3': ('.mp3', 96)}   # 格式：扩展名、每秒千比特
+# 格式：扩展名、每秒千比特。opus = OGG（Opus 编码，VBR 64k，实际约 70 kbps），现在用的就是它
+FMT = {'opus': ('.ogg', 64), 'heaac': ('.m4a', 48), 'aac': ('.m4a', 64), 'mp3': ('.mp3', 96)}
+OGG_TYPE = 'audio/ogg; codecs="opus"'
 
 
 def fdk_ok(profile):
@@ -106,7 +110,9 @@ def codec_name(path):
 def encode(src, dst, codec, kbps):
     pre = ['ffmpeg', '-v', 'error', '-y', '-i', src, '-vn', '-map', '0:a:0', '-map_metadata', '-1',
            '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ac', '2', '-ar', '44100']
-    if codec == 'mp3':
+    if codec == 'opus':   # Opus 只支持 48 kHz
+        run(pre[:-1] + ['48000', '-c:a', 'libopus', '-b:a', f'{kbps}k', '-vbr', 'on', dst])
+    elif codec == 'mp3':
         run(pre + ['-c:a', 'libmp3lame', '-b:a', f'{kbps}k', '-id3v2_version', '3', dst])
     elif codec == 'aac' and not shutil.which('fdkaac'):
         run(pre + ['-c:a', 'aac', '-b:a', f'{kbps}k', '-movflags', '+faststart', dst])
@@ -203,11 +209,21 @@ def main():
     ap.add_argument('--codec', default='heaac', choices=sorted(FMT) + ['keep'])
     ap.add_argument('--reencode', action='store_true', help='把已收的歌换成现在的格式重新压一遍')
     ap.add_argument('--keep-old', action='store_true', help='重新压时先不删旧文件')
+    ap.add_argument('--folder', default='', help='新歌放进哪个文件夹（名字）')
+    ap.add_argument('--request', default='', help='从 request.json 读设置')
     a = ap.parse_args()
+    if a.request:
+        r = json.load(open(a.request, encoding='utf-8'))
+        a.release = a.release or r.get('release', '')
+        a.codec = r.get('codec', a.codec) if a.codec == 'heaac' else a.codec
+        a.reencode = a.reencode or bool(r.get('reencode'))
+        a.keep_old = a.keep_old or bool(r.get('reencode'))
+        a.folder = a.folder or r.get('folder', '')
     os.makedirs(a.music, exist_ok=True)
     LIST, SRC = os.path.join(a.music, 'list.json'), os.path.join(a.music, 'sources.json')
     lst = json.load(open(LIST, encoding='utf-8')) if os.path.exists(LIST) else {'songs': []}
     lst.setdefault('songs', [])
+    lst.setdefault('folders', [])
     done = json.load(open(SRC, encoding='utf-8')) if os.path.exists(SRC) else {}
     NAMES = os.path.join(a.music, 'names.json')   # 可选：曲名 → 显示的曲名和中文名
     names = json.load(open(NAMES, encoding='utf-8')).get('names', {}) if os.path.exists(NAMES) else {}
@@ -257,6 +273,8 @@ def main():
             out_ext = EXT_OUT
             dst = os.path.join(a.music, sid + out_ext)
             encode(src, dst, codec, kbps)
+            if out_ext == '.ogg':
+                extra['type'] = OGG_TYPE
         size = os.path.getsize(dst)
         # 曲名：文件名可靠时用文件名（整理者自己起的），否则用歌曲标签
         cands = [name, tag_title] if named else [tag_title, re.sub(r'\.(?=.*\.)', ' ', name)]   # 附件名里的点原来是空格
@@ -272,7 +290,8 @@ def main():
             done[key] = same['id']
             print(f'  已经有《{same["title"]}》，跳过', flush=True)
             return
-        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': os.path.basename(dst), 'dur': round(dur), 'src': name}
+        song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': os.path.basename(dst), 'dur': round(dur), 'src': name,
+                'folder': folder_id(lst, a.folder)}
         song.update(extra)
         lst['songs'] = [s for s in lst['songs'] if s['id'] != sid] + [song]
         done[key] = sid
@@ -352,6 +371,11 @@ def reencode(a, lst, done, items, codec, LIST, SRC):
                     os.remove(old)
                 s['file'] = s['id'] + EXT_OUT
                 s['dur'] = round(probe(dst)[0]) or s.get('dur', 0)
+                s.pop('alt', None)
+                if EXT_OUT == '.ogg':
+                    s['type'] = OGG_TYPE
+                else:
+                    s.pop('type', None)
                 ok += 1
                 print(f'  → {s["file"]} {os.path.getsize(dst) / 1048576:.2f} MB', flush=True)
             except Exception as e:
@@ -367,6 +391,19 @@ def reencode(a, lst, done, items, codec, LIST, SRC):
     save(LIST, SRC, lst, done)
     total = sum(os.path.getsize(os.path.join(a.music, s['file'])) for s in lst['songs'] if os.path.exists(os.path.join(a.music, s['file'])))
     print(f'完成：换好 {ok} 首，没换 {bad} 首；网页用到的音乐共 {total / 1048576:.0f} MB')
+
+
+def folder_id(lst, name):
+    """新歌放进的文件夹：按名字找，没有就新建，排在最后（不写名字时用“某年某月 新收录”）"""
+    today = datetime.date.today()
+    name = (name or f'{today.year}年{today.month}月 新收录').strip()
+    for f in lst['folders']:
+        if f['name'] == name:
+            return f['id']
+    fid = 'f' + hashlib.sha1(name.encode('utf-8')).hexdigest()[:6]
+    lst['folders'].append({'id': fid, 'name': name, 'sub': '', 'date': today.isoformat()})
+    print(f'新建文件夹《{name}》', flush=True)
+    return fid
 
 
 def save(LIST, SRC, lst, done):

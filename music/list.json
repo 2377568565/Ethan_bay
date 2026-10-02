@@ -1,5 +1,19 @@
 {
- "note": "音乐栏目的曲目（按这里的顺序显示）。title 曲名，sub 曲名下面的一行（中文名或说明，可空），file 文件名，dur 时长（秒）。新歌由 music_import.py 自动追加。",
+ "note": "音乐栏目的曲目。folders：文件夹（按这里的顺序显示，新的放前面；name 名字，sub 一句说明，date 建立日期）；songs：每首歌（title 曲名，sub 曲名下面的一行，file 文件名，dur 时长秒数，folder 放在哪个文件夹）。新歌由 music_import.py 自动追加。",
+ "folders": [
+  {
+   "id": "worship",
+   "name": "英文敬拜与圣诗",
+   "sub": "经典圣诗、敬拜诗歌、圣诞诗歌",
+   "date": "2026-10-01"
+  },
+  {
+   "id": "new-2026-10",
+   "name": "2026年10月 新收录",
+   "sub": "最近加入的诗歌",
+   "date": "2026-10-02"
+  }
+ ],
  "songs": [
   {
    "id": "m36bffd4d",
@@ -7,7 +21,8 @@
    "sub": "简单的祷告",
    "file": "m36bffd4d.m4a",
    "dur": 204,
-   "src": "A Simple Prayer.mp3"
+   "src": "A Simple Prayer.mp3",
+   "folder": "worship"
   },
   {
    "id": "m31c13b6d",
@@ -15,7 +30,8 @@
    "sub": "羔羊颂",
    "file": "m31c13b6d.m4a",
    "dur": 245,
-   "src": "Agnus Dei.mp3"
+   "src": "Agnus Dei.mp3",
+   "folder": "worship"
   },
   {
    "id": "mb20202f8",
@@ -23,7 +39,8 @@
    "sub": "天地万物同颂主",
    "file": "mb20202f8.m4a",
    "dur": 165,
-   "src": "All Creatures of Our God and King.mp3"
+   "src": "All Creatures of Our God and King.mp3",
+   "folder": "worship"
   },
   {
    "id": "mfb34f020",
@@ -31,7 +48,8 @@
    "sub": "万事安好",
    "file": "mfb34f020.m4a",
    "dur": 198,
-   "src": "All Is Well.mp3"
+   "src": "All Is Well.mp3",
+   "folder": "worship"
   },
   {
    "id": "mf1662a9f",
@@ -39,7 +57,8 @@
    "sub": "整夜整日／耶稣爱我（组曲）",
    "file": "mf1662a9f.m4a",
    "dur": 164,
-   "src": "All Night, All Day Jesus Loves Me Medley.mp3"
+   "src": "All Night, All Day Jesus Loves Me Medley.mp3",
+   "folder": "worship"
   },
   {
    "id": "m14235f88",
@@ -47,7 +66,8 @@
    "sub": "如鹿切慕溪水",
    "file": "m14235f88.m4a",
    "dur": 140,
-   "src": "As The Deer.mp3"
+   "src": "As The Deer.mp3",
+   "folder": "worship"
   },
   {
    "id": "m948ffde3",
@@ -55,21 +75,24 @@
    "sub": "远远在马槽里",
    "file": "m948ffde3.m4a",
    "dur": 261,
-   "src": "Away in a Manger.mp3"
+   "src": "Away in a Manger.mp3",
+   "folder": "worship"
   },
   {
    "id": "awesome-god",
    "title": "Awesome God",
    "sub": "大能的神",
    "file": "awesome-god.m4a",
-   "dur": 107
+   "dur": 107,
+   "folder": "worship"
   },
   {
    "id": "be-thou-my-vision",
    "title": "Be Thou My Vision",
    "sub": "成为我异象",
    "file": "be-thou-my-vision.m4a",
-   "dur": 213
+   "dur": 213,
+   "folder": "worship"
   },
   {
    "id": "m7b3f4088",
@@ -77,7 +100,8 @@
    "sub": "归于你名",
    "file": "m7b3f4088.m4a",
    "dur": 187,
-   "src": "Be Unto Your Name.mp3"
+   "src": "Be Unto Your Name.mp3",
+   "folder": "worship"
   },
   {
    "id": "m4b6c786b",
@@ -85,7 +109,8 @@
    "sub": "美丽的主",
    "file": "m4b6c786b.m4a",
    "dur": 217,
-   "src": "Beautiful One.mp3"
+   "src": "Beautiful One.mp3",
+   "folder": "worship"
   },
   {
    "id": "m59e76016",
@@ -93,7 +118,8 @@
    "sub": "在你殿中一日",
    "file": "m59e76016.m4a",
    "dur": 256,
-   "src": "Better Is One Day.mp3"
+   "src": "Better Is One Day.mp3",
+   "folder": "worship"
   },
   {
    "id": "m439f6981",
@@ -101,7 +127,8 @@
    "sub": "称颂你名",
    "file": "m439f6981.m4a",
    "dur": 273,
-   "src": "Blessed Be Your Name.mp3"
+   "src": "Blessed Be Your Name.mp3",
+   "folder": "worship"
   },
   {
    "id": "m60609f6d",
@@ -109,7 +136,8 @@
    "sub": "为敬拜而生",
    "file": "m60609f6d.m4a",
    "dur": 173,
-   "src": "Born To Worship.mp3"
+   "src": "Born To Worship.mp3",
+   "folder": "worship"
   },
   {
    "id": "m09ce8fa0",
@@ -117,7 +145,8 @@
    "sub": "勃拉姆斯摇篮曲",
    "file": "m09ce8fa0.m4a",
    "dur": 143,
-   "src": "Brahm's Lullaby.mp3"
+   "src": "Brahm's Lullaby.mp3",
+   "folder": "worship"
   },
   {
    "id": "mf092b881",
@@ -125,7 +154,8 @@
    "sub": "来吧，现在就来敬拜",
    "file": "mf092b881.m4a",
    "dur": 266,
-   "src": "Come, Now Is The Time To Worship.mp3"
+   "src": "Come, Now Is The Time To Worship.mp3",
+   "folder": "worship"
   },
   {
    "id": "ma1b96467",
@@ -133,7 +163,8 @@
    "sub": "万福源头",
    "file": "ma1b96467.m4a",
    "dur": 218,
-   "src": "Come Thou Fount of Every Blessing.mp3"
+   "src": "Come Thou Fount of Every Blessing.mp3",
+   "folder": "worship"
   },
   {
    "id": "m2fa8a887",
@@ -141,7 +172,8 @@
    "sub": "三一颂",
    "file": "m2fa8a887.m4a",
    "dur": 97,
-   "src": "Doxology.mp3"
+   "src": "Doxology.mp3",
+   "folder": "worship"
   },
   {
    "id": "m6bec1816",
@@ -149,7 +181,8 @@
    "sub": "吸引我更靠近你",
    "file": "m6bec1816.m4a",
    "dur": 235,
-   "src": "Draw Me Close To You.mp3"
+   "src": "Draw Me Close To You.mp3",
+   "folder": "worship"
   },
   {
    "id": "m97888197",
@@ -157,7 +190,8 @@
    "sub": "美哉主耶稣",
    "file": "m97888197.m4a",
    "dur": 150,
-   "src": "Fairest Lord Jesus.mp3"
+   "src": "Fairest Lord Jesus.mp3",
+   "folder": "worship"
   },
   {
    "id": "m3057af6b",
@@ -165,7 +199,8 @@
    "sub": "有一婴孩为我们而生",
    "file": "m3057af6b.m4a",
    "dur": 180,
-   "src": "For Unto Us A Child Is Born.mp3"
+   "src": "For Unto Us A Child Is Born.mp3",
+   "folder": "worship"
   },
   {
    "id": "mb898aa28",
@@ -173,7 +208,8 @@
    "sub": "永远掌权",
    "file": "mb898aa28.m4a",
    "dur": 235,
-   "src": "Forever.Reign.mp3"
+   "src": "Forever.Reign.mp3",
+   "folder": "worship"
   },
   {
    "id": "m1ca60784",
@@ -181,7 +217,8 @@
    "sub": "献上感恩",
    "file": "m1ca60784.m4a",
    "dur": 178,
-   "src": "Give Thanks.mp3"
+   "src": "Give Thanks.mp3",
+   "folder": "worship"
   },
   {
    "id": "ma876de19",
@@ -189,7 +226,8 @@
    "sub": "神就是爱",
    "file": "ma876de19.m4a",
    "dur": 164,
-   "src": "God Is Love.mp3"
+   "src": "God Is Love.mp3",
+   "folder": "worship"
   },
   {
    "id": "m164bbd53",
@@ -197,7 +235,8 @@
    "sub": "神真好",
    "file": "m164bbd53.m4a",
    "dur": 124,
-   "src": "God Is So Good.mp3"
+   "src": "God Is So Good.mp3",
+   "folder": "worship"
   },
   {
    "id": "m99297ffc",
@@ -205,7 +244,8 @@
    "sub": "我一切的神",
    "file": "m99297ffc.m4a",
    "dur": 219,
-   "src": "God Of All I Am.mp3"
+   "src": "God Of All I Am.mp3",
+   "folder": "worship"
   },
   {
    "id": "me3dbf673",
@@ -213,7 +253,8 @@
    "sub": "奇妙的神",
    "file": "me3dbf673.m4a",
    "dur": 205,
-   "src": "God of Wonders.mp3"
+   "src": "God of Wonders.mp3",
+   "folder": "worship"
   },
   {
    "id": "m0b6666f0",
@@ -221,7 +262,8 @@
    "sub": "主为大",
    "file": "m0b6666f0.m4a",
    "dur": 131,
-   "src": "Great is The Lord.mp3"
+   "src": "Great is The Lord.mp3",
+   "folder": "worship"
   },
   {
    "id": "m3b99aee4",
@@ -229,7 +271,8 @@
    "sub": "世界的大光",
    "file": "m3b99aee4.m4a",
    "dur": 247,
-   "src": "Great Light Of The World.mp3"
+   "src": "Great Light Of The World.mp3",
+   "folder": "worship"
   },
   {
    "id": "m7a296a3b",
@@ -237,7 +280,8 @@
    "sub": "哈利路亚，你的爱奇妙",
    "file": "m7a296a3b.m4a",
    "dur": 148,
-   "src": "Hallelujah (Your Love is Amazing).mp3"
+   "src": "Hallelujah (Your Love is Amazing).mp3",
+   "folder": "worship"
   },
   {
    "id": "m9b80eb84",
@@ -245,7 +289,8 @@
    "sub": "听啊，天使高声唱",
    "file": "m9b80eb84.m4a",
    "dur": 226,
-   "src": "Hark the Herald Angels Sing.mp3"
+   "src": "Hark the Herald Angels Sing.mp3",
+   "folder": "worship"
   },
   {
    "id": "m9120131f",
@@ -253,7 +298,8 @@
    "sub": "主被高举",
    "file": "m9120131f.m4a",
    "dur": 231,
-   "src": "He Is Exalted.mp3"
+   "src": "He Is Exalted.mp3",
+   "folder": "worship"
   },
   {
    "id": "m9f4a141d",
@@ -261,7 +307,8 @@
    "sub": "祂知道我的名",
    "file": "m9f4a141d.m4a",
    "dur": 205,
-   "src": "He Knows My Name.mp3"
+   "src": "He Knows My Name.mp3",
+   "folder": "worship"
   },
   {
    "id": "m14600b0a",
@@ -269,7 +316,8 @@
    "sub": "祂看顾你",
    "file": "m14600b0a.m4a",
    "dur": 184,
-   "src": "He's Watching Over You.mp3"
+   "src": "He's Watching Over You.mp3",
+   "folder": "worship"
   },
   {
    "id": "mbd34fcc3",
@@ -277,7 +325,8 @@
    "sub": "我来敬拜",
    "file": "mbd34fcc3.m4a",
    "dur": 283,
-   "src": "Here I Am To Worship.mp3"
+   "src": "Here I Am To Worship.mp3",
+   "folder": "worship"
   },
   {
    "id": "mfc1d87af",
@@ -285,7 +334,8 @@
    "sub": "在这地方",
    "file": "mfc1d87af.m4a",
    "dur": 195,
-   "src": "Here In This Place.mp3"
+   "src": "Here In This Place.mp3",
+   "folder": "worship"
   },
   {
    "id": "m6e04d5bc",
@@ -293,7 +343,8 @@
    "sub": "与我们同在",
    "file": "m6e04d5bc.m4a",
    "dur": 213,
-   "src": "Here With Us.mp3"
+   "src": "Here With Us.mp3",
+   "folder": "worship"
   },
   {
    "id": "mf93d662c",
@@ -301,7 +352,8 @@
    "sub": "圣哉，圣哉，圣哉",
    "file": "mf93d662c.m4a",
    "dur": 159,
-   "src": "Holy, Holy, Holy.mp3"
+   "src": "Holy, Holy, Holy.mp3",
+   "folder": "worship"
   },
   {
    "id": "me23def48",
@@ -309,7 +361,8 @@
    "sub": "我神真伟大",
    "file": "me23def48.m4a",
    "dur": 181,
-   "src": "How Great Is Our God.mp3"
+   "src": "How Great Is Our God.mp3",
+   "folder": "worship"
   },
   {
    "id": "m11303c66",
@@ -317,7 +370,8 @@
    "sub": "我要永远歌唱你的爱",
    "file": "m11303c66.m4a",
    "dur": 191,
-   "src": "I Could Sing of Your Love Forever.mp3"
+   "src": "I Could Sing of Your Love Forever.mp3",
+   "folder": "worship"
   },
   {
    "id": "md5e78a59",
@@ -325,7 +379,8 @@
    "sub": "我要跟随",
    "file": "md5e78a59.m4a",
    "dur": 230,
-   "src": "I Will Follow.mp3"
+   "src": "I Will Follow.mp3",
+   "folder": "worship"
   },
   {
    "id": "m7be13f9a",
@@ -333,7 +388,8 @@
    "sub": "难以形容",
    "file": "m7be13f9a.m4a",
    "dur": 250,
-   "src": "Indescribable.mp3"
+   "src": "Indescribable.mp3",
+   "folder": "worship"
   },
   {
    "id": "m4dc7c428",
@@ -341,7 +397,8 @@
    "sub": "耶稣，我今安息",
    "file": "m4dc7c428.m4a",
    "dur": 281,
-   "src": "Jesus, I Am Resting, Resting.mp3"
+   "src": "Jesus, I Am Resting, Resting.mp3",
+   "folder": "worship"
   },
   {
    "id": "maaee39c6",
@@ -349,7 +406,8 @@
    "sub": "普天同庆",
    "file": "maaee39c6.m4a",
    "dur": 154,
-   "src": "Joy To The World.mp3"
+   "src": "Joy To The World.mp3",
+   "folder": "worship"
   },
   {
    "id": "mbd86bc5e",
@@ -357,7 +415,8 @@
    "sub": "欢欣，欢欣，我们崇拜",
    "file": "mbd86bc5e.m4a",
    "dur": 134,
-   "src": "Joyful, Joyful We Adore Thee.mp3"
+   "src": "Joyful, Joyful We Adore Thee.mp3",
+   "folder": "worship"
   },
   {
    "id": "mcc873a18",
@@ -365,7 +424,8 @@
    "sub": "至高的主",
    "file": "mcc873a18.m4a",
    "dur": 224,
-   "src": "Lord Most High.mp3"
+   "src": "Lord Most High.mp3",
+   "folder": "worship"
   },
   {
    "id": "m0aed28e6",
@@ -373,7 +433,8 @@
    "sub": "主，我高举你的名",
    "file": "m0aed28e6.m4a",
    "dur": 157,
-   "src": "Lord, I Lift Your Name On High.mp3"
+   "src": "Lord, I Lift Your Name On High.mp3",
+   "folder": "worship"
   },
   {
    "id": "m8e29db5c",
@@ -381,7 +442,8 @@
    "sub": "为赞美而造",
    "file": "m8e29db5c.m4a",
    "dur": 240,
-   "src": "Made To Praise.mp3"
+   "src": "Made To Praise.mp3",
+   "folder": "worship"
   },
   {
    "id": "m8755065e",
@@ -391,7 +453,7 @@
    "dur": 223,
    "src": "My Redeemer Is Faithful and True   Official Cover (1).ogg",
    "type": "audio/ogg; codecs=\"opus\"",
-   "alt": "m8755065e.m4a"
+   "folder": "new-2026-10"
   },
   {
    "id": "m398ea7fc",
@@ -399,7 +461,8 @@
    "sub": "眼睛未曾看见",
    "file": "m398ea7fc.m4a",
    "dur": 183,
-   "src": "No Eye Had Seen.mp3"
+   "src": "No Eye Had Seen.mp3",
+   "folder": "worship"
   },
   {
    "id": "mbeebe861",
@@ -407,7 +470,8 @@
    "sub": "齐来崇拜",
    "file": "mbeebe861.m4a",
    "dur": 220,
-   "src": "O Come All Ye Faithful.mp3"
+   "src": "O Come All Ye Faithful.mp3",
+   "folder": "worship"
   },
   {
    "id": "m2ea80822",
@@ -415,7 +479,8 @@
    "sub": "敬拜君王／这是天父世界",
    "file": "m2ea80822.m4a",
    "dur": 183,
-   "src": "O Worship The King This Is My Father's World.mp3"
+   "src": "O Worship The King This Is My Father's World.mp3",
+   "folder": "worship"
   },
   {
    "id": "ma5d403d6",
@@ -423,7 +488,8 @@
    "sub": "我的灵魂啊",
    "file": "ma5d403d6.m4a",
    "dur": 189,
-   "src": "Oh My Soul.mp3"
+   "src": "Oh My Soul.mp3",
+   "folder": "worship"
   },
   {
    "id": "m0bcd6a2e",
@@ -431,7 +497,8 @@
    "sub": "我何等爱耶稣",
    "file": "m0bcd6a2e.m4a",
    "dur": 231,
-   "src": "Oh, How I Love Jesus.mp3"
+   "src": "Oh, How I Love Jesus.mp3",
+   "folder": "worship"
   },
   {
    "id": "mb6779411",
@@ -439,7 +506,8 @@
    "sub": "开我心灵的眼睛",
    "file": "mb6779411.m4a",
    "dur": 213,
-   "src": "Open The Eyes of My Heart.mp3"
+   "src": "Open The Eyes of My Heart.mp3",
+   "folder": "worship"
   },
   {
    "id": "med099505",
@@ -447,7 +515,8 @@
    "sub": "我神掌权",
    "file": "med099505.m4a",
    "dur": 287,
-   "src": "Our God Reigns.mp3"
+   "src": "Our God Reigns.mp3",
+   "folder": "worship"
   },
   {
    "id": "mdef63fe0",
@@ -455,7 +524,8 @@
    "sub": "赞美全能神",
    "file": "mdef63fe0.m4a",
    "dur": 184,
-   "src": "Praise To The Lord Almighty.mp3"
+   "src": "Praise To The Lord Almighty.mp3",
+   "folder": "worship"
   },
   {
    "id": "m904d9b41",
@@ -463,7 +533,8 @@
    "sub": "照亮吧，耶稣",
    "file": "m904d9b41.m4a",
    "dur": 188,
-   "src": "Shine, Jesus, Shine.mp3"
+   "src": "Shine, Jesus, Shine.mp3",
+   "folder": "worship"
   },
   {
    "id": "m795016c1",
@@ -471,7 +542,8 @@
    "sub": "向主欢呼",
    "file": "m795016c1.m4a",
    "dur": 212,
-   "src": "Shout to The Lord.mp3"
+   "src": "Shout to The Lord.mp3",
+   "folder": "worship"
   },
   {
    "id": "mcd57a01b",
@@ -479,7 +551,8 @@
    "sub": "一步一步",
    "file": "mcd57a01b.m4a",
    "dur": 195,
-   "src": "Step By Step.mp3"
+   "src": "Step By Step.mp3",
+   "folder": "worship"
   },
   {
    "id": "m927e29ed",
@@ -487,7 +560,8 @@
    "sub": "祈祷良辰／轻声祷告（组曲）",
    "file": "m927e29ed.m4a",
    "dur": 214,
-   "src": "Sweet Hour of Prayer Whisper A Prayer Medley.mp3"
+   "src": "Sweet Hour of Prayer Whisper A Prayer Medley.mp3",
+   "folder": "worship"
   },
   {
    "id": "m519c037c",
@@ -495,7 +569,8 @@
    "sub": "告诉我耶稣的故事（诗歌组曲）",
    "file": "m519c037c.m4a",
    "dur": 204,
-   "src": "Tell Me The Story Hymn Medley.mp3"
+   "src": "Tell Me The Story Hymn Medley.mp3",
+   "folder": "worship"
   },
   {
    "id": "m2da589ab",
@@ -503,7 +578,8 @@
    "sub": "这就是圣诞对我的意义",
    "file": "m2da589ab.m4a",
    "dur": 233,
-   "src": "That's What Christmas Means to Me.mp3"
+   "src": "That's What Christmas Means to Me.mp3",
+   "folder": "worship"
   },
   {
    "id": "mc79f69ad",
@@ -511,7 +587,8 @@
    "sub": "我神何等伟大",
    "file": "mc79f69ad.m4a",
    "dur": 233,
-   "src": "The Greatness of Our God.mp3"
+   "src": "The Greatness of Our God.mp3",
+   "folder": "worship"
   },
   {
    "id": "m25828741",
@@ -519,7 +596,8 @@
    "sub": "敬拜的心",
    "file": "m25828741.m4a",
    "dur": 235,
-   "src": "The Heart Of Worship.mp3"
+   "src": "The Heart Of Worship.mp3",
+   "folder": "worship"
   },
   {
    "id": "md50b1610",
@@ -527,7 +605,8 @@
    "sub": "主祷文",
    "file": "md50b1610.m4a",
    "dur": 129,
-   "src": "The Lord's Prayer.mp3"
+   "src": "The Lord's Prayer.mp3",
+   "folder": "worship"
   },
   {
    "id": "m17464e37",
@@ -535,7 +614,8 @@
    "sub": "第一个圣诞清晨",
    "file": "m17464e37.m4a",
    "dur": 179,
-   "src": "The Very First Christmas Morning.mp3"
+   "src": "The Very First Christmas Morning.mp3",
+   "folder": "worship"
   },
   {
    "id": "mf2e2d507",
@@ -543,7 +623,8 @@
    "sub": "这是天父世界",
    "file": "mf2e2d507.m4a",
    "dur": 180,
-   "src": "This Is My Father's World.mp3"
+   "src": "This Is My Father's World.mp3",
+   "folder": "worship"
   },
   {
    "id": "m94f56ccd",
@@ -551,7 +632,8 @@
    "sub": "这是我们的神",
    "file": "m94f56ccd.m4a",
    "dur": 252,
-   "src": "This Is Our God.mp3"
+   "src": "This Is Our God.mp3",
+   "folder": "worship"
   },
   {
    "id": "m8e29122a",
@@ -559,7 +641,8 @@
    "sub": "你的话",
    "file": "m8e29122a.m4a",
    "dur": 181,
-   "src": "Thy Word.mp3"
+   "src": "Thy Word.mp3",
+   "folder": "worship"
   },
   {
    "id": "m0e371c06",
@@ -567,7 +650,8 @@
    "sub": "我们俯伏",
    "file": "m0e371c06.m4a",
    "dur": 178,
-   "src": "We Bow Down.mp3"
+   "src": "We Bow Down.mp3",
+   "folder": "worship"
   },
   {
    "id": "m73191926",
@@ -575,7 +659,8 @@
    "sub": "俯伏敬拜",
    "file": "m73191926.m4a",
    "dur": 161,
-   "src": "We Fall Down.mp3"
+   "src": "We Fall Down.mp3",
+   "folder": "worship"
   },
   {
    "id": "m0e0c6ff2",
@@ -583,7 +668,8 @@
    "sub": "三王来朝／这婴孩是谁",
    "file": "m0e0c6ff2.m4a",
    "dur": 263,
-   "src": "We Three Kings What Child Is This.mp3"
+   "src": "We Three Kings What Child Is This.mp3",
+   "folder": "worship"
   },
   {
    "id": "m5b895068",
@@ -591,7 +677,8 @@
    "sub": "欢迎来到我们的世界",
    "file": "m5b895068.m4a",
    "dur": 180,
-   "src": "Welcome To Our World.mp3"
+   "src": "Welcome To Our World.mp3",
+   "folder": "worship"
   },
   {
    "id": "m82242908",
@@ -599,7 +686,8 @@
    "sub": "耶稣恩友",
    "file": "m82242908.m4a",
    "dur": 230,
-   "src": "What-A-Friend-We-Have-In-Jesus-_Hymn-164_-HYMNOLOGY-Season-7.mp3"
+   "src": "What-A-Friend-We-Have-In-Jesus-_Hymn-164_-HYMNOLOGY-Season-7.mp3",
+   "folder": "worship"
   },
   {
    "id": "m4380513f",
@@ -607,7 +695,8 @@
    "sub": "奇妙慈爱的救主",
    "file": "m4380513f.m4a",
    "dur": 173,
-   "src": "Wonderful, Merciful, Savior.mp3"
+   "src": "Wonderful, Merciful, Savior.mp3",
+   "folder": "worship"
   },
   {
    "id": "m1aff1d6e",
@@ -615,7 +704,8 @@
    "sub": "唯有你",
    "file": "m1aff1d6e.m4a",
    "dur": 249,
-   "src": "You Alone.mp3"
+   "src": "You Alone.mp3",
+   "folder": "worship"
   },
   {
    "id": "md5de6af7",
@@ -623,7 +713,8 @@
    "sub": "你是我的一切",
    "file": "md5de6af7.m4a",
    "dur": 166,
-   "src": "You Are My All In All.mp3"
+   "src": "You Are My All In All.mp3",
+   "folder": "worship"
   },
   {
    "id": "m9812d719",
@@ -631,7 +722,8 @@
    "sub": "你是我的王",
    "file": "m9812d719.m4a",
    "dur": 190,
-   "src": "You Are My King.mp3"
+   "src": "You Are My King.mp3",
+   "folder": "worship"
   },
   {
    "id": "mac9ae653",
@@ -639,7 +731,8 @@
    "sub": "你待我真好",
    "file": "mac9ae653.m4a",
    "dur": 101,
-   "src": "You Are So Good To Me.mp3"
+   "src": "You Are So Good To Me.mp3",
+   "folder": "worship"
   },
   {
    "id": "meb258b79",
@@ -647,7 +740,8 @@
    "sub": "你创造了我",
    "file": "meb258b79.m4a",
    "dur": 213,
-   "src": "You Created Me.mp3"
+   "src": "You Created Me.mp3",
+   "folder": "worship"
   },
   {
    "id": "m3d4d34fb",
@@ -655,7 +749,8 @@
    "sub": "你赐我生命",
    "file": "m3d4d34fb.m4a",
    "dur": 161,
-   "src": "You've Given Life To Me.mp3"
+   "src": "You've Given Life To Me.mp3",
+   "folder": "worship"
   },
   {
    "id": "me8d6b4f1",
@@ -663,7 +758,8 @@
    "sub": "主啊，你的爱",
    "file": "me8d6b4f1.m4a",
    "dur": 207,
-   "src": "Your Love, Oh Lord.mp3"
+   "src": "Your Love, Oh Lord.mp3",
+   "folder": "worship"
   }
  ]
 }

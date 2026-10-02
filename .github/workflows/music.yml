@@ -35,8 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          eval "$(python3 -c "import json;r=json.load(open('music/request.json'));print('TAG=%s CODEC=%s RE=%s' % (r.get('release','music-src'), r.get('codec','heaac'), '1' if r.get('reencode') else ''))")"
-          python3 tools/q4/music_import.py --release "$TAG" --codec "$CODEC" ${RE:+--reencode --keep-old}
+          python3 tools/q4/music_import.py --request music/request.json
       - name: 提交
         if: always()
         run: |
