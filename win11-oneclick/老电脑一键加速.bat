@@ -10,7 +10,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.F
 if errorlevel 1 pause
 exit /b
 #>
-# 老电脑一键加速：开启专注模式 -> 磁盘清理 -> 回收内存 -> 实时专注（后台小窗口）-> 关闭占 CPU 的程序（需确认）
+# 老电脑一键加速：开启专注模式 -> 降低 CPU 温度 -> 磁盘清理 -> 回收内存 -> 实时专注（后台小窗口）-> 关闭占 CPU 的程序（需确认）
 # 原则: 只删缓存和临时文件，不碰个人文件和回收站；系统进程不碰；专注模式设置可用“恢复默认设置.bat”撤销。
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
@@ -202,6 +202,87 @@ function Remove-OldFiles([string]$dir, [datetime]$cut) {
     return $freed
 }
 
+# ---------------------------------------------------------------------------
+# 降温：彻底关闭睿频 + CPU 最大状态 99% + 主动散热 + 杀毒扫描限速（都会先备份，可恢复）
+# ---------------------------------------------------------------------------
+$CoolBackupFile = Join-Path $BackupDir 'cooling-backup.json'
+$CoolSettings = @(
+    @{ Alias = 'PERFBOOSTMODE';   Value = 0;  Desc = '彻底关闭睿频（最有效的一项，满载温度通常降 10~20 度）' },
+    @{ Alias = 'PROCTHROTTLEMAX'; Value = 99; Desc = 'CPU 最大状态 99%（关闭睿频的双保险）' },
+    @{ Alias = 'SYSCOOLPOL';      Value = 1;  Desc = '散热方式改为“主动”：先让风扇转快，不够再降频' }
+)
+
+function Get-ActiveSchemeGuid {
+    $m = [regex]::Match(((powercfg /getactivescheme) -join ''), '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
+    if ($m.Success) { return $m.Value }
+    return $null
+}
+
+# 读取电源设置的当前值；输出里最后两个十六进制数分别是“插电”和“电池”时的值
+function Get-PowerValue($scheme, $alias) {
+    $out = (powercfg /q $scheme SUB_PROCESSOR $alias 2>$null) -join "`n"
+    $m = [regex]::Matches($out, '0x([0-9a-fA-F]{8})')
+    if ($m.Count -ge 2) {
+        return @{ AC = [Convert]::ToInt32($m[$m.Count - 2].Groups[1].Value, 16)
+                  DC = [Convert]::ToInt32($m[$m.Count - 1].Groups[1].Value, 16) }
+    }
+    return $null
+}
+
+function Enable-Cooling {
+    # 高性能 / 卓越性能方案发热大，先切回“平衡”
+    $origScheme = Get-ActiveSchemeGuid
+    if ($origScheme -match '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c|e9a42b02-d5df-448d-aa00-03f14749eb61') {
+        powercfg /setactive SCHEME_BALANCED | Out-Null
+        Write-Ok '电源计划从“高性能”切回“平衡”'
+    }
+    $scheme = Get-ActiveSchemeGuid
+    if (-not $scheme) { Write-Bad '读取不到电源计划，跳过降温设置'; return }
+
+    $firstTime = -not (Test-Path -LiteralPath $CoolBackupFile)
+    if ($firstTime) {
+        $scanCpu = $null
+        $lowCpu = $null
+        try {
+            $pref = Get-MpPreference -ErrorAction Stop
+            $scanCpu = [int]$pref.ScanAvgCPULoadFactor
+            $lowCpu = [bool]$pref.EnableLowCpuPriority
+        } catch {}
+        $backup = @{
+            OrigScheme = $origScheme
+            Scheme     = $scheme
+            Settings   = @(foreach ($c in $CoolSettings) {
+                             $v = Get-PowerValue $scheme $c.Alias
+                             if ($v) { @{ Alias = $c.Alias; AC = $v.AC; DC = $v.DC } }
+                         })
+            ScanCpu    = $scanCpu
+            LowCpu     = $lowCpu
+        }
+        New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+        $backup | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $CoolBackupFile -Encoding UTF8
+    }
+
+    foreach ($c in $CoolSettings) {
+        if (-not (Get-PowerValue $scheme $c.Alias)) { Write-Bad "这台电脑不支持：$($c.Desc)"; continue }
+        powercfg /setacvalueindex $scheme SUB_PROCESSOR $c.Alias $c.Value | Out-Null
+        powercfg /setdcvalueindex $scheme SUB_PROCESSOR $c.Alias $c.Value | Out-Null
+        Write-Ok $c.Desc
+    }
+    powercfg /setactive $scheme | Out-Null
+
+    try {
+        Set-MpPreference -ScanAvgCPULoadFactor 20 -EnableLowCpuPriority $true -ErrorAction Stop
+        Write-Ok '杀毒扫描最多占 20% CPU，减少突然发热'
+    } catch {}
+
+    if ($firstTime) {
+        Write-Info ''
+        Write-Info '软件能做的是“少发热”；如果这样还是很烫，就是散热硬件的问题了：'
+        Write-Info '   - 2018 年的笔记本，风扇积灰、硅脂干了最常见：找电脑店清灰 + 换硅脂，通常再降 15~25 度'
+        Write-Info '   - 别放在床上/被子上用，底部进风口堵住会很烫；垫个散热支架效果明显'
+    }
+}
+
 # 实时专注：持续给前台程序提速、给后台占 CPU 的程序降速；按 Q 退出时全部恢复
 function Start-LiveFocusLoop {
     Write-Title '实时专注（窗口开着时一直生效）'
@@ -285,7 +366,7 @@ function Start-LiveFocusLoop {
     }
 }
 
-# 由第 4 步启动的独立小窗口只跑实时专注
+# 由第 5 步启动的独立小窗口只跑实时专注
 if ($env:PCFOCUS_MODE -eq 'live') {
     try { $Host.UI.RawUI.WindowTitle = '实时专注（按 Q 退出）' } catch {}
     Start-LiveFocusLoop
@@ -351,7 +432,11 @@ if (-not $needApply) {
 }
 
 # ---------------------------------------------------------------------------
-Write-Title '第 2 步：清理磁盘垃圾'
+Write-Title '第 2 步：降低 CPU 温度'
+Enable-Cooling
+
+# ---------------------------------------------------------------------------
+Write-Title '第 3 步：清理磁盘垃圾'
 $total = [long]0
 $now = Get-Date
 $items = @(
@@ -393,7 +478,7 @@ try { Delete-DeliveryOptimizationCache -Force -ErrorAction Stop | Out-Null; Writ
 Write-Ok ('磁盘垃圾共清理约 {0} MB（回收站没有动）' -f [math]::Round($total / 1MB))
 
 # ---------------------------------------------------------------------------
-Write-Title '第 3 步：回收闲置内存'
+Write-Title '第 4 步：回收闲置内存'
 if (Invoke-MemoryReclaim) { Write-Ok '已回收闲置内存' }
 
 $memAfter = Get-MemUsedGB
@@ -401,7 +486,7 @@ $diskAfter = Get-CFreeGB
 Write-Info ("已用内存：{0} GB -> {1} GB    C 盘剩余：{2} GB -> {3} GB" -f $memBefore, $memAfter, $diskBefore, $diskAfter)
 
 # ---------------------------------------------------------------------------
-Write-Title '第 4 步：启动实时专注'
+Write-Title '第 5 步：启动实时专注'
 $running = Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" -ErrorAction SilentlyContinue |
     Where-Object { $_.CommandLine -like "*PCFOCUS_MODE='live'*" }
 if ($running) {
@@ -414,7 +499,7 @@ if ($running) {
 }
 
 # ---------------------------------------------------------------------------
-Write-Title '第 5 步：关闭占用 CPU 高的程序（需要你确认）'
+Write-Title '第 6 步：关闭占用 CPU 高的程序（需要你确认）'
 $null = Get-CimInstance Win32_PerfFormattedData_PerfProc_Process -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 $procs = Get-CimInstance Win32_PerfFormattedData_PerfProc_Process -ErrorAction SilentlyContinue |

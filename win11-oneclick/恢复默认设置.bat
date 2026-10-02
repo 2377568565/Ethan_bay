@@ -10,7 +10,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.F
 if errorlevel 1 pause
 exit /b
 #>
-# 恢复默认设置：撤销“老电脑一键加速”第 1 步（专注模式）的全部改动
+# 恢复默认设置：撤销“老电脑一键加速”第 1 步（专注模式）和第 2 步（降温）的全部改动
 $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
 
@@ -94,6 +94,25 @@ if (-not (Test-Path -LiteralPath $BackupFile)) {
     Restart-Shell
     Write-Ok '已全部恢复成开启专注模式之前的样子。注销或重启一次后完全生效。'
 }
+
+Write-Title '恢复降温设置'
+$CoolBackupFile = Join-Path $BackupDir 'cooling-backup.json'
+if (-not (Test-Path -LiteralPath $CoolBackupFile)) {
+    Write-Info '没有找到降温设置的备份，不需要恢复。'
+} else {
+    $c = Get-Content -LiteralPath $CoolBackupFile -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($st in $c.Settings) {
+        powercfg /setacvalueindex $c.Scheme SUB_PROCESSOR $st.Alias $st.AC | Out-Null
+        powercfg /setdcvalueindex $c.Scheme SUB_PROCESSOR $st.Alias $st.DC | Out-Null
+    }
+    if ($c.OrigScheme) { powercfg /setactive $c.OrigScheme | Out-Null } else { powercfg /setactive $c.Scheme | Out-Null }
+    if ($null -ne $c.ScanCpu) {
+        try { Set-MpPreference -ScanAvgCPULoadFactor $c.ScanCpu -EnableLowCpuPriority ([bool]$c.LowCpu) -ErrorAction Stop } catch {}
+    }
+    Remove-Item -LiteralPath $CoolBackupFile -Force -ErrorAction SilentlyContinue
+    Write-Ok '睿频、CPU 最大状态、散热方式、杀毒扫描限速都已恢复原样'
+}
+
 Write-Host ''
 Read-Host '按回车关闭' | Out-Null
 exit 0
