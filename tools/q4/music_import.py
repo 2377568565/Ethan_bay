@@ -162,6 +162,7 @@ def release_items(repo, tag, token):
     items = []
     # 1) 拖进说明框的文件：链接文字是原来的文件名
     body = rel.get('body') or ''
+    body = re.sub(r'(https://github\.com/user-attachments/)\s+', r'\1', body)   # 说明里换了行的链接接回去
     named = {m[2]: m[1].strip() for m in re.finditer(r'\[([^\]\n]+)\]\((' + UA_LINK.pattern + r')\)', body)}
     seen = set()
     for m in UA_LINK.finditer(body):
@@ -284,7 +285,8 @@ def main():
         nm = names.get(title.lower(), {})
         title = nm.get('title') or title
         # 栏目里已经有同名、同长度的歌（同一首传了两次）就不重复收
-        same = None if title == '未命名' else next((x for x in lst['songs'] if x['title'].lower() == title.lower() and x['id'] != sid and abs(x.get('dur', 0) - dur) <= 6), None)
+        fid = folder_id(lst, a.folder)   # 只在同一个文件夹里查重：不同专辑的同名歌是不同的录音
+        same = None if title == '未命名' else next((x for x in lst['songs'] if x['title'].lower() == title.lower() and x['id'] != sid and x.get('folder') == fid and abs(x.get('dur', 0) - dur) <= 6), None)
         if same:
             os.remove(dst)
             if extra.get('alt'):
