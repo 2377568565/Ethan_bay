@@ -48,9 +48,14 @@ function q4copy(t){
   // 每周在星期六晚上 24 点（北京时间，也就是星期日 0 点）重新计算；钥匙是那个星期日的日期
   function wkKey(){var x=new Date(Date.now()+8*3600e3);x.setUTCDate(x.getUTCDate()-x.getUTCDay());return 'time:'+x.toISOString().slice(0,10);}
   var WK=wkKey();
-  (function(){   // 以前每周从星期六 0 点算起：这一周星期六已经读的时间并进来
-    var d=new Date(WK.slice(5)+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+6);var old='time:'+d.toISOString().slice(0,10);
-    var o=+(get(old)||0);if(o&&new Date(Date.now()+8*3600e3).getUTCDay()===6){set(WK,Math.round(((+(get(WK)||0))+o)*10)/10);try{localStorage.removeItem('q4:'+old);}catch(e){}}
+  (function(){   // 以前每周从星期六 0 点算起（钥匙是星期六的日期）：把这一周前后两个星期六的旧记录并进来，每台设备只并一次
+    if(get('wkmig')==='2')return;
+    var add=0;[-1,6].forEach(function(n){
+      var d=new Date(WK.slice(5)+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);var k='time:'+d.toISOString().slice(0,10);
+      var v=+(get(k)||0);if(v){add+=v;try{localStorage.removeItem('q4:'+k);}catch(e){}}
+    });
+    if(add)set(WK,Math.round(((+(get(WK)||0))+add)*10)/10);
+    set('wkmig','2');
   })();
   var secs=+(get(WK)||0),last=Date.now(),act=Date.now();
   function goals(){try{return JSON.parse(get('goals')||'[]');}catch(e){return [];}}
