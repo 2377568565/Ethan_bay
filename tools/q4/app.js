@@ -42,11 +42,17 @@ function q4copy(t){
     if(D.next&&n===D.next){c.classList.add('class-today');var g=c.querySelector('.ctag');if(g)g.hidden=false;}
   });
 
-  /* ---------- 本周研读时间（每台设备各记各的；登录账号后，欢迎页显示所有设备加起来的时间；每周从安息日算起） ---------- */
+  /* ---------- 本周研读时间（每台设备各记各的；登录账号后，欢迎页显示所有设备加起来的时间；每周六晚上 24 点（北京时间）清零） ---------- */
   var GOAL=3600;
   function ymd(x){return x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2)+'-'+('0'+x.getDate()).slice(-2);}
-  function wkKey(){var x=new Date();x=new Date(x.getFullYear(),x.getMonth(),x.getDate());x.setDate(x.getDate()-((x.getDay()+1)%7));return 'time:'+ymd(x);}
-  var WK=wkKey(),secs=+(get(WK)||0),last=Date.now(),act=Date.now();
+  // 每周在星期六晚上 24 点（北京时间，也就是星期日 0 点）重新计算；钥匙是那个星期日的日期
+  function wkKey(){var x=new Date(Date.now()+8*3600e3);x.setUTCDate(x.getUTCDate()-x.getUTCDay());return 'time:'+x.toISOString().slice(0,10);}
+  var WK=wkKey();
+  (function(){   // 以前每周从星期六 0 点算起：这一周星期六已经读的时间并进来
+    var d=new Date(WK.slice(5)+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+6);var old='time:'+d.toISOString().slice(0,10);
+    var o=+(get(old)||0);if(o&&new Date(Date.now()+8*3600e3).getUTCDay()===6){set(WK,Math.round(((+(get(WK)||0))+o)*10)/10);try{localStorage.removeItem('q4:'+old);}catch(e){}}
+  })();
+  var secs=+(get(WK)||0),last=Date.now(),act=Date.now();
   function goals(){try{return JSON.parse(get('goals')||'[]');}catch(e){return [];}}
   function others(){var f=window.Q4Ext&&Q4Ext.weekSecs;return f?(+f(WK)||0):0;}   // 账号里其他设备本周读的秒数
   function total(){return secs+others();}

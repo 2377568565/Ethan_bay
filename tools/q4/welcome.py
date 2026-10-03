@@ -228,7 +228,7 @@ def welcome_html(titles):
     <p class="wstars" aria-hidden="true">{stars}</p>
     <p class="wmsg m0">每读满 5 分钟点亮一颗星。点亮 12 颗星（本周累计 1 小时），这里会换上荣耀的景象。</p>
     <p class="wmsg m1" hidden><b>本周你已在这里研读满 1 小时</b>，这是你第 <b class="wn">1</b> 周达成目标。<br>“你们要尝尝主恩的滋味，便知道他是美善。”（诗34:8）</p>
-    <p class="wnote">研读时间只记录在这台设备的这个浏览器里，每周从安息日开始重新计算。</p>
+    <p class="wnote">研读时间只记录在这台设备的这个浏览器里，每周六晚上 12 点（北京时间）清零，重新计算。</p>
   </div>
   </div>
   <p class="wcredit">整理制作 · Ethan（HangZhou_XG）</p>
