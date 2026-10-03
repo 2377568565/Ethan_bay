@@ -1846,7 +1846,7 @@ window.Q4Hub=(function(){
   function card(x,withF){var fn=withF&&FOLDERS.length?(FMAP[x.folder]||{name:'其他诗歌'}).name:'';
     return '<article class="msong" id="music-'+esc(x.id)+'" data-id="'+esc(x.id)+'" data-title="'+esc(x.title+(x.sub?'（'+x.sub+'）':''))+' · 音乐">'+
     '<button class="ms-play" type="button" data-mplay aria-label="播放《'+esc(x.title)+'》"><span class="ms-ic" aria-hidden="true"></span></button>'+
-    '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub||fn?'<p class="ms-s">'+esc(x.sub||'')+(fn?'<span class="ms-f">'+(x.sub?' · ':'')+esc(fn)+'</span>':'')+'</p>':'')+'</div>'+
+    '<div class="ms-main"><h3 class="ms-t">'+esc(x.title)+'</h3>'+(x.sub||fn?'<p class="ms-s">'+esc(x.sub||'')+(fn?'<span class="ms-f">'+(x.sub?' · ':'')+esc(fn)+'</span>':'')+'</p>':'')+(x.intro&&!withF?'<p class="ms-n">'+esc(x.intro)+'</p>':'')+'</div>'+
     '<span class="ms-tm">'+(x.dur?mmss(x.dur):'')+'</span>'+
     '<span class="ms-acts"><a class="ms-ib ms-dl" href="'+esc(BASE+encodeURIComponent(fileOf(x)))+'" download="'+esc(x.title+(/\.\w+$/.exec(fileOf(x))||['.mp3'])[0])+'" aria-label="下载《'+esc(x.title)+'》">'+DL+'</a>'+
     '<button class="ms-ib share" type="button" data-share="music-'+esc(x.id)+'" aria-label="分享《'+esc(x.title)+'》">'+SHARE+'</button></span>'+
@@ -1860,7 +1860,8 @@ window.Q4Hub=(function(){
     else if(folder){
       var f=FMAP[folder]||{name:'其他诗歌',sub:''};
       h='<div class="mf-head"><a class="mf-back" href="#music">‹ 全部文件夹</a><h2 class="mf-title">'+esc(f.name)+'</h2>'+(f.sub?'<p class="mf-sub">'+esc(f.sub)+'</p>':'')+'</div>'+
-        list.map(function(x){return card(x);}).join('');
+        list.map(function(x){return card(x);}).join('')+
+        (f.credit?'<p class="mf-credit">歌曲版权属于 '+(f.curl?'<a href="'+esc(f.curl)+'" target="_blank" rel="noopener">'+esc(f.credit)+'</a>':esc(f.credit))+'，本站仅供学习与敬拜使用。</p>':'');
       n.textContent='共 '+list.length+' 首';
     }
     else{h=flist().map(fcard).join('');n.textContent=flist().length+' 个文件夹 · 共 '+SONGS.length+' 首';}

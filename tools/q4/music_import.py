@@ -219,6 +219,7 @@ def main():
         a.reencode = a.reencode or bool(r.get('reencode'))
         a.keep_old = a.keep_old or bool(r.get('reencode'))
         a.folder = a.folder or r.get('folder', '')
+        a.kbps = int(r.get('kbps') or 0)
     os.makedirs(a.music, exist_ok=True)
     LIST, SRC = os.path.join(a.music, 'list.json'), os.path.join(a.music, 'sources.json')
     lst = json.load(open(LIST, encoding='utf-8')) if os.path.exists(LIST) else {'songs': []}
@@ -242,6 +243,7 @@ def main():
     keep = a.codec == 'keep'
     codec = fmt_of('heaac' if keep else a.codec)   # keep 时用它压备用的那一份，以及不能原样放的格式
     EXT_OUT, KBPS = FMT[codec]
+    KBPS = getattr(a, 'kbps', 0) or KBPS
     if a.reencode:
         return reencode(a, lst, done, items, codec, LIST, SRC)
     used = sum(os.path.getsize(os.path.join(a.music, f)) for f in os.listdir(a.music) if ext(f) in ('.mp3', '.m4a'))
@@ -292,6 +294,8 @@ def main():
             return
         song = {'id': sid, 'title': title, 'sub': (nm.get('sub') or artist.strip() or sub or '')[:40], 'file': os.path.basename(dst), 'dur': round(dur), 'src': name,
                 'folder': folder_id(lst, a.folder)}
+        if nm.get('intro'):
+            song['intro'] = nm['intro']
         song.update(extra)
         lst['songs'] = [s for s in lst['songs'] if s['id'] != sid] + [song]
         done[key] = sid

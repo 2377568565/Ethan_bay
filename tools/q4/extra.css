@@ -892,6 +892,9 @@ html.sheetopen{overflow:hidden}
 .mf-back{justify-self:start;padding:6px 14px 6px 10px;margin:0 0 6px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);text-decoration:none;font-size:.92rem}
 .mf-title{margin:0;font-family:var(--serif);font-size:1.3rem}
 .mf-sub{margin:0;font-size:.9rem;color:var(--muted)}
+.ms-n{margin:3px 0 0;font-size:.8rem;line-height:1.5;color:var(--muted)}
+.mf-credit{margin:18px 4px 4px;font-size:.82rem;line-height:1.6;color:var(--muted);text-align:center}
+.mf-credit a{color:inherit;text-decoration:underline}
 .ms-f{color:var(--muted)}
 .mwarn{margin:0;padding:10px 14px;border:1px solid var(--accent);border-radius:12px;color:var(--accent);font-size:.9rem;line-height:1.7}
 /* 小窗：离开音乐页时在左下角继续播放（在主页按钮那一行的上面） */

@@ -388,14 +388,14 @@ def folders():
         f = json.load(open(os.path.normpath(os.path.join(Q4, '..', '..', 'music', 'list.json')), encoding='utf-8')).get('folders', [])
     except (OSError, ValueError):
         return []
-    return [{k: x.get(k, '') for k in ('id', 'name', 'sub', 'date')} for x in f if x.get('id') and x.get('name')]
+    return [{k: x.get(k, '') for k in ('id', 'name', 'sub', 'date', 'credit', 'curl') if k in x} for x in f if x.get('id') and x.get('name')]
 
 def mmss(n):
     return f'{int(n) // 60}:{int(n) % 60:02d}' if n else ''
 
 def music_page():
     # 曲目由网页从 music/list.json 读取（收了新歌不用重新生成网页）；这里先放一份当前的清单，打开就能显示
-    lst = [{k: x[k] for k in ('id', 'title', 'sub', 'file', 'dur', 'type', 'alt', 'folder') if k in x} for x in songs()]
+    lst = [{k: x[k] for k in ('id', 'title', 'sub', 'intro', 'file', 'dur', 'type', 'alt', 'folder') if k in x} for x in songs()]
     data = json.dumps({'folders': folders(), 'songs': lst}, ensure_ascii=False).replace('</', '<\\/')
     return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
 <nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
