@@ -107,9 +107,14 @@ def codec_name(path):
         return m[1] if m else ''
 
 
+# 统一音量：约 -11 LUFS（和一般下载的音乐差不多响；原来 -16 在手机外放偏轻），
+# 后面再加一道限幅，保证压缩后峰值不超过 -2 dBFS（Opus 解码会略微冲高）
+LOUD = 'loudnorm=I=-10:TP=-1.5:LRA=11,aresample=48000,alimiter=limit=0.79:attack=5:release=50:level=disabled'
+
+
 def encode(src, dst, codec, kbps):
     pre = ['ffmpeg', '-v', 'error', '-y', '-i', src, '-vn', '-map', '0:a:0', '-map_metadata', '-1',
-           '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ac', '2', '-ar', '44100']
+           '-af', LOUD, '-ac', '2', '-ar', '44100']
     if codec == 'opus':   # Opus 只支持 48 kHz
         run(pre[:-1] + ['48000', '-c:a', 'libopus', '-b:a', f'{kbps}k', '-vbr', 'on', dst])
     elif codec == 'mp3':
@@ -230,6 +235,7 @@ def main():
         a.keep_old = a.keep_old or bool(r.get('reencode'))
         a.folder = a.folder or r.get('folder', '')
         a.kbps = int(r.get('kbps') or 0)
+        a.relevel = r.get('relevel', '')
     os.makedirs(a.music, exist_ok=True)
     LIST, SRC = os.path.join(a.music, 'list.json'), os.path.join(a.music, 'sources.json')
     lst = json.load(open(LIST, encoding='utf-8')) if os.path.exists(LIST) else {'songs': []}
@@ -363,8 +369,14 @@ def main():
 def reencode(a, lst, done, items, codec, LIST, SRC):
     """已经收过的歌：从原始文件按现在的格式重新压一遍（编号、曲名都不变）"""
     EXT_OUT, KBPS = FMT[codec]
+    KBPS = getattr(a, 'kbps', 0) or KBPS
     by_key = {it['key']: it for it in items}
-    todo = [s for s in lst['songs'] if ext(s['file']) != EXT_OUT]
+    tag = getattr(a, 'relevel', '')   # relevel：这个 release 的歌全部按现在的设置重压一遍，文件名加上它（换名字，手机里存的旧版本会自动换掉）
+    mine = {v for k, v in done.items() if k in by_key}
+    if tag:
+        todo = [s for s in lst['songs'] if s['id'] in mine and s['file'] != f"{s['id']}-{tag}{EXT_OUT}"]
+    else:
+        todo = [s for s in lst['songs'] if ext(s['file']) != EXT_OUT]
     print(f'要换成 {codec}（{KBPS} kbps {EXT_OUT}）的歌：{len(todo)} 首', flush=True)
     ok = bad = 0
     with tempfile.TemporaryDirectory() as tmp:
@@ -376,7 +388,8 @@ def reencode(a, lst, done, items, codec, LIST, SRC):
                 bad += 1
                 continue
             src = it.get('path') or os.path.join(tmp, 'src' + ext(it['name']))
-            dst = os.path.join(a.music, s['id'] + EXT_OUT)
+            name = f"{s['id']}-{tag}{EXT_OUT}" if tag else s['id'] + EXT_OUT
+            dst = os.path.join(a.music, name)
             try:
                 if not it.get('path'):
                     it['get'](src)
@@ -384,7 +397,7 @@ def reencode(a, lst, done, items, codec, LIST, SRC):
                 old = os.path.join(a.music, s['file'])
                 if not a.keep_old and os.path.exists(old) and old != dst:
                     os.remove(old)
-                s['file'] = s['id'] + EXT_OUT
+                s['file'] = name
                 s['dur'] = round(probe(dst)[0]) or s.get('dur', 0)
                 s.pop('alt', None)
                 if EXT_OUT == '.ogg':
