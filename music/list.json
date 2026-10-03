@@ -1092,6 +1092,17 @@
    "folder": "hymns-of-grace",
    "intro": "威尔士圣诗，1904—1905年威尔士大复兴时被称为“复兴的情歌”。",
    "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m673dee47",
+   "title": "Joy To The World",
+   "sub": "普世欢腾",
+   "file": "m673dee47.ogg",
+   "dur": 149,
+   "src": "16. .Joy To The World - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "以撒·华滋（Isaac Watts）1719年根据诗篇98篇所写，欢迎君王降临。",
+   "type": "audio/ogg; codecs=\"opus\""
   }
  ]
 }
