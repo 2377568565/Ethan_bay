@@ -173,6 +173,15 @@ def release_items(repo, tag, token):
         name = named.get(url) or urllib.parse.unquote(m[2])
         items.append({'name': name, 'key': f'ua:{fid}', 'named': url in named,
                       'get': (lambda u: lambda dst: save_stream(api(u, ''), dst))(url)})
+    # 1b) 说明里链接被拆开（前半截和“files/编号/文件名”分在两处）：用后半截补出完整链接
+    for m in re.finditer(r'(?<![\w/])files/(\d+)/([^)\s\]]+)', body):
+        if m[1] in seen:
+            continue
+        seen.add(m[1])
+        url = f'https://github.com/user-attachments/files/{m[1]}/{m[2]}'
+        name = re.sub(r'\.(?=.*\.)', ' ', urllib.parse.unquote(m[2]))   # 附件名里的点原来是空格
+        items.append({'name': name, 'key': f'ua:{m[1]}', 'named': True,
+                      'get': (lambda u: lambda dst: save_stream(api(u, ''), dst))(url)})
     # 2) 附件区的文件：GitHub 把附件名里的空格换成点、删掉中文，所以附件名不可靠，曲名优先用歌曲标签
     assets, page = [], 1
     while True:
