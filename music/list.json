@@ -850,6 +850,248 @@
    "src": "Your Love, Oh Lord.mp3",
    "folder": "worship",
    "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m235d0117",
+   "title": "Abide With Me",
+   "sub": "求主同住",
+   "file": "m235d0117.ogg",
+   "dur": 389,
+   "src": "1. Abide With Me - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "亨利·莱特（Henry F. Lyte）1847年临终前写下，求主在人生的黄昏与我同住。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m1b47d9fc",
+   "title": "Holy Holy Holy",
+   "sub": "圣哉，圣哉，圣哉",
+   "file": "m1b47d9fc.ogg",
+   "dur": 276,
+   "src": "10. .Holy Holy Holy - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "雷金纳德·希伯（Reginald Heber）作，唱出以赛亚书6章和启示录4章天上的颂赞。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "ma2aa1895",
+   "title": "For The Beauty Of The Earth",
+   "sub": "为这大地之美",
+   "file": "ma2aa1895.ogg",
+   "dur": 211,
+   "src": "11. .For The Beauty Of The Earth - Little Hymns Of Grace Vol. 1 (1).mp3",
+   "folder": "hymns-of-grace",
+   "intro": "福利欧·皮尔波因特（Folliott S. Pierpoint）1864年作，为大地之美、亲情和教会献上感恩。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m6aaafeb3",
+   "title": "How Great Thou Art",
+   "sub": "你真伟大",
+   "file": "m6aaafeb3.ogg",
+   "dur": 298,
+   "src": "12. .How Great Thou Art - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "源自瑞典牧师博贝里（Carl Boberg）1885年的诗，后由宣教士休恩（Stuart K. Hine）译成英文。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "md4262bae",
+   "title": "I Need Thee Every Hour",
+   "sub": "我时刻需要你",
+   "file": "md4262bae.ogg",
+   "dur": 257,
+   "src": "13. .I Need Thee Every Hour - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "安妮·霍克斯（Annie S. Hawks）1872年作，表达时时刻刻倚靠主。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m845473d7",
+   "title": "In Christ Alone",
+   "sub": "唯独在基督里",
+   "file": "m845473d7.ogg",
+   "dur": 229,
+   "src": "14. .In Christ Alone - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "2001年的当代圣诗（Keith Getty、Stuart Townend），从降生、十字架一直唱到复活与再来。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "mf229e7e4",
+   "title": "Jesus Paid It All",
+   "sub": "耶稣全然代付",
+   "file": "mf229e7e4.ogg",
+   "dur": 228,
+   "src": "15. .Jesus Paid It All - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "埃尔维娜·霍尔（Elvina M. Hall）1865年作：罪债已由耶稣全然付清。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m463b9b96",
+   "title": "May The Mind Of Christ My Savior",
+   "sub": "愿救主基督的心意",
+   "file": "m463b9b96.ogg",
+   "dur": 209,
+   "src": "17. .May The Mind Of Christ My Savior - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "凯特·威尔金森（Kate B. Wilkinson）作，祈求基督的心意、话语和平安充满我们。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "mc8858713",
+   "title": "My Shepherd You Supply My Need",
+   "sub": "我的牧者供我所需",
+   "file": "mc8858713.ogg",
+   "dur": 269,
+   "src": "18. .My Shepherd You Supply My Need - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "以撒·华滋根据诗篇23篇所写的韵文诗篇。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "meb4eb3bb",
+   "title": "Now Thank We All Our God",
+   "sub": "齐来感谢上帝",
+   "file": "meb4eb3bb.ogg",
+   "dur": 197,
+   "src": "19. .Now Thank We All Our God - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "马丁·林卡特（Martin Rinkart）在三十年战争的苦难中（约1636年）写下的感恩诗歌。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "mcdfccaf2",
+   "title": "All Hail The Power Of Jesus' Name",
+   "sub": "万民尊崇主圣名",
+   "file": "mcdfccaf2.ogg",
+   "dur": 186,
+   "src": "2. All Hail The Power Of Jesus' Name - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "爱德华·皮罗内（Edward Perronet）1779年作，呼召万民尊主为王。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "mafb8722a",
+   "title": "O Great God",
+   "sub": "伟大的上帝",
+   "file": "mafb8722a.ogg",
+   "dur": 170,
+   "src": "20. .O Great God - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "当代圣诗（Bob Kauflin），求伟大的上帝更新我们的心。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m3c8a1e7c",
+   "title": "O Church Arise",
+   "sub": "教会啊，兴起",
+   "file": "m3c8a1e7c.ogg",
+   "dur": 212,
+   "src": "21. .O Church Arise - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "2005年的当代圣诗（Keith Getty、Stuart Townend），呼召教会穿戴上帝所赐的全副军装（弗6章）。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "ma88d8cec",
+   "title": "Praise To The Lord",
+   "sub": "赞美全能的主",
+   "file": "ma88d8cec.ogg",
+   "dur": 218,
+   "src": "22. .Praise To The Lord - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "约阿希姆·尼安德（Joachim Neander）1680年作，赞美全能的创造主。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m4c4d3499",
+   "title": "Resurrection Hymn",
+   "sub": "复活之歌",
+   "file": "m4c4d3499.ogg",
+   "dur": 163,
+   "src": "23. .Resurrection Hymn - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "当代圣诗（Keith & Kristyn Getty、Stuart Townend），盼望复活的早晨。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m019044b4",
+   "title": "Silent Night",
+   "sub": "平安夜",
+   "file": "m019044b4.ogg",
+   "dur": 232,
+   "src": "24. .Silent Night - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "1818年奥地利神父莫尔（Joseph Mohr）作词、格鲁伯（Franz Gruber）作曲的圣诞诗歌。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "me1050e42",
+   "title": "Blessed Assurance",
+   "sub": "有福的确据",
+   "file": "me1050e42.ogg",
+   "dur": 198,
+   "src": "3. Blessed Assurance - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "失明的诗人芬妮·克罗斯比（Fanny Crosby）1873年作：“这是我的见证，这是我的诗歌。”",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m8c974de7",
+   "title": "Christ The Lord Is Risen Today",
+   "sub": "基督今日已复活",
+   "file": "m8c974de7.ogg",
+   "dur": 230,
+   "src": "4. Christ The Lord Is Risen Today - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "查理·卫斯理（Charles Wesley）1739年为复活节所写，每句以“哈利路亚”应和。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "md8794cad",
+   "title": "Christ The Sure And Steady Anchor",
+   "sub": "基督是稳固的锚",
+   "file": "md8794cad.ogg",
+   "dur": 228,
+   "src": "5. Christ The Sure And Steady Anchor - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "当代圣诗：在人生风浪中，基督是灵魂又坚固又牢靠的锚（来6:19）。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "m8120d646",
+   "title": "Come Behold The Wondrous Mystery",
+   "sub": "来看奇妙的奥秘",
+   "file": "m8120d646.ogg",
+   "dur": 230,
+   "src": "6. Come Behold The Wondrous Mystery - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "当代圣诗：默想道成肉身、十字架与复活的奇妙奥秘。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "ma04f2423",
+   "title": "Fairest Lord Jesus",
+   "sub": "美哉主耶稣",
+   "file": "ma04f2423.ogg",
+   "dur": 266,
+   "src": "7. Fairest Lord Jesus - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "17世纪德国圣诗，赞美基督比一切受造之物更美。",
+   "type": "audio/ogg; codecs=\"opus\""
+  },
+  {
+   "id": "med8f376a",
+   "title": "Here Is Love",
+   "sub": "这是爱",
+   "file": "med8f376a.ogg",
+   "dur": 247,
+   "src": "9. Here Is Love - Little Hymns Of Grace Vol. 1.mp3",
+   "folder": "hymns-of-grace",
+   "intro": "威尔士圣诗，1904—1905年威尔士大复兴时被称为“复兴的情歌”。",
+   "type": "audio/ogg; codecs=\"opus\""
   }
  ]
 }
