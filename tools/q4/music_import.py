@@ -107,9 +107,8 @@ def codec_name(path):
         return m[1] if m else ''
 
 
-# 统一音量：约 -11 LUFS（和一般下载的音乐差不多响；原来 -16 在手机外放偏轻），
-# 后面再加一道限幅，保证压缩后峰值不超过 -2 dBFS（Opus 解码会略微冲高）
-LOUD = 'loudnorm=I=-10:TP=-1.5:LRA=11,aresample=48000,alimiter=limit=0.79:attack=5:release=50:level=disabled'
+# 统一音量：-16 LUFS（动态压缩少，听起来平稳；试过调到 -11，播放时忽高忽低，已改回）
+LOUD = 'loudnorm=I=-16:TP=-1.5:LRA=11'
 
 
 def encode(src, dst, codec, kbps):
