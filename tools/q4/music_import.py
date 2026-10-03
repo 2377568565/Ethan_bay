@@ -372,6 +372,11 @@ def reencode(a, lst, done, items, codec, LIST, SRC):
     KBPS = getattr(a, 'kbps', 0) or KBPS
     by_key = {it['key']: it for it in items}
     tag = getattr(a, 'relevel', '')   # relevel：这个 release 的歌全部按现在的设置重压一遍，文件名加上它（换名字，手机里存的旧版本会自动换掉）
+    for k in list(done):   # 早期记录的附件只有“名字|大小”，补上对应
+        if k not in by_key and k.count('|') == 1:
+            it = next((it for kk, it in by_key.items() if kk.startswith(k + '|')), None)
+            if it:
+                by_key[k] = it
     mine = {v for k, v in done.items() if k in by_key}
     if tag:
         todo = [s for s in lst['songs'] if s['id'] in mine and s['file'] != f"{s['id']}-{tag}{EXT_OUT}"]
