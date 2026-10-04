@@ -320,3 +320,45 @@ SRC.update({
  'qod2007':   ('安德鲁斯大学《教义问答》出版50周年研讨会（2007年10月）论文集', 'https://digitalcommons.andrews.edu/qod/', ['Questions on Doctrine']),
  'w_andreasen':('维基百科：M. L. Andreasen', 'https://en.wikipedia.org/wiki/M._L._Andreasen', ['1961']),
 })
+
+# 《耶稣是人还是神？》补充问答页（jesus-qa.html）用到的资料（2026-10-04 核对）
+DA_CCEL = 'https://ccel.org/ccel/white/desire.'
+FORTIN = '（据 Denis Fortin 编《怀爱伦论基督的人性》核对）'
+MIN56 = '（据《事工》杂志 1956 年 9 月怀爱伦语录汇编核对）'
+SRC.update({
+ 'da123':    ('怀爱伦《历代愿望》第12章，英文原著第123页', DA_CCEL + 'xv.html', ['nothing that responded']),
+ 'da671':    ('怀爱伦《历代愿望》第73章，英文原著第671页', DA_CCEL + 'lxxvi.html', ['hereditary and cultivated']),
+ 'da686':    ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第686页', DA_CCEL + 'lxxvii.html', ['gulf was so broad']),
+ 'da688':    ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第688页', DA_CCEL + 'lxxvii.html', ['Terrible was the temptation']),
+ 'da692':    ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第692—693页', DA_CCEL + 'lxxvii.html', ['awful moment']),
+ 'da693':    ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第693页', DA_CCEL + 'lxxvii.html', ['strengthen Him to drink']),
+ 'da25':     ('怀爱伦《历代愿望》英文原著第25页', None, []),
+ 'da210':    ('怀爱伦《历代愿望》英文原著第210页', None, []),
+ 'rh1887':   ('怀爱伦，《评论与通讯》（Review and Herald）1887年11月8日（复临教会档案馆扫描本）', 'https://documents.adventistarchives.org/Periodicals/RH/RH18871108-V64-44.pdf', ['refined sensibilities']),
+ 'rh1888':   ('怀爱伦，《评论与通讯》1888年3月27日（复临教会档案馆扫描本）', 'https://documents.adventistarchives.org/Periodicals/RH/RH18880327-V65-13.pdf', ['not cherished']),
+ 'st1888':   ('怀爱伦，《时兆》（Signs of the Times）1888年3月23日（复临教会档案馆扫描本）', 'https://documents.adventistarchives.org/Periodicals/ST/ST18880323-V14-12.pdf', ['I am sinless']),
+ 't5_422':   ('怀爱伦《教会证言》（Testimonies for the Church）卷5，英文原著第422页' + MIN56, None, []),
+ 't2_509':   ('怀爱伦《教会证言》卷2，英文原著第508—509页' + FORTIN, None, []),
+ 't2_202':   ('怀爱伦《教会证言》卷2，英文原著第202页' + FORTIN, None, []),
+ 'rh1888s':  ('怀爱伦，《评论与通讯》1888年9月11日' + FORTIN, None, []),
+ 'rh1893m':  ('怀爱伦，《评论与通讯》1893年3月28日' + FORTIN, None, []),
+ 'rh1893a':  ('怀爱伦，《评论与通讯》1893年4月25日' + FORTIN, None, []),
+ 'rh1874':   ('怀爱伦，《评论与通讯》1874年7月28日' + MIN56, None, []),
+ 'yi1898':   ('怀爱伦，《青年导报》（Youth’s Instructor）1898年6月2日' + MIN56, None, []),
+ 'lt97':     ('怀爱伦 1898 年第 97 封信' + MIN56, None, []),
+ 'bc5_1131': ('《基督复临安息日会圣经注释》第5卷英文原著第1131页所载怀爱伦语' + MIN56, None, []),
+ 'sc17':     ('怀爱伦《拾级就主》（Steps to Christ）第2章，英文原著第17—18页', 'https://ccel.org/ccel/white/steps.v.html', ['selfishness took the place']),
+ 'sc43':     ('怀爱伦《拾级就主》第5章，英文原著第43页', None, []),
+ 'sc58':     ('怀爱伦《拾级就主》第7章，英文原著第58页', None, []),
+ 'pp49':     ('怀爱伦《先祖与先知》（Patriarchs and Prophets）英文原著第49页', None, []),
+ 'pp306':    ('怀爱伦《先祖与先知》第27章，英文原著第306页', None, []),
+ 'gc493':    ('怀爱伦《善恶之争》（The Great Controversy）英文原著第493页', None, []),
+ 'aa560':    ('怀爱伦《使徒行述》（The Acts of the Apostles）英文原著第560页', None, []),
+ 'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
+ 'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
+ 'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+})
+# 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
+EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
+            't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
+            'gc493', 'aa560', 'aa561'}

@@ -625,7 +625,7 @@ def build_combined(nos):
     frags[0] = prefix(intro_frag(), 0).replace('#l0-NEXTLESSON', '#l1')
     for it in qa_data.ITEMS:          # 在对应那一天的标题区放一个“问题彩蛋”入口
         n = it['lesson']
-        if n in frags:
+        if n in frags and not it.get('nochip'):
             i = frags[n].find(f'id="l{n}-{it["day"]}"'); j = frags[n].find('</header>', i)
             assert i >= 0 and j > i, it['id']
             link = f'href="{it["url"]}" data-art="{it["id"]}"' if it.get('url') else f'href="#{it["id"]}"'

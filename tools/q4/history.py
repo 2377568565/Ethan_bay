@@ -79,14 +79,14 @@ def src_kind(k, url):
     if url is None:
         if k in ('chaldef', 'gregnaz'):
             return '原始文献'
-        return '怀爱伦著作' if k[:2] in ('gc', 'cm', 'ls', 'da', 'bc', 'sm') else '书籍'
+        return '怀爱伦著作' if k[:2] in ('gc', 'cm', 'ls', 'da', 'bc', 'sm') or k in getattr(SR, 'EGW_KEYS', ()) else '书籍'
     if k in PRIMARY or k in ('br1914', 'br1949', 'min1956', 'unruh77'):
         return '原始文献'
-    if k in ('rh1896', 'yi1900'):
+    if k in ('rh1896', 'yi1900') or k in getattr(SR, 'EGW_KEYS', ()):
         return '怀爱伦著作'
-    if k in ('valentine',):
+    if k in ('valentine', 'irving'):
         return '百科全书'
-    if k in ('knight03', 'whidden03', 'douglass04', 'qod2007'):
+    if k in ('knight03', 'whidden03', 'douglass04', 'qod2007', 'tgc'):
         return '学术研究'
     if k in ('fraser', 'pew'):
         return '学术研究'

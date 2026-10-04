@@ -125,4 +125,17 @@ CHECKED = {
  'yi1900': ('https://documents.adventistarchives.org/Periodicals/YI/YI19001220-V48-50.pdf', 'live'),
  'qod2007': ('https://digitalcommons.andrews.edu/qod/', 'live'),
  'w_andreasen': ('https://en.wikipedia.org/wiki/M._L._Andreasen', 'live'),
+ # 2026-10-04：补充问答页的资料（GitHub 上直接打开原文核对）
+ 'da123': ('https://ccel.org/ccel/white/desire.xv.html', 'live'),
+ 'da671': ('https://ccel.org/ccel/white/desire.lxxvi.html', 'live'),
+ 'da686': ('https://ccel.org/ccel/white/desire.lxxvii.html', 'live'),
+ 'da688': ('https://ccel.org/ccel/white/desire.lxxvii.html', 'live'),
+ 'da692': ('https://ccel.org/ccel/white/desire.lxxvii.html', 'live'),
+ 'da693': ('https://ccel.org/ccel/white/desire.lxxvii.html', 'live'),
+ 'rh1887': ('https://documents.adventistarchives.org/Periodicals/RH/RH18871108-V64-44.pdf', 'live'),
+ 'rh1888': ('https://documents.adventistarchives.org/Periodicals/RH/RH18880327-V65-13.pdf', 'live'),
+ 'st1888': ('https://documents.adventistarchives.org/Periodicals/ST/ST18880323-V14-12.pdf', 'live'),
+ 'sc17': ('https://ccel.org/ccel/white/steps.v.html', 'live'),
+ 'irving': ('https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', 'live'),
+ 'tgc': ('https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', 'live'),
 }
