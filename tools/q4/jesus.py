@@ -18,6 +18,9 @@ EXTRA_CSS = r'''
 .dg .jx{font-size:12px;font-weight:800;fill:var(--c6)}
 .dg .jdash{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
 .tblwrap.two-col .jtbl{min-width:0;width:100%}
+.ch .mini{width:100%}
+.ch .mini th{white-space:normal}
+.ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
 .jtbl th,.jtbl td{width:50%}
 .sum7{counter-reset:s;list-style:none;padding:0!important}
 .sum7 li{counter-increment:s;position:relative;padding:10px 12px 10px 46px!important;margin:0 0 8px!important;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
