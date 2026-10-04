@@ -1,5 +1,5 @@
 # 临时：下载原始资料并打印文字（全文或只打印关键词附近），供人工核对。查完删除。
-import io, re, sys, html, requests
+import io, os, re, sys, html, json, requests
 from pypdf import PdfReader
 
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
@@ -41,7 +41,10 @@ JOBS = [
     ('qod1957', ADV + 'Books/QOD1957.pdf', ['Sinless Human Nature', 'exempt from the inherited', 'vicariously', 'lunatic fringe', 'complete sacrific', 'atoning act']),
     ('min1956_09pdf', MIN + '1956/issues/MIN1956-09.pdf', ['Sinless Human Nature', 'Human, Not Carnal', 'lunatic', 'vicarious', 'Incarnation']),
     ('min1957_04pdf', MIN + '1957/issues/MIN1957-04.pdf', ['Sinless Human Nature', 'Incarnation', 'vicarious']),
+    ('min1985', 'https://www.ministrymagazine.org/archive/1985/06/the-nature-of-christ', None),
+    ('w_qod2', WIKI + 'Seventh-day_Adventist_theology', ['Questions on Doctrine', 'nature of Christ', 'postlapsarian', 'prelapsarian']),
 ]
+FULLPDF = {'min1956_09pdf': (11, 30), 'min1957_04pdf': (18, 40)}
 
 def text_of(url):
     r = requests.get(url, headers=UA, timeout=90)
@@ -62,23 +65,39 @@ def text_of(url):
                 t += '\nLINKS: ' + ' '.join(sorted(set(links))[:20])
     return info, re.sub(r'[ \t\r\f\v]+', ' ', re.sub(r'\n\s*\n+', '\n', t))
 
+OUT = {}
 for key, url, mode in JOBS:
-    print(f'\n\n######## {key} {url}', flush=True)
     try:
         info, t = text_of(url)
     except Exception as e:
-        print('ERROR', e); continue
-    print('##', info, len(t), 'chars')
+        info, t = 'ERROR ' + str(e)[:200], ''
+    print(key.ljust(14), info, len(t), url, flush=True)
     if not t:
         continue
     if mode is None:
-        print(t[:90000])
+        OUT[key] = t
     elif isinstance(mode, int):
-        print(t[:mode])
+        OUT[key] = t[:mode]
     else:
+        parts = []
         for pat in mode:
             ms = list(re.finditer(re.escape(pat), t, re.I))
-            print(f'  [{pat}] {len(ms)} hits')
+            parts.append(f'[{pat}] {len(ms)} hits')
             for m in ms[:6]:
-                print('   >>', t[max(0, m.start() - 500):m.end() + 500].replace('\n', ' '))
-    sys.stdout.flush()
+                parts.append('>> ' + t[max(0, m.start() - 700):m.end() + 700].replace('\n', ' '))
+        OUT[key] = '\n'.join(parts)
+        if key in FULLPDF:
+            a, b = FULLPDF[key]
+            m1, m2 = t.find(f'[[p{a}]]'), t.find(f'[[p{b}]]')
+            OUT[key + '_pages'] = t[m1:m2 if m2 > 0 else None]
+
+tok = os.environ.get('GH_TOKEN')
+api = f"https://api.github.com/repos/{os.environ.get('GITHUB_REPOSITORY')}/check-runs"
+hd = {'Authorization': 'Bearer ' + str(tok), 'Accept': 'application/vnd.github+json'}
+for key, t in OUT.items():
+    chunks = [t[i:i + 60000] for i in range(0, len(t), 60000)][:6]
+    for i, c in enumerate(chunks):
+        name = f'src:{key}:{i + 1}/{len(chunks)}'
+        r = requests.post(api, headers=hd, json={'name': name, 'head_sha': os.environ['GITHUB_SHA'], 'status': 'completed', 'conclusion': 'neutral',
+                                                'output': {'title': name, 'summary': key, 'text': c}})
+        print('check', name, r.status_code, flush=True)
