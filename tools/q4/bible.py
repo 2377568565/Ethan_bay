@@ -151,6 +151,12 @@ def _load():
         _cuv = json.load(open(os.path.join(BD, 'zh_cun.json'), encoding='utf-8-sig'))
         _kjv = json.load(open(os.path.join(BD, 'en_kjv.json'), encoding='utf-8-sig'))
         _nkjv = json.load(open(os.path.join(BD, 'en_nkjv.json'), encoding='utf-8-sig'))
+        # 和合本数据有些章合并了几节或漏了括号里的经文：用 bible_fix.json 补齐（见该文件说明）
+        fx = os.path.join(Q4, 'bible_fix.json')
+        if os.path.exists(fx):
+            for k, vs in json.load(open(fx, encoding='utf-8'))['chapters'].items():
+                b, c = map(int, k.split(':'))
+                _cuv[b]['chapters'][c] = vs
 
 def exists(b, c, v):
     _load()
@@ -159,11 +165,15 @@ def exists(b, c, v):
 
 def cuv(b, c, v):
     _load()
-    t = _cuv[b]['chapters'][c - 1][v - 1]
+    ch = _cuv[b]['chapters'][c - 1]
+    while v > 1 and not ch[v - 1].strip():   # 和合本把这一节和上一节印在一起
+        v -= 1
+    t = ch[v - 1]
     t = t.strip()
     if t.startswith('神') and not t.startswith('神人'): t = '上帝' + t[1:]   # 句首空格在抓取时丢失
     t = re.sub('[ \u3000]+神', '上帝', t)
     t = t.replace('「', '“').replace('」', '”').replace('『', '‘').replace('』', '’')
+    t = re.sub(r'\s+(?=[，。；：、！？”’）])', '', t)
     return t.strip()
 
 def en(which, b, c, v):
