@@ -288,3 +288,18 @@ def check():
 if __name__ == '__main__':
     if '--check' in sys.argv:
         check()
+
+# 《耶稣是人还是神？》用到的资料（书籍按原著页码引用，没有网址）
+SRC.update({
+ 'gregnaz':   ('拿先斯的格列高利《致克勒多纽书》（第101封信，约公元382年，反驳阿波里拿留）', None, []),
+ 'chaldef':   ('迦克墩会议《信仰定义》（公元451年）', None, []),
+ 'qod':       ('《复临信徒对教义问题的回答》（Seventh-day Adventists Answer Questions on Doctrine，1957年）', None, []),
+ 'da24':      ('怀爱伦《历代愿望》（The Desire of Ages）英文原著第24页', None, []),
+ 'da49':      ('怀爱伦《历代愿望》英文原著第48—49页', None, []),
+ 'da70':      ('怀爱伦《历代愿望》英文原著第70页', None, []),
+ 'da117':     ('怀爱伦《历代愿望》英文原著第117页', None, []),
+ 'da664':     ('怀爱伦《历代愿望》英文原著第664页', None, []),
+ 'bc5':       ('怀爱伦1895年致贝克牧师的信（Letter 8），载《基督复临安息日会圣经注释》第5卷英文原著第1128—1129页', None, []),
+ 'sm1':       ('怀爱伦《信息选粹》（Selected Messages）第1册英文原著第244页', None, []),
+ 'lewis':     ('C. S. 路易斯《返璞归真》（Mere Christianity）第三部第11章', None, []),
+})

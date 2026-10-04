@@ -77,7 +77,9 @@ PRIMARY = {'justin', 'ignatius', 'pliny_txt', 'laodicea', 'socrates', 'sozomen',
 
 def src_kind(k, url):
     if url is None:
-        return '怀爱伦著作' if k[:2] in ('gc', 'cm', 'ls') else '书籍'
+        if k in ('chaldef', 'gregnaz'):
+            return '原始文献'
+        return '怀爱伦著作' if k[:2] in ('gc', 'cm', 'ls', 'da', 'bc', 'sm') else '书籍'
     if k in PRIMARY:
         return '原始文献'
     if k in ('fraser', 'pew'):
@@ -305,19 +307,24 @@ def page():
     words = len(re.sub(r'<[^>]+>|\s', '', main))
     mins = round(words / 450 / 5) * 5
     main = main.replace('</h1>', f'</h1><p class="meta">约 {words / 10000:.1f} 万字 · 细读约 {mins} 分钟 · {len(T.CHAPTERS)} 章 · {len(cites.order)} 条资料出处</p>', 1)
+    return doc('基督教两千年家谱', '从耶稣到今天：基督复临安息日会从哪里来？各大教派怎样分出来、核心教义有什么不同？有图有表，每个说法都附出处。', main, srcs, toc_html, cites)
+
+
+def doc(title, desc, main, srcs, toc_html, cites):
+    """专题网页的外壳（顶栏、目录、阅读设置、出处弹窗）：家谱和其他问题彩蛋专题共用"""
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>基督教两千年家谱 · 问题彩蛋</title>
-<meta name="description" content="从耶稣到今天：基督复临安息日会从哪里来？各大教派怎样分出来、核心教义有什么不同？有图有表，每个说法都附出处。">
+<title>{title} · 问题彩蛋</title>
+<meta name="description" content="{desc}">
 <script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}</script>
 <style>{CSS}</style>
 </head>
 <body>
 <div class="prog" aria-hidden="true"><i></i></div>
-<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">基督教两千年家谱</span><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">{title}</span><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
 <aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
 <main>
