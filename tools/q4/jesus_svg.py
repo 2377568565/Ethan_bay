@@ -1,4 +1,4 @@
-# 《耶稣是人还是神？》页面里的两张图（SVG，样式用 history.py 的 CSS 和颜色）
+# 《耶稣是人还是神？》页面里的三张图（SVG，样式用 history.py 的 CSS 和颜色）
 from history_svg import esc, text
 
 
@@ -91,5 +91,58 @@ def power():
     out.append(text(32, 356, '“反倒虚己，取了奴仆的形像”（腓2:7）', 'tw'))
     out.append(text(32, 374, '不把石头变饼（太4:3-4）· 不求十二营天使（太26:53）', 'ts'))
     out.append(text(32, 389, '不从十字架上下来（太27:40-42）', 'ts'))
+    out.append('</svg>')
+    return '\n'.join(out)
+
+
+# ---------------- 图 2：1955—1957 年的会谈（两方、两本书、两种反应） ----------------
+def qod():
+    W, H = 400, 432
+    L, R, w = 8, 206, 186
+    out = [f'<svg viewBox="0 0 {W} {H}" class="dg" role="img" aria-labelledby="jf3t jf3d">',
+           '<title id="jf3t">1955—1957 年的会谈</title>',
+           '<desc id="jf3d">复临教会代表傅禄姆、李德、安德森（昂鲁主持）和福音派的马丁、坎农、班豪斯，在1955年3月到1956年8月之间会谈18次。'
+           '结果是两边各出版：复临一方1957年出版《教义问答》，福音派一方有班豪斯1956年的文章和马丁1960年的书。'
+           '反应也有两种：复临教会内部以安德烈森为首强烈反对，焦点是基督的人性和赎罪；福音派内部也有领袖反对，《永恒》杂志失去四分之一订户。'
+           '成果是福音派开始承认复临信徒是主内弟兄，代价是在基督人性的问题上争论至今。</desc>']
+
+    def card(x, y, h, head, fam, lines):
+        out.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" class="box"/>')
+        out.append(f'<path d="M{x} {y + 12} a12 12 0 0 1 12 -12 h{w - 24} a12 12 0 0 1 12 12 v16 h-{w} z" class="{fam} fillc"/>')
+        out.append(text(x + w / 2, y + 19, head, 'tnode', 'middle'))
+        for i, (t, c) in enumerate(lines):
+            out.append(text(x + 12, y + 46 + i * 16, t, c))
+
+    # 第一行：两方
+    card(L, 8, 84, '复临教会代表', 'f6', [('傅禄姆 · 李德 · 安德森', 'tn'), ('主持：昂鲁（东宾州区会会长）', 'ts'), ('用书面回答 48 个问题', 'ts')])
+    card(R, 8, 84, '福音派', 'f3', [('华特·马丁 · 坎农', 'tn'), ('班豪斯（《永恒》杂志主编）', 'ts'), ('提出问题，要看复临会是否正统', 'ts')])
+    # 中间：会谈
+    for x in (L + w / 2, R + w / 2):
+        out.append(f'<path d="M{x} 92 C{x} 108 200 100 200 114" class="flow"/>')
+    out.append('<rect x="92" y="114" width="216" height="30" rx="15" class="jone"/>')
+    out.append(text(200, 134, '1955.3—1956.8 · 会谈 18 次', 'tn', 'middle'))
+    for x in (L + w / 2, R + w / 2):
+        out.append(f'<path d="M200 144 C200 158 {x} 150 {x} 166" class="flow"/>')
+    # 第二行：两本书
+    for x, lines in ((L, [('《教义问答》', 'tn'), ('1957.11 出版 · 720 页 · 48 题', 'ts'), ('附录：怀爱伦语录（加了小标题）', 'ts')]),
+                     (R, [('班豪斯文章（1956.9）', 'tn'), ('马丁《复临安息日会真相》（1960）', 'ts'), ('承认复临信徒是“主内弟兄”', 'ts')])):
+        out.append(f'<rect x="{x}" y="166" width="{w}" height="62" rx="10" class="box"/>')
+        for i, (t, c) in enumerate(lines):
+            out.append(text(x + 12, 186 + i * 17, t, c))
+        out.append(f'<path d="M{x + w / 2} 228 L{x + w / 2} 246" class="flow"/>')
+    # 第三行：两种反应
+    for x, lines in ((L, [('复临教会内部', 'tn'), ('安德烈森等强烈反对', 'tw'), ('焦点：基督的人性、赎罪', 'ts'), ('1961 暂停证书 · 1962 去世前和好', 'ts')]),
+                     (R, [('福音派内部', 'tn'), ('一些领袖公开反对', 'tw'), ('《永恒》杂志失去 1/4 订户', 'ts'), ('一年内恢复', 'ts')])):
+        out.append(f'<rect x="{x}" y="246" width="{w}" height="78" rx="10" class="jdash"/>')
+        for i, (t, c) in enumerate(lines):
+            out.append(text(x + 12, 266 + i * 17, t, c))
+    # 底部：成果与代价
+    out.append(f'<rect x="{L}" y="338" width="{W - 16}" height="86" rx="12" class="box"/>')
+    out.append(f'<text x="{L + 12}" y="360" class="jx">✓</text>')
+    out.append(text(L + 28, 360, '成果：福音派开始承认复临信徒是主内弟兄', 'tn'))
+    out.append(f'<text x="{L + 12}" y="382" class="jx">!</text>')
+    out.append(text(L + 28, 382, '代价：在“基督取了怎样的人性”上，争论至今', 'tn'))
+    out.append(text(L + 28, 404, '2003 年出注释版（奈特）· 2007 年举行五十周年研讨会', 'ts'))
+    out.append(text(L + 28, 417, '让分歧的双方“彼此聆听”', 'ts'))
     out.append('</svg>')
     return '\n'.join(out)

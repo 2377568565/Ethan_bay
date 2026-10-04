@@ -112,4 +112,17 @@ CHECKED = {
  'wyc_ce': ('https://www.newadvent.org/cathen/15722a.htm', 'live'),
  'wycliffe': ('https://www.britannica.com/biography/John-Wycliffe', 'archive 20260928021659'),
  'zwingli': ('https://www.britannica.com/biography/Huldrych-Zwingli', 'archive 20260713232550'),
+ # 2026-10-04：《教义问答》一章的资料（GitHub 上直接下载原文核对）
+ 'valentine': ('https://encyclopedia.adventist.org/assets/pdf/article-6JJ3.pdf', 'live'),
+ 'unruh77': ('https://www.adventistlaymen.org/Selected%20Documents%20and%20Manuscripts/THE%20SEVENTH-DAY%20ADVENTIST%20EVANGELICAL%20CONFERENCES%20OF%201955-1956.pdf', 'live'),
+ 'br1914': ('https://documents.adventistarchives.org/Books/BR1914.pdf', 'live'),
+ 'br1949': ('https://documents.adventistarchives.org/Books/BR1949.pdf', 'live'),
+ 'min1956': ('https://cdn.ministerialassociation.org/cdn/ministrymagazine.org/issues/1956/issues/MIN1956-09.pdf', 'live'),
+ 'knight03': ('https://digitalcommons.andrews.edu/adventist-books/1', 'live'),
+ 'whidden03': ('https://www.ministrymagazine.org/archive/2003/08/questions-on-doctrine-then-and-now.html', 'live'),
+ 'douglass04': ('https://www.ministrymagazine.org/archive/2004/08/thoughts-on-the-republished-questions-on-doctrine.html', 'live'),
+ 'rh1896': ('https://documents.adventistarchives.org/Periodicals/RH/RH18961215-V73-50.pdf', 'live'),
+ 'yi1900': ('https://documents.adventistarchives.org/Periodicals/YI/YI19001220-V48-50.pdf', 'live'),
+ 'qod2007': ('https://digitalcommons.andrews.edu/qod/', 'live'),
+ 'w_andreasen': ('https://en.wikipedia.org/wiki/M._L._Andreasen', 'live'),
 }

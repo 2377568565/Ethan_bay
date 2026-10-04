@@ -293,7 +293,7 @@ if __name__ == '__main__':
 SRC.update({
  'gregnaz':   ('拿先斯的格列高利《致克勒多纽书》（第101封信，约公元382年，反驳阿波里拿留）', None, []),
  'chaldef':   ('迦克墩会议《信仰定义》（公元451年）', None, []),
- 'qod':       ('《复临信徒对教义问题的回答》（Seventh-day Adventists Answer Questions on Doctrine，1957年）', None, []),
+ 'qod':       ('《复临信徒对教义问题的回答》（Seventh-day Adventists Answer Questions on Doctrine，1957年）英文原著第59—62、383页，附录B第650页', None, []),
  'da24':      ('怀爱伦《历代愿望》（The Desire of Ages）英文原著第24页', None, []),
  'da49':      ('怀爱伦《历代愿望》英文原著第48—49页', None, []),
  'da70':      ('怀爱伦《历代愿望》英文原著第70页', None, []),
@@ -302,4 +302,21 @@ SRC.update({
  'bc5':       ('怀爱伦1895年致贝克牧师的信（Letter 8），载《基督复临安息日会圣经注释》第5卷英文原著第1128—1129页', None, []),
  'sm1':       ('怀爱伦《信息选粹》（Selected Messages）第1册英文原著第244页', None, []),
  'lewis':     ('C. S. 路易斯《返璞归真》（Mere Christianity）第三部第11章', None, []),
+})
+
+# 《耶稣是人还是神？》第5章《1955—1957：〈教义问答〉的故事》用到的资料（2026-10-04 在 GitHub 上下载原文逐条核对）
+AD = 'https://documents.adventistarchives.org/'
+SRC.update({
+ 'valentine': ('瓦伦丁（Gilbert M. Valentine）《复临—福音派会谈，1955—1956》，载《复临安息日会百科全书》', 'https://encyclopedia.adventist.org/assets/pdf/article-6JJ3.pdf', ['Unruh']),
+ 'unruh77':   ('昂鲁（T. E. Unruh）《1955—1956年复临安息日会与福音派的会谈》，《复临传承》（Adventist Heritage）1977年冬季号第35—46页；附班豪斯《复临安息日会信徒是基督徒吗？》（《永恒》杂志1956年9月）原文', 'https://www.adventistlaymen.org/Selected%20Documents%20and%20Manuscripts/THE%20SEVENTH-DAY%20ADVENTIST%20EVANGELICAL%20CONFERENCES%20OF%201955-1956.pdf', ['Barnhouse']),
+ 'br1914':    ('《家庭圣经读本》（Bible Readings for the Home Circle）1914年版第174页（复临教会档案馆扫描本）', AD + 'Books/BR1914.pdf', ['sinful, fallen']),
+ 'br1949':    ('《家庭圣经读本》1949年修订版（复临教会档案馆扫描本）', AD + 'Books/BR1949.pdf', ['Bible Readings']),
+ 'min1956':   ('《事工》（Ministry）杂志1956年9月号：社论《是人性，不是属肉体的》（Human, Not Carnal）及怀爱伦语录汇编《基督在道成肉身时的性情》', 'https://cdn.ministerialassociation.org/cdn/ministrymagazine.org/issues/1956/issues/MIN1956-09.pdf', ['Human, Not Carnal']),
+ 'knight03':  ('奈特（George R. Knight）编注《复临信徒对教义问题的回答》注释版（安德鲁斯大学出版社，2003年），历史与神学导言', 'https://digitalcommons.andrews.edu/adventist-books/1', ['Questions on Doctrine']),
+ 'whidden03': ('惠登（Woodrow W. Whidden）《〈教义问答〉：当年与今天》，《事工》杂志2003年8月（介绍奈特注释版）', 'https://www.ministrymagazine.org/archive/2003/08/questions-on-doctrine-then-and-now.html', ['Knight']),
+ 'douglass04':('道格拉斯（Herbert E. Douglass）《对重印〈教义问答〉的一些思考》，《事工》杂志2004年8月（引《教义问答》原文并注页码）', 'https://www.ministrymagazine.org/archive/2004/08/thoughts-on-the-republished-questions-on-doctrine.html', ['vicariously']),
+ 'rh1896':    ('怀爱伦，《评论与通讯》（Review and Herald）1896年12月15日（复临教会档案馆扫描本）', AD + 'Periodicals/RH/RH18961215-V73-50.pdf', ['sinful nature']),
+ 'yi1900':    ('怀爱伦，《青年导报》（Youth’s Instructor）1900年12月20日（复临教会档案馆扫描本）', AD + 'Periodicals/YI/YI19001220-V48-50.pdf', ['fallen, suffering']),
+ 'qod2007':   ('安德鲁斯大学《教义问答》出版50周年研讨会（2007年10月）论文集', 'https://digitalcommons.andrews.edu/qod/', ['Questions on Doctrine']),
+ 'w_andreasen':('维基百科：M. L. Andreasen', 'https://en.wikipedia.org/wiki/M._L._Andreasen', ['1961']),
 })

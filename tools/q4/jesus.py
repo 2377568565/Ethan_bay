@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """生成《耶稣是人还是神？》专题网页（仓库根目录 jesus.html）。版式、出处、经文都和《基督教两千年家谱》共用（history.py）。
-正文在 jesus_text.py，两张图在 jesus_svg.py，资料在 history_sources.py。
+正文在 jesus_text.py，三张图在 jesus_svg.py，资料在 history_sources.py。
 用法：Q4_WORK=<含 bible/ 的目录> python3 tools/q4/jesus.py [输出路径]"""
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -11,13 +11,15 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(H.ROOT, 'jesus.html')
 TITLE = '耶稣是人还是神？'
 NO = {cid: i + 1 for i, (_, cid, _, _) in enumerate(T.CHAPTERS)}
 NAME = {cid: t for _, cid, t, _ in T.CHAPTERS}
-FIGS = {'chalcedon': G.chalcedon, 'power': G.power}
+FIGS = {'chalcedon': G.chalcedon, 'power': G.power, 'qod': G.qod}
 EXTRA_CSS = r'''
 .dg .jsep{stroke:#fff;stroke-width:1.5;stroke-dasharray:3 4;opacity:.7}
 .dg .jone{fill:var(--surface);stroke:var(--ink);stroke-width:1.4}
 .dg .jx{font-size:12px;font-weight:800;fill:var(--c6)}
 .dg .jdash{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
 .tblwrap.two-col .jtbl{min-width:0;width:100%}
+.srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+.ch .mini td small{display:block;font-size:.76em;line-height:1.35;color:var(--muted);overflow-wrap:normal;word-break:normal;white-space:normal}
 .ch .mini{width:100%}
 .ch .mini th{white-space:normal}
 .ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
@@ -84,7 +86,7 @@ def page():
     css = H.CSS
     H.CSS = css + EXTRA_CSS
     try:
-        return H.doc(TITLE, '耶稣既是神又是人，祂对抗试探岂不是比我们容易？用圣经一步一步讲清楚：一位两性、虚己、旷野的试探、神迹的来源，以及祂为什么既是榜样又是救主。', main, srcs, toc_html, cites)
+        return H.doc(TITLE, '耶稣既是神又是人，祂对抗试探岂不是比我们容易？用圣经一步一步讲清楚：一位两性、虚己、旷野的试探、神迹的来源，以及祂为什么既是榜样又是救主；并讲述复临教会 1955—1957 年《教义问答》的历史。', main, srcs, toc_html, cites)
     finally:
         H.CSS = css
 

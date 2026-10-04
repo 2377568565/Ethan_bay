@@ -80,8 +80,14 @@ def src_kind(k, url):
         if k in ('chaldef', 'gregnaz'):
             return '原始文献'
         return '怀爱伦著作' if k[:2] in ('gc', 'cm', 'ls', 'da', 'bc', 'sm') else '书籍'
-    if k in PRIMARY:
+    if k in PRIMARY or k in ('br1914', 'br1949', 'min1956', 'unruh77'):
         return '原始文献'
+    if k in ('rh1896', 'yi1900'):
+        return '怀爱伦著作'
+    if k in ('valentine',):
+        return '百科全书'
+    if k in ('knight03', 'whidden03', 'douglass04', 'qod2007'):
+        return '学术研究'
     if k in ('fraser', 'pew'):
         return '学术研究'
     if any(h in url for h in ('britannica.com', 'wikipedia.org', 'newadvent.org/cathen', 'gameo.org')):

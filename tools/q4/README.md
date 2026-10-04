@@ -39,8 +39,10 @@ python3 tools/q4/history.py           # 生成仓库根目录的 history.html（
 
 ## 专题网页：耶稣是人还是神？（`jesus.html`）
 ```sh
-python3 tools/q4/jesus.py             # 版式、出处、经文和家谱页共用 history.py；正文 jesus_text.py，两张图 jesus_svg.py
+python3 tools/q4/jesus.py             # 版式、出处、经文和家谱页共用 history.py；正文 jesus_text.py，三张图 jesus_svg.py
 ```
+- 第 5 章《1955—1957：〈教义问答〉的故事》的史料（教会百科全书、1956 年《事工》杂志、1914/1949 年版《家庭圣经读本》、1896/1900 年怀爱伦原刊等）都在 GitHub 上下载原文逐条核对过，网址记在 `history_checked.py`。
+- 正文里所有带出处的经文引用，都和和合本逐字核对过（新增经文后建议再核对一次）。
 - 注意：圣经数据（和合本）有约 65 章把几节合在一起（例如约5、路2），这些章里后面的节数会错一位。专题页里用到这些章的经文，直接手写原文。
 
 ## 线上互动：数据存在 GitHub 仓库里
