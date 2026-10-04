@@ -1,0 +1,18 @@
+name: tmp-src
+# 临时：核对怀爱伦著作原文（公版书），结果存在“检查结果”里（查完会删掉）
+on:
+  push:
+    paths: ['.github/workflows/tmp-src.yml', 'tools/q4/tmp_src.py']
+permissions:
+  contents: read
+  checks: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pypdf requests
+      - run: python3 tools/q4/tmp_src.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
