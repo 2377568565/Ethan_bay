@@ -1,6 +1,8 @@
 # Ethan_bay
 Claude code
 
+> 给 Claude 的项目说明：[CLAUDE.md](CLAUDE.md)（项目记忆）和 [plugins/ethan-bay-site](plugins/ethan-bay-site/README.md)（操作手册插件）。新开对话时 Claude 会先读它们，就能接上之前的工作。
+
 ## 安息日学学课剖析
 
 - 2026年第3季 第13课《恩典、仁爱和团契》（林后13:11-14）
