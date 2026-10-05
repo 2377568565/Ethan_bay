@@ -61,4 +61,4 @@ dict(id='qa6', no=6, src='q6.html', q='题目', sub='副题', lesson=课号, day
   B 心里的偏向（propensity，“bent of mind/will”）：我们生来就有，耶稣没有（Baker 信，5BC 1128）。
   依据：罗7:22-23、罗8:3、约14:30、来4:15、DA 49、DA 123（“So it may be with us”）、GC 505 与 1SM 254（enmity）、5BC 1129（“will ever remain a mystery”）。
   用户原先倾向“propensity 指心里珍藏的倾向”的解释；已坦白说明 Baker 信里“born with inherent propensities”与这个解释不合。
-- 背景：本会牧师（溪边树-李牧）指出讲耶稣的人性必须了解 1955—1957 年《教义问答》的历史，所以 jesus.html 第 5 章补了这段历史。
+- 背景：本会一位牧师读后指出讲耶稣的人性必须了解 1955—1957 年《教义问答》的历史，所以 jesus.html 第 5 章补了这段历史。
