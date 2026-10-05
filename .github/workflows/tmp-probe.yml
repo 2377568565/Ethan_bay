@@ -1,0 +1,32 @@
+name: tmp-probe
+# 临时：查看 GitHub Pages 对网站文件的缓存设置（查完删除）
+on:
+  push:
+    branches: [claude/adventist-lesson-analysis-dhqrxg]
+    paths: ['.github/workflows/tmp-probe.yml']
+permissions:
+  contents: read
+  checks: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: |
+          B=https://2377568565.github.io/Ethan_bay/
+          {
+          date -u
+          for f in "" index.html history.html jesus.html site/45794c5b6e.woff2 site/9f783e08d0.json data/ask.json audio/kk-f/index.json music/list.json; do
+            echo "== $f"; curl -sS -D - -o /dev/null --compressed "$B$f" | grep -i -E "^(http|etag|last-modified|cache-control|age|x-cache|x-served-by|content-length|via|expires|vary|content-encoding)"
+          done
+          echo "== conditional (same etag)"
+          E=$(curl -sSI "${B}site/45794c5b6e.woff2" | grep -i '^etag' | cut -d' ' -f2 | tr -d '\r')
+          curl -sS -o /dev/null -w "%{http_code} %{size_download}\n" -H "If-None-Match: $E" "${B}site/45794c5b6e.woff2"
+          echo "== timing (runner, not China)"
+          for f in "" site/45794c5b6e.woff2 history.html; do curl -sS -o /dev/null --compressed -w "$f %{time_namelookup} %{time_connect} %{time_starttransfer} %{time_total} %{size_download}\n" "$B$f"; done
+          } > out.txt 2>&1
+          cat out.txt
+          jq -n --arg t "$(cat out.txt)" --arg sha "$GITHUB_SHA" '{name:"probe",head_sha:$sha,status:"completed",conclusion:"neutral",output:{title:"probe",summary:"probe",text:$t}}' > body.json
+          curl -sS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs" -d @body.json -o /dev/null -w "%{http_code}\n"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
