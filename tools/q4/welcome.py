@@ -1,4 +1,4 @@
-"""欢迎页（网站首页）：黎明的光 + 今日经文（从本季学课中随机选出，点一下换一节）+ 今日学课 + 四个入口 + 本周共读与研读星星。"""
+"""欢迎页（网站首页）：黎明的光 + 今日经文（从本季学课中随机选出，点一下换一节）+ 今日学课（进度环）+ 四个入口 + 研读星星。"""
 import os, re, random, html, importlib, sys
 
 Q4 = os.path.dirname(os.path.abspath(__file__))
@@ -134,11 +134,6 @@ def welcome_html(titles, ui):
   </nav>
   <div class="wnews" hidden></div>
   <p class="wresume" hidden></p>
-  <div class="wcard wtogether" hidden>
-    <p class="wk"><span>本周共读 · 读完打卡</span><span class="wk2">点某一天直接去读</span></p>
-    <div class="wt-days"></div>
-    <p class="wt-msg"></p>
-  </div>
   <div class="wcard wprog">
     <p class="wk"><span>本周研读</span><b class="wmin"></b></p>
     <p class="wstars" aria-hidden="true">{stars}</p>

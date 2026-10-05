@@ -1,3 +1,22 @@
+/* 安卓、浏览器能力：安卓上关掉毛玻璃等很费电的效果；能“跳过屏幕外内容”又能稳住滚动位置的浏览器（安卓、电脑 Chrome）才用 content-visibility */
+(function(){
+  var de=document.documentElement;if(/Android/i.test(navigator.userAgent||''))de.classList.add('android');
+  try{if(CSS.supports('content-visibility','auto')&&CSS.supports('overflow-anchor','auto'))de.classList.add('cvok');}catch(e){}
+  // 这几条 :has(:target) 规则只在没有脚本时用；留着会让每次换页都把整页样式重算一遍（安卓上明显卡）
+  try{for(var i=0;i<document.styleSheets.length;i++){var sh=document.styleSheets[i],rs=sh.cssRules;for(var j=rs.length-1;j>=0;j--){var st=rs[j].selectorText;if(st&&st.indexOf(':has(')>=0&&st.indexOf('html:not(.js)')>=0)sh.deleteRule(j);}}}catch(e){}
+})();
+/* 先让浏览器把这一帧画出来（按钮变色、指示条开始动），再做换页这种重活 */
+function q4afterPaint(f){if(window.requestAnimationFrame)requestAnimationFrame(function(){setTimeout(f,0);});else setTimeout(f,0);}
+/* 金色指示条：从一个按钮“跃动平移”到另一个——先拉长、滑过去、略冲过头再回弹 */
+function q4slide(ind,x,anim){
+  var x0=ind._x;ind._x=x;ind.style.transform='translateX('+x+'px)';
+  if(!anim||x0==null||Math.abs(x-x0)<2||!ind.animate||q4slide.reduced)return;
+  var d=x-x0,w=ind.offsetWidth||18,k=Math.min(5,1+Math.abs(d)*0.5/w),s=d>0?1:-1;
+  try{ind.animate([{transform:'translateX('+x0+'px) scaleX(1)'},{transform:'translateX('+(x0+d*0.5)+'px) scaleX('+k.toFixed(2)+')',offset:.42},
+    {transform:'translateX('+(x+s*4)+'px) scaleX(.82)',offset:.8},{transform:'translateX('+x+'px) scaleX(1)'}],{duration:540,easing:'cubic-bezier(.3,.7,.25,1)'});}catch(e){}
+}
+q4slide.reduced=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+function q4pop(el){if(!el||!el.animate||q4slide.reduced)return;try{el.animate([{transform:'scale(.84)'},{transform:'scale(1.2)',offset:.5},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.3,.7,.3,1)'});}catch(e){}}
 /* 线条图标（和网站其他图标一个风格，代替彩色表情符号） */
 var Q4I=(function(){
   function g(d,f){return '<svg class="ic'+(f?' fi':'')+'" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>';}
@@ -125,22 +144,42 @@ var q4keep=(function(){
   setInterval(tick,15000);
 
   var linkFor={};
+  // 日子按钮这一行滚到最右边时，去掉右边的淡出（不然“五”“总结”总是灰蒙蒙的）
+  function atEnd(row){row.classList.toggle('atend',row.scrollLeft+row.clientWidth>=row.scrollWidth-2);}
+  document.querySelectorAll('.navrow').forEach(function(r){r.addEventListener('scroll',function(){atEnd(r);},{passive:true});});
   function keepVisible(a){
-    var row=a.parentNode; if(row.scrollWidth<=row.clientWidth)return;
+    var row=a.parentNode; atEnd(row); if(row.scrollWidth<=row.clientWidth)return;
     var rr=row.getBoundingClientRect(),ar=a.getBoundingClientRect(),lab=row.querySelector('.k'),lw=lab?lab.getBoundingClientRect().width+10:0;
     if(ar.left<rr.left+lw){row.scrollBy({left:ar.left-rr.left-lw,behavior:'smooth'});}
     else if(ar.right>rr.right){row.scrollBy({left:ar.right-rr.right+8,behavior:'smooth'});}
   }
-  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){
-    if(!e.isIntersecting)return; var a=linkFor[e.target.id]; if(!a)return;
-    var nav=a.closest('.nav'); nav.querySelectorAll('a.on').forEach(function(x){x.classList.remove('on');});
-    a.classList.add('on');
-    var row=a.closest('.navrow');if(row&&nav.dataset.part&&!nav.dataset.hold){nav.dataset.part=row.dataset.row;var L=nav.closest('.lesson'),lb=L&&L.querySelector('.lbar');if(lb)lb.dataset.part=row.dataset.row;}   // 新设计：一行导航只显示正在读的那一部分
+  // 手机上日子按钮下面的金色指示条
+  function indOf(row){var i=row.querySelector('.nind');if(!i){i=document.createElement('i');i.className='nind';i.setAttribute('aria-hidden','true');row.appendChild(i);}return i;}
+  function placeInd(row,anim){var a=row.querySelector('a.on'),i=indOf(row);if(!a||!a.offsetWidth){i.style.opacity='0';i._x=null;return;}i.style.opacity='';q4slide(i,a.offsetLeft+a.offsetWidth/2-(i.offsetWidth||18)/2,anim);}
+  function placeAll(nav){[].forEach.call(nav.querySelectorAll('.navrow'),function(r){placeInd(r,false);});}
+  function mark(a,anim){
+    var nav=a.closest('.nav');if(!nav)return;var was=nav.querySelector('a.on');if(was===a)return;
+    nav.querySelectorAll('a.on').forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    var row=a.closest('.navrow'),part=nav.dataset.part;
+    if(row&&part&&!nav.dataset.hold&&part!==row.dataset.row){nav.dataset.part=row.dataset.row;var L=nav.closest('.lesson'),lb=L&&L.querySelector('.lbar');if(lb)lb.dataset.part=row.dataset.row;placeAll(nav);}   // 新设计：一行导航只显示正在读的那一部分
+    else if(row)placeInd(row,!!was&&was.closest('.navrow')===row);
+    if(anim!==false)q4pop(a.querySelector('.d'));
     keepVisible(a);
+  }
+  var navLock=0;   // 点了日子按钮：滚动途中经过的日子不再改指示条，直接停在点的那一天
+  window.Q4Nav={place:placeAll,mark:mark};
+  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting||Date.now()<navLock)return; var a=linkFor[e.target.id]; if(!a)return;
+    mark(a);
   });},{rootMargin:'-15% 0px -75% 0px'}):null;
   document.querySelectorAll('.nav a[href^="#"]').forEach(function(a){
     var id=a.getAttribute('href').slice(1),t=document.getElementById(id);
     if(t){linkFor[id]=a;if(io)io.observe(t);}
+  });
+  // 课首（大标题、存心节、本课精要）也算“六”（安息日）：在本课最上面时，指示条停在“六”
+  document.querySelectorAll('main .masthead').forEach(function(m){
+    var lay=m.closest('.layout'),a=lay&&lay.querySelector('.navrow[data-row="yw"] a[href$="-yw-sab"]');if(!a)return;
+    if(!m.id)m.id=(m.closest('.lesson')||{id:'p'}).id+'-top';linkFor[m.id]=a;if(io)io.observe(m);
   });
   /* ---------- 原文 ⇄ 解读：远距离跳转用“翻页”，近距离平滑滚动 ---------- */
   var reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,page=document.querySelector('.page');
@@ -149,16 +188,17 @@ var q4keep=(function(){
     f.classList.remove('flash');void f.offsetWidth;f.classList.add('flash');
     setTimeout(function(){f.classList.remove('flash');},1900);
   }
-  function turnTo(t){
-    var r=t.getBoundingClientRect(),de=document.documentElement;
-    if(reduced||Math.abs(r.top)<innerHeight*1.2){t.scrollIntoView({behavior:reduced?'auto':'smooth'});flash(t);return;}
-    var box=t.closest('main')||page,jump=function(){de.style.scrollBehavior='auto';t.scrollIntoView();de.style.scrollBehavior='';};
+  function turnTo(t){   // t 为空：回到本课最上面
+    var top=!t,r=top?{top:-window.scrollY}:t.getBoundingClientRect(),de=document.documentElement;
+    if(reduced||Math.abs(r.top)<innerHeight*1.2){if(top)window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});else{t.scrollIntoView({behavior:reduced?'auto':'smooth'});flash(t);}return;}
+    var box=(t&&t.closest('main'))||document.querySelector('.lesson.show main')||page,jump=function(){de.style.scrollBehavior='auto';if(top)window.scrollTo(0,0);else t.scrollIntoView();de.style.scrollBehavior='';};
+    var fl=function(){if(!top)flash(t);};
     // 只让正文区过渡；顶栏、导航、侧栏不动。支持“视图过渡”的浏览器：旧画面淡出，新画面轻轻上浮淡入
-    if(document.startViewTransition){try{document.startViewTransition(jump);setTimeout(function(){flash(t);},380);return;}catch(err){}}
+    if(document.startViewTransition){try{document.startViewTransition(jump);setTimeout(fl,380);return;}catch(err){}}
     box.classList.remove('turn-in');box.classList.add('turn-out');
     setTimeout(function(){
       box.style.transition='none';box.classList.remove('turn-out');jump();void box.offsetWidth;box.style.transition='';box.classList.add('turn-in');
-      setTimeout(function(){box.classList.remove('turn-in');},480);flash(t);
+      setTimeout(function(){box.classList.remove('turn-in');},480);fl();
     },180);
   }
   document.addEventListener('click',function(e){
@@ -167,8 +207,11 @@ var q4keep=(function(){
     var id=decodeURIComponent(a.getAttribute('href').slice(1)),t=id&&document.getElementById(id);
     if(!t||!t.getClientRects().length)return;          // 目标在另一课（隐藏中），交给路由
     e.preventDefault();
+    var chip=a.closest('.navrow')&&a,top=chip&&!a._noTop&&a.matches('.navrow[data-row="yw"] a[href$="-yw-sab"]');
+    if(chip){navLock=Date.now()+1100;mark(a,true);}   // 指示条马上跳过去
+    if(top){var L=a.closest('.lesson');id=L?L.id:id;}   // 原文行的“六”：回到本课最上面（课首）
     if(location.hash!=='#'+id){try{history.pushState(null,'','#'+id);}catch(err){}}
-    turnTo(t);
+    if(chip)q4afterPaint(function(){turnTo(top?null:t);});else turnTo(t);
   });
 
   if(!document.body.classList.contains('combined'))return;
@@ -212,7 +255,9 @@ var q4keep=(function(){
       }catch(err){if(src)src.style.viewTransitionName='';}
     }
     swap();
-    if(!first&&!reduced){want.classList.remove('pgin');void want.offsetWidth;want.classList.add('pgin');setTimeout(function(){want.classList.remove('pgin');},560);}
+    // 不支持“视图过渡”的手机：新页面先藏着，等它排好版、画出第一帧，再淡入上浮（否则排版的那一下会把动画吃掉，看起来一卡就跳过去）
+    if(!first&&!reduced){var wp=want;wp.classList.remove('pgin');wp.style.opacity='0';
+      requestAnimationFrame(function(){requestAnimationFrame(function(){wp.style.opacity='';wp.classList.add('pgin');setTimeout(function(){wp.classList.remove('pgin');},520);});});}
     after();
   }
   // 换页时“飞”过去的标题：点的是课程卡片、本周卡片、今日学课、选择课次、上一课/下一课时，记下那里的标题
@@ -2312,9 +2357,22 @@ window.Q4Hub=(function(){
 
   /* ===== 标签栏、侧栏：亮起现在所在的栏目 ===== */
   function tabOf(){if(wOpen())return 'welcome';var p=pg();if(/^l\d+$|^home$/.test(p))return 'home';if(/^qa/.test(p))return 'qa';return p;}
+  var TB=document.querySelector('.tabbar'),tind=null;
+  if(TB){tind=document.createElement('i');tind.className='tind';tind.setAttribute('aria-hidden','true');TB.appendChild(tind);}
+  // 各个标签的中心位置量一次就记住（换页时再量会逼浏览器提前排版新页面，反而更卡）；屏幕转向、窗口变宽时重量
+  var tabX={};function measureTabs(){tabX={};if(TB&&TB.offsetWidth)[].forEach.call(TB.querySelectorAll('.tab'),function(a){tabX[a.getAttribute('href')||'']=a.offsetLeft+a.offsetWidth/2;});}
+  addEventListener('resize',function(){measureTabs();if(TB)tabInd(TB.querySelector('.tab.on'),false);});
+  function tabInd(a,anim){if(!tind)return;var k=a&&(a.getAttribute('href')||'');if(a&&tabX[k]==null)measureTabs();
+    if(!a||!tabX[k]){tind.style.opacity='0';tind._x=null;return;}tind.style.opacity='';q4slide(tind,tabX[k]-13,anim);}
+  function tabOn(a){   // 点下去的一刻就亮：图标轻轻一跳，指示条滑过去
+    if(!a||a.classList.contains('on'))return;var was=TB&&TB.querySelector('.tab.on');
+    if(TB)[].forEach.call(TB.querySelectorAll('.tab.on'),function(x){x.classList.remove('on');});
+    a.classList.add('on');tabInd(a,!!was);q4pop(a.querySelector('.ic'));
+  }
   function paintTabs(){
     var t=tabOf();
-    document.querySelectorAll('.tabbar [data-t]').forEach(function(a){a.classList.toggle('on',a.dataset.t===t||(t==='ask'&&a.dataset.t==='qa'));});
+    document.querySelectorAll('.tabbar [data-t]').forEach(function(a){var on=a.dataset.t===t||(t==='ask'&&a.dataset.t==='qa');if(on&&!a.classList.contains('on'))tabOn(a);else if(!on)a.classList.remove('on');});
+    if(TB&&tind._x==null)tabInd(TB.querySelector('.tab.on'),false);
     document.querySelectorAll('.snav [data-t]').forEach(function(a){a.classList.toggle('on',a.dataset.t===t);});
     de.classList.toggle('rpon',reading()&&!wOpen());
     de.classList.remove('tbhide');
@@ -2326,9 +2384,9 @@ window.Q4Hub=(function(){
     if(!a||a.hasAttribute('data-gohome')||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     e.preventDefault();e.stopPropagation();
     var h=a.getAttribute('href'),wo=wOpen();
-    if(wo)Q4Welcome.close(h==='#home');
-    if((location.hash||'#home')===h){if(!wo)window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});}
-    else location.hash=h;
+    if(a.classList.contains('tab'))tabOn(a);
+    if((location.hash||'#home')===h){if(wo)Q4Welcome.close(h==='#home');else window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});}
+    else q4afterPaint(function(){if(wo)Q4Welcome.close(h==='#home');location.hash=h;});   // 先让按钮亮起来，再换页
   },true);
 
   /* ===== 往下读时标签栏收起，往上滑时出来；阅读进度 ===== */
@@ -2399,7 +2457,7 @@ window.Q4Hub=(function(){
       if(m)go=nav.querySelector('.navrow[data-row="'+want+'"] a[href="#'+m[1]+'-'+(want==='yw'?'yw-':'')+(m[2]==='sum'&&want==='yw'?'sab':m[2])+'"]');
     }
     if(!go&&(!on||row.dataset.row!==want))go=nav.querySelector('.navrow[data-row="'+want+'"] a');
-    if(go){go.click();var r=go.closest('.navrow');setTimeout(function(){r.scrollLeft=Math.max(0,go.offsetLeft-r.clientWidth/2+go.offsetWidth/2);},30);}
+    if(go){go._noTop=true;go.click();go._noTop=false;var r=go.closest('.navrow');setTimeout(function(){r.scrollLeft=Math.max(0,go.offsetLeft-r.clientWidth/2+go.offsetWidth/2);},30);}
   });
 
   /* ===== 电脑：左边“本日内容”（解读的六个部分），读到哪里亮哪里 ===== */

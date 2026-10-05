@@ -183,6 +183,8 @@ html.wopen .rprog{opacity:0}
 .wt-d .wt-n{display:grid;place-items:center;width:34px;max-width:100%;height:34px;border-radius:50%;border:1.5px solid var(--rule);font-size:0;color:#fff;transition:background .3s,border-color .3s}
 .wt-d .wt-a{order:2;opacity:1;font-size:.72rem}
 .wt-d.me .wt-n{background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5 10 16.5 18 8' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;border-color:var(--gold);font-size:0}
+.wt-d.me,.wt-d.today{background:none;border:0;outline:0}
+.wt-d.me .wt-a{color:var(--gold);font-weight:600}
 .wt-d.today{outline:0;color:var(--ink);font-weight:700}
 .wt-d.today .wt-n{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
 .wt-msg{margin:0;font-size:.82rem;line-height:1.6;color:var(--ink-2)}
@@ -230,6 +232,7 @@ html:not(.jsok) .welcome .wmain,html:not(.jsok) .welcome .wtop,html:not(.jsok) .
 .fdays .wt-d{color:rgba(243,235,218,.55)}
 .fdays .wt-d .wt-n{width:30px;height:30px;border-color:rgba(243,235,218,.22)}
 .fdays .wt-d.me .wt-n{background:#D3B06A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5 10 16.5 18 8' fill='none' stroke='%23141B2A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;border-color:#D3B06A}
+.fdays .wt-d.me .wt-a{color:#E6C98B}
 .fdays .wt-d.today{color:#F3EBDA}
 .fdays .wt-d.today .wt-n{border-color:#E6C98B;box-shadow:0 0 0 4px rgba(230,201,139,.18)}
 .feature .cta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:12px;border-radius:14px;font-weight:700;font-size:.95rem;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}
@@ -588,19 +591,22 @@ html.rv .rvl{opacity:0;transform:translateY(14px);transition:opacity .7s var(--e
 html.rv .rvl.in{opacity:1;transform:none}
 /* 换页、远距离跳转：旧画面淡出，新画面轻轻上浮、由虚到实（2026-10-05 用户要求换掉“翻页”效果） */
 .pgin{animation:pgin .5s var(--ease) both}
-@keyframes pgin{from{opacity:0;transform:translateY(16px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
-.turn-out{opacity:0;transform:translateY(-6px) scale(.992);filter:blur(2px);transition:opacity .18s ease-in,transform .18s ease-in,filter .18s ease-in;pointer-events:none}
+@keyframes pgin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.turn-out{opacity:0;transform:translateY(-6px);transition:opacity .18s ease-in,transform .18s ease-in;pointer-events:none}
 .turn-in{animation:turnin2 .48s var(--ease) both}
-@keyframes turnin2{from{opacity:0;transform:translateY(16px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+@keyframes turnin2{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .combined .side{view-transition-name:q4side}
 .combined .tabbar{view-transition-name:q4tab}
 .lesson.show .lbar{view-transition-name:q4bar}
 .lesson.show .nav{view-transition-name:q4nav}
 .rprog{view-transition-name:q4prog}
-::view-transition-old(root){animation:vtout .26s cubic-bezier(.4,0,1,1) both}
-::view-transition-new(root){animation:vtin .55s cubic-bezier(.2,.8,.2,1) both}
-@keyframes vtout{to{opacity:0;transform:scale(.988);filter:blur(3px)}}
-@keyframes vtin{from{opacity:0;transform:translateY(18px);filter:blur(4px)}}
+::view-transition-old(root){animation:vtout .22s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vtin .5s cubic-bezier(.2,.8,.2,1) .06s both}
+@keyframes vtout{to{opacity:0;transform:translateY(-8px)}}
+@keyframes vtin{from{opacity:0;transform:translateY(16px)}}
+/* 顶栏、日子导航、标签栏、侧栏：不跟着淡入淡出，直接显示新的（里面的金色指示条照常滑动） */
+::view-transition-old(q4bar),::view-transition-old(q4nav),::view-transition-old(q4tab),::view-transition-old(q4side){animation:none;opacity:0}
+::view-transition-new(q4bar),::view-transition-new(q4nav),::view-transition-new(q4tab),::view-transition-new(q4side){animation:none}
 ::view-transition-group(q4t){animation-duration:.6s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 ::view-transition-old(q4t),::view-transition-new(q4t){animation-duration:.6s;height:100%;width:auto}
 
@@ -692,8 +698,7 @@ html.rv .rvl.in{opacity:1;transform:none}
   .wtoday .l3{font-size:.9rem}
   .wring{width:92px;height:92px}
   .wring b{font-size:1.25rem}.wring small{font-size:.7rem}
-  .wtogether{grid-column:8/-1}
-  .wtogether[hidden]+.wprog{grid-column:8/-1}
+  .wprog{grid-column:8/-1}
   .wclass{grid-column:1/span 7;margin-top:-12px}
   .wtiles{gap:22px}
   .wtile{min-height:0;justify-items:start;text-align:left;padding:22px 22px 20px;gap:12px}
@@ -702,10 +707,8 @@ html.rv .rvl.in{opacity:1;transform:none}
   .wtile small{display:block;font-size:.82rem}
   .wtile .nbadge{top:16px;right:16px}
   .wcard{padding:22px 24px}
-  .wprog{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:center}
-  .wprog .wk{grid-column:1/-1}
+  .wprog{display:grid;align-content:center;row-gap:10px}
   .wprog .wstars{margin:0}
-  .wprog .wnote{grid-column:1/-1}
   .wtoast{bottom:28px;left:calc(50% + var(--sw) / 2)}
 
   /* 学课目录 */
@@ -911,3 +914,22 @@ footer .fnote p{margin:6px 0 0;font-size:.76rem;line-height:1.75}
 }
 @media (prefers-reduced-motion:reduce){details.fold[open]>:not(summary),.askcard.open .ask-body{animation:none}.ocard .ot,.ocard blockquote,.ocard .ocite{transition:none}}
 @media print{details.fold>:not(summary){display:block!important}.ask-open{display:none}}
+
+/* ===== 2026-10-06：日子按钮、标签栏的金色指示条（跃动平移）；安卓顺滑 ===== */
+.nind,.tind{display:none}
+@media (max-width:1023.98px){
+  .navrow{position:relative}
+  html.jsok .navrow .nind{display:block;position:absolute;left:0;bottom:3px;width:18px;height:3px;border-radius:3px;background:var(--gold);pointer-events:none;will-change:transform;transition:opacity .2s}
+  html.jsok .navrow a.on::after{content:none}
+  .navrow.atend{-webkit-mask:none;mask:none}
+  .navrow a .d{display:inline-block}
+  .combined .tabbar .tind{display:block;position:absolute;top:-1px;left:0;width:26px;height:3px;border-radius:0 0 3px 3px;background:var(--gold);pointer-events:none;will-change:transform;transition:opacity .2s}
+  /* 安卓：毛玻璃（背景模糊）在滚动时很费，换成实色 */
+  html.android .combined .tabbar{background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none}
+  html.android .combined .lbar,html.android .nav,html.android .pbar{background:var(--paper);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+.tab .ic{display:block}
+/* 屏幕外的每一天先不排版（打开一课从约 1 秒降到零点几秒）；只在能稳住滚动位置的浏览器上用 */
+html.cvok .lesson .day,html.cvok .lesson .ywday{content-visibility:auto;contain-intrinsic-height:auto 2400px}
+html.cvok .tl .tli{content-visibility:auto;contain-intrinsic-height:auto 150px}
+@media print{html.cvok .lesson .day,html.cvok .lesson .ywday{content-visibility:visible}}

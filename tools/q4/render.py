@@ -105,7 +105,7 @@ def nav_html(titles):
 </nav>'''
 
 WEEKDAY_OF = {'sun': '星期日', 'mon': '星期一', 'tue': '星期二', 'wed': '星期三', 'thu': '星期四', 'fri': '星期五'}
-WEEKDAY = {'导言': '安息日', '日': '星期日', '一': '星期一', '二': '星期二', '三': '星期三', '四': '星期四', '五': '星期五', '总结': '本课'}
+WEEKDAY = {'六': '安息日', '导言': '安息日', '日': '星期日', '一': '星期一', '二': '星期二', '三': '星期三', '四': '星期四', '五': '星期五', '总结': '本课'}
 
 def modernize(frag, n, title, share=True):
     """新设计的学课页（用户 2026-10-05 按电脑版预览确认）：
@@ -135,7 +135,11 @@ def modernize(frag, n, title, share=True):
     def nav(mt):
         body = mt.group(2)
         # 日子：手机上显示“一”，电脑上显示“星期一 + 标题”
-        body = re.sub(r'<span class="d">([^<]*)</span>', lambda x: f'<span class="d">{x.group(1)}</span><span class="w">{x.group(1) if n == 0 else WEEKDAY.get(x.group(1), "")}</span>', body)
+        # 安息日那一天原来叫“导言”：按星期排成“六 日 一 二 三 四 五”（用户 2026-10-06）；点原文行的“六”回到本课最上面
+        def dname(x):
+            d = '六' if n and x.group(1) == '导言' else x.group(1)
+            return f'<span class="d">{d}</span><span class="w">{d if n == 0 else WEEKDAY.get(d, "")}</span>'
+        body = re.sub(r'<span class="d">([^<]*)</span>', dname, body)
         # 安息日下午那一天：电脑上显示解读里的标题（如“导言：先知的呼召”），比“安息日下午”清楚
         sab = re.search(r'<section class="day" id="(l\d+-sab)">.*?<h2>(.*?)</h2>', rest, re.S)
         if sab:
