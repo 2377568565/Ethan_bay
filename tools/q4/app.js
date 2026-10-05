@@ -109,7 +109,7 @@ var q4keep=(function(){
     if(!e.isIntersecting)return; var a=linkFor[e.target.id]; if(!a)return;
     var nav=a.closest('.nav'); nav.querySelectorAll('a.on').forEach(function(x){x.classList.remove('on');});
     a.classList.add('on');
-    var row=a.closest('.navrow');if(row&&nav.dataset.part&&!nav.dataset.hold)nav.dataset.part=row.dataset.row;   // 新设计：一行导航只显示正在读的那一部分
+    var row=a.closest('.navrow');if(row&&nav.dataset.part&&!nav.dataset.hold){nav.dataset.part=row.dataset.row;var L=nav.closest('.lesson'),lb=L&&L.querySelector('.lbar');if(lb)lb.dataset.part=row.dataset.row;}   // 新设计：一行导航只显示正在读的那一部分
     keepVisible(a);
   });},{rootMargin:'-15% 0px -75% 0px'}):null;
   document.querySelectorAll('.nav a[href^="#"]').forEach(function(a){
@@ -126,15 +126,14 @@ var q4keep=(function(){
   function turnTo(t){
     var r=t.getBoundingClientRect(),de=document.documentElement;
     if(reduced||Math.abs(r.top)<innerHeight*1.2){t.scrollIntoView({behavior:reduced?'auto':'smooth'});flash(t);return;}
-    var fwd=r.top>0,box=t.closest('main')||page,jump=function(){de.style.scrollBehavior='auto';t.scrollIntoView();de.style.scrollBehavior='';};
-    // 只让正文区翻页；顶部/侧边两排导航不参与动画，始终固定不动
-    box.style.setProperty('--tx',fwd?'-7%':'7%');box.style.setProperty('--tin',fwd?'7%':'-7%');
-    box.style.setProperty('--ry',fwd?'5deg':'-5deg');box.style.setProperty('--ryin',fwd?'-5deg':'5deg');
+    var box=t.closest('main')||page,jump=function(){de.style.scrollBehavior='auto';t.scrollIntoView();de.style.scrollBehavior='';};
+    // 只让正文区过渡；顶栏、导航、侧栏不动。支持“视图过渡”的浏览器：旧画面淡出，新画面轻轻上浮淡入
+    if(document.startViewTransition){try{document.startViewTransition(jump);setTimeout(function(){flash(t);},380);return;}catch(err){}}
     box.classList.remove('turn-in');box.classList.add('turn-out');
     setTimeout(function(){
       box.style.transition='none';box.classList.remove('turn-out');jump();void box.offsetWidth;box.style.transition='';box.classList.add('turn-in');
-      setTimeout(function(){box.classList.remove('turn-in');},340);flash(t);
-    },160);
+      setTimeout(function(){box.classList.remove('turn-in');},480);flash(t);
+    },180);
   }
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
@@ -165,12 +164,41 @@ var q4keep=(function(){
       want.classList.add('show'); cur=want; de.style.scrollBehavior='auto'; go();
       de.setAttribute('data-pg',want.id);try{window.dispatchEvent(new Event('q4:route'));}catch(err){}
     };
+    var after=function(){
+      if(window.requestAnimationFrame)requestAnimationFrame(go);
+      if(want.id==='ask'&&window.q4ask)window.q4ask.open();
+      maybeReward();
+      setTimeout(function(){go();de.style.scrollBehavior='';},120);
+    };
+    var wl=W&&!W.hidden&&W.classList.contains('leaving');   // 从首页点进来：首页正在淡出
+    if(!first&&!reduced&&document.startViewTransition&&W&&(W.hidden||wl)){
+      var src=vtSrc&&Date.now()-vtAt<1500&&vtSrc.getClientRects().length?vtSrc:null,dst=null;
+      if(src)src.style.viewTransitionName='q4t';
+      try{
+        var vt=document.startViewTransition(function(){
+          if(wl)W.hidden=true;
+          swap();
+          if(src){src.style.viewTransitionName='';dst=vtDest(want,t);if(dst)dst.style.viewTransitionName='q4t';}
+          after();
+        });
+        var clr=function(){if(dst)dst.style.viewTransitionName='';if(src)src.style.viewTransitionName='';};vt.finished.then(clr,clr);
+        return;
+      }catch(err){if(src)src.style.viewTransitionName='';}
+    }
     swap();
-    if(!first&&!reduced){want.style.setProperty('--tin','4%');want.style.setProperty('--ryin','0deg');want.classList.remove('turn-in');void want.offsetWidth;want.classList.add('turn-in');setTimeout(function(){want.classList.remove('turn-in');},340);}
-    if(window.requestAnimationFrame)requestAnimationFrame(go);
-    if(want.id==='ask'&&window.q4ask)window.q4ask.open();
-    maybeReward();
-    setTimeout(function(){go();de.style.scrollBehavior='';},120);
+    if(!first&&!reduced){want.classList.remove('pgin');void want.offsetWidth;want.classList.add('pgin');setTimeout(function(){want.classList.remove('pgin');},560);}
+    after();
+  }
+  // 换页时“飞”过去的标题：点的是课程卡片、本周卡片、今日学课、选择课次、上一课/下一课时，记下那里的标题
+  var vtSrc=null,vtAt=0;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var s=a.querySelector('.ct,.f-t,.l2,.sw-t')||(a.closest('.pkr-list,.lnext')&&a.querySelector('b'));
+    vtSrc=s||null;vtAt=Date.now();
+  },true);
+  function vtDest(want,t){   // 新页面上对应的标题（在屏幕里的才用）
+    var c=t?(t.querySelector('.ywtitle,.dayhead h2')||t):(want.querySelector('main .masthead h1')||want.querySelector('h1'));
+    if(!c)return null;var r=c.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight?c:null;
   }
   window.addEventListener('hashchange',route);
   document.querySelectorAll('select[data-go]').forEach(function(s){s.addEventListener('change',function(){location.hash='l'+s.value;});});
@@ -279,7 +307,7 @@ var q4keep=(function(){
   var shUrl='',shTitle='',shT=null;
   function markShared(){set('sharePending','1');}
   var shKind='';
-  function shText(){return (shKind==='music'?'【音乐】':'【问题彩蛋】')+shTitle+'\n'+shUrl;}
+  function shText(){return (shKind==='music'?'【音乐】':shKind==='lesson'?'【学课】':'【问题彩蛋】')+shTitle+'\n'+shUrl;}
   function shDone(html,sent){SH.querySelector('.sh-done').innerHTML=html;SH.querySelector('.sh-sent').hidden=!sent;}
   function shOpen(id){
     var pg=document.getElementById(id),isList=id==='qa';shKind=/^music/.test(id)?'music':'';
@@ -288,6 +316,11 @@ var q4keep=(function(){
     SH.querySelector('#sh-h').textContent=isList?'分享问题彩蛋':(id==='ask'?'分享提问区':'分享这篇问答');
     if(id==='ask')shTitle='提问区：读学课有问题，一起来问';
     if(shKind){SH.querySelector('#sh-h').textContent=id==='music'?'分享音乐栏目':'分享这首音乐';if(id==='music')shTitle='音乐：学课之余，听一首诗歌';}
+    if(/^l\d+-/.test(id)&&pg){   // 学课里的某一天：第2课《先知的呼召》· 星期一 · 以利亚的信息
+      shKind='lesson';var L=pg.closest('.lesson'),dn=pg.querySelector('.when .dn'),h=pg.querySelector('.dayhead h2,.ywtitle');
+      shTitle=((L&&L.dataset.title)||'').replace(/ · 预言的恩赐$/,'')+(dn?' · '+dn.textContent.trim():'')+(h?' · '+h.textContent.trim():'')+(pg.matches('.ywday')?'（学课原文）':'');
+      SH.querySelector('#sh-h').textContent='分享这一天的学课';
+    }
     SH.querySelector('.sh-t').textContent='“'+shTitle+'”';SH.querySelector('.sh-url').textContent=shUrl;
     SH.querySelector('[data-shsys]').hidden=!(navigator.share&&!inWx);
     var qr=SH.querySelector('.sh-qr'),src=document.querySelector('.sh-qrs svg[data-for="'+id+'"]');
@@ -331,7 +364,7 @@ var q4keep=(function(){
         return;
       }
       if(e.target.closest('[data-shsys]')){
-        navigator.share({title:shTitle,text:'【问题彩蛋】'+shTitle,url:shUrl}).then(shared).catch(function(){});return;
+        navigator.share({title:shTitle,text:(shKind==='lesson'?'【学课】':shKind==='music'?'【音乐】':'【问题彩蛋】')+shTitle,url:shUrl}).then(shared).catch(function(){});return;
       }
       if(e.target.closest('[data-shsent]')){shared();return;}
       if(e.target.closest('[data-shclose]'))shClose();
@@ -967,6 +1000,7 @@ window.Q4Hub=(function(){
       na.forEach(function(id){h+='<a class="wnew" href="'+(EXT[id]?esc(EXT[id].href)+'" data-art="'+id:'#'+id)+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
       wn.innerHTML=h;wn.hidden=!h;
     }
+    document.querySelectorAll('.snav a[data-t="ask"]').forEach(function(a){a.classList.toggle('hasnew',nr>0);});
   }
   function onRoute(){
     var h=decodeURIComponent(location.hash.slice(1));
@@ -985,16 +1019,17 @@ window.Q4Hub=(function(){
   function mineCk(k){if(get('ck:'+k)==='1')return true;var u=H.uid&&H.uid.slice(0,12);return !!(u&&H.S&&(H.S.checks[k]||[]).indexOf(u)>=0);}
   function nCk(k){return (H.S&&H.S.checks[k]||[]).length;}
   var CK_SHOW=10;   // 一天的打卡人数达到这么多才显示出来
+  var CKI='<svg class="ic ck-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17.5 19.5 7"/></svg>';   // 打卡按钮上的勾
   days.forEach(function(sec){
     var box=el('div','ckin');box.dataset.ck=ckKey(sec);
-    box.innerHTML='<p class="ck-q">这一天的学课读完了吗？</p><button type="button" class="btn solid ck-btn">✓ 读完了，打卡</button><p class="ck-n" aria-live="polite"></p><p class="ck-cheer" hidden></p>';
+    box.innerHTML='<p class="ck-q">这一天的学课读完了吗？</p><button type="button" class="btn solid ck-btn">'+CKI+'读完了，打卡</button><p class="ck-n" aria-live="polite"></p><p class="ck-cheer" hidden></p>';
     var nav=[].slice.call(sec.children).filter(function(x){return x.classList.contains('btnrow');}).pop();   // 放在“查看本日解读 / 下一天原文”按钮的上面
     sec.insertBefore(box,nav||null);
   });
   function paintCk(){
     days.forEach(function(sec){
       var box=sec.querySelector('.ckin');if(!box)return;var k=ckKey(sec),me=mineCk(k),n=Math.max(nCk(k),me?1:0),b=box.querySelector('.ck-btn');
-      box.classList.toggle('done',me);b.textContent=me?'✓ 你已打卡':'✓ 读完了，打卡';b.disabled=me;
+      box.classList.toggle('done',me);b.innerHTML=CKI+(me?'你已打卡':'读完了，打卡');b.disabled=me;
       box.querySelector('.ck-q').textContent=me?'这一天你已经读完了，真好！':'这一天的学课读完了吗？';
       box.querySelector('.ck-n').innerHTML=H.S&&n>=CK_SHOW?'已有 <b>'+n+'</b> 人读完这一天':'';   // 人少时不显示人数
     });
@@ -1389,8 +1424,8 @@ window.Q4Hub=(function(){
       var rec=AUD&&AIDS[unitId(root)],b=root._tts;
       if(!rec&&!canSY)return;
       if(typeof where==='function')where=where();   // 标题下原本没有按钮行（全季总览、本课总结）时，需要时再加一行
-      if(!b){b=el('button','btn ttsbtn');b.type='button';b.addEventListener('click',function(){start(root,title);});where.appendChild(b);root._tts=b;}
-      b.classList.toggle('rec',!!rec);b.textContent=rec?'🎧 听朗读':'🔊 朗读';
+      if(!b){b=el('button','btn ttsbtn');b.type='button';b.addEventListener('click',function(){start(root,title);});where.insertBefore(b,where.firstChild);root._tts=b;}
+      b.classList.toggle('rec',!!rec);b.innerHTML=(rec?'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4" height="6.5" rx="1.5"/><rect x="16.5" y="14" width="4" height="6.5" rx="1.5"/></svg>听朗读':'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>朗读');
     }
     document.querySelectorAll('section.day').forEach(function(s){
       var h=s.querySelector('.dayhead'),r=h&&h.querySelector('.btnrow'),w=where(s);if(!h||!w)return;
@@ -2004,6 +2039,7 @@ window.Q4Hub=(function(){
       else A.src=u;
     }
     if(queue.indexOf(id)<0)makeQueue(id);
+    set('mlast',id);
     want=true;if(!rateT)rateT=setInterval(sample,500);
     try{window.dispatchEvent(new Event('q4:music'));}catch(e){}
     if(!buf&&A.getAttribute('src'))go();
@@ -2165,6 +2201,9 @@ window.Q4Hub=(function(){
   }
   if(onMusic())refresh();
   window.addEventListener('hashchange',function(){if(onMusic())refresh();});
+  // 电脑侧栏的小播放器：还没放音乐时，点一下就接着放上次那首（没有就从第一首开始）
+  window.Q4Music={start:function(){var id=get('mlast');if(id&&byId[id])makeQueue(id);else{makeQueue();id=queue[0];}if(id)play(id);},
+    last:function(){var x=byId[get('mlast')||''];return x?x.title:'';},count:function(){return SONGS.length;}};
 })();
 
 /* ---------- 问题彩蛋的独立专题网页（history.html 等）：在网站里用浮层打开 ----------
@@ -2311,8 +2350,9 @@ window.Q4Hub=(function(){
   /* ===== 原文 | 解读 开关：切到同一天的另一部分 ===== */
   document.addEventListener('click',function(e){
     var b=e.target.closest('.seg [data-seg]');if(!b)return;e.preventDefault();
-    var nav=b.closest('.nav'),want=b.dataset.seg,on=nav.querySelector('.navrow a.on'),row=on&&on.closest('.navrow');
-    nav.dataset.part=want;nav.dataset.hold='1';setTimeout(function(){delete nav.dataset.hold;},1100);
+    var Lz=b.closest('.lesson'),nav=Lz&&Lz.querySelector('.nav');if(!nav)return;   // 开关在顶栏（电脑）或导航（手机）
+    var want=b.dataset.seg,on=nav.querySelector('.navrow a.on'),row=on&&on.closest('.navrow'),lb=Lz.querySelector('.lbar');
+    nav.dataset.part=want;if(lb)lb.dataset.part=want;nav.dataset.hold='1';setTimeout(function(){delete nav.dataset.hold;},1100);
     var go=null;
     if(on&&row.dataset.row!==want){
       var m=/^#(l\d+)-(?:yw-)?(\w+)$/.exec(on.getAttribute('href'));
@@ -2405,6 +2445,15 @@ window.Q4Hub=(function(){
     hero.addEventListener('mousemove',function(e){var r=hero.getBoundingClientRect();hero.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5).toFixed(3));hero.style.setProperty('--my',((e.clientY-r.top)/r.height-.5).toFixed(3));});
     hero.addEventListener('mouseleave',function(){hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0);});
   }
+
+  /* ===== 电脑：音乐小窗放在左侧栏里（账号上面），不挡正文 ===== */
+  var slot=document.querySelector('.side .splay'),mini=document.querySelector('.mplayer'),idle=slot&&slot.querySelector('.sidle');
+  function placeMini(){if(!slot||!mini)return;var tgt=wide.matches?slot:document.body;if(mini.parentNode!==tgt)tgt.appendChild(mini);paintIdle();}
+  function paintIdle(){if(!idle||!mini)return;idle.hidden=!mini.hidden;
+    var t=window.Q4Music&&Q4Music.last();idle.querySelector('.si b').textContent=t||'诗歌';idle.querySelector('.si small').textContent=t?'上次听的 · 点一下继续':'点一下开始播放';}
+  if(slot&&mini){placeMini();if(wide.addEventListener)wide.addEventListener('change',placeMini);else if(wide.addListener)wide.addListener(placeMini);
+    if(window.MutationObserver)new MutationObserver(paintIdle).observe(mini,{attributes:true,attributeFilter:['hidden']});
+    idle.addEventListener('click',function(e){if(e.target.closest('.pp')&&window.Q4Music){e.preventDefault();Q4Music.start();}});}
 
   /* ===== 滚动到眼前时轻轻浮现 ===== */
   if(!reduced&&'IntersectionObserver' in window){

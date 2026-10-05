@@ -104,26 +104,57 @@ def nav_html(titles):
   <div class="navrow" data-row="yw"><span class="k">原文</span>{r2}</div>
 </nav>'''
 
-def modernize(frag, n, title):
-    """新设计的学课页：课首（标题、存心节、本课精要）挪进正文栏，导航从一开始就固定在顶上；
-    导航加一行顶栏（返回目录、切换课次、投屏、字号）和“原文 | 解读”切换。frag 是 prefix() 之后的片段。"""
+WEEKDAY = {'导言': '安息日', '日': '星期日', '一': '星期一', '二': '星期二', '三': '星期三', '四': '星期四', '五': '星期五', '总结': '本课'}
+
+def modernize(frag, n, title, share=True):
+    """新设计的学课页（用户 2026-10-05 按电脑版预览确认）：
+    - 顶上一条（返回目录、点课名选课次；电脑上右边还有“原文 | 解读”、投屏、字号），手机上下面再固定一行“原文 | 解读”和日子按钮；
+    - 电脑左栏：课名、日期、存心节，本周七天（星期几 + 标题，读完打勾），本日内容，快捷键；
+    - 课首（标题、存心节、本课精要）挪进正文栏；每天标题下的按钮：听朗读、本日原文/本日解读、分享。frag 是 prefix() 之后的片段。"""
     i = frag.index('<div class="layout">')
     head, rest = frag[:i], frag[i:]
     assert '<main>\n' in rest, n
     rest = rest.replace('<main>\n', '<main>\n' + head.strip() + '\n', 1)
     no_html = '' if n == 0 else f'<span class="nb-no">第{n}课</span>'   # 导言的标题本身就是“本季导言”
-    bar = (f'<div class="nbar"><a class="nb-back" href="#home" aria-label="返回学课目录">{I_LEFT}</a>'
-           f'<button class="nb-t" type="button" data-picker aria-label="切换课次">{no_html}<span class="nb-tt">{title}</span>{I_DOWN}</button>'
-           f'<button class="nb-pres" type="button" data-present aria-label="投屏模式（P）">{I_SCREEN}<span>投屏</span></button>'
-           f'<button class="nb-aa" type="button" data-rsettings aria-label="字号与夜间模式">{AA}</button></div>')
     seg = ('<div class="seg" role="group" aria-label="原文或解读"><span class="thumb" aria-hidden="true"></span>'
            '<button type="button" data-seg="yw">原文</button><button type="button" data-seg="jd">解读</button></div>')
-    def nav(m):
-        return (m.group(1) + ' data-part="yw">' + bar + '<div class="nrow">' + seg + '<div class="nrows">' + m.group(2) +
-                '</div></div><div class="otoc" hidden><p class="ohd">本日内容<span class="opct"></span></p><div class="ol"></div></div>' + m.group(3))
-    rest, k = re.subn(r'(<nav class="nav"[^>]*)>(.*?)(</nav>)', nav, rest, count=1, flags=re.S)
-    assert k == 1, n
-    return rest
+    bar = (f'<div class="lbar" data-part="yw"><a class="nb-back" href="#home" aria-label="返回学课目录">{I_LEFT}</a>'
+           f'<button class="nb-t" type="button" data-picker aria-label="切换课次">{no_html}<span class="nb-tt">{title}</span>{I_DOWN}</button>'
+           f'<span class="nb-sp"></span>{seg}'
+           f'<button class="nb-pres" type="button" data-present aria-label="投屏模式（P）">{I_SCREEN}<span>投屏</span></button>'
+           f'<button class="nb-aa" type="button" data-rsettings aria-label="字号与外观">{AA}</button></div>')
+    # 电脑左栏的课首：课次、日期、存心节
+    m = re.search(r'<p class="meta"><b>([^<]*)</b><span>([^<]*)</span>', head)
+    mm = re.search(r'<div class="memory">\s*<span class="k">([^<]*)</span>\s*<blockquote>(.*?)</blockquote>', head, re.S)
+    k = mm.group(1).split(' · ', 1) if mm else ['', '']
+    cite = f'{k[1]} · {k[0]}' if len(k) == 2 else ''
+    oq = mm.group(2).strip() if mm else ''
+    if oq[:1] == '“' and oq[-1:] == '”' and '“' in oq[1:-1]:
+        oq = oq[1:-1]   # 存心节里本来有引号：左栏金线已经表示引文，去掉外层引号免得“…“…””叠在一起
+    ocard = (f'<div class="ocard"><p class="label">{(m.group(1) + " · " + m.group(2).split(" · ")[0]) if m else ""}</p><p class="ot">{title}</p>'
+             + (f'<blockquote>{oq}</blockquote><p class="ocite">{cite}</p>' if mm else '') + '</div>')
+    def nav(mt):
+        body = mt.group(2)
+        # 日子：手机上显示“一”，电脑上显示“星期一 + 标题”
+        body = re.sub(r'<span class="d">([^<]*)</span>', lambda x: f'<span class="d">{x.group(1)}</span><span class="w">{x.group(1) if n == 0 else WEEKDAY.get(x.group(1), "")}</span>', body)
+        # 安息日下午那一天：电脑上显示解读里的标题（如“导言：先知的呼召”），比“安息日下午”清楚
+        sab = re.search(r'<section class="day" id="(l\d+-sab)">.*?<h2>(.*?)</h2>', rest, re.S)
+        if sab:
+            body = re.sub(r'(<a href="#' + sab.group(1).replace('-sab', '-(?:yw-)?sab') + r'">.*?<span class="t">)[^<]*(</span>)', lambda x: x.group(1) + re.sub(r'<[^>]+>', '', sab.group(2)) + x.group(2), body)
+        return (mt.group(1) + ' data-part="yw">' + ocard + '<div class="nrow">' + seg + f'<div class="nrows" data-h="{"全季总览" if n == 0 else "本周七天"}">' + body +
+                '</div></div><div class="otoc" hidden><p class="ohd">本日内容<span class="opct"></span></p><div class="ol"></div></div>'
+                '<p class="okeys">快捷键：P 投屏 · Ctrl K 搜索</p>' + mt.group(3))
+    rest, c = re.subn(r'(<nav class="nav"[^>]*)>(.*?)(</nav>)', nav, rest, count=1, flags=re.S)
+    assert c == 1, n
+    # 每天标题下的按钮：本日原文 / 本日解读（带图标）+ 分享这一天；“听朗读”由网页脚本放在最前面
+    def hdr(mt):
+        sid, h = mt.group(2), mt.group(3)
+        h = h.replace('>阅读本日学课原文 →</a>', f'>{I_OPEN}本日原文</a>').replace('>查看本日解读 →</a>', f'>{I_OPEN}本日解读</a>')
+        if share:   # 单课文件没有分享面板，不放“分享”
+            h = re.sub(r'(<p class="btnrow">.*?)(</p>)', lambda x: x.group(1) + f'<button class="btn" type="button" data-share="{sid}">{I_SHARE}分享</button>' + x.group(2), h, count=1, flags=re.S)
+        return mt.group(1) + h + mt.group(4)
+    rest = re.sub(r'(<(?:section class="day"|article class="ywday") id="(l\d+-[\w-]+)">\s*<header class="(?:dayhead|ywhead)">)(.*?)(</header>)', hdr, rest, flags=re.S)
+    return bar + '\n' + rest
 
 def yw_titles(no):
     fp = 5 + 7 * (no - 1)
@@ -358,7 +389,7 @@ def lesson_gist(mod):
     return mod.GIST if getattr(mod, 'RAW', None) else mod.L['gist']
 
 def build_single_intro():
-    frag = modernize(prefix(intro_frag(), 0).replace('#l0-NEXTLESSON', 'lesson-01.html'), 0, '本季导言')
+    frag = modernize(prefix(intro_frag(), 0).replace('#l0-NEXTLESSON', 'lesson-01.html'), 0, '本季导言', share=False)
     bar = '<div class="lessonbar single"><span>2026年第4季《预言的恩赐》逐课研读 · 本季导言</span></div>'
     out = shell('预言的恩赐 · 本季导言', '安息日学2026年第4季《预言的恩赐》导言原文与全季总览。',
                 with_bible(f'<div class="lesson" id="l0">{bar}\n{frag}\n</div>'), False)
@@ -370,7 +401,7 @@ def build_single_intro():
 
 def build_single(no):
     mod = load(no)
-    frag = modernize(prefix(render_lesson(mod), no), no, lesson_title(mod))
+    frag = modernize(prefix(render_lesson(mod), no), no, lesson_title(mod), share=False)
     bar = f'<div class="lessonbar single"><span>2026年第4季《预言的恩赐》逐课研读 · 第{no}课</span></div>'
     body = f'<div class="lesson" id="l{no}">{bar}\n{frag}\n</div>'
     t = lesson_title(mod)
@@ -406,6 +437,9 @@ I_RIGHT = ic('<path d="M5 12h14m-6-6 6 6-6 6"/>')
 I_SCREEN = ic('<rect x="3" y="4.5" width="18" height="12" rx="1.5"/><path d="M12 16.5v3.5M8 20h8"/>')
 I_DAWN = ic('<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 7V4.5M6.3 10.3 4.6 8.6M17.7 10.3l1.7-1.7M3.5 14.5h1.8M18.7 14.5h1.8"/>')
 I_REFRESH = ic('<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/>')
+I_OPEN = ic('<path d="M4 6.5h6.5a2 2 0 0 1 2 2V20a2 2 0 0 0-2-2H4zM20 6.5h-5.5a2 2 0 0 0-2 2V20a2 2 0 0 1 2-2H20z"/>')
+I_SHARE = ic('<path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M6 11.5H5a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7.5a1 1 0 0 0-1-1h-1"/>')
+I_PLAY = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>'
 I_IMAGE = ic('<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>')
 AA = '<span class="aa" aria-hidden="true">A<small>A</small></span>'
 
@@ -485,14 +519,18 @@ def homeui():
               f'<button class="tab" type="button" data-me data-t="me">{I_USER}<span>我的</span></button></nav>')
     def sl(href, icon, label, t, extra=''):
         return f'<a href="{href}" data-t="{t}" data-tip="{label}"{extra}>{icon}<span class="lbl">{label}</span></a>'
+    nqa = len(qa_data.ITEMS)
     side = (f'<aside class="side" id="side" aria-label="栏目">'
             f'<a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark">{I_DAWN}</span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a>'
-            f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索全季内容</span><kbd>Ctrl K</kbd></button>'
-            '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课目录', 'home') +
-            sl('#qa', I_SPARK, '问题彩蛋', 'qa', ' data-egg') + sl('#ask', I_CHAT, '提问区', 'ask') + sl('#music', I_NOTE, '音乐', 'music') + '</nav>'
+            f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索</span><kbd>Ctrl K</kbd></button>'
+            '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课', 'home') +
+            f'<a href="#qa" data-t="qa" data-tip="问题彩蛋" data-egg>{I_SPARK}<span class="lbl">问题彩蛋</span><em class="lbl cnt">{nqa}</em></a>' +
+            f'<a href="#ask" data-t="ask" data-tip="提问区">{I_CHAT}<i class="sdot" aria-hidden="true"></i><span class="lbl">提问区</span></a>' + sl('#music', I_NOTE, '音乐', 'music') +
+            f'<button type="button" data-me data-t="me" data-tip="我的">{I_USER}<span class="lbl">我的</span></button></nav>'
             '<a class="sweek" href="#home" hidden><span class="label sw-k"></span><b class="sw-t"></b><span class="bar"><i></i></span><small class="sw-m"></small></a>'
-            f'<div class="sfoot"><button class="sbtn" type="button" data-acct data-tip="账号">{I_USER}<span class="lbl ac-n">账号</span></button>'
-            f'<button class="sbtn" type="button" data-rsettings data-tip="字号与夜间模式">{AA}<span class="lbl">字号与夜间模式</span></button></div></aside>')
+            f'<div class="sfoot"><div class="splay"><div class="sidle" data-tip="播放诗歌"><button class="pp" type="button" aria-label="播放诗歌">{I_PLAY}</button><span class="lbl si"><b>诗歌</b><small>点一下开始播放</small></span></div></div>'
+            f'<button class="sbtn sacct" type="button" data-acct data-tip="账号">{I_USER}<span class="lbl ac-n">账号</span></button>'
+            f'<button class="sbtn" type="button" data-rsettings data-tip="字号与外观">{AA}<span class="lbl">字号与外观</span></button></div></aside>')
     return f'''{tabbar}
 {side}
 <div class="rprog" aria-hidden="true"><i></i></div>
