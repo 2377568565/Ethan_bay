@@ -13,7 +13,8 @@ except ImportError:
     CHECKED = {}
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'history.html')
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+OUT = ARGS[0] if ARGS else os.path.join(ROOT, 'history.html')
 esc = html.escape
 FAMS = {'f1': '东方亚述', 'f2': '东方正统', 'f3': '东正教', 'f4': '天主教', 'f5': '新教', 'f6': '复临'}
 ERA_YEARS = {'a': '约31—312', 'b': '313—589', 'c': '590—1516', 'd': '1517—1600', 'e': '1600—1830', 'f': '1831—1900', 'g': '1900—今天'}
@@ -313,11 +314,21 @@ def page():
     words = len(re.sub(r'<[^>]+>|\s', '', main))
     mins = round(words / 450 / 5) * 5
     main = main.replace('</h1>', f'</h1><p class="meta">约 {words / 10000:.1f} 万字 · 细读约 {mins} 分钟 · {len(T.CHAPTERS)} 章 · {len(cites.order)} 条资料出处</p>', 1)
-    return doc('基督教两千年家谱', '从耶稣到今天：基督复临安息日会从哪里来？各大教派怎样分出来、核心教义有什么不同？有图有表，每个说法都附出处。', main, srcs, toc_html, cites)
+    import topic_tools
+    tools = topic_tools.build(id='qa3', title='基督教两千年家谱', page='history.html', pdf='研经问答03-基督教两千年家谱.pdf', quiz=T.QUIZ, ref=ref)
+    return doc('基督教两千年家谱', '从耶稣到今天：基督复临安息日会从哪里来？各大教派怎样分出来、核心教义有什么不同？有图有表，每个说法都附出处。', main, srcs, toc_html, cites, tools)
 
 
-def doc(title, desc, main, srcs, toc_html, cites):
-    """专题网页的外壳（顶栏、目录、阅读设置、出处弹窗）：家谱和其他问题彩蛋专题共用"""
+def doc(title, desc, main, srcs, toc_html, cites, tools=None):
+    """专题网页的外壳（顶栏、目录、阅读设置、出处弹窗）：家谱和其他问题彩蛋专题共用。
+    tools：topic_tools.build(...) 的结果（分享、答题后下载 PDF）。每个问题彩蛋都要有。"""
+    if tools:
+        main = main.replace('</header>', '</header>' + tools['row'], 1)
+        srcs = (f'<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p>{tools["row"]}</div>') + srcs
+    else:
+        print('  ! 这一页没有“分享”和“下载 PDF”按钮（tools）', file=sys.stderr)
+    tb = tools['bar'] if tools else ''
+    tail = tools['tail'] if tools else ''
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -325,12 +336,12 @@ def doc(title, desc, main, srcs, toc_html, cites):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title} · 问题彩蛋</title>
 <meta name="description" content="{desc}">
-<script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}</script>
+<script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}try{{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}}catch(e){{}}</script>
 <style>{CSS}</style>
 </head>
 <body>
 <div class="prog" aria-hidden="true"><i></i></div>
-<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">{title}</span><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">{title}</span>{tb}<button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
 <aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
 <main>
@@ -348,6 +359,7 @@ def doc(title, desc, main, srcs, toc_html, cites):
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
 <script>{JS}</script>
+{tail}
 </body>
 </html>
 '''
@@ -659,6 +671,12 @@ html.sheetopen{overflow:hidden}
 JS = r'''
 (function(){
   var de=document.documentElement;
+  /* 在学课网站里用浮层打开时（iframe）：回到网站的链接交给网站处理，不重新加载整个网站 */
+  if(de.classList.contains('emb'))document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="./#"],a[href="./"]');if(!a)return;
+    e.preventDefault();var h=(a.getAttribute('href').split('#')[1])||'home';
+    try{parent.postMessage({q4:'nav',hash:h},location.origin);}catch(err){top.location.href=a.href;}
+  },true);
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
@@ -748,3 +766,6 @@ if __name__ == '__main__':
     h = page()
     open(OUT, 'w', encoding='utf-8').write(h)
     print(OUT, len(h.encode()), 'bytes')
+    if '--pdf' in sys.argv:          # 同时重做 PDF 学习版（内容改了就要重做）
+        import topic_tools
+        topic_tools.make_pdf(OUT, '研经问答03-基督教两千年家谱.pdf', '基督教两千年家谱')

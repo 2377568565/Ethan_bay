@@ -84,6 +84,12 @@ function checkinsCSV(S) {
   const sheets = { 'ask.csv': askCSV(S), 'discuss.csv': discussCSV(S), 'checkins.csv': checkinsCSV(S) };
   const stale = Object.keys(sheets).filter(f => { try { return fs.readFileSync(OUT(f), 'utf8') !== sheets[f]; } catch (e) { return true; } });
   if (JSON.stringify(S) === before && fs.existsSync(DATA) && !stale.length) { console.log('没有变化'); return; }
+  // 只有访问人次变了：攒着，离上次保存不到 4 小时就先不写（每写一次网站就重新发布一次，读者的手机要把整个网站重新下载一遍）。
+  // 不会少算：下次从上次保存的位置重新读中转站（保留 12 小时），同样的消息会再算进来。
+  const B = JSON.parse(before), vol = o => { const { hits, seen, last, updated, ...rest } = o; return JSON.stringify(rest); };
+  if (fs.existsSync(DATA) && !stale.length && vol(S) === vol(B) && B.last && Date.now() / 1000 - B.last < 4 * 3600) {
+    console.log(`只有访问人次变化（+${S.hits - B.hits}），离上次保存不到 4 小时，先不保存`); return;
+  }
   fs.mkdirSync(path.dirname(DATA), { recursive: true });
   if (JSON.stringify(S) !== before || !fs.existsSync(DATA)) {
     S.updated = Math.floor(Date.now() / 1000);

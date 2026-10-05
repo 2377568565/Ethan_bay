@@ -1,5 +1,5 @@
 # 由单文件合集生成在线版：字体与经文数据拆成独立文件（带内容哈希），首屏只下载正文
-import re, base64, hashlib, os, sys
+import re, base64, hashlib, json, os, sys
 src, root = sys.argv[1], sys.argv[2]
 h = open(src, encoding='utf-8').read()
 os.makedirs(os.path.join(root, 'site'), exist_ok=True)
@@ -13,6 +13,13 @@ def font(m):
     return m.group(0).split('src:')[0] + f'src:url({name}) format("woff2")}}'
 h, n = re.subn(r'@font-face\{font-family:"(\w+)";font-weight:(\d+);font-style:\w+;font-display:swap;src:url\(data:font/woff2;base64,([^)]*)\) format\("woff2"\)\}', font, h)
 assert n == 5, n
+# 正文字体（LessonSerif 两个粗细，各约 400 KB）不写在样式表里：由 app.js 从手机里取（没有才下载），见 app.js 的 q4keep
+wf = []
+def body_font(m):
+    wf.append([m.group(1), m.group(2), m.group(3)]); return ''
+h, n = re.subn(r'@font-face\{font-family:"(LessonSerif)";font-weight:(\d+);font-style:normal;font-display:swap;src:url\((site/[0-9a-f]{10}\.woff2)\) format\("woff2"\)\}', body_font, h)
+assert n == 2, n
+h = h.replace('</head>', '<script type="application/json" id="wfonts">' + json.dumps(wf) + '</script>\n</head>', 1)
 m = re.search(r'<script type="application/json" id="bdata">(.*?)</script>', h, re.S)
 name = put(m.group(1).encode('utf-8'), 'json')
 h = h[:m.start()] + f'<script type="application/json" id="bdata" data-src="{name}"></script>' + h[m.end():]

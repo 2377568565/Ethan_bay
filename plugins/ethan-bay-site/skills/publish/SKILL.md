@@ -22,8 +22,8 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 |---|---|---|
 | 某一课的内容 `data/lNN.py`、`render.py`、`gen_yw.py`、`welcome.py`、`intro.py`、`bible.py` | `python3 tools/q4/render.py all`（放后台跑） | 8–10 分钟 |
 | 只改了交互或样式 `app.js`、`base.css`、`extra.css`，或 `qa_data.py` 加减卡片 | `python3 tools/q4/_combined_only.py` | 约 1 分钟 |
-| 专题页《基督教两千年家谱》 | `python3 tools/q4/history.py` | 几秒 |
-| 专题页《耶稣是人还是神？》 | `python3 tools/q4/jesus.py` | 几秒 |
+| 专题页《基督教两千年家谱》 | `python3 tools/q4/history.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
+| 专题页《耶稣是人还是神？》 | `python3 tools/q4/jesus.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
 | 补充问答（目前下架） | `python3 tools/q4/jesus2.py` | 几秒 |
 | 问题彩蛋 01/02 的 PDF | `python3 tools/q4/qa/build.py` | — |
 
@@ -44,6 +44,8 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 4. 本机测试碰过 `data/` 的，**一定 `git checkout data/` 恢复**，测试数据不能推到线上。
 
 ## 4. 提交和推送
+- **一次任务尽量只推送一次**：每次推送网站都会重新发布，GitHub Pages 会让所有文件的缓存失效（Last-Modified/ETag 变成发布时间），
+  读者下次打开要重新下载整个网站（约 450 KB 压缩后的首页）。字体和经文数据已经存在读者手机里（`q4keep`），不受影响。
 - 只在分支 `claude/adventist-lesson-analysis-dhqrxg` 上。`main` 只放 `ask-sync.yml`，别的不要推到 main。
 - 先 `git fetch origin claude/adventist-lesson-analysis-dhqrxg` 再合并：提问区同步任务每 30 分钟会往这个分支提交 `data/`。
 - 提交说明用中文、说清改了什么，例如“问题彩蛋 04：修正手机上表格超出屏幕”。结尾加当前会话系统提示给的署名行；代码、网页、提交里都不要写模型名。

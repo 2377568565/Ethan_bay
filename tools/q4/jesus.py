@@ -5,9 +5,11 @@
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import history as H
+import topic_tools
 import jesus_text as T, jesus_svg as G
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(H.ROOT, 'jesus.html')
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+OUT = ARGS[0] if ARGS else os.path.join(H.ROOT, 'jesus.html')
 TITLE = '耶稣是人还是神？'
 NO = {cid: i + 1 for i, (_, cid, _, _) in enumerate(T.CHAPTERS)}
 NAME = {cid: t for _, cid, t, _ in T.CHAPTERS}
@@ -86,7 +88,8 @@ def page():
     css = H.CSS
     H.CSS = css + EXTRA_CSS
     try:
-        return H.doc(TITLE, '耶稣既是神又是人，祂对抗试探岂不是比我们容易？用圣经一步一步讲清楚：一位两性、虚己、旷野的试探、神迹的来源，以及祂为什么既是榜样又是救主；并讲述复临教会 1955—1957 年《教义问答》的历史。', main, srcs, toc_html, cites)
+        tools = topic_tools.build(id='qa4', title=TITLE, page='jesus.html', pdf='研经问答04-耶稣是人还是神.pdf', quiz=T.QUIZ, ref=ref)
+        return H.doc(TITLE, '耶稣既是神又是人，祂对抗试探岂不是比我们容易？用圣经一步一步讲清楚：一位两性、虚己、旷野的试探、神迹的来源，以及祂为什么既是榜样又是救主；并讲述复临教会 1955—1957 年《教义问答》的历史。', main, srcs, toc_html, cites, tools)
     finally:
         H.CSS = css
 
@@ -95,3 +98,6 @@ if __name__ == '__main__':
     h = page()
     open(OUT, 'w', encoding='utf-8').write(h)
     print(OUT, len(h.encode()), 'bytes')
+    if '--pdf' in sys.argv:          # 同时重做 PDF 学习版（内容改了就要重做）
+        import topic_tools
+        topic_tools.make_pdf(OUT, '研经问答04-耶稣是人还是神.pdf', TITLE)

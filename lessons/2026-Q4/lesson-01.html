@@ -1191,6 +1191,17 @@ html.mplay .msongs{padding-bottom:72px}
 .mtoast{position:fixed;left:50%;top:18px;z-index:130;transform:translateX(-50%);width:min(420px,calc(100% - 32px));margin:0;padding:12px 16px;border-radius:14px;background:#1F2433;color:#F5F1E6;font-size:.9rem;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 @media print{.mplayer,.mtoast{display:none}}
 
+/* 问题彩蛋的专题网页：浮层（app.js） */
+.tov{position:fixed;inset:0;z-index:110;background:var(--paper)}
+.tov-f{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:var(--paper)}
+.tov:not(.ok) .tov-f{visibility:hidden}
+.tov-load{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;color:var(--muted);font-size:.95rem}
+.tov-load p{margin:0}
+.tov.ok .tov-load{display:none}
+.tov-spin{width:30px;height:30px;border-radius:50%;border:3px solid var(--rule);border-top-color:var(--gold);animation:tovspin .9s linear infinite}
+@keyframes tovspin{to{transform:rotate(360deg)}}
+html.tovon,html.tovon body{overflow:hidden}
+
 </style>
 </head>
 <body>
@@ -2248,6 +2259,27 @@ function q4copy(t){
   if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t).then(function(){return true;},function(){return legacy();});}
   return Promise.resolve(legacy());
 }
+/* 存在手机里的大文件：字体和经文数据的文件名带内容哈希，下载一次就存进本机（IndexedDB），以后直接用。
+   网站每更新一次，GitHub 会让所有文件的缓存都失效，读者的手机就得重新下载；存在本机的这几份不受影响，只有文件真的变了（换了名字）才重新下载。 */
+var q4keep=(function(){
+  var P=null;
+  function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4keep',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
+    r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
+  function tx(mode,fn){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
+    try{var t=d.transaction('f',mode),q=fn(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
+  function has(url){return tx('readonly',function(s){return s.count(url);}).then(function(n){return n>0;});}
+  function get(url,kind){   // kind：'buf' 二进制（字体）或 'text' 文字（经文数据）
+    return tx('readonly',function(s){return s.get(url);}).then(function(v){
+      if(v!=null)return v;
+      return fetch(url).then(function(r){if(!r.ok)throw 0;return kind==='text'?r.text():r.arrayBuffer();}).then(function(v){tx('readwrite',function(s){return s.put(v,url);});return v;});
+    });
+  }
+  function prune(keep){   // 网站换了新字体或新经文数据以后，删掉旧的
+    tx('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();q.onsuccess=function(){(q.result||[]).forEach(function(k){if(keep.indexOf(k)<0)s.delete(k);});};return q;});
+  }
+  function del(url){tx('readwrite',function(s){return s.delete(url);});}
+  return {get:get,has:has,prune:prune,del:del};
+})();
 (function(){
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);return true;}catch(e){return false;}}
@@ -2373,7 +2405,9 @@ function q4copy(t){
   var T0=document.title;
   function route(){
     var h=decodeURIComponent(location.hash.slice(1)),m=/^(l\d+|qa\d*|ask|music)(?:-|$)/.exec(h);
-    var want=(m&&document.getElementById(m[1]))||home;
+    // 独立网页的问题彩蛋（#qa3 等）在浮层里打开，下面垫着问题彩蛋列表
+    var ext=m&&!document.getElementById(m[1])&&document.querySelector('a[data-art="'+m[1]+'"][href$=".html"]');
+    var want=(m&&document.getElementById(m[1]))||(ext&&document.getElementById('qa'))||home;
     if(cur===want)return;
     var first=!cur,t=(m&&h!==m[1])?document.getElementById(h):null;
     document.title=(want.dataset&&want.dataset.title)||T0;
@@ -2619,11 +2653,12 @@ function q4copy(t){
   var waiting=null,fetching=null;
   function fetchData(){
     if(DATA||fetching||!src.dataset.src)return;
-    fetching=fetch(src.dataset.src).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+    fetching=q4keep.get(src.dataset.src,'text').then(function(t){return JSON.parse(t);}).then(function(j){
       DATA=j; if(waiting&&!pop.hidden)build(parse(waiting.dataset.v)); waiting=null;
     }).catch(function(){fetching=null; if(waiting&&!pop.hidden)body.innerHTML='<p class="bload">经文加载失败，请检查网络后再点一次。</p>'; waiting=null;});
   }
-  if(src.dataset.src)setTimeout(fetchData,10000);   // 经文数据有 2.6 MB：网页打开 10 秒后再在后台下载，不和打开网页抢网速
+  // 经文数据有 2.6 MB：网页打开 10 秒后再在后台下载，不和打开网页抢网速；已经存在手机里的，马上就读
+  if(src.dataset.src)q4keep.has(src.dataset.src).then(function(y){setTimeout(fetchData,y?1500:10000);},function(){setTimeout(fetchData,10000);});
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function parse(code){
     var p=code.split('|'),b=+p[0],vs=p[1].split(';').map(function(x){var q=x.split('.');return [+q[0],+q[1]];});
@@ -4342,11 +4377,75 @@ window.Q4Hub=(function(){
   window.addEventListener('hashchange',function(){if(onMusic())refresh();});
 })();
 
+/* ---------- 问题彩蛋的独立专题网页（history.html 等）：在网站里用浮层打开 ----------
+   以前点进去是另开一个网页，回来时整个网站（约 450 KB）要重新加载；现在网站一直留着，返回是瞬间的。
+   专题网页自己发现在浮层里（html.emb），“← 问题彩蛋”等链接就告诉网站关掉浮层。直接打开 history.html 也照常能用。 */
+(function(){
+  if(!document.body.classList.contains('combined'))return;
+  var EXT={};
+  document.querySelectorAll('a[data-art]').forEach(function(a){var h=a.getAttribute('href')||'',x=EXT[a.dataset.art];if(!/\.html$/.test(h))return;if(!x)x=EXT[a.dataset.art]={href:h,title:''};if(!x.title&&a.dataset.title)x.title=a.dataset.title;});
+  var ids=Object.keys(EXT);if(!ids.length)return;
+  var de=document.documentElement,OV=null,FR={},on='',pushed=false,prev='',T0=null,pf=false;
+  function open(id){
+    var x=EXT[id];
+    if(!OV){OV=document.createElement('div');OV.className='tov';OV.innerHTML='<div class="tov-load"><span class="tov-spin"></span><p>正在打开……</p></div>';document.body.appendChild(OV);}
+    for(var k in FR)FR[k].hidden=(k!==id);
+    if(!FR[id]){
+      var f=document.createElement('iframe');f.className='tov-f';f.title=x.title||'问题彩蛋';f.setAttribute('allow','clipboard-write; web-share');
+      f.addEventListener('load',function(){f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · 问题彩蛋$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+' · 问题彩蛋';}});
+      f.src=x.href;FR[id]=f;OV.appendChild(f);
+    }
+    OV.classList.toggle('ok',FR[id].dataset.ok==='1');
+    on=id;OV.hidden=false;de.classList.add('tovon');
+    if(T0===null)T0=document.title;
+    if(x.title)document.title=x.title+' · 问题彩蛋';
+  }
+  function close(){if(!OV||OV.hidden)return;OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}}
+  function prefetch(){   // 在问题彩蛋列表停留时，先把专题网页悄悄下载好，点进去更快
+    if(pf)return;pf=true;
+    ids.forEach(function(id,i){setTimeout(function(){if(!FR[id])fetch(EXT[id].href,{credentials:'same-origin'}).catch(function(){});},2000+i*1500);});
+  }
+  function sync(){
+    var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];
+    if(EXT[h])open(h);else close();
+    if(h==='qa')prefetch();
+  }
+  document.addEventListener('click',function(e){
+    if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target.closest('a[data-art]');if(!a||!EXT[a.dataset.art]||!/\.html$/.test(a.getAttribute('href')||''))return;
+    e.preventDefault();var id=a.dataset.art;
+    if(location.hash==='#'+id){open(id);return;}
+    pushed=true;prev=location.hash;location.hash=id;
+  });
+  window.addEventListener('message',function(e){
+    if(e.origin!==location.origin||!e.data||e.data.q4!=='nav')return;
+    var h='#'+String(e.data.hash||'home');
+    if(pushed&&h===prev){pushed=false;history.back();return;}   // 从列表点进来的：退回去（不多留一条记录）
+    pushed=false;location.hash=h;
+  });
+  window.addEventListener('hashchange',sync);
+  sync();
+})();
+
 /* ---------- 网页就绪：开场画面淡出；稍后再换上正文字体（在线版首屏先用手机自带的字体，省下约 800 KB） ---------- */
 (function(){
   var d=document.documentElement;d.classList.add('ready');
   setTimeout(function(){var b=document.getElementById('boot');if(b&&b.parentNode)b.parentNode.removeChild(b);},900);
-  setTimeout(function(){d.classList.add('wf');},2500);
+  // 正文字体：从手机里取（第一次在就绪 2.5 秒后下载，存进手机）；浏览器太旧不支持时，退回样式表的写法
+  var cfg=document.getElementById('wfonts'),list=[];
+  try{list=cfg?JSON.parse(cfg.textContent):[];}catch(e){}
+  function css(){var st=document.createElement('style');st.textContent=list.map(function(f){return '@font-face{font-family:"'+f[0]+'";font-weight:'+f[1]+';font-style:normal;font-display:swap;src:url('+f[2]+') format("woff2")}';}).join('');document.head.appendChild(st);d.classList.add('wf');}
+  function load(){
+    if(!window.FontFace||!document.fonts){css();return;}
+    Promise.all(list.map(function(f){return q4keep.get(f[2],'buf').then(function(b){var ff=new FontFace(f[0],b,{weight:f[1],style:'normal',display:'swap'});return ff.load();});}))
+      .then(function(fs){fs.forEach(function(f){document.fonts.add(f);});d.classList.add('wf');},function(){list.forEach(function(f){q4keep.del(f[2]);});css();});   // 存坏了：删掉，下次重新下载
+  }
+  if(!list.length)setTimeout(function(){d.classList.add('wf');},2500);
+  else{
+    Promise.all(list.map(function(f){return q4keep.has(f[2]);})).then(function(h){setTimeout(load,h.every(Boolean)?0:2500);},function(){setTimeout(load,2500);});
+    var bd=document.getElementById('bdata');
+    setTimeout(function(){q4keep.prune(list.map(function(f){return f[2];}).concat(bd&&bd.dataset.src?[bd.dataset.src]:[]));},20000);
+  }
 })();
 
 </script>

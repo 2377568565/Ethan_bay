@@ -45,6 +45,20 @@ python3 tools/q4/jesus.py             # 版式、出处、经文和家谱页共�
 - 正文里所有带出处的经文引用，都和和合本逐字核对过（新增经文后建议再核对一次）。
 - 注意：圣经数据（和合本）有约 65 章把几节合在一起（例如约5、路2），这些章里后面的节数会错一位。专题页里用到这些章的经文，直接手写原文。
 
+## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
+- `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
+  专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。
+- 小测验写在正文模块的 `QUIZ`（如 `history_text.QUIZ`、`jesus_text.QUIZ`）：至少 5 题，每次随机抽 3 题，答对 2 题才能下载；当场显示对错和正确答案。
+- PDF 学习版：`python3 tools/q4/history.py --pdf`、`python3 tools/q4/jesus.py --pdf`（`topic_pdf.js` 用 Chromium 打印，思源黑体/宋体，A4，有书签和页码），
+  存到 `lessons/2026-Q4/qa/研经问答NN-….pdf`。正文改了要重新生成。二维码需要 `pip install qrcode`。
+- 在学课网站里点这些专题卡片，会用浮层打开（`app.js`），返回时网站不重新加载；专题网页发现自己在浮层里（`html.emb`），会把 `./#…` 链接交给网站处理。
+
+## 打开速度：GitHub Pages 的缓存
+- 实测（2026-10-05）：每发布一次，所有文件的 `Last-Modified` 和 `ETag` 都换成发布时间，`Cache-Control: max-age=600`。
+  所以每次推送（包括提问区同步）之后，读者的手机都得把文件重新下载一遍。
+- 对策：正文字体（两个各约 400 KB）和经文数据（2.6 MB）下载一次就存进手机的 IndexedDB（`app.js` 的 `q4keep`，文件名带内容哈希，变了才重新下载；
+  `online.py` 把这两个字体从样式表移到 `#wfonts`）；提问区同步只有访问人次变化时最多 4 小时保存一次（`ask_sync.js`）；平时尽量少推送、合并推送。
+
 ## 专题网页：耶稣是人还是神？补充问答（`jesus-qa.html`）
 ```sh
 python3 tools/q4/jesus2.py            # 版式、出处、经文和上一页共用；正文 jesus2_text.py（问答），两张图 jesus2_svg.py
