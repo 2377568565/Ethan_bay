@@ -1,3 +1,19 @@
+/* 线条图标（和网站其他图标一个风格，代替彩色表情符号） */
+var Q4I=(function(){
+  function g(d,f){return '<svg class="ic'+(f?' fi':'')+'" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>';}
+  return {
+    pin:g('<path d="M9 4h6l-1 5 3 3v1.5H7V12l3-3z"/><path d="M12 13.5V20"/>'),
+    hand:g('<circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4"/><path d="M12 16.6v.2"/>'),
+    image:g('<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>'),
+    chat:g('<path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8.5A1.5 1.5 0 0 1 19 17h-8l-4.5 3.5V17H5a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 5 5.5z"/><path d="M8 10h8M8 13h5"/>'),
+    up:g('<path d="M7.5 11v9H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1zm0 0 3.5-7c1.4 0 2.3 1 2 2.4L12.5 10H18a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17 20H7.5"/>'),
+    book:g('<path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/>'),
+    play:g('<path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none"/>'),
+    pause:g('<path d="M8 5.5h2.6v13H8zM13.4 5.5H16v13h-2.6z" fill="currentColor" stroke="none"/>'),
+    shuffle:g('<path d="M4 7h3.5c4.5 0 4.5 10 9 10H20m0 0-2.5-2.5M20 17l-2.5 2.5M4 17h3.5c1.3 0 2.2-.8 2.9-2M20 7h-3.5c-1.3 0-2.2.8-2.9 2M20 7l-2.5-2.5M20 7l-2.5 2.5"/>'),
+    loop:g('<path d="M5 11V9.5A2.5 2.5 0 0 1 7.5 7H19m0 0-3-3m3 3-3 3M19 13v1.5a2.5 2.5 0 0 1-2.5 2.5H5m0 0 3 3m-3-3 3-3"/>')
+  };
+})();
 /* 复制文字：优先用剪贴板接口，不行就退回老办法（微信等内置浏览器） */
 function q4copy(t){
   function legacy(){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
@@ -78,16 +94,26 @@ var q4keep=(function(){
     if(add)set(WK,Math.round(((+(get(WK)||0))+add)*10)/10);
     set('wkmig','2');
   })();
+  (function(){   // 总使用时长（这台设备）：第一次运行时，把以前每周记下的时间加起来作为起点
+    if(get('ttmig')==='1')return;var n=0;
+    try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^q4:time:\d{4}-\d\d-\d\d$/.test(k))n+=+(localStorage.getItem(k)||0);}}catch(e){}
+    set('tall',String(Math.round(n*10)/10));set('ttmig','1');
+  })();
   var secs=+(get(WK)||0),last=Date.now(),act=Date.now();
   function goals(){try{return JSON.parse(get('goals')||'[]');}catch(e){return [];}}
   function others(){var f=window.Q4Ext&&Q4Ext.weekSecs;return f?(+f(WK)||0):0;}   // 账号里其他设备本周读的秒数
   function total(){return secs+others();}
-  window.Q4Week={key:function(){return WK;},secs:function(){return secs;},total:function(){return total();},paint:function(){if(W&&!W.hidden)paintTime();}};
+  function tall(){return +(get('tall')||0);}
+  // 本周以前累计了多少（每周第一次用到时记下来，整周不变；账号同步时一起传，别的设备就能算出总时长，又不会因此多传）
+  function base(){var k='tb:'+WK.slice(5),v=get(k);if(v===null||v===''){v=String(Math.max(0,Math.round(tall()-secs)));set(k,v);}return +v;}
+  function allOthers(){var f=window.Q4Ext&&Q4Ext.allSecs;return f?(+f()||0):0;}
+  window.Q4Week={key:function(){return WK;},secs:function(){return secs;},total:function(){return total();},base:base,
+    all:function(){return tall()+allOthers();},paint:function(){if(W&&!W.hidden)paintTime();}};
   function tick(){
     var n=Date.now(),dt=Math.min(n-last,20000);last=n;
     WK=wkKey(); secs=+(get(WK)||0);
     if(document.visibilityState==='hidden'||n-act>10*60e3)return;
-    var before=total(); secs+=dt/1000; set(WK,Math.round(secs*10)/10);
+    base();var before=total(); secs+=dt/1000; set(WK,Math.round(secs*10)/10);set('tall',String(Math.round((tall()+dt/1000)*10)/10));
     if(before<GOAL&&total()>=GOAL){
       var g=goals(); if(g.indexOf(WK)<0){g.push(WK);set('goals',JSON.stringify(g));}
       var t=document.getElementById('wtoast'); if(t){t.hidden=false;setTimeout(function(){t.hidden=true;},7000);}
@@ -218,8 +244,9 @@ var q4keep=(function(){
       W.querySelector('.wvt').textContent='“'+li.textContent+'”';
       W.querySelector('.wvr').innerHTML='';
       var r=W.querySelector('.wvr'),a=document.createElement('a');
-      r.appendChild(document.createTextNode('—— '+li.dataset.r+' · 出自'));
-      a.href='#l'+li.dataset.l;a.textContent='第'+li.dataset.l+'课《'+li.dataset.t+'》';r.appendChild(a);
+      var src=document.createElement('span');src.className='wsrc';   // “出自第N课《…》”不拆开换行
+      r.appendChild(document.createTextNode('—— '+li.dataset.r+' · '));src.appendChild(document.createTextNode('出自'));
+      a.href='#l'+li.dataset.l;a.textContent='第'+li.dataset.l+'课《'+li.dataset.t+'》';src.appendChild(a);r.appendChild(src);
     }
     if(anim&&box&&!reduced){box.classList.add('out');setTimeout(function(){put();box.classList.remove('out');},320);}else put();   // 换一节：淡出，再淡入
   }
@@ -795,7 +822,7 @@ window.Q4Hub=(function(){
   function tier(){
     var mine=QS.filter(function(q){return isMine(q);}),ws=weekStart(),wk=mine.filter(function(q){return q.ts>=ws;}).length,n=mine.length;
     var t=n===0?0:(wk>=3?3:(wk>=1?2:1));
-    card.className='askcard tier'+t;
+    card.className='askcard tier'+t+(card.classList.contains('open')?' open':'');   // 保留“已展开填写”
     var hi=$('.ask-hi'),st=$('.ask-stats'),bd=$('.ask-badge');
     if(t===0){hi.textContent='第一次来提问？没有“傻问题”，只有愿意追问的心。';st.hidden=true;bd.hidden=true;return;}
     st.hidden=false;st.textContent='你一共提了 '+n+' 个问题 · 本周 '+wk+' 个';
@@ -818,19 +845,19 @@ window.Q4Hub=(function(){
     articles().map(function(a){return '<option value="'+a.id+'"'+(a.id===q.qa?' selected':'')+'>'+esc(a.t)+'</option>';}).join('')+'</select>';}
   function item(q){
     var rs=RS[q._id]||[],adm=rs.filter(isAdmin),mine=isMine(q);
-    var h='<article class="aq'+(mine?' mine':'')+(adm.length?' answered':'')+(q.pin?' pinned':'')+'" data-id="'+esc(q._id)+'">'+(q.pin?'<p class="aq-pin">📌 置顶</p>':'')+
+    var h='<article class="aq'+(mine?' mine':'')+(adm.length?' answered':'')+(q.pin?' pinned':'')+'" data-id="'+esc(q._id)+'">'+(q.pin?'<p class="aq-pin">'+Q4I.pin+'置顶</p>':'')+
       '<header class="aq-h"><span class="aq-av" aria-hidden="true">'+esc((q.name||'友').slice(0,1))+'</span><span class="aq-who"><b>'+esc(q.name||'匿名')+'</b>'+(mine?'<i class="aq-me">我</i>':'')+
       '<span class="aq-meta">'+esc(q.loc||'地区未知')+' · '+esc(fmt(ts(q)))+'</span></span><button type="button" class="aq-copy" data-copyq>复制</button></header>'+
       '<p class="aq-t">'+esc(q.text)+'</p>'+featLink(q)+'<div class="aq-f">';
-    if(!MOCK)h+='<button type="button" class="aq-vote'+(q.voted?' on':'')+'" data-vote aria-pressed="'+(q.voted?'true':'false')+'">🙋 我也想知道'+(q.votes?'<b>'+q.votes+'</b>':'')+'</button>';
-    if(adm.length)h+='<span class="aq-tag gold">✦ 管理员已回答</span><button type="button" class="aq-img" data-qimg>🖼 生成图片</button>';
+    if(!MOCK)h+='<button type="button" class="aq-vote'+(q.voted?' on':'')+'" data-vote aria-pressed="'+(q.voted?'true':'false')+'">'+Q4I.hand+'我也想知道'+(q.votes?'<b>'+q.votes+'</b>':'')+'</button>';
+    if(adm.length)h+='<span class="aq-tag gold">✦ 管理员已回答</span><button type="button" class="aq-img" data-qimg>'+Q4I.image+'生成图片</button>';
     if(q.allow===false)h+='<span class="aq-tag">只要管理员回答</span>';
     h+='<span class="sp"></span>';
     if(q.allow!==false||ME_ADMIN)h+='<button type="button" class="aq-rb" data-reply>回复'+(rs.length?' · '+rs.length:'')+'</button>';
     else if(rs.length)h+='<span class="aq-rc">'+rs.length+' 条回复</span>';
     if(mine||ME_ADMIN)h+='<button type="button" class="aq-del" data-delq>删除</button>';
     h+='</div>';
-    if(ME_ADMIN&&!MOCK)h+='<div class="aq-admin"><span>管理：</span><button type="button" data-pin>'+(q.pin?'取消置顶':'📌 置顶')+'</button>'+featSelect(q)+'</div>';
+    if(ME_ADMIN&&!MOCK)h+='<div class="aq-admin"><span>管理：</span><button type="button" data-pin>'+(q.pin?'取消置顶':Q4I.pin+'置顶')+'</button>'+featSelect(q)+'</div>';
     if(rs.length){h+='<div class="aq-rs">';rs.slice().sort(function(a,b){return isAdmin(b)-isAdmin(a)||ts(a)-ts(b);}).forEach(function(r){
       var ad=isAdmin(r);h+='<div class="aq-r'+(ad?' admin':'')+'" data-rid="'+esc(r._id)+'"><p class="aq-rh"><b>'+esc(ad?(r.name||'整理者'):(r.name||'匿名'))+'</b>'+(ad?'<i class="aq-adm">管理员回答</i>':'')+
         '<span>'+esc(r.loc||'')+' · '+esc(fmt(ts(r)))+'</span>'+((isMine(r)||ME_ADMIN)?'<button type="button" class="aq-rdel" data-delr>删除</button>':'')+'</p><p class="aq-rt">'+esc(r.text)+'</p></div>';});
@@ -942,8 +969,15 @@ window.Q4Hub=(function(){
     store.pin(q._id,{qa:sel.value}).then(function(){q.qa=sel.value;render();},function(e2){window.alert(why(e2));});
   });
   $('.ask-text').addEventListener('input',function(){$('.ask-count').textContent=this.value.length+' / 500';});
+  // 先看大家的问题；要提问时再展开填写（按“我要提问”）
+  var askWant=0;
+  function openForm(focus){var card=$('.askcard'),ob=$('.ask-open');if(!card||!ob)return;card.classList.add('open');ob.setAttribute('aria-expanded','true');
+    if(focus)setTimeout(function(){try{$('.ask-text').focus({preventScroll:true});}catch(e){$('.ask-text').focus();}},60);}
+  if($('.ask-open'))$('.ask-open').addEventListener('click',function(){openForm(true);});
+  document.addEventListener('click',function(e){if(e.target.closest('[data-askform]'))askWant=Date.now();},true);   // “去提问 →”：进来就展开填写
 
   function open(){
+    if(Date.now()-askWant<3000)setTimeout(function(){openForm(false);var c=$('.askcard');if(c&&c.scrollIntoView)c.scrollIntoView({block:'center'});},200);
     if(started)return;started=true;
     $('.ask-name').value=get('askname')||'';
     afterLoad(function(){findLoc().then(showLoc);});   // 页面加载完再查地区，不拖慢页面（微信顶部进度条）
@@ -1053,7 +1087,8 @@ window.Q4Hub=(function(){
     var keys=['sab','sun','mon','tue','wed','thu','fri'],mine=0;   // 只显示自己读完了哪几天，不显示人数
     keys.forEach(function(x){if(mineCk('l'+no+'-'+x))mine++;});
     card.querySelector('.wt-days').innerHTML=daysHtml(no);
-    card.querySelector('.wt-msg').innerHTML=mine?('第'+no+'课本周你已读完 <b>'+mine+'</b>/7 天'+(mine===7?'，全部读完了，真好！':'，继续加油')):('读完当天的学课原文，记得在最后打卡；读完的日子会在这里打上 ✓');
+    var msg=card.querySelector('.wt-msg');   // 读了几天上面的进度环已经显示；这里只在还没打卡时提示一句、全读完时鼓励一句
+    msg.innerHTML=mine===7?'第'+no+'课七天全部读完了，真好！':mine?'':'读完当天的学课原文，在文末点“读完了，打卡”，这一天就会打上金勾。';msg.hidden=!msg.innerHTML;
     card.hidden=false;
     weekUI();
   }
@@ -1075,6 +1110,7 @@ window.Q4Hub=(function(){
       var L=+c.dataset.l,li=c.parentNode,cnt=0;
       for(i=0;i<7;i++)if(L&&mineCk('l'+L+'-'+keys[i]))cnt++;all+=cnt;
       c.querySelectorAll('.mdots i').forEach(function(d,j){d.classList.toggle('on',j<cnt);});
+      c.classList.toggle('nock',!cnt);if(li&&li.classList)li.classList.toggle('full',cnt===7);   // 七天都打卡了才打勾；过去的课只是“已过”
       var st=D.after||(no&&L<no)?'done':(L===no||(!no&&D.before&&L===0))?'now':'future';
       if(li&&li.classList){li.classList.toggle('done',st==='done');li.classList.toggle('now',st==='now');li.classList.toggle('future',st==='future');}
     });
@@ -1107,7 +1143,7 @@ window.Q4Hub=(function(){
   var notes=[].slice.call(document.querySelectorAll('.lesson .my textarea[data-k]')).filter(function(t){return /^l\d+-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d+$/.test(t.dataset.k);});
   notes.forEach(function(ta){
     var box=el('div','dsc');box.dataset.dk=ta.dataset.k;
-    box.innerHTML='<div class="dsc-bar"><button type="button" class="dsc-tg" aria-expanded="false">💬 大家的回答</button><button type="button" class="dsc-sh">分享我的回答</button></div>'+
+    box.innerHTML='<div class="dsc-bar"><button type="button" class="dsc-tg" aria-expanded="false">'+Q4I.chat+'大家的回答</button><button type="button" class="dsc-sh">分享我的回答</button></div>'+
       '<div class="dsc-form" hidden><label><span>你的称呼（大家看到的名字，不用真名）</span><input class="dsc-name" maxlength="16"></label>'+
       '<p class="dsc-tip">分享后所有人都能看到这条回答，以及你的称呼和地区（省市）。</p><p class="dsc-btns"><button type="button" class="btn ghost dsc-cancel">取消</button><button type="button" class="btn solid dsc-go">确认分享</button></p></div>'+
       '<p class="dsc-msg" role="status"></p><div class="dsc-list" hidden></div>';
@@ -1117,7 +1153,7 @@ window.Q4Hub=(function(){
   function votesOf(id){return (H.S&&H.S.votes[id])||[];}
   function paintDsc(box){
     var k=box.dataset.dk,list=answersOf(k),tg=box.querySelector('.dsc-tg'),open=tg.getAttribute('aria-expanded')==='true';
-    tg.innerHTML='💬 大家的回答'+(H.S?(list.length?' · <b>'+list.length+'</b>':' · 还没有'):'');
+    tg.innerHTML=Q4I.chat+'大家的回答'+(H.S?(list.length?' · <b>'+list.length+'</b>':' · 还没有'):'');
     var L=box.querySelector('.dsc-list');L.hidden=!open;if(!open)return;
     if(!H.S){L.innerHTML='<p class="dsc-empty">正在读取……</p>';return;}
     if(!list.length){L.innerHTML='<p class="dsc-empty">还没有人分享回答。写下你的回答后，点“分享我的回答”，帮助大家一起思考。</p>';return;}
@@ -1125,7 +1161,7 @@ window.Q4Hub=(function(){
     L.innerHTML=list.map(function(a){
       var vs=votesOf(a.id),mine=H.uid&&a.uid===H.uid,on=H.uid&&vs.indexOf(H.uid)>=0;
       return '<div class="dsc-a'+(mine?' mine':'')+'" data-aid="'+esc(a.id)+'"><p class="dsc-h"><b>'+esc(a.name)+'</b>'+(mine?'<i>我</i>':'')+'<span>'+esc(a.loc||'')+(a.loc?' · ':'')+esc(fmt(a.ts))+'</span></p>'+
-        '<p class="dsc-t">'+esc(a.text)+'</p><p class="dsc-f"><button type="button" class="dsc-v'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'">👍 有帮助'+(vs.length?' <b>'+vs.length+'</b>':'')+'</button>'+
+        '<p class="dsc-t">'+esc(a.text)+'</p><p class="dsc-f"><button type="button" class="dsc-v'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'">'+Q4I.up+'有帮助'+(vs.length?' <b>'+vs.length+'</b>':'')+'</button>'+
         ((mine||H.admin)?'<button type="button" class="dsc-del">删除</button>':'')+'</p></div>';
     }).join('');
   }
@@ -1197,7 +1233,7 @@ window.Q4Hub=(function(){
     '<p class="rs-prev">“你的话是我脚前的灯，是我路上的光。”（诗119:105）</p>'+
     '<p class="rs-k">夜间模式</p><div class="rs-seg rs-th">'+THEMES.map(function(t){return '<button type="button" data-th="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>'+
     '<p class="rs-k">朗读速度</p><div class="rs-seg rs-rate">'+RATES.map(function(r){return '<button type="button" data-rate="'+r[0]+'">'+r[1]+'</button>';}).join('')+'</div>'+
-    '<p class="rs-note">这些设置只保存在这台设备上。</p><div class="hconf-btns one"><button type="button" class="ok" data-close>完成</button></div>');
+    '<p class="rs-note">设置保存在这台设备上；登录账号后，会同步到你的其他设备。</p><div class="hconf-btns one"><button type="button" class="ok" data-close>完成</button></div>');
   function fs(){return +(get('fs')||1);}
   function theme(){return get('theme')||'auto';}
   function rate(){return get('rate')||'1';}
@@ -1270,7 +1306,7 @@ window.Q4Hub=(function(){
   }
   function paintResume(){
     var r=saved(),w=document.querySelector('#welcome .wresume'),hb=document.querySelector('[data-rresume]');
-    if(w){if(r){w.innerHTML='<a href="#'+esc(r.a)+'" data-rresume>📖 继续上次阅读：'+esc(r.label)+' →</a>';w.hidden=false;}else w.hidden=true;}
+    if(w){if(r){w.innerHTML='<a href="#'+esc(r.a)+'" data-rresume>'+Q4I.book+'继续上次阅读：'+esc(r.label)+' →</a>';w.hidden=false;}else w.hidden=true;}
     if(hb)hb.hidden=!r;
   }
   paintResume();
@@ -1582,7 +1618,7 @@ window.Q4Hub=(function(){
       make({kind:'answer',q:qt.textContent,a:ad.textContent,qr:'ask',qrText:'来提问区一起讨论'});}
   },true);
   document.querySelectorAll('article.qna').forEach(function(art){var r=art.parentNode.querySelector('.qshare');if(!r)return;
-    var b=el('button','btn','🖼 生成图片');b.type='button';b.setAttribute('data-imgqa','');r.appendChild(b);});
+    var b=el('button','btn','');b.innerHTML=Q4I.image+'生成图片';b.type='button';b.setAttribute('data-imgqa','');r.appendChild(b);});
 })();
 
 /* ---------- 账号（可选）：登录后，设置、笔记、行动勾选、读到哪里、提问身份在不同设备之间同步 ----------
@@ -1603,8 +1639,9 @@ window.Q4Hub=(function(){
   var VURL=H.online+'data/vault.json';
   var NOTE=/^l\d+-(sab|sun|mon|tue|wed|thu|fri)-[qe]\d+$/,CHUNK=600;
   var DID=get('did');if(!DID){DID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);set('did',DID);}   // 这台设备的编号（研读时间按设备分开记，再加起来）
-  var OTHERS={};   // 账号里其他设备本周的研读时间
-  window.Q4Ext={weekSecs:function(wk){var n=0;Object.keys(OTHERS).forEach(function(k){var o=OTHERS[k];if(o&&o.w===wk)n+=+o.s||0;});return n;}};
+  var OTHERS={};   // 账号里其他设备的研读时间（本周 s，本周以前累计 b）
+  window.Q4Ext={weekSecs:function(wk){var n=0;Object.keys(OTHERS).forEach(function(k){var o=OTHERS[k];if(o&&o.w===wk)n+=+o.s||0;});return n;},
+    allSecs:function(){var n=0;Object.keys(OTHERS).forEach(function(k){var o=OTHERS[k];if(o)n+=(+o.b||0)+(+o.s||0);});return n;}};
   function lsKeys(prefix){var out=[];try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('q4:'+prefix)===0)out.push(k.slice(3+prefix.length));}}catch(e){}return out.sort();}
   function list(v){try{var a=JSON.parse(v||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
   function union(a,b){var o={};a.concat(b).forEach(function(x){if(typeof x==='string')o[x]=1;});return Object.keys(o).sort();}
@@ -1654,7 +1691,7 @@ window.Q4Hub=(function(){
     if(withResume)m.r=get('resume')||'';
     var ck=lsKeys('ck:').filter(function(k){return get('ck:'+k)==='1';});m.c=ck.length?JSON.stringify(ck):'';   // 读完打卡
     var g=list(get('goals')).sort();m.g=g.length?JSON.stringify(g):'';   // 达到研读目标的周
-    if(window.Q4Week){var s=Math.floor(Q4Week.secs()/300)*300;m['tm:'+DID]=s?JSON.stringify({w:Q4Week.key(),s:s}):'';}   // 本设备本周研读时间（按 5 分钟取整，免得传得太勤）
+    if(window.Q4Week){var s=Math.floor(Q4Week.secs()/300)*300,b=Q4Week.base?Q4Week.base():0;m['tm:'+DID]=(s||b)?JSON.stringify({w:Q4Week.key(),s:s,b:b}):'';}   // 本设备本周研读时间（按 5 分钟取整，免得传得太勤）；b 是本周以前累计的秒数（整周不变）
     return m;
   }
   function applyItem(k,v){
@@ -1832,7 +1869,7 @@ window.Q4Hub=(function(){
       var st=status.err?'<span class="ac-bad">同步没有成功：'+esc(status.err)+'</span>':status.msg?esc(status.msg):status.t?'✓ 已同步 · '+when(status.t):'';
       BODY.innerHTML='<h3>账号</h3><p class="ac-me">已登录：<b>'+esc(ACC.u)+'</b></p><p class="ac-st" role="status">'+st+'</p>'+
         '<p class="ac-k">在别的手机、电脑或微信里登录这个账号，下面这些都会同步过去：</p>'+
-        '<ul class="ac-list"><li>字号、夜间模式、朗读速度、称呼</li><li>你发过的问题和回复（同一个身份）</li><li>读完打卡、本周研读时间（各设备加起来）</li><li>“写下我的回答”里写的内容</li><li>“我们的行动”的勾选</li><li>读到哪里（继续上次阅读）</li></ul>'+
+        '<ul class="ac-list"><li>字号、夜间模式、朗读速度、称呼</li><li>你发过的问题和回复（同一个身份）</li><li>读完打卡、研读时间（本周和总使用时长，各设备加起来）</li><li>“写下我的回答”里写的内容</li><li>“我们的行动”的勾选</li><li>读到哪里（继续上次阅读）</li></ul>'+
         '<div class="hconf-btns"><button type="button" data-acsync>立即同步</button><button type="button" data-acout>退出登录</button></div>';
       return;
     }
@@ -2113,7 +2150,7 @@ window.Q4Hub=(function(){
       var pp=mini.querySelector('.mp-pp');pp.textContent=want?'❚❚':'▶';pp.setAttribute('aria-label',want?'暂停':'继续播放');
       mini.classList.toggle('paused',!want);mini.classList.toggle('buffering',!!buf);
     }
-    var all=page.querySelector('[data-mall]');all.textContent=(cur&&want)?'❚❚ 暂停':(cur?'▶ 继续播放':'▶ 全部播放');
+    var all=page.querySelector('[data-mall]');all.innerHTML=(cur&&want)?Q4I.pause+'暂停':Q4I.play+(cur?'继续播放':'全部播放');
     var lp=page.querySelector('[data-mloop]');lp.setAttribute('aria-pressed',loop?'true':'false');lp.classList.toggle('on',loop);
     var sh=page.querySelector('[data-mshuf]');sh.setAttribute('aria-pressed',shuf?'true':'false');sh.classList.toggle('on',shuf);
   }
@@ -2315,9 +2352,11 @@ window.Q4Hub=(function(){
     var D=window.Q4Today||{},mine=0,all=0,keys=['sab','sun','mon','tue','wed','thu','fri'];
     try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^q4:ck:l\d+-(sab|sun|mon|tue|wed|thu|fri)$/.test(k)&&localStorage.getItem(k)==='1'){all++;if(D.no&&k.indexOf('q4:ck:l'+D.no+'-')===0)mine++;}}}catch(e){}
     var mins=window.Q4Week&&Q4Week.total?Math.floor(Q4Week.total()/60):0,r=window.Q4Reader&&Q4Reader.saved?Q4Reader.saved():null;
+    var tm=window.Q4Week&&Q4Week.all?Math.floor(Q4Week.all()/60):0,th=tm>=60?(tm>=6000?String(Math.round(tm/60)):(Math.floor(tm/6)/10).toFixed(1)):'';
     ME.querySelector('.me-in').innerHTML=
       '<button type="button" class="me-acct" data-acct><span class="me-av">'+IC.user+'</span><span><b>'+(acc?esc(acc.u):'未登录')+'</b><small>'+(acc?'已登录 · 换手机、用电脑也能同步':'登录后换手机、用电脑也能同步进度')+'</small></span><span class="go">'+IC.right+'</span></button>'+
-      '<div class="me-stats"><div><b>'+(mins>=60?Math.floor(mins/60)+'时'+(mins%60):mins)+'</b><small>本周研读'+(mins>=60?'':'（分钟）')+'</small></div><div><b>'+(D.no?mine+'/7':'—')+'</b><small>本周读完</small></div><div><b>'+all+'</b><small>累计打卡（天）</small></div></div>'+
+      '<div class="me-total"><span><b>总使用时长</b><small>'+(acc?'各设备加起来，':'这台设备上，')+'认真研读的时间</small></span><span class="mt-n">'+(th?th+'<em>小时</em>':tm+'<em>分钟</em>')+'</span></div>'+
+      '<div class="me-stats"><div><b>'+(mins>=60?Math.floor(mins/60)+'<em>时</em>'+(mins%60):mins)+'<em>分</em></b><small>本周研读</small></div><div><b>'+(D.no?mine+'<em>/7</em>':'—')+'</b><small>本周读完</small></div><div><b>'+all+'<em>天</em></b><small>累计打卡</small></div></div>'+
       '<div class="me-list">'+(r?'<button type="button" data-rresume>'+IC.book+'继续上次阅读<em>'+esc(r.label)+'</em></button>':'')+
       '<button type="button" data-rsearch>'+IC.search+'搜索全季内容</button>'+
       '<button type="button" data-rsettings><span class="aa">A<small>A</small></span>字号与夜间模式</button>'+
@@ -2340,7 +2379,8 @@ window.Q4Hub=(function(){
       if(!e.target.closest('[data-picker]'))return;e.preventDefault();
       var curL=(/^l(\d+)$/.exec(pg())||[])[1];
       PK.querySelector('.pkr-list').innerHTML=[].map.call(document.querySelectorAll('.tl .card[data-l]'),function(c){var L=c.dataset.l,dt=c.querySelector('.mdots');
-        return '<a href="#l'+L+'" class="'+(L===curL?'cur':'')+'"><span class="pn">'+esc(c.querySelector('.no').textContent)+'</span><b>'+esc(c.querySelector('.ct').textContent)+'</b>'+(dt?dt.outerHTML:'')+'</a>';}).join('');
+        var dd=c.querySelector('.cdd'),now=(window.Q4Today||{}).no===+L;
+        return '<a href="#l'+L+'" class="'+(L===curL?'cur':'')+'"><span class="pn">'+esc(c.querySelector('.no').textContent)+'</span><span class="pt"><b>'+esc(c.querySelector('.ct').textContent)+(now?'<i class="pk-now">本周</i>':'')+'</b>'+(dd?'<small>'+esc(dd.textContent)+'</small>':'')+'</span>'+(dt&&!c.classList.contains('nock')?dt.outerHTML:'')+'</a>';}).join('');
       T.open(PK);
       setTimeout(function(){var c=PK.querySelector('a.cur');if(c&&c.scrollIntoView)c.scrollIntoView({block:'center'});},60);
     });
@@ -2445,6 +2485,13 @@ window.Q4Hub=(function(){
     hero.addEventListener('mousemove',function(e){var r=hero.getBoundingClientRect();hero.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5).toFixed(3));hero.style.setProperty('--my',((e.clientY-r.top)/r.height-.5).toFixed(3));});
     hero.addEventListener('mouseleave',function(){hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0);});
   }
+
+  /* ===== 电脑：课首（大标题、存心节）在眼前时，左栏先不重复课名和存心节，往下读时再出现 ===== */
+  if('IntersectionObserver' in window){
+    var mio=new IntersectionObserver(function(es){es.forEach(function(e){(e.target.closest('.lesson')||document.body).classList.toggle('mhv',e.isIntersecting);});},{rootMargin:'-60px 0px 0px 0px'});
+    document.querySelectorAll('main .masthead').forEach(function(m){mio.observe(m);});
+  }
+  if(wide.matches)document.querySelectorAll('details.hlead').forEach(function(d){d.open=true;});   // 电脑地方够：“关于本季”直接展开
 
   /* ===== 电脑：音乐小窗放在左侧栏里（账号上面），不挡正文 ===== */
   var slot=document.querySelector('.side .splay'),mini=document.querySelector('.mplayer'),idle=slot&&slot.querySelector('.sidle');

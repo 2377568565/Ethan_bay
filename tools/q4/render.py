@@ -104,6 +104,7 @@ def nav_html(titles):
   <div class="navrow" data-row="yw"><span class="k">原文</span>{r2}</div>
 </nav>'''
 
+WEEKDAY_OF = {'sun': '星期日', 'mon': '星期一', 'tue': '星期二', 'wed': '星期三', 'thu': '星期四', 'fri': '星期五'}
 WEEKDAY = {'导言': '安息日', '日': '星期日', '一': '星期一', '二': '星期二', '三': '星期三', '四': '星期四', '五': '星期五', '总结': '本课'}
 
 def modernize(frag, n, title, share=True):
@@ -129,8 +130,6 @@ def modernize(frag, n, title, share=True):
     k = mm.group(1).split(' · ', 1) if mm else ['', '']
     cite = f'{k[1]} · {k[0]}' if len(k) == 2 else ''
     oq = mm.group(2).strip() if mm else ''
-    if oq[:1] == '“' and oq[-1:] == '”' and '“' in oq[1:-1]:
-        oq = oq[1:-1]   # 存心节里本来有引号：左栏金线已经表示引文，去掉外层引号免得“…“…””叠在一起
     ocard = (f'<div class="ocard"><p class="label">{(m.group(1) + " · " + m.group(2).split(" · ")[0]) if m else ""}</p><p class="ot">{title}</p>'
              + (f'<blockquote>{oq}</blockquote><p class="ocite">{cite}</p>' if mm else '') + '</div>')
     def nav(mt):
@@ -151,9 +150,18 @@ def modernize(frag, n, title, share=True):
         sid, h = mt.group(2), mt.group(3)
         h = h.replace('>阅读本日学课原文 →</a>', f'>{I_OPEN}本日原文</a>').replace('>查看本日解读 →</a>', f'>{I_OPEN}本日解读</a>')
         if share:   # 单课文件没有分享面板，不放“分享”
-            h = re.sub(r'(<p class="btnrow">.*?)(</p>)', lambda x: x.group(1) + f'<button class="btn" type="button" data-share="{sid}">{I_SHARE}分享</button>' + x.group(2), h, count=1, flags=re.S)
+            h = re.sub(r'(<p class="btnrow">.*?)(</p>)', lambda x: x.group(1) + f'<button class="btn bshare" type="button" data-share="{sid}" aria-label="分享这一天">{I_SHARE}<span>分享</span></button>' + x.group(2), h, count=1, flags=re.S)
         return mt.group(1) + h + mt.group(4)
     rest = re.sub(r'(<(?:section class="day"|article class="ywday") id="(l\d+-[\w-]+)">\s*<header class="(?:dayhead|ywhead)">)(.*?)(</header>)', hdr, rest, flags=re.S)
+    # 每天解读的最后：按“先读原文 → 打卡 → 再看解读”的顺序，接着去下一天的原文（星期五之后是本课总结）
+    if n:
+        def dayend(mt):
+            L, k = mt.group(2), mt.group(3)
+            go = (f'<a class="btn" href="#{L}-sum">本课总结：知 · 信 · 行 →</a>' if k == 'sum'
+                  else f'<a class="btn" href="#{L}-yw-{k}">下一天原文：{WEEKDAY_OF[k]} →</a>')
+            return f'<p class="btnrow dayend">{go}</p>\n</section>{mt.group(1)}<section class="day" id="{L}-{k}">'
+        rest, c = re.subn(r'</section>(\s*(?:<!--.*?-->\s*)?)<section class="day" id="(l\d+)-(sun|mon|tue|wed|thu|fri|sum)">', dayend, rest)
+        assert c == 7, (n, c)
     return bar + '\n' + rest
 
 def yw_titles(no):
@@ -226,7 +234,7 @@ def render_lesson(mod):
   <h1>{L["title"]}</h1>
   <div class="memory">
     <span class="k">存心节 · {L["mem_ref"]}</span>
-    <blockquote>“{L["mem"]}”</blockquote>
+    <blockquote>“{qnest(L["mem"])}”</blockquote>
   </div>
   <p class="readings"><b>本周经文</b>{L["readings"]}</p>
   <p class="btnrow top"><a class="btn solid" href="#yuanwen">学课原文</a><a class="btn" href="#sab">开始研读</a></p>
@@ -247,6 +255,10 @@ def render_lesson(mod):
 {yw}
 </main>
 </div>''')
+
+def qnest(t):
+    """整句再加一层引号时，里面的引号改成单引号（“……‘……’……”），免得“……“……””叠在一起。"""
+    return t.replace('“', '‘').replace('”', '’')
 
 def reorder(h):
     """原文在前、解读在后；两排导航也把“原文”放上面；学课原题加“回到原文问题”。"""
@@ -329,9 +341,11 @@ BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
 JS = open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
+  <details class="fnote fold"><summary><span class="fs">版权与引用说明</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
   <p>本页为安息日学研读辅助材料，依据《安息日学研经指引》2026年第4季整理。“学课原文”部分版权归原出版机构所有，仅供教会安息日学学习使用，请勿用于商业用途。</p>
   <p>经文引自和合本（上帝版）。怀爱伦著作引文依英文原著译出，页码为英文原文页码；学课中已有译文的，沿用学课译文。</p>
   <p>“写下我的回答”和行动勾选只保存在你自己的浏览器里；只有你点“分享我的回答”时，回答才会公开到讨论区。</p>
+  </details>
 </footer>'''
 
 def shell(title, desc, body, combined):
@@ -440,6 +454,8 @@ I_REFRESH = ic('<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/>')
 I_OPEN = ic('<path d="M4 6.5h6.5a2 2 0 0 1 2 2V20a2 2 0 0 0-2-2H4zM20 6.5h-5.5a2 2 0 0 0-2 2V20a2 2 0 0 1 2-2H20z"/>')
 I_SHARE = ic('<path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M6 11.5H5a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7.5a1 1 0 0 0-1-1h-1"/>')
 I_PLAY = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>'
+I_SHUF = ic('<path d="M4 7h3.5c4.5 0 4.5 10 9 10H20m0 0-2.5-2.5M20 17l-2.5 2.5M4 17h3.5c1.3 0 2.2-.8 2.9-2M20 7h-3.5c-1.3 0-2.2.8-2.9 2M20 7l-2.5-2.5M20 7l-2.5 2.5"/>')
+I_LOOP = ic('<path d="M5 11V9.5A2.5 2.5 0 0 1 7.5 7H19m0 0-3-3m3 3-3 3M19 13v1.5a2.5 2.5 0 0 1-2.5 2.5H5m0 0 3 3m-3-3 3-3"/>')
 I_IMAGE = ic('<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>')
 AA = '<span class="aa" aria-hidden="true">A<small>A</small></span>'
 
@@ -487,7 +503,7 @@ def music_page():
   <p class="eyebrow">学课之余 · 安静聆听</p>
   <h1>音乐</h1>
   <p class="lead">学完学课，听一首诗歌。播放后可以继续去读学课或问答，音乐会缩成左下角的小窗，一直播放。</p>
-  <p class="mtools"><button class="btn solid" type="button" data-mall>▶ 全部播放</button><button class="btn" type="button" data-mshuf aria-pressed="false">🔀 随机播放</button><button class="btn" type="button" data-mloop aria-pressed="false">🔁 循环播放</button><button class="btn share" type="button" data-share="music">{SHAREIC}分享音乐栏目</button></p>
+  <p class="mtools"><button class="btn solid" type="button" data-mall>{I_PLAY}全部播放</button><button class="btn" type="button" data-mshuf aria-pressed="false">{I_SHUF}随机播放</button><button class="btn" type="button" data-mloop aria-pressed="false">{I_LOOP}循环播放</button><button class="btn share" type="button" data-share="music">{SHAREIC}分享音乐栏目</button></p>
   <label class="msearch"><span class="sr-only">搜索歌曲</span><input type="search" class="ms-q" placeholder="搜索歌名（英文或中文）" enterkeyhint="search" autocomplete="off"><span class="ms-n" aria-live="polite"></span></label>
   <div class="msongs"></div>
   <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“⬇”。</p>
@@ -629,6 +645,8 @@ ASK_TOPIC = 'q4ask-c656a4ca18696d0b'
 ASK_RELAY = 'https://ntfy.sh'
 PINIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
          '<circle cx="12" cy="10" r="2.4" fill="currentColor"/></svg>')
+PENIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1-4L15.5 5.5a2.1 2.1 0 0 1 3 3L9 18z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
+         '<path d="M13.5 7.5l3 3" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>'
           '<path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 
@@ -645,6 +663,8 @@ def ask_page():
   </header>
   <div class="askcard tier0">
     <div class="ask-top"><span class="ask-badge" hidden></span><p class="ask-hi">第一次来提问？没有“傻问题”，只有愿意追问的心。</p><p class="ask-stats" hidden></p></div>
+    <button class="btn solid ask-open" type="button" aria-expanded="false">{PENIC}我要提问</button>
+    <div class="ask-body">
     <label class="ask-f"><span>你的称呼</span><input class="ask-name" maxlength="16" autocomplete="nickname" placeholder="随便起个名字，比如：杭州的小羊"></label>
     <label class="ask-f"><span>你的问题</span><textarea class="ask-text" maxlength="500" rows="4" placeholder="比如：为什么说罪使人与上帝隔绝？"></textarea><em class="ask-count">0 / 500</em></label>
     <div class="ask-opts">
@@ -653,6 +673,7 @@ def ask_page():
     </div>
     <p class="ask-note">发出后所有人都能看到。请不要写电话、住址等个人信息。</p>
     <button class="btn solid ask-send" type="button">提交问题</button>
+    </div>
     <p class="ask-msg" aria-live="polite"></p>
   </div>
   <div class="asklist">
@@ -703,7 +724,7 @@ def qa_pages():
   <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；问答文章都附 PDF 版，专题网页可以直接转发链接。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa">{SHAREIC}分享问题彩蛋</button></p>
   <div class="qcards">{cards}<div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
-  <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
+  <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
 </div>''']
     for i, it in enumerate(items):
@@ -747,7 +768,7 @@ def build_combined(nos):
 </a></li>''']
     for n in nos[1:]:
         ds = dates_for(n); mr, mt = mem_of(n)
-        cards.append(f'''<li class="tli"><span class="node" aria-hidden="true"></span><a class="card" href="#l{n}" data-l="{n}" data-start="{ds[0].isoformat()}" data-memref="{html.escape(mr)}" data-mem="{html.escape(mt)}">
+        cards.append(f'''<li class="tli"><span class="node" aria-hidden="true"></span><a class="card" href="#l{n}" data-l="{n}" data-start="{ds[0].isoformat()}" data-memref="{html.escape(mr)}" data-mem="{html.escape(qnest(mt))}">
   <span class="top"><span class="no">第{n}课</span><span class="wk" hidden>✦ 本周学课</span><span class="ctag" hidden>今天下午开始新课</span></span>
   <span class="ct">{lesson_title(mods[n])}</span>
   <span class="cd"><span class="cdd">{md(ds[0])}—{md(ds[6])}</span> · {md(ds[0] + datetime.timedelta(days=7))}安息日</span>
@@ -771,11 +792,11 @@ def build_combined(nos):
         <span class="fdays" data-week></span>
         <span class="cta"><span class="f-go"></span>{I_RIGHT}</span>
       </a>
-      <div class="hlead">
-        <p class="label">关于本季</p>
+      <details class="hlead fold">
+        <summary><span class="label">关于本季</span><span class="fs">这一季在讲什么</span>{I_DOWN}</summary>
         <p>罪关上了伊甸园的门，却没有让上帝就此沉默。祂在园中呼唤“你在哪里？”<span class="ref">（创3:9）</span>，先知们一个接一个回答“我在这里，请差遣我！”<span class="ref">（赛6:8）</span>。本季十三课，讲的就是这位不肯沉默的上帝：祂借着先知说话，借着圣经存话，借着儿子亲自来说，又借着圣灵一直说到末时。</p>
         <p>点任意一课进入：页面顶上可以在“原文”和“解读”之间切换，也可以直接跳到某一天。</p>
-      </div>
+      </details>
     </div>
     <ol class="tl cards">{"".join(cards)}</ol>
   </div>
@@ -791,7 +812,7 @@ def build_combined(nos):
         bottom = f'<nav class="lnext" aria-label="上一课下一课">{pn(n - 1, -1)}{pn(n + 1, 1)}</nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
-    ui = dict(user=I_USER, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
+    ui = dict(user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
               nqa=len(qa_data.ITEMS), nsongs=len(songs()))
     body = welcome.welcome_html(titles, ui) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)

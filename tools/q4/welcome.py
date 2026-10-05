@@ -144,7 +144,7 @@ def welcome_html(titles, ui):
     <p class="wstars" aria-hidden="true">{stars}</p>
     <p class="wmsg m0">每读满 5 分钟点亮一颗星。点亮 12 颗星（本周累计 1 小时），上面的晨光会变成满天的荣光。</p>
     <p class="wmsg m1" hidden><b>本周你已在这里研读满 1 小时</b>，这是你第 <b class="wn">1</b> 周达成目标。<br>“你们要尝尝主恩的滋味，便知道他是美善。”（诗34:8）</p>
-    <p class="wnote">研读时间只记录在这台设备的这个浏览器里（登录账号后各设备加起来），每周六晚上 12 点（北京时间）清零，重新计算。</p>
+    <details class="wnote fold"><summary><span class="fs">时间怎么算？</span>{ui['down']}</summary><p>页面开着、你在阅读时才计时（停下 10 分钟不动就暂停）。时间记在这台设备的浏览器里，登录账号后各设备加起来；每周六晚上 12 点（北京时间）清零，重新计算。累计的“总使用时长”在“我的”里。</p></details>
   </div>
   <p class="wcredit">整理制作 · Ethan（HangZhou_XG）</p>
   <p class="wvisits" data-base="{VISITS_BASE}"><span hidden>本站累计访问 <b></b> 人次</span></p>

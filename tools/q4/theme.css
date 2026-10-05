@@ -133,6 +133,7 @@ html.wopen .rprog{opacity:0}
 .wverse:focus-visible{outline:1px solid rgba(233,214,163,.6)}
 .wvt{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(.98rem,4.2vw,1.12rem);line-height:1.8;color:rgba(255,250,238,.96);transition:opacity .35s,transform .35s var(--ease)}
 .wvr{margin:0;font-size:.76rem;letter-spacing:.06em;color:rgba(246,238,220,.62);transition:opacity .35s}
+.wvr .wsrc{display:inline-block}
 .wvr a{color:#E9D6A3;white-space:nowrap;text-decoration:none;border-bottom:1px solid rgba(233,214,163,.35)}
 .wverse.out .wvt{opacity:0;transform:translateY(6px)}
 .wverse.out .wvr{opacity:0}
@@ -239,8 +240,9 @@ html:not(.jsok) .welcome .wmain,html:not(.jsok) .welcome .wtop,html:not(.jsok) .
 .tl::before{content:"";position:absolute;left:15.25px;top:16px;bottom:34px;width:1.5px;background:var(--rule)}
 .tli{position:relative;padding:0 0 0 40px;margin:0 0 8px}
 .tli .node{position:absolute;left:8px;top:18px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:1.5px solid var(--rule)}
-.tli.done .node{background:var(--gold);border-color:var(--gold)}
-.tli.done .node::after{content:"";position:absolute;left:4.5px;top:2px;width:4px;height:8px;border:solid #fff;border-width:0 1.8px 1.8px 0;transform:rotate(45deg)}
+.tli.done .node{background:color-mix(in srgb,var(--muted) 30%,var(--paper));border-color:transparent}
+.tli.full .node{background:var(--gold);border-color:var(--gold)}
+.tli.full .node::after{content:"";position:absolute;left:4.5px;top:2px;width:4px;height:8px;border:solid #fff;border-width:0 1.8px 1.8px 0;transform:rotate(45deg)}
 .tli.now .node{border:2px solid var(--gold);box-shadow:0 0 0 5px var(--gold-soft)}
 .tl .card{display:grid;gap:1px;padding:11px 14px 12px;border-radius:16px;background:transparent;border-color:transparent;box-shadow:none;transition:background .2s,border-color .2s,box-shadow .2s}
 .tl .card:hover{background:var(--surface);border-color:var(--rule)}
@@ -261,6 +263,7 @@ html:not(.jsok) .welcome .wmain,html:not(.jsok) .welcome .wtop,html:not(.jsok) .
 .mdots{display:flex;gap:4px;margin:6px 0 0}
 .mdots i{width:6px;height:6px;border-radius:50%;background:var(--surface-2)}
 .mdots i.on{background:var(--gold)}
+.tli.future .card.nock .mdots{display:none}
 .home .credit{margin:22px 0 0;text-align:center;font-size:.76rem}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card.now{background:var(--surface)}}
 :root[data-theme="dark"] .card.now{background:var(--surface)}
@@ -487,6 +490,9 @@ html.tbhide .ttsbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .hconf-card{border-radius:22px;background:var(--surface);border:1px solid var(--rule)}
 .hconf-btns button{border-radius:14px;background:var(--paper)}
 .hconf-btns .ok{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}
+.rsheet .rs-k{margin:22px 0 8px}
+.rsheet h3+.rs-k{margin-top:6px}
+.rsheet .rs-note{margin:18px 0 14px}
 .rs-seg button{border-radius:12px;background:var(--surface-2);border-color:transparent;font-weight:600}
 .rs-seg button.on{border-color:var(--ink);background:var(--ink);color:var(--paper)}
 .rs-x,.sh-card .sh-x,.bpop-x{background:var(--surface-2);border:0}
@@ -518,17 +524,23 @@ html.tbhide .ttsbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 @media (min-width:700px){.hconf-card::before,.shsheet .sh-card::before{content:none}.shsheet .sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}}
 
 /* “我的”面板 */
-.mesheet .rs-body{display:grid;gap:12px}
+.mesheet .rs-body,.me-in{display:grid;gap:12px}
 .me-acct{display:flex;width:100%;align-items:center;gap:12px;padding:14px;border-radius:18px;background:var(--surface-2);border:0;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
 .me-av{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:50%;color:#E6C98B;background:linear-gradient(160deg,#18213A,#0E1426)}
 .me-av .ic{width:24px;height:24px}
 .me-acct b{display:block;font-size:1rem}
 .me-acct small{display:block;font-size:.8rem;color:var(--muted);line-height:1.5}
 .me-acct .go{margin-left:auto;color:var(--muted)}
+.me-total{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-radius:18px;color:#F3E7C9;background:radial-gradient(120% 140% at 100% 0%,rgba(211,176,106,.28),transparent 55%),linear-gradient(150deg,#1C2640,#0E1426);border:1px solid rgba(211,176,106,.25);text-align:left}
+.me-total b{display:block;font-size:.95rem;font-weight:700;letter-spacing:.06em}
+.me-total small{display:block;margin-top:2px;font-size:.74rem;color:rgba(243,231,201,.68)}
+.me-total .mt-n{flex:none;font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1;color:#E6C98B;white-space:nowrap}
+.me-total .mt-n em{margin-left:4px;font-family:var(--sans);font-style:normal;font-weight:600;font-size:.8rem;color:rgba(243,231,201,.8)}
 .me-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.me-stats div{display:grid;justify-items:center;gap:0;padding:12px 4px;border-radius:16px;border:1px solid var(--rule);background:var(--surface)}
-.me-stats b{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:var(--gold);line-height:1.3}
-.me-stats small{font-size:.72rem;color:var(--muted)}
+.me-stats div{display:grid;justify-items:center;gap:2px;padding:12px 4px;border-radius:16px;border:1px solid var(--rule);background:var(--surface)}
+.me-stats b{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:var(--gold);line-height:1.3;white-space:nowrap}
+.me-stats b em{margin-left:1px;font-family:var(--sans);font-style:normal;font-weight:600;font-size:.7rem;color:var(--muted)}
+.me-stats small{font-size:.74rem;color:var(--muted);white-space:nowrap}
 .me-list{display:grid;border:1px solid var(--rule);border-radius:18px;background:var(--surface);overflow:hidden}
 .me-list button,.me-list a{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:0 16px;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);font:500 .95rem/1.3 var(--sans);text-align:left;text-decoration:none;cursor:pointer}
 .me-list>:first-child{border-top:0}
@@ -541,8 +553,11 @@ html.tbhide .ttsbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .pkr-list{display:grid;margin:4px 0 0}
 .pkr-list a{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none}
 .pkr-list .pn{width:52px;flex:none;font-size:.76rem;color:var(--muted)}
-.pkr-list b{flex:1;font-family:var(--serif);font-weight:600;font-size:1.02rem}
+.pkr-list .pt{flex:1;min-width:0;display:grid;gap:1px}
+.pkr-list b{font-family:var(--serif);font-weight:600;font-size:1.02rem}
+.pkr-list .pt small{font-size:.74rem;color:var(--muted)}
 .pkr-list a.cur b{font-weight:900;color:var(--gold)}
+.pk-now{margin-left:8px;padding:2px 7px;border-radius:999px;background:var(--gold-soft);color:var(--gold);font:700 .66rem/1.4 var(--sans);font-style:normal;vertical-align:2px}
 .pkr-list .mdots{margin:0}
 .pkr-list .mdots i{width:5px;height:5px}
 
@@ -831,3 +846,68 @@ html.rv .rvl.in{opacity:1;transform:none}
   .page{padding:0}
   html.rv .rvl{opacity:1;transform:none}
 }
+
+/* ===== 2026-10-05 审查后的细节 ===== */
+/* 展开 / 收起（关于本季、研读时间说明、版权说明） */
+details.fold>summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary .ic{width:16px;height:16px;flex:none;color:var(--muted);transition:transform .3s var(--ease)}
+details.fold[open]>summary .ic{transform:rotate(180deg)}
+details.fold>summary .fs{font-size:.8rem;color:var(--muted)}
+details.fold[open]>:not(summary){animation:fdin .4s var(--ease) both}
+@keyframes fdin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.hlead>summary{min-height:28px}
+.hlead>summary .label{margin:0}
+.hlead>summary .ic{margin-left:auto}
+.hlead[open]>summary{margin-bottom:8px}
+.wnote{margin-top:6px}
+.wnote>summary{display:inline-flex;gap:3px;padding:4px 0}
+.wnote>summary .fs{font-size:.76rem;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
+.wnote>summary .ic{width:14px;height:14px}
+.wnote p{margin:4px 0 0;font-size:.76rem;line-height:1.7;color:var(--muted)}
+.wt-msg[hidden]{display:none}
+footer .fnote{margin:2px 0 0}
+footer .fnote>summary{display:inline-flex;gap:4px;padding:6px 0;font-size:.78rem;color:var(--muted)}
+footer .fnote>summary .fs{font-size:inherit}
+footer .fnote p{margin:6px 0 0;font-size:.76rem;line-height:1.75}
+/* 学课页：课首的“学课原文 / 逐日解读”和顶上的“原文 | 解读”开关重复，合集页里不再显示 */
+.combined .masthead .btnrow.top{display:none}
+/* 每天标题：“星期一 · 10月5日”两边一样宽 */
+.dayhead .dn::after,.ywhead .dn::after{content:"·";margin-left:8px}
+.dayhead .when,.ywhead .when{gap:4px 8px}
+/* 每天解读的最后：去下一天原文 */
+.btnrow.dayend{margin:26px 0 0;padding-top:18px;border-top:1px dashed var(--rule)}
+/* 窄手机：标题下三个按钮排一行，“分享”只留图标 */
+@media (max-width:374px){
+  .dayhead .btnrow .btn,.ywhead .btnrow .btn{padding-left:12px;padding-right:12px}
+  .btnrow .bshare span{display:none}
+}
+/* 需要提升的认知（手机）：箭头跟在新认知前面，不单独占一行 */
+@media (max-width:560px){
+  .shift li{grid-template-columns:1.1em minmax(0,1fr);column-gap:6px;row-gap:4px}
+  .shift .from{grid-column:1/-1}
+  .shift .arrow{text-align:left}
+}
+/* 线条图标（代替彩色表情） */
+.aq-pin,.aq-img,.dsc-tg,.dsc-v,.aq-admin [data-pin]{display:inline-flex;align-items:center;gap:5px}
+.aq-pin .ic,.aq-vote .ic,.aq-img .ic,.dsc-tg .ic,.dsc-v .ic,.aq-admin .ic,.wresume .ic{width:1.15em;height:1.15em;stroke-width:1.9}
+.mtools .btn .ic{width:1.05em;height:1.05em}
+.mtools .btn.solid .ic,.mtools .btn.on .ic{color:inherit}
+/* 提问区：先看大家的问题，按“我要提问”再展开填写 */
+.ask-open{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px}
+.ask-open .ic{width:18px;height:18px}
+.ask-body{display:grid;gap:14px}
+.askcard:not(.open) .ask-body{display:none}
+.askcard.open .ask-open{display:none}
+.askcard.open .ask-body{animation:fdin .4s var(--ease) both}
+.ask-msg:empty{display:none}
+@media (min-width:1024px){
+  /* 课首在眼前时，左栏不重复课名和存心节；往下读时再出现 */
+  .ocard .ot,.ocard blockquote,.ocard .ocite{max-height:16em;transition:opacity .35s var(--ease),max-height .5s var(--ease),margin .5s var(--ease)}
+  .mhv .ocard .ot,.mhv .ocard blockquote,.mhv .ocard .ocite{opacity:0;max-height:0;margin-top:0;margin-bottom:0;overflow:hidden}
+  .mhv .ocard .label{margin-bottom:0}
+  .hlead>summary .ic,.hlead>summary .fs{display:none}
+  .hlead>summary{pointer-events:none}
+}
+@media (prefers-reduced-motion:reduce){details.fold[open]>:not(summary),.askcard.open .ask-body{animation:none}.ocard .ot,.ocard blockquote,.ocard .ocite{transition:none}}
+@media print{details.fold>:not(summary){display:block!important}.ask-open{display:none}}
