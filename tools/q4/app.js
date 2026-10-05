@@ -82,7 +82,7 @@ var q4keep=(function(){
   function goals(){try{return JSON.parse(get('goals')||'[]');}catch(e){return [];}}
   function others(){var f=window.Q4Ext&&Q4Ext.weekSecs;return f?(+f(WK)||0):0;}   // 账号里其他设备本周读的秒数
   function total(){return secs+others();}
-  window.Q4Week={key:function(){return WK;},secs:function(){return secs;},paint:function(){if(W&&!W.hidden)paintTime();}};
+  window.Q4Week={key:function(){return WK;},secs:function(){return secs;},total:function(){return total();},paint:function(){if(W&&!W.hidden)paintTime();}};
   function tick(){
     var n=Date.now(),dt=Math.min(n-last,20000);last=n;
     WK=wkKey(); secs=+(get(WK)||0);
@@ -108,7 +108,9 @@ var q4keep=(function(){
   var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){
     if(!e.isIntersecting)return; var a=linkFor[e.target.id]; if(!a)return;
     var nav=a.closest('.nav'); nav.querySelectorAll('a.on').forEach(function(x){x.classList.remove('on');});
-    a.classList.add('on'); keepVisible(a);
+    a.classList.add('on');
+    var row=a.closest('.navrow');if(row&&nav.dataset.part&&!nav.dataset.hold)nav.dataset.part=row.dataset.row;   // 新设计：一行导航只显示正在读的那一部分
+    keepVisible(a);
   });},{rootMargin:'-15% 0px -75% 0px'}):null;
   document.querySelectorAll('.nav a[href^="#"]').forEach(function(a){
     var id=a.getAttribute('href').slice(1),t=document.getElementById(id);
@@ -161,6 +163,7 @@ var q4keep=(function(){
     var swap=function(){
       [home].concat([].slice.call(document.querySelectorAll('.lesson'))).forEach(function(x){x.classList.remove('show');});
       want.classList.add('show'); cur=want; de.style.scrollBehavior='auto'; go();
+      de.setAttribute('data-pg',want.id);try{window.dispatchEvent(new Event('q4:route'));}catch(err){}
     };
     swap();
     if(!first&&!reduced){want.style.setProperty('--tin','4%');want.style.setProperty('--ryin','0deg');want.classList.remove('turn-in');void want.offsetWidth;want.classList.add('turn-in');setTimeout(function(){want.classList.remove('turn-in');},340);}
@@ -178,37 +181,44 @@ var q4keep=(function(){
   var pool=[].slice.call(W.querySelectorAll('.vpool li')),vi=-1;
   function titleOf(n){var c=document.querySelector('.card[href="#l'+n+'"] .ct');return c?c.textContent:'';}
   function dayTitle(n,k){var a=document.querySelector('#l'+n+' .navrow[data-row="jd"] a[href="#l'+n+'-'+k+'"] .t');return a?a.textContent:'';}
-  function verse(){
+  function verse(anim){
     if(!pool.length)return;
     var lastV=+(get('wv')||-1),i;
     do{i=Math.floor(Math.random()*pool.length);}while(pool.length>1&&(i===vi||i===lastV));
-    vi=i;set('wv',i);var li=pool[i];
-    W.querySelector('.wvt').textContent='“'+li.textContent+'”';
-    W.querySelector('.wvr').innerHTML='';
-    var r=W.querySelector('.wvr'),a=document.createElement('a');
-    r.appendChild(document.createTextNode('—— '+li.dataset.r+' · 出自'));
-    a.href='#l'+li.dataset.l;a.textContent='第'+li.dataset.l+'课《'+li.dataset.t+'》';r.appendChild(a);
+    vi=i;set('wv',i);var li=pool[i],box=W.querySelector('.wverse');
+    function put(){
+      W.querySelector('.wvt').textContent='“'+li.textContent+'”';
+      W.querySelector('.wvr').innerHTML='';
+      var r=W.querySelector('.wvr'),a=document.createElement('a');
+      r.appendChild(document.createTextNode('—— '+li.dataset.r+' · 出自'));
+      a.href='#l'+li.dataset.l;a.textContent='第'+li.dataset.l+'课《'+li.dataset.t+'》';r.appendChild(a);
+    }
+    if(anim&&box&&!reduced){box.classList.add('out');setTimeout(function(){put();box.classList.remove('out');},320);}else put();   // 换一节：淡出，再淡入
   }
   function fill(){
     tick();
     var go=W.querySelector('#wgo'),dt=W.querySelector('.wdate'),cl=W.querySelector('.wclass');
-    function btn(a,b){go.querySelector('.l1').textContent=a;go.querySelector('.l2').textContent=b;}
-    var dstr='今天是 <b>'+D.m+'月'+D.d+'日 '+D.dn+'</b>';
+    function btn(a,b,c){go.querySelector('.l1').textContent=a;go.querySelector('.l2').textContent=b;go.querySelector('.l3').textContent=c||'';}
+    var hr=new Date().getHours(),hi=W.querySelector('.whello');if(hi)hi.textContent=hr<5?'夜深了':hr<11?'早安':hr<14?'午安':hr<18?'下午好':'晚安';
+    var dstr=D.m+'月'+D.d+'日 '+D.dn;
     if(D.no){
-      dt.innerHTML=dstr+' · 本周学课：第'+D.no+'课';
+      var T=titleOf(D.no);
+      dt.innerHTML=dstr+' · 第 <b>'+D.no+'</b> 课';
       go.href='#l'+D.no+'-'+(D.key==='sum'?'':'yw-')+D.key;   // 先读当天的学课原文；读完打卡后，需要时再看解读
-      if(D.sabbath)btn('今日安息日学课堂 →','第'+D.no+'课《'+titleOf(D.no)+'》· 知信行与讨论');
-      else btn('进入今日学课 →','第'+D.no+'课《'+titleOf(D.no)+'》· '+(D.key==='sab'?'导言':D.dn));
+      if(D.sabbath)btn('今日安息日学课堂','知 · 信 · 行','第'+D.no+'课《'+T+'》· 讨论与背诵');
+      else if(D.key==='sab')btn('进入今日学课 · 安息日下午','《'+T+'》','第'+D.no+'课 · 本课导言，先读原文');
+      else btn('进入今日学课 · '+D.dn,dayTitle(D.no,D.key)||'《'+T+'》','第'+D.no+'课《'+T+'》');
     }else if(D.before){
-      dt.innerHTML=dstr+' · 本季学课将于 <b>9月26日</b> 开始';
-      go.href='#l0'; btn('先读本季导言 →','《预言的恩赐》导言与全季总览');
+      dt.innerHTML=dstr+' · <b>9月26日</b>开学';
+      go.href='#l0'; btn('本季学课将于 9月26日 开始','先读本季导言','《预言的恩赐》导言与全季总览');
     }else{
-      dt.innerHTML=dstr+' · 本季学课已经学完';
-      go.href='#home'; btn('本季已学完 →','回顾全季十三课');
+      dt.innerHTML=dstr+' · 本季已学完';
+      go.href='#home'; btn('本季已经学完','回顾全季十三课','导言 + 13 课');
     }
     if(D.next){cl.hidden=false;var ca=cl.querySelector('a');ca.href='#l'+D.next+'-yw-sab';ca.textContent='今天下午开始新课：第'+D.next+'课《'+titleOf(D.next)+'》';}
     paintTime();
     verse();
+    if(window.Q4Comm)Q4Comm.paint();
   }
   function paintTime(){
     var all=total(),mins=Math.floor(all/60),h=Math.floor(mins/60),mm=mins%60;
@@ -220,18 +230,20 @@ var q4keep=(function(){
     W.querySelector('.m0').hidden=glory; W.querySelector('.m1').hidden=!glory;
     if(glory){var g=goals();if(g.indexOf(WK)<0){g.push(WK);set('goals',JSON.stringify(g));}W.querySelector('.wn').textContent=g.length;}
   }
-  function open(){fill();W.hidden=false;W.classList.remove('leaving');document.documentElement.classList.add('wopen');W.scrollTop=0;setTimeout(function(){W.focus({preventScroll:true});},60);}
+  function said(){try{window.dispatchEvent(new Event('q4:welcome'));}catch(e){}}
+  function open(){fill();W.hidden=false;W.classList.remove('leaving');document.documentElement.classList.add('wopen');W.scrollTop=0;setTimeout(function(){W.focus({preventScroll:true});},60);said();}
   function close(toHome){
-    W.classList.add('leaving');document.documentElement.classList.remove('wopen');
-    setTimeout(function(){W.hidden=true;},550);
-    if(toHome){var c=document.querySelector('.card.now');if(c&&home.classList.contains('show'))setTimeout(function(){c.scrollIntoView({block:'center',behavior:'smooth'});},250);}
+    W.classList.add('leaving');document.documentElement.classList.remove('wopen');said();
+    setTimeout(function(){if(W.classList.contains('leaving'))W.hidden=true;},460);
   }
   W.addEventListener('click',function(e){
     var a=e.target.closest('a[href^="#"]');
     if(a){var h=a.getAttribute('href');close(h==='#home');if(location.hash===h)e.preventDefault();return;}
     if(e.target.closest('[data-wclose]'))close(true);
-    if(e.target.closest('.wshuf:not(.wimg)'))verse();
+    if(e.target.closest('.wshuf:not(.wimg)')||(e.target.closest('.wverse')&&!e.target.closest('a,button')))verse(true);   // 点经文就换一节
   });
+  W.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('.wverse')){e.preventDefault();verse(true);}});
+  window.Q4Welcome={open:open,close:close,isOpen:function(){return !W.hidden&&!W.classList.contains('leaving');}};
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!W.hidden)close(true);});
   window.addEventListener('hashchange',function(){if(!W.hidden&&location.hash&&location.hash!=='#home')close(false);});
   document.querySelectorAll('[data-welcome]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();open();});});
@@ -339,7 +351,7 @@ var q4keep=(function(){
   }
   function reward(){
     if(!GF||get('sharePending')!=='1')return;
-    if(!W.hidden||(SH&&!SH.hidden)||(WG&&!WG.hidden)||(HC&&!HC.hidden)||!GF.hidden)return;
+    if(!W.hidden||(SH&&!SH.hidden)||(WG&&!WG.hidden)||!GF.hidden)return;   // （原来这里还查一个已经删掉的确认框 HC，会出错，礼物就出不来）
     set('sharePending','0');
     var n=(+get('shares')||0)+1;set('shares',String(n));
     setTimeout(function(){showGift(n);},300);
@@ -940,7 +952,7 @@ window.Q4Hub=(function(){
   }
   function paint(){
     var na=newArts(),nr=unseen.length,adm=unseen.some(function(r){return r.admin;});
-    document.querySelectorAll('a.btn.egg[href="#qa"],a.wbtn.egg').forEach(function(a){
+    document.querySelectorAll('a.btn.egg[href="#qa"],a.wbtn.egg,a.wtile.egg,[data-egg]').forEach(function(a){
       var b=a.querySelector('.nbadge');
       if(na.length||nr){if(!b){b=el('span','nbadge');a.appendChild(b);}b.textContent=nr?String(nr):'新';b.setAttribute('aria-label',nr?nr+' 条新回答':'有新文章');}
       else if(b)b.parentNode.removeChild(b);
@@ -992,6 +1004,7 @@ window.Q4Hub=(function(){
     var b=e.target.closest('.ckin .ck-btn');if(!b||b.disabled)return;
     var box=b.closest('.ckin'),k=box.dataset.ck;
     set('ck:'+k,'1');b.disabled=true;paintCk();   // 先在本机记下，马上有反馈
+    if(window.Q4Burst)Q4Burst(b);   // 打卡：按钮变绿，小金点散开
     var c=box.querySelector('.ck-cheer');c.textContent=cheers[Math.floor(Math.random()*cheers.length)];c.hidden=false;box.classList.add('pop');
     setTimeout(function(){box.classList.remove('pop');},900);
     H.post({op:'c',id:H.rid('c'),k:k}).then(paintCk,function(){/* 没联网也没关系：本机已记下；下次联网再补 */set('ckpend',JSON.stringify(pend().concat([k])));});
@@ -1000,14 +1013,59 @@ window.Q4Hub=(function(){
   function flush(){var p=pend();if(!p.length||!H.ok)return;set('ckpend','[]');p.forEach(function(k,i){setTimeout(function(){H.post({op:'c',id:H.rid('c'),k:k}).catch(function(){set('ckpend',JSON.stringify(pend().concat([k])));});},i*400);});}
   // 欢迎页“本周共读”
   function weekCard(){
-    var card=document.querySelector('#welcome .wtogether');if(!card)return;
-    var no=D.no;if(!no){card.hidden=true;return;}
-    var keys=['sab','sun','mon','tue','wed','thu','fri'],mine=0,h='';   // 只显示自己读完了哪几天，不显示人数
-    keys.forEach(function(x){var k='l'+no+'-'+x,me=mineCk(k);if(me)mine++;
-      h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#l'+no+'-yw-'+x+'" title="'+DN[x]+(me?' · 已读完':'')+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(me?'✓':'·')+'</span></a>';});
-    card.querySelector('.wt-days').innerHTML=h;
+    var card=document.querySelector('#welcome .wtogether');if(!card){weekUI();return;}
+    var no=D.no;if(!no){card.hidden=true;weekUI();return;}
+    var keys=['sab','sun','mon','tue','wed','thu','fri'],mine=0;   // 只显示自己读完了哪几天，不显示人数
+    keys.forEach(function(x){if(mineCk('l'+no+'-'+x))mine++;});
+    card.querySelector('.wt-days').innerHTML=daysHtml(no);
     card.querySelector('.wt-msg').innerHTML=mine?('第'+no+'课本周你已读完 <b>'+mine+'</b>/7 天'+(mine===7?'，全部读完了，真好！':'，继续加油')):('读完当天的学课原文，记得在最后打卡；读完的日子会在这里打上 ✓');
     card.hidden=false;
+    weekUI();
+  }
+  /* 新设计：首页进度环、学课目录（本周卡片、时间线、全季进度）、侧栏本周、导航上读完的日子 */
+  function dayT(n,k){var a=document.querySelector('#l'+n+' .navrow[data-row="jd"] a[href="#l'+n+'-'+k+'"] .t');return a?a.textContent:'';}
+  function daysHtml(no){
+    var keys=['sab','sun','mon','tue','wed','thu','fri'],h='';
+    keys.forEach(function(x){var me=mineCk('l'+no+'-'+x);h+='<a class="wt-d'+(me?' me':'')+(D.key===x?' today':'')+'" href="#l'+no+'-yw-'+x+'" title="'+DN[x]+(me?' · 已读完':'')+'"><span class="wt-a">'+AB[x]+'</span><span class="wt-n">'+(me?'✓':'·')+'</span></a>';});
+    return h;
+  }
+  function weekUI(){
+    var no=D.no,keys=['sab','sun','mon','tue','wed','thu','fri'],mine=0,all=0,i,n;
+    if(no)keys.forEach(function(x){if(mineCk('l'+no+'-'+x))mine++;});
+    var ring=document.querySelector('#welcome .wring');
+    if(ring){ring.hidden=!no;var fc=ring.querySelector('.fgc');if(fc)fc.style.strokeDashoffset=String(Math.round(169.6*(1-mine/7)*10)/10);var rn=ring.querySelector('.wr-n');if(rn)rn.textContent=mine+'/7';}
+    var href=no?'#l'+no+'-'+(D.key==='sum'?'':'yw-')+D.key:(D.before?'#l0':'#home');
+    // 时间线：读过的天数、哪一课是本周
+    document.querySelectorAll('.tl .card[data-l]').forEach(function(c){
+      var L=+c.dataset.l,li=c.parentNode,cnt=0;
+      for(i=0;i<7;i++)if(L&&mineCk('l'+L+'-'+keys[i]))cnt++;all+=cnt;
+      c.querySelectorAll('.mdots i').forEach(function(d,j){d.classList.toggle('on',j<cnt);});
+      var st=D.after||(no&&L<no)?'done':(L===no||(!no&&D.before&&L===0))?'now':'future';
+      if(li&&li.classList){li.classList.toggle('done',st==='done');li.classList.toggle('now',st==='now');li.classList.toggle('future',st==='future');}
+    });
+    var se=document.querySelector('#home .season');
+    if(se){se.querySelector('.bar i').style.width=Math.min(100,all/91*100).toFixed(1)+'%';se.querySelector('.s-read').textContent='读完打卡 '+all+' 天';}
+    // 学课目录：本周卡片
+    var f=document.getElementById('hfeat'),card=no&&document.querySelector('.tl .card[data-l="'+no+'"]');
+    if(f){
+      if(card){
+        f.href=href;f.hidden=false;
+        f.querySelector('.f-k').textContent='本周 · 第'+no+'课';
+        f.querySelector('.f-t').textContent=card.querySelector('.ct').textContent;
+        f.querySelector('.f-d').textContent=(card.querySelector('.cdd')||{}).textContent+' · 读完一天就打卡';
+        f.querySelector('.f-mt').textContent='“'+(card.dataset.mem||'')+'”';f.querySelector('.f-mr').textContent=(card.dataset.memref||'')+' · 存心节';
+        f.querySelector('.fdays').innerHTML=daysHtml(no);
+        f.querySelector('.f-go').textContent=D.sabbath?'今日安息日学课堂 · 知信行':'继续：'+DN[D.key]+(D.key!=='sab'&&dayT(no,D.key)?' · '+dayT(no,D.key):'');
+      }else f.hidden=true;
+    }
+    // 电脑侧栏：本周
+    var sw=document.querySelector('.side .sweek');
+    if(sw){sw.hidden=!no;if(no&&card){sw.href=href;sw.querySelector('.sw-k').textContent='本周 · 第'+no+'课';sw.querySelector('.sw-t').textContent=card.querySelector('.ct').textContent;
+      sw.querySelector('.bar i').style.width=(mine/7*100).toFixed(1)+'%';
+      var mn=window.Q4Week&&Q4Week.total?Math.floor(Q4Week.total()/60):0;sw.querySelector('.sw-m').textContent='已读 '+mine+'/7 天 · 本周 '+mn+' 分钟';}}
+    // 导航：读完打卡的日子打个勾
+    for(n=1;n<=13;n++)keys.forEach(function(x){var me=mineCk('l'+n+'-'+x);
+      document.querySelectorAll('.nav a[href="#l'+n+'-'+x+'"],.nav a[href="#l'+n+'-yw-'+x+'"]').forEach(function(a){a.classList.toggle('ckd',me);});});
   }
 
   /* ===== 3. 讨论区：把“写下我的回答”分享给大家 ===== */
@@ -1124,22 +1182,7 @@ window.Q4Hub=(function(){
   });
   applyFs(fs());applyTh(theme());
 
-  /* ===== 工具按钮：和“主页”浮动按钮并排、一样一直显示（往下读时一起变成半透明）；欢迎页、学课目录里也有 ===== */
-  var SVG={s:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
-    a:'<span class="aa" aria-hidden="true">A<small>A</small></span>'};
-  var tools=el('div','tools');tools.innerHTML='<button type="button" class="tbtn" data-rsearch aria-label="搜索">'+SVG.s+'</button><button type="button" class="tbtn" data-rsettings aria-label="阅读设置">'+SVG.a+'</button>';
-  document.body.appendChild(tools);
-  var fab=document.querySelector('.fab');
-  function syncTools(){if(!fab)return;var g=fab.classList.contains('glass');tools.querySelectorAll('.tbtn').forEach(function(b){b.classList.toggle('glass',g);});tools.style.setProperty('--fabw',fab.offsetWidth+'px');}
-  if(fab&&window.MutationObserver)new MutationObserver(syncTools).observe(fab,{attributes:true,attributeFilter:['class']});
-  if(fab&&window.ResizeObserver)new ResizeObserver(syncTools).observe(fab);   // 字号变了，主页按钮变宽，工具按钮跟着让位
-  syncTools();
-  var wrec=document.querySelector('#welcome .wrec');
-  if(wrec){var wt=el('p','wtools','<button type="button" data-rsearch>'+SVG.s+'搜索全季内容</button><button type="button" data-rsettings>'+SVG.a+'字号 · 夜间模式</button>');
-    var wb=wrec.querySelector('.wbtns');wb.parentNode.insertBefore(wt,wb.nextSibling);}
-  var home=document.getElementById('home');
-  if(home){var ht=el('p','hometools','<button type="button" class="btn ghost" data-rsearch>'+SVG.s+'搜索</button><button type="button" class="btn ghost" data-rsettings>'+SVG.a+'字号 · 夜间</button><button type="button" class="btn ghost" data-rresume hidden>📖 继续上次阅读</button>');
-    home.insertBefore(ht,home.firstChild);}
+  /* ===== 搜索、字号的入口：首页右上角、学课顶栏、电脑侧栏、“我的”面板（新设计里不再有浮动按钮） ===== */
   document.addEventListener('click',function(e){
     if(e.target.closest('[data-rsettings]')){e.preventDefault();paintRS();open(RS);}
     else if(e.target.closest('[data-rsearch]')){e.preventDefault();openSearch();}
@@ -1196,7 +1239,7 @@ window.Q4Hub=(function(){
     if(hb)hb.hidden=!r;
   }
   paintResume();
-  window.Q4Reader={fs:function(v){applyFs(+v||1);},th:applyTh,resume:paintResume};   // 账号同步来的设置、阅读位置马上生效
+  window.Q4Reader={fs:function(v){applyFs(+v||1);},th:applyTh,resume:paintResume,saved:saved};   // 账号同步来的设置、阅读位置马上生效
 
   /* ===== 全文搜索 ===== */
   var SS=sheet('rsearch','搜索全季内容','<h3>搜索全季内容</h3><p class="sr-tip">13 课解读、学课原文、问题彩蛋都能搜。多个词用空格分开。</p>'+
@@ -1234,6 +1277,7 @@ window.Q4Hub=(function(){
     jump(w.a,x.el);
   });
   function openSearch(){open(SS);var q=SS.querySelector('.sr-q');if(!q.value&&get('lastq'))q.value=get('lastq');setTimeout(function(){q.focus();if(q.value)q.select();},80);}
+  window.Q4Tools={search:openSearch,sheet:sheet,open:open,close:close};
 
   /* ===== 朗读：优先播放预先录好的自然人声（微信里也能听）；没有录音的部分用手机自带的语音 ===== */
   var SY=window.speechSynthesis,canSY=!!(SY&&window.SpeechSynthesisUtterance);
@@ -2171,6 +2215,203 @@ window.Q4Hub=(function(){
   });
   window.addEventListener('hashchange',sync);
   sync();
+})();
+
+/* ---------- 新设计（2026-10）：底部标签栏 · 电脑侧栏 · “我的” · 选择课次 · 原文/解读开关 · 本日内容 · 投屏 · 快捷键 · 动效 ---------- */
+(function(){
+  if(!document.body.classList.contains('combined'))return;
+  var de=document.documentElement,reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wide=window.matchMedia?matchMedia('(min-width:1024px)'):{matches:false};
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function wOpen(){return !!(window.Q4Welcome&&Q4Welcome.isOpen());}
+  function pg(){return de.getAttribute('data-pg')||'home';}
+  function reading(){return /^(l\d+|qa\d+)$/.test(pg());}
+  var IC={book:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/></svg>',
+    search:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>',
+    chat:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg>',
+    user:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/></svg>',
+    right:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'};
+
+  /* ===== 标签栏、侧栏：亮起现在所在的栏目 ===== */
+  function tabOf(){if(wOpen())return 'welcome';var p=pg();if(/^l\d+$|^home$/.test(p))return 'home';if(/^qa/.test(p))return 'qa';return p;}
+  function paintTabs(){
+    var t=tabOf();
+    document.querySelectorAll('.tabbar [data-t]').forEach(function(a){a.classList.toggle('on',a.dataset.t===t||(t==='ask'&&a.dataset.t==='qa'));});
+    document.querySelectorAll('.snav [data-t]').forEach(function(a){a.classList.toggle('on',a.dataset.t===t);});
+    de.classList.toggle('rpon',reading()&&!wOpen());
+    de.classList.remove('tbhide');
+  }
+  window.addEventListener('q4:route',paintTabs);window.addEventListener('q4:welcome',paintTabs);window.addEventListener('hashchange',paintTabs);paintTabs();
+  // 点标签栏、侧栏：在首页上就先把首页收起来；已经在这一栏了就回到顶上
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('.tabbar a[href^="#"],.snav a[href^="#"],.sweek');
+    if(!a||a.hasAttribute('data-gohome')||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    e.preventDefault();e.stopPropagation();
+    var h=a.getAttribute('href'),wo=wOpen();
+    if(wo)Q4Welcome.close(h==='#home');
+    if((location.hash||'#home')===h){if(!wo)window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});}
+    else location.hash=h;
+  },true);
+
+  /* ===== 往下读时标签栏收起，往上滑时出来；阅读进度 ===== */
+  var ly=window.scrollY,tk=false,rp=document.querySelector('.rprog i');
+  function onScroll(){
+    tk=false;var y=window.scrollY,d=y-ly;ly=y;
+    if(reading()&&!wOpen()){if(d>6&&y>140)de.classList.add('tbhide');else if(d<-6||y+innerHeight>de.scrollHeight-80)de.classList.remove('tbhide');}
+    if(rp){var hgt=de.scrollHeight-innerHeight;rp.style.transform='scaleX('+(reading()&&hgt>0?Math.min(1,y/hgt):0).toFixed(4)+')';}
+    toc();
+  }
+  addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(onScroll);}},{passive:true});
+
+  /* ===== 面板（沿用阅读设置的样式） ===== */
+  var T=window.Q4Tools;
+  function mk(cls,label,inner){return T?T.sheet(cls,label,inner):null;}
+
+  /* ===== “我的” ===== */
+  var ME=mk('mesheet','我的','<h3>我的</h3><div class="me-in"></div>');
+  function meFill(){
+    var acc=null;try{acc=JSON.parse(get('acct')||'null');}catch(e){}
+    var D=window.Q4Today||{},mine=0,all=0,keys=['sab','sun','mon','tue','wed','thu','fri'];
+    try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^q4:ck:l\d+-(sab|sun|mon|tue|wed|thu|fri)$/.test(k)&&localStorage.getItem(k)==='1'){all++;if(D.no&&k.indexOf('q4:ck:l'+D.no+'-')===0)mine++;}}}catch(e){}
+    var mins=window.Q4Week&&Q4Week.total?Math.floor(Q4Week.total()/60):0,r=window.Q4Reader&&Q4Reader.saved?Q4Reader.saved():null;
+    ME.querySelector('.me-in').innerHTML=
+      '<button type="button" class="me-acct" data-acct><span class="me-av">'+IC.user+'</span><span><b>'+(acc?esc(acc.u):'未登录')+'</b><small>'+(acc?'已登录 · 换手机、用电脑也能同步':'登录后换手机、用电脑也能同步进度')+'</small></span><span class="go">'+IC.right+'</span></button>'+
+      '<div class="me-stats"><div><b>'+(mins>=60?Math.floor(mins/60)+'时'+(mins%60):mins)+'</b><small>本周研读'+(mins>=60?'':'（分钟）')+'</small></div><div><b>'+(D.no?mine+'/7':'—')+'</b><small>本周读完</small></div><div><b>'+all+'</b><small>累计打卡（天）</small></div></div>'+
+      '<div class="me-list">'+(r?'<button type="button" data-rresume>'+IC.book+'继续上次阅读<em>'+esc(r.label)+'</em></button>':'')+
+      '<button type="button" data-rsearch>'+IC.search+'搜索全季内容</button>'+
+      '<button type="button" data-rsettings><span class="aa">A<small>A</small></span>字号与夜间模式</button>'+
+      '<a href="#ask" data-meask>'+IC.chat+'提问区 · 我的提问</a></div>'+
+      '<p class="me-foot">整理制作 · Ethan（HangZhou_XG）</p>';
+  }
+  if(ME){
+    ME.addEventListener('click',function(e){
+      var t=e.target.closest('[data-acct],[data-rresume],[data-rsearch],[data-rsettings],[data-meask]');if(!t)return;
+      T.close(ME);
+      if(t.hasAttribute('data-meask')){e.preventDefault();if(wOpen())Q4Welcome.close(false);if(location.hash!=='#ask')location.hash='ask';}
+    });
+    document.addEventListener('click',function(e){if(e.target.closest('[data-me]')){e.preventDefault();meFill();T.open(ME);}});
+  }
+
+  /* ===== 选择课次（学课顶栏的标题） ===== */
+  var PK=mk('pksheet','选择课次','<h3>选择课次</h3><div class="pkr-list"></div>');
+  if(PK){
+    document.addEventListener('click',function(e){
+      if(!e.target.closest('[data-picker]'))return;e.preventDefault();
+      var curL=(/^l(\d+)$/.exec(pg())||[])[1];
+      PK.querySelector('.pkr-list').innerHTML=[].map.call(document.querySelectorAll('.tl .card[data-l]'),function(c){var L=c.dataset.l,dt=c.querySelector('.mdots');
+        return '<a href="#l'+L+'" class="'+(L===curL?'cur':'')+'"><span class="pn">'+esc(c.querySelector('.no').textContent)+'</span><b>'+esc(c.querySelector('.ct').textContent)+'</b>'+(dt?dt.outerHTML:'')+'</a>';}).join('');
+      T.open(PK);
+      setTimeout(function(){var c=PK.querySelector('a.cur');if(c&&c.scrollIntoView)c.scrollIntoView({block:'center'});},60);
+    });
+    PK.addEventListener('click',function(e){var a=e.target.closest('.pkr-list a');if(!a)return;e.preventDefault();T.close(PK);var h=a.getAttribute('href');if(location.hash!==h)location.hash=h;});
+  }
+
+  /* ===== 原文 | 解读 开关：切到同一天的另一部分 ===== */
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.seg [data-seg]');if(!b)return;e.preventDefault();
+    var nav=b.closest('.nav'),want=b.dataset.seg,on=nav.querySelector('.navrow a.on'),row=on&&on.closest('.navrow');
+    nav.dataset.part=want;nav.dataset.hold='1';setTimeout(function(){delete nav.dataset.hold;},1100);
+    var go=null;
+    if(on&&row.dataset.row!==want){
+      var m=/^#(l\d+)-(?:yw-)?(\w+)$/.exec(on.getAttribute('href'));
+      if(m)go=nav.querySelector('.navrow[data-row="'+want+'"] a[href="#'+m[1]+'-'+(want==='yw'?'yw-':'')+(m[2]==='sum'&&want==='yw'?'sab':m[2])+'"]');
+    }
+    if(!go&&(!on||row.dataset.row!==want))go=nav.querySelector('.navrow[data-row="'+want+'"] a');
+    if(go){go.click();var r=go.closest('.navrow');setTimeout(function(){r.scrollLeft=Math.max(0,go.offsetLeft-r.clientWidth/2+go.offsetWidth/2);},30);}
+  });
+
+  /* ===== 电脑：左边“本日内容”（解读的六个部分），读到哪里亮哪里 ===== */
+  var tocFor=null;
+  function toc(){
+    if(!wide.matches||!/^l\d+$/.test(pg())||wOpen())return;
+    var L=document.getElementById(pg());if(!L)return;
+    var nav=L.querySelector('.nav'),box=nav&&nav.querySelector('.otoc');if(!box)return;
+    var line=140,sec=null;
+    L.querySelectorAll('section.day,article.ywday').forEach(function(s){var r=s.getBoundingClientRect();if(r.top<=line&&r.bottom>line)sec=s;});
+    var lens=sec?[].slice.call(sec.querySelectorAll(':scope>.lens')):[];
+    if(!lens.length){box.hidden=true;tocFor=null;return;}
+    if(tocFor!==sec){tocFor=sec;box.hidden=false;
+      box.querySelector('.ol').innerHTML=lens.map(function(x,i){return '<button type="button" data-lens="'+i+'"><em>'+('0'+(i+1)).slice(-2)+'</em>'+esc(x.querySelector('h3').textContent)+'</button>';}).join('');}
+    var k=-1;lens.forEach(function(x,i){if(x.getBoundingClientRect().top<=line)k=i;});
+    box.querySelectorAll('[data-lens]').forEach(function(b,i){b.classList.toggle('on',i===k);});
+    var r=sec.getBoundingClientRect(),p=Math.max(0,Math.min(1,(line-r.top)/Math.max(1,r.height-innerHeight*0.5)));
+    box.querySelector('.opct').textContent=Math.round(p*100)+'%';
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.otoc [data-lens]');if(!b||!tocFor)return;
+    var x=tocFor.querySelectorAll(':scope>.lens')[+b.dataset.lens];if(x)x.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+  });
+  window.addEventListener('q4:route',function(){tocFor=null;setTimeout(toc,200);});
+
+  /* ===== 投屏模式（电脑）：栏目都收起来，字放大，全屏；← → 翻页，Esc 退出 ===== */
+  var present=false,hud=el('div','phud','<b></b><span>← → 翻页 · Esc 退出投屏</span>'),hudT=null;hud.setAttribute('aria-live','polite');document.body.appendChild(hud);
+  function stops(){var L=document.getElementById(pg());if(!L)return [];
+    return [].slice.call(L.querySelectorAll('main .masthead,main .essence,main .parthead,article.ywday,section.day,section.day>.lens,.kxx')).filter(function(x){return x.getClientRects().length;});}
+  function hudPaint(){
+    if(!present)return;var y=innerHeight*0.4,cur=null;
+    stops().forEach(function(x){if(x.getBoundingClientRect().top<=y)cur=x;});
+    var t='';if(cur){var day=cur.closest('section.day,article.ywday'),dn=day&&day.querySelector('.when .dn');t=(dn?dn.textContent.trim():'')+(day&&day.matches('.ywday')?' · 原文':'');
+      if(cur.matches('.lens'))t+=' · '+cur.querySelector('h3').textContent;}
+    hud.querySelector('b').textContent=t||((document.getElementById(pg())||{}).dataset||{}).title||'';
+  }
+  function wake(){hud.classList.remove('dim');clearTimeout(hudT);hudT=setTimeout(function(){hud.classList.add('dim');},2600);}
+  function setPresent(on){
+    if(on===present)return;if(on&&(!wide.matches||!/^l\d+$/.test(pg())))return;
+    var keep=null,y=innerHeight*0.3;stops().forEach(function(x){if(x.getBoundingClientRect().top<=y)keep=x;});
+    present=on;de.classList.toggle('present',on);
+    if(on){try{var r=de.requestFullscreen&&de.requestFullscreen();if(r&&r.catch)r.catch(function(){});}catch(e){}wake();}
+    else if(document.fullscreenElement&&document.exitFullscreen){document.exitFullscreen().catch(function(){});}
+    requestAnimationFrame(function(){if(keep)keep.scrollIntoView({block:'start'});hudPaint();});
+  }
+  document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&present)setPresent(false);});
+  document.addEventListener('click',function(e){if(e.target.closest('[data-present]')){e.preventDefault();setPresent(!present);}});
+  window.addEventListener('q4:route',function(){if(present&&!/^l\d+$/.test(pg()))setPresent(false);});
+  addEventListener('scroll',function(){if(present)hudPaint();},{passive:true});
+  addEventListener('mousemove',function(){if(present)wake();},{passive:true});
+  function page(dir){   // 这一段还没看完就往下翻一屏，看完了就跳到下一段的开头
+    var y=window.scrollY,vh=innerHeight,st=stops().map(function(x){return x.getBoundingClientRect().top+y-24;}),t,i,nx=null,pv=null;
+    if(dir>0){for(i=0;i<st.length;i++)if(st[i]>y+4){nx=st[i];break;}t=(nx===null||nx-y>vh*0.92)?y+vh*0.8:nx;}
+    else{for(i=st.length-1;i>=0;i--)if(st[i]<y-4){pv=st[i];break;}t=pv===null?0:(y-pv>vh*0.92?y-vh*0.8:pv);}
+    window.scrollTo({top:Math.max(0,t),behavior:reduced?'auto':'smooth'});wake();
+  }
+
+  /* ===== 快捷键（电脑）：Ctrl K 或 / 搜索，P 投屏；Esc 关掉弹出的面板 ===== */
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){var o=document.querySelector('.hconf.rsheet.open .hconf-bg[data-close]');if(o){o.click();return;}}
+    var tg=e.target,typing=tg&&(tg.tagName==='INPUT'||tg.tagName==='TEXTAREA'||tg.tagName==='SELECT'||tg.isContentEditable);
+    if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();if(T)T.search();return;}
+    if(typing||e.altKey||e.ctrlKey||e.metaKey||de.classList.contains('sheetopen')||de.classList.contains('bopen'))return;
+    if(e.key==='/'){e.preventDefault();if(T)T.search();return;}
+    if(e.key==='Escape'&&present){setPresent(false);return;}
+    if((e.key==='p'||e.key==='P')&&!wOpen()&&/^l\d+$/.test(pg())&&wide.matches){setPresent(!present);return;}
+    if(present){
+      if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();page(1);}
+      else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>=0){e.preventDefault();page(-1);}
+    }
+  });
+
+  /* ===== 读完打卡：按钮变绿，小金点散开 ===== */
+  window.Q4Burst=function(b){
+    if(reduced||!b||!Element.prototype.animate)return;if(navigator.vibrate)try{navigator.vibrate(12);}catch(e){}
+    for(var i=0;i<14;i++){var d=el('i','ck-burst');b.appendChild(d);var a=Math.PI*2*i/14,r=60+Math.random()*30;
+      d.animate([{opacity:1,transform:'translate(0,0) scale(1)'},{opacity:0,transform:'translate('+Math.cos(a)*r+'px,'+Math.sin(a)*r+'px) scale(.4)'}],{duration:700+Math.random()*300,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=function(){var t=this.effect&&this.effect.target;if(t&&t.parentNode)t.parentNode.removeChild(t);};}
+  };
+
+  /* ===== 首页的光：鼠标移动时轻轻跟着动（电脑） ===== */
+  var hero=document.querySelector('.whero');
+  if(hero&&!reduced&&window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+    hero.addEventListener('mousemove',function(e){var r=hero.getBoundingClientRect();hero.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5).toFixed(3));hero.style.setProperty('--my',((e.clientY-r.top)/r.height-.5).toFixed(3));});
+    hero.addEventListener('mouseleave',function(){hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0);});
+  }
+
+  /* ===== 滚动到眼前时轻轻浮现 ===== */
+  if(!reduced&&'IntersectionObserver' in window){
+    de.classList.add('rv');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('section.day>.lens,.tli,.qcard,.mfold,.wcard,.kxx section,.ckin,.pncard').forEach(function(x){x.classList.add('rvl');io.observe(x);});
+  }
 })();
 
 /* ---------- 网页就绪：开场画面淡出；稍后再换上正文字体（在线版首屏先用手机自带的字体，省下约 800 KB） ---------- */

@@ -104,6 +104,27 @@ def nav_html(titles):
   <div class="navrow" data-row="yw"><span class="k">原文</span>{r2}</div>
 </nav>'''
 
+def modernize(frag, n, title):
+    """新设计的学课页：课首（标题、存心节、本课精要）挪进正文栏，导航从一开始就固定在顶上；
+    导航加一行顶栏（返回目录、切换课次、投屏、字号）和“原文 | 解读”切换。frag 是 prefix() 之后的片段。"""
+    i = frag.index('<div class="layout">')
+    head, rest = frag[:i], frag[i:]
+    assert '<main>\n' in rest, n
+    rest = rest.replace('<main>\n', '<main>\n' + head.strip() + '\n', 1)
+    no_html = '' if n == 0 else f'<span class="nb-no">第{n}课</span>'   # 导言的标题本身就是“本季导言”
+    bar = (f'<div class="nbar"><a class="nb-back" href="#home" aria-label="返回学课目录">{I_LEFT}</a>'
+           f'<button class="nb-t" type="button" data-picker aria-label="切换课次">{no_html}<span class="nb-tt">{title}</span>{I_DOWN}</button>'
+           f'<button class="nb-pres" type="button" data-present aria-label="投屏模式（P）">{I_SCREEN}<span>投屏</span></button>'
+           f'<button class="nb-aa" type="button" data-rsettings aria-label="字号与夜间模式">{AA}</button></div>')
+    seg = ('<div class="seg" role="group" aria-label="原文或解读"><span class="thumb" aria-hidden="true"></span>'
+           '<button type="button" data-seg="yw">原文</button><button type="button" data-seg="jd">解读</button></div>')
+    def nav(m):
+        return (m.group(1) + ' data-part="yw">' + bar + '<div class="nrow">' + seg + '<div class="nrows">' + m.group(2) +
+                '</div></div><div class="otoc" hidden><p class="ohd">本日内容<span class="opct"></span></p><div class="ol"></div></div>' + m.group(3))
+    rest, k = re.subn(r'(<nav class="nav"[^>]*)>(.*?)(</nav>)', nav, rest, count=1, flags=re.S)
+    assert k == 1, n
+    return rest
+
 def yw_titles(no):
     fp = 5 + 7 * (no - 1)
     t = ['安息日下午']
@@ -272,6 +293,7 @@ def prefix(frag, no):
     return frag
 
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
+THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
 JS = open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
 FOOT = '''<footer>
@@ -290,14 +312,16 @@ def shell(title, desc, body, combined):
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="{desc}">
+<meta name="theme-color" content="#0B1222">
 <title>{title}</title>
 {early}
 <style>
 /*FONTS*/
 {BASE_CSS}
 {EXTRA_CSS}
+{THEME_CSS}
 </style>
 </head>
 <body{' class="combined"' if combined else ''}>
@@ -334,7 +358,7 @@ def lesson_gist(mod):
     return mod.GIST if getattr(mod, 'RAW', None) else mod.L['gist']
 
 def build_single_intro():
-    frag = prefix(intro_frag(), 0).replace('#l0-NEXTLESSON', 'lesson-01.html')
+    frag = modernize(prefix(intro_frag(), 0).replace('#l0-NEXTLESSON', 'lesson-01.html'), 0, '本季导言')
     bar = '<div class="lessonbar single"><span>2026年第4季《预言的恩赐》逐课研读 · 本季导言</span></div>'
     out = shell('预言的恩赐 · 本季导言', '安息日学2026年第4季《预言的恩赐》导言原文与全季总览。',
                 with_bible(f'<div class="lesson" id="l0">{bar}\n{frag}\n</div>'), False)
@@ -346,7 +370,7 @@ def build_single_intro():
 
 def build_single(no):
     mod = load(no)
-    frag = prefix(render_lesson(mod), no)
+    frag = modernize(prefix(render_lesson(mod), no), no, lesson_title(mod))
     bar = f'<div class="lessonbar single"><span>2026年第4季《预言的恩赐》逐课研读 · 第{no}课</span></div>'
     body = f'<div class="lesson" id="l{no}">{bar}\n{frag}\n</div>'
     t = lesson_title(mod)
@@ -365,6 +389,25 @@ WXIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.3 4C
         '<path d="M22 14.6c0-2.8-2.8-5-6.2-5s-6.2 2.2-6.2 5 2.8 5 6.2 5c.7 0 1.4-.1 2-.3l2.3 1.3-.6-2.1c1.5-.9 2.5-2.3 2.5-3.9z" fill="currentColor" opacity=".82"/></svg>')
 LINKIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
           '<path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>')
+
+# ---------- 新设计的线条图标（标签栏、侧栏、学课顶栏） ----------
+def ic(d, extra=''):
+    return f'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"{extra}>{d}</svg>'
+I_HOME = ic('<path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/>')
+I_BOOK = ic('<path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/>')
+I_SPARK = ic('<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7zM18.5 15.5c.3 1.9 1 2.6 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.4 2.7-1.1 3-3z"/>')
+I_NOTE = ic('<path d="M9 18.5V5.5l11-2v13"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="16.5" r="2.5"/>')
+I_CHAT = ic('<path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/>')
+I_USER = ic('<circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/>')
+I_SEARCH = ic('<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>')
+I_LEFT = ic('<path d="M15 5 8 12l7 7"/>')
+I_DOWN = ic('<path d="m6 9 6 6 6-6"/>')
+I_RIGHT = ic('<path d="M5 12h14m-6-6 6 6-6 6"/>')
+I_SCREEN = ic('<rect x="3" y="4.5" width="18" height="12" rx="1.5"/><path d="M12 16.5v3.5M8 20h8"/>')
+I_DAWN = ic('<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 7V4.5M6.3 10.3 4.6 8.6M17.7 10.3l1.7-1.7M3.5 14.5h1.8M18.7 14.5h1.8"/>')
+I_REFRESH = ic('<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/>')
+I_IMAGE = ic('<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>')
+AA = '<span class="aa" aria-hidden="true">A<small>A</small></span>'
 
 def qr_svg(url):
     import qrcode
@@ -393,12 +436,19 @@ def folders():
 def mmss(n):
     return f'{int(n) // 60}:{int(n) % 60:02d}' if n else ''
 
+def pagebar(title, right='', back='#qa', back_label='问题彩蛋'):
+    """问答文章、提问区顶上的一行：返回、标题、右边的分享"""
+    return (f'<nav class="pbar" aria-label="{title}"><a class="pb-back" href="{back}">{I_LEFT}<span>{back_label}</span></a>'
+            f'<span class="pb-t">{title}</span><span class="pb-r">{right}</span></nav>')
+
+def shbtn(id_, label):
+    return f'<button class="pb-ib" type="button" data-share="{id_}" aria-label="{label}">{SHAREIC}</button>'
+
 def music_page():
     # 曲目由网页从 music/list.json 读取（收了新歌不用重新生成网页）；这里先放一份当前的清单，打开就能显示
     lst = [{k: x[k] for k in ('id', 'title', 'sub', 'intro', 'file', 'dur', 'type', 'alt', 'folder') if k in x} for x in songs()]
     data = json.dumps({'folders': folders(), 'songs': lst}, ensure_ascii=False).replace('</', '<\\/')
     return f'''<div class="lesson" id="music" data-title="音乐 · 预言的恩赐">
-<nav class="lessonbar" aria-label="音乐"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 <section class="mhome" data-list="{ONLINE}music/list.json" data-base="{ONLINE}music/">
   <p class="eyebrow">学课之余 · 安静聆听</p>
   <h1>音乐</h1>
@@ -409,7 +459,6 @@ def music_page():
   <p class="mnote">一首播完会接着播下一首。在微信里下载：请先点右上角「···」，选「在浏览器打开」，再点“⬇”。</p>
   <script type="application/json" class="mdata">{data}</script>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>
 </div>'''
 
 def qr_all():
@@ -429,7 +478,24 @@ def audio_cfg():
     return f'<div id="audiocfg" hidden data-audio="{ONLINE}audio/{TTS_VOICE}/" data-audio-ids="{" ".join(ids)}"></div>'
 
 def homeui():
-    return f'''<button class="fab" type="button" data-gohome aria-label="返回主页">{HOUSE}<span>主页</span></button>
+    def tab(href, icon, label, t, extra=''):
+        return f'<a class="tab" href="{href}" data-t="{t}"{extra}>{icon}<span>{label}</span></a>'
+    tabbar = ('<nav class="tabbar" id="tabbar" aria-label="主要栏目">' + tab('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + tab('#home', I_BOOK, '学课', 'home') +
+              tab('#qa', I_SPARK, '彩蛋', 'qa', ' data-egg') + tab('#music', I_NOTE, '音乐', 'music') +
+              f'<button class="tab" type="button" data-me data-t="me">{I_USER}<span>我的</span></button></nav>')
+    def sl(href, icon, label, t, extra=''):
+        return f'<a href="{href}" data-t="{t}" data-tip="{label}"{extra}>{icon}<span class="lbl">{label}</span></a>'
+    side = (f'<aside class="side" id="side" aria-label="栏目">'
+            f'<a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark">{I_DAWN}</span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a>'
+            f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索全季内容</span><kbd>Ctrl K</kbd></button>'
+            '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课目录', 'home') +
+            sl('#qa', I_SPARK, '问题彩蛋', 'qa', ' data-egg') + sl('#ask', I_CHAT, '提问区', 'ask') + sl('#music', I_NOTE, '音乐', 'music') + '</nav>'
+            '<a class="sweek" href="#home" hidden><span class="label sw-k"></span><b class="sw-t"></b><span class="bar"><i></i></span><small class="sw-m"></small></a>'
+            f'<div class="sfoot"><button class="sbtn" type="button" data-acct data-tip="账号">{I_USER}<span class="lbl ac-n">账号</span></button>'
+            f'<button class="sbtn" type="button" data-rsettings data-tip="字号与夜间模式">{AA}<span class="lbl">字号与夜间模式</span></button></div></aside>')
+    return f'''{tabbar}
+{side}
+<div class="rprog" aria-hidden="true"><i></i></div>
 <div class="shsheet" id="shsheet" role="dialog" aria-modal="true" aria-labelledby="sh-h" data-base="{ONLINE}" hidden>
   <div class="sh-bg" data-shclose></div>
   <div class="sh-card">
@@ -529,9 +595,8 @@ COPYIC = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" 
           '<path d="M15.5 5.5v-.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>')
 
 def ask_page():
-    top = (f'<nav class="lessonbar" aria-label="提问区"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a>'
-           f'<span class="pn"><button class="btn share" type="button" data-share="ask">{SHAREIC}分享提问区</button></span></nav>')
-    bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a></nav>'
+    top = pagebar('提问区', shbtn('ask', '分享提问区'))
+    bottom = ''
     return f'''<div class="lesson" id="ask" data-title="提问区 · 问题彩蛋">
 {top}
 <section class="askpage" data-topic="{ASK_TOPIC}" data-relay="{ASK_RELAY}" data-data="{ONLINE}data/ask.json" data-online="{ONLINE}">
@@ -594,7 +659,6 @@ def qa_pages():
   <span class="qgo">{'打开专题网页 →' if it.get('url') else '阅读解答 →'}</span>
 </a>''' for it in qa_data.ITEMS)
     out = [f'''<div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
-<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}</nav>
 <section class="qahome">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
@@ -603,17 +667,16 @@ def qa_pages():
   <div class="qcards">{cards}<div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
   <a class="askentry" href="#ask"><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
-<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}</nav>
 </div>''']
     for i, it in enumerate(items):
-        prev = f'<a class="btn ghost" href="#{items[i-1]["id"]}">← 上一题</a>' if i > 0 else ''
-        nxt = f'<a class="btn ghost" href="#{items[i+1]["id"]}">下一题 →</a>' if i + 1 < len(items) else ''
+        prev = (f'<a class="pncard prev" href="#{items[i-1]["id"]}"><small>上一题</small><b>{items[i-1]["q"]}</b>{I_LEFT}</a>') if i > 0 else '<span></span>'
+        nxt = (f'<a class="pncard next" href="#{items[i+1]["id"]}"><small>下一题</small><b>{items[i+1]["q"]}</b>{I_RIGHT}</a>') if i + 1 < len(items) else '<span></span>'
         pdf = ONLINE + 'lessons/2026-Q4/qa/' + urllib.parse.quote(it['pdf'])
         tail = (f'<p class="btnrow qaend"><button class="btn share" type="button" data-share="{it["id"]}">{SHAREIC}分享这篇</button><a class="btn solid" href="{pdf}" target="_blank" rel="noopener">下载 PDF 版（方便转发）</a>'
                 f'<a class="btn" href="#l{it["lesson"]}-{it["day"]}">回到第{it["lesson"]}课 · {it["dayname"]}</a>'
                 f'<a class="btn egg" href="#qa">✦ 更多问题彩蛋</a></p>')
-        top = f'<nav class="lessonbar" aria-label="问题彩蛋"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
-        bottom = f'<nav class="lessonbar bottom"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<a class="btn egg" href="#qa">✦ 问题彩蛋</a><span class="pn">{prev}{nxt}</span></nav>'
+        top = pagebar(it['q'], shbtn(it['id'], '分享这篇'))
+        bottom = f'<nav class="lnext" aria-label="上一题下一题">{prev}{nxt}</nav>'
         out.append(f'<div class="lesson" id="{it["id"]}" data-title="{it["q"]} · 问题彩蛋">\n{top}\n{qa_article(it, tail)}\n{bottom}\n</div>')
     return '\n'.join(out)
 
@@ -632,47 +695,67 @@ def build_combined(nos):
             frags[n] = frags[n][:j] + f'  <p class="qchip"><a {link}>✦ 问题彩蛋：{it["q"]}</a></p>\n  ' + frags[n][j:]
     nos = [0] + list(nos)
     opts = ''.join(f'<option value="{n}">{lab(n)} {titles[n]}</option>' for n in nos)
-    cards = ['''<a class="card intro" href="#l0">
-  <span class="top"><span class="no">导言</span></span>
+    def mem_of(n):
+        mod = mods[n]
+        if getattr(mod, 'RAW', None):
+            return welcome.MEMORY_L1[2], welcome.MEMORY_L1[1]
+        return mod.L['mem_ref'], mod.L['mem']
+    dots = '<span class="mdots" aria-hidden="true">' + '<i></i>' * 7 + '</span>'
+    cards = [f'''<li class="tli"><span class="node" aria-hidden="true"></span><a class="card intro" href="#l0" data-l="0">
+  <span class="top"><span class="no">本季导言</span></span>
   <span class="ct">预言的恩赐</span>
-  <span class="cd">本季开篇 · 导言原文与全季总览</span>
-  <span class="cg">''' + INTRO_GIST + '''</span>
-</a>''']
+  <span class="cd">9月26日 · 导言原文与全季总览</span>
+  <span class="cg">{INTRO_GIST}</span>
+</a></li>''']
     for n in nos[1:]:
-        ds = dates_for(n)
-        cards.append(f'''<a class="card" href="#l{n}" data-start="{ds[0].isoformat()}">
+        ds = dates_for(n); mr, mt = mem_of(n)
+        cards.append(f'''<li class="tli"><span class="node" aria-hidden="true"></span><a class="card" href="#l{n}" data-l="{n}" data-start="{ds[0].isoformat()}" data-memref="{html.escape(mr)}" data-mem="{html.escape(mt)}">
   <span class="top"><span class="no">第{n}课</span><span class="wk" hidden>✦ 本周学课</span><span class="ctag" hidden>今天下午开始新课</span></span>
-  <i class="spk s1" aria-hidden="true">✦</i><i class="spk s2" aria-hidden="true">✦</i><i class="spk s3" aria-hidden="true">✦</i><i class="spk s4" aria-hidden="true">✦</i>
   <span class="ct">{lesson_title(mods[n])}</span>
-  <span class="cd">{md(ds[0])}—{md(ds[6])} · {md(ds[0] + datetime.timedelta(days=7))}安息日</span>
+  <span class="cd"><span class="cdd">{md(ds[0])}—{md(ds[6])}</span> · {md(ds[0] + datetime.timedelta(days=7))}安息日</span>
   <span class="cg">{lesson_gist(mods[n])}</span>
-</a>''')
-    home = f'''<section id="home" class="home">
-  <p class="eyebrow">安息日学研经指引 · 2026年第4季（10—12月）</p>
-  <h1>预言的恩赐</h1>
-  <p class="hsub">全季逐课研读 · 每课含逐日解读与学课原文</p>
-  <p class="credit">整理制作 · Ethan（HangZhou_XG）</p>
-  <div class="hlead">
-    <p>罪关上了伊甸园的门，却没有让上帝就此沉默。祂在园中呼唤“你在哪里？”<span class="ref">（创3:9）</span>，先知们一个接一个回答“我在这里，请差遣我！”<span class="ref">（赛6:8）</span>。本季十三课，讲的就是这位不肯沉默的上帝：祂借着先知说话，借着圣经存话，借着儿子亲自来说，又借着圣灵一直说到末时。</p>
-    <p>点下面任意一课，页面就只显示那一课：先读“解读”，再对照“学课原文”，两排按钮可以随时切换。</p>
+  {dots}
+</a></li>''')
+    home = f'''<section id="home" class="home" data-title="学课目录 · 预言的恩赐">
+  <header class="ctitle">
+    <p class="label">安息日学研经指引 · 2026年第4季（10—12月）</p>
+    <h1>预言的恩赐</h1>
+    <p class="hsub">导言 + 13 课 · 每课都有学课原文与逐日解读</p>
+  </header>
+  <div class="season"><span class="bar"><i></i></span><p class="bartxt"><span class="s-read">读完打卡 0 天</span><span>全季 91 天</span></p></div>
+  <div class="hgrid">
+    <div class="hside">
+      <a class="feature" id="hfeat" href="#l1" hidden>
+        <span class="label f-k"></span>
+        <b class="f-t"></b>
+        <span class="f-d"></span>
+        <span class="f-m"><span class="f-mt"></span><cite class="f-mr"></cite></span>
+        <span class="fdays" data-week></span>
+        <span class="cta"><span class="f-go"></span>{I_RIGHT}</span>
+      </a>
+      <div class="hlead">
+        <p class="label">关于本季</p>
+        <p>罪关上了伊甸园的门，却没有让上帝就此沉默。祂在园中呼唤“你在哪里？”<span class="ref">（创3:9）</span>，先知们一个接一个回答“我在这里，请差遣我！”<span class="ref">（赛6:8）</span>。本季十三课，讲的就是这位不肯沉默的上帝：祂借着先知说话，借着圣经存话，借着儿子亲自来说，又借着圣灵一直说到末时。</p>
+        <p>点任意一课进入：页面顶上可以在“原文”和“解读”之间切换，也可以直接跳到某一天。</p>
+      </div>
+    </div>
+    <ol class="tl cards">{"".join(cards)}</ol>
   </div>
-  <p class="btnrow hbtns"><a class="btn solid" href="#welcome" data-welcome>✦ 回到欢迎页</a><a class="btn" href="#l0">阅读本季导言</a><a class="btn egg" href="#qa">✦ 问题彩蛋</a><a class="btn music" href="#music">♪ 音乐</a></p>
-  <div class="cards">{"".join(cards)}</div>
-  <p class="homeend">{GOHOME.replace('主页', '返回主页（欢迎页）')}</p>
+  <p class="credit">整理制作 · Ethan（HangZhou_XG）</p>
 </section>'''
     lessons = []
     for n in nos:
-        prev = f'<a class="btn ghost" href="#l{n-1}">← {lab(n-1)}</a>' if n - 1 in nos else ''
-        nxt = f'<a class="btn ghost" href="#l{n+1}">{lab(n+1)} →</a>' if n + 1 in nos else ''
-        bar = f'''<nav class="lessonbar" aria-label="课程切换">
-  <a class="btn ghost" href="#home">学课目录</a>{GOHOME}
-  <label class="sel"><span class="vh">切换课次</span><select data-go>{opts.replace(f'value="{n}"', f'value="{n}" selected')}</select></label>
-  <span class="pn">{prev}{nxt}</span>
-</nav>'''
-        bottom = f'<nav class="lessonbar bottom" aria-label="上一课下一课"><a class="btn ghost" href="#home">学课目录</a>{GOHOME}<span class="pn">{prev}{nxt}</span></nav>'
+        def pn(k, dirn):
+            if k not in nos: return '<span></span>'
+            arrow = I_LEFT if dirn < 0 else I_RIGHT
+            return (f'<a class="pncard {"prev" if dirn < 0 else "next"}" href="#l{k}"><small>{"上一课" if dirn < 0 else "下一课"}</small>'
+                    f'<b>{lab(k)} · {titles[k]}</b>{arrow}</a>')
+        bottom = f'<nav class="lnext" aria-label="上一课下一课">{pn(n - 1, -1)}{pn(n + 1, 1)}</nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
-        lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{bar}\n{frags[n]}\n{bottom}\n</div>')
-    body = welcome.welcome_html(titles) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
+        lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
+    ui = dict(user=I_USER, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
+              nqa=len(qa_data.ITEMS), nsongs=len(songs()))
+    body = welcome.welcome_html(titles, ui) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)

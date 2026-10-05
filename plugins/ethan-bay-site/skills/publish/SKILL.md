@@ -21,7 +21,7 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 | 改了什么 | 命令 | 大约耗时 |
 |---|---|---|
 | 某一课的内容 `data/lNN.py`、`render.py`、`gen_yw.py`、`welcome.py`、`intro.py`、`bible.py` | `python3 tools/q4/render.py all`（放后台跑） | 8–10 分钟 |
-| 只改了交互或样式 `app.js`、`base.css`、`extra.css`，或 `qa_data.py` 加减卡片 | `python3 tools/q4/_combined_only.py` | 约 1 分钟 |
+| 只改了交互或样式 `app.js`、`base.css`、`extra.css`、`theme.css`，或 `qa_data.py` 加减卡片 | `python3 tools/q4/_combined_only.py` | 约 1 分钟 |
 | 专题页《基督教两千年家谱》 | `python3 tools/q4/history.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
 | 专题页《耶稣是人还是神？》 | `python3 tools/q4/jesus.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
 | 补充问答（目前下架） | `python3 tools/q4/jesus2.py` | 几秒 |
@@ -41,6 +41,9 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 2. **经文和引文**：新加或改过的引文按 `verify-sources` 技能核对（`check_cuv.py`）。
 3. **看一眼效果**：用 Playwright 截图（Chromium 已装好，模块在 `/opt/node22/lib/node_modules/playwright`，不要运行 `playwright install`）。
    读者大多用微信内置浏览器、苹果手机：模拟时用 `isMobile:true`、390 宽；夜间模式也要看。
+   电脑版（2026-10 新设计）：1024（左侧栏只剩图标）、1280、1440 宽各看一眼；学课页按 P 进投屏模式看大字。
+   网站（index.html）在本机要用 `site-data` 技能的 `lib_dev.js` 打开（文件由本机提供），不要用 file:// 直接打开。
+   手机往下读时底部标签栏会收起，测试脚本里要先往上滑一下再点标签栏。
 4. 本机测试碰过 `data/` 的，**一定 `git checkout data/` 恢复**，测试数据不能推到线上。
 
 ## 4. 提交和推送

@@ -136,6 +136,33 @@ CSS = r'''
 .tg-v{margin:12px 0 16px;padding:12px 14px;background:var(--gold-soft);border-radius:14px;font-family:var(--serif);font-size:1.02rem;line-height:1.8}
 .tg-v cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:4px}
 html.emb .bar{padding-top:8px}
+/* 2026-10 新设计：和学课网站一致（米白纸色、墨蓝字、金色点缀；面板从底部升起） */
+.prog i{background:linear-gradient(90deg,#C9A45C,var(--gold))}
+.bar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.bar .back{color:var(--ink);font-weight:500}
+.bar .aa{font-family:var(--serif);font-weight:900}
+.tbtn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s;box-shadow:0 1px 2px rgba(26,33,50,.04)}
+.tbtn:active{transform:scale(.97)}
+.tbtn .ic{color:var(--gold)}
+.tbtn.solid{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);box-shadow:0 6px 18px -8px rgba(164,124,51,.65)}
+.tbtn.solid .ic{color:inherit}
+.tile{border-color:transparent;background:var(--band);border-radius:16px;font-weight:650}
+.tile[data-twx]{background:#07C160;border-color:#07A355;color:#fff;box-shadow:0 8px 20px -10px rgba(7,160,85,.7)}
+.tile[data-twx] .ic{color:#fff}
+.tsh{font-family:var(--serif);font-weight:900}
+.tsh-sent{border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold);background:var(--gold-soft)}
+.sh-bg{background:rgba(8,12,20,.45)}
+.sh-card{border-radius:24px 24px 0 0;border:1px solid var(--rule);border-bottom:0;padding-top:26px}
+.sh-card::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.3;transform:translateX(-50%)}
+.sheet:not([hidden]) .sh-card{animation:shup .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes shup{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:700px){.sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}.sh-card::before{content:none}.sheet:not([hidden]) .sh-card{animation:shpop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes shpop{from{opacity:0;transform:translate(-50%,12px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.sh-x{top:10px;right:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--band);font-size:1.2rem}
+.qq::before{color:var(--gold)}
+.tg-card{border:1px solid var(--rule);border-radius:24px}
+.fab-toc{background:#141B2A;color:#F3EBDA;border:1px solid rgba(233,214,163,.3)}
+@media (prefers-reduced-motion:reduce){.sheet:not([hidden]) .sh-card{animation:none}}
 @media print{.ib,.tacts,.sheet,.twg,.tgift,.howto,.toc-in .tsrc{display:none!important}
   :root{color-scheme:light}body{background:#fff}.bar,.fab-toc{display:none!important}
   .part{break-before:page;break-after:avoid}.ch h2{break-after:avoid}table,figure,.answer,blockquote{break-inside:avoid}

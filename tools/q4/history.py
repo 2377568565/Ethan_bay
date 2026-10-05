@@ -370,8 +370,8 @@ CSS = r'''
 html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
 [hidden]{display:none!important}
 :root{
-  --paper:#F5F3EE;--surface:#FFFFFF;--ink:#1C212D;--ink-2:#3C4354;--muted:#697183;--rule:#DEDAD0;
-  --accent:#7A2233;--accent-soft:#F5E9EC;--link:#2F58B8;--gold:#8A6A22;--gold-soft:#F6F0E1;--band:#F1EEE6;
+  --paper:#F5F1E8;--surface:#FFFDF8;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--link:#3D5672;--gold:#9A742C;--gold-soft:#F3E9D2;--band:#EFE9DD;
   --c0:#8A8F9C;--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;
   --c6-soft:#F7E8EB;
   --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
@@ -379,12 +379,12 @@ html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  color-scheme:dark;--paper:#11141A;--surface:#181C24;--ink:#E8EAEF;--ink-2:#C4C9D3;--muted:#949BAA;--rule:#2C323E;
-  --accent:#E08A9A;--accent-soft:#2E1C22;--link:#8FB0F5;--gold:#D8B46A;--gold-soft:#2A2518;--band:#1C2029;
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
   --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}}
 :root[data-theme="dark"]{
-  color-scheme:dark;--paper:#11141A;--surface:#181C24;--ink:#E8EAEF;--ink-2:#C4C9D3;--muted:#949BAA;--rule:#2C323E;
-  --accent:#E08A9A;--accent-soft:#2E1C22;--link:#8FB0F5;--gold:#D8B46A;--gold-soft:#2A2518;--band:#1C2029;
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
   --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}
 .f0{--c:var(--c0)}.f1{--c:var(--c1)}.f2{--c:var(--c2)}.f3{--c:var(--c3)}.f4{--c:var(--c4)}.f5{--c:var(--c5)}.f6{--c:var(--c6)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}

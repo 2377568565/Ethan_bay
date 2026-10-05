@@ -14,6 +14,7 @@ jm = re.search(r'<script type="application/json" id="bdata">(.*?)</script>', htm
 jtext = jm.group(1) if jm else ''
 heb = ''.join(sorted({c for c in jtext + text if '\u0590' <= c <= '\u05FF' or '\uFB1D' <= c <= '\uFB4F'}))
 grk = ''.join(sorted({c for c in jtext if ('\u0370' <= c <= '\u03FF' or '\u1F00' <= c <= '\u1FFF' or '\u00C0' <= c <= '\u024F' or '\u1E00' <= c <= '\u1EFF') }))
+text += '早安午安下午好晚安夜深了平安进入今日学课回顾全季十三课先读本季导言本季已经学完今日安息日学课堂讨论与背诵本周研读时分未登录我的继续：'   # 新设计里由脚本写出的宋体字
 text += '和合本上帝版原文直译希伯来文希腊文逐字连读英文中文词典原形字义节此处只显示前经文较长共三版本对照点单词看今天下午开始新课今日安息日学课堂知信行与讨论'
 chars = set(text) | set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .,:;!?-—–“”‘’（）《》「」、。，：；！？…·/↔→')
 chars = ''.join(sorted(c for c in chars if not c.isspace() or c == ' '))

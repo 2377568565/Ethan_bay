@@ -1,4 +1,4 @@
-"""欢迎页：天国景象（内联 SVG）+ 随机经文池 + 本周推荐 + 研读时间星星。"""
+"""欢迎页（网站首页）：黎明的光 + 今日经文（从本季学课中随机选出，点一下换一节）+ 今日学课 + 四个入口 + 本周共读与研读星星。"""
 import os, re, random, html, importlib, sys
 
 Q4 = os.path.dirname(os.path.abspath(__file__))
@@ -91,149 +91,65 @@ def pool(titles):
         res.append((disp, text, hit))
     return res
 
-def _stars(rng, n):
-    out = []
-    for _ in range(n):
-        x = rng.uniform(10, 1590); y = rng.uniform(10, 470) ** 1.0
-        r = rng.choice([0.7, 0.9, 1.1, 1.3, 1.6, 2.1])
-        d = rng.uniform(2.2, 5.5); dl = -rng.uniform(0, 5)
-        out.append(f'<circle class="tw" cx="{x:.0f}" cy="{y:.0f}" r="{r}" style="animation-duration:{d:.1f}s;animation-delay:{dl:.1f}s"/>')
-    return ''.join(out)
-
-def _sparkles(rng, n):
-    out = []
-    for _ in range(n):
-        x = rng.uniform(80, 1520); y = rng.uniform(60, 620); s = rng.uniform(5, 13)
-        d = rng.uniform(2.5, 5); dl = -rng.uniform(0, 5)
-        out.append(f'<path class="sp" transform="translate({x:.0f} {y:.0f}) scale({s/10:.2f})" d="M0-10C1 -2 2-1 10 0C2 1 1 2 0 10C-1 2-2 1-10 0C-2-1-1-2 0-10Z" style="animation-duration:{d:.1f}s;animation-delay:{dl:.1f}s"/>')
-    return ''.join(out)
-
-def scene_svg():
-    rng = random.Random(1844)
-    cx, hy = 800, 662           # 城门中心、地平线（城、山、路在下移 OFF 的组内绘制）
-    OFF = 150; HY = hy + OFF
-    rays = []
-    for i in range(15):
-        a = -168 + i * 11.2
-        import math
-        w = 2.6 if i % 2 else 1.4
-        pts = []
-        for da in (-w, w):
-            t = math.radians(a + da)
-            pts.append(f'{cx + 1900 * math.cos(t):.0f},{HY - 40 + 1900 * math.sin(t):.0f}')
-        rays.append(f'<polygon points="{cx},{HY - 40} {pts[0]} {pts[1]}"/>')
-    bows = []
-    for i, c in enumerate(['#E86A6A', '#F2A65A', '#F6DE6C', '#7CCB8A', '#6FB6E0', '#7C86D8', '#A77CD0']):
-        r = 520 - i * 9
-        bows.append(f'<path d="M{cx - r} {HY + 160}V{HY}A{r} {r} 0 0 1 {cx + r} {HY}V{HY + 160}" stroke="{c}"/>')
-    # 圣城：城墙、垛口、塔楼、中央殿宇、三座珍珠门
-    wall_x0, wall_x1, wall_top = 548, 1052, 604
-    cren = ''.join(f'<rect x="{x}" y="{wall_top - 9}" width="11" height="10"/>' for x in range(wall_x0 + 4, wall_x1 - 8, 22))
-    towers = []
-    for x, w, h in [(548, 34, 92), (628, 28, 70), (700, 30, 104), (870, 30, 104), (944, 28, 70), (1018, 34, 92)]:
-        top = hy - h
-        towers.append(f'<rect x="{x}" y="{top}" width="{w}" height="{h}"/>'
-                      f'<path d="M{x - 3} {top + 1}L{x + w / 2:.0f} {top - 26}L{x + w + 3} {top + 1}Z"/>')
-    temple = (f'<rect x="{cx - 58}" y="520" width="116" height="{hy - 520}"/>'
-              f'<rect x="{cx - 70}" y="512" width="140" height="12"/>'
-              f'<path d="M{cx - 46} 514 A46 46 0 0 1 {cx + 46} 514Z"/>'
-              f'<rect x="{cx - 3}" y="438" width="6" height="30"/><rect x="{cx - 11}" y="446" width="22" height="5"/>')
-    gates = ''.join(f'<path d="M{x - 15} {hy + 2}V{hy - 30}A15 15 0 0 1 {x + 15} {hy - 30}V{hy + 2}Z"/>' for x in (660, cx, 940))
-    return f'''<svg class="wscene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-<defs>
- <linearGradient id="wsky" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" style="stop-color:var(--sky1)"/><stop offset=".4" style="stop-color:var(--sky2)"/>
-  <stop offset=".64" style="stop-color:var(--sky3)"/><stop offset=".8" style="stop-color:var(--sky4)"/><stop offset=".88" style="stop-color:var(--sky5)"/>
- </linearGradient>
- <radialGradient id="wglow" cx="50%" cy="50%" r="50%">
-  <stop offset="0" stop-color="#FFFDF2" stop-opacity="1"/><stop offset=".18" stop-color="#FFF1C4" stop-opacity=".9"/>
-  <stop offset=".45" stop-color="#FFD58A" stop-opacity=".38"/><stop offset="1" stop-color="#FFC66E" stop-opacity="0"/>
- </radialGradient>
- <radialGradient id="whalo" cx="50%" cy="50%" r="50%">
-  <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset=".5" stop-color="#FFF4D6" stop-opacity=".45"/><stop offset="1" stop-color="#FFF4D6" stop-opacity="0"/>
- </radialGradient>
- <linearGradient id="wpath" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#FFF8DC" stop-opacity=".95"/><stop offset=".5" stop-color="#F7D58C" stop-opacity=".55"/><stop offset="1" stop-color="#E9B45E" stop-opacity=".12"/>
- </linearGradient>
- <linearGradient id="wcity" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" style="stop-color:var(--city1)"/><stop offset="1" style="stop-color:var(--city2)"/>
- </linearGradient>
- <filter id="wblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
- <filter id="wsoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
-</defs>
-<rect width="1600" height="1000" fill="url(#wsky)"/>
-<g class="wskystars">{_stars(rng, 90)}</g>
-<g class="wrays">{''.join(rays)}</g>
-<circle class="wglow" cx="{cx}" cy="{HY - 60}" r="620" fill="url(#wglow)"/>
-<g class="wbow" fill="none" stroke-width="8">{''.join(bows)}</g>
-<g transform="translate(0 {OFF})">
-<g class="wclouds" filter="url(#wblur)">
- <g class="cl c1"><ellipse cx="260" cy="560" rx="260" ry="38"/><ellipse cx="420" cy="540" rx="160" ry="30"/></g>
- <g class="cl c2"><ellipse cx="1320" cy="548" rx="280" ry="40"/><ellipse cx="1150" cy="566" rx="170" ry="28"/></g>
- <g class="cl c3"><ellipse cx="620" cy="420" rx="200" ry="24"/><ellipse cx="1040" cy="400" rx="220" ry="26"/></g>
-</g>
-<g class="wcity" fill="url(#wcity)">
- <rect x="{wall_x0}" y="{wall_top}" width="{wall_x1 - wall_x0}" height="{hy - wall_top + 20}"/>{cren}{''.join(towers)}{temple}
-</g>
-<g class="wgates">{gates}</g>
-<ellipse class="whalo" cx="{cx}" cy="{hy - 70}" rx="240" ry="150" fill="url(#whalo)"/>
-<path class="wh1" d="M0 700C170 660 360 700 540 672S820 650 1060 672S1420 646 1600 690V1000H0Z"/>
-<path class="wpath" d="M790 668H810C832 760 900 880 1010 1000H590C700 880 768 760 790 668Z" fill="url(#wpath)"/>
-<path class="wh2" d="M0 790C220 740 420 800 610 772C650 766 700 770 730 778L700 1000H0Z"/>
-<path class="wh2" d="M1600 780C1400 736 1180 796 990 770C950 765 900 770 870 778L900 1000H1600Z"/>
-<path class="wh3" d="M0 900C200 850 400 900 560 880L520 1000H0Z"/>
-<path class="wh3" d="M1600 890C1400 846 1200 896 1040 878L1080 1000H1600Z"/>
-<g class="wpathglow" filter="url(#wsoft)"><path d="M796 672H804C820 760 870 870 950 1000H650C730 870 780 760 796 672Z" fill="#FFF3C8" opacity=".35"/></g>
-</g>
-<g class="wspark">{_sparkles(rng, 26)}</g>
-</svg>'''
-
 # 欢迎页“本站累计访问 N 人次”的起点：换成自己计数之前不蒜子上的数字（2026-10-01 为 368）。
 # 同步任务第一次运行时会从不蒜子取最新的数字存进 data/ask.json（hits0），网页优先用那个。
 VISITS_BASE = 368
 
 
-def welcome_html(titles):
+def welcome_html(titles, ui):
+    """欢迎页 = 网站的首页（2026-10 新设计“黎明的光”）：上半部是光和今日经文（点经文换一节），下半部是今日学课和四个入口。
+    ui：render.py 传进来的图标和数字（I_BOOK 等、问答篇数、诗歌首数）。"""
     items = ''.join(f'<li data-r="{html.escape(r)}" data-l="{n}" data-t="{html.escape(titles[n])}">{html.escape(t.replace("“", "‘").replace("”", "’"))}</li>'
                     for r, t, n in pool(titles))
     stars = ''.join('<i><svg viewBox="-11 -11 22 22"><path d="M0-10C1-2 2-1 10 0C2 1 1 2 0 10C-1 2-2 1-10 0C-2-1-1-2 0-10Z"/></svg></i>' for _ in range(12))
+    ring = ('<span class="wring" aria-hidden="true"><svg viewBox="0 0 62 62"><circle class="bgc" cx="31" cy="31" r="27"/>'
+            '<circle class="fgc" cx="31" cy="31" r="27" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg><i><b class="wr-n">0/7</b><small>本周</small></i></span>')
     return f'''<div id="welcome" class="welcome" role="dialog" aria-modal="true" aria-labelledby="wtitle" tabindex="-1" hidden>
-{scene_svg()}
-<div class="winner">
-  <button class="wacct" type="button" data-acct aria-label="账号：登录后在不同设备之间同步"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4.8 19.5c1.2-3.6 4-5.4 7.2-5.4s6 1.8 7.2 5.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="ac-n">账号</span></button>
-  <button class="wx" type="button" data-wclose aria-label="关闭欢迎页">×</button>
-  <p class="weyebrow">安息日学研经指引 · 2026年第4季</p>
-  <h2 id="wtitle" class="wtitle">预言的恩赐</h2>
-  <p class="winvite"><span class="q">“凡劳苦担重担的人可以到我这里来，<br>我就使你们得安息。”</span><span class="by">—— 耶稣的邀请（太11:28）</span></p>
-  <div class="wrec">
-    <p class="wdate"></p>
-    <p class="wbtns"><a class="wbtn gold" id="wgo" href="#l1"><span class="l1"></span><span class="l2"></span></a><a class="wbtn ghost" href="#home">学课目录</a><a class="wbtn egg" href="#qa"><span class="st">✦</span>问题彩蛋</a><a class="wbtn music" href="#music"><span class="st">♪</span>音乐</a></p>
-    <p class="wclass" hidden><a href="#l1"></a></p>
-    <p class="wresume" hidden></p>
-    <div class="wnews" hidden></div>
+<section class="whero">
+  <div class="wsky" aria-hidden="true"><i class="wst"></i><i class="wdawn"></i><i class="whz"></i><i class="wgrain"></i></div>
+  <div class="wtop">
+    <button class="wacct glass" type="button" data-acct aria-label="账号：登录后在不同设备之间同步">{ui['user']}<span class="ac-n">账号</span></button>
+    <span class="wtr"><button class="glass" type="button" data-rsearch aria-label="搜索全季内容">{ui['search']}</button><button class="glass" type="button" data-rsettings aria-label="字号与夜间模式">{ui['aa']}</button></span>
   </div>
-  <div class="wcards">
-  <div class="wcard wverse">
-    <p class="wk"><span>今日经文 · 从本季学课中随机选出</span><span class="wvbtns"><button class="wshuf wimg" type="button" data-imgverse="welcome">做成图片</button><button class="wshuf" type="button">换一节 ↻</button></span></p>
-    <blockquote class="wvt"></blockquote>
-    <p class="wvr"></p>
+  <div class="whin">
+    <p class="weyebrow">安息日学研经指引 · 2026年第4季</p>
+    <h2 id="wtitle" class="wtitle">预言的恩赐</h2>
+    <span class="wrule" aria-hidden="true"></span>
+    <div class="wverse" role="button" tabindex="0" aria-label="今日经文：轻点换一节">
+      <blockquote class="wvt"></blockquote>
+      <p class="wvr"></p>
+    </div>
+    <p class="wvbtns"><button class="wshuf" type="button">{ui['refresh']}换一节</button><button class="wshuf wimg" type="button" data-imgverse="welcome">{ui['image']}做成图片</button></p>
   </div>
+</section>
+<div class="wmain">
+  <div class="wgreet"><b class="whello">平安</b><span class="wdate"></span></div>
+  <a class="wtoday" id="wgo" href="#l1"><span class="wt-tx"><span class="l1"></span><b class="l2"></b><small class="l3"></small></span>{ring}</a>
+  <p class="wclass" hidden><a href="#l1"></a></p>
+  <nav class="wtiles" aria-label="栏目">
+    <a class="wtile" href="#home">{ui['book']}<b>学课目录</b><small>导言 + 13 课</small></a>
+    <a class="wtile egg" href="#qa">{ui['spark']}<b>问题彩蛋</b><small>{ui['nqa']} 篇深度解答</small></a>
+    <a class="wtile" href="#music">{ui['note']}<b>音乐</b><small>{ui['nsongs']} 首诗歌</small></a>
+    <a class="wtile" href="#ask">{ui['chat']}<b>提问区</b><small>一起问，一起查考</small></a>
+  </nav>
+  <div class="wnews" hidden></div>
+  <p class="wresume" hidden></p>
   <div class="wcard wtogether" hidden>
-    <p class="wk"><span>本周共读 · 读完打卡</span></p>
+    <p class="wk"><span>本周共读 · 读完打卡</span><span class="wk2">点某一天直接去读</span></p>
     <div class="wt-days"></div>
     <p class="wt-msg"></p>
   </div>
   <div class="wcard wprog">
     <p class="wk"><span>本周研读</span><b class="wmin"></b></p>
     <p class="wstars" aria-hidden="true">{stars}</p>
-    <p class="wmsg m0">每读满 5 分钟点亮一颗星。点亮 12 颗星（本周累计 1 小时），这里会换上荣耀的景象。</p>
+    <p class="wmsg m0">每读满 5 分钟点亮一颗星。点亮 12 颗星（本周累计 1 小时），上面的晨光会变成满天的荣光。</p>
     <p class="wmsg m1" hidden><b>本周你已在这里研读满 1 小时</b>，这是你第 <b class="wn">1</b> 周达成目标。<br>“你们要尝尝主恩的滋味，便知道他是美善。”（诗34:8）</p>
-    <p class="wnote">研读时间只记录在这台设备的这个浏览器里，每周六晚上 12 点（北京时间）清零，重新计算。</p>
-  </div>
+    <p class="wnote">研读时间只记录在这台设备的这个浏览器里（登录账号后各设备加起来），每周六晚上 12 点（北京时间）清零，重新计算。</p>
   </div>
   <p class="wcredit">整理制作 · Ethan（HangZhou_XG）</p>
   <p class="wvisits" data-base="{VISITS_BASE}"><span hidden>本站累计访问 <b></b> 人次</span></p>
+  <button class="wx" type="button" data-wclose aria-label="关闭首页，查看学课目录" hidden></button>
   <ol class="vpool" hidden>{items}</ol>
 </div>
 </div>
-<div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！下次打开，欢迎页会换上荣耀的景象。</div>'''
+<div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！回到首页看看：晨光已经变成满天的荣光。</div>'''
