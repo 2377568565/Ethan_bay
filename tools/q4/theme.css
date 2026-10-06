@@ -125,7 +125,8 @@ html.wopen .rprog{opacity:0}
 .weyebrow{margin:0 0 10px;font-size:11.5px;letter-spacing:.26em;white-space:nowrap;color:rgba(246,238,220,.66);text-shadow:none}
 .wtitle{margin:0 0 0 .14em;font-family:var(--serif);font-weight:900;font-size:clamp(36px,10vw,46px);line-height:1.15;letter-spacing:.14em;text-shadow:none;
   background:linear-gradient(100deg,#E9D6A3 0%,#C9A45C 28%,#FFF4D6 48%,#C9A45C 68%,#E9D6A3 100%);background-size:220% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 10s linear infinite}
+  -webkit-background-clip:text;background-clip:text;color:transparent;background-position:110% 0}
+.wtitle.glint{animation:foil 2.4s cubic-bezier(.45,.05,.35,1) both}   /* 脚本每 9 秒加一次：扫过一道光；其余时间完全静止，不占一帧 */
 @keyframes foil{from{background-position:110% 0}to{background-position:-110% 0}}
 .wrule{display:block;width:44px;height:1px;margin:14px auto 12px;background:linear-gradient(90deg,transparent,rgba(233,214,163,.85),transparent)}
 .wverse{display:grid;gap:6px;max-width:22em;margin:0 auto;padding:6px 10px;border-radius:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .25s}
@@ -476,15 +477,17 @@ main>.yw:first-child{padding-top:34px}
 
 /* 小播放器、朗读条：在标签栏上面 */
 .mplayer{left:12px;bottom:calc(var(--tbh) + 10px);z-index:104;width:min(380px,calc(100% - 24px));border-color:rgba(233,214,163,.35);background-color:rgba(14,20,38,.9);
-  transition:bottom .35s var(--ease),background-color .7s ease}
-html.tbhide .mplayer{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
-html.ttson .mplayer{bottom:calc(var(--tbh) + 70px)}
-html.ttson.tbhide .mplayer{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  transform:translateY(var(--mpy,0px));transition:transform .4s var(--ease),background-color .7s ease;will-change:transform}
+@media (max-width:1023.98px){
+  html.tbhide .mplayer{--mpy:56px}
+  html.ttson .mplayer{bottom:calc(var(--tbh) + 10px);--mpy:-66px}   /* 位置固定，只用位移往上让出朗读条（旧样式里 ttson 会改 bottom） */
+  html.ttson.tbhide .mplayer{--mpy:-10px}
+}
 html.wopen .mplayer{display:flex}
 html.wopen .mplayer[hidden]{display:none}
 .mplayer .mp-pg b{background:#E6C98B}
-.ttsbar{z-index:104;bottom:calc(var(--tbh) + 10px);background:#141B2A;border:1px solid rgba(233,214,163,.25);transition:bottom .35s var(--ease)}
-html.tbhide .ttsbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.ttsbar{z-index:104;bottom:calc(var(--tbh) + 10px);background:#141B2A;border:1px solid rgba(233,214,163,.25);transform:translate(-50%,var(--tty,0px));transition:transform .4s var(--ease);will-change:transform}
+@media (max-width:1023.98px){html.tbhide .ttsbar{--tty:56px}}
 .ttsbar .tt-pg b{background:#E6C98B}
 .mtoast{z-index:131;background:#141B2A}
 
@@ -600,8 +603,8 @@ html.rv .rvl.in{opacity:1;transform:none}
 .lesson.show .lbar{view-transition-name:q4bar}
 .lesson.show .nav{view-transition-name:q4nav}
 .rprog{view-transition-name:q4prog}
-::view-transition-old(root){animation:vtout .22s cubic-bezier(.4,0,1,1) both}
-::view-transition-new(root){animation:vtin .5s cubic-bezier(.2,.8,.2,1) .06s both}
+::view-transition-old(root){animation:vtout .12s cubic-bezier(0,0,.4,1) both}
+::view-transition-new(root){animation:vtin .38s cubic-bezier(.2,.8,.2,1) .09s both}   /* 旧页先很快淡出，新页再淡入上浮：两页几乎不重叠，没有重影 */
 @keyframes vtout{to{opacity:0;transform:translateY(-8px)}}
 @keyframes vtin{from{opacity:0;transform:translateY(16px)}}
 /* 顶栏、日子导航、标签栏、侧栏：不跟着淡入淡出，直接显示新的（里面的金色指示条照常滑动） */
@@ -933,3 +936,44 @@ footer .fnote p{margin:6px 0 0;font-size:.76rem;line-height:1.75}
 html.cvok .lesson .day,html.cvok .lesson .ywday{content-visibility:auto;contain-intrinsic-height:auto 2400px}
 html.cvok .tl .tli{content-visibility:auto;contain-intrinsic-height:auto 150px}
 @media print{html.cvok .lesson .day,html.cvok .lesson .ywday{content-visibility:visible}}
+
+/* ===== 2026-10-06：所有动效都只动“位移、缩放、透明度”（transform / opacity）=====
+   这类动画由显卡单独完成，不占主线程，手机屏幕是 120Hz 就能按 120Hz 跑；改宽度、位置、阴影的动画每一帧都要重新排版或重画，只能 60Hz 甚至掉帧 */
+/* 进度条：用横向缩放代替改宽度（脚本里设 transform:scaleX） */
+.mplayer .mp-pg b,.ttsbar .tt-pg b,.ms-pg b,.bar i{width:100%!important;transform-origin:0 50%;transform:scaleX(0);will-change:transform}
+.mplayer .mp-pg b,.ttsbar .tt-pg b,.ms-pg b{transition:transform .25s linear}
+.bar i{transition:transform 1.4s var(--ease)}
+/* 卡片：按下、悬停只做位移，阴影直接变（阴影动画要整块重画） */
+.wtoday,.wtile,.tl .card,.qcard,.mfold,.pncard,.feature,.sweek,.askcard,.msong{transition:transform .26s var(--ease),opacity .26s var(--ease)}
+.btn{transition:transform .18s var(--ease),opacity .18s var(--ease),color .2s,background-color .2s,border-color .2s}
+/* 会动的固定元素提前放到单独的图层 */
+.combined .tabbar{will-change:transform}
+.side .mplayer{transform:none;will-change:auto}
+html.android .mplayer{-webkit-backdrop-filter:none;backdrop-filter:none;background-color:rgba(14,20,38,.97)}
+@media (prefers-reduced-motion:reduce){.wtitle{animation:none}.mplayer,.ttsbar{transition:none}}
+/* 安卓：弹出面板后面的遮罩、首页星空上的玻璃按钮不再做背景模糊（背后的星光在动，模糊每一帧都要重算） */
+html.android .hconf-bg,html.android .bpop-bg,html.android .gift-bg{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(8,12,30,.6)}
+html.android .glass,html.android .wshuf{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.14)}
+/* 顶上的阅读进度条：浏览器支持“随滚动播放的动画”时，由显卡跟着滚动画，不用脚本每帧去改 */
+@supports (animation-timeline:scroll()){
+  .rprog i{animation:rprog linear both;animation-timeline:scroll(root block)}
+  @keyframes rprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+/* 换页时固定不动的顶栏、导航、标签栏、侧栏：连“外框”的过渡也不要（外框过渡会动宽高，不能交给显卡） */
+::view-transition-group(root),::view-transition-group(q4bar),::view-transition-group(q4nav),::view-transition-group(q4tab),::view-transition-group(q4side),::view-transition-group(q4prog){animation:none}
+/* 跳到某一天、某一题时的金色闪光：用一层淡出的底色代替“改背景色和阴影”的动画 */
+.flash{animation:none!important;position:relative;isolation:isolate}
+.flash::after{content:"";position:absolute;inset:-6px -10px;z-index:-1;border-radius:14px;background:var(--gold-soft);box-shadow:0 0 0 3px rgba(201,160,66,.85);pointer-events:none;animation:flashfade 1.8s ease-out both}
+@keyframes flashfade{0%,25%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.flash::after{animation:none;opacity:0}}
+/* 剩下的小动效也交给显卡：标签文字颜色直接变（金色指示条在滑）；打卡的金点提前放到单独图层；按钮颜色、阴影直接变 */
+.tab{transition:none}
+.ck-burst{will-change:transform,opacity}
+.ckin .ck-btn,.mtools .btn{transition:transform .18s var(--ease),opacity .18s var(--ease)}
+/* 安卓、电脑 Chrome：没在看的页面保留排好的版（content-visibility:hidden），切回来不用重新排版；首页浮层同理 */
+html.cvok.js .lesson:not(.show),html.cvok.js #home:not(.show){display:block;content-visibility:hidden;height:0;margin:0;padding:0;border:0;overflow:hidden}
+html.cvok #welcome[hidden]{display:block!important;content-visibility:hidden;visibility:hidden;pointer-events:none}
+/* 首页再次打开：淡入，下半部轻轻上浮 */
+.welcome.entering{opacity:0;transition:none}
+.welcome .wmain{transition:transform .45s var(--ease)}
+.welcome.entering .wmain{transform:translateY(16px);transition:none}
