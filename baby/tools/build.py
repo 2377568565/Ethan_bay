@@ -161,12 +161,16 @@ def main():
     with open(os.path.join(ROOT, 'tts', 'script.json'), 'w', encoding='utf-8') as f:
         json.dump(script_json(data), f, ensure_ascii=False, indent=0)
         f.write('\n')
-    if args.fragment:
-        open(args.fragment, 'w', encoding='utf-8').write(body.replace('<!--HEAD_END-->', ''))
+    n_audio = len(data['audio'])
+    if args.fragment:  # 预览版不带录音文件，全部用手机自带的朗读
+        data['audio'] = []
+        frag = (shell.replace('/*STYLE*/', css).replace('/*DATA_S*/', js_json(data))
+                .replace('/*DATA_T*/', tw(js_json(data))).replace('/*UI_T*/', js_json(ui)).replace('/*APP*/', app))
+        open(args.fragment, 'w', encoding='utf-8').write(frag.replace('<!--HEAD_END-->', ''))
 
     n = len(data['ps'])
     nm = sum(len(s['mods']) for s in data['stages'])
-    print(f'{len(data["stages"])} 个阶段，{nm} 个场景，{n} 句；有录音 {len(data["audio"])} 句；网页 {len(full) // 1024} KB')
+    print(f'{len(data["stages"])} 个阶段，{nm} 个场景，{n} 句；有录音 {n_audio} 句；网页 {len(full) // 1024} KB')
 
 
 if __name__ == '__main__':
