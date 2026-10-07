@@ -98,8 +98,15 @@ const UI_ICONS = {
   refresh: '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4h-4"/>',
   chev: '<path d="M6 9.5l6 6 6-6"/>',
   ear: '<path d="M7 9a5 5 0 0 1 10 0c0 3-2.5 3.8-3 6.5-.4 2.2-1.6 4-3.8 4-1.5 0-2.7-1-3-2.3"/><path d="M10 9.5a2 2 0 0 1 4 0c0 1.3-1 1.6-1.5 2.4"/>',
-  repeat: '<path d="M4 11V9.5A3.5 3.5 0 0 1 7.5 6H19l-3-3M20 13v1.5a3.5 3.5 0 0 1-3.5 3.5H5l3 3"/>'
+  repeat: '<path d="M4 11V9.5A3.5 3.5 0 0 1 7.5 6H19l-3-3M20 13v1.5a3.5 3.5 0 0 1-3.5 3.5H5l3 3"/>',
+  cards: '<rect x="3.5" y="7" width="13" height="13.5" rx="2.5"/><path d="M8 3.5h10a2.5 2.5 0 0 1 2.5 2.5v11"/>',
+  share: '<path d="M12 15V3.5M7.5 8 12 3.5 16.5 8"/><path d="M5 12v6.5A2 2 0 0 0 7 20.5h10a2 2 0 0 0 2-2V12"/>',
+  download: '<path d="M12 3.5V15M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 19.5h15"/>',
+  copy: '<rect x="8" y="8" width="12.5" height="12.5" rx="2.5"/><path d="M16 8V5.5A2 2 0 0 0 14 3.5H5.5a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2H8"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  phone: '<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>'
 };
+const SITE_URL = 'https://2377568565.github.io/baby-talk/';
 function ico(name, cls) {
   const body = ICONS[name] || UI_ICONS[name] || '';
   return '<svg class="ico ' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + body + '</svg>';
@@ -214,6 +221,7 @@ let seq = null;
 function playAll(list) {
   if (seq) { stopSeq(); return; }
   const me = seq = { i: 0, list };
+  keepAwake(true);
   updateSeqBar();
   const step = () => {
     if (seq !== me) return;
@@ -235,8 +243,25 @@ function playAll(list) {
 function stopSeq() {
   if (seq && seq.timer) clearTimeout(seq.timer);
   seq = null;
+  keepAwake(false);
   stopAll();
   updateSeqBar();
+}
+let wakeLock = null;
+function keepAwake(on) {
+  try {
+    if (on && navigator.wakeLock && !wakeLock) navigator.wakeLock.request('screen').then(l => { wakeLock = l; }).catch(() => {});
+    if (!on && wakeLock) { wakeLock.release(); wakeLock = null; }
+  } catch (e) { /* 不支持 */ }
+}
+// 先把这一页的录音下载好，点的时候马上出声
+function prefetch(list) {
+  if (location.protocol === 'file:' || !window.fetch) return;
+  const ids = [];
+  list.forEach(p => { if (D.audioSet.has(p.i)) ids.push(p.i); (p.a || []).forEach(a => { if (D.audioSet.has(a[0])) ids.push(a[0]); }); });
+  let k = 0;
+  const next = () => { if (k >= ids.length) return; fetch(AUDIO_BASE + ids[k++] + '.mp3').then(r => r.blob()).catch(() => {}).then(next); };
+  setTimeout(() => { next(); next(); }, 500);
 }
 function updateSeqBar() {
   const b = $('#playall');
@@ -341,11 +366,15 @@ function route() {
   } else if (h === 'search') { tab = 'search'; html = viewSearch(); after = afterSearch; }
   else if (h === 'saved') { tab = 'saved'; html = viewSaved(); }
   else if (h === 'me') { tab = 'me'; html = viewMe(); after = afterMe; }
+  else if ((m = h.match(/^quiz-([a-z0-9]+)-([a-z0-9]+)$/))) {
+    const list = quizSource(m[1], m[2]);
+    if (list && list.length) { html = viewQuiz(list, m[1], m[2]); cls = 'push'; after = startQuiz; if (stageById(m[1])) setAccent(m[1]); }
+  }
   else if ((m = h.match(/^guide-([a-z0-9]+)$/))) {
     const st = stageById(m[1]);
     if (st) { html = viewGuide(st); cls = 'push'; setAccent(st.id); }
   }
-  if (!html) { html = viewHome(); setAccent(S.stage); }
+  if (!html) { html = viewHome(); setAccent(S.stage); after = afterHome; }
   const v = $('#view');
   v.className = '';
   v.innerHTML = html;
@@ -356,6 +385,8 @@ function route() {
   const y = scrollMem[h] || 0;
   window.scrollTo(0, cls === 'push' && !scrollMem[h] ? 0 : y);
   lastRoute = h;
+  const cards = [...v.querySelectorAll('.pc')].slice(0, 40).map(c => D.ps[+c.dataset.n]);
+  if (cards.length) prefetch(cards);
 }
 
 // ---------- 首页 ----------
@@ -377,6 +408,13 @@ function viewHome() {
     '<div class="brand"><span class="logo" aria-hidden="true">' + logoSvg() + '</span><span class="brand-t"><b>' + T('宝宝美语') + '</b><i lang="en">Baby Talk</i></span></div>' +
     '<a class="agechip" href="#me">' + (age ? esc(age.text) : T('设定宝宝生日')) + '</a>' +
     '</header>';
+  if (!S.birth && !LS.get('welcomed', false)) {
+    h += '<section class="welcome"><b>' + T('欢迎来到宝宝美语') + '</b>' +
+      '<p>' + T('填上宝宝的生日，首页会自动打开适合宝宝年龄的内容。只存在这台手机里。') + '</p>' +
+      '<div class="wrow"><label class="sr" for="wbirth">' + T('宝宝生日') + '</label><input id="wbirth" type="date" max="' + todayStr() + '">' +
+      '<button class="pill solid" data-act="wsave">' + T('好了') + '</button></div>' +
+      '<button class="ghost wskip" data-act="wskip">' + T('先逛逛') + '</button></section>';
+  }
   h += '<a class="searchbar" href="#search">' + ico('search') + '<span>' + T('搜中文或英文，例如：尿布、bath') + '</span></a>';
 
   h += '<div class="stages" role="tablist" aria-label="' + T('年龄阶段') + '">';
@@ -418,6 +456,18 @@ function viewHome() {
   return h;
 }
 
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function afterHome() { /* 预留 */ }
+function setBirth(v) {
+  S.birth = v; LS.set('birth', v);
+  S.stage = currentStageId(); LS.set('stage', S.stage);
+  const a = ageInfo();
+  toast(a ? a.text : T('已清除生日'));
+}
+
 function logoSvg() {
   return '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 7h24a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H18l-7 6v-6H8a5 5 0 0 1-5-5V12a5 5 0 0 1 5-5z" fill="var(--acc)"/><circle cx="14.5" cy="18" r="2" fill="var(--surface)"/><circle cx="25.5" cy="18" r="2" fill="var(--surface)"/><path d="M15.5 23c1.2 1.3 2.8 2 4.5 2s3.3-.7 4.5-2" stroke="var(--surface)" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
 }
@@ -427,16 +477,17 @@ function pageHead(title, sub, backHref) {
   return '<header class="phead"><a class="back" href="' + (backHref || '#') + '" data-act="back" aria-label="' + T('返回') + '">' + ico('back') + '</a>' +
     '<div class="phead-t"><b>' + title + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div></header>';
 }
-function seqBar() {
+function seqBar(quizHref) {
   return '<div class="seqbar"><button id="playall" class="pill" data-act="playall">' + ico('play') + '<span>' + T('全部播放') + '</span></button>' +
-    '<button class="pill toggle' + (S.follow ? ' on' : '') + '" data-act="follow" aria-pressed="' + S.follow + '">' + ico('repeat') + '<span>' + T('跟读停顿') + '</span></button>' +
+    (quizHref ? '<a class="pill" href="' + quizHref + '">' + ico('cards') + '<span>' + T('练一练') + '</span></a>' : '') +
+    '<button class="pill toggle' + (S.follow ? ' on' : '') + '" data-act="follow" aria-pressed="' + S.follow + '">' + ico('repeat') + '<span>' + T('跟读') + '</span></button>' +
     '<button class="pill toggle' + (S.slowDefault ? ' on' : '') + '" data-act="slowall" aria-pressed="' + S.slowDefault + '">' + ico('turtle') + '<span>' + T('慢速') + '</span></button></div>';
 }
 function viewModule(st, mod) {
   const isSong = st.id === 'songs';
   let h = pageHead(esc(mod.zh), '<span lang="en">' + esc(mod.en) + '</span> · ' + (isSong ? T('儿歌') : esc(st.age)));
   h += '<div class="mhero"><span class="mi big">' + ico(mod.icon) + '</span>' + (mod.note ? '<p>' + esc(mod.note) + '</p>' : '<p>' + mod.ps.length + ' ' + T('句') + '</p>') + '</div>';
-  h += seqBar();
+  h += seqBar(isSong ? '' : '#quiz-' + st.id + '-' + mod.id);
   h += '<div class="list' + (isSong ? ' lyrics' : '') + (S.showZh ? '' : ' nozh') + '">';
   mod.ps.forEach((n, i) => { h += card(D.ps[n], { i }); });
   h += '</div>';
@@ -458,7 +509,7 @@ function viewEasy(st) {
   const list = easyList(st);
   let h = pageHead(T('新手先学'), esc(st.age) + ' · ' + list.length + ' ' + T('句'));
   h += '<div class="mhero"><span class="mi big">' + ico('star') + '</span><p>' + T('英文不熟也没关系，先从这些最短、最常用的句子开始。每天挑一个场景，只用英文说。') + '</p></div>';
-  h += seqBar();
+  h += seqBar('#quiz-' + st.id + '-easy');
   h += '<div class="list' + (S.showZh ? '' : ' nozh') + '">';
   list.forEach((p, i) => { h += card(p, { i, crumb: true }); });
   return h + '</div>';
@@ -476,15 +527,77 @@ function viewGuide(st) {
   return h + '</section>';
 }
 
+// ---------- 练一练（看中文，自己先说，再看答案） ----------
+function quizSource(a, b) {
+  if (a === 'saved') return S.favs.map(i => D.byId[i]).filter(Boolean);
+  const st = stageById(a);
+  if (!st) return null;
+  if (b === 'easy') return easyList(st);
+  const mod = st.mods.find(x => x.id === b);
+  return mod ? mod.ps.map(n => D.ps[n]) : null;
+}
+let QZ = null;
+function viewQuiz(list, a, b) {
+  let title;
+  if (a === 'saved') title = T('我的收藏');
+  else if (b === 'easy') title = T('新手先学');
+  else title = esc(stageById(a).mods.find(x => x.id === b).zh);
+  QZ = { all: list, title };
+  return pageHead(T('练一练'), title + ' · ' + list.length + ' ' + T('句')) + '<div class="quiz" id="quiz" aria-live="polite"></div>';
+}
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function startQuiz(list) {
+  QZ.list = shuffle(list || QZ.all);
+  QZ.i = 0; QZ.shown = false; QZ.miss = [];
+  renderQuiz();
+}
+function renderQuiz(dir) {
+  const box = $('#quiz');
+  if (!box) return;
+  const n = QZ.list.length;
+  if (QZ.i >= n) {
+    const ok = n - QZ.miss.length;
+    box.innerHTML = '<div class="qz-done"><span class="mi big">' + ico(QZ.miss.length ? 'star' : 'medal') + '</span>' +
+      '<h2>' + T('练完了！') + '</h2><p>' + T('会了') + ' <b>' + ok + '</b> / ' + n + ' ' + T('句') + '</p>' +
+      (QZ.miss.length ? '<button class="pill solid" data-act="qz-again">' + ico('repeat') + '<span>' + T('再练不会的') + ' ' + QZ.miss.length + ' ' + T('句') + '</span></button>' : '') +
+      '<button class="pill" data-act="qz-all">' + T('全部重新练') + '</button>' +
+      '<a class="pill" href="#" data-act="back">' + T('返回') + '</a></div>';
+    return;
+  }
+  const p = QZ.list[QZ.i];
+  let h = '<div class="qz-prog" aria-hidden="true"><span style="transform:scaleX(' + (QZ.i / n) + ')"></span></div>' +
+    '<p class="qz-count">' + (QZ.i + 1) + ' / ' + n + '</p>' +
+    '<div class="qz-card' + (QZ.shown ? ' shown' : '') + (dir ? ' in' : '') + '" data-n="' + p.n + '">' +
+      '<p class="qz-label">' + T('用英文怎么说？') + '</p>' +
+      '<p class="qz-zh">' + esc(p.z) + '</p>' +
+      '<div class="qz-ans"><p class="qz-en" lang="en">' + esc(p.e) + '</p>' +
+        '<div class="qz-tools"><button class="pill" data-act="qz-play">' + ico('play') + '<span>' + T('再听一次') + '</span></button>' +
+        '<button class="pill" data-act="qz-slow">' + ico('turtle') + '<span>' + T('慢速') + '</span></button></div>' +
+        (p.t ? '<p class="qz-tip">' + esc(p.t) + '</p>' : '') +
+      '</div>' +
+    '</div>';
+  if (!QZ.shown) h += '<p class="qz-hint">' + T('先自己小声说一遍，再看答案。') + '</p><button class="pill solid wide" data-act="qz-show">' + T('看答案') + '</button>';
+  else h += '<div class="qz-row"><button class="pill wide" data-act="qz-next" data-k="0">' + T('还不熟') + '</button><button class="pill solid wide" data-act="qz-next" data-k="1">' + T('我会了') + '</button></div>';
+  box.innerHTML = h;
+}
+
 // ---------- 搜索 ----------
 function norm(s) { return s.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9㐀-鿿\s]/g, ' ').replace(/\s+/g, ' ').trim(); }
 let IDX = null;
 function buildIndex() {
+  // 另一种字体的数据也放进索引：简体模式下打繁体字也找得到，反过来也一样
+  const O = JSON.parse(document.getElementById(S.script === 't' ? 'dataS' : 'dataT').textContent);
   IDX = D.ps.map(p => {
     const st = D.stages[p.s], m = st.mods[p.m];
+    const o = O.ps[p.n], ost = O.stages[p.s], om = ost.mods[p.m];
     const alts = (p.a || []).map(a => a[1]).join(' ');
     const en = norm(p.e + ' ' + alts);
-    return { p, en, enw: en.split(' '), zh: p.z + ' ' + (p.a ? '' : ''), tip: (p.t || '').toLowerCase(), mod: (m.zh + ' ' + m.kw + ' ' + m.en.toLowerCase() + ' ' + st.name) };
+    return { p, en, enw: en.split(' '), zh: p.z + ' ' + o.z, tip: ((p.t || '') + ' ' + (o.t || '')).toLowerCase(),
+      mod: m.zh + ' ' + m.kw + ' ' + om.zh + ' ' + om.kw + ' ' + m.en.toLowerCase() + ' ' + st.name + ' ' + ost.name };
   });
 }
 function search(q) {
@@ -515,6 +628,7 @@ function search(q) {
     }
     if (!isZh && terms.length > 1 && x.en.indexOf(qn) >= 0) score += 8;
     if (isZh && x.zh.indexOf(raw) >= 0) score += 4;
+    if (isZh && x.p.z.indexOf(raw) === 0) score += 2;
     if (D.stages[x.p.s].id === S.stage) score += 1;
     score -= Math.min(3, x.p.e.length / 40);
     out.push({ p: x.p, score });
@@ -603,7 +717,7 @@ function viewSaved() {
   if (!list.length) {
     return h + '<div class="empty big"><span class="mi big">' + ico('heart') + '</span><p>' + T('还没有收藏。在任何句子下面点小爱心，就会出现在这里。') + '</p><a class="pill solid" href="#">' + T('去首页看看') + '</a></div>';
   }
-  h += seqBar() + '<div class="list' + (S.showZh ? '' : ' nozh') + '">';
+  h += seqBar(list.length >= 2 ? '#quiz-saved-all' : '') + '<div class="list' + (S.showZh ? '' : ' nozh') + '">';
   list.forEach((p, i) => { h += card(p, { crumb: true, i: Math.min(i, 8) }); });
   return h + '</div>';
 }
@@ -635,6 +749,19 @@ function viewMe() {
     '<div class="row"><span>' + T('文字') + '</span>' + seg('script', S.script, [['s', '简体'], ['t', '繁體']]) + '</div>' +
     '<div class="row"><span>' + T('中文意思') + '</span>' + seg('showZh', String(S.showZh), [['true', T('显示')], ['false', T('先隐藏')]]) + '</div>' +
     '<p class="hint">' + T('“先隐藏”适合自我练习：看英文想意思，点一下句子再显示。夜里喂奶时可以切到“夜间”，屏幕比较不刺眼。') + '</p></section>';
+  h += '<section class="panel"><h2>' + T('离线使用') + '</h2>' +
+    '<p class="hint">' + T('把全部录音存到手机里，没有网络也能听（约 14 MB）。') + '</p>' +
+    '<button class="pill" id="dl" data-act="download">' + ico('download') + '<span>' + (LS.get('offline', false) ? T('已存好，可以再更新一次') : T('下载全部录音')) + '</span></button>' +
+    '<h3>' + T('加到手机主画面') + '</h3>' +
+    '<ul class="steps"><li><b>iPhone</b>' + T('用 Safari 打开，点下方的“分享”按钮，再点“加入主画面”。') + '</li>' +
+    '<li><b>' + T('安卓') + '</b>' + T('用 Chrome 打开，点右上角 ⋮，再点“加到主屏幕”。') + '</li>' +
+    '<li><b>LINE</b>' + T('先点右上角的 ⋮ 或分享，选“用默认浏览器开启”，再照上面的步骤。') + '</li></ul>' +
+    '<p class="hint">' + T('加到主画面后，打开就像一个 App，没有网址栏。') + '</p></section>';
+  h += '<section class="panel share"><h2>' + T('分享给朋友') + '</h2>' +
+    '<div class="qr">' + qrSvg() + '</div>' +
+    '<p class="url" lang="en">' + SITE_URL + '</p>' +
+    '<div class="seqbar"><button class="pill" data-act="copy">' + ico('copy') + '<span>' + T('复制网址') + '</span></button>' +
+    (navigator.share ? '<button class="pill solid" data-act="share">' + ico('share') + '<span>' + T('分享') + '</span></button>' : '') + '</div></section>';
   h += '<section class="panel about"><h2>' + T('给爸妈的话') + '</h2>' +
     '<p>' + T('这个网站是给爸妈用的，不是给宝宝看的。宝宝学语言靠的是跟真人互动：你的声音、表情和回应。') + '</p>' +
     '<p>' + T('英语流利的一方可以多跟宝宝说英语；另一方说中文也很好，宝宝可以同时学会两种语言。也想说英语的一方，先从“新手先学”的短句开始，挑一个固定场景（例如换尿布）只说英文。带口音没关系，重要的是多说、多回应、充满感情。') + '</p>' +
@@ -642,15 +769,35 @@ function viewMe() {
     '<p class="small">' + T('共') + ' ' + D.main.length + ' ' + T('个年龄阶段') + '、' + D.main.reduce((a, s) => a + s.mods.length, 0) + ' ' + T('个生活场景') + '、' + D.ps.length + ' ' + T('句（含儿歌）') + '。</p></section>';
   return h;
 }
+function qrSvg() {
+  const t = document.getElementById('qr');
+  return t ? t.innerHTML : '';
+}
+async function downloadAll(btn) {
+  if (location.protocol === 'file:' || !('caches' in window)) { toast(T('请用网址打开网站再下载')); return; }
+  const ids = D.audio.slice();
+  let done = 0, failed = 0;
+  btn.disabled = true;
+  const label = btn.querySelector('span');
+  const work = async () => {
+    while (ids.length) {
+      const id = ids.pop();
+      try { const r = await fetch(AUDIO_BASE + id + '.mp3'); if (!r.ok) failed++; else await r.blob(); } catch (e) { failed++; }
+      done++;
+      if (done % 10 === 0 || !ids.length) label.textContent = T('下载中') + ' ' + done + ' / ' + D.audio.length;
+    }
+  };
+  await Promise.all([work(), work(), work(), work()]);
+  btn.disabled = false;
+  if (failed) { label.textContent = T('有些没下载到，再点一次'); return; }
+  LS.set('offline', true);
+  label.textContent = T('全部存好了');
+  toast(T('全部录音已存到手机里'));
+}
+
 function afterMe() {
   const b = $('#birth');
-  if (b) b.addEventListener('change', () => {
-    S.birth = b.value; LS.set('birth', S.birth);
-    S.stage = currentStageId(); LS.set('stage', S.stage);
-    const a = ageInfo();
-    toast(a ? a.text : T('已清除生日'));
-    route();
-  });
+  if (b) b.addEventListener('change', () => { setBirth(b.value); route(); });
   const v = $('#voice');
   if (v) v.addEventListener('change', () => { S.voice = v.value; LS.set('voice', S.voice); });
 }
@@ -703,6 +850,7 @@ document.addEventListener('click', e => {
         if (D.ps[+c.dataset.n].i === i) { const f = c.querySelector('.fav'); f.classList.toggle('on', on); f.setAttribute('aria-pressed', on); }
       });
       el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+      try { if (on && navigator.vibrate) navigator.vibrate(8); } catch (e2) { /* 不支持 */ }
       toast(on ? T('已收藏') : T('已取消收藏'));
       break;
     }
@@ -761,11 +909,59 @@ document.addEventListener('click', e => {
       if (k === 'script') route();
       break;
     }
+    case 'qz-show':
+      QZ.shown = true; renderQuiz();
+      playPhrase(QZ.list[QZ.i], false, $('.qz-card'));
+      break;
+    case 'qz-play':
+    case 'qz-slow':
+      playPhrase(QZ.list[QZ.i], act === 'qz-slow', $('.qz-card'));
+      break;
+    case 'qz-next':
+      stopAll();
+      if (el.dataset.k === '0') QZ.miss.push(QZ.list[QZ.i]);
+      QZ.i++; QZ.shown = false; renderQuiz(1);
+      break;
+    case 'qz-again': startQuiz(QZ.miss); break;
+    case 'qz-all': startQuiz(); break;
+    case 'wsave': {
+      const v = $('#wbirth').value;
+      if (!v) { toast(T('先选宝宝的生日')); break; }
+      LS.set('welcomed', true); setBirth(v); setAccent(S.stage); route();
+      break;
+    }
+    case 'wskip':
+      LS.set('welcomed', true);
+      { const w = $('.welcome'); w.classList.add('out'); setTimeout(() => w.remove(), reduceMotion() ? 0 : 220); }
+      break;
+    case 'download': downloadAll(el); break;
+    case 'copy': {
+      const done = () => toast(T('网址已复制'));
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SITE_URL).then(done, () => selectUrl());
+      else selectUrl();
+      break;
+    }
+    case 'share':
+      navigator.share({ title: T('宝宝美语 Baby Talk'), text: T('给爸妈用的宝宝美语：0–6 岁地道美国口语，能搜索、能听发音。'), url: SITE_URL }).catch(() => {});
+      break;
     case 'testvoice':
       stopAll();
       say('', "Hi sweetie! Mommy loves you so much.", false);
       break;
   }
+});
+
+function selectUrl() {
+  const u = $('.url');
+  if (!u) return;
+  const r = document.createRange(); r.selectNodeContents(u);
+  const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  toast(T('网址已选取，长按复制'));
+}
+// 再点一次当前的标签：回到顶部
+document.addEventListener('click', e => {
+  const t = e.target.closest('.tab.on');
+  if (t && !location.hash.match(/^#(m|easy|guide|quiz)-/)) { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' }); }
 });
 
 let lastFromInside = false;
@@ -779,4 +975,7 @@ S.stage = S.birth ? currentStageId() : LS.get('stage', 's0');
 if (!stageById(S.stage) || S.stage === 'songs') S.stage = 's0';
 setAccent(S.stage);
 route();
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && /github\.io$|^localhost$/.test(location.hostname)) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
 })();

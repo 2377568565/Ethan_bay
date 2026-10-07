@@ -10,7 +10,8 @@
 """
 import argparse, glob, hashlib, json, os, re, sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # baby/
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 网站根目录
+SITE_URL = 'https://2377568565.github.io/baby-talk/'
 ICONS = None
 
 
@@ -108,6 +109,18 @@ def script_json(data):
     return dict(sorted(s.items()))
 
 
+def qr_svg(url):
+    import qrcode
+    q = qrcode.QRCode(border=0, error_correction=qrcode.constants.ERROR_CORRECT_M)
+    q.add_data(url)
+    q.make()
+    m = q.get_matrix()
+    n = len(m)
+    d = ''.join(f'M{x} {y}h1v1h-1z' for y, row in enumerate(m) for x, v in enumerate(row) if v)
+    return (f'<svg viewBox="0 0 {n} {n}" role="img" aria-label="网址二维码" shape-rendering="crispEdges">'
+            f'<path fill="#2A2540" d="{d}"/></svg>')
+
+
 def js_json(obj):
     return json.dumps(obj, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
@@ -139,12 +152,14 @@ def main():
         if t != s:
             ui[s] = t
     css = open(os.path.join(ROOT, 'src', 'style.css'), encoding='utf-8').read()
+    qr = qr_svg(SITE_URL)
     shell = open(os.path.join(ROOT, 'src', 'shell.html'), encoding='utf-8').read()
 
     body = (shell.replace('/*STYLE*/', css)
             .replace('/*DATA_S*/', data_s)
             .replace('/*DATA_T*/', data_t)
             .replace('/*UI_T*/', js_json(ui))
+            .replace('/*QR*/', qr)
             .replace('/*APP*/', app))
     head = ('<!doctype html>\n<html lang="zh-Hans">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
@@ -152,8 +167,21 @@ def main():
             '<meta name="theme-color" content="#14121D" media="(prefers-color-scheme: dark)">\n'
             '<meta name="apple-mobile-web-app-capable" content="yes">\n'
             '<meta name="description" content="给爸妈用的宝宝美语：0–6 岁每个阶段、每个生活场景，地道的美国口语，能搜索、能听发音。">\n'
+            '<meta name="apple-mobile-web-app-title" content="宝宝美语">\n'
+            '<meta name="apple-mobile-web-app-status-bar-style" content="default">\n'
+            f'<link rel="canonical" href="{SITE_URL}">\n'
+            '<link rel="manifest" href="manifest.webmanifest">\n'
             '<link rel="icon" href="icon.svg" type="image/svg+xml">\n'
-            '<link rel="apple-touch-icon" href="icon-180.png">\n')
+            '<link rel="apple-touch-icon" href="icon-180.png">\n'
+            '<meta property="og:type" content="website">\n'
+            '<meta property="og:site_name" content="宝宝美语 Baby Talk">\n'
+            '<meta property="og:title" content="宝宝美语 Baby Talk｜0–6 岁地道美国口语">\n'
+            '<meta property="og:description" content="给爸妈用的宝宝英语：按年龄和生活场景整理的美国日常口语，能搜索、能听美式发音。">\n'
+            f'<meta property="og:url" content="{SITE_URL}">\n'
+            f'<meta property="og:image" content="{SITE_URL}og.png">\n'
+            '<meta property="og:image:width" content="1200">\n'
+            '<meta property="og:image:height" content="630">\n'
+            '<meta name="twitter:card" content="summary_large_image">\n')
     full = head + body.replace('<!--HEAD_END-->', '</head>\n<body>') + '\n</body>\n</html>\n'
     open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(full)
 
@@ -165,7 +193,7 @@ def main():
     if args.fragment:  # 预览版不带录音文件，全部用手机自带的朗读
         data['audio'] = []
         frag = (shell.replace('/*STYLE*/', css).replace('/*DATA_S*/', js_json(data))
-                .replace('/*DATA_T*/', tw(js_json(data))).replace('/*UI_T*/', js_json(ui)).replace('/*APP*/', app))
+                .replace('/*DATA_T*/', tw(js_json(data))).replace('/*UI_T*/', js_json(ui)).replace('/*QR*/', qr).replace('/*APP*/', app))
         open(args.fragment, 'w', encoding='utf-8').write(frag.replace('<!--HEAD_END-->', ''))
 
     n = len(data['ps'])

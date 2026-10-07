@@ -133,6 +133,21 @@ Mommy's right here. | 妈妈就在这里。 | 也可以说 Daddy's right here.
 Back to sleep, little one. | 继续睡吧，小宝贝。 | 半夜醒来时轻声说。
 I love you. See you in the morning. | 我爱你。明天早上见。
 
+## night | moon | 夜里醒来 | Night Wakings | 夜奶 半夜 夜醒 凌晨 晚上 醒来 哄睡 灯光
+note: 夜里说话要轻、要短，灯光调暗，让宝宝慢慢知道晚上是睡觉的时间。
+Hi, sweetie. It's still nighttime. | 嗨，宝贝。现在还是晚上哦。
+Shh, it's sleepy time. | 嘘，现在是睡觉时间。
+Let's keep the lights low. | 我们把灯光调暗一点。
+Are you hungry? Let's have some milk. | 饿了吗？我们喝点奶。
+Let's change you real quick. | 我们快快换个尿布。 | real quick 是很口语的“很快地”，语法上不标准，但美国人天天这样说。
+You're wide awake, huh? | 你精神很好嘛？ | wide awake 是完全清醒。半夜宝宝睁大眼睛时，带点无奈地笑着说。
+It's three in the morning, buddy. | 现在是凌晨三点，小家伙。 | 无奈又好笑的语气。
+Daddy's got you. Let Mommy sleep. | 爸爸抱你，让妈妈睡一下。
+Let's rock you back to sleep. | 我们摇一摇，再睡回去。
+You're so sleepy. | 你好困哦。
+Close your eyes. Mommy's right here. | 闭上眼睛，妈妈就在这里。
+Good night again, little one. | 再说一次晚安，小宝贝。
+
 ## soothe | cloud | 安抚哭闹 | Soothing | 哭 哭闹 安抚 安慰 不舒服 没事 抱抱 闹 肠绞痛
 note: 宝宝哭的时候，先承认他的感受，再找原因。语气慢、低、稳。
 Oh, what's wrong? | 哦，怎么了？ | | What's the matter?
@@ -220,6 +235,21 @@ You did it! | 你做到了！
 Good job! | 做得好！ | 等孩子大一点，更建议说出具体做到了什么，见 3–6 岁“鼓励成长”。
 I'm so proud of you. | 我好为你骄傲。
 Daddy loves you too. | 爸爸也爱你。
+
+## dad | people | 爸爸时间 | Daddy Time | 爸爸 爸比 陪玩 抱 下班 回家 让妈妈休息
+note: 爸爸也可以说英文！这些句子很短，带点口音也没关系，宝宝最爱听爸爸的声音。
+Daddy's home! | 爸爸回来啦！
+Come here, buddy. | 过来，小家伙。 | buddy 常用来叫男孩；女孩可以说 sweetie 或 princess。
+Daddy's got you. | 爸爸抱着你呢。
+Do you want to hang out with Daddy? | 想跟爸爸一起玩吗？ | hang out 是一起待着、一起玩，很口语。
+Let's give Mommy a break. | 我们让妈妈休息一下。
+Who's Daddy's little buddy? | 谁是爸爸的小伙伴？ | 女孩可以说 Who's Daddy's little girl?
+Let's go see Mommy. | 我们去找妈妈。
+Daddy loves you so much. | 爸爸好爱你。
+You're getting so big! | 你长好大了！
+High five for Daddy! | 跟爸爸击个掌！
+Let's go on an adventure! | 我们去探险吧！ | 抱着宝宝在家里走一圈，也可以说成探险。
+Look, Daddy's making a funny face! | 看，爸爸在做鬼脸！
 
 ## body | hand | 身体与按摩 | Body & Massage | 身体 手 脚 手指 脚趾 鼻子 耳朵 肚脐 按摩 剪指甲 擦脸 鼻屎
 Let's give you a massage. | 我们来按摩一下。
