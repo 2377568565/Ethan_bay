@@ -2,9 +2,8 @@
 import os, re, html, requests
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
-GROUPS = [('gc_a', 'en_GC', range(544, 554)), ('gc_b', 'en_GC', range(554, 564)),
-          ('da', 'en_DA', list(range(527, 533)) + list(range(783, 791))),
-          ('col', 'en_COL', range(259, 268))]
+GROUPS = [('gc1', 'en_GC', range(425, 434)), ('gc2', 'en_GC', range(434, 443)), ('gc3', 'en_GC', range(443, 451)), ('gc4', 'en_GC', range(451, 459)),
+          ('da2', 'en_DA', list(range(440, 446)) + list(range(697, 703))), ('col2', 'en_COL', range(121, 128))]
 EXTRA = [('sda26', 'https://www.adventist.org/death-and-resurrection/')]
 
 
@@ -20,7 +19,7 @@ OUT = {}
 for key, b, ps in GROUPS:
     OUT[key] = '\n'.join(f'##### {b} seo page{p}\n' + text(M.format(b=b, p=p))[:6500] for p in ps)
 for key, u in EXTRA:
-    t = text(u); i = t.find('Death and Resurrection')
+    t = text(u); i = max(0, t.find('sleep') - 3000)
     OUT[key] = u + '\n' + t[max(0, i - 200):i + 6000]
 api = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/check-runs"
 hd = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'}
