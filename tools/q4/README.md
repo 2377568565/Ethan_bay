@@ -45,11 +45,20 @@ python3 tools/q4/jesus.py             # 版式、出处、经文和家谱页共�
 - 正文里所有带出处的经文引用，都和和合本逐字核对过（新增经文后建议再核对一次）。
 - 注意：圣经数据（和合本）有约 65 章把几节合在一起（例如约5、路2），这些章里后面的节数会错一位。专题页里用到这些章的经文，直接手写原文。
 
+## 专题网页：根据圣经，人死了去哪里？（`death.html`，问题彩蛋 05）
+```sh
+python3 tools/q4/death.py --pdf       # 正文 death_text.py，两张图 death_svg.py；版式、出处、经文和家谱页共用 history.py
+```
+- 以圣经为主线；怀爱伦著作只作补充，放在 `.egw` 虚线框里（框顶有“圣经才是标准”的提示）。
+- 怀著引文（GC 533、534、545、549、550，DA 787）在 2026-10 用临时任务读取怀著托管会的逐页原版文字核对（标准页码以方括号标记 `[N]` 为准，`[N]` 表示第 N 页开始）。
+  注意：“Upon the fundamental error of natural immortality…”在 GC 545（第33章），不是常被引用的 551。
+- `qa_data.py` 里 id 是 `qa6`（`qa5` 是下架的补充问答），卡片编号显示 05；`nochip=True`（第9课星期一没有加入口，免得要补录朗读）。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。
 - 小测验写在正文模块的 `QUIZ`（如 `history_text.QUIZ`、`jesus_text.QUIZ`）：至少 5 题，每次随机抽 3 题，答对 2 题才能下载；当场显示对错和正确答案。
-- PDF 学习版：`python3 tools/q4/history.py --pdf`、`python3 tools/q4/jesus.py --pdf`（`topic_pdf.js` 用 Chromium 打印，思源黑体/宋体，A4，有书签和页码），
+- PDF 学习版：`python3 tools/q4/history.py --pdf`、`python3 tools/q4/jesus.py --pdf`、`python3 tools/q4/death.py --pdf`（`topic_pdf.js` 用 Chromium 打印，思源黑体/宋体，A4，有书签和页码），
   存到 `lessons/2026-Q4/qa/研经问答NN-….pdf`。正文改了要重新生成。二维码需要 `pip install qrcode`。
 - 在学课网站里点这些专题卡片，会用浮层打开（`app.js`），返回时网站不重新加载；专题网页发现自己在浮层里（`html.emb`），会把 `./#…` 链接交给网站处理。
 

@@ -357,6 +357,14 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《根据圣经，人死了去哪里？》（death.py）用到的怀著：2026-10 据怀著托管会逐页原版文字核对（标准页码）
+ 'gc533':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第533页', None, []),
+ 'gc533b':   ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第533页', None, []),
+ 'gc534':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第534页', None, []),
+ 'gc545':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第545页', None, []),
+ 'gc549':    ('路德《所罗门传道书释义》第152页，转引自怀爱伦《善恶之争》英文原著第549页', None, []),
+ 'gc550':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第550页', None, []),
+ 'da787':    ('怀爱伦《历代愿望》第81章“主已经复活了”，英文原著第787页', None, []),
 })
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
