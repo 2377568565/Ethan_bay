@@ -1,26 +1,33 @@
-# 临时：读取怀著原版页面（egwwritings 的逐页文字），按书合并成“检查结果”。查完删除。
+# 临时：读取怀著原版页面（egwwritings 的逐页文字），只存含关键句的段落和页码标记。查完删除。
 import os, re, html, requests
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
-GROUPS = [('gc1', 'en_GC', range(425, 434)), ('gc2', 'en_GC', range(434, 443)), ('gc3', 'en_GC', range(443, 451)), ('gc4', 'en_GC', range(451, 459)),
-          ('da2', 'en_DA', list(range(440, 446)) + list(range(697, 703))), ('col2', 'en_COL', range(121, 128))]
-EXTRA = [('sda26', 'https://www.adventist.org/death-and-resurrection/')]
+GROUPS = [('gc5', 'en_GC', range(455, 482), ['begin to think', 'one minute', 'natural immortality', 'personate', 'Spiritualism', 'familiar spirit', 'rich man', 'Lazarus', 'the dead know not', 'sleep']),
+          ('da3', 'en_DA', list(range(446, 462)), ['unborrowed', 'sleep', 'Lazarus, come forth', 'dead']),
+          ('da4', 'en_DA', list(range(660, 697)), ['small matter', 'silence and darkness', 'sleep', 'thief', 'Paradise', 'To-day', 'today']),
+          ('col3', 'en_COL', range(126, 150), ['own ground', 'Abraham', 'Lazarus', 'state of the dead', 'the dead'])]
 
 
 def text(u):
     r = requests.get(u, headers=UA, timeout=60)
     if r.status_code != 200:
-        return f'[{r.status_code}]'
+        return ''
     t = re.sub(r'(?is)<(script|style)\b.*?</\1>', ' ', r.text)
-    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t)))
+    t = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t)))
+    t = t.split('Nächste Seite »')[-1]
+    return t.replace('ﬁ', 'fi').replace('ﬂ', 'fl')
 
 
 OUT = {}
-for key, b, ps in GROUPS:
-    OUT[key] = '\n'.join(f'##### {b} seo page{p}\n' + text(M.format(b=b, p=p))[:6500] for p in ps)
-for key, u in EXTRA:
-    t = text(u); i = max(0, t.find('sleep') - 3000)
-    OUT[key] = u + '\n' + t[max(0, i - 200):i + 6000]
+for key, b, ps, pats in GROUPS:
+    full = ''.join(f' {{seo{p}}} ' + text(M.format(b=b, p=p)) for p in ps)
+    parts = [key + ' marks: ' + ' '.join(re.findall(r'\{seo\d+\} \S+ \S+|\[\d{3}\]', full))]
+    for pat in pats:
+        ms = list(re.finditer(re.escape(pat), full, re.I))
+        parts.append(f'[{pat}] {len(ms)}')
+        for m in ms[:4]:
+            parts.append('>> ' + full[max(0, m.start() - 1500):m.end() + 1000])
+    OUT[key] = '\n'.join(parts)
 api = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/check-runs"
 hd = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'}
 for key, t in OUT.items():
