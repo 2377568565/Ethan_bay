@@ -121,6 +121,15 @@ python3 tools/q4/joy.py --pdf         # 正文 joy_text.py，图 joy_svg.py（�
 - 答题的正确答案位置分散在 A—D（以前几篇大多在 B，`topic_tools.py` 不打乱选项）。
 - `qa_data.py` 里 id 是 `qa15`，卡片编号 14。
 
+## 专题网页：家人总在念叨，我为什么越听越烦？（`listen.html`，问题彩蛋 15）
+```sh
+python3 tools/q4/listen.py --pdf      # 正文 listen_text.py，图 listen_svg.py（越劝越僵 / 先听再说）
+```
+- 用户给的真实聊天只作背景，页面里只写概括的场景，不出现人名、地名和具体事情。
+- 研究 9 篇在 PubMed 核对摘要和 DOI（认可感受、反复求安慰、共同反刍、看不见的支持、情绪表达、人际关系与死亡、共情与慈悲训练、隔代挂念、担心与睡眠）；百科：情绪传染、情绪表达。
+- 原文：撒上1:8 三个“为何”（lamah）。怀著 MH 483—484、486、487，DA 146、752，AH 360、363、438—439、441—442 读取原版核对（AH 的 seo 页码约为标准页码 −82，例如 AH 360 ↔ seo278；DA 146 ↔ seo116，DA 752 ↔ seo649；MH 483 ↔ seo357）。
+- `qa_data.py` 里 id 是 `qa16`，卡片编号 15；答案位置分散在 A—D。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。
