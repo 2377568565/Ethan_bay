@@ -149,4 +149,9 @@ CHECKED = {
  'zh_week': ('https://zh.wikipedia.org/wiki/%E6%98%9F%E6%9C%9F', 'live'),
  'bates_wiki': ('https://en.wikipedia.org/wiki/Joseph_Bates_(Adventist)', 'live'),
  'preston_wiki': ('https://en.wikipedia.org/wiki/Rachel_Oakes_Preston', 'live'),
+ 'bri_guide': ('https://adventistbiblicalresearch.org/articles/sabbath-observance-guidelines', 'live'),
+ 'kenya_sda': ('https://www.standardmedia.co.ke/amp/article/2000084618/sda-students-now-get-their-sabbath-back', 'live'),
+ 'gaokao_zh': ('https://zh.wikipedia.org/wiki/%E6%99%AE%E9%80%9A%E9%AB%98%E7%AD%89%E5%AD%A6%E6%A0%A1%E6%8B%9B%E7%94%9F%E5%85%A8%E5%9B%BD%E7%BB%9F%E4%B8%80%E8%80%83%E8%AF%95', 'live'),
+ 'ielts_wiki': ('https://en.wikipedia.org/wiki/International_English_Language_Testing_System', 'live'),
+ 'toefl_wiki': ('https://en.wikipedia.org/wiki/TOEFL', 'live'),
 }

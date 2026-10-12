@@ -357,6 +357,19 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《安息日，到底能做什么？》（keep.py）用到的资料：2026-10 读取原文核对
+ 'bri_guide':('基督复临安息日会圣经研究所：《守安息日指引》（1981年设立的委员会所写，1985年全球总会代表大会表决接收；文件说明不作为教会法规）', 'https://adventistbiblicalresearch.org/articles/sabbath-observance-guidelines', ['Sabbath']),
+ 'kenya_sda':('肯尼亚《标准报》：法院下令公立中学允许复临信徒学生从星期五晚上到星期六不上课', 'https://www.standardmedia.co.ke/amp/article/2000084618/sda-students-now-get-their-sabbath-back', ['Sabbath']),
+ 'gaokao_zh':('普通高等学校招生全国统一考试（中文维基百科）', 'https://zh.wikipedia.org/wiki/%E6%99%AE%E9%80%9A%E9%AB%98%E7%AD%89%E5%AD%A6%E6%A0%A1%E6%8B%9B%E7%94%9F%E5%85%A8%E5%9B%BD%E7%BB%9F%E4%B8%80%E8%80%83%E8%AF%95', ['6月7']),
+ 'ielts_wiki':('雅思考试（维基百科英文版）', 'https://en.wikipedia.org/wiki/International_English_Language_Testing_System', ['month']),
+ 'toefl_wiki':('托福考试（维基百科英文版）', 'https://en.wikipedia.org/wiki/TOEFL', ['Home Edition']),
+ 'da207':    ('怀爱伦《历代愿望》第21章“毕士大和公会”，英文原著第207页', None, []),
+ 't6_354':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第354页', None, []),
+ 't6_355':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第355—356页', None, []),
+ 't6_357':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第357页', None, []),
+ 't6_358':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第358页', None, []),
+ 't6_361':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第361页', None, []),
+ 't6_362':   ('怀爱伦《教会证言》第6卷“守安息日”，英文原著第361—362页', None, []),
  # 《谁改了安息日？》（sabbath.py）用到的资料：2026-10 用临时任务逐一读取原文核对
  'augsburg28':('《奥格斯堡信条》第28条“论教会的权柄”第33节（1530年，路德宗）', 'https://bookofconcord.org/augsburg-confession/', ['Sabbath']),
  'ccc2175':  ('《天主教教理》第2174—2175条（梵蒂冈网站英文版）', 'https://www.vatican.va/archive/ENG0015/__P7O.HTM', ['2175']),
@@ -387,4 +400,4 @@ SRC.update({
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
-            'gc493', 'aa560', 'aa561', 'pp48'}
+            'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362'}
