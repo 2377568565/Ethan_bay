@@ -3,16 +3,14 @@ import io, os, re, html, requests
 from concurrent.futures import ThreadPoolExecutor
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 W = 'https://en.wikipedia.org/wiki/'
-JOBS = [
-    ('negbias_w', W + 'Negativity_bias', ['Baumeister', 'Bad is stronger', 'Rozin', 'evolution']),
-    ('rumin_w', W + 'Rumination_(psychology)', ['Nolen-Hoeksema', 'women', 'gender', 'response styles']),
-]
+JOBS = []
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
 EGW = [
-    ('mh', 'en_MH', range(215, 285), ['relation that exists between the mind', 'Grief, anxiety', 'contented mind', 'gratitude and praise',
-                                      'melancholy', 'cheerful', 'imagination', 'forgive', 'Courage, hope']),
-    ('mh2', 'en_MH', range(440, 500), ['talk of', 'complain', 'cheerful', 'trouble', 'gratitude', 'cares', 'tomorrow']),
-    ('sc', 'en_SC', range(96, 120), ['mistakes and failures', 'thorns', 'unpleasant', 'roses', 'Talk courage', 'praise', 'gloom', 'gratitude']),
+    ('mh', 'en_MH', range(158, 200), ['relation that exists between the mind', 'Grief, anxiety', 'contented mind', 'gratitude and praise',
+                                      'melancholy', 'Courage, hope', 'imagination', 'forgiv', 'sympathizes', 'positive duty']),
+    ('mhm', 'en_MH', range(254, 270), ['union is a mistake', 'give love', 'unacquainted with the physical', 'dispirited', 'morose']),
+    ('mh2', 'en_MH', range(322, 356), ['talk of', 'complain', 'cheerful', 'gratitude', 'tomorrow', 'burden', 'unbelief']),
+    ('sc', 'en_SC', range(55, 100), ['mistakes and failures', 'thorns', 'unpleasant', 'roses', 'Talk courage', 'praise', 'gloom']),
 ]
 
 
