@@ -86,6 +86,14 @@ python3 tools/q4/god.py --pdf         # 正文 god_text.py，两张图 god_svg.p
 - 马吉安的历史引维基百科；怀著 SC 10—11、PP 366—367、GC 36 在 2026-10 用临时任务读取原版逐页核对。
 - `qa_data.py` 里 id 是 `qa10`，卡片编号 09。
 
+## 专题网页：上帝早就定好谁得救吗？（`elect.html`，问题彩蛋 10）
+```sh
+python3 tools/q4/elect.py --pdf       # 正文 elect_text.py，两张图 elect_svg.py（罗9—11章的思路、法老的心是谁使它刚硬的）
+```
+- 原文：玛1:3/创29:31/申21:15 的 sane’（TAHOT），罗9:13/路14:26 的 miseō、徒13:48 的 tetagmenoi、罗9:22—23 两个分词（TAGNT）。
+- 加尔文《基督教要义》3.21.5、3.23.7（CCEL）、《协同信条》摘要第11条、卫斯理《白白的恩典》、新加尔文主义（维基百科）、怀著 PP 207—208 都在 2026-10 用临时任务读取原文核对。
+- `qa_data.py` 里 id 是 `qa11`，卡片编号 10。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。
