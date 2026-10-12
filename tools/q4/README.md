@@ -54,6 +54,14 @@ python3 tools/q4/death.py --pdf       # 正文 death_text.py，两张图 death_s
   注意：“Upon the fundamental error of natural immortality…”在 GC 545（第33章），不是常被引用的 551。
 - `qa_data.py` 里 id 是 `qa6`（`qa5` 是下架的补充问答），卡片编号显示 05；`nochip=True`（第9课星期一没有加入口，免得要补录朗读）。
 
+## 专题网页：谁改了安息日？（`sabbath.html`，问题彩蛋 06）
+```sh
+python3 tools/q4/sabbath.py --pdf     # 正文 sabbath_text.py，两张图 sabbath_svg.py（受难周三天对上星期、演变时间轴）
+```
+- 圣经为主线；历史资料引各教会自己的原始文件（《天主教教理》2175、吉本斯《先贤的信仰》、《奥格斯堡信条》28、《威斯敏斯德信条》21.7），2026-10 用临时任务读取原文核对。
+- 怀著 GC 52、53、434—435，DA 287、288，PP 48 已对照原版逐页文字核对。
+- `qa_data.py` 里 id 是 `qa7`，卡片编号 06。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。

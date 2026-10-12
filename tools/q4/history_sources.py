@@ -357,6 +357,24 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《谁改了安息日？》（sabbath.py）用到的资料：2026-10 用临时任务逐一读取原文核对
+ 'augsburg28':('《奥格斯堡信条》第28条“论教会的权柄”第33节（1530年，路德宗）', 'https://bookofconcord.org/augsburg-confession/', ['Sabbath']),
+ 'ccc2175':  ('《天主教教理》第2174—2175条（梵蒂冈网站英文版）', 'https://www.vatican.va/archive/ENG0015/__P7O.HTM', ['2175']),
+ 'cathen_sun':('天主教百科全书（1912年）：“星期日”条', 'https://www.newadvent.org/cathen/14335a.htm', ['Sabbath']),
+ 'gibbons':  ('吉本斯枢机主教《先贤的信仰》（The Faith of Our Fathers，古腾堡计划电子版，据1917年第93版）', 'https://www.gutenberg.org/cache/epub/27435/pg27435.txt', ['Sunday']),
+ 'wcf21':    ('《威斯敏斯德信条》第21章第7节（1646年，长老会）', 'https://bpc.org/wcf-ch-21', ['first day']),
+ 'greg_wiki':('格里高利历（维基百科英文版）', 'https://en.wikipedia.org/wiki/Gregorian_calendar', ['1582']),
+ 'days_wiki':('一周各天的名称（维基百科英文版）', 'https://en.wikipedia.org/wiki/Names_of_the_days_of_the_week', ['Sabbath']),
+ 'sunday_wiki':('星期日（维基百科英文版，载君士坦丁321年法令的英译）', 'https://en.wikipedia.org/wiki/Sunday', ['venerable']),
+ 'zh_week':  ('星期（中文维基百科）', 'https://zh.wikipedia.org/wiki/%E6%98%9F%E6%9C%9F', ['安息日']),
+ 'bates_wiki':('约瑟·贝茨（维基百科英文版）', 'https://en.wikipedia.org/wiki/Joseph_Bates_(Adventist)', ['1846']),
+ 'preston_wiki':('瑞秋·奥克斯·普雷斯顿（维基百科英文版）', 'https://en.wikipedia.org/wiki/Rachel_Oakes_Preston', ['1844']),
+ 'gc52':     ('怀爱伦《善恶之争》第3章“属灵黑暗的时代”，英文原著第52页', None, []),
+ 'gc53':     ('怀爱伦《善恶之争》第3章“属灵黑暗的时代”，英文原著第53页', None, []),
+ 'gc434':    ('怀爱伦《善恶之争》第25章“上帝的律法永不改变”，英文原著第434—435页', None, []),
+ 'da287':    ('怀爱伦《历代愿望》第29章“安息日”，英文原著第287页', None, []),
+ 'da288':    ('怀爱伦《历代愿望》第29章“安息日”，英文原著第288页', None, []),
+ 'pp48':     ('怀爱伦《先祖与先知》第2章“创造”，英文原著第48页', None, []),
  # 《根据圣经，人死了去哪里？》（death.py）用到的怀著：2026-10 据怀著托管会逐页原版文字核对（标准页码）
  'gc533':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第533页', None, []),
  'gc533b':   ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第533页', None, []),
@@ -369,4 +387,4 @@ SRC.update({
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
-            'gc493', 'aa560', 'aa561'}
+            'gc493', 'aa560', 'aa561', 'pp48'}
