@@ -4,15 +4,24 @@ from concurrent.futures import ThreadPoolExecutor
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 W = 'https://en.wikipedia.org/wiki/'
 JOBS = [
-    ('calvin7', 'https://biblehub.com/commentaries/calvin/romans/7.htm', ['Augustine', 'regenerate', 'faithful', 'carnal', 'retract']),
-    ('wesley7', 'https://biblehub.com/commentaries/wes/romans/7.htm', ['legal', 'evangelical', 'carnal', 'wretched', 'personates', 'person']),
-    ('wesley7b', 'https://notes.historyofmethodism.com/romans/7', ['legal', 'evangelical', 'carnal', 'wretched']),
-    ('clarke7', 'https://biblehub.com/commentaries/clarke/romans/7.htm', ['Augustine', 'regenerate', 'apostle himself', 'Jew']),
+    ('newcalv', W + 'New_Calvinism', ['Time', '2009', 'ten ideas', 'Piper', 'Keller']),
+    ('predest_w', W + 'Predestination', ['double predestination', 'Calvin', 'Arminius', 'Lutheran', 'Augustine', 'Adventist']),
+    ('uncond', W + 'Unconditional_election', ['Romans 9', 'Esau', 'Arminian', 'corporate', 'foreseen']),
+    ('corp', W + 'Corporate_election', ['Romans 9', 'Esau', 'nations', 'Klein']),
+    ('calv_a', 'https://ccel.org/ccel/calvin/institutes/institutes.v.xxii.html', ['eternal decree', 'preordained', 'not created on equal terms', 'dreadful']),
+    ('calv_b', 'https://ccel.org/ccel/calvin/institutes/institutes.v.xxiv.html', ['dreadful', 'decretum horribile', 'horrible decree', 'I admit']),
+    ('calv_c', 'https://www.ccel.org/ccel/calvin/institutes.v.xxii.html', ['eternal decree', 'not created on equal terms']),
+    ('calv_d', 'https://www.ccel.org/ccel/calvin/institutes.v.xxiv.html', ['dreadful', 'decree']),
+    ('wesley_fg', 'https://wesley.nnu.edu/john-wesley/the-sermons-of-john-wesley-1872-edition/sermon-128-free-grace/', ['free in all', 'free for all', 'predestination', 'blasphemy', 'makes void']),
+    ('foc11', 'https://bookofconcord.org/formula-of-concord-epitome/article-xi/', ['foreknowledge', 'predestination', 'damnation', 'all men', 'cause']),
+    ('foc11b', 'https://bookofconcord.org/formula-of-concord-epitome/', ['Election', 'predestination']),
 ]
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
 EGW = [
-    ('col', 'en_COL', range(55, 85), ['perfectly reproduced', 'Christ is waiting', 'claim them as His own']),
-    ('aa', 'en_AA', range(440, 480), ['not the work of a moment', 'sinless', 'never indulge the thought']),
+    ('pp', 'en_PP', range(140, 200), ['election', 'predestin', 'arbitrary', 'Esau', 'birthright']),
+    ('pp2', 'en_PP', range(200, 290), ['election', 'predestin', 'arbitrary']),
+    ('da', 'en_DA', range(440, 520), ['predestin', 'election', 'arbitrary decree']),
+    ('gc', 'en_GC', range(240, 300), ['predestin', 'election', 'arbitrary', 'decree']),
 ]
 
 
