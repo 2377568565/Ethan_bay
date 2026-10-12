@@ -102,6 +102,15 @@ python3 tools/q4/soon.py --pdf        # 正文 soon_text.py，两张图 soon_svg
 - 乌雪 4004、希伯来历 5787、七十士本约公元前5500、威克理夫2025统计、印刷术、ChatGPT 用户数都读取原文核对；怀著 2T 194、1SM 188、GC 458、DA 633—634、GC 518 读取原版核对。
 - `qa_data.py` 里 id 是 `qa12`，卡片编号 11。
 
+## 专题网页：要“完全”才能见主吗？（`perfect.html`，问题彩蛋 12）和 信了主，还会失去救恩吗？（`lose.html`，问题彩蛋 13）
+```sh
+python3 tools/q4/perfect.py --pdf     # 正文 perfect_text.py，图 perfect_svg.py（“完全”的三个时态）
+python3 tools/q4/lose.py --pdf        # 正文 lose_text.py，图 lose_svg.py（离开的路、回家的路）
+```
+- 原文：tamim（创6:9、17:1、出12:5）、tam（伯1:1）、shalem（王上15:14 等）、teleios（太5:48、林前14:20、来5:14、腓3:15）、来10:14 完成时、来6:6/10:26 现在分词。
+- 怀著 COL 68—69（这次才读到原文，之前几次都因为换行断字没搜到）、1SM 382；《奥格斯堡信条》第12条、基督徒的完全、永远的保障、不得赦免的罪都在 2026-10 读取原文核对。
+- `qa_data.py` 里 id 是 `qa13`、`qa14`，卡片编号 12、13。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。

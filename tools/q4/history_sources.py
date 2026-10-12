@@ -357,6 +357,13 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《要“完全”才能见主吗？》（perfect.py）和《信了主，还会失去救恩吗？》（lose.py）用到的资料：2026-10 用临时任务读取原文核对
+ 'col69':    ('怀爱伦《基督比喻实训》第3章“先发苗，后长穗”，英文原著第68—69页', None, []),
+ 'sm1_382':  ('怀爱伦《信息选粹》第1册“耶稣接纳我们的心意”，英文原著第382页', None, []),
+ 'augs12':   ('《奥格斯堡信条》第12条“论悔改”', 'https://bookofconcord.org/augsburg-confession/article-xii/', ['once justified']),
+ 'perfection_w':('基督徒的完全（Christian perfection，维基百科英文版：加尔文主义、卫斯理《基督徒完全的清楚说明》1777年）', 'https://en.wikipedia.org/wiki/Christian_perfection', ['Plain Account']),
+ 'eternalsec_w':('永远的保障（Eternal security，维基百科英文版：各宗派的看法）', 'https://en.wikipedia.org/wiki/Eternal_security', ['Lutheran']),
+ 'unpard_w': ('不得赦免的罪（Eternal sin，维基百科英文版）', 'https://en.wikipedia.org/wiki/Eternal_sin', ['Matthew 12']),
  # 《“我必快来”，为什么还没来？》（soon.py）用到的资料：2026-10 用临时任务读取原文核对
  'ussher_w': ('乌雪年代学（Ussher chronology，维基百科英文版：创造之日推算为公元前4004年）', 'https://en.wikipedia.org/wiki/Ussher_chronology', ['4004']),
  'dating_w': ('推算创造的年代（Dating creation，维基百科英文版：马所拉本创造到洪水1656年；七十士译本推算约公元前5500年）', 'https://en.wikipedia.org/wiki/Dating_creation', ['1,656']),
@@ -455,4 +462,4 @@ SRC.update({
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
             'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362',
-            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207', 't2_194', 'sm1_188', 'gc458', 'da633', 'gc518'}
+            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207', 't2_194', 'sm1_188', 'gc458', 'da633', 'gc518', 'col69', 'sm1_382'}
