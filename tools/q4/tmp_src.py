@@ -4,33 +4,15 @@ from concurrent.futures import ThreadPoolExecutor
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 W = 'https://en.wikipedia.org/wiki/'
 JOBS = [
-    ('simul', W + 'Simul_justus_et_peccator', ['simul', 'Romans 7', 'at the same time']),
-    ('antinom', W + 'Antinomianism', ['Agricola', 'Formula of Concord', 'third use', 'Luther']),
-    ('persev', W + 'Perseverance_of_the_saints', ['Westminster', 'Arminian', 'once saved', 'Dort']),
-    ('armin', W + 'Arminianism', ['Remonstran', '1610', 'conditional', 'Wesley', 'Dort']),
-    ('dort', W + 'Synod_of_Dort', ['1618', '1619', 'five', 'TULIP', 'Remonstrant']),
-    ('tulip', W + 'Five_Points_of_Calvinism', ['Total depravity', 'Unconditional election', 'Limited atonement', 'Irresistible grace', 'Perseverance']),
-    ('freegrace', W + 'Free_Grace_theology', ['repentance', 'Lordship', 'works', 'eternal security']),
-    ('hyper', W + 'Hyper-grace', ['confess', 'repent', 'Prince', 'law']),
-    ('rom7', W + 'Romans_7', ['wretched', 'regenerate', 'Augustine', 'Wesley', 'Luther', 'interpret']),
-    ('origsin', W + 'Original_sin', ['Augustine', 'infant baptism', 'Pelagius', 'Adventist', 'Orthodox']),
-    ('sdatheo', W + 'Seventh-day_Adventist_theology', ['Last Generation', 'perfection', 'Andreasen', 'Questions on Doctrine', 'righteousness by faith', '1888']),
-    ('lgt', W + 'Last_Generation_Theology', ['Andreasen', 'perfection', 'close of probation', 'demonstrat']),
-    ('wcf', 'https://www.opc.org/wcf.html', ['predestinated unto everlasting life', 'can neither totally nor finally fall away', 'doth no way abolish']),
-    ('dortc', 'https://www.crcna.org/welcome/beliefs/confessions/canons-dort', ['remnants of sin', 'daily sins of weakness', 'carnal security']),
-    ('fb10', 'https://www.adventist.org/experience-of-salvation/', ['assurance', 'justif', 'sanctif', 'Spirit']),
-    ('fb10b', 'https://www.adventist.org/beliefs/fundamental-beliefs/salvation/experience-of-salvation/', ['assurance', 'justif', 'sanctif']),
-    ('augs6', 'https://bookofconcord.org/augsburg-confession/article-vi/', ['new obedience', 'good works', 'faith']),
+    ('calvin7', 'https://biblehub.com/commentaries/calvin/romans/7.htm', ['Augustine', 'regenerate', 'faithful', 'carnal', 'retract']),
+    ('wesley7', 'https://biblehub.com/commentaries/wes/romans/7.htm', ['legal', 'evangelical', 'carnal', 'wretched', 'personates', 'person']),
+    ('wesley7b', 'https://notes.historyofmethodism.com/romans/7', ['legal', 'evangelical', 'carnal', 'wretched']),
+    ('clarke7', 'https://biblehub.com/commentaries/clarke/romans/7.htm', ['Augustine', 'regenerate', 'apostle himself', 'Jew']),
 ]
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
 EGW = [
-    ('sc', 'en_SC', range(1, 145), ['ropes of sand', 'force of the will', 'give Him your will', 'habitual words', 'two errors', 'opposite and no less dangerous',
-                                   'character stands in place', 'more faulty', 'cast off', 'weep at the feet', 'shortcomings', 'sinful as your life', 'wretched', 'feel that you are saved', 'Do not wait to feel']),
-    ('col', 'en_COL', list(range(40, 100)) + list(range(130, 185)) + list(range(290, 340)), ['never be taught to say', 'perfectly reproduced', 'Christ\'s righteousness', 'wedding garment', 'once saved', 'sinless']),
-    ('da', 'en_DA', range(470, 640), ['true obedience comes from the heart', 'our own impulses', 'wretched', 'hereditary and cultivated']),
-    ('aa', 'en_AA', range(380, 520), ['not the work of a moment', 'sinless', 'never indulge the thought', 'claim to be']),
-    ('gc', 'en_GC', range(300, 540), ['without a mediator', 'released from obedience', 'claim to be sinless', 'claim of sinlessness', 'once saved', 'sanctification', 'Only believe']),
-    ('mb', 'en_MB', range(1, 170), ['wretched', 'Be ye therefore perfect', 'perfect', 'sin in the']),
+    ('col', 'en_COL', range(55, 85), ['perfectly reproduced', 'Christ is waiting', 'claim them as His own']),
+    ('aa', 'en_AA', range(440, 480), ['not the work of a moment', 'sinless', 'never indulge the thought']),
 ]
 
 
@@ -76,7 +58,7 @@ def page(bp):
     return ''
 
 
-with ThreadPoolExecutor(12) as ex:
+with ThreadPoolExecutor(4) as ex:
     for key, b, ps, pats in EGW:
         ps = list(ps)
         texts = list(ex.map(page, [(b, p) for p in ps]))
