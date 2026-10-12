@@ -150,6 +150,8 @@ CHECKED = {
  'bates_wiki': ('https://en.wikipedia.org/wiki/Joseph_Bates_(Adventist)', 'live'),
  'preston_wiki': ('https://en.wikipedia.org/wiki/Rachel_Oakes_Preston', 'live'),
  'bri_guide': ('https://adventistbiblicalresearch.org/articles/sabbath-observance-guidelines', 'live'),
+ 'marcion_w': ('https://en.wikipedia.org/wiki/Marcion_of_Sinope', 'live'),
+ 'marcionism_w': ('https://en.wikipedia.org/wiki/Marcionism', 'live'),
  'calvin_r7': ('https://biblehub.com/commentaries/calvin/romans/7.htm', 'live'),
  'wesley_r7': ('https://biblehub.com/commentaries/wes/romans/7.htm', 'live'),
  'luther_simul': ('https://en.wikipedia.org/wiki/Theology_of_Martin_Luther', 'live'),

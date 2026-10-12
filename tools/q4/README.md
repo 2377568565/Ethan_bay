@@ -78,6 +78,14 @@ python3 tools/q4/rom7.py --pdf        # 正文 rom7_text.py，两张图 rom7_svg
 - 怀著 SC 19、31、47—48、51、57—58、59—60、62—63、64，COL 155，DA 668、671，GC 425、471，MB 76 都在 2026-10 用临时任务读取原版逐页核对（COL 69 没找到原文，没有引用）。
 - `qa_data.py` 里 id 是 `qa9`，卡片编号 08。
 
+## 专题网页：旧约的上帝和新约的上帝，是同一位吗？（`god.html`，问题彩蛋 09）
+```sh
+python3 tools/q4/god.py --pdf         # 正文 god_text.py，两张图 god_svg.py（出34:6 在旧约的回声、恩慈与严厉四格对照）
+```
+- 用词统计（慈爱、地狱、忿怒等）是用 bible.py 的和合本数据数的；以利沙与母熊的原文词（na‘ar、yeled）查 STEPBible TAHOT。
+- 马吉安的历史引维基百科；怀著 SC 10—11、PP 366—367、GC 36 在 2026-10 用临时任务读取原版逐页核对。
+- `qa_data.py` 里 id 是 `qa10`，卡片编号 09。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。

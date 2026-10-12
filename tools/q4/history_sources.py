@@ -357,6 +357,12 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《旧约的上帝和新约的上帝》（god.py）用到的资料：2026-10 用临时任务读取原文核对
+ 'marcion_w':('马吉安（Marcion of Sinope，约85—160年，维基百科英文版）', 'https://en.wikipedia.org/wiki/Marcion_of_Sinope', ['144']),
+ 'marcionism_w':('马吉安主义（维基百科英文版）', 'https://en.wikipedia.org/wiki/Marcionism', ['wrathful']),
+ 'sc10':     ('怀爱伦《拾级就主》第1章“上帝对人类的爱”，英文原著第10—11页', None, []),
+ 'pp366':    ('怀爱伦《先祖与先知》（Patriarchs and Prophets）第32章“律法与两约”，英文原著第366—367页', None, []),
+ 'gc36':     ('怀爱伦《善恶之争》第1章“耶路撒冷的毁灭”，英文原著第36页', None, []),
  # 《我还会犯罪，能得救吗？》（rom7.py）用到的资料：2026-10 用临时任务读取原文核对
  'luther_simul':('路德的神学：“同时是义人又是罪人”（simul justus et peccator，维基百科英文版）', 'https://en.wikipedia.org/wiki/Theology_of_Martin_Luther', ['simul']),
  'antinom_wiki':('反律主义（维基百科英文版：阿格里科拉、路德的批评、《协同信条》第5、6条）', 'https://en.wikipedia.org/wiki/Antinomianism', ['Agricola']),
@@ -429,4 +435,4 @@ SRC.update({
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
             'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362',
-            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76'}
+            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36'}

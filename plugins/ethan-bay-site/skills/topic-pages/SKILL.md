@@ -12,11 +12,12 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa2 | 罪从哪里来？ | 网页文章 + PDF（`qa/q2.html`） | 第1课星期一 |
 | qa3 | 基督教两千年家谱 | 独立网页 `history.html` | 第12课星期三 |
 | qa4 | 耶稣是人还是神？ | 独立网页 `jesus.html` | 第4课星期日 |
-| qa5（编号09） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
+| qa5（编号10） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
 | qa6（编号05） | 根据圣经，人死了去哪里？ | 独立网页 `death.html`（`death.py`、`death_text.py`、`death_svg.py`），2026-10-11 上架 | 不加（`nochip=True`；对应第9课星期一） |
 | qa7（编号06） | 谁改了安息日？ | 独立网页 `sabbath.html`（`sabbath.py`、`sabbath_text.py`、`sabbath_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa8（编号07） | 安息日，到底能做什么？ | 独立网页 `keep.html`（`keep.py`、`keep_text.py`、`keep_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa9（编号08） | 我还会犯罪，能得救吗？ | 独立网页 `rom7.html`（`rom7.py`、`rom7_text.py`、`rom7_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa10（编号09） | 旧约的上帝和新约的上帝，是同一位吗？ | 独立网页 `god.html`（`god.py`、`god_text.py`、`god_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
