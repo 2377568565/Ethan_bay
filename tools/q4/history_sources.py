@@ -357,6 +357,18 @@ SRC.update({
  'aa561':    ('怀爱伦《使徒行述》英文原著第561页', None, []),
  'irving':   ('《宗教百科全书》：爱德华·欧文（Edward Irving，1792—1834）', 'https://www.encyclopedia.com/people/philosophy-and-religion/protestant-christianity-biographies/edward-irving', ['Annan']),
  'tgc':      ('福音联盟（The Gospel Coalition）：《耶稣取了堕落的人性吗？》（介绍巴特、托伦斯的看法和福音派的讨论）', 'https://www.thegospelcoalition.org/article/you-asked-did-jesus-assume-a-fallen-human-nature/', ['Barth']),
+ # 《“我必快来”，为什么还没来？》（soon.py）用到的资料：2026-10 用临时任务读取原文核对
+ 'ussher_w': ('乌雪年代学（Ussher chronology，维基百科英文版：创造之日推算为公元前4004年）', 'https://en.wikipedia.org/wiki/Ussher_chronology', ['4004']),
+ 'dating_w': ('推算创造的年代（Dating creation，维基百科英文版：马所拉本创造到洪水1656年；七十士译本推算约公元前5500年）', 'https://en.wikipedia.org/wiki/Dating_creation', ['1,656']),
+ 'hebcal_w': ('希伯来历（维基百科英文版：创世纪年5787年始于2026年9月11日日落）', 'https://en.wikipedia.org/wiki/Hebrew_calendar', ['5787']),
+ 'wycliffe_stat':('威克理夫全球联会（Wycliffe Global Alliance）：2025年圣经翻译统计', 'https://www.wycliffe.net/resources/statistics/', ['7,396']),
+ 'printing_w':('印刷机（维基百科英文版：路德约1520年成为欧洲作品印行最多的作者）', 'https://en.wikipedia.org/wiki/Printing_press', ['Luther']),
+ 'chatgpt_w':('ChatGPT（维基百科英文版：推出两个月月活跃用户达1亿）', 'https://en.wikipedia.org/wiki/ChatGPT', ['100 million']),
+ 't2_194':   ('怀爱伦《教会证言》第2卷，英文原著第194页', None, []),
+ 'sm1_188':  ('怀爱伦《信息选粹》（Selected Messages）第1册“警惕定时间”，英文原著第188页', None, []),
+ 'gc458':    ('怀爱伦《善恶之争》第26章“改革的工作”，英文原著第458页', None, []),
+ 'da633':    ('怀爱伦《历代愿望》第69章“在橄榄山上”，英文原著第633—634页', None, []),
+ 'gc518':    ('怀爱伦《善恶之争》第32章“撒但的罗网”，英文原著第518页', None, []),
  # 《上帝早就定好谁得救吗？》（elect.py）用到的资料：2026-10 用临时任务读取原文核对
  'calvin_inst21':('加尔文《基督教要义》第3卷第21章第5节（英译本，CCEL）', 'https://ccel.org/ccel/calvin/institutes/institutes.v.xxii.html', ['eternal decree']),
  'calvin_inst23':('加尔文《基督教要义》第3卷第23章第7节（英译本，CCEL）', 'https://ccel.org/ccel/calvin/institutes/institutes.v.xxiv.html', ['dreadful']),
@@ -443,4 +455,4 @@ SRC.update({
 EGW_KEYS = {'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
             'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362',
-            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207'}
+            'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207', 't2_194', 'sm1_188', 'gc458', 'da633', 'gc518'}
