@@ -91,6 +91,8 @@ def src_kind(k, url):
         return '学术研究'
     if k in ('fraser', 'pew'):
         return '学术研究'
+    if 'doi.org/' in url:
+        return '学术研究'
     if any(h in url for h in ('britannica.com', 'wikipedia.org', 'newadvent.org/cathen', 'gameo.org')):
         return '百科全书'
     return '官方网站'
