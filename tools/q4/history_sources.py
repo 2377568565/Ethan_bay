@@ -530,6 +530,23 @@ SRC.update({
  'col145': ('怀爱伦《基督比喻实训》（Christ’s Object Lessons）“为施与而求”一章，英文原著第145页', None, []),
  'da687': ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第687页', None, []),
  'da759': ('怀爱伦《历代愿望》第78章“髑髅地”，英文原著第759—760页', None, []),
+# 《犹大是注定要卖主的吗？》（judas.py）用到的资料：《历代愿望》原版逐页、百科和《天主教百科全书》用临时任务读取核对
+ 'judas_w': ('加略人犹大（Judas Iscariot，维基百科英文版：名字的几种解释、两处死亡记载、各教会对他结局的看法、特伦托会议第6届第6条）', 'https://en.wikipedia.org/wiki/Judas_Iscariot', ['Kerioth']),
+ 'gjudas_w': ('《犹大福音》（Gospel of Judas，维基百科英文版：科普特文抄本、碳定年220—340年、爱任纽约180年称之为“虚构的历史”）', 'https://en.wikipedia.org/wiki/Gospel_of_Judas', ['Irenaeus']),
+ 'silver_w': ('三十块钱（Thirty pieces of silver，维基百科英文版：出21:32 奴仆的身价、亚11章）', 'https://en.wikipedia.org/wiki/Thirty_pieces_of_silver', ['Exodus 21']),
+ 'sonperd_w': ('灭亡之子（Son of perdition，维基百科英文版：约17:12 与帖后2:3）', 'https://en.wikipedia.org/wiki/Son_of_perdition', ['Judas']),
+ 'judas_ce': ('《天主教百科全书》（1910）“加略人犹大”条（New Advent）', 'https://www.newadvent.org/cathen/08539a.htm', ['Kerioth']),
+ 'da293': ('怀爱伦《历代愿望》第30章“设立十二个门徒”（He Ordained Twelve），英文原著第293—295页', None, []),
+ 'da563': ('怀爱伦《历代愿望》第62章“在西门家里坐席”，英文原著第563—564页', None, []),
+ 'da645': ('怀爱伦《历代愿望》第71章“仆人的仆人”，英文原著第645页', None, []),
+ 'da649': ('怀爱伦《历代愿望》第71章“仆人的仆人”，英文原著第649页', None, []),
+ 'da653': ('怀爱伦《历代愿望》第72章“记念我”，英文原著第653—655页', None, []),
+ 'da656': ('怀爱伦《历代愿望》第72章“记念我”，英文原著第656页', None, []),
+ 'da696': ('怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第695—696页', None, []),
+ 'da716': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第716—717页', None, []),
+ 'da718': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第717—719页', None, []),
+ 'da720': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第720—721页', None, []),
+ 'da722': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第721—722页', None, []),
  # 《家人总在念叨》（listen.py）用到的资料：医学文献 2026-10 在 PubMed 逐篇核对（摘要、DOI）；怀著和百科用临时任务读取原文核对
  'linton12': ('Linton SJ, et al. Painfully reassuring? The effects of validation on emotions and adherence in a pain test. Eur J Pain 2012;16(4):592-9（“认可感受”与“否定感受”的随机对照实验；PubMed 22396087）', 'https://doi.org/10.1016/j.ejpain.2011.07.011', []),
  'starr08':  ('Starr LR, Davila J. Excessive reassurance seeking, depression, and interpersonal rejection: a meta-analytic review. J Abnorm Psychol 2008;117(4):762-75（反复寻求安慰、抑郁与被人疏远：荟萃分析；PubMed 19025224）', 'https://doi.org/10.1037/a0013866', []),
@@ -680,7 +697,7 @@ SRC.update({
  'da787':    ('怀爱伦《历代愿望》第81章“主已经复活了”，英文原著第787页', None, []),
 })
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
-EGW_KEYS = {'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
+EGW_KEYS = {'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
             'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362',
             'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207', 't2_194', 'sm1_188', 'gc458', 'da633', 'gc518', 'col69', 'sm1_382',
