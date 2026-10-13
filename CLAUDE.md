@@ -108,8 +108,9 @@
   - 23 清明祭祖，基督徒算不算不孝？（`ancestor.html`；《论语》慎终追远、祭祖的两层意思、中国礼仪之争 1645/1656/1704/1742/1939、韩国新教徒不行祭祖礼；出20:12、创23、创35:20、撒下21、约11:35、传9:5、伯14:21、申26:14、诗106:28 zivchei metim；可以做和不做的事表、清明怎样过、怎样和家人说；GC 551—552；“孝敬的三段”图）
   - 24 婚姻是爱情的坟墓吗？（`marriage.html`；‘ezer kenegdo、玛2:14-16、弗5:21-33 彼此顺服、吵架六条；研究 Kiecolt-Glaser 2005（伤口愈合 60%）、Robles 2014、Holt-Lunstad 2010（PubMed）；不同负一轭/已婚不离、离婚三种看法、受伤害时安全第一（AH 343）、单身是恩赐；AH 340—344；“越靠近上帝彼此越靠近”图）
   - 25 打骂孩子，还是由着孩子？（`raise.html`；鲍姆林德四种教养方式图、申6:7、箴22:6 ‘al-pi darko、以利和亚多尼雅、西3:21；“杖”shevet 的几种理解；CG 244/245—246/250—251/283/225—226“不在怒气中管教”；体罚研究两边都列：Gershoff 2016、Larzelere 2005（PubMed）；每天八件事）
-  - 03—25 都有“分享”和“答题后下载 PDF”（PDF 在 `lessons/2026-Q4/qa/`，用 `history.py`、`jesus.py`、`death.py`、`sabbath.py`、`keep.py`、`rom7.py`、`god.py`、`elect.py`、`soon.py`、`perfect.py`、`lose.py`、`joy.py`、`listen.py`、`pain.py`、`life.py`、`trust.py`、`origin.py`、`money.py`、`health.py`、`fortune.py`、`ancestor.py`、`marriage.py`、`raise.py` 加 `--pdf` 生成）
-  - 补充问答 jesus-qa.html（已下架，修订中；`qa_data.py` 里 id 是 qa5，编号改成 26）
+  - 26 666 和兽的印记，到底是什么？（`beast.html`，2026-10-13 上架；用户点名的 B3 题目。启1:1 esēmanen“用记号表明”；象征表（但7:17、23，启17:15，但7:24，启12:9，申6:8，民14:34/结4:6）；四种读法及来历（阿尔卡萨1614、里贝拉、宗教改革家）；但7章与启13章对照图和表；“亵渎”的圣经定义与《天主教教理》882、1461；但7:25 与教理2175；1260年 538—1798（奥多亚克493、汪达尔534、东哥特538、庇护六世1798—1799）时间线图；启13:3 esphagmenēn/启5:6、ezēsen/启2:8“假冒的羔羊”；地兽（arnion 29次）、兽像=但3章；印记 charagma、额和手、上帝的印对照图、启14:7 呼应出20:11；proskuneō 全书24次、13—14章8次；“没有人会不知不觉受印记”（Ev 234、GC 449、605）；666：P115 作616、爱任纽《驳异端》5.30（Lateinos、Teitan、“等候应验更可靠”）、尼禄希伯来字母、Vicarius Filii Dei 的来龙去脉（赫尔维希1612、史密斯1866、1948《事工》更正、马德里、巴基奥基）、圣经里的“六”；说的是制度不是个人（GC 565、Ev 573—574、Ev 304）；怀著 GC 266/438—452/565/579/604—605、LDE 224、TM 117。资料用临时任务 e047c1e 读取，结果在 scratchpad 的 b3chk）
+  - 03—26 都有“分享”和“答题后下载 PDF”（PDF 在 `lessons/2026-Q4/qa/`，用 `history.py`、`jesus.py`、`death.py`、`sabbath.py`、`keep.py`、`rom7.py`、`god.py`、`elect.py`、`soon.py`、`perfect.py`、`lose.py`、`joy.py`、`listen.py`、`pain.py`、`life.py`、`trust.py`、`origin.py`、`money.py`、`health.py`、`fortune.py`、`ancestor.py`、`marriage.py`、`raise.py`、`beast.py` 加 `--pdf` 生成）
+  - 补充问答 jesus-qa.html（已下架，修订中；`qa_data.py` 里 id 是 qa5，编号改成 27）
 - **提问区**：可以自定义称呼、选择定位，有“我也想知道”、复制、分享。管理员可以回复、置顶、删除。数据存在 GitHub。
 - **其他互动**：讨论区可以分享自己的回答；读经打卡（一天达到 10 人才显示人数）；可选账号，加密后跨设备同步。
 - **阅读工具**：字号 5 档、夜间模式、全文搜索、继续阅读、新消息红点。还能把经文、文章、问答做成带二维码的分享图，分享时可以发微信，分享后有经文鼓励。

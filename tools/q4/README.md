@@ -147,6 +147,13 @@ python3 tools/q4/raise.py --pdf   # 教养孩子：图 four（四种教养方式
 - 资料：怀著 GC/PP/DA/1SM/Ed 和约 30 个百科页面，2026-10-13 用临时任务一次读取（16—25 共用）；GC 的 seo 页码约为标准页码 −77（GC 492 ↔ seo414），PP 约 −13（PP 34 ↔ seo22），DA 约 −39（DA 224 ↔ seo186）。
 - `qa_data.py` 里 id 是 `qa17`—`qa26`，卡片编号 16—25；下架的补充问答 qa5 编号改为 26，给 19—25 留位置。
 
+## 专题网页：问题彩蛋 26（`beast.html`）
+```sh
+python3 tools/q4/beast.py --pdf   # 666 和兽的印记：图 map（但7章四兽→启13章海兽）、timeline（1260年）、two（上帝的印与兽的印记）
+```
+- `qa_data.py` 里 id 是 `qa27`，卡片编号 26；下架的补充问答 qa5 编号改为 27。
+- 资料：2026-10-13 用临时任务读取（GC/LDE/Ev/TM 原版逐页、约20个百科页面、爱任纽《驳异端》5.30、《天主教教理》882/1461）；`history.py` 的 PRIMARY 加了 `irenaeus`。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。

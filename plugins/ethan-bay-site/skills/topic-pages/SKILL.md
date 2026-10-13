@@ -36,6 +36,7 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa24（编号23） | 清明祭祖，基督徒算不算不孝？ | 独立网页 `ancestor.html`（`ancestor.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa25（编号24） | 婚姻是爱情的坟墓吗？ | 独立网页 `marriage.html`（`marriage.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa26（编号25） | 打骂孩子，还是由着孩子？ | 独立网页 `raise.html`（`raise.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa27（编号26） | 666 和兽的印记，到底是什么？ | 独立网页 `beast.html`（`beast.py`、`beast_text.py`、`beast_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
