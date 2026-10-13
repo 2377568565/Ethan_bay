@@ -38,6 +38,8 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa26（编号25） | 打骂孩子，还是由着孩子？ | 独立网页 `raise.html`（`raise.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa27（编号26） | 666 和兽的印记，到底是什么？ | 独立网页 `beast.html`（`beast.py`、`beast_text.py`、`beast_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa28（编号27） | 1844 年，天上发生了什么？ | 独立网页 `judgment.html`（`judgment.py`、`judgment_text.py`、`judgment_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa29（编号28） | 旧约律法，哪些还要守？ | 独立网页 `law.html`（`law.py`、`law_text.py`、`law_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa30（编号29） | 祷告为什么常常没有应验？ | 独立网页 `prayer.html`（`prayer.py`、`prayer_text.py`、`prayer_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。

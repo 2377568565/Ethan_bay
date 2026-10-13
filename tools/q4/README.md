@@ -147,6 +147,14 @@ python3 tools/q4/raise.py --pdf   # 教养孩子：图 four（四种教养方式
 - 资料：怀著 GC/PP/DA/1SM/Ed 和约 30 个百科页面，2026-10-13 用临时任务一次读取（16—25 共用）；GC 的 seo 页码约为标准页码 −77（GC 492 ↔ seo414），PP 约 −13（PP 34 ↔ seo22），DA 约 −39（DA 224 ↔ seo186）。
 - `qa_data.py` 里 id 是 `qa17`—`qa26`，卡片编号 16—25；下架的补充问答 qa5 编号改为 26，给 19—25 留位置。
 
+## 专题网页：问题彩蛋 28（`law.html`）、29（`prayer.html`）
+```sh
+python3 tools/q4/law.py --pdf      # 旧约律法：图 ark（约柜里/约柜旁）、three（三种律法三种结局）、sabb（每周安息日与年节安息日）
+python3 tools/q4/prayer.py --pdf   # 祷告没有应验：图 answers（好/不/等/更好）、geth（客西马尼园到复活）、wait（但以理的二十一日）
+```
+- `qa_data.py` 里 id 是 `qa29`、`qa30`，卡片编号 28、29；下架的补充问答 qa5 编号改为 30。
+- 资料：2026-10-13 用临时任务读取（PP、SM1、DA、AA、SC、MH、COL 原版逐页，阿奎那 q.99/q.83、加尔文《要义》4.20、威斯敏斯德信条、天主教教理2072/2737、约10个百科页面）；STEP 2006、考克兰2009 在 PubMed 核对；`history.py` 的 PRIMARY 加了 `aquinas99`、`aquinas83`、`calvin420`、`wcf19`。
+
 ## 专题网页：问题彩蛋 27（`judgment.html`）
 ```sh
 python3 tools/q4/judgment.py --pdf   # 1844 与查案审判：图 plan（圣所三部分）、time（七十个七与二千三百日）、three（审判三阶段）

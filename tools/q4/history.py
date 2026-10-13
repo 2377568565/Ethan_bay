@@ -73,7 +73,7 @@ def archive_url(url, how):
 
 
 PRIMARY = {'justin', 'ignatius', 'pliny_txt', 'laodicea', 'socrates', 'sozomen', 'theses_txt', 'augsburg', 'lbc1689',
-           'luther_pref', 'luther_worms', 'luther_name', 'irenaeus', 'mishnah_rh', 'talmud_rh'}
+           'luther_pref', 'luther_worms', 'luther_name', 'irenaeus', 'mishnah_rh', 'talmud_rh', 'aquinas99', 'aquinas83', 'calvin420', 'wcf19'}
 
 
 def src_kind(k, url):
