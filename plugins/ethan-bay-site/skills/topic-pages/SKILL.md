@@ -33,6 +33,9 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa21（编号20） | 钱是万恶之根吗？ | 独立网页 `money.html`（`money.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa22（编号21） | 抽烟、喝酒、吃什么，和信仰有关系吗？ | 独立网页 `health.html`（`health.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa23（编号22） | 算命、风水、星座、看日子，到底灵不灵？ | 独立网页 `fortune.html`（`fortune.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa24（编号23） | 清明祭祖，基督徒算不算不孝？ | 独立网页 `ancestor.html`（`ancestor.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa25（编号24） | 婚姻是爱情的坟墓吗？ | 独立网页 `marriage.html`（`marriage.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa26（编号25） | 打骂孩子，还是由着孩子？ | 独立网页 `raise.html`（`raise.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
