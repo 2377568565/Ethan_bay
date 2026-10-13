@@ -147,6 +147,13 @@ python3 tools/q4/raise.py --pdf   # 教养孩子：图 four（四种教养方式
 - 资料：怀著 GC/PP/DA/1SM/Ed 和约 30 个百科页面，2026-10-13 用临时任务一次读取（16—25 共用）；GC 的 seo 页码约为标准页码 −77（GC 492 ↔ seo414），PP 约 −13（PP 34 ↔ seo22），DA 约 −39（DA 224 ↔ seo186）。
 - `qa_data.py` 里 id 是 `qa17`—`qa26`，卡片编号 16—25；下架的补充问答 qa5 编号改为 26，给 19—25 留位置。
 
+## 专题网页：问题彩蛋 27（`judgment.html`）
+```sh
+python3 tools/q4/judgment.py --pdf   # 1844 与查案审判：图 plan（圣所三部分）、time（七十个七与二千三百日）、three（审判三阶段）
+```
+- `qa_data.py` 里 id 是 `qa28`，卡片编号 27；下架的补充问答 qa5 编号改为 28。
+- 资料：2026-10-13 用临时任务读取（GC 330—520、EW、Ev、SC、WLF、LDE 原版逐页，约15个百科页面，Sefaria 的《密释纳》和塔木德，《天主教教理》1022/1038）；adventist.org 当时返回 429，基本信仰第24条用百科所引原文；`history.py` 的 PRIMARY 加了 `mishnah_rh`、`talmud_rh`。
+
 ## 专题网页：问题彩蛋 26（`beast.html`）
 ```sh
 python3 tools/q4/beast.py --pdf   # 666 和兽的印记：图 map（但7章四兽→启13章海兽）、timeline（1260年）、two（上帝的印与兽的印记）
