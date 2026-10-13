@@ -5,6 +5,8 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 
 # 问题彩蛋与专题网页
 
+- 新专题可以用会话 scratchpad 的 `gen/newtopic.py spec.json`（以 listen.py 为模板生成 X.py）；spec 里写 slug、no、id、title、pdf、figs、eyebrow、h1s、hsub、intro、srcs、desc、refdemo。
+
 ## 现有内容（`tools/q4/qa_data.py`）
 | 编号 | 题目 | 形式 | 学课里的入口 |
 |---|---|---|---|
@@ -12,7 +14,7 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa2 | 罪从哪里来？ | 网页文章 + PDF（`qa/q2.html`） | 第1课星期一 |
 | qa3 | 基督教两千年家谱 | 独立网页 `history.html` | 第12课星期三 |
 | qa4 | 耶稣是人还是神？ | 独立网页 `jesus.html` | 第4课星期日 |
-| qa5（编号16） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
+| qa5（编号26） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
 | qa6（编号05） | 根据圣经，人死了去哪里？ | 独立网页 `death.html`（`death.py`、`death_text.py`、`death_svg.py`），2026-10-11 上架 | 不加（`nochip=True`；对应第9课星期一） |
 | qa7（编号06） | 谁改了安息日？ | 独立网页 `sabbath.html`（`sabbath.py`、`sabbath_text.py`、`sabbath_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa8（编号07） | 安息日，到底能做什么？ | 独立网页 `keep.html`（`keep.py`、`keep_text.py`、`keep_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
@@ -24,6 +26,9 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa14（编号13） | 信了主，还会失去救恩吗？ | 独立网页 `lose.html`（`lose.py`、`lose_text.py`、`lose_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa15（编号14） | 喜乐的心，为什么是良药？ | 独立网页 `joy.html`（`joy.py`、`joy_text.py`、`joy_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa16（编号15） | 家人总在念叨，我为什么越听越烦？ | 独立网页 `listen.html`（`listen.py`、`listen_text.py`、`listen_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa17（编号16） | 一个好上帝，为什么允许苦难？ | 独立网页 `pain.html`（`pain.py`、`pain_text.py`、`pain_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa18（编号17） | 人活着，到底为了什么？ | 独立网页 `life.html`（`life.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa19（编号18） | 圣经可信吗？会不会是后人编的？ | 独立网页 `trust.html`（`trust.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
