@@ -5,7 +5,7 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 
 # 问题彩蛋与专题网页
 
-- 新专题可以用会话 scratchpad 的 `gen/newtopic.py spec.json`（以 listen.py 为模板生成 X.py）；spec 里写 slug、no、id、title、pdf、figs、eyebrow、h1s、hsub、intro、srcs、desc、refdemo。
+- 新专题可以用 `python3 tools/q4/newtopic.py spec.json`（以 listen.py 为模板生成 X.py）；spec 里写 slug、no、id、title、pdf、figs、eyebrow、h1s、hsub、intro、srcs、desc、refdemo。
 
 ## 现有内容（`tools/q4/qa_data.py`）
 | 编号 | 题目 | 形式 | 学课里的入口 |
@@ -29,6 +29,10 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa17（编号16） | 一个好上帝，为什么允许苦难？ | 独立网页 `pain.html`（`pain.py`、`pain_text.py`、`pain_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa18（编号17） | 人活着，到底为了什么？ | 独立网页 `life.html`（`life.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa19（编号18） | 圣经可信吗？会不会是后人编的？ | 独立网页 `trust.html`（`trust.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa20（编号19） | 世界是演化来的，还是上帝造的？ | 独立网页 `origin.html`（`origin.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa21（编号20） | 钱是万恶之根吗？ | 独立网页 `money.html`（`money.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa22（编号21） | 抽烟、喝酒、吃什么，和信仰有关系吗？ | 独立网页 `health.html`（`health.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa23（编号22） | 算命、风水、星座、看日子，到底灵不灵？ | 独立网页 `fortune.html`（`fortune.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
 
 ## 和用户合作的顺序（很重要）
 1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
