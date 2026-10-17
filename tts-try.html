@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>朗读声音试听</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--paper:#F6F2EA;--surface:#fff;--ink:#1E2233;--muted:#6B6F80;--rule:#E3DCCD;--accent:#7A2233;--gold:#B8862A}
+@media (prefers-color-scheme:dark){:root{--paper:#11141A;--surface:#181C24;--ink:#E8EAEF;--muted:#949BAA;--rule:#2C323E;--accent:#E08A9A;--gold:#D8B46A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 -apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+main{max-width:640px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:1.5rem;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 18px;font-size:.95rem}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px 16px;margin:0 0 14px}
+.card h2{font-size:1.08rem;margin:0}
+.card .tag{display:inline-block;margin:2px 6px 0 0;padding:0 8px;border-radius:999px;font-size:.76rem;border:1px solid var(--rule);color:var(--muted)}
+.card .tag.ok{border-color:#3E7A5E;color:#3E7A5E}
+.card p{margin:6px 0 8px;color:var(--muted);font-size:.9rem}
+audio{width:100%;margin-top:4px}
+details{margin-top:18px;color:var(--muted);font-size:.92rem}
+details p{margin:8px 0}
+.none{color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>朗读声音试听</h1>
+  <p class="lead">同一段学课原文（第1课 星期四《上帝的代言人》开头），用几种免费开源的声音各读一遍。<b>已选定 D（女声 · 轻快）</b>，网站上的“听朗读”都用这个声音。</p>
+  <div id="list"><p class="none">正在载入……</p></div>
+  <details>
+    <summary>朗读的是哪段文字？</summary>
+    <div id="text"></div>
+  </details>
+</main>
+<script>
+var V={
+  'cv3-f':['A','女声 · 自然亲切','CosyVoice3（通义实验室开源）。语气最像真人，适合长时间听。'],
+  'cv3-m':['B','男声 · 沉稳','CosyVoice3。男声版本。'],
+  'cv3-f-calm':['C','女声 · 平稳庄重','CosyVoice3，加了“像朗读经文一样平稳、稍慢”的语气要求。'],
+  'kk-f':['D','女声 · 轻快','Kokoro（开源小模型）。合成快、文件小，但语气平一些。'],
+  'kk-m':['E','男声 · 轻快','Kokoro。男声版本。']
+};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+Promise.all([
+  fetch('audio/try/index.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
+  Promise.resolve({}),
+  fetch('tools/q4/tts/script.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return [];})
+]).then(function(a){
+  var idx=a[0],asr=a[1],h='';
+  Object.keys(V).forEach(function(k){
+    if(!idx[k])return;var v=V[k],m=idx[k],c=asr[k];
+    var mins=Math.floor(m.d/60)+' 分 '+Math.round(m.d%60)+' 秒';
+    h+='<section class="card"><h2>'+v[0]+'　'+esc(v[1])+'</h2>'+
+      '<span class="tag">时长 '+mins+'</span>'+
+      '<p>'+esc(v[2])+'</p><audio controls preload="none" src="audio/try/'+k+'.mp3"></audio></section>';
+  });
+  document.getElementById('list').innerHTML=h||'<p class="none">样本还在生成中，请过一会儿再刷新。</p>';
+  var u=a[2].filter(function(x){return x.id==='l1-yw-thu';})[0];
+  if(u)document.getElementById('text').innerHTML=u.blocks.slice(0,4).map(function(b){return '<p>'+esc(b.say)+'</p>';}).join('');
+  // 同一时间只播一个
+  document.querySelectorAll('audio').forEach(function(x){x.addEventListener('play',function(){document.querySelectorAll('audio').forEach(function(y){if(y!==x)y.pause();});});});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>旧约的上帝和新约的上帝，是同一位吗？ · 问题彩蛋</title>
+<meta name="description" content="旧约的上帝很严厉、新约的上帝很慈爱，是同一位吗？用整本圣经的经文、和合本用词统计和希伯来原文，找出这种感觉的四个来源，摆出旧约里的慈爱、新约里的严厉，看十字架怎样把公义和慈爱连在一起，并逐段讨论洪水、迦南、乌撒、以利沙与母熊等难解经文">
+<script>try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}try{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
+[hidden]{display:none!important}
+:root{
+  --paper:#F5F1E8;--surface:#FFFDF8;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--link:#3D5672;--gold:#9A742C;--gold-soft:#F3E9D2;--band:#EFE9DD;
+  --c0:#8A8F9C;--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;
+  --c6-soft:#F7E8EB;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}
+.f0{--c:var(--c0)}.f1{--c:var(--c1)}.f2{--c:var(--c2)}.f3{--c:var(--c3)}.f4{--c:var(--c4)}.f5{--c:var(--c5)}.f6{--c:var(--c6)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+p{margin:0 0 .9em}
+a{color:var(--link)}
+b,strong{font-weight:650}
+h1,h2,h3,h4,h5{line-height:1.4;margin:0}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:8px 16px;padding-top:max(8px,env(safe-area-inset-top));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .back{color:var(--accent);text-decoration:none;font-size:.9rem;white-space:nowrap}
+.bar .bt{flex:1;text-align:center;font-weight:650;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .aa,.btn{font:inherit;font-size:.86rem;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+.btn.sm{font-size:.82rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+main{max-width:720px;margin:0 auto;min-width:0}
+.toc-side{display:none}
+@media (min-width:1080px){
+  .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px}
+  .toc-side{display:block;position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:20px 0 40px;font-size:.86rem}
+  .fab-toc,.toc-in{display:none}
+}
+/* 封面 */
+.hero{padding:28px 0 8px}
+.eyebrow{color:var(--accent);font-size:.82rem;letter-spacing:.06em;margin:0 0 6px}
+.hero h1{font-family:var(--serif);font-size:2.1rem;letter-spacing:.04em;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.82rem;margin:0 0 12px}
+.hsub{font-size:1.06rem;color:var(--ink-2);margin:0 0 18px}
+.answer{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:16px 16px 6px;margin:0 0 16px}
+.lab{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin:0 0 6px}
+.lineage{list-style:none;margin:6px 0 14px;padding:0}
+.lineage li{position:relative;padding:0 0 12px 26px}
+.lineage li::before{content:"";position:absolute;left:6px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--surface)}
+.lineage li::after{content:"";position:absolute;left:11px;top:20px;bottom:-6px;width:2px;background:var(--rule)}
+.lineage li:last-child::after{display:none}
+.lineage .ly{display:block;font-size:.76rem;line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}
+.lineage b{font-size:.98rem}
+.lineage small{display:block;color:var(--muted);font-size:.82rem;line-height:1.5}
+.lineage li.f6 b{color:var(--c6)}
+.howto{font-size:.88rem;color:var(--ink-2);background:var(--gold-soft);border-radius:12px;padding:10px 14px}
+.howto span{font-weight:650}
+/* 目录 */
+.toc-in{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px 16px 8px;margin:8px 0 8px}
+.toc-in h2{font-size:1rem;margin:0 0 6px}
+.toc-l,.toc-l ol{list-style:none;margin:0;padding:0}
+.toc-l>li{margin:0 0 8px}
+.tp{display:block;font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:6px 0 2px}
+.toc-l a{display:flex;gap:8px;padding:4px 6px;border-radius:8px;color:var(--ink);text-decoration:none;line-height:1.5}
+.toc-l a:hover{background:var(--band)}
+.toc-l a.on{background:var(--accent-soft);color:var(--accent);font-weight:650}
+.toc-l .tn{flex:none;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.86em;padding-top:.08em}
+.tsh{font-weight:700;font-size:.9rem;margin:0 0 8px}
+.tsrc a{color:var(--accent);text-decoration:none;font-size:.9rem}
+/* 部分、章 */
+.part{margin:48px 0 0;padding:18px 0 0;border-top:2px solid var(--ink)}
+.part span{display:block;font-size:.8rem;letter-spacing:.14em;color:var(--accent);font-weight:700}
+.part b{font-family:var(--serif);font-size:1.5rem}
+.ch{padding:26px 0 8px;scroll-margin-top:56px}
+.ch h2{font-family:var(--serif);font-size:1.42rem;display:flex;gap:10px;align-items:baseline;margin:0 0 14px}
+.ch h2 .no{flex:none;font-family:var(--sans);font-size:.8rem;font-weight:700;color:var(--surface);background:var(--accent);border-radius:6px;padding:1px 7px;transform:translateY(-3px)}
+.ch h3{font-size:1.1rem;margin:22px 0 8px;scroll-margin-top:56px}
+.ch ul,.ch ol{padding-left:1.3em;margin:0 0 1em}
+.ch li{margin:0 0 .4em}
+.xref{color:var(--link);text-decoration:none;border-bottom:1px dashed currentColor}
+/* 出处小数字 */
+.cite{display:inline-block;min-width:1.45em;height:1.45em;line-height:1.45em;margin:0 1px;padding:0 3px;border-radius:5px;font-size:.66em;font-weight:700;text-align:center;vertical-align:.45em;text-decoration:none;color:var(--accent);background:var(--accent-soft);font-variant-numeric:tabular-nums}
+.cite:target,.cite.flash{outline:2px solid var(--accent)}
+/* 经文 */
+.verse{margin:12px 0 16px;padding:10px 14px 10px 16px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0}
+.verse p{font-family:var(--serif);font-size:1.02rem;margin:0 0 2px}
+.verse sup{font-family:var(--sans);font-size:.65em;color:var(--gold);margin:0 2px 0 4px}
+.verse cite{display:block;text-align:right;font-style:normal;font-size:.8rem;color:var(--gold)}
+/* 提示框 */
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.box.sda{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.sda .lab{color:var(--c6)}
+.keys{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+.keys ol{padding-left:1.2em}
+.note2{font-size:.82rem;color:var(--muted)}
+.cap{font-size:.84rem;color:var(--muted);margin:-4px 0 18px}
+/* 图 */
+.fig{margin:14px -12px 10px;padding:12px 6px;background:var(--surface);border:1px solid var(--rule);border-radius:16px}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (min-width:600px){.fig{margin:16px 0 10px;padding:16px}}
+.dg{font-family:var(--sans)}
+.dg .band0{fill:var(--band)}.dg .band1{fill:none}
+.dg .tb{font-size:9px;fill:var(--muted);letter-spacing:.04em}
+.dg .ln{fill:none;stroke:var(--c);stroke-width:5;stroke-linecap:round}
+.dg .dot{fill:var(--surface);stroke:var(--ink);stroke-width:1.8}
+.dg .root{fill:var(--ink)}
+.dg .ty{font-weight:800;fill:var(--ink-2)}
+.dg .tn{font-size:11px;font-weight:650;fill:var(--ink)}
+.dg .tn.hi{font-weight:800}
+.dg .ts{font-size:9px;fill:var(--muted)}
+.dg .tw{font-size:9px;fill:var(--ink-2)}
+.dg .ax{stroke:var(--muted);stroke-width:1;fill:none}
+.dg .ta{font-size:9px;fill:var(--muted)}
+.dg .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.dg .cn{stroke:var(--c);stroke-width:1.6;fill:none}
+.dg .bar{stroke:var(--c);stroke-width:7;stroke-linecap:round;fill:none}
+.dg .bar.hi{stroke-width:10}
+.dg .dash{stroke-dasharray:4 4}
+.dg .bar.dash{stroke-dasharray:6 4;stroke-width:6;stroke-linecap:butt}
+.dg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.dg .flow{fill:none;stroke:var(--rule);stroke-width:1.6}
+.dg .box{fill:var(--paper);stroke:var(--rule);stroke-width:1}
+.dg .fillc{fill:var(--c);stroke:none}
+.dg .tnode{font-size:13px;font-weight:800;fill:#fff}
+.dg .tnode2{font-size:11px;font-weight:600;fill:#fff;opacity:.92}
+/* 六个原因、三项发现、七个独特之处 */
+.causes,.disc3{display:grid;gap:10px;margin:12px 0 16px}
+@media (min-width:600px){.causes{grid-template-columns:1fr 1fr}}
+.cause,.disc3>div,.dist .d{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 4px}
+.cause h4,.disc3 h4,.dist h4{font-size:1rem;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.cause p{font-size:.92rem}
+.cause .eg{font-size:.8rem;color:var(--accent);margin:-4px 0 8px}
+.ci{flex:none;display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:var(--surface);font-size:.78rem;font-weight:700}
+.cause .ci,.disc3 .ci{position:absolute;top:12px;right:12px}
+.disc3>div{border-left:4px solid var(--c6)}
+.disc3 .ci{background:var(--c6)}
+.dist{display:grid;gap:12px;margin:12px 0}
+.dist .d{border-top:4px solid var(--c6)}
+.dist .ci{background:var(--c6)}
+.dist .also{font-size:.84rem;color:var(--muted)}
+/* 年份步骤 */
+.steps{list-style:none;padding:0!important;margin:12px 0 16px!important;border-left:2px solid var(--rule)}
+.steps li{position:relative;padding:0 0 4px 16px;margin:0 0 10px!important}
+.steps li::before{content:"";position:absolute;left:-6px;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.steps .yr{display:inline-block;font-weight:700;color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+/* 小表格 */
+.mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top}
+.mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
+/* 年表 */
+.tl{margin:10px 0}
+.era{position:relative;padding:0 0 6px 18px;border-left:3px solid var(--rule)}
+.era.era-f{border-left-color:var(--c6)}
+.era h4{font-size:.98rem;margin:0 0 6px;padding-top:6px}
+.era h4 small{font-weight:400;color:var(--muted);font-size:.8rem;margin-left:8px}
+.era h4::before{content:"";position:absolute;left:-8px;margin-top:.45em;width:13px;height:13px;border-radius:50%;background:var(--ink)}
+.era.era-f h4::before{background:var(--c6)}
+.era ol{list-style:none;padding:0!important;margin:0 0 12px!important}
+.era li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;font-size:.92rem;line-height:1.7;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.era li:last-child{border-bottom:0}
+.era .y{font-variant-numeric:tabular-nums;color:var(--accent)}
+.era.era-f .y{color:var(--c6)}
+/* 教派名片 */
+.dn-tools{text-align:right;margin:0 0 8px}
+.dns{display:grid;gap:10px}
+.dn{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:14px}
+.dn summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative}
+.dn summary::-webkit-details-marker{display:none}
+.dn summary::after{content:"＋";position:absolute;right:14px;top:12px;color:var(--muted);font-weight:700}
+.dn[open] summary::after{content:"－"}
+.dn-fam{display:inline-block;font-size:.72rem;font-weight:700;color:var(--ink-2);border:1px solid var(--c);border-radius:999px;padding:0 8px;margin-right:8px;vertical-align:.12em}
+.dn-n{font-weight:700;font-size:1.06rem}
+.dn-w{display:block;color:var(--muted);font-size:.84rem;line-height:1.6;margin-top:2px}
+.dn-b{padding:0 14px 10px;font-size:.93rem}
+.dn-m{margin:0 0 4px}.dn-m b{display:inline-block;min-width:5em;color:var(--muted);font-weight:600}
+.dn h5{font-size:.88rem;margin:12px 0 4px}
+.dn ul{margin:0 0 6px;padding-left:1.2em}
+.dn-cmp{display:grid;gap:8px;margin-top:8px}
+@media (min-width:600px){.dn-cmp{grid-template-columns:1fr 1fr}}
+.dn-cmp>div{border-radius:10px;padding:2px 12px 6px}
+.dn-cmp .same{background:color-mix(in srgb,var(--c1) 10%,transparent)}
+.dn-cmp .diff{background:var(--c6-soft)}
+.dn-cmp .same h5{color:var(--c1)}.dn-cmp .diff h5{color:var(--c6)}
+.dn-src{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+#d-sda{border-color:color-mix(in srgb,var(--c6) 50%,var(--rule));border-left-color:var(--c6)}
+/* 对照 */
+.vs{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:12px 12px 4px;margin:12px 0 18px}
+.vs-pick{display:block;font-size:.9rem;margin:0 0 10px}
+.vs-pick span{display:block;color:var(--ink-2);margin-bottom:4px}
+.vs-pick select{font:inherit;font-size:1rem;padding:6px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+.vs-t{width:100%;border-collapse:collapse;font-size:.88rem;table-layout:fixed}
+.vs-t th,.vs-t td{padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6}
+.vs-t tbody th{width:4.6em;color:var(--muted);font-weight:600;font-size:.82rem}
+.vs-t thead th{font-size:.86rem}
+.vs-t .s{background:var(--c6-soft)}
+.vs-t thead .s{color:var(--c6)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:14px;background:var(--surface);margin:8px 0 6px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:.84rem;min-width:1060px}
+.cmp th,.cmp td{padding:8px 8px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6;width:115px}
+.cmp thead th{background:var(--band);font-size:.82rem;white-space:nowrap}
+.cmp .c0{position:sticky;left:0;z-index:1;background:var(--surface);width:76px;min-width:76px;box-shadow:1px 0 0 var(--rule);font-weight:650}
+.cmp thead .c0{background:var(--band)}
+.cmp .s{background:var(--c6-soft)}
+.cmp thead .s{color:var(--c6)}
+/* 光谱 */
+.specs{display:grid;gap:10px;margin:10px 0}
+.spec{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 10px 8px}
+.spec figcaption{font-weight:700;font-size:.96rem;margin:0 4px 2px}
+.sp-ends{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--muted);margin:0 4px 0}
+.spec svg{display:block;width:100%;height:auto}
+.dg .trk{stroke:var(--rule);stroke-width:4;stroke-linecap:round}
+.dg .ldr{stroke:var(--muted);stroke-width:1}
+.dg .sp-d{fill:var(--ink-2);stroke:var(--surface);stroke-width:2}
+.dg .sp-s{fill:var(--c6);stroke:var(--surface);stroke-width:2}
+.dg .sp-t{font-size:11px;fill:var(--ink-2)}
+.dg .sp-ts{font-size:11.5px;font-weight:800;fill:var(--ink)}
+/* 组织 */
+.org{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.org ol{list-style:none;padding:0!important;margin:6px 0 12px!important;display:grid;gap:6px}
+.org li{background:var(--c6-soft);border-radius:10px;padding:6px 12px;margin:0!important;position:relative}
+.org li:nth-child(1){margin:0 0 0 0!important}.org li:nth-child(2){margin-left:10px!important}.org li:nth-child(3){margin-left:20px!important}.org li:nth-child(4){margin-left:30px!important}.org li:nth-child(5){margin-left:40px!important}
+.org b{color:var(--c6)}.org small{display:block;color:var(--ink-2);font-size:.8rem;line-height:1.5}
+/* 图表 */
+.chart{margin:14px 0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 8px}
+.chart figcaption b{display:block;font-size:.96rem}
+.chart figcaption small{display:block;color:var(--muted);font-size:.78rem;line-height:1.55;margin:2px 0 10px}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:6.4em 1fr auto;align-items:center;gap:8px;font-size:.86rem}
+.bl{line-height:1.3}
+.bt{display:flex;align-items:center;gap:6px;min-width:0}
+.bt i{display:block;height:14px;min-width:4px;background:var(--c);border-radius:0 4px 4px 0}
+.bt em{font-style:normal;font-size:.8rem;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* 人物 */
+.ppl{display:grid;gap:12px}
+.pe{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 2px}
+.pe.era-f{border-top:4px solid var(--c6)}
+.pe h4{font-size:.98rem;margin:0 0 6px}
+.pe ul{list-style:none;padding:0!important;margin:0!important}
+.pe li{padding:7px 0;border-top:1px dashed var(--rule);margin:0!important}
+.pe li:first-child{border-top:0}
+.pn{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0}
+.pn span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pr{font-size:.88rem;color:var(--ink-2);margin:0}
+/* 常见问题 */
+.faq{display:grid;gap:8px;margin:10px 0}
+.faq details{background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.faq summary{cursor:pointer;padding:10px 36px 10px 14px;font-weight:650;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:12px;top:10px;color:var(--muted)}
+.faq details[open] summary::after{content:"－"}
+.faq details>div{padding:0 14px 4px;font-size:.94rem}
+/* 人物特写 */
+.prof{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--c);border-radius:16px;padding:14px 16px 4px;margin:0 0 18px}
+.pf-n{font-family:var(--serif);font-size:1.45rem;font-weight:700;line-height:1.35;margin:0 0 2px}
+.pf-n small{display:block;font-family:var(--sans);font-size:.8rem;font-weight:400;color:var(--muted)}
+.pf-y{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin:0 0 8px;padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.pf-s{font-size:.96rem}
+.quote{margin:12px 0 16px;padding:12px 16px;background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.quote p{font-family:var(--serif);font-size:1.03rem;margin:0 0 6px}
+.quote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+.box .quote{background:var(--paper)}
+.mini.two td:first-child{white-space:nowrap;color:var(--muted);font-weight:600;font-size:.82rem}
+.box .mini{background:var(--paper)}
+/* 怀爱伦引文 */
+.egw{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--rule)}
+.egw p{font-family:var(--serif);font-size:1.04rem}
+.egw cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+/* 资料 */
+.srcs{padding-left:2.2em!important;font-size:.86rem}
+.srcs li{margin:0 0 10px!important;line-height:1.6;scroll-margin-top:60px}
+.srcs li:target{background:var(--accent-soft);border-radius:8px}
+.sk{display:inline-block;font-size:.7rem;font-weight:700;border-radius:4px;padding:0 5px;margin-right:6px;background:var(--band);color:var(--ink-2)}
+.su{display:inline-block;margin-left:6px;word-break:break-all}
+.sb a{margin-left:6px;text-decoration:none;color:var(--muted)}
+.su2{display:inline-block;margin-left:8px;font-size:.8rem;color:var(--muted)}
+.foot{border-top:1px solid var(--rule);margin:40px 0 0;padding:16px 0 120px;font-size:.84rem;color:var(--muted)}
+/* 浮动按钮、弹出层 */
+.fab-toc{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;font:inherit;font-size:.9rem;font-weight:650;color:var(--surface);background:var(--ink);border:0;border-radius:999px;padding:9px 16px;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:40}
+.sh-bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sh-card{position:absolute;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));font-size:.94rem}
+.sh-card.small{max-height:60vh}
+@media (min-width:700px){.sh-card{left:50%;right:auto;width:560px;transform:translateX(-50%);bottom:40px;border-radius:18px}}
+.sh-x{position:absolute;right:10px;top:8px;font-size:1.5rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.seg button{font:inherit;font-size:.88rem;flex:1;min-width:4em;padding:7px 4px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pop{position:absolute;z-index:35;width:min(330px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:12px 14px;font-size:.88rem;line-height:1.65}
+.pop .pk{font-size:.72rem;font-weight:700;color:var(--muted);margin:0 0 4px}
+.pop .pd{margin:0 0 8px}
+.pop .pa{display:flex;gap:8px;flex-wrap:wrap}
+.pop .pa a{font-size:.84rem;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:3px 10px}
+.pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
+html.sheetopen{overflow:hidden}
+@media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
+
+.dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
+.tblwrap.two-col .dtbl{min-width:0;width:100%}
+.dtbl th,.dtbl td{width:50%}
+.srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+.ch .mini{width:100%}
+.ch .mini th{white-space:normal}
+.ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
+.ch .mini td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
+.ch .ftbl td:first-child{width:22%;white-space:nowrap}
+.ch .atbl td:nth-child(2){white-space:nowrap}
+.ch .atbl td:first-child{width:30%}
+.tblwrap.two-col .stbl{min-width:0;width:100%}
+.stbl th,.stbl td{width:50%}
+.hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
+.quote.big p{font-size:1.05em;line-height:1.85}
+.obj .o{margin:0 0 14px;padding:12px 14px;border:1px solid var(--rule);border-radius:14px;background:var(--surface)}
+.obj .o h4{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font-size:1rem;line-height:1.5}
+.obj .o h4 .ci{flex:none;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;display:grid;place-items:center;margin-top:1px}
+.obj .o p{margin:.4em 0}
+.ch .wtbl td:first-child small{overflow-wrap:normal;word-break:keep-all}
+.ch .wtbl td i{font-style:normal;font-weight:650}
+.vlist{padding-left:1.2em}
+.vlist li{margin:.35em 0}
+.egw{margin:1.2em 0;padding:10px 14px 4px;border-radius:12px;border:1px dashed var(--rule);background:color-mix(in srgb,var(--c4) 6%,transparent)}
+.egw .egwn{margin:0 0 6px;font-size:.82rem;color:var(--muted)}
+.egw .quote{margin:6px 0 8px}
+.sum7{counter-reset:s;list-style:none;padding:0!important}
+.sum7 li{counter-increment:s;position:relative;padding:10px 12px 10px 46px!important;margin:0 0 8px!important;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.sum7 li::before{content:counter(s);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;font-weight:700;display:grid;place-items:center}
+
+.tblwrap.two-col .ktbl2{min-width:0;width:100%}
+.ktbl2 th,.ktbl2 td{width:50%}
+.ktbl2 thead th{white-space:normal}
+.ch .ktbl td:first-child{width:38%}
+.ch .ltbl td:first-child{width:32%}
+.causes .cause h4{padding-right:30px}
+</style>
+</head>
+<body>
+<div class="prog" aria-hidden="true"><i></i></div>
+<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">旧约的上帝和新约的上帝，是同一位吗？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<div class="wrap">
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>这种感觉从哪里来</a></li></ol></li><li><span class="tp">第二部分 · 为什么会有这种感觉</span><ol><li><a href="#size"><span class="tn">02</span>真相一：篇幅和题材本来就不一样</a></li><li><a href="#record"><span class="tn">03</span>真相二：圣经“记载”的，不等于上帝“赞同”的</a></li><li><a href="#select"><span class="tn">04</span>真相三：我们记得的，和圣经实际写的</a></li><li><a href="#satan"><span class="tn">05</span>真相四：有一位一直在歪曲上帝的形象</a></li></ol></li><li><span class="tp">第三部分 · 旧约里的慈爱</span><ol><li><a href="#name"><span class="tn">06</span>上帝自己的“名片”：出埃及记34章</a></li><li><a href="#heart"><span class="tn">07</span>先知书里的上帝：一颗为人心碎的心</a></li><li><a href="#law"><span class="tn">08</span>律法里的温柔</a></li><li><a href="#patience"><span class="tn">09</span>审判之前，漫长的忍耐</a></li></ol></li><li><span class="tp">第四部分 · 新约里的严厉</span><ol><li><a href="#nt"><span class="tn">10</span>新约并不“温和”</a></li><li><a href="#cross"><span class="tn">11</span>十字架：最严厉的审判，也是最深的爱</a></li></ol></li><li><span class="tp">第五部分 · 同一位上帝</span><ol><li><a href="#same"><span class="tn">12</span>圣经怎样说“是同一位”</a></li><li><a href="#why"><span class="tn">13</span>那为什么两约读起来不一样？</a></li></ol></li><li><span class="tp">第六部分 · 最难读的几段经文</span><ol><li><a href="#hard"><span class="tn">14</span>最难读的几段经文</a></li><li><a href="#wrath"><span class="tn">15</span>慈爱和忿怒，不是对立的</a></li></ol></li><li><span class="tp">第七部分 · 怎样读，怎样活</span><ol><li><a href="#read"><span class="tn">16</span>怎样读圣经，才不会误会上帝</a></li><li><a href="#summary"><span class="tn">17</span>一页总结</a></li><li><a href="#faq"><span class="tn">18</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<main>
+<header class="hero">
+<p class="eyebrow">问题彩蛋 · 09 · 为什么读完圣经，总觉得旧约严厉、新约慈爱</p>
+<h1>旧约的上帝和新约的上帝，是同一位吗？<small class="h1s">“严厉”和“慈爱”的真相</small></h1><p class="meta">约 1.4 万字 · 细读约 30 分钟 · 18 章 · 5 条资料出处</p>
+<p class="hsub">洪水、所多玛、攻取迦南、乌撒、母熊……旧约的上帝好像很容易发怒；耶稣抱小孩、赦免罪人、讲浪子回头，新约的上帝好像非常慈爱。是上帝变了，还是我们读错了？这一页用整本圣经的经文、原文和统计，一层一层揭开这种感觉背后的真相。</p>
+<div class="answer"><p class="lab">先说结论</p>
+<ol class="lineage"><li class="f6"><span class="ly">是同一位吗</span><b>是。“我耶和华是不改变的”；耶稣说“人看见了我，就是看见了父”</b><small>玛3:6；约14:9</small></li><li class="f6"><span class="ly">旧约的“名片”</span><b>上帝亲口说自己“有怜悯有恩典的上帝，不轻易发怒”，旧约一再引用</b><small>出34:6</small></li><li class="f6"><span class="ly">新约也有严厉</span><b>“地狱”一词新约出现13次，其中11次出自耶稣的口</b><small>太10:28；可9:43</small></li><li class="f6"><span class="ly">为什么感觉不同</span><b>篇幅题材不同、记载不等于赞同、我们挑着记，背后还有撒但的歪曲</b><small>士21:25；林后4:4</small></li><li class="f6"><span class="ly">慈爱和严厉</span><b>不是两位上帝，而是同一份爱的两面；十字架上两样都看得最清楚</b><small>罗11:22；罗3:25-26</small></li><li class="f6"><span class="ly">怎样读</span><b>借着耶稣读旧约，借着旧约认识耶稣</b><small>路24:27；约5:39</small></li></ol>
+<p>下面先找出这种感觉的四个来源，再把旧约里的慈爱、新约里的严厉都摆出来，然后看圣经怎样说“同一位”，最后不回避最难读的几段经文。难解的地方都标明“编者的理解”，判断留给读者；怀爱伦著作只作补充，都注明了英文原著页码。</p></div>
+<p class="howto"><span>怎样读这一页：</span>点正文里<a class="cite demo" href="#sources">1</a>这样的小数字，可以看到出处；点<a class="xref" href="#name">第 6 章《上帝自己的“名片”：出埃及记34章》</a>之类的蓝色字，可以跳到相关的章节；右下角的“目录”按钮随时可以跳到任何一章。</p>
+</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div>
+<nav class="toc-in" aria-label="目录"><h2>目录</h2><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>这种感觉从哪里来</a></li></ol></li><li><span class="tp">第二部分 · 为什么会有这种感觉</span><ol><li><a href="#size"><span class="tn">02</span>真相一：篇幅和题材本来就不一样</a></li><li><a href="#record"><span class="tn">03</span>真相二：圣经“记载”的，不等于上帝“赞同”的</a></li><li><a href="#select"><span class="tn">04</span>真相三：我们记得的，和圣经实际写的</a></li><li><a href="#satan"><span class="tn">05</span>真相四：有一位一直在歪曲上帝的形象</a></li></ol></li><li><span class="tp">第三部分 · 旧约里的慈爱</span><ol><li><a href="#name"><span class="tn">06</span>上帝自己的“名片”：出埃及记34章</a></li><li><a href="#heart"><span class="tn">07</span>先知书里的上帝：一颗为人心碎的心</a></li><li><a href="#law"><span class="tn">08</span>律法里的温柔</a></li><li><a href="#patience"><span class="tn">09</span>审判之前，漫长的忍耐</a></li></ol></li><li><span class="tp">第四部分 · 新约里的严厉</span><ol><li><a href="#nt"><span class="tn">10</span>新约并不“温和”</a></li><li><a href="#cross"><span class="tn">11</span>十字架：最严厉的审判，也是最深的爱</a></li></ol></li><li><span class="tp">第五部分 · 同一位上帝</span><ol><li><a href="#same"><span class="tn">12</span>圣经怎样说“是同一位”</a></li><li><a href="#why"><span class="tn">13</span>那为什么两约读起来不一样？</a></li></ol></li><li><span class="tp">第六部分 · 最难读的几段经文</span><ol><li><a href="#hard"><span class="tn">14</span>最难读的几段经文</a></li><li><a href="#wrath"><span class="tn">15</span>慈爱和忿怒，不是对立的</a></li></ol></li><li><span class="tp">第七部分 · 怎样读，怎样活</span><ol><li><a href="#read"><span class="tn">16</span>怎样读圣经，才不会误会上帝</a></li><li><a href="#summary"><span class="tn">17</span>一页总结</a></li><li><a href="#faq"><span class="tn">18</span>问与答</a></li></ol></li></ol></nav><div class="part" id="part1"><span>第一部分</span><b>先把问题摆清楚</b></div><section class="ch" id="q"><h2><span class="no">01</span>这种感觉从哪里来</h2>
+<p>很多基督徒读完圣经，心里都有一种说不出口的感觉：</p>
+<div class="causes">
+  <div class="cause"><span class="ci">1</span><h4>旧约的上帝</h4><p>发洪水，烧所多玛，命令以色列人攻打迦南，乌撒扶一下约柜就被击杀……好像很容易发怒。</p></div>
+  <div class="cause"><span class="ci">2</span><h4>新约的上帝</h4><p>耶稣抱小孩、医病、赦免行淫的妇人，讲浪子回头，在十字架上为钉祂的人祷告……好像非常慈爱。</p></div>
+</div>
+<p>于是有人心里悄悄地问：旧约的上帝和新约的上帝，是同一位吗？是不是上帝“变了”？还是旧约只是“过时的”，可以不太读？</p>
+<h3>这个问题，教会在第二世纪就遇到过</h3>
+<p>约公元二世纪，有一位叫<b>马吉安</b>（Marcion，约85—160年）的人，正式把这种感觉变成了一套教导：他宣讲说，差耶稣来的上帝，和创造世界的那位“报复的”上帝不是同一位。他认为旧约的上帝是公义而<b>忿怒</b>的，耶稣的父才是慈爱的。他自己编了一份“圣经”，只要经过删改的路加福音和十封保罗书信，旧约整个不要。<a class="cite" id="r1-1" href="#s1" data-n="1">1</a><a class="cite" id="r2-1" href="#s2" data-n="2">2</a></p>
+<p>当时的教会经过考验，拒绝了这种说法：游斯丁、爱任纽、特土良等人都著书反驳他，罗马的教会大约在公元144年把他开除了。<a class="cite" id="r1-2" href="#s1" data-n="1">1</a></p>
+<div class="box"><p class="lab">这一页要做的事</p>
+<ol class="steps">
+<li><b>先老实承认这种感觉</b>，然后找出它从哪里来（第二部分）。</li>
+<li><b>把旧约里的慈爱、新约里的严厉都摆出来</b>，看看事实是不是我们印象中的样子（第三、四部分）。</li>
+<li><b>看圣经怎样说“同一位”</b>，以及为什么两约读起来“感觉”不一样（第五部分）。</li>
+<li><b>不回避最难读的经文</b>：洪水、迦南、乌撒、母熊……（第六部分）。</li>
+</ol></div>
+</section><div class="part" id="part2"><span>第二部分</span><b>为什么会有这种感觉</b></div><section class="ch" id="size"><h2><span class="no">02</span>真相一：篇幅和题材本来就不一样</h2>
+<p>用和合本统计一下：</p>
+<div class="tblwrap" tabindex="0" role="region" aria-label="新旧约的篇幅"><table class="mini ktbl"><thead><tr><th></th><th>旧约</th><th>新约</th></tr></thead><tbody>
+<tr><td>卷数</td><td>39 卷</td><td>27 卷</td></tr>
+<tr><td>章数</td><td>929 章</td><td>260 章</td></tr>
+<tr><td>节数</td><td>23,145 节</td><td>7,959 节</td></tr>
+<tr><td>大约的时间跨度</td><td>从创造到被掳归回，上千年</td><td>从耶稣降生到使徒时代末，不到一百年</td></tr>
+<tr><td>主要题材</td><td>一个民族的历史、律法、战争、诗歌、先知书</td><td>耶稣的生平（福音书）、写给教会的书信</td></tr>
+</tbody></table></div>
+<p>旧约的篇幅约是新约的三倍，记的是一个<b>国家</b>上千年的历史：有王，有军队，有战争，有法庭和刑罚。新约记的主要是一个<b>人</b>——耶稣——短短几年的事工，以及写给信徒的书信；教会不是一个国家，没有军队，也不掌握刑罚。</p>
+<p><b>编者的理解：</b>题材不同，读起来的“温度”自然不同。拿一个国家几百年的历史书，和一个人的传记、几封家信相比，前者里面的战争和刑罚当然多得多。这不能直接说明作者的性情不同。</p>
+</section><section class="ch" id="record"><h2><span class="no">03</span>真相二：圣经“记载”的，不等于上帝“赞同”的</h2>
+<p>旧约里有很多非常黑暗的故事：士师记19—21章的暴行、大卫的奸淫和谋杀、列王的残暴……很多人读到这些，就算在上帝的账上。</p>
+<p>可是圣经记下这些事，常常正是为了<b>揭露</b>它们。士师记在一连串可怕的事件后面，用这样一句话作结：</p>
+<blockquote class="verse"><p>那时，以色列中没有王，各人任意而行。</p><cite>士师记 21:25</cite></blockquote>
+<p>“各人任意而行”——作者是在说：看，离开上帝的人会变成什么样子。大卫的罪被记下来，是为了记下先知拿单的责备和他的悔改（撒下12:13；诗51）。</p>
+<div class="box"><p class="lab">读旧约时可以问的一个问题</p><p>这一段是上帝<b>吩咐</b>的，还是人<b>做出来</b>、圣经<b>记下来</b>的？很多让人不舒服的经文，其实属于后一种。</p></div>
+</section><section class="ch" id="select"><h2><span class="no">04</span>真相三：我们记得的，和圣经实际写的</h2>
+<p>主日学、讲道、电影，常常讲洪水、所多玛、十灾、耶利哥；可是何西阿书11章、耶利米哀歌3章、约拿书4章，很少有人会背。我们印象中的“旧约”，往往是被挑选过的旧约。</p>
+<p>下面是和合本里几个词出现的次数（编者用经文数据统计）：</p>
+<div class="tblwrap" tabindex="0" role="region" aria-label="和合本用词统计"><table class="mini ktbl"><thead><tr><th>词</th><th>旧约</th><th>新约</th></tr></thead><tbody>
+<tr><td>慈爱</td><td><b>191</b> 次</td><td>6 次</td></tr>
+<tr><td>不轻易发怒</td><td>12 次（形容上帝的有 9 次）</td><td>1 次（林前13:5，形容爱）</td></tr>
+<tr><td>地狱</td><td>0 次</td><td><b>13</b> 次（其中 11 次出自耶稣的口）</td></tr>
+<tr><td>火湖</td><td>0 次</td><td>6 次</td></tr>
+<tr><td>恩典</td><td>20 次</td><td>40 次</td></tr>
+<tr><td>忿怒</td><td>111 次</td><td>20 次</td></tr>
+</tbody></table></div>
+<p class="note2">说明：这只是和合本的字面统计，同一个原文词可能有不同译法，也包括“慈爱”“地狱”出现在比喻或引文里的情况；旧约篇幅约是新约的三倍，比较时要把这一点算进去。统计只是帮助我们检查印象，不是论证本身。</p>
+<p>即使把篇幅算进去，结论也很清楚：<b>“慈爱”是旧约的大词，“地狱”是耶稣的大词。</b>希伯来文里常译作“慈爱”的那个词（hesed），说的是上帝立约、守约、永不放手的爱，旧约用了一百多次来形容祂。</p>
+</section><section class="ch" id="satan"><h2><span class="no">05</span>真相四：有一位一直在歪曲上帝的形象</h2>
+<p>人类第一次怀疑上帝，就是从歪曲上帝的品格开始的：</p>
+<blockquote class="verse"><p><sup>1</sup>耶和华上帝所造的，惟有蛇比田野一切的活物更狡猾。蛇对女人说：“上帝岂是真说不许你们吃园中所有树上的果子吗？”<sup>2</sup>女人对蛇说：“园中树上的果子，我们可以吃，<sup>3</sup>惟有园当中那棵树上的果子，上帝曾说：‘你们不可吃，也不可摸，免得你们死。’”<sup>4</sup>蛇对女人说：“你们不一定死；<sup>5</sup>因为上帝知道，你们吃的日子眼睛就明亮了，你们便如上帝能知道善恶。”</p><cite>创世记 3:1—5</cite></blockquote>
+<p>蛇的话暗示：上帝不许你们吃，是因为祂小气、怕你们和祂一样。从那时起，“上帝不是真的爱你”就成了仇敌最常用的谎言。耶稣说魔鬼“本来是说谎的”（约8:44），保罗说“这世界的神弄瞎了心眼”（林后4:4）。</p>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>虽然有这一切的凭据，那与善为敌的仍然蒙蔽人的心眼，使他们以惧怕的心看上帝，以为祂严厉而不肯饶恕。撒但使人以为上帝最主要的属性是严厉的公正——是一位严厉的审判官，一个苛刻、斤斤计较的债主。他把创造主描绘成一位用猜忌的眼光注视着人、要找出人的错误和过失好降下刑罚的神。耶稣来到人间，正是要向世人显明上帝无限的爱，除去这层黑影。</p><cite>怀爱伦《拾级就主》第1章“上帝对人类的爱”，英文原著第 10—11 页（编者译）<a class="cite" id="r3-1" href="#s3" data-n="3">3</a></cite></blockquote></div>
+<p><b>编者的理解：</b>所以，“旧约的上帝很严厉”这种感觉，一部分来自题材，一部分来自我们挑着读，还有一部分，来自一个古老的谎言。认清这一点，本身就是属灵的功课。</p>
+</section><div class="part" id="part3"><span>第三部分</span><b>旧约里的慈爱</b></div><section class="ch" id="name"><h2><span class="no">06</span>上帝自己的“名片”：出埃及记34章</h2>
+<p>摩西在西乃山上求上帝：“求你显出你的荣耀给我看。”上帝的回答是“我要显我一切的恩慈，在你面前经过”（出33:18-19）。然后，上帝<b>亲口宣告</b>自己是谁：</p>
+<blockquote class="verse"><p><sup>6</sup>耶和华在他面前宣告说：“耶和华，耶和华，是有怜悯有恩典的上帝，不轻易发怒，并有丰盛的慈爱和诚实，<sup>7</sup>为千万人存留慈爱，赦免罪孽、过犯，和罪恶，万不以有罪的为无罪，必追讨他的罪，自父及子，直到三、四代。”</p><cite>出埃及记 34:6—7</cite></blockquote>
+<p>这是圣经里上帝对自己品格最完整的一次自我介绍。旧约的作者们一再引用它：</p>
+<figure class="fig"><svg viewBox="0 0 400 372" class="dg" role="img" aria-labelledby="gf1t gf1d">
+<title id="gf1t">上帝自己的“名片”在旧约里的回声</title>
+<desc id="gf1d">出埃及记34章6节，上帝亲自宣告自己是有怜悯有恩典、不轻易发怒、有丰盛慈爱和诚实的上帝。这句话在旧约里又被引用了至少八次：民数记14章18节、尼希米记9章17节、诗篇86篇15节、103篇8节、145篇8节、约珥书2章13节、约拿书4章2节、那鸿书1章3节。</desc>
+<rect x="10" y="10" width="380" height="74" rx="14" class="f6 fillc"/>
+<text x="200.0" y="36.0" class="tnode" text-anchor="middle">出埃及记 34:6 · 上帝亲口宣告</text>
+<text x="200.0" y="58.0" class="tnode2" text-anchor="middle">有怜悯有恩典，不轻易发怒，</text>
+<text x="200.0" y="74.0" class="tnode2" text-anchor="middle">并有丰盛的慈爱和诚实</text>
+<text x="200.0" y="106.0" class="tw" text-anchor="middle">这句话在旧约里一再被引用（下面是其中八处）</text>
+<rect x="10" y="120" width="185" height="48" rx="10" class="box"/>
+<rect x="10" y="120" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="26.0" y="141.0" class="tn hi" text-anchor="start">民14:18</text>
+<text x="26.0" y="158.0" class="ts" text-anchor="start">摩西为百姓求情</text>
+<rect x="205" y="120" width="185" height="48" rx="10" class="box"/>
+<rect x="205" y="120" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="221.0" y="141.0" class="tn hi" text-anchor="start">尼9:17</text>
+<text x="221.0" y="158.0" class="ts" text-anchor="start">归回后的认罪</text>
+<rect x="10" y="178" width="185" height="48" rx="10" class="box"/>
+<rect x="10" y="178" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="26.0" y="199.0" class="tn hi" text-anchor="start">诗86:15</text>
+<text x="26.0" y="216.0" class="ts" text-anchor="start">大卫的祷告</text>
+<rect x="205" y="178" width="185" height="48" rx="10" class="box"/>
+<rect x="205" y="178" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="221.0" y="199.0" class="tn hi" text-anchor="start">诗103:8</text>
+<text x="221.0" y="216.0" class="ts" text-anchor="start">称颂的诗</text>
+<rect x="10" y="236" width="185" height="48" rx="10" class="box"/>
+<rect x="10" y="236" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="26.0" y="257.0" class="tn hi" text-anchor="start">诗145:8</text>
+<text x="26.0" y="274.0" class="ts" text-anchor="start">赞美的诗</text>
+<rect x="205" y="236" width="185" height="48" rx="10" class="box"/>
+<rect x="205" y="236" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="221.0" y="257.0" class="tn hi" text-anchor="start">珥2:13</text>
+<text x="221.0" y="274.0" class="ts" text-anchor="start">先知呼召悔改</text>
+<rect x="10" y="294" width="185" height="48" rx="10" class="box"/>
+<rect x="10" y="294" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="26.0" y="315.0" class="tn hi" text-anchor="start">拿4:2</text>
+<text x="26.0" y="332.0" class="ts" text-anchor="start">约拿埋怨上帝太慈悲</text>
+<rect x="205" y="294" width="185" height="48" rx="10" class="box"/>
+<rect x="205" y="294" width="6" height="48" rx="3" class="f6 fillc"/>
+<text x="221.0" y="315.0" class="tn hi" text-anchor="start">鸿1:3</text>
+<text x="221.0" y="332.0" class="ts" text-anchor="start">先知论审判</text>
+<text x="200.0" y="362.0" class="tw" text-anchor="middle">旧约的“基调”，是上帝自己说的：慈爱和诚实</text>
+</svg></figure>
+<p>最有意思的是约拿。上帝要赦免尼尼微，约拿很不高兴，祷告说：</p>
+<blockquote class="verse"><p>就祷告耶和华说：耶和华啊，我在本国的时候岂不是这样说吗？我知道你是有恩典、有怜悯的上帝，不轻易发怒，有丰盛的慈爱，并且后悔不降所说的灾，所以我急速逃往他施去。</p><cite>约拿书 4:2</cite></blockquote>
+<p>约拿逃跑，不是因为觉得上帝太严厉，而是因为<b>他知道上帝太慈悲</b>，一定会饶恕他的敌人。旧约里的一位先知埋怨上帝“太仁慈”，这本身就是对“旧约上帝很严厉”最好的回答。</p>
+<h3>“三四代”和“千代”</h3>
+<blockquote class="verse"><p><sup>5</sup>不可跪拜那些像，也不可事奉它，因为我耶和华你的上帝是忌邪的上帝。恨我的，我必追讨他的罪，自父及子，直到三四代；<sup>6</sup>爱我、守我诫命的，我必向他们发慈爱，直到千代。</p><cite>出埃及记 20:5—6</cite></blockquote>
+<p>很多人只记得“追讨……三四代”。可是同一句话里，慈爱是“直到<b>千代</b>”。审判有限度，慈爱几乎没有尽头。（而且追讨的是“恨我的”；以西结书18:20 和申命记24:16 都说明，儿子不担当父亲的罪孽——追讨的是那些继续父辈罪行的人。）</p>
+</section><section class="ch" id="heart"><h2><span class="no">07</span>先知书里的上帝：一颗为人心碎的心</h2>
+<p>如果说出埃及记34章是上帝的“名片”，先知书就是上帝的“心声”。</p>
+<blockquote class="verse"><p><sup>1</sup>以色列年幼的时候，我爱他，就从埃及召出我的儿子来。<sup>2</sup>先知越发招呼他们，他们越发走开，向诸巴力献祭，给雕刻的偶像烧香。<sup>3</sup>我原教导以法莲行走，用膀臂抱着他们，他们却不知道是我医治他们。<sup>4</sup>我用慈绳爱索牵引他们；我待他们如人放松牛的两腮夹板，把粮食放在他们面前。</p><cite>何西阿书 11:1—4</cite></blockquote>
+<blockquote class="verse"><p><sup>8</sup>以法莲哪，我怎能舍弃你？以色列啊，我怎能弃绝你？我怎能使你如押玛？怎能使你如洗扁？我回心转意，我的怜爱大大发动。<sup>9</sup>我必不发猛烈的怒气，也不再毁灭以法莲。因我是上帝，并非世人，是你们中间的圣者；我必不在怒中临到你们。</p><cite>何西阿书 11:8—9</cite></blockquote>
+<p>“我怎能舍弃你？……我的怜爱大大发动。”这是一个被背叛的父亲的话。上帝甚至吩咐先知何西阿去爱一个不忠的妻子，“好像以色列人，虽然偏向别神……耶和华还是爱他们”（何3:1）。</p>
+<blockquote class="verse"><p>你对他们说，主耶和华说：我指着我的永生起誓，我断不喜悦恶人死亡，惟喜悦恶人转离所行的道而活。以色列家啊，你们转回，转回吧！离开恶道，何必死亡呢？</p><cite>以西结书 33:11</cite></blockquote>
+<blockquote class="verse"><p><sup>31</sup>因为主必不永远丢弃人。<sup>32</sup>主虽使人忧愁，还要照他诸般的慈爱发怜悯。<sup>33</sup>因他并不甘心使人受苦，使人忧愁。</p><cite>耶利米哀歌 3:31—33</cite></blockquote>
+<p>“他并不甘心使人受苦”——审判不是上帝喜欢做的事。</p>
+<blockquote class="verse"><p>妇人焉能忘记她吃奶的婴孩，不怜恤她所生的儿子？即或有忘记的，我却不忘记你。</p><cite>以赛亚书 49:15</cite></blockquote>
+<blockquote class="verse"><p><sup>10</sup>耶和华说：“这蓖麻不是你栽种的，也不是你培养的；一夜发生，一夜干死，你尚且爱惜；<sup>11</sup>何况这尼尼微大城，其中不能分辨左手右手的有十二万多人，并有许多牲畜，我岂能不爱惜呢？”</p><cite>约拿书 4:10—11</cite></blockquote>
+<p>约拿书最后一句话，是上帝在为一座外邦城市里不懂事的孩子和牲畜说话。</p>
+</section><section class="ch" id="law"><h2><span class="no">08</span>律法里的温柔</h2>
+<p>很多人以为“律法”就是冷冰冰的条文。其实摩西的律法里，有许多非常体贴的规定：</p>
+<div class="tblwrap" tabindex="0" role="region" aria-label="律法里的温柔"><table class="mini ktbl"><thead><tr><th>经文</th><th>内容</th></tr></thead><tbody>
+<tr><td>利19:18</td><td>“不可报仇……却要爱人如己。”</td></tr>
+<tr><td>利19:33-34</td><td>对待外人“要爱他如己，因为你们在埃及地也作过寄居的”。</td></tr>
+<tr><td>申10:18-19</td><td>上帝“为孤儿寡妇伸冤，又怜爱寄居的”。</td></tr>
+<tr><td>出22:26-27</td><td>拿了穷人的衣服作抵押，日落以前要还给他，“若是没有，他拿什么睡觉呢？”</td></tr>
+<tr><td>申24:19</td><td>收割时忘下的一捆，要留给寄居的和孤儿寡妇。</td></tr>
+<tr><td>出23:4-5</td><td>遇见仇敌的牛或驴迷了路，要牵回去给他；看见恨你的人的驴倒在重担下，要帮他抬开。</td></tr>
+<tr><td>箴25:21</td><td>“你的仇敌若饿了，就给他饭吃。”——保罗在罗马书12:20 原句引用。</td></tr>
+</tbody></table></div>
+<p>耶稣被问到最大的诫命时，两条都是从旧约引的：</p>
+<blockquote class="verse"><p><sup>37</sup>耶稣对他说：“你要尽心、尽性、尽意爱主你的上帝。<sup>38</sup>这是诫命中的第一，且是最大的。<sup>39</sup>其次也相仿，就是要爱人如己。<sup>40</sup>这两条诫命是律法和先知一切道理的总纲。”</p><cite>马太福音 22:37—40</cite></blockquote>
+<p>“尽心爱上帝”出自申命记6:5，“爱人如己”出自利未记19:18。<b>新约最核心的爱的命令，原原本本来自旧约。</b>耶稣也两次引用何西阿书6:6：“我喜爱怜恤，不喜爱祭祀。”（太9:13）后来在12:7 又引了一次。</p>
+</section><section class="ch" id="patience"><h2><span class="no">09</span>审判之前，漫长的忍耐</h2>
+<p>旧约里的审判，几乎每一次之前都有很长的等待：</p>
+<ul class="vlist">
+<li><b>洪水之前</b>：“他的日子还可到一百二十年。”（创6:3）彼得说那是“上帝容忍等待的时候”（彼前3:20）。</li>
+<li><b>迦南人</b>：上帝对亚伯拉罕说，要等到第四代，“因为亚摩利人的罪孽还没有满盈”（创15:16）——又等了几百年。</li>
+<li><b>所多玛</b>：亚伯拉罕一路问下去，上帝答应“为这十个的缘故，我也不毁灭那城”（创18:32）。</li>
+<li><b>以色列被掳以前</b>：</li>
+</ul>
+<blockquote class="verse"><p><sup>15</sup>耶和华他们列祖的上帝因为爱惜自己的民和他的居所，从早起来差遣使者去警戒他们。<sup>16</sup>他们却嘻笑上帝的使者，藐视他的言语，讥诮他的先知，以致耶和华的忿怒向他的百姓发作，无法可救。</p><cite>历代志下 36:15—16</cite></blockquote>
+<p>“从早起来差遣使者”——上帝一次又一次地警告。审判来了，是因为“无法可救”。</p>
+<h3>审判之中，也有恩典</h3>
+<ul class="vlist">
+<li>耶利哥城的妓女喇合投靠上帝，她和全家都得救，后来成了大卫和耶稣的祖先（书6:25；太1:5）。</li>
+<li>摩押女子路得、亚兰的元帅乃缦、整座尼尼微城——都是外邦人，都蒙了恩典。</li>
+<li>上帝说：“我何时论到一邦或一国说，要拔出、拆毁……我所说的那一邦，若是转意离开他们的恶，我就必后悔。”（耶18:7-8）尼尼微就是这样（拿3:10）。</li>
+</ul>
+</section><div class="part" id="part4"><span>第四部分</span><b>新约里的严厉</b></div><section class="ch" id="nt"><h2><span class="no">10</span>新约并不“温和”</h2>
+<p>如果说旧约被我们读得太“严厉”，新约就常常被我们读得太“温和”。看看新约本身：</p>
+<div class="tblwrap" tabindex="0" role="region" aria-label="新约里的严厉"><table class="mini ktbl"><thead><tr><th>经文</th><th>内容</th></tr></thead><tbody>
+<tr><td>可9:43-48</td><td>耶稣：“强如有两只手落到地狱，入那不灭的火里去。”</td></tr>
+<tr><td>太23:33</td><td>耶稣：“你们这些蛇类、毒蛇之种啊，怎能逃脱地狱的刑罚呢？”</td></tr>
+<tr><td>太11:20-24</td><td>耶稣：迦百农在审判的日子，比所多玛还难受。</td></tr>
+<tr><td>太25:41</td><td>耶稣：“进入那为魔鬼和他的使者所预备的永火里去！”</td></tr>
+<tr><td>徒5:1-11</td><td>亚拿尼亚和撒非喇欺哄圣灵，当场仆倒断气。</td></tr>
+<tr><td>徒12:23</td><td>希律“不归荣耀给上帝”，被虫所咬，气就绝了。</td></tr>
+<tr><td>罗1:18</td><td>“上帝的忿怒从天上显明在一切不虔不义的人身上。”</td></tr>
+<tr><td>约3:36</td><td>“不信子的人……上帝的震怒常在他身上。”</td></tr>
+<tr><td>启6:16-17</td><td>人要躲避“羔羊的忿怒”。</td></tr>
+</tbody></table></div>
+<p>新约里“地狱”一词出现 13 次，其中 11 次出自<b>耶稣自己的口</b>（太5:22、29、30；10:28；18:9；23:15、33；可9:44、46、47；路12:5）。最常警告人审判的，正是那位最慈爱的耶稣。</p>
+<h3>新约甚至说得更重</h3>
+<blockquote class="verse"><p><sup>28</sup>人干犯摩西的律法，凭两三个见证人，尚且不得怜恤而死，<sup>29</sup>何况人践踏上帝的儿子，将那使他成圣之约的血当作平常，又亵慢施恩的圣灵，你们想，他要受的刑罚该怎样加重呢！</p><cite>希伯来书 10:28—29</cite></blockquote>
+<p>希伯来书的逻辑是：违背摩西的律法尚且如此，践踏上帝儿子的人，刑罚“该怎样加重”。新约的标准不是更松，而是更高（参来2:2-3）。</p>
+<h3>一组有意思的对比</h3>
+<div class="tblwrap two-col" tabindex="0" role="region" aria-label="新旧约的对比"><table class="cmp ktbl2"><thead><tr><th>旧约</th><th>新约</th></tr></thead><tbody>
+<tr><td>大卫：“我愿落在耶和华的手里，因为他有丰盛的怜悯。”（撒下24:14）</td><td>“落在永生上帝的手里，真是可怕的！”（来10:31）</td></tr>
+<tr><td>“耶和华你的上帝乃是烈火，是忌邪的上帝。”（申4:24）</td><td>“我们的上帝乃是烈火。”（来12:29）——新约原句引用旧约</td></tr>
+</tbody></table></div>
+<p>如果只看这两组经文，人们会说“旧约的上帝慈爱，新约的上帝可怕”。这正说明：<b>只挑几节经文，什么结论都能得出来。</b></p>
+<figure class="fig"><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="gf2t gf2d">
+<title id="gf2t">恩慈和严厉，两约都有</title>
+<desc id="gf2d">四格对照：旧约里有恩慈，例如“我以永远的爱爱你”、尼尼微悔改上帝不降灾、“爱人如己”；新约里有恩慈，例如“上帝爱世人”、浪子的父亲、“要爱你们的仇敌”。旧约里有严厉，例如洪水、所多玛、乌撒；新约里也有严厉，例如“地狱”一词13次中11次出自耶稣、亚拿尼亚和撒非喇、“羔羊的忿怒”。保罗说：“可见上帝的恩慈和严厉”（罗马书11章22节）。</desc>
+<text x="105.0" y="20.0" class="tn hi" text-anchor="middle">旧约</text>
+<text x="300.0" y="20.0" class="tn hi" text-anchor="middle">新约</text>
+<rect x="10" y="30" width="185" height="130" rx="12" class="box"/>
+<rect x="10" y="30" width="185" height="30" rx="12" class="f6 fillc"/>
+<rect x="10" y="48" width="185" height="12" class="f6 fillc"/>
+<text x="102.5" y="50.0" class="tnode" text-anchor="middle">旧约里的恩慈</text>
+<text x="20.0" y="85.0" class="tw" text-anchor="start">“我以永远的爱爱你”（耶31:3）</text>
+<text x="20.0" y="111.0" class="tw" text-anchor="start">尼尼微悔改，上帝不降灾（拿3:10）</text>
+<text x="20.0" y="137.0" class="tw" text-anchor="start">“爱人如己”（利19:18）</text>
+<rect x="205" y="30" width="185" height="130" rx="12" class="box"/>
+<rect x="205" y="30" width="185" height="30" rx="12" class="f6 fillc"/>
+<rect x="205" y="48" width="185" height="12" class="f6 fillc"/>
+<text x="297.5" y="50.0" class="tnode" text-anchor="middle">新约里的恩慈</text>
+<text x="215.0" y="85.0" class="tw" text-anchor="start">“上帝爱世人”（约3:16）</text>
+<text x="215.0" y="111.0" class="tw" text-anchor="start">浪子的父亲跑去抱他（路15:20）</text>
+<text x="215.0" y="137.0" class="tw" text-anchor="start">“要爱你们的仇敌”（太5:44）</text>
+<rect x="10" y="170" width="185" height="130" rx="12" class="box"/>
+<rect x="10" y="170" width="185" height="30" rx="12" class="f4 fillc"/>
+<rect x="10" y="188" width="185" height="12" class="f4 fillc"/>
+<text x="102.5" y="190.0" class="tnode" text-anchor="middle">旧约里的严厉</text>
+<text x="20.0" y="225.0" class="tw" text-anchor="start">洪水（创6—8）</text>
+<text x="20.0" y="251.0" class="tw" text-anchor="start">所多玛（创19）</text>
+<text x="20.0" y="277.0" class="tw" text-anchor="start">乌撒扶约柜（撒下6:7）</text>
+<rect x="205" y="170" width="185" height="130" rx="12" class="box"/>
+<rect x="205" y="170" width="185" height="30" rx="12" class="f4 fillc"/>
+<rect x="205" y="188" width="185" height="12" class="f4 fillc"/>
+<text x="297.5" y="190.0" class="tnode" text-anchor="middle">新约里的严厉</text>
+<text x="215.0" y="225.0" class="tw" text-anchor="start">“地狱”13次，11次出自耶稣</text>
+<text x="215.0" y="251.0" class="tw" text-anchor="start">亚拿尼亚和撒非喇（徒5）</text>
+<text x="215.0" y="277.0" class="tw" text-anchor="start">“羔羊的忿怒”（启6:16）</text>
+<text x="200.0" y="322.0" class="tn" text-anchor="middle">“可见上帝的恩慈和严厉”（罗11:22）——同一位上帝</text>
+</svg></figure>
+<blockquote class="verse"><p>可见，上帝的恩慈和严厉向那跌倒的人是严厉的，向你是有恩慈的，只要你长久在他的恩慈里；不然，你也要被砍下来。</p><cite>罗马书 11:22</cite></blockquote>
+</section><section class="ch" id="cross"><h2><span class="no">11</span>十字架：最严厉的审判，也是最深的爱</h2>
+<p>整本圣经里，上帝对罪最严厉的审判在哪里？不在洪水，不在所多玛，而在新约——在十字架上：</p>
+<blockquote class="verse"><p>哪知他为我们的过犯受害，为我们的罪孽压伤。因他受的刑罚，我们得平安；因他受的鞭伤，我们得医治。</p><cite>以赛亚书 53:5</cite></blockquote>
+<blockquote class="verse"><p>约在申初，耶稣大声喊着说：“以利！以利！拉马撒巴各大尼？”就是说：“我的上帝！我的上帝！为什么离弃我？”</p><cite>马太福音 27:46</cite></blockquote>
+<p>而上帝最深的爱在哪里？也在同一个地方：</p>
+<blockquote class="verse"><p>惟有基督在我们还作罪人的时候为我们死，上帝的爱就在此向我们显明了。</p><cite>罗马书 5:8</cite></blockquote>
+<blockquote class="verse"><p>上帝既不爱惜自己的儿子，为我们众人舍了，岂不也把万物和他一同白白地赐给我们吗？</p><cite>罗马书 8:32</cite></blockquote>
+<p>保罗说，十字架同时显明了上帝的<b>义</b>和上帝的<b>爱</b>：</p>
+<blockquote class="verse"><p><sup>25</sup>上帝设立耶稣作挽回祭，是凭着耶稣的血，藉着人的信，要显明上帝的义；因为他用忍耐的心宽容人先时所犯的罪，<sup>26</sup>好在今时显明他的义，使人知道他自己为义，也称信耶稣的人为义。</p><cite>罗马书 3:25—26</cite></blockquote>
+<p>“使人知道他自己为义，也称信耶稣的人为义”——上帝没有为了慈爱而放弃公义，也没有为了公义而放弃慈爱。祂自己承担了审判。诗篇早就这样描述：</p>
+<blockquote class="verse"><p>慈爱和诚实彼此相遇；公义和平安彼此相亲。</p><cite>诗篇 85:10</cite></blockquote>
+<p><b>编者的理解：</b>如果把十字架放在中间，就会看到：旧约的审判，指向十字架上那更大的审判；新约的慈爱，正是从那审判里流出来的。严厉和慈爱不是两位上帝，而是在十字架上相遇的同一位上帝。</p>
+</section><div class="part" id="part5"><span>第五部分</span><b>同一位上帝</b></div><section class="ch" id="same"><h2><span class="no">12</span>圣经怎样说“是同一位”</h2>
+<blockquote class="verse"><p>因我耶和华是不改变的，所以你们雅各之子没有灭亡。</p><cite>玛拉基书 3:6</cite></blockquote>
+<blockquote class="verse"><p>耶稣基督昨日、今日、一直到永远，是一样的。</p><cite>希伯来书 13:8</cite></blockquote>
+<blockquote class="verse"><p>各样美善的恩赐和各样全备的赏赐都是从上头来的，从众光之父那里降下来的；在他并没有改变，也没有转动的影儿。</p><cite>雅各书 1:17</cite></blockquote>
+<h3>旧约里的耶和华，就是新约里的耶稣</h3>
+<p>新约作者们一再把旧约里耶和华的作为，直接说成是基督的作为：</p>
+<ul class="vlist">
+<li>耶稣说：“还没有亚伯拉罕就有了我。”（约8:58）——呼应上帝在荆棘中对摩西说的“我是自有永有的”（出3:14）。</li>
+<li>约翰引了以赛亚书6章以赛亚看见“主坐在高高的宝座上”，然后说：“以赛亚因为看见他的荣耀，就指着他说这话。”（约12:41）——上下文里的“他”就是耶稣。</li>
+<li>保罗说，在旷野跟随以色列人的“那磐石就是基督”（林前10:4）。</li>
+<li>希伯来书说，上帝“也曾藉着他创造诸世界”（来1:2）——“他”就是上帝的儿子。</li>
+</ul>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>那些主张基督来是要废除上帝的律法、取消旧约的人，把犹太人的时代说成是黑暗的时代……但这是错误的。在记载上帝与祂选民交往的整部神圣历史中，处处都有伟大的“自有永有者”炽热的痕迹……在这一切神圣临格的显现中，上帝的荣耀都是借着基督彰显的……基督不仅是在旷野中引领希伯来人的那一位——就是那名字里有耶和华之名、隐藏在云柱中走在全营前面的使者——而且将律法颁给以色列的也是祂……借着先知向祂百姓说话的，是基督……在旧约里向我们说话的，是基督的声音。</p><cite>怀爱伦《先祖与先知》第32章“律法与两约”，英文原著第 366—367 页（编者译）<a class="cite" id="r4-1" href="#s4" data-n="4">4</a></cite></blockquote></div>
+<h3>耶稣就是父的样子</h3>
+<blockquote class="verse"><p>耶稣对他说：腓力，我与你们同在这样长久，你还不认识我吗？人看见了我，就是看见了父；你怎么说‘将父显给我们看’呢？</p><cite>约翰福音 14:9</cite></blockquote>
+<blockquote class="verse"><p><sup>17</sup>律法本是藉着摩西传的；恩典和真理都是由耶稣基督来的。<sup>18</sup>从来没有人看见上帝，只有在父怀里的独生子将他表明出来。</p><cite>约翰福音 1:17—18</cite></blockquote>
+<p>“从来没有人看见上帝，只有在父怀里的独生子将他表明出来。”如果想知道旧约里那位上帝的心，最清楚的答案就是：看耶稣。</p>
+<h3>耶稣自己也两样都有</h3>
+<ul class="vlist">
+<li>门徒想学以利亚“吩咐火从天上降下来”烧灭撒玛利亚人，耶稣转身责备他们：“人子来不是要灭人的性命，是要救人的性命。”（路9:54-56）</li>
+<li>同一位耶稣，拿绳子做成鞭子，推翻兑换银钱之人的桌子：“不要将我父的殿当作买卖的地方。”（约2:15-16）</li>
+</ul>
+<p>耶稣既温柔又严厉，这就是旧约里那位“有怜悯有恩典……万不以有罪的为无罪”（出34:6-7）的上帝。</p>
+</section><section class="ch" id="why"><h2><span class="no">13</span>那为什么两约读起来不一样？</h2>
+<p>上帝没有变，变的是<b>启示的清楚程度</b>和<b>人的处境</b>。</p>
+<h3>一、启示是渐渐清楚的</h3>
+<blockquote class="verse"><p><sup>1</sup>上帝既在古时藉着众先知多次多方地晓谕列祖，<sup>2</sup>就在这末世藉着他儿子晓谕我们；又早已立他为承受万有的，也曾藉着他创造诸世界。</p><cite>希伯来书 1:1—2</cite></blockquote>
+<p>“多次多方地”——旧约的启示像一段一段的光，到耶稣来的时候，光完全照出来了。不是上帝从严厉变成慈爱，而是我们看上帝看得越来越清楚。</p>
+<h3>二、上帝在人的光景中与人相遇</h3>
+<blockquote class="verse"><p>耶稣说：摩西因为你们的心硬，所以许你们休妻，但起初并不是这样。</p><cite>马太福音 19:8</cite></blockquote>
+<p>耶稣亲口说，摩西律法中有些规定是“因为你们的心硬”，“起初并不是这样”。旧约里的一些社会规定，是上帝在古代的处境中，一步一步把一个民族往高处带；不等于那就是上帝心目中的理想。</p>
+<blockquote class="verse"><p>世人蒙昧无知的时候，上帝并不监察，如今却吩咐各处的人都要悔改。</p><cite>使徒行传 17:30</cite></blockquote>
+<h3>三、旧约的以色列是一个国家，新约的教会不是</h3>
+<p>旧约里，上帝亲自作以色列的王，律法同时是宗教法、民法和刑法，所以有法庭、刑罚和战争。新约的教会分散在各国，不掌握刑罚的权柄；耶稣说“我的国不属这世界”（约18:36）。<b>编者的理解：</b>很多我们觉得“严厉”的旧约经文，属于这个国家的法律和战争；不能直接拿来和写给教会的书信比较。</p>
+<h3>四、律法是“训蒙的师傅”</h3>
+<blockquote class="verse"><p>这样，律法是我们训蒙的师傅，引我们到基督那里，使我们因信称义。</p><cite>加拉太书 3:24</cite></blockquote>
+<p>律法让人看见罪有多重，好叫人知道需要救主。先看见病有多重，才明白医治有多宝贵。</p>
+</section><div class="part" id="part6"><span>第六部分</span><b>最难读的几段经文</b></div><section class="ch" id="hard"><h2><span class="no">14</span>最难读的几段经文</h2>
+<p>说了这么多，有些经文读起来仍然让人不安。下面不回避，一段一段看。需要先说明：这些经文的难处，教会历史上有不同的解释；以下是根据经文上下文整理的理解，读者可以自己判断。</p>
+<h3>一、洪水</h3>
+<blockquote class="verse"><p><sup>5</sup>耶和华见人在地上罪恶很大，终日所思想的尽都是恶，<sup>6</sup>耶和华就后悔造人在地上，心中忧伤。<sup>7</sup>耶和华说：“我要将所造的人和走兽，并昆虫，以及空中的飞鸟，都从地上除灭，因为我造他们后悔了。”</p><cite>创世记 6:5—7</cite></blockquote>
+<p>注意“心中忧伤”——上帝不是冷冷地审判，而是心痛。当时“地上满了强暴”（创6:11、13），而上帝还给了一百二十年（创6:3；彼前3:20）。</p>
+<h3>二、攻取迦南</h3>
+<p>这是最常被问到的。几点经文本身的说明：</p>
+<ul class="vlist">
+<li><b>等了四百年</b>：“亚摩利人的罪孽还没有满盈。”（创15:16）</li>
+<li><b>是因他们的恶，不是因以色列的义</b>：“并不是因你的义……乃是因这些国民的恶。”（申9:4-5）其中包括“将自己的儿女用火焚烧，献与他们的神”（申12:31）。</li>
+<li><b>同一个标准也用在以色列身上</b>：“免得你们玷污那地的时候，地就把你们吐出，像吐出在你们以先的国民一样。”（利18:28）后来以色列果然被掳。这不是偏袒某个民族。</li>
+<li><b>投靠的人得救</b>：喇合一家（书6:25）、基遍人（书9章）。</li>
+</ul>
+<p><b>编者的理解：</b>即使有这些说明，攻取迦南仍然是圣经里很沉重的一段。它属于上帝在特定时期、对特定民族的审判，不是给后人的普遍命令；新约里没有任何一处吩咐信徒用武力对待不信的人（路9:54-56）。</p>
+<h3>三、乌撒扶约柜</h3>
+<blockquote class="verse"><p><sup>6</sup>到了拿艮的禾场，因为牛失前蹄，乌撒就伸手扶住上帝的约柜。<sup>7</sup>上帝耶和华向乌撒发怒，因这错误击杀他，他就死在上帝的约柜旁。</p><cite>撒母耳记下 6:6—7</cite></blockquote>
+<p>律法早就规定，抬约柜的哥辖子孙“不可摸圣物，免得他们死亡”（民4:15），而且约柜应当用杠抬，不是用牛车拉。大卫后来承认：</p>
+<blockquote class="verse"><p>因你们先前没有抬这约柜，按定例求问耶和华我们的上帝，所以他刑罚我们。</p><cite>历代志上 15:13</cite></blockquote>
+<p>问题出在一开始就无视上帝的吩咐。<b>编者的理解：</b>这件事显出上帝的圣洁是真实的，不能随便对待；但它不是“上帝因为一个善意的小动作就发怒”那么简单。</p>
+<h3>四、以利沙和母熊</h3>
+<blockquote class="verse"><p><sup>23</sup>以利沙从那里上伯特利去，正上去的时候，有些童子从城里出来，戏笑他说：“秃头的上去吧！秃头的上去吧！”<sup>24</sup>他回头看见，就奉耶和华的名咒诅他们。于是有两只母熊从林中出来，撕裂他们中间四十二个童子。</p><cite>列王纪下 2:23—24</cite></blockquote>
+<p>中文“童子”容易让人想到几岁的小孩。查原文：23节的“童子”（na‘ar）是一个范围很宽的词，创世记41:12 用同一个词称呼当时将近三十岁的约瑟（创41:46）；24节的“童子”（yeled）与列王纪上12:8 罗波安王身边那些“少年人”同一个词，罗波安登基时已经41岁（王上14:21）。地点是伯特利——耶罗波安立金牛犊的地方（王上12:28-29）；被撕裂的有42人，说明来的是一大群人。</p>
+<p><b>编者的理解：</b>这更像一大群年轻人在拜偶像的中心公然辱骂上帝的先知，而不是先知因为几个小孩开玩笑就咒诅他们。不过经文没有交代更多细节，我们不宜说得比经文更多。</p>
+<h3>五、新约里的亚拿尼亚和撒非喇</h3>
+<p>这件事发生在新约（徒5:1-11）。彼得说：“你不是欺哄人，是欺哄上帝了。”它和乌撒的事一样，显出在上帝刚刚建立的群体中，圣洁不能被随便对待。<b>旧约和新约在这一点上是一致的。</b></p>
+<h3>上帝的审判是怎样的？</h3>
+<p>罗马书1章三次说，上帝“任凭”人去走自己选的路（罗1:24、26、28）。以赛亚称审判为上帝“非常的工”“奇异的事”（赛28:21）——不是祂常做、喜欢做的事。</p>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>上帝并不是以刑罚的执行者的身份对待罪人；祂是任凭那些拒绝祂怜悯的人自行其道，收获他们自己所种的。每一线被拒绝的亮光，每一次被藐视或忽略的警告，每一种被放纵的情欲，每一次对上帝律法的违犯，都是撒下的种子，必结出一定的收成。上帝的灵若一再被抗拒，最后就从罪人身上收回。</p><cite>怀爱伦《善恶之争》第1章“耶路撒冷的毁灭”，英文原著第 36 页（编者译）<a class="cite" id="r5-1" href="#s5" data-n="5">5</a></cite></blockquote></div>
+</section><section class="ch" id="wrath"><h2><span class="no">15</span>慈爱和忿怒，不是对立的</h2>
+<p>很多人心里有一个假设：慈爱和忿怒是相反的，所以“慈爱的上帝”不应该发怒。圣经的看法不一样：</p>
+<blockquote class="verse"><p>因为主所爱的，他必管教，又鞭打凡所收纳的儿子。</p><cite>希伯来书 12:6</cite></blockquote>
+<blockquote class="verse"><p>因为耶和华所爱的，他必责备，正如父亲责备所喜爱的儿子。</p><cite>箴言 3:12</cite></blockquote>
+<blockquote class="verse"><p>凡我所疼爱的，我就责备管教他；所以你要发热心，也要悔改。</p><cite>启示录 3:19</cite></blockquote>
+<p>同一个道理，旧约（箴3:12）、新约（来12:6）、启示录（启3:19）都说了一遍：<b>因为爱，所以管教。</b></p>
+<p><b>编者的理解：</b>想一想一位父亲，看见有人在毒害他的孩子，他会不会愤怒？如果他一点都不在乎，那才说明他不爱。上帝对罪的忿怒，是祂的爱面对正在毁坏祂所爱之人的东西时的反应。真正的反义词不是“忿怒”，而是“冷漠”。</p>
+<blockquote class="verse"><p>上帝爱我们的心，我们也知道也信。上帝就是爱；住在爱里面的，就是住在上帝里面，上帝也住在他里面。</p><cite>约翰一书 4:16</cite></blockquote>
+<p>“上帝就是爱”——这句话在新约里写下，可是旧约每一页都在见证它。</p>
+</section><div class="part" id="part7"><span>第七部分</span><b>怎样读，怎样活</b></div><section class="ch" id="read"><h2><span class="no">16</span>怎样读圣经，才不会误会上帝</h2>
+<ol class="steps">
+<li><b>读整本圣经，不只读几段。</b>只读洪水和迦南，会觉得上帝严厉；只读几节新约，会觉得上帝“从不审判”。两种印象都不对。</li>
+<li><b>借着耶稣读旧约。</b>复活的耶稣“从摩西和众先知起，凡经上所指着自己的话都给他们讲解明白了”（路24:27）。祂说：“给我作见证的就是这经。”（约5:39）读旧约时问：这一段让我更认识耶稣的哪一面？</li>
+<li><b>分清“记载”和“吩咐”</b>（见<a class="xref" href="#record">第 3 章《真相二：圣经“记载”的，不等于上帝“赞同”的》</a>）。</li>
+<li><b>注意审判之前的忍耐和审判之中的恩典</b>（见<a class="xref" href="#patience">第 9 章《审判之前，漫长的忍耐》</a>）。</li>
+<li><b>把十字架放在中间</b>（见<a class="xref" href="#cross">第 11 章《十字架：最严厉的审判，也是最深的爱》</a>）。</li>
+</ol>
+<h3>对我们的生活意味着什么</h3>
+<div class="tblwrap two-col" tabindex="0" role="region" aria-label="两种错误"><table class="cmp ktbl2"><thead><tr><th>不要把上帝看成严厉的审判官</th><th>也不要把上帝看成“不在乎罪”的老好人</th></tr></thead><tbody>
+<tr><td>“爱里没有惧怕；爱既完全，就把惧怕除去。”（约壹4:18）</td><td>“还是你藐视他丰富的恩慈、宽容、忍耐，不晓得他的恩慈是领你悔改呢？”（罗2:4）</td></tr>
+<tr><td>“耶和华有怜悯，有恩典……他没有按我们的罪过待我们。”（诗103:8、10）</td><td>“主所应许的尚未成就……乃是宽容你们，不愿有一人沉沦，乃愿人人都悔改。”（彼后3:9）</td></tr>
+</tbody></table></div>
+<p>旧约和新约对我们的要求，其实也是同一句话：</p>
+<blockquote class="verse"><p>世人哪，耶和华已指示你何为善。他向你所要的是什么呢？只要你行公义，好怜悯，存谦卑的心，与你的上帝同行。</p><cite>弥迦书 6:8</cite></blockquote>
+<blockquote class="verse"><p><sup>44</sup>只是我告诉你们，要爱你们的仇敌，为那逼迫你们的祷告。<sup>45</sup>这样就可以作你们天父的儿子；因为他叫日头照好人，也照歹人；降雨给义人，也给不义的人。</p><cite>马太福音 5:44—45</cite></blockquote>
+</section><section class="ch" id="summary"><h2><span class="no">17</span>一页总结</h2>
+<div class="box sum"><p class="lab">十句话</p>
+<ol class="sum7">
+<li>“旧约的上帝严厉、新约的上帝慈爱”，这种感觉很普遍；二世纪的马吉安就主张有两位上帝，被当时的教会拒绝了。</li>
+<li>旧约篇幅约是新约的三倍，记的是一个国家上千年的历史和战争；新约主要记耶稣几年的事工和写给教会的书信。</li>
+<li>圣经记载的，不等于上帝赞同的：“各人任意而行”（士21:25）。</li>
+<li>和合本里“慈爱”旧约191次、新约6次；“地狱”旧约0次、新约13次，其中11次出自耶稣。</li>
+<li>把上帝看成严厉、苛刻的审判官，是仇敌最古老的谎言（创3；约8:44）。</li>
+<li>上帝亲口的“名片”：“有怜悯有恩典的上帝，不轻易发怒”（出34:6），旧约一再引用；慈爱“直到千代”。</li>
+<li>新约并不温和：最常警告审判的是耶稣；希伯来书说新约的责任更重（来10:28-29）。</li>
+<li>十字架上，上帝最严厉的审判和最深的爱同时显明（罗3:25-26）。</li>
+<li>同一位上帝：“我耶和华是不改变的”（玛3:6）；“人看见了我，就是看见了父”（约14:9）。</li>
+<li>两约读起来不同，是因为启示渐渐清楚、处境不同，不是上帝变了；“可见上帝的恩慈和严厉”（罗11:22）。</li>
+</ol></div>
+<div class="box"><p class="lab">可以讲给别人听的话</p><p>“旧约和新约是同一位上帝。旧约里，祂说自己‘有怜悯有恩典，不轻易发怒’；新约里，最常警告审判的反而是耶稣。祂一直是又慈爱又圣洁的。想知道上帝是什么样子，就看耶稣——祂为罪人哭，也为罪人死。”</p></div>
+</section><section class="ch" id="faq"><h2><span class="no">18</span>问与答</h2>
+<p>点开问题就能看到简短的回答。</p>
+<div class="faq"><details><summary>旧约是不是“过时”了，可以不读？</summary><div><p>不是。耶稣说“给我作见证的就是这经”（约5:39），那时的“经”就是旧约。新约最核心的命令“爱上帝、爱人如己”也是从旧约引的（太22:37-40）。认为旧约可以不要，正是二世纪马吉安的主张，当时的教会已经拒绝了。见<a class="xref" href="#q">第 1 章《这种感觉从哪里来》</a>。</p></div></details><details><summary>上帝在旧约和新约里“变了”吗？</summary><div><p>没有。“我耶和华是不改变的”（玛3:6），“耶稣基督昨日、今日、一直到永远，是一样的”（来13:8）。改变的是启示的清楚程度和人的处境（来1:1-2；太19:8）。见<a class="xref" href="#why">第 13 章《那为什么两约读起来不一样？》</a>。</p></div></details><details><summary>“追讨他的罪，自父及子，直到三四代”，公平吗？</summary><div><p>同一句话说慈爱“直到千代”（出20:6）；而且追讨的是“恨我的”人。以西结书18:20 和申命记24:16 明确说，儿子不担当父亲的罪孽。见<a class="xref" href="#name">第 6 章《上帝自己的“名片”：出埃及记34章》</a>。</p></div></details><details><summary>上帝为什么要以色列人攻打迦南？</summary><div><p>经文说明：上帝等了四百年（创15:16）；是因为那些民族的恶，包括焚烧儿女献给偶像（申9:4-5；12:31）；同样的标准也用在以色列身上（利18:28）；投靠的人得救（喇合）。这仍然是沉重的一段，但它不是给后人的普遍命令。见<a class="xref" href="#hard">第 14 章《最难读的几段经文》</a>。</p></div></details><details><summary>以利沙咒诅童子、母熊撕裂42人，是不是太残忍？</summary><div><p>原文的两个词都可以指成年的年轻人（约瑟将近30岁、罗波安41岁时都被这样称呼）；地点是拜金牛犊的伯特利，来的人有一大群。经文细节不多，不宜说得比经文更多。见<a class="xref" href="#hard">第 14 章《最难读的几段经文》</a>。</p></div></details><details><summary>上帝会发怒，那还是“上帝就是爱”吗？</summary><div><p>是。圣经说“主所爱的，他必管教”（来12:6），箴言3:12 也这样说。上帝对罪的忿怒，是爱面对毁坏所爱之人的东西时的反应；爱的反义词不是忿怒，而是冷漠。见<a class="xref" href="#wrath">第 15 章《慈爱和忿怒，不是对立的》</a>。</p></div></details><details><summary>为什么讲道时常常把旧约讲得很可怕？</summary><div><p>有时是因为只挑了洪水、所多玛这些故事，忽略了何西阿书、约拿书、诗篇103篇这些经文。读整本圣经，借着耶稣读旧约，就能看到同一位上帝。见<a class="xref" href="#select">第 4 章《真相三：我们记得的，和圣经实际写的》</a>、<a class="xref" href="#read">第 16 章《怎样读圣经，才不会误会上帝》</a>。</p></div></details><details><summary>我心里一想到上帝就害怕，怎么办？</summary><div><p>“爱里没有惧怕”（约壹4:18）。读出埃及记34:6、诗篇103篇、何西阿书11章、路加福音15章，看看上帝怎样形容自己。想知道上帝的心，就看耶稣（约14:9）。见<a class="xref" href="#satan">第 5 章《真相四：有一位一直在歪曲上帝的形象》</a>。</p></div></details></div>
+</section>
+<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div></div><section class="ch" id="sources"><h2><span class="no">✦</span>资料出处</h2>
+<p>本页的依据是圣经，经文都用和合本原文。希伯来原文据 STEPBible 原文数据（CC BY 4.0）；用词统计是编者用和合本经文数据做的。其他资料有两类：<b>百科资料</b>（马吉安的历史）、<b>怀爱伦著作</b>（只作补充，按英文原著页码引用）。外文引文的中文都是编者所译。</p>
+<p class="note2">网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一读取原文核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
+<ol class="srcs"><li id="s1" data-k="marcion_w"><span class="sk">百科全书</span><span class="sd">马吉安（Marcion of Sinope，约85—160年，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Marcion_of_Sinope" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a></span></li><li id="s2" data-k="marcionism_w"><span class="sk">百科全书</span><span class="sd">马吉安主义（维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Marcionism" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a></span></li><li id="s3" data-k="sc10"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第1章“上帝对人类的爱”，英文原著第10—11页</span><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a></span></li><li id="s4" data-k="pp366"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》（Patriarchs and Prophets）第32章“律法与两约”，英文原著第366—367页</span><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a></span></li><li id="s5" data-k="gc36"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《善恶之争》第1章“耶路撒冷的毁灭”，英文原著第36页</span><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a></span></li></ol>
+</section>
+<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
+</main>
+</div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>这种感觉从哪里来</a></li></ol></li><li><span class="tp">第二部分 · 为什么会有这种感觉</span><ol><li><a href="#size"><span class="tn">02</span>真相一：篇幅和题材本来就不一样</a></li><li><a href="#record"><span class="tn">03</span>真相二：圣经“记载”的，不等于上帝“赞同”的</a></li><li><a href="#select"><span class="tn">04</span>真相三：我们记得的，和圣经实际写的</a></li><li><a href="#satan"><span class="tn">05</span>真相四：有一位一直在歪曲上帝的形象</a></li></ol></li><li><span class="tp">第三部分 · 旧约里的慈爱</span><ol><li><a href="#name"><span class="tn">06</span>上帝自己的“名片”：出埃及记34章</a></li><li><a href="#heart"><span class="tn">07</span>先知书里的上帝：一颗为人心碎的心</a></li><li><a href="#law"><span class="tn">08</span>律法里的温柔</a></li><li><a href="#patience"><span class="tn">09</span>审判之前，漫长的忍耐</a></li></ol></li><li><span class="tp">第四部分 · 新约里的严厉</span><ol><li><a href="#nt"><span class="tn">10</span>新约并不“温和”</a></li><li><a href="#cross"><span class="tn">11</span>十字架：最严厉的审判，也是最深的爱</a></li></ol></li><li><span class="tp">第五部分 · 同一位上帝</span><ol><li><a href="#same"><span class="tn">12</span>圣经怎样说“是同一位”</a></li><li><a href="#why"><span class="tn">13</span>那为什么两约读起来不一样？</a></li></ol></li><li><span class="tp">第六部分 · 最难读的几段经文</span><ol><li><a href="#hard"><span class="tn">14</span>最难读的几段经文</a></li><li><a href="#wrath"><span class="tn">15</span>慈爱和忿怒，不是对立的</a></li></ol></li><li><span class="tp">第七部分 · 怎样读，怎样活</span><ol><li><a href="#read"><span class="tn">16</span>怎样读圣经，才不会误会上帝</a></li><li><a href="#summary"><span class="tn">17</span>一页总结</a></li><li><a href="#faq"><span class="tn">18</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
+<p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
+<p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
+<p class="note2">和学课网站的设置是同一套。</p></div></div>
+<div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
+<script type="application/json" id="srcdata">{"1": ["马吉安（Marcion of Sinope，约85—160年，维基百科英文版）", "https://en.wikipedia.org/wiki/Marcion_of_Sinope", "en.wikipedia.org", "百科全书", ""], "2": ["马吉安主义（维基百科英文版）", "https://en.wikipedia.org/wiki/Marcionism", "en.wikipedia.org", "百科全书", ""], "3": ["怀爱伦《拾级就主》第1章“上帝对人类的爱”，英文原著第10—11页", "", "", "怀爱伦著作", ""], "4": ["怀爱伦《先祖与先知》（Patriarchs and Prophets）第32章“律法与两约”，英文原著第366—367页", "", "", "怀爱伦著作", ""], "5": ["怀爱伦《善恶之争》第1章“耶路撒冷的毁灭”，英文原著第36页", "", "", "怀爱伦著作", ""]}</script>
+<script>
+(function(){
+  var de=document.documentElement;
+  /* 在学课网站里用浮层打开时（iframe）：回到网站的链接交给网站处理，不重新加载整个网站 */
+  if(de.classList.contains('emb'))document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="./#"],a[href="./"]');if(!a)return;
+    e.preventDefault();var h=(a.getAttribute('href').split('#')[1])||'home';
+    try{parent.postMessage({q4:'nav',hash:h},location.origin);}catch(err){top.location.href=a.href;}
+  },true);
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  /* 阅读进度 */
+  var pb=document.querySelector('.prog i'),tick=false;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
+  /* 弹出层 */
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;de.classList.remove('sheetopen');}
+  document.querySelectorAll('.sheet').forEach(function(s){
+    s.addEventListener('click',function(e){if(e.target.closest('[data-close]')||e.target.closest('a[href^="#"]'))close(s);});
+  });
+  var TS=document.getElementById('tocsheet'),AS=document.getElementById('aasheet');
+  document.querySelector('[data-tocopen]').addEventListener('click',function(){open(TS);var a=TS.querySelector('a.on');if(a)a.scrollIntoView({block:'center'});});
+  document.querySelector('[data-aa]').addEventListener('click',function(){paint();open(AS);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'){close(TS);close(AS);hidePop();}});
+  /* 字号、夜间模式（与学课网站共用设置） */
+  function paint(){
+    var f=+(get('fs')||1),t=get('theme')||'auto';
+    AS.querySelectorAll('[data-fs]').forEach(function(b){b.classList.toggle('on',+b.dataset.fs===f);});
+    AS.querySelectorAll('[data-th]').forEach(function(b){b.classList.toggle('on',b.dataset.th===t);});
+  }
+  AS.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.fs){set('fs',b.dataset.fs);if(+b.dataset.fs===1)de.style.removeProperty('--fs');else de.style.setProperty('--fs',b.dataset.fs);}
+    if(b.dataset.th){set('theme',b.dataset.th);if(b.dataset.th==='auto')de.removeAttribute('data-theme');else de.setAttribute('data-theme',b.dataset.th);}
+    paint();
+  });
+  /* 目录：标出正在读的章 */
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));
+  var links={};document.querySelectorAll('.toc-l a').forEach(function(a){var id=a.getAttribute('href').slice(1);(links[id]=links[id]||[]).push(a);});
+  var cur=null;
+  function mark(){
+    var y=innerHeight*0.3,id=null;
+    for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<y)id=secs[i].id;else break;}
+    if(id===cur)return;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
+    cur=id;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    var side=document.querySelector('.toc-side a.on');
+    if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
+  }
+  var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 教派名片：全部展开 */
+  var ab=document.querySelector('[data-allopen]');
+  if(ab)ab.addEventListener('click',function(){
+    var ds=document.querySelectorAll('.dn'),all=[].every.call(ds,function(d){return d.open;});
+    ds.forEach(function(d){d.open=!all;});ab.textContent=all?'全部展开':'全部收起';
+  });
+  /* 并排对比 */
+  var sel=document.querySelector('[data-vs]');
+  if(sel){
+    var VD=JSON.parse(document.getElementById('vsdata').textContent);
+    sel.addEventListener('change',function(){
+      var v=VD[sel.value];document.querySelector('[data-vsname]').textContent=sel.value;
+      document.querySelectorAll('.vs-t tbody td.a').forEach(function(td,i){td.textContent=v[i];});
+    });
+  }
+  /* 出处小数字：点了先弹出说明，再决定打开网页还是看资料列表 */
+  var SD=JSON.parse(document.getElementById('srcdata').textContent),P=document.getElementById('pop'),pfrom=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function hidePop(){P.hidden=true;pfrom=null;}
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('a.cite');
+    if(c&&!c.classList.contains('demo')){
+      e.preventDefault();
+      if(pfrom===c){hidePop();return;}
+      var n=c.dataset.n,s=SD[n];if(!s)return;
+      P.innerHTML='<p class="pk">资料 '+n+' · '+esc(s[3])+'</p><p class="pd">'+esc(s[0])+'</p><p class="pa">'+(s[1]?'<a class="go" href="'+esc(s[1])+'" target="_blank" rel="noopener">打开网页 ↗</a>':'<span class="pbook">书籍，可查阅纸本或电子版</span>')+(s[4]?'<a href="'+esc(s[4])+'" target="_blank" rel="noopener">网页存档</a>':'')+'<a href="#s'+n+'" data-golist>在资料列表中看</a></p>';
+      P.hidden=false;pfrom=c;
+      var r=c.getBoundingClientRect(),w=P.offsetWidth,x=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2)),y=r.bottom+8;
+      if(y+P.offsetHeight>innerHeight-12)y=r.top-P.offsetHeight-8;
+      P.style.left=(x+scrollX)+'px';P.style.top=(y+scrollY)+'px';
+      return;
+    }
+    if(c&&c.classList.contains('demo')){return;}
+    if(!e.target.closest('#pop'))hidePop();
+    else if(e.target.closest('[data-golist]'))setTimeout(hidePop,0);
+  });
+  addEventListener('resize',hidePop);
+  /* 从资料列表点 ↑ 回到正文时，闪一下那个数字 */
+  addEventListener('hashchange',function(){var t=document.getElementById(location.hash.slice(1));if(t&&t.classList.contains('cite')){t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});
+})();
+</script>
+<div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">“旧约的上帝和新约的上帝，是同一位吗？”</p>
+<div class="tsh-main"><button type="button" class="tile" data-twx><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 4C5.2 4 2 6.7 2 10c0 1.9 1 3.6 2.7 4.7L4 17l2.6-1.4c.8.2 1.7.4 2.6.4h.5a5.6 5.6 0 0 1-.2-1.5C9.5 11.4 12.6 9 16.4 9h.4C16 6.1 12.9 4 9.2 4Zm-2.4 3.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM22 14.4c0-2.8-2.7-5-6-5s-6 2.2-6 5 2.7 5 6 5c.7 0 1.4-.1 2-.3l2.1 1.1-.6-1.9c1.5-.9 2.5-2.3 2.5-3.9Zm-8-.8a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" fill="currentColor"/></svg><span>微信分享</span></button><button type="button" class="tile" data-tcopy><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>复制链接</span></button><button type="button" class="tile" data-tsys hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>更多方式</span></button></div>
+<div class="tsh-qr" hidden><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM13,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM24,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM16,4h1v1h-1zM18,4h1v1h-1zM23,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM24,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM11,6h1v1h-1zM12,6h1v1h-1zM13,6h1v1h-1zM16,6h1v1h-1zM17,6h1v1h-1zM18,6h1v1h-1zM22,6h1v1h-1zM23,6h1v1h-1zM25,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM14,7h1v1h-1zM16,7h1v1h-1zM21,7h1v1h-1zM24,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM13,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM19,10h1v1h-1zM21,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM9,11h1v1h-1zM10,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM3,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM12,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM22,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM9,13h1v1h-1zM11,13h1v1h-1zM12,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM20,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM3,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM22,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM5,15h1v1h-1zM6,15h1v1h-1zM7,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM12,15h1v1h-1zM17,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM25,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM23,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM2,17h1v1h-1zM5,17h1v1h-1zM10,17h1v1h-1zM12,17h1v1h-1zM17,17h1v1h-1zM20,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM4,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM13,18h1v1h-1zM14,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM2,19h1v1h-1zM5,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM10,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM13,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM20,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM27,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM3,21h1v1h-1zM9,21h1v1h-1zM12,21h1v1h-1zM17,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM14,22h1v1h-1zM15,22h1v1h-1zM20,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM6,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM12,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM12,24h1v1h-1zM21,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM12,25h1v1h-1zM13,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM18,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM33,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM22,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM15,29h1v1h-1zM16,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM22,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM12,32h1v1h-1zM16,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM14,33h1v1h-1zM16,33h1v1h-1zM17,33h1v1h-1zM20,33h1v1h-1zM23,33h1v1h-1zM27,33h1v1h-1zM28,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM17,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM28,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><p><b>用手机微信扫一扫</b>打开后点右上角 ··· 就能转发；也可以复制链接，粘贴到电脑版微信的聊天框。</p></div>
+<p class="tsh-done" aria-live="polite"></p><button type="button" class="tsh-sent" data-tsent hidden>✓ 我已经分享好了</button><p class="tsh-url">https://2377568565.github.io/Ethan_bay/god.html</p></div></div>
+<div class="twg" id="twg" role="dialog" aria-modal="true" aria-label="微信转发提示" hidden><p class="twg-t">点右上角 <span>···</span><br>选择“转发给朋友”</p>
+<div class="twg-box"><p>选好群或朋友、发送之后，回到这里点一下：</p><div class="twg-btns"><button type="button" class="ok" data-twdone>✓ 我已转发</button><button type="button" data-twno>先不转发</button></div></div></div>
+<div class="sheet" id="tdlsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card quiz" role="dialog" aria-modal="true" aria-labelledby="tdl-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tdl-h">下载 PDF 学习版</p>
+<p class="qz-intro">先答 3 道小题，答对 2 道就可以下载。题目都来自这一页的内容。</p><ol class="qz"></ol>
+<div class="qz-res" aria-live="polite"></div>
+<div class="qz-btns"><button type="button" class="tbtn" data-qretry hidden>换 3 道题再答一次</button><a class="tbtn solid" data-qdl hidden href="lessons/2026-Q4/qa/%E7%A0%94%E7%BB%8F%E9%97%AE%E7%AD%9409-%E6%97%A7%E7%BA%A6%E7%9A%84%E4%B8%8A%E5%B8%9D%E5%92%8C%E6%96%B0%E7%BA%A6%E7%9A%84%E4%B8%8A%E5%B8%9D.pdf" download="研经问答09-旧约的上帝和新约的上帝.pdf"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></a></div>
+<p class="qz-wx note2" hidden>微信里会先打开 PDF 预览：点右上角 ··· 选“用其他应用打开”或“在浏览器打开”，就能保存到手机。</p></div></div>
+<div class="tgift" id="tgift" hidden><div class="sh-bg" data-gclose></div><div class="tg-card" role="dialog" aria-modal="true" aria-label="谢谢分享"><p class="tg-k">谢谢你的分享</p>
+<p class="tg-m">一个小小的转发，也许正好是别人心里在找的答案。</p><blockquote class="tg-v"></blockquote><button type="button" class="tbtn solid" data-gclose>阿们，收下</button></div></div>
+<script type="application/json" id="tcfg">{"id": "qa10", "title": "旧约的上帝和新约的上帝，是同一位吗？", "url": "https://2377568565.github.io/Ethan_bay/god.html", "pdf": "lessons/2026-Q4/qa/%E7%A0%94%E7%BB%8F%E9%97%AE%E7%AD%9409-%E6%97%A7%E7%BA%A6%E7%9A%84%E4%B8%8A%E5%B8%9D%E5%92%8C%E6%96%B0%E7%BA%A6%E7%9A%84%E4%B8%8A%E5%B8%9D.pdf", "name": "研经问答09-旧约的上帝和新约的上帝.pdf"}</script>
+<script type="application/json" id="tquiz">[{"q": "出埃及记34:6，上帝怎样宣告自己？", "o": ["我是严厉的上帝，必定报复", "有怜悯有恩典的上帝，不轻易发怒，并有丰盛的慈爱和诚实", "我只爱以色列人", "我是忌邪的上帝，不饶恕人"], "a": 1, "why": "“耶和华，耶和华，是有怜悯有恩典的上帝，不轻易发怒，并有丰盛的慈爱和诚实。”这句话在旧约里一再被引用。", "go": "<a class=\"xref\" href=\"#name\">第 6 章《上帝自己的“名片”：出埃及记34章》</a>"}, {"q": "约拿为什么逃往他施？", "o": ["他怕尼尼微人杀他", "他知道上帝有恩典有怜悯，会饶恕尼尼微", "他不想离开家乡", "上帝叫他去他施"], "a": 1, "why": "约拿说：“我知道你是有恩典、有怜悯的上帝，不轻易发怒……所以我急速逃往他施去。”（拿4:2）", "go": "<a class=\"xref\" href=\"#name\">第 6 章《上帝自己的“名片”：出埃及记34章》</a>"}, {"q": "新约里“地狱”一词（和合本）出现13次，其中多少次出自耶稣的口？", "o": ["1次", "5次", "11次", "0次"], "a": 2, "why": "11次在马太、马可、路加福音里，都是耶稣说的；另外2次在雅各书和彼得后书。", "go": "<a class=\"xref\" href=\"#nt\">第 10 章《新约并不“温和”》</a>"}, {"q": "“尽心爱上帝”和“爱人如己”这两条最大的诫命，耶稣是从哪里引的？", "o": ["耶稣自己新定的", "旧约的申命记和利未记", "保罗书信", "犹太拉比的著作"], "a": 1, "why": "“尽心……爱耶和华”出自申6:5，“爱人如己”出自利19:18（太22:37-40）。", "go": "<a class=\"xref\" href=\"#law\">第 8 章《律法里的温柔》</a>"}, {"q": "罗马书11:22 怎样说上帝？", "o": ["只有恩慈", "只有严厉", "可见上帝的恩慈和严厉", "旧约严厉、新约恩慈"], "a": 2, "why": "“可见，上帝的恩慈和严厉……”同一位上帝，两面都有。", "go": "<a class=\"xref\" href=\"#nt\">第 10 章《新约并不“温和”》</a>"}, {"q": "二世纪主张“旧约的上帝和耶稣的父是两位”的人是谁？教会怎样回应？", "o": ["路德，被接受了", "马吉安，被教会拒绝了", "保罗，被接受了", "奥古斯丁，被接受了"], "a": 1, "why": "马吉安（约85—160年）主张两位上帝，只保留删改过的路加福音和保罗书信；约公元144年被罗马的教会开除。", "go": "<a class=\"xref\" href=\"#q\">第 1 章《这种感觉从哪里来》</a>"}, {"q": "耶稣说：“人看见了我，就是看见了＿＿”", "o": ["先知", "天使", "父", "律法"], "a": 2, "why": "“人看见了我，就是看见了父。”（约14:9）想知道上帝是什么样子，就看耶稣。", "go": "<a class=\"xref\" href=\"#same\">第 12 章《圣经怎样说“是同一位”》</a>"}]</script>
+<script type="application/json" id="tgifts">[["那报佳音，传平安， 报好信，传救恩的， 对锡安说：你的上帝作王了！ 这人的脚登山何等佳美！", "以赛亚书 52:7"], ["好施舍的，必得丰裕； 滋润人的，必得滋润。", "箴言 11:25"], ["我们行善，不可丧志；若不灰心，到了时候就要收成。", "加拉太书 6:9"], ["又要彼此相顾，激发爱心，勉励行善。", "希伯来书 10:24"], ["所以，你们该彼此劝慰，互相建立，正如你们素常所行的。", "帖撒罗尼迦前书 5:11"], ["你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。", "马太福音 5:16"], ["在列邦中述说他的荣耀！ 在万民中述说他的奇事！", "诗篇 96:3"], ["口善应对，自觉喜乐； 话合其时，何等美好。", "箴言 15:23"], ["你的话是我脚前的灯， 是我路上的光。", "诗篇 119:105"], ["所以，我亲爱的弟兄们，你们务要坚固，不可摇动，常常竭力多做主工；因为知道，你们的劳苦在主里面不是徒然的。", "哥林多前书 15:58"]]</script>
+<style>
+.tend{border-top:1px solid var(--rule);margin:36px 0 8px;padding:18px 0 0}
+.tend p{color:var(--ink-2);font-size:.95rem;margin:0}
+.ib{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.ib .ic{width:17px;height:17px}
+.ic{width:18px;height:18px;flex:none}
+.tacts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.tbtn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:.92rem;font-weight:650;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;flex:1 1 9em}
+.tbtn.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.tsh-t{color:var(--ink-2);margin:0 0 12px;font-weight:600}
+.tsh-main{display:flex;gap:10px;margin:0 0 10px}
+.tile{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:.86rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 4px;cursor:pointer}
+.tile .ic{width:26px;height:26px}
+.tile[data-twx] .ic{color:#07C160}
+.tsh-qr{display:flex;gap:12px;align-items:center;margin:6px 0 8px;font-size:.84rem;color:var(--ink-2)}
+.tsh-qr svg{width:120px;height:120px;flex:none;border-radius:8px}
+.tsh-done{font-size:.9rem;color:var(--ink-2);margin:6px 0}
+.tsh-sent{font:inherit;font-size:.9rem;width:100%;padding:9px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);cursor:pointer;margin:0 0 8px}
+.tsh-url{font-size:.78rem;color:var(--muted);word-break:break-all;margin:4px 0 0;user-select:all;-webkit-user-select:all}
+.twg{position:fixed;inset:0;z-index:60;background:rgba(10,12,18,.86);color:#fff;padding:calc(70px + env(safe-area-inset-top)) 24px 24px;text-align:center}
+.twg-t{font-size:1.25rem;font-weight:700;line-height:1.6;margin:0 0 24px;text-align:right;padding-right:6px}
+.twg-t span{letter-spacing:.1em}
+.twg-t::before{content:"↗";display:block;font-size:2.6rem;line-height:1;color:#FCE7B0}
+.twg-box{background:rgba(255,255,255,.1);border-radius:16px;padding:14px}
+.twg-btns{display:flex;gap:10px;margin-top:10px}
+.twg-btns button{flex:1;font:inherit;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;cursor:pointer}
+.twg-btns .ok{background:#07C160;border-color:#07C160;font-weight:700}
+.sh-card.quiz{max-height:88vh}
+.qz-intro{font-size:.9rem;color:var(--ink-2);margin:0 0 10px}
+.qz{list-style:none;margin:0;padding:0;counter-reset:q}
+.qz>li{counter-increment:q;border:1px solid var(--rule);border-radius:14px;padding:12px 12px 6px;margin:0 0 10px;background:var(--paper)}
+.qq{font-weight:650;margin:0 0 8px}
+.qq::before{content:counter(q) ". ";color:var(--accent)}
+.qo{display:grid;gap:7px;margin:0 0 8px}
+.qo button{font:inherit;font-size:.92rem;text-align:left;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;line-height:1.5}
+.qo button:disabled{cursor:default;opacity:1}
+.qo button.ok{border-color:#2f8f57;background:color-mix(in srgb,#2f8f57 12%,var(--surface));color:var(--ink);font-weight:650}
+.qo button.no{border-color:#cf4a43;background:color-mix(in srgb,#cf4a43 12%,var(--surface))}
+.qo button.ok::after{content:" ✓";color:#2f8f57;font-weight:800}
+.qo button.no::after{content:" ✗";color:#cf4a43;font-weight:800}
+.qw{font-size:.86rem;color:var(--ink-2);margin:0 0 6px}
+.qw b.y{color:#2f8f57}.qw b.n{color:#cf4a43}
+.qz-res{font-weight:650;margin:4px 0 10px}
+.qz-res.pass{color:#2f8f57}.qz-res.fail{color:#cf4a43}
+.qz-btns{display:flex;gap:10px;flex-wrap:wrap}
+.tgift{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:20px}
+.tg-card{position:relative;max-width:420px;width:100%;background:var(--surface);border-radius:20px;padding:22px 20px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.tg-k{font-weight:800;font-size:1.15rem;color:var(--gold);margin:0 0 6px}
+.tg-m{font-size:.92rem;color:var(--ink-2)}
+.tg-v{margin:12px 0 16px;padding:12px 14px;background:var(--gold-soft);border-radius:14px;font-family:var(--serif);font-size:1.02rem;line-height:1.8}
+.tg-v cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:4px}
+html.emb .bar{padding-top:8px}
+/* 2026-10 新设计：和学课网站一致（米白纸色、墨蓝字、金色点缀；面板从底部升起） */
+.prog i{background:linear-gradient(90deg,#C9A45C,var(--gold))}
+.bar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.bar .back{color:var(--ink);font-weight:500}
+.bar .aa{font-family:var(--serif);font-weight:900}
+.tbtn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s;box-shadow:0 1px 2px rgba(26,33,50,.04)}
+.tbtn:active{transform:scale(.97)}
+.tbtn .ic{color:var(--gold)}
+.tbtn.solid{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);box-shadow:0 6px 18px -8px rgba(164,124,51,.65)}
+.tbtn.solid .ic{color:inherit}
+.tile{border-color:transparent;background:var(--band);border-radius:16px;font-weight:650}
+.tile[data-twx]{background:#07C160;border-color:#07A355;color:#fff;box-shadow:0 8px 20px -10px rgba(7,160,85,.7)}
+.tile[data-twx] .ic{color:#fff}
+.tsh{font-family:var(--serif);font-weight:900}
+.tsh-sent{border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold);background:var(--gold-soft)}
+.sh-bg{background:rgba(8,12,20,.45)}
+.sh-card{border-radius:24px 24px 0 0;border:1px solid var(--rule);border-bottom:0;padding-top:26px}
+.sh-card::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.3;transform:translateX(-50%)}
+.sheet:not([hidden]) .sh-card{animation:shup .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes shup{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:700px){.sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}.sh-card::before{content:none}.sheet:not([hidden]) .sh-card{animation:shpop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes shpop{from{opacity:0;transform:translate(-50%,12px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.sh-x{top:10px;right:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--band);font-size:1.2rem}
+.qq::before{color:var(--gold)}
+.tg-card{border:1px solid var(--rule);border-radius:24px}
+.fab-toc{background:#141B2A;color:#F3EBDA;border:1px solid rgba(233,214,163,.3)}
+@media (prefers-reduced-motion:reduce){.sheet:not([hidden]) .sh-card{animation:none}}
+@media print{.ib,.tacts,.sheet,.twg,.tgift,.howto,.toc-in .tsrc{display:none!important}
+  :root{color-scheme:light}body{background:#fff}.bar,.fab-toc{display:none!important}
+  .part{break-before:page;break-after:avoid}.ch h2{break-after:avoid}table,figure,.answer,blockquote{break-inside:avoid}
+  a{color:inherit;text-decoration:none}.foot{padding-bottom:0}}
+</style>
+<script>
+(function(){
+  var de=document.documentElement,C=JSON.parse(document.getElementById('tcfg').textContent),Q=JSON.parse(document.getElementById('tquiz').textContent),
+      G=JSON.parse(document.getElementById('tgifts').textContent);
+  var SH=document.getElementById('tshsheet'),WG=document.getElementById('twg'),DL=document.getElementById('tdlsheet'),GF=document.getElementById('tgift');
+  var UA=navigator.userAgent,inWx=/MicroMessenger/i.test(UA),mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(UA);
+  var emb=de.classList.contains('emb'),TOP=emb?window.top:window;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;if(![SH,DL].some(function(x){return !x.hidden;}))de.classList.remove('sheetopen');}
+  function copy(t){
+    function legacy(){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(a);a.focus();a.select();try{a.setSelectionRange(0,t.length);}catch(e){}var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(a);return ok;}
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},function(){return legacy();});
+    return Promise.resolve(legacy());
+  }
+  /* ---------- 分享 ---------- */
+  var text='【问题彩蛋】'+C.title+'\n'+C.url,pending=false;
+  function done(h,sent){SH.querySelector('.tsh-done').innerHTML=h;SH.querySelector('.tsh-sent').hidden=!sent;}
+  function shOpen(){
+    SH.querySelector('[data-tsys]').hidden=!(navigator.share&&!inWx);
+    var qr=SH.querySelector('.tsh-qr');if(qr)qr.hidden=mobile;
+    done('',false);open(SH);
+  }
+  function gift(){
+    pending=false;close(SH);WG.hidden=true;
+    var n=(+get('shares')||0)+1;set('shares',String(n));
+    var v=G[Math.floor(Math.random()*G.length)];
+    GF.querySelector('.tg-v').innerHTML=esc(v[0])+'<cite>'+esc(v[1])+'</cite>';
+    setTimeout(function(){GF.hidden=false;},250);
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.closest('[data-tshare]')){shOpen();return;}
+    if(t.closest('[data-tdl]')){qOpen();return;}
+    if(t.closest('[data-gclose]')){GF.hidden=true;return;}
+    if(t.closest('[data-twdone]')){gift();return;}
+    if(t.closest('[data-twno]')){pending=false;WG.hidden=true;return;}
+    if(t.closest('[data-twx]')){
+      if(inWx){pending=true;close(SH);WG.hidden=false;return;}
+      copy(text).then(function(ok){
+        if(mobile){pending=true;done(ok?'✓ 链接已复制，正在打开微信……<br>在聊天框里<b>长按 → 粘贴</b>，发送即可':'正在打开微信……请回来长按下面的链接复制',true);
+          setTimeout(function(){try{TOP.location.href='weixin://';}catch(err){location.href='weixin://';}},450);}
+        else done(ok?'✓ 链接已复制，粘贴到<b>电脑版微信</b>的聊天框发送即可；也可以用手机微信扫上面的二维码':'复制没有成功，请用手机微信扫上面的二维码',ok);
+      });return;
+    }
+    if(t.closest('[data-tcopy]')){copy(text).then(function(ok){done(ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按下面的链接手动复制',ok);});return;}
+    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【问题彩蛋】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
+    if(t.closest('[data-tsent]')){gift();return;}
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending&&!SH.hidden)setTimeout(function(){done(SH.querySelector('.tsh-done').innerHTML,true);},200);});
+  [SH,DL].forEach(function(s){s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});});
+  /* ---------- 下载：先答 3 题，答对 2 题就能下载 ---------- */
+  var OL=DL.querySelector('.qz'),RES=DL.querySelector('.qz-res'),RT=DL.querySelector('[data-qretry]'),DB=DL.querySelector('[data-qdl]'),WXN=DL.querySelector('.qz-wx'),
+      KEY='quiz:'+C.id,cur=[],got=0,left=0,last=[];
+  if(inWx){DB.removeAttribute('download');DB.target=emb?'_top':'_self';}
+  function pick(){   // 随机抽 3 题，尽量不和上一次重复
+    var idx=Q.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+    idx.sort(function(a,b){return (last.indexOf(a)>=0)-(last.indexOf(b)>=0);});
+    return idx.slice(0,3);
+  }
+  function ready(msg){RES.className='qz-res pass';RES.innerHTML=msg;DB.hidden=false;WXN.hidden=!inWx;}
+  function qOpen(){
+    if(get(KEY)==='1'&&!cur.length){OL.innerHTML='';RT.hidden=false;RT.textContent='再答一次题';ready('你已经答对过题目，可以直接下载。');open(DL);return;}
+    if(!cur.length||!left)build();
+    open(DL);
+  }
+  function build(){
+    cur=pick();last=cur.slice();got=0;left=3;RES.className='qz-res';RES.textContent='';DB.hidden=true;RT.hidden=true;WXN.hidden=true;
+    OL.innerHTML=cur.map(function(i,n){var x=Q[i];return '<li data-i="'+i+'"><p class="qq">'+esc(x.q)+'</p><div class="qo">'+
+      x.o.map(function(o,j){return '<button type="button" data-o="'+j+'">'+'ABCD'[j]+'. '+esc(o)+'</button>';}).join('')+'</div><p class="qw" hidden></p></li>';}).join('');
+    DL.querySelector('.sh-card').scrollTop=0;
+  }
+  OL.addEventListener('click',function(e){
+    var b=e.target.closest('.qo button');if(!b)return;
+    var li=b.closest('li'),x=Q[+li.dataset.i],j=+b.dataset.o,bs=li.querySelectorAll('.qo button');
+    if(li.dataset.done)return;li.dataset.done='1';left--;
+    bs.forEach(function(y){y.disabled=true;});
+    bs[x.a].classList.add('ok');
+    var ok=j===x.a,w=li.querySelector('.qw');
+    if(ok)got++;else b.classList.add('no');
+    w.innerHTML=(ok?'<b class="y">答对了！</b>':'<b class="n">答错了。</b>正确答案是 '+'ABCD'[x.a]+'。')+esc(x.why)+' '+x.go;
+    w.hidden=false;
+    if(!left){
+      if(got>=2){set(KEY,'1');ready('答对 '+got+' 题，可以下载了！');RT.hidden=false;RT.textContent='再答一次题';}
+      else{RES.className='qz-res fail';RES.textContent='答对 '+got+' 题，还差一点。可以回到正文再读一读，然后换 3 道题再试一次。';RT.hidden=false;RT.textContent='换 3 道题再答一次';}
+      setTimeout(function(){RES.scrollIntoView({block:'nearest',behavior:'smooth'});},50);
+    }
+  });
+  OL.addEventListener('click',function(e){var a=e.target.closest('.qw a');if(a)close(DL);});
+  RT.addEventListener('click',function(){build();});
+})();
+</script>
+</body>
+</html>

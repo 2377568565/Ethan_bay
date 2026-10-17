@@ -1,0 +1,108 @@
+---
+name: topic-pages
+description: 做“问题彩蛋”的专题文章或独立专题网页（如《基督教两千年家谱》history.html、《耶稣是人还是神？》jesus.html），以及上架、下架、修订问题彩蛋。用于用户提出一个信仰或历史问题、要“放进问题彩蛋”“做成网页”“加图表”“下架”“重新上架”时。
+---
+
+# 问题彩蛋与专题网页
+
+- 新专题可以用 `python3 tools/q4/newtopic.py spec.json`（以 listen.py 为模板生成 X.py）；spec 里写 slug、no、id、title、pdf、figs、eyebrow、h1s、hsub、intro、srcs、desc、refdemo。
+
+## 现有内容（`tools/q4/qa_data.py`）
+| 编号 | 题目 | 形式 | 学课里的入口 |
+|---|---|---|---|
+| qa1 | 罪孽为何使人与上帝隔绝？（赛59:2） | 网页文章 + PDF（`qa/q1.html`） | 第1课星期三 |
+| qa2 | 罪从哪里来？ | 网页文章 + PDF（`qa/q2.html`） | 第1课星期一 |
+| qa3 | 基督教两千年家谱 | 独立网页 `history.html` | 第12课星期三 |
+| qa4 | 耶稣是人还是神？ | 独立网页 `jesus.html` | 第4课星期日 |
+| qa5（编号26） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
+| qa6（编号05） | 根据圣经，人死了去哪里？ | 独立网页 `death.html`（`death.py`、`death_text.py`、`death_svg.py`），2026-10-11 上架 | 不加（`nochip=True`；对应第9课星期一） |
+| qa7（编号06） | 谁改了安息日？ | 独立网页 `sabbath.html`（`sabbath.py`、`sabbath_text.py`、`sabbath_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa8（编号07） | 安息日，到底能做什么？ | 独立网页 `keep.html`（`keep.py`、`keep_text.py`、`keep_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa9（编号08） | 我还会犯罪，能得救吗？ | 独立网页 `rom7.html`（`rom7.py`、`rom7_text.py`、`rom7_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa10（编号09） | 旧约的上帝和新约的上帝，是同一位吗？ | 独立网页 `god.html`（`god.py`、`god_text.py`、`god_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa11（编号10） | 上帝早就定好谁得救吗？ | 独立网页 `elect.html`（`elect.py`、`elect_text.py`、`elect_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa12（编号11） | “我必快来”，为什么两千年了还没来？ | 独立网页 `soon.html`（`soon.py`、`soon_text.py`、`soon_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa13（编号12） | 要“完全”才能见主吗？ | 独立网页 `perfect.html`（`perfect.py`、`perfect_text.py`、`perfect_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa14（编号13） | 信了主，还会失去救恩吗？ | 独立网页 `lose.html`（`lose.py`、`lose_text.py`、`lose_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa15（编号14） | 喜乐的心，为什么是良药？ | 独立网页 `joy.html`（`joy.py`、`joy_text.py`、`joy_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa16（编号15） | 家人总在念叨，我为什么越听越烦？ | 独立网页 `listen.html`（`listen.py`、`listen_text.py`、`listen_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
+| qa17（编号16） | 一个好上帝，为什么允许苦难？ | 独立网页 `pain.html`（`pain.py`、`pain_text.py`、`pain_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa18（编号17） | 人活着，到底为了什么？ | 独立网页 `life.html`（`life.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa19（编号18） | 圣经可信吗？会不会是后人编的？ | 独立网页 `trust.html`（`trust.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa20（编号19） | 世界是演化来的，还是上帝造的？ | 独立网页 `origin.html`（`origin.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa21（编号20） | 钱是万恶之根吗？ | 独立网页 `money.html`（`money.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa22（编号21） | 抽烟、喝酒、吃什么，和信仰有关系吗？ | 独立网页 `health.html`（`health.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa23（编号22） | 算命、风水、星座、看日子，到底灵不灵？ | 独立网页 `fortune.html`（`fortune.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa24（编号23） | 清明祭祖，基督徒算不算不孝？ | 独立网页 `ancestor.html`（`ancestor.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa25（编号24） | 婚姻是爱情的坟墓吗？ | 独立网页 `marriage.html`（`marriage.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa26（编号25） | 打骂孩子，还是由着孩子？ | 独立网页 `raise.html`（`raise.py`…），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa27（编号26） | 666 和兽的印记，到底是什么？ | 独立网页 `beast.html`（`beast.py`、`beast_text.py`、`beast_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa28（编号27） | 1844 年，天上发生了什么？ | 独立网页 `judgment.html`（`judgment.py`、`judgment_text.py`、`judgment_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa29（编号28） | 旧约律法，哪些还要守？ | 独立网页 `law.html`（`law.py`、`law_text.py`、`law_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa30（编号29） | 祷告为什么常常没有应验？ | 独立网页 `prayer.html`（`prayer.py`、`prayer_text.py`、`prayer_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+| qa31（编号30） | 犹大是注定要卖主的吗？ | 独立网页 `judas.html`（`judas.py`、`judas_text.py`、`judas_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
+
+## 和用户合作的顺序（很重要）
+1. 用户提出问题后，**先在对话里分析给他看**（Markdown，可以有表格）：结合圣经，用户要求时也结合怀著；逻辑清楚、例子恰当。
+2. 他和妻子会读、会追问；追问也先在对话里回答。用户说“上面的不动”就保留原样，在后面补充。
+3. 他明确说“放进网站/做成网页/发布”才动网站。**原有页面保持不变**，除非他点名要改。
+4. 有不同说法的问题：客观列出各方说法和依据，让读者判断；用户要时再加“编者的评估”，并说明理由。
+5. 他说“下架”就立刻下架，不做“正在修订”之类的占位页；源文件留在 GitHub 以后修改。
+
+## 每个问题彩蛋都必须有：分享 + 下载 PDF（用户 2026-10-05 定下）
+- 短文（qa1、qa2）：文末“分享这篇”和 PDF 下载链接（`render.py` 的 `qa_pages()`）。
+- 独立专题网页：用 `tools/q4/topic_tools.py`：
+  ```python
+  tools = topic_tools.build(id='qa6', title='标题', page='xxx.html', pdf='研经问答06-标题.pdf', quiz=T.QUIZ, ref=ref)
+  return H.doc(title, desc, main, srcs, toc_html, cites, tools)
+  ```
+  顶栏多两个圆形按钮（分享、下载），开头“先说结论”下面和文末各有一排“分享这一篇 / 下载 PDF”。
+  - **分享**：微信分享（在微信里提示点右上角 ···；手机浏览器复制链接并打开微信；电脑显示二维码）、复制链接、系统分享；分享后送一节经文。
+  - **下载**：先答题。`QUIZ` 写在正文模块里（如 `jesus_text.QUIZ`），**至少 5 题**，每次随机抽 3 题，答对 2 题才出现下载按钮；
+    每题当场显示对错、正确答案、一句解释和“第 N 章”链接；答错可以换 3 道题再答；答对过的手机以后直接下载。
+    题目必须是读过本页才答得出来的（答案和解释都要能在本页找到原话），选择题 4 个选项，干扰项不能也是对的。
+  - **PDF**：`python3 tools/q4/xxx.py --pdf` 同时生成网页和 PDF（`topic_pdf.js` 用 Chromium 打印，思源黑体/宋体，A4，有书签和页码），
+    存到 `lessons/2026-Q4/qa/研经问答NN-标题.pdf`。**正文改了就要重新生成 PDF。** 生成后抽几页转成图片看一眼。
+- 专题网页会在网站里用浮层打开（`app.js`），“← 问题彩蛋”等 `./#…` 链接自动交给网站处理；新专题网页不用另外做什么。
+
+## 两种形式
+**A. 短文（像 qa1、qa2）**：正文写在 `tools/q4/qa/qN.html`，网页和 PDF 共用；`qa_data.ITEMS` 加一条：
+```python
+dict(id='qa6', no=6, src='q6.html', q='题目', sub='副题', lesson=课号, day='sun'..'fri', dayname='星期日《当天标题》',
+     teaser='卡片上的一句话', pdf='研经问答06-….pdf')
+```
+然后 `python3 tools/q4/qa/build.py`（PDF）和 `render.py all`（学课里多了入口，段落会变，记得补录朗读）。
+
+**B. 独立专题网页（像 history.html、jesus.html）**：内容多、图表多时用。`qa_data.ITEMS` 里写 `url='xxx.html'`（不写 src/pdf）；
+不想在学课那天再加入口就写 `nochip=True`，只改卡片时用 `_combined_only.py` 重建首页即可。
+
+### 专题网页的程序结构（照 jesus.py 抄）
+- `xxx.py`：入口。`import history as H`，用 `H.doc(title, desc, main, srcs, toc_html, cites)` 套版式；
+  自己的样式写在 `EXTRA_CSS`，生成时临时接在 `H.CSS` 后面（见 `jesus.py` 的 `page()`），**不要改动共用 CSS 影响其他页面**。
+- `xxx_text.py`：`PARTS`（部分标题）、`HERO`（开头的“先说结论”几步）、`CHAPTERS = [(部分, 'id', '标题', '''HTML''')]`、`FAQ`。
+- `xxx_svg.py`：手写 SVG 图（用 `history_svg.text()` 写字；颜色用 CSS 变量，夜间模式自动变）。
+- 正文里的记号：
+  - `{{c:键}}` 资料出处（自动编号，点了显示出处，文末有“资料出处”列表）；
+  - `{{v:约14:30}}` 整段和合本经文（自动取原文）；
+  - `{{ref:章id}}` 跳到某一章；`{{fig:名}}` 插入图。
+- 现成的版式：`.box`（带 `.lab` 标题的提示框）、`ol.steps`、`table.mini`（小表格，手机上会换行）、`.tblwrap` 包宽表格、
+  `.cause/.ci`（编号卡片）、`.quote`、`.prof`（人物卡）、`figure.fig`、时间线 `.yr`。新表格先看 320 宽会不会超出。
+- 资料：`history_sources.py` 的 `SRC['键'] = (说明, 网址或 None, [核对关键词])`；书籍（如怀著）网址写 None、说明里写清书名和英文原著页码；
+  核对通过的网址写进 `history_checked.py` 的 `CHECKED['键'] = (网址, 'live' 或存档说明)`。页面只用核对过的网址，没核对的生成时会提示。
+  怀著的键加进 `EGW_KEYS`（出处列表里归类为“怀爱伦著作”）。
+- 风格：跟《基督教两千年家谱》一致——开头“先说结论”，分部分、分章，目录按钮随时跳，图表充分，语言通俗，篇幅不怕长但要精炼不丢信息。
+- 写完：生成 → `verify-sources` 核对所有引文 → `publish` 的手机宽度检查 → 发布。README（`tools/q4/README.md`）里补一节说明。
+
+## 下架 / 重新上架
+- 下架：把那一条从 `ITEMS` 移到 `DRAFTS`（写上日期和原因），删掉根目录的那个 html，运行 `_combined_only.py`，提交推送。生成程序和正文留着。
+- 重新上架：移回 `ITEMS`，运行它的生成程序（如 `jesus2.py`），再 `_combined_only.py`，检查后发布。
+
+## 当前未完成：补充问答 jesus-qa.html
+- 程序：`jesus2.py`、`jesus2_text.py`（16 问 + 结语）、`jesus2_svg.py`（三架天平、两条路线）。
+- 下架原因：页面写的是“耶稣没有遗传犯罪的倾向”，用户觉得不妥。
+- 2026-10-05 对话里提出的修订框架（用户说“暂时告一段落，不影响认识救恩的核心”，还没决定是否修订）：
+  把“倾向”分成两样——A 肢体（身体）的软弱和需要（infirmities, heredity）：耶稣和我们一样都有；
+  B 心里的偏向（propensity，“bent of mind/will”）：我们生来就有，耶稣没有（Baker 信，5BC 1128）。
+  依据：罗7:22-23、罗8:3、约14:30、来4:15、DA 49、DA 123（“So it may be with us”）、GC 505 与 1SM 254（enmity）、5BC 1129（“will ever remain a mystery”）。
+  用户原先倾向“propensity 指心里珍藏的倾向”的解释；已坦白说明 Baker 信里“born with inherent propensities”与这个解释不合。
+- 背景：本会一位牧师读后指出讲耶稣的人性必须了解 1955—1957 年《教义问答》的历史，所以 jesus.html 第 5 章补了这段历史。
