@@ -1035,3 +1035,64 @@ body:not(.combined) .hl-toast{bottom:24px}
 .hlsheet .hl-empty p{margin:0 0 6px}
 @media print{.hlbar,.hl-toast,.hl-ni{display:none!important}mark.hl{background:none;text-decoration:underline}}
 @media (prefers-reduced-motion:reduce){.hlbar,.hl-toast,mark.hl{transition:none}mark.hl.flash2{animation:none}}
+
+/* ===== 问题彩蛋分类改版（2026-10-23）：分类标签、书架、目录卡、阅读路线 ===== */
+:root{--qc-god:#3A5FC8;--qc-sin:#A8324A;--qc-bible:#B0631C;--qc-law:#8A6A22;--qc-end:#7B4FC4;--qc-heart:#08857C;--qc-life:#546178}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--qc-god:#8FA8F0;--qc-sin:#E08C9A;--qc-bible:#E3A060;--qc-law:#D3B06A;--qc-end:#B79AF0;--qc-heart:#4FC9BE;--qc-life:#A9B4C8}}
+:root[data-theme="dark"]{--qc-god:#8FA8F0;--qc-sin:#E08C9A;--qc-bible:#E3A060;--qc-law:#D3B06A;--qc-end:#B79AF0;--qc-heart:#4FC9BE;--qc-life:#A9B4C8}
+.qchips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:2px -16px 0;padding:2px 16px 6px;-webkit-overflow-scrolling:touch}
+.qchips::-webkit-scrollbar{display:none}
+.qchip{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);font:500 .86rem/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qchip i{width:8px;height:8px;border-radius:50%;background:var(--qc)}
+.qchip b{font:600 .74rem/1 ui-monospace,"SF Mono",Menlo,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.qchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.qchip[aria-pressed="true"] b{color:inherit;opacity:.75}
+.qchip-seek{border-style:dashed}
+.qpaths{border:1px solid var(--rule);border-radius:18px;background:var(--surface);padding:0 14px}
+.qpaths>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:14px 2px;cursor:pointer;list-style:none}
+.qpaths>summary::-webkit-details-marker{display:none}
+.qpaths>summary span{font:700 1.02rem/1.4 var(--serif);color:var(--ink)}
+.qpaths>summary small{font-size:.8rem;color:var(--muted);flex:1;min-width:12em}
+.qpaths>summary .qpchev{width:18px;height:18px;color:var(--muted);transition:transform .2s}
+.qpaths[open]>summary .qpchev{transform:rotate(180deg)}
+@media (min-width:1024px){.qchips{flex-wrap:wrap;overflow:visible;margin:2px 0 0;padding:2px 0 6px}}
+.qpgrid{display:grid;gap:10px;padding:0 0 14px}
+@media (min-width:760px){.qpgrid{grid-template-columns:repeat(3,1fr)}}
+.qpath{border-top:1px solid var(--rule);padding-top:10px}
+.qpath h3{margin:0;font:700 .95rem/1.4 var(--sans);color:var(--gold)}
+.qpath p{margin:2px 0 6px;font-size:.8rem;color:var(--muted);line-height:1.6}
+.qpath ol{list-style:none;margin:0;padding:0;counter-reset:qp}
+.qpath li{counter-increment:qp;margin:0}
+.qpath li a{display:flex;gap:8px;align-items:baseline;padding:6px 0;color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.5}
+.qpath li a::before{content:counter(qp);flex:none;width:18px;height:18px;border-radius:50%;background:var(--gold-soft,#F3E9D2);color:var(--gold);font:700 .7rem/18px var(--sans);text-align:center}
+.qpath .qpn{display:none}
+.qshelves{display:grid;gap:22px;margin-top:6px}
+.qshelf{scroll-margin-top:72px}
+.qsh{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:2px 10px;padding:0 0 8px;border-bottom:2px solid var(--qc);margin-bottom:6px}
+.qsh .qsn{font:700 .8rem/1 ui-monospace,"SF Mono",Menlo,monospace;color:var(--qc);letter-spacing:.06em}
+.qsh h2{margin:0;font:800 1.18rem/1.4 var(--serif);color:var(--ink)}
+.qsh .qsc{font-size:.78rem;color:var(--muted)}
+.qsh p{grid-column:1/-1;margin:0;font-size:.82rem;line-height:1.6;color:var(--muted)}
+.qlist{display:grid}
+@media (min-width:900px){.qlist{grid-template-columns:1fr 1fr;column-gap:22px}}
+.qcard.qrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:14px 4px;border:0;border-bottom:1px solid var(--rule);border-radius:0;background:none;box-shadow:none;overflow:visible}
+.qcard.qrow::before{display:none}
+.qcard.qrow:hover{transform:none;box-shadow:none;background:color-mix(in srgb,var(--qc) 5%,transparent)}
+.qcard.qrow .qno{display:block;background:none;padding:0;margin-top:3px;border-radius:0;font:500 .7rem/1.3 ui-monospace,"SF Mono",Menlo,monospace;color:var(--muted);letter-spacing:0;text-align:center;min-width:2.6em}
+.qcard.qrow .qno b{display:block;font-size:1.1rem;font-weight:700;color:var(--qc);font-variant-numeric:tabular-nums}
+.qcard.qrow .qb{display:grid;gap:3px;min-width:0}
+.qcard.qrow .qq{font:800 1.04rem/1.5 var(--serif);color:var(--ink)}
+.qcard.qrow .qs{font-size:.84rem;line-height:1.6;color:var(--ink-2);font-weight:400;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qcard.qrow .qm{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.qcard.qrow .qtag{font-style:normal;padding:1px 8px;border:1px dashed currentColor;border-radius:999px;color:var(--gold)}
+.qcard.qrow .qgo{align-self:center;color:var(--muted);font-size:1rem}
+.qcard.qrow.isnew .qno::after{display:block;margin:4px auto 0;width:max-content}
+.qahome[data-f="god"] .qshelf:not([data-c="god"]),.qahome[data-f="sin"] .qshelf:not([data-c="sin"]),.qahome[data-f="bible"] .qshelf:not([data-c="bible"]),
+.qahome[data-f="law"] .qshelf:not([data-c="law"]),.qahome[data-f="end"] .qshelf:not([data-c="end"]),.qahome[data-f="heart"] .qshelf:not([data-c="heart"]),
+.qahome[data-f="life"] .qshelf:not([data-c="life"]),.qahome[data-f="seek"] .qshelf:not(.hasseek),.qahome[data-f="seek"] .qcard.qrow:not(.seek){display:none}
+.qahome:not([data-f="all"]) .qpaths{display:none}
+.qidxlink{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--rule);border-radius:18px;background:var(--surface);color:var(--ink);text-decoration:none}
+.qidxlink .ae-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gold-soft,#F3E9D2);color:var(--gold)}
+.qidxlink b{display:block;font-size:.98rem}
+.qidxlink small{display:block;font-size:.8rem;color:var(--muted);line-height:1.55}
+.qidxlink .ae-go{color:var(--gold);font-size:.86rem;white-space:nowrap}

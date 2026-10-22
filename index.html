@@ -2241,13 +2241,74 @@ body:not(.combined) .hl-toast{bottom:24px}
 @media print{.hlbar,.hl-toast,.hl-ni{display:none!important}mark.hl{background:none;text-decoration:underline}}
 @media (prefers-reduced-motion:reduce){.hlbar,.hl-toast,mark.hl{transition:none}mark.hl.flash2{animation:none}}
 
+/* ===== 问题彩蛋分类改版（2026-10-23）：分类标签、书架、目录卡、阅读路线 ===== */
+:root{--qc-god:#3A5FC8;--qc-sin:#A8324A;--qc-bible:#B0631C;--qc-law:#8A6A22;--qc-end:#7B4FC4;--qc-heart:#08857C;--qc-life:#546178}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--qc-god:#8FA8F0;--qc-sin:#E08C9A;--qc-bible:#E3A060;--qc-law:#D3B06A;--qc-end:#B79AF0;--qc-heart:#4FC9BE;--qc-life:#A9B4C8}}
+:root[data-theme="dark"]{--qc-god:#8FA8F0;--qc-sin:#E08C9A;--qc-bible:#E3A060;--qc-law:#D3B06A;--qc-end:#B79AF0;--qc-heart:#4FC9BE;--qc-life:#A9B4C8}
+.qchips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:2px -16px 0;padding:2px 16px 6px;-webkit-overflow-scrolling:touch}
+.qchips::-webkit-scrollbar{display:none}
+.qchip{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);font:500 .86rem/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qchip i{width:8px;height:8px;border-radius:50%;background:var(--qc)}
+.qchip b{font:600 .74rem/1 ui-monospace,"SF Mono",Menlo,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+.qchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.qchip[aria-pressed="true"] b{color:inherit;opacity:.75}
+.qchip-seek{border-style:dashed}
+.qpaths{border:1px solid var(--rule);border-radius:18px;background:var(--surface);padding:0 14px}
+.qpaths>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:14px 2px;cursor:pointer;list-style:none}
+.qpaths>summary::-webkit-details-marker{display:none}
+.qpaths>summary span{font:700 1.02rem/1.4 var(--serif);color:var(--ink)}
+.qpaths>summary small{font-size:.8rem;color:var(--muted);flex:1;min-width:12em}
+.qpaths>summary .qpchev{width:18px;height:18px;color:var(--muted);transition:transform .2s}
+.qpaths[open]>summary .qpchev{transform:rotate(180deg)}
+@media (min-width:1024px){.qchips{flex-wrap:wrap;overflow:visible;margin:2px 0 0;padding:2px 0 6px}}
+.qpgrid{display:grid;gap:10px;padding:0 0 14px}
+@media (min-width:760px){.qpgrid{grid-template-columns:repeat(3,1fr)}}
+.qpath{border-top:1px solid var(--rule);padding-top:10px}
+.qpath h3{margin:0;font:700 .95rem/1.4 var(--sans);color:var(--gold)}
+.qpath p{margin:2px 0 6px;font-size:.8rem;color:var(--muted);line-height:1.6}
+.qpath ol{list-style:none;margin:0;padding:0;counter-reset:qp}
+.qpath li{counter-increment:qp;margin:0}
+.qpath li a{display:flex;gap:8px;align-items:baseline;padding:6px 0;color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.5}
+.qpath li a::before{content:counter(qp);flex:none;width:18px;height:18px;border-radius:50%;background:var(--gold-soft,#F3E9D2);color:var(--gold);font:700 .7rem/18px var(--sans);text-align:center}
+.qpath .qpn{display:none}
+.qshelves{display:grid;gap:22px;margin-top:6px}
+.qshelf{scroll-margin-top:72px}
+.qsh{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:2px 10px;padding:0 0 8px;border-bottom:2px solid var(--qc);margin-bottom:6px}
+.qsh .qsn{font:700 .8rem/1 ui-monospace,"SF Mono",Menlo,monospace;color:var(--qc);letter-spacing:.06em}
+.qsh h2{margin:0;font:800 1.18rem/1.4 var(--serif);color:var(--ink)}
+.qsh .qsc{font-size:.78rem;color:var(--muted)}
+.qsh p{grid-column:1/-1;margin:0;font-size:.82rem;line-height:1.6;color:var(--muted)}
+.qlist{display:grid}
+@media (min-width:900px){.qlist{grid-template-columns:1fr 1fr;column-gap:22px}}
+.qcard.qrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:14px 4px;border:0;border-bottom:1px solid var(--rule);border-radius:0;background:none;box-shadow:none;overflow:visible}
+.qcard.qrow::before{display:none}
+.qcard.qrow:hover{transform:none;box-shadow:none;background:color-mix(in srgb,var(--qc) 5%,transparent)}
+.qcard.qrow .qno{display:block;background:none;padding:0;margin-top:3px;border-radius:0;font:500 .7rem/1.3 ui-monospace,"SF Mono",Menlo,monospace;color:var(--muted);letter-spacing:0;text-align:center;min-width:2.6em}
+.qcard.qrow .qno b{display:block;font-size:1.1rem;font-weight:700;color:var(--qc);font-variant-numeric:tabular-nums}
+.qcard.qrow .qb{display:grid;gap:3px;min-width:0}
+.qcard.qrow .qq{font:800 1.04rem/1.5 var(--serif);color:var(--ink)}
+.qcard.qrow .qs{font-size:.84rem;line-height:1.6;color:var(--ink-2);font-weight:400;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qcard.qrow .qm{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.qcard.qrow .qtag{font-style:normal;padding:1px 8px;border:1px dashed currentColor;border-radius:999px;color:var(--gold)}
+.qcard.qrow .qgo{align-self:center;color:var(--muted);font-size:1rem}
+.qcard.qrow.isnew .qno::after{display:block;margin:4px auto 0;width:max-content}
+.qahome[data-f="god"] .qshelf:not([data-c="god"]),.qahome[data-f="sin"] .qshelf:not([data-c="sin"]),.qahome[data-f="bible"] .qshelf:not([data-c="bible"]),
+.qahome[data-f="law"] .qshelf:not([data-c="law"]),.qahome[data-f="end"] .qshelf:not([data-c="end"]),.qahome[data-f="heart"] .qshelf:not([data-c="heart"]),
+.qahome[data-f="life"] .qshelf:not([data-c="life"]),.qahome[data-f="seek"] .qshelf:not(.hasseek),.qahome[data-f="seek"] .qcard.qrow:not(.seek){display:none}
+.qahome:not([data-f="all"]) .qpaths{display:none}
+.qidxlink{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--rule);border-radius:18px;background:var(--surface);color:var(--ink);text-decoration:none}
+.qidxlink .ae-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gold-soft,#F3E9D2);color:var(--gold)}
+.qidxlink b{display:block;font-size:.98rem}
+.qidxlink small{display:block;font-size:.8rem;color:var(--muted);line-height:1.55}
+.qidxlink .ae-go{color:var(--gold);font-size:.86rem;white-space:nowrap}
+
 .lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.mark .lw{fill:#ECE6DA}.mark .ls{fill:#E3DCCD}.mark .lk{fill:#767A86}.mark .lg{fill:#9A742C}.wlogo .lw{fill:#ECE6DA}.wlogo .ls{fill:#E3DCCD}.wlogo .lk{fill:#767A86}.wlogo .lg{fill:#9A742C}.lambpop{position:fixed;z-index:132;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));padding:10px 14px 8px;border-radius:18px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(20,24,40,.16);opacity:0;transform:translate(-50%,12px);transition:opacity .2s ease,transform .2s ease;pointer-events:none}.lambpop.on{opacity:1;transform:translate(-50%,0)}@media (min-width:1024px){.lambpop{bottom:96px}}@media (prefers-reduced-motion:reduce){.lambpop{transition:none;transform:translate(-50%,0)}}.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}
 
 </style>
-<script type="application/json" id="wfonts">[["LessonSerif", "600", "site/e427cf194a.woff2"], ["LessonSerif", "900", "site/e15fac3681.woff2"]]</script>
+<script type="application/json" id="wfonts">[["LessonSerif", "600", "site/fcc7d751f7.woff2"], ["LessonSerif", "900", "site/7094833391.woff2"]]</script>
 <style>html:not(.wf){--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}</style>
 <script>(function(){
-var B="site/1029a4f543.json",J="site/68a5aba091.js",K=[B,J],P;
+var B="site/1029a4f543.json",J="site/583219aab1.js",K=[B,J],P;
 function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
  r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
 function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
@@ -2658,229 +2719,16 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <nav class="lnext" aria-label="上一课下一课"><a class="pncard prev" href="#l12"><small>上一课</small><b>第12课 · 末时的先知启示</b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></a><span></span></nav>
 </div>
 <div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
-<section class="qahome">
+<section class="qahome" data-f="all">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
-  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；问答文章都附 PDF 版，专题网页可以直接转发链接。</p>
+  <p class="lead">学课中常遇到的问题、信徒和慕道朋友常问的问题，结合全本圣经和怀爱伦著作逐一深入解答。共 31 篇，分 7 类；每篇都可以转发，也可以答题后下载 PDF。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg>分享问题彩蛋</button></p>
-  <div class="qcards"><a class="qcard" href="#qa1">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 01</span><span class="qday">第1课 · 星期三《被逐出园外》</span></span>
-  <span class="qq">罪孽为何使人与上帝隔绝？</span>
-  <span class="qs">以赛亚书 59:2 深度解析</span>
-  <span class="qx">不是上帝不愿意听，也不是祂听不到，而是罪本身就是“离开上帝”。</span>
-  <span class="qgo">阅读解答 →</span>
-</a><a class="qcard" href="#qa2">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 02</span><span class="qday">第1课 · 星期一《躲避上帝》</span></span>
-  <span class="qq">罪从哪里来？</span>
-  <span class="qs">上帝创造了一切，难道罪也是上帝造的吗？</span>
-  <span class="qx">不是。上帝造了“自由”，受造者用这份自由造出了“罪”。</span>
-  <span class="qgo">阅读解答 →</span>
-</a><a class="qcard qext" href="history.html" data-art="qa3" data-title="基督教两千年家谱">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 03</span><span class="qday">第12课 · 星期三《末时的余民》</span></span>
-  <span class="qq">基督教两千年家谱</span>
-  <span class="qs">复临安息日会从哪里来？各大教派怎样分出来、有什么不同？</span>
-  <span class="qx">像家谱一样从耶稣一直画到今天：各教派的来历、核心信仰、与复临信仰的异同，还有路德和怀爱伦的人物特写；每个说法都附出处。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="jesus.html" data-art="qa4" data-title="耶稣具有完全的人性和完全的神性吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 04</span><span class="qday">第4课 · 星期日《作为先知的耶稣》</span></span>
-  <span class="qq">耶稣具有完全的人性和完全的神性吗？</span>
-  <span class="qs">祂既有神性，对抗试探岂不是比我们容易？祂还能作我们的榜样吗？</span>
-  <span class="qx">祂拥有神性，却不拿来帮自己；旷野的第一个试探，正是试探祂动用神性。用圣经一步一步讲清楚，祂为什么既是榜样，又是救主。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="death.html" data-art="qa6" data-title="根据圣经，人死了去哪里？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 05</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">根据圣经，人死了去哪里？</span>
-  <span class="qs">离世的亲人在天上看着我们吗？灵魂会回来吗？只用圣经一步一步找答案</span>
-  <span class="qx">人是尘土加上上帝的生气；死像睡觉，毫无所知；盼望在主再来的那日。也讲财主与拉撒路、十字架上的强盗、扫罗交鬼等难懂的经文。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="sabbath.html" data-art="qa7" data-title="谁改了安息日？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 06</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">谁改了安息日？</span>
-  <span class="qs">第七日为什么是星期六？谁把它改成了星期日？全世界都守星期天，怎么就复临信徒“特殊”？</span>
-  <span class="qx">从创世记的第七日、四十年的吗哪、耶稣和使徒的榜样，到受难周、格里高利历、君士坦丁法令和老底嘉会议；再听天主教和新教自己怎么说。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="keep.html" data-art="qa8" data-title="安息日，到底能做什么？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 07</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">安息日，到底能做什么？</span>
-  <span class="qs">高考撞上星期六、老板要加班、单位调休、逛公园、睡懒觉、聚会到下午四点……还有“守安息日又不能叫人得救”</span>
-  <span class="qx">从第四条诫命、先知的解释和耶稣的“必要、怜悯、行善”三把尺子出发，一件一件看考试、工作、会议、公园、迟到和聚会长短，再谈靠守得救和恩典放纵两边的沟。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="rom7.html" data-art="qa9" data-title="我还会犯罪，能得救吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 08</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">我还会犯罪，能得救吗？</span>
-  <span class="qs">罗马书7章“立志为善由得我，只是行出来由不得我”；还有“在罪中得救”“一次得救永远得救”“得救是命定的”</span>
-  <span class="qx">按罗马书5—8章的次序读第7章；分清罪责和罪的权势、跌倒和住在罪中；再把预定论、圣徒坚忍、最后一代等说法的经文和信条原文一一摆出来。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="god.html" data-art="qa10" data-title="旧约的上帝和新约的上帝，是同一位吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 09</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">旧约的上帝和新约的上帝，是同一位吗？</span>
-  <span class="qs">为什么读完圣经，总觉得旧约严厉、新约慈爱？“严厉”和“慈爱”的真相</span>
-  <span class="qx">“慈爱”旧约191次、新约6次；“地狱”旧约0次、新约13次，11次出自耶稣。从上帝的“名片”出埃及记34:6、十字架上的公义与慈爱，到洪水、迦南、乌撒、以利沙与母熊，一层一层揭开这种感觉的来源。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="elect.html" data-art="qa11" data-title="上帝早就定好谁得救吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 10</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">上帝早就定好谁得救吗？</span>
-  <span class="qs">“雅各是我所爱的，以扫是我所恶的”（罗9:13）到底在说什么？预定论、拣选和人的选择</span>
-  <span class="qx">把罗马书9—11章从头读到尾：“两国在你腹内”、“恶”的原文、法老先自己硬着心、耶利米书的窑匠、保罗自己说以色列为什么跌倒；再摆出加尔文、路德宗、卫斯理和怀爱伦的原话。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="soon.html" data-art="qa12" data-title="“我必快来”，为什么两千年了还没来？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 11</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">“我必快来”，为什么两千年了还没来？</span>
-  <span class="qs">从亚当到今天多少年？“快”是什么意思？上帝在等什么？预言、时事与AI时代</span>
-  <span class="qx">按圣经年岁推算从亚当到今天约六千年（附四种算法和时间线）；彼得后书3章、马太福音24章给出的迟延原因；1999年还有5,000多种语言等待圣经翻译，2025年只剩544种；知识增长与AI时代的机会和危险。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="perfect.html" data-art="qa13" data-title="要“完全”才能见主吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 12</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">要“完全”才能见主吗？</span>
-  <span class="qs">“你们要完全”“非圣洁没有人能见主”到底在说什么？我离完全还差得远，还能见主吗？</span>
-  <span class="qx">查希伯来文 tamim、希腊文 teleios；挪亚、约伯都是“完全人”却都有软弱；马太5:48 的上下文是爱仇敌；“完全”的三个时态；怎样读《基督比喻实训》69页。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="lose.html" data-art="qa14" data-title="信了主，还会失去救恩吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 13</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">信了主，还会失去救恩吗？</span>
-  <span class="qs">一次得救永远得救？希伯来书6章“不能重新懊悔”？不得赦免的罪？离开了还能回来吗？</span>
-  <span class="qx">把保障的经文和警告的经文并排读；彼得和犹大同一晚的不同结局；希伯来书6章、10章的原文；“从恩典中坠落”；担心自己犯了不得赦免之罪的人其实没有犯；回家的路随时可以开始。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="joy.html" data-art="qa15" data-title="喜乐的心，为什么是良药？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 14</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">喜乐的心，为什么是良药？</span>
-  <span class="qs">“忧伤的灵使骨枯干”是什么意思？想得多会长结节、得癌吗？为什么我们总往坏处想？写给姐妹和妈妈们</span>
-  <span class="qx">查箴言17:22 的希伯来原文；读乐观与寿命、抑郁与骨密度、压力与癌症的大型研究，分清哪些有根据、哪些没有；谈负面偏向、女性的反刍、婆媳和两家的矛盾，以及七个看见光的小练习。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="listen.html" data-art="qa16" data-title="家人总在念叨，我为什么越听越烦？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 15</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">家人总在念叨，我为什么越听越烦？</span>
-  <span class="qs">父母总往坏处想，我们一听就烦、想指责；“别想那么多”为什么越劝越僵？怎样用圣经彼此安慰、彼此激励</span>
-  <span class="qx">约伯的朋友先陪坐七天，路得不和婆婆争辩，耶稣对马大讲道理、陪马利亚哭；再看情绪传染、认可感受、共同反刍的研究，学习先听再说、孝敬父母、温和设界限，也写给常常念叨的人。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="pain.html" data-art="qa17" data-title="一个好上帝，为什么允许苦难？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 16</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">一个好上帝，为什么允许苦难？</span>
-  <span class="qs">疫情、天灾、病痛、好人受苦——天灾是惩罚吗？我受苦的时候上帝在哪里？</span>
-  <span class="qx">苦难的几种来源、罪的起源、约伯记和启示录揭开的争战、耶稣对楼塌压死人的回答、赛45:7的原文、十字架上受苦的上帝、没有答案时的信心和苦难的尽头；也写给不信上帝的朋友。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="life.html" data-art="qa18" data-title="人活着，到底为了什么？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 17</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">人活着，到底为了什么？</span>
-  <span class="qs">考上了、买了房、退休了，然后呢？内卷、躺平、中年空虚——传道书和耶稣的回答</span>
-  <span class="qx">“虚空”原文是一口气、一团雾；“日光之下”出现29次；上帝“将永生安置在世人心里”；传道书的结论“这就是人的全部”；最大的两条诫命、丰盛的生命、平凡日子的意义和复活的盼望。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="trust.html" data-art="qa19" data-title="圣经可信吗？会不会是后人编的？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 18</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">圣经可信吗？会不会是后人编的？</span>
-  <span class="qs">传了几千年会不会抄错？大卫、彼拉多真有其人吗？四福音互相矛盾吗？</span>
-  <span class="qx">死海古卷让以赛亚书抄本早了约一千年；新约5,800多份希腊文抄本；石头上的“以色列”“大卫家”、希西家水道和彼拉多；四福音的差异、复活的见证人；也照实列出学界的不同看法。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="origin.html" data-art="qa20" data-title="世界是演化来的，还是上帝造的？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 19</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">世界是演化来的，还是上帝造的？</span>
-  <span class="qs">孩子在学校学演化，回家问我们——各方说法、创世记原文和复临信徒的理解</span>
-  <span class="qx">先把年轻地球、古老地球、有神演化、自然主义演化几种看法客观摆出来；再读创世记1章原文：“好”出现7次、日月只叫“大光”“小光”；宇宙常数的精细、十诫里的六日，以及怎样和孩子谈。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="money.html" data-art="qa21" data-title="钱是万恶之根吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 20</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">钱是万恶之根吗？</span>
-  <span class="qs">基督徒能不能富有？什一、借债、理财和知足，圣经怎么说</span>
-  <span class="qx">“贪财是万恶之根”，不是钱；钱是上帝的礼物，危险在于它想当主人；养家、不欠债、十分之一、施舍四个用处；研究看到钱和幸福的关系、为别人花钱更快乐；知足的秘诀和几个实际做法。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="health.html" data-art="qa22" data-title="抽烟、喝酒、吃什么，和信仰有关系吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 21</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">抽烟、喝酒、吃什么，和信仰有关系吗？</span>
-  <span class="qs">复临信徒为什么不抽烟、不喝酒、不吃猪肉？耶稣不是把水变成酒吗？</span>
-  <span class="qx">身体是圣灵的殿；起初的饮食、洁净与不洁净、但以理的十天；圣经论酒的各方看法；复临信徒健康研究、全球饮酒研究、英国医生五十年吸烟研究；健康不是得救的条件。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="fortune.html" data-art="qa23" data-title="算命、风水、星座、看日子，到底灵不灵？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 22</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">算命、风水、星座、看日子，到底灵不灵？</span>
-  <span class="qs">为什么觉得准？科学怎样测试？圣经为什么劝人远离？家里长辈要看日子怎么办？</span>
-  <span class="qx">巴纳姆效应：笼统的话人人都觉得说中了自己；1985年《自然》双盲实验；申命记18章、扫罗与交鬼的妇人、“不要为天象惊惶”；不用算的人生，以及在家里温和处理的建议。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="ancestor.html" data-art="qa24" data-title="清明祭祖，基督徒算不算不孝？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 23</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">清明祭祖，基督徒算不算不孝？</span>
-  <span class="qs">扫墓、上香、磕头、烧纸——纪念和敬拜的界线在哪里？怎样和家人说？</span>
-  <span class="qx">“慎终追远”与祭祖的两层意思；三百年的“中国礼仪之争”；亚伯拉罕葬撒拉、雅各立碑、耶稣哭了；“没有为死人送去”；可以做和不做的事，清明节怎样过、怎样和家人说，以及复活的盼望。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="marriage.html" data-art="qa25" data-title="婚姻是爱情的坟墓吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 24</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">婚姻是爱情的坟墓吗？</span>
-  <span class="qs">上帝设立婚姻的心意，吵架、不信的配偶、离婚、受伤害和单身</span>
-  <span class="qx">离开、连合、成为一体；婚姻是盟约，不是合同；丈夫要像基督舍己那样爱妻子；夫妻争吵与伤口愈合的研究；不要同负一轭；离婚的几种看法；受到伤害时安全第一；单身也是恩赐。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="raise.html" data-art="qa26" data-title="打骂孩子，还是由着孩子？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 25</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">打骂孩子，还是由着孩子？</span>
-  <span class="qs">“不打不成器”和“快乐教育”之间——圣经、怀爱伦的劝告和研究怎么说</span>
-  <span class="qx">四种教养方式；信仰在家里传；以利和大卫的教训、“失了志气”；箴言里的“杖”有几种理解；“纠正孩子时动怒的父母，比孩子的错更大”；两项结论不同的体罚研究；每天可以做的八件事。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="beast.html" data-art="qa27" data-title="666 和兽的印记，到底是什么？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 26</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">666 和兽的印记，到底是什么？</span>
-  <span class="qs">芯片、疫苗、条形码？用圣经解释圣经，读懂启示录13章的海兽、地兽、兽像、印记和数目</span>
-  <span class="qx">启示录是用象征说话的“福书”；把但以理书7章和启示录13章并排读；四种读法的来历；1260年与“死伤”；兽像和但以理书3章；印记在额上或手上、上帝的印与第四条诫命；没有人会不知不觉受印记；666 的各种算法和爱任纽的提醒。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="judgment.html" data-art="qa28" data-title="1844 年，天上发生了什么？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 27</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">1844 年，天上发生了什么？</span>
-  <span class="qs">圣所、二千三百日与“查案审判”：审什么、为谁审、是复临信徒独有的吗？</span>
-  <span class="qx">地上的圣所是天上事的影像；赎罪日在犹太传统里就是审判日；但以理书8:14“洁净”的原文、第9章的钥匙与七十个七；1844年的大失望和玉米地；但以理书7章的法庭在复临以前；为我们辩护的大祭司；批评与回应，以及审判和得救的确据。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="law.html" data-art="qa29" data-title="旧约律法，哪些还要守？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 28</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">旧约律法，哪些还要守？</span>
-  <span class="qs">割礼、节期、饮食、安息日：道德律、礼仪律、民事律怎么分？耶路撒冷会议怎样决定？</span>
-  <span class="qx">十条诫在约柜里、律法书在约柜旁；三分法从哪里来、反对的意见；礼仪是影儿，民事律随以色列国终止，道德律写在心上；耶路撒冷会议和利未记17—18章的“寄居的外人”；割礼、节期、饮食；安息日为什么不一样，歌罗西书2:16 的几种读法。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="prayer.html" data-art="qa30" data-title="祷告为什么常常没有应验？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 29</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">祷告为什么常常没有应验？</span>
-  <span class="qs">上帝既然知道一切，为什么还要求？保罗的刺、客西马尼园、“不叫我们遇见试探”</span>
-  <span class="qx">诗篇里的“要到几时”；上帝早已知道，为什么还要求；祷告的拦阻；好、不、等一等、更好的；保罗三次求挪去的刺和“我的恩典够你用的”；客西马尼园与“蒙了应允”；但以理的二十一日；“不叫我们遇见试探”；为病人祷告和代祷研究；怎样继续祷告。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="judas.html" data-art="qa31" data-title="犹大是注定要卖主的吗？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 30</span><span class="qday">第9课 · 星期一《与圣经和谐一致》</span></span>
-  <span class="qq">犹大是注定要卖主的吗？</span>
-  <span class="qs">耶稣一次又一次地挽回他：犹大能得救吗？我们怎样才不会成为犹大？</span>
-  <span class="qx">耶稣早就知道，却不是使他去做；“人子必要去世”和“卖人子的人有祸了”；“灭亡之子”的意思；耶稣挽回他的历程：不揭穿、洗他的脚、递饼、叫他“朋友”、叫他的名字；从爱钱到卖主的下坡路；后悔却没有回来；彼得与犹大；他能得救吗；我们怎样才不会成为犹大。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><a class="qcard qext" href="blood.html" data-art="qa32" data-title="“我原谅你”，为什么要用血来写？">
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 31</span><span class="qday">第1课 · 星期三《被逐出园外》</span></span>
-  <span class="qq">“我原谅你”，为什么要用血来写？</span>
-  <span class="qs">为什么非要流血才能赦罪？上帝不能直接原谅吗？十字架是残忍，还是爱？</span>
-  <span class="qx">“若不流血”原文说“差不多”；血就是生命；罪是离开生命的源头；律法能不能改；原谅为什么总有代价；付代价的是上帝自己；“宇宙级的虐待儿童”的批评；公义与慈爱在十字架相遇；撒但的指控；献祭的方向；五幅圣经画面；各教会的解释；浪子的父亲；怎样讲给不信的朋友听。</span>
-  <span class="qgo">打开专题网页 →</span>
-</a><div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
+  <div class="qchips" role="group" aria-label="按类别查看"><button type="button" class="qchip" data-f="all" aria-pressed="true">全部<b>31</b></button><button type="button" class="qchip" data-f="god" aria-pressed="false" style="--qc:var(--qc-god)"><i></i>上帝是怎样的？<b>4</b></button><button type="button" class="qchip" data-f="sin" aria-pressed="false" style="--qc:var(--qc-sin)"><i></i>罪与得救<b>7</b></button><button type="button" class="qchip" data-f="bible" aria-pressed="false" style="--qc:var(--qc-bible)"><i></i>圣经与历史<b>3</b></button><button type="button" class="qchip" data-f="law" aria-pressed="false" style="--qc:var(--qc-law)"><i></i>安息日与律法<b>3</b></button><button type="button" class="qchip" data-f="end" aria-pressed="false" style="--qc:var(--qc-end)"><i></i>死亡、预言与末世<b>4</b></button><button type="button" class="qchip" data-f="heart" aria-pressed="false" style="--qc:var(--qc-heart)"><i></i>心灵、家庭与祷告<b>5</b></button><button type="button" class="qchip" data-f="life" aria-pressed="false" style="--qc:var(--qc-life)"><i></i>人生与中国处境<b>5</b></button><button type="button" class="qchip qchip-seek" data-f="seek" aria-pressed="false">给慕道朋友<b>10</b></button></div>
+  <details class="qpaths"><summary><span>三条阅读路线</span><small>不知道从哪里读起？点开按顺序读：第一次接触信仰 · 刚刚受洗 · 想深入研经</small><svg class="ic qpchev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="qpgrid"><div class="qpath"><h3>第一次接触信仰</h3><p>给慕道的朋友，或想把信仰讲给朋友听的人</p><ol><li><a href="life.html" data-art="qa18" data-title="人活着，到底为了什么？"><span class="qpn">17</span>人活着，到底为了什么？</a></li><li><a href="pain.html" data-art="qa17" data-title="一个好上帝，为什么允许苦难？"><span class="qpn">16</span>一个好上帝，为什么允许苦难？</a></li><li><a href="trust.html" data-art="qa19" data-title="圣经可信吗？会不会是后人编的？"><span class="qpn">18</span>圣经可信吗？会不会是后人编的？</a></li><li><a href="origin.html" data-art="qa20" data-title="世界是演化来的，还是上帝造的？"><span class="qpn">19</span>世界是演化来的，还是上帝造的？</a></li><li><a href="jesus.html" data-art="qa4" data-title="耶稣具有完全的人性和完全的神性吗？"><span class="qpn">04</span>耶稣具有完全的人性和完全的神性吗？</a></li><li><a href="blood.html" data-art="qa32" data-title="“我原谅你”，为什么要用血来写？"><span class="qpn">31</span>“我原谅你”，为什么要用血来写？</a></li></ol></div><div class="qpath"><h3>刚刚受洗</h3><p>给初信的弟兄姐妹：罪与恩典、得救的确据、祷告和安息日</p><ol><li><a href="#qa1"><span class="qpn">01</span>罪孽为何使人与上帝隔绝？</a></li><li><a href="#qa2"><span class="qpn">02</span>罪从哪里来？</a></li><li><a href="rom7.html" data-art="qa9" data-title="我还会犯罪，能得救吗？"><span class="qpn">08</span>我还会犯罪，能得救吗？</a></li><li><a href="lose.html" data-art="qa14" data-title="信了主，还会失去救恩吗？"><span class="qpn">13</span>信了主，还会失去救恩吗？</a></li><li><a href="prayer.html" data-art="qa30" data-title="祷告为什么常常没有应验？"><span class="qpn">29</span>祷告为什么常常没有应验？</a></li><li><a href="keep.html" data-art="qa8" data-title="安息日，到底能做什么？"><span class="qpn">07</span>安息日，到底能做什么？</a></li></ol></div><div class="qpath"><h3>想深入研经</h3><p>给想把复临信仰的根基弄清楚的人</p><ol><li><a href="sabbath.html" data-art="qa7" data-title="谁改了安息日？"><span class="qpn">06</span>谁改了安息日？</a></li><li><a href="law.html" data-art="qa29" data-title="旧约律法，哪些还要守？"><span class="qpn">28</span>旧约律法，哪些还要守？</a></li><li><a href="death.html" data-art="qa6" data-title="根据圣经，人死了去哪里？"><span class="qpn">05</span>根据圣经，人死了去哪里？</a></li><li><a href="beast.html" data-art="qa27" data-title="666 和兽的印记，到底是什么？"><span class="qpn">26</span>666 和兽的印记，到底是什么？</a></li><li><a href="judgment.html" data-art="qa28" data-title="1844 年，天上发生了什么？"><span class="qpn">27</span>1844 年，天上发生了什么？</a></li><li><a href="soon.html" data-art="qa12" data-title="“我必快来”，为什么两千年了还没来？"><span class="qpn">11</span>“我必快来”，为什么两千年了还没来？</a></li></ol></div></div></details>
+  <div class="qshelves"><section class="qshelf hasseek" data-c="god" id="qc-god" style="--qc:var(--qc-god)"><header class="qsh"><span class="qsn">01</span><h2>上帝是怎样的？</h2><span class="qsc">4 篇</span><p>上帝的品格、耶稣的神性与人性、预定，以及为什么有苦难</p></header><div class="qlist"><a class="qcard qrow qext" href="jesus.html" data-art="qa4" data-title="耶稣具有完全的人性和完全的神性吗？"><span class="qno">No.<b>04</b></span><span class="qb"><span class="qq">耶稣具有完全的人性和完全的神性吗？</span><span class="qs">祂既有神性，对抗试探岂不是比我们容易？祂还能作我们的榜样吗？</span><span class="qm">约 55 分钟 · 17 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="god.html" data-art="qa10" data-title="旧约的上帝和新约的上帝，是同一位吗？"><span class="qno">No.<b>09</b></span><span class="qb"><span class="qq">旧约的上帝和新约的上帝，是同一位吗？</span><span class="qs">为什么读完圣经，总觉得旧约严厉、新约慈爱？“严厉”和“慈爱”的真相</span><span class="qm">约 30 分钟 · 18 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="elect.html" data-art="qa11" data-title="上帝早就定好谁得救吗？"><span class="qno">No.<b>10</b></span><span class="qb"><span class="qq">上帝早就定好谁得救吗？</span><span class="qs">“雅各是我所爱的，以扫是我所恶的”（罗9:13）到底在说什么？预定论、拣选和人的选择</span><span class="qm">约 30 分钟 · 15 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="pain.html" data-art="qa17" data-title="一个好上帝，为什么允许苦难？"><span class="qno">No.<b>16</b></span><span class="qb"><span class="qq">一个好上帝，为什么允许苦难？</span><span class="qs">疫情、天灾、病痛、好人受苦——天灾是惩罚吗？我受苦的时候上帝在哪里？</span><span class="qm">约 25 分钟 · 14 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf" data-c="sin" id="qc-sin" style="--qc:var(--qc-sin)"><header class="qsh"><span class="qsn">02</span><h2>罪与得救</h2><span class="qsc">7 篇</span><p>罪是什么、从哪里来；我还会犯罪能不能得救；为什么要流血才能赦罪</p></header><div class="qlist"><a class="qcard qrow" href="#qa1"><span class="qno">No.<b>01</b></span><span class="qb"><span class="qq">罪孽为何使人与上帝隔绝？</span><span class="qs">以赛亚书 59:2 深度解析</span><span class="qm">约 5 分钟 · 短文</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow" href="#qa2"><span class="qno">No.<b>02</b></span><span class="qb"><span class="qq">罪从哪里来？</span><span class="qs">上帝创造了一切，难道罪也是上帝造的吗？</span><span class="qm">约 10 分钟 · 短文</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="rom7.html" data-art="qa9" data-title="我还会犯罪，能得救吗？"><span class="qno">No.<b>08</b></span><span class="qb"><span class="qq">我还会犯罪，能得救吗？</span><span class="qs">罗马书7章“立志为善由得我，只是行出来由不得我”；还有“在罪中得救”“一次得救永远得救”“得救是命定的”</span><span class="qm">约 35 分钟 · 16 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="perfect.html" data-art="qa13" data-title="要“完全”才能见主吗？"><span class="qno">No.<b>12</b></span><span class="qb"><span class="qq">要“完全”才能见主吗？</span><span class="qs">“你们要完全”“非圣洁没有人能见主”到底在说什么？我离完全还差得远，还能见主吗？</span><span class="qm">约 20 分钟 · 13 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="lose.html" data-art="qa14" data-title="信了主，还会失去救恩吗？"><span class="qno">No.<b>13</b></span><span class="qb"><span class="qq">信了主，还会失去救恩吗？</span><span class="qs">一次得救永远得救？希伯来书6章“不能重新懊悔”？不得赦免的罪？离开了还能回来吗？</span><span class="qm">约 20 分钟 · 14 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="judas.html" data-art="qa31" data-title="犹大是注定要卖主的吗？"><span class="qno">No.<b>30</b></span><span class="qb"><span class="qq">犹大是注定要卖主的吗？</span><span class="qs">耶稣一次又一次地挽回他：犹大能得救吗？我们怎样才不会成为犹大？</span><span class="qm">约 35 分钟 · 17 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="blood.html" data-art="qa32" data-title="“我原谅你”，为什么要用血来写？"><span class="qno">No.<b>31</b></span><span class="qb"><span class="qq">“我原谅你”，为什么要用血来写？</span><span class="qs">为什么非要流血才能赦罪？上帝不能直接原谅吗？十字架是残忍，还是爱？</span><span class="qm">约 70 分钟 · 34 章</span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf hasseek" data-c="bible" id="qc-bible" style="--qc:var(--qc-bible)"><header class="qsh"><span class="qsn">03</span><h2>圣经与历史</h2><span class="qsc">3 篇</span><p>圣经可不可信、世界从哪里来，以及两千年的教会历史</p></header><div class="qlist"><a class="qcard qrow qext" href="history.html" data-art="qa3" data-title="基督教两千年家谱"><span class="qno">No.<b>03</b></span><span class="qb"><span class="qq">基督教两千年家谱</span><span class="qs">复临安息日会从哪里来？各大教派怎样分出来、有什么不同？</span><span class="qm">约 65 分钟 · 22 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="trust.html" data-art="qa19" data-title="圣经可信吗？会不会是后人编的？"><span class="qno">No.<b>18</b></span><span class="qb"><span class="qq">圣经可信吗？会不会是后人编的？</span><span class="qs">传了几千年会不会抄错？大卫、彼拉多真有其人吗？四福音互相矛盾吗？</span><span class="qm">约 15 分钟 · 12 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="origin.html" data-art="qa20" data-title="世界是演化来的，还是上帝造的？"><span class="qno">No.<b>19</b></span><span class="qb"><span class="qq">世界是演化来的，还是上帝造的？</span><span class="qs">孩子在学校学演化，回家问我们——各方说法、创世记原文和复临信徒的理解</span><span class="qm">约 15 分钟 · 11 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf" data-c="law" id="qc-law" style="--qc:var(--qc-law)"><header class="qsh"><span class="qsn">04</span><h2>安息日与律法</h2><span class="qsc">3 篇</span><p>第七日为什么是星期六、安息日怎样守、旧约律法哪些还要守</p></header><div class="qlist"><a class="qcard qrow qext" href="sabbath.html" data-art="qa7" data-title="谁改了安息日？"><span class="qno">No.<b>06</b></span><span class="qb"><span class="qq">谁改了安息日？</span><span class="qs">第七日为什么是星期六？谁把它改成了星期日？全世界都守星期天，怎么就复临信徒“特殊”？</span><span class="qm">约 35 分钟 · 19 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="keep.html" data-art="qa8" data-title="安息日，到底能做什么？"><span class="qno">No.<b>07</b></span><span class="qb"><span class="qq">安息日，到底能做什么？</span><span class="qs">高考撞上星期六、老板要加班、单位调休、逛公园、睡懒觉、聚会到下午四点……还有“守安息日又不能叫人得救”</span><span class="qm">约 30 分钟 · 17 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="law.html" data-art="qa29" data-title="旧约律法，哪些还要守？"><span class="qno">No.<b>28</b></span><span class="qb"><span class="qq">旧约律法，哪些还要守？</span><span class="qs">割礼、节期、饮食、安息日：道德律、礼仪律、民事律怎么分？耶路撒冷会议怎样决定？</span><span class="qm">约 35 分钟 · 19 章</span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf" data-c="end" id="qc-end" style="--qc:var(--qc-end)"><header class="qsh"><span class="qsn">05</span><h2>死亡、预言与末世</h2><span class="qsc">4 篇</span><p>人死了去哪里、主为什么还没来、666 与兽的印记、1844 年</p></header><div class="qlist"><a class="qcard qrow qext" href="death.html" data-art="qa6" data-title="根据圣经，人死了去哪里？"><span class="qno">No.<b>05</b></span><span class="qb"><span class="qq">根据圣经，人死了去哪里？</span><span class="qs">离世的亲人在天上看着我们吗？灵魂会回来吗？只用圣经一步一步找答案</span><span class="qm">约 35 分钟 · 17 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="soon.html" data-art="qa12" data-title="“我必快来”，为什么两千年了还没来？"><span class="qno">No.<b>11</b></span><span class="qb"><span class="qq">“我必快来”，为什么两千年了还没来？</span><span class="qs">从亚当到今天多少年？“快”是什么意思？上帝在等什么？预言、时事与AI时代</span><span class="qm">约 25 分钟 · 12 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="beast.html" data-art="qa27" data-title="666 和兽的印记，到底是什么？"><span class="qno">No.<b>26</b></span><span class="qb"><span class="qq">666 和兽的印记，到底是什么？</span><span class="qs">芯片、疫苗、条形码？用圣经解释圣经，读懂启示录13章的海兽、地兽、兽像、印记和数目</span><span class="qm">约 35 分钟 · 23 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="judgment.html" data-art="qa28" data-title="1844 年，天上发生了什么？"><span class="qno">No.<b>27</b></span><span class="qb"><span class="qq">1844 年，天上发生了什么？</span><span class="qs">圣所、二千三百日与“查案审判”：审什么、为谁审、是复临信徒独有的吗？</span><span class="qm">约 35 分钟 · 23 章</span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf hasseek" data-c="heart" id="qc-heart" style="--qc:var(--qc-heart)"><header class="qsh"><span class="qsn">06</span><h2>心灵、家庭与祷告</h2><span class="qsc">5 篇</span><p>喜乐、家人之间、婚姻、教养孩子，以及祷告为什么没有应验</p></header><div class="qlist"><a class="qcard qrow qext" href="joy.html" data-art="qa15" data-title="喜乐的心，为什么是良药？"><span class="qno">No.<b>14</b></span><span class="qb"><span class="qq">喜乐的心，为什么是良药？</span><span class="qs">“忧伤的灵使骨枯干”是什么意思？想得多会长结节、得癌吗？为什么我们总往坏处想？写给姐妹和妈妈们</span><span class="qm">约 35 分钟 · 19 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="listen.html" data-art="qa16" data-title="家人总在念叨，我为什么越听越烦？"><span class="qno">No.<b>15</b></span><span class="qb"><span class="qq">家人总在念叨，我为什么越听越烦？</span><span class="qs">父母总往坏处想，我们一听就烦、想指责；“别想那么多”为什么越劝越僵？怎样用圣经彼此安慰、彼此激励</span><span class="qm">约 30 分钟 · 17 章</span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="marriage.html" data-art="qa25" data-title="婚姻是爱情的坟墓吗？"><span class="qno">No.<b>24</b></span><span class="qb"><span class="qq">婚姻是爱情的坟墓吗？</span><span class="qs">上帝设立婚姻的心意，吵架、不信的配偶、离婚、受伤害和单身</span><span class="qm">约 15 分钟 · 12 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="raise.html" data-art="qa26" data-title="打骂孩子，还是由着孩子？"><span class="qno">No.<b>25</b></span><span class="qb"><span class="qq">打骂孩子，还是由着孩子？</span><span class="qs">“不打不成器”和“快乐教育”之间——圣经、怀爱伦的劝告和研究怎么说</span><span class="qm">约 15 分钟 · 12 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext" href="prayer.html" data-art="qa30" data-title="祷告为什么常常没有应验？"><span class="qno">No.<b>29</b></span><span class="qb"><span class="qq">祷告为什么常常没有应验？</span><span class="qs">上帝既然知道一切，为什么还要求？保罗的刺、客西马尼园、“不叫我们遇见试探”</span><span class="qm">约 30 分钟 · 18 章</span></span><span class="qgo" aria-hidden="true">→</span></a></div></section><section class="qshelf hasseek" data-c="life" id="qc-life" style="--qc:var(--qc-life)"><header class="qsh"><span class="qsn">07</span><h2>人生与中国处境</h2><span class="qsc">5 篇</span><p>人为什么活着、钱财、健康饮食，以及算命风水、清明祭祖</p></header><div class="qlist"><a class="qcard qrow qext seek" href="life.html" data-art="qa18" data-title="人活着，到底为了什么？"><span class="qno">No.<b>17</b></span><span class="qb"><span class="qq">人活着，到底为了什么？</span><span class="qs">考上了、买了房、退休了，然后呢？内卷、躺平、中年空虚——传道书和耶稣的回答</span><span class="qm">约 15 分钟 · 13 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="money.html" data-art="qa21" data-title="钱是万恶之根吗？"><span class="qno">No.<b>20</b></span><span class="qb"><span class="qq">钱是万恶之根吗？</span><span class="qs">基督徒能不能富有？什一、借债、理财和知足，圣经怎么说</span><span class="qm">约 15 分钟 · 13 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="health.html" data-art="qa22" data-title="抽烟、喝酒、吃什么，和信仰有关系吗？"><span class="qno">No.<b>21</b></span><span class="qb"><span class="qq">抽烟、喝酒、吃什么，和信仰有关系吗？</span><span class="qs">复临信徒为什么不抽烟、不喝酒、不吃猪肉？耶稣不是把水变成酒吗？</span><span class="qm">约 15 分钟 · 12 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="fortune.html" data-art="qa23" data-title="算命、风水、星座、看日子，到底灵不灵？"><span class="qno">No.<b>22</b></span><span class="qb"><span class="qq">算命、风水、星座、看日子，到底灵不灵？</span><span class="qs">为什么觉得准？科学怎样测试？圣经为什么劝人远离？家里长辈要看日子怎么办？</span><span class="qm">约 15 分钟 · 11 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a><a class="qcard qrow qext seek" href="ancestor.html" data-art="qa24" data-title="清明祭祖，基督徒算不算不孝？"><span class="qno">No.<b>23</b></span><span class="qb"><span class="qq">清明祭祖，基督徒算不算不孝？</span><span class="qs">扫墓、上香、磕头、烧纸——纪念和敬拜的界线在哪里？怎样和家人说？</span><span class="qm">约 15 分钟 · 12 章<i class="qtag">给慕道朋友</i></span></span><span class="qgo" aria-hidden="true">→</span></a></div></section></div>
+  <a class="qidxlink" href="qa-index.html"><span class="ae-ic" aria-hidden="true">✦</span><span class="ae-t"><b>经文索引</b><small>按圣经书卷查：哪几篇问题彩蛋讲过这一章</small></span><span class="ae-go">打开 →</span></a>
+  <div class="qsoon"><span>✦</span>更多问题陆续加入</div>
   <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
 </div>

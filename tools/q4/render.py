@@ -719,21 +719,44 @@ def qa_pages():
     items = [it for it in qa_data.ITEMS if not it.get('url')]      # 有 url 的是独立网页，只放卡片
     def href(it):
         return f'href="{it["url"]}" data-art="{it["id"]}" data-title="{it["q"]}"' if it.get('url') else f'href="#{it["id"]}"'
-    cards = ''.join(f'''<a class="qcard{' qext' if it.get('url') else ''}" {href(it)}>
-  <span class="spark" aria-hidden="true">✦</span>
-  <span class="qt"><span class="qno">问答 {it['no']:02d}</span><span class="qday">第{it['lesson']}课 · {it['dayname']}</span></span>
-  <span class="qq">{it['q']}</span>
-  <span class="qs">{it['sub']}</span>
-  <span class="qx">{it['teaser']}</span>
-  <span class="qgo">{'打开专题网页 →' if it.get('url') else '阅读解答 →'}</span>
-</a>''' for it in qa_data.ITEMS)
+    # 2026-10-23 分类改版：顶上一排分类标签，按 7 个大类分“书架”，每篇一行目录卡；三条阅读路线；经文索引另成一页
+    import qa_catalog
+    byid = {it['id']: it for it in qa_data.ITEMS}
+    def card(it):
+        m = qa_catalog.meta(it)
+        bits = [f'约 {m["mins"]} 分钟'] + ([f'{m["chs"]} 章'] if m['chs'] else ['短文'])
+        seek = it['id'] in qa_data.SEEKER
+        tag = '<i class="qtag">给慕道朋友</i>' if seek else ''
+        return (f'<a class="qcard qrow{" qext" if it.get("url") else ""}{" seek" if seek else ""}" {href(it)}>'
+                f'<span class="qno">No.<b>{it["no"]:02d}</b></span>'
+                f'<span class="qb"><span class="qq">{it["q"]}</span><span class="qs">{it["sub"]}</span>'
+                f'<span class="qm">{" · ".join(bits)}{tag}</span></span><span class="qgo" aria-hidden="true">→</span></a>')
+    nseek = len(qa_data.SEEKER)
+    chips = (f'<button type="button" class="qchip" data-f="all" aria-pressed="true">全部<b>{len(qa_data.ITEMS)}</b></button>'
+             + ''.join(f'<button type="button" class="qchip" data-f="{k}" aria-pressed="false" style="--qc:var(--qc-{k})"><i></i>{n}<b>{sum(1 for it in qa_data.ITEMS if it["cat"] == k)}</b></button>'
+                       for k, n, _ in qa_data.CATS)
+             + f'<button type="button" class="qchip qchip-seek" data-f="seek" aria-pressed="false">给慕道朋友<b>{nseek}</b></button>')
+    shelves = ''
+    for k_i, (k, n, d) in enumerate(qa_data.CATS, 1):
+        its = [it for it in qa_data.ITEMS if it['cat'] == k]
+        hs = ' hasseek' if any(it['id'] in qa_data.SEEKER for it in its) else ''
+        shelves += (f'<section class="qshelf{hs}" data-c="{k}" id="qc-{k}" style="--qc:var(--qc-{k})">'
+                    f'<header class="qsh"><span class="qsn">{k_i:02d}</span><h2>{n}</h2><span class="qsc">{len(its)} 篇</span><p>{d}</p></header>'
+                    f'<div class="qlist">{"".join(card(it) for it in its)}</div></section>')
+    paths = ''.join(f'<div class="qpath"><h3>{t}</h3><p>{d}</p><ol>'
+                    + ''.join(f'<li><a {href(byid[x])}><span class="qpn">{byid[x]["no"]:02d}</span>{byid[x]["q"]}</a></li>' for x in ids)
+                    + '</ol></div>' for t, d, ids in qa_data.PATHS)
     out = [f'''<div class="lesson" id="qa" data-title="问题彩蛋 · 预言的恩赐">
-<section class="qahome">
+<section class="qahome" data-f="all">
   <p class="eyebrow">研经问答 · 陆续更新</p>
   <h1>问题彩蛋</h1>
-  <p class="lead">学课中常遇到的问题，结合全本圣经和怀爱伦著作逐一深入解答。点开任意一题即可阅读；问答文章都附 PDF 版，专题网页可以直接转发链接。</p>
+  <p class="lead">学课中常遇到的问题、信徒和慕道朋友常问的问题，结合全本圣经和怀爱伦著作逐一深入解答。共 {len(qa_data.ITEMS)} 篇，分 {len(qa_data.CATS)} 类；每篇都可以转发，也可以答题后下载 PDF。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa">{SHAREIC}分享问题彩蛋</button></p>
-  <div class="qcards">{cards}<div class="qsoon"><span>✦</span>更多问题陆续加入</div></div>
+  <div class="qchips" role="group" aria-label="按类别查看">{chips}</div>
+  <details class="qpaths"><summary><span>三条阅读路线</span><small>不知道从哪里读起？点开按顺序读：{" · ".join(t for t, _, _ in qa_data.PATHS)}</small><svg class="ic qpchev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="qpgrid">{paths}</div></details>
+  <div class="qshelves">{shelves}</div>
+  <a class="qidxlink" href="qa-index.html"><span class="ae-ic" aria-hidden="true">✦</span><span class="ae-t"><b>经文索引</b><small>按圣经书卷查：哪几篇问题彩蛋讲过这一章</small></span><span class="ae-go">打开 →</span></a>
+  <div class="qsoon"><span>✦</span>更多问题陆续加入</div>
   <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
 </div>''']

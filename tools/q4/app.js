@@ -1053,6 +1053,10 @@ window.Q4Hub=(function(){
   var DN={sab:'安息日下午',sun:'星期日',mon:'星期一',tue:'星期二',wed:'星期三',thu:'星期四',fri:'星期五',sum:'安息日课堂'};
   var AB={sab:'安',sun:'日',mon:'一',tue:'二',wed:'三',thu:'四',fri:'五',sum:'课'};
 
+  /* 问题彩蛋分类标签（2026-10-23）：点一个类别只看这一类；再点“全部”恢复。只改 data-f，显示和隐藏都交给 CSS */
+  document.addEventListener('click',function(e){var c=e.target.closest('.qchip');if(!c)return;var h=c.closest('.qahome');if(!h)return;
+    h.dataset.f=c.dataset.f;h.querySelectorAll('.qchip').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');});
+    var sh=h.querySelector('.qshelves');if(sh&&sh.getBoundingClientRect().top<0)sh.scrollIntoView({block:'start'});});
   /* ===== 1. 提醒 ===== */
   var arts=[].slice.call(document.querySelectorAll('.lesson[id^="qa"]')).map(function(x){return x.id;}).filter(function(id){return /^qa\d+$/.test(id);});
   var EXT={};   // 独立网页的问答（例如 history.html）：卡片上有 data-art
