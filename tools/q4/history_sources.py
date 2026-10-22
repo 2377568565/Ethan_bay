@@ -732,6 +732,45 @@ SRC.update({
  'da762':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第762页', None, []),
  'da764':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第764页', None, []),
 })
+# 问题彩蛋32（天堂）用到的资料（2026-10 读取原文核对）
+SRC.update({
+ 'twain_w': ('马克·吐温《地球来信》（1909年写成，1962年出版；维基百科英文版）', 'https://en.wikipedia.org/wiki/Letters_from_the_Earth', ['heaven']),
+ 'parad_w': ('“乐园”（paradise）一词的来历（维基百科英文版：古波斯语“有墙的园子”，七十士译本用来译伊甸园）', 'https://en.wikipedia.org/wiki/Paradise', ['Persian']),
+ 'twain_q': ('马克·吐温《地球来信》第2封信（维基语录英文版所录原文）', 'https://en.wikiquote.org/wiki/Letters_from_the_Earth', ['diversions']),
+ 'wcf32': ('《威斯敏斯德信条》第32章“人死后的状态和死人复活”（1646年，英文原文）', 'https://www.opc.org/wcf.html', ['highest heavens']),
+ 'mortal_w': ('“灵魂睡觉”之说的历史（维基百科英文版：Christian mortalism；丁道尔1530年《答托马斯·莫尔》、复临安息日会）', 'https://en.wikipedia.org/wiki/Christian_mortalism', ['Tyndale']),
+ 'sdafb28': ('基督复临安息日会基本信仰第28条“新天新地”（官网原文，网页存档）', 'https://www.adventist.org/the-new-earth/', ['learning']),
+ 'wright_w': ('赖特（N. T. Wright）与《惊人的盼望》（Surprised by Hope，2008；维基百科英文版）', 'https://en.wikipedia.org/wiki/N._T._Wright', ['Surprised by Hope']),
+ 'ccc1042': ('《天主教教理》第1042—1047条“新天新地”（英文版；第1042条“宇宙本身也要被更新”，第1046条引罗马书8章）', 'https://www.scborromeo.org/ccc/para/1042.htm', ['renewed']),
+ 'ccc1045': ('《天主教教理》第1045条（英文版：上帝“以取之不尽的方式”向蒙拣选的人敞开自己）', 'https://www.scborromeo.org/ccc/para/1045.htm', ['inexhaustible']),
+ 'iren532': ('爱任纽《驳异端》第5卷第32章（约180年，英译本）', 'https://www.newadvent.org/fathers/0103532.htm', ['creation']),
+ 'stadion_w': ('斯他迪亚（stadion）的长度（维基百科英文版）', 'https://en.wikipedia.org/wiki/Stadion_(unit)', ['185']),
+ 'newjer_w': ('新耶路撒冷（维基百科英文版：尺寸的字面与象征理解）', 'https://en.wikipedia.org/wiki/New_Jerusalem', ['12,000']),
+ 'mansion_w': ('拉丁文 mansio（“停留的地方、住处”；维基词典）', 'https://en.wiktionary.org/wiki/mansio', ['dwelling']),
+ 'brickman': ('Brickman P, Coates D, Janoff-Bulman R. Lottery winners and accident victims: is happiness relative? J Pers Soc Psychol 1978;36(8):917-27（彩票得主并不比对照组更快乐；PubMed 690806）', 'https://doi.org/10.1037//0022-3514.36.8.917', []),
+ 'eastwood': ('Eastwood JD, Frischen A, Fenske MJ, Smilek D. The Unengaged Mind: Defining Boredom in Terms of Attention. Perspect Psychol Sci 2012;7(5):482-95（无聊的定义；PubMed 26168505）', 'https://doi.org/10.1177/1745691612456044', []),
+ 'chesterton': ('切斯特顿《回到正统》（Orthodoxy，1908）第4章“童话的伦理”（英文原著，古登堡计划）', 'https://www.gutenberg.org/ebooks/130', ['Do it again']),
+ 'aug2230': ('奥古斯丁《上帝之城》第22卷第30章（英译本）', 'https://www.newadvent.org/fathers/120122.htm', ['end without end']),
+ 'lewis_mc': ('路易斯（C. S. Lewis）《返璞归真》（Mere Christianity）第3卷第10章“盼望”（维基语录英文版所录原文）', 'https://en.wikiquote.org/wiki/Mere_Christianity', ['another world']),
+})
+SRC.update({
+ 'gc644': ('怀爱伦《善恶之争》第40章“上帝的子民蒙拯救”，英文原著第644—645页', None, []),
+ 'gc645': ('怀爱伦《善恶之争》第40章“上帝的子民蒙拯救”，英文原著第645页', None, []),
+ 'gc661': ('怀爱伦《善恶之争》第41章“地球荒凉”，英文原著第661页', None, []),
+ 'gc674': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第674—675页', None, []),
+ 'gc674b': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第674页', None, []),
+ 'gc676': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第676页', None, []),
+ 'gc677a': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第677页', None, []),
+ 'gc677': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第677页', None, []),
+ 'gc678b': ('怀爱伦《善恶之争》第42章“善恶之争的结束”，英文原著第678页', None, []),
+ 'ed303': ('怀爱伦《教育论》第27章“来生的学校”，英文原著第303页', None, []),
+ 'ed305': ('怀爱伦《教育论》第27章“来生的学校”，英文原著第305页', None, []),
+ 'ed307': ('怀爱伦《教育论》第27章“来生的学校”，英文原著第307页', None, []),
+ 'ed307b': ('怀爱伦《教育论》第27章“来生的学校”，英文原著第307页', None, []),
+ 'ed308': ('怀爱伦《教育论》第27章“来生的学校”，英文原著第308页', None, []),
+ 'pp50': ('怀爱伦《先祖与先知》第2章“创造”，英文原著第50页', None, []),
+ 'sm1_172': ('怀爱伦《信息选粹》第1卷“关于来生的猜测”，英文原著第172—173页', None, []),
+})
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
@@ -741,3 +780,4 @@ EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da6
             'mh483', 'mh486', 'mh487', 'da146', 'da752', 'ah360', 'ah363', 'ah438', 'ah441',
             'mh229', 'mh241', 'mh251', 'mh360', 'mh373', 'mh481', 'sc116'}
 EGW_KEYS |= {'sc13', 'sc35', 'pp63', 'pp66', 'pp68', 'pp68b', 'pp69', 'pp72', 'da25b', 'da753', 'da758', 'da761', 'da762', 'da764'}
+EGW_KEYS |= {'gc644', 'gc645', 'gc661', 'gc674', 'gc674b', 'gc676', 'gc677a', 'gc677', 'gc678b', 'ed303', 'ed305', 'ed307', 'ed307b', 'ed308', 'pp50', 'sm1_172'}

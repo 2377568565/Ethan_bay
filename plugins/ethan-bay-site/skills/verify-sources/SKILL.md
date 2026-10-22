@@ -58,6 +58,9 @@ description: 核对经文和怀爱伦著作等引文是否逐字准确、出处�
    （`gh api .../jobs/<id>/logs` 读日志会被拒绝，所以用 check run 传文字。）
 4. 查完**马上清理**：删掉这两个文件并提交；有版权的全文，用 PATCH 把那些 check run 的 `output.text` 改成空；
    `gh api -X DELETE repos/2377568565/Ethan_bay/actions/runs/<run_id>/logs` 删掉日志。
+- **教训（2026-10-22）**：任务有时间上限（`timeout-minutes`），超时会被取消，最后才统一发出的结果就全丢了。要读的页数多时：把时间上限放宽到 40 分钟，并且**每读到一份就马上发一条 check run**（`post(key, text)`），不要攒到最后。
+- 怀爱伦著作逐页原版（`media2.egwwritings.org/swf/en_XX/files/assets/seo/pageN.html`）的 seo 页码和标准页码的对应因书而异，而且同一本书前后也会变：《善恶之争》GC 644 ↔ seo541、GC 674 ↔ seo565；《教育论》Ed 303 ↔ seo230；PP 50 ↔ seo37；1SM 172 ↔ seo159。先取一小段看文字里的 `[数字]`（标准页码，**标在那一页的开头**），再定范围。
+- adventist.org 直接读会被拒（429），可以读网页时光机的存档：`https://web.archive.org/web/2024id_/https://www.adventist.org/the-new-earth/`（核对方式记为 `archive 2024`）。名人名言可用维基语录（en.wikiquote.org）核对原文和章节。
 - 这样做只是让 GitHub 的机器替我们打开公开网页，不是绕过限制；如果网站本身拒绝（403/429），换别的来源，不要硬闯。
 
 ## 5. 写进网页时
