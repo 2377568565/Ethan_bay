@@ -146,3 +146,33 @@ def qod():
     out.append(text(L + 28, 417, '让分歧的双方“彼此聆听”', 'ts'))
     out.append('</svg>')
     return '\n'.join(out)
+
+
+# ---------------- 图 4：身体与心意（参考资料的图，编者重画并补充） ----------------
+def natures():
+    W, H = 400, 430
+    out = [f'<svg viewBox="0 0 {W} {H}" class="dg" role="img" aria-labelledby="jsn4t jsn4d">',
+           '<title id="jsn4t">身体与心意：六种状态</title>',
+           '<desc id="jsn4d">每个方框外框代表身体，内框代表心意。白色外框：没有退化的身体；带点的外框：被罪削弱、退化的身体。'
+           '金色内框：向着上帝的心意；红色内框：向着自己的心意。亚当堕落前：白外框、金内框。亚当堕落后：点外框、红内框。'
+           '耶稣在世：点外框、金内框。重生的人：点外框、金内框，但内框里还有几个红点，表示还有待治死的倾向（编者补充）。'
+           '耶稣复活后、义人复活后：白外框、金内框。参考资料的原图把重生的人画成和耶稣一样；编者加了红点。</desc>',
+           '<defs><pattern id="jsdots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" class="root"/></pattern></defs>']
+    cells = [('亚当堕落前', False, 'w'), ('亚当堕落后', True, 'b'),
+             ('耶稣在世', True, 'w'), ('重生的人（编者补充红点）', True, 's'),
+             ('耶稣复活以后', False, 'w'), ('义人复活以后', False, 'w')]
+    for i, (lab, fallen, mind) in enumerate(cells):
+        x = 22 + (i % 2) * 192
+        y = 14 + (i // 2) * 124
+        out.append(f'<rect x="{x}" y="{y}" width="164" height="80" rx="6" class="box"/>')
+        if fallen:
+            out.append(f'<rect x="{x}" y="{y}" width="164" height="80" rx="6" fill="url(#jsdots)"/>')
+        out.append(f'<rect x="{x + 47}" y="{y + 22}" width="70" height="36" rx="3" class="{"f6" if mind == "b" else "f4"} fillc"/>')
+        if mind == 's':
+            for dx, dy in ((14, 10), (40, 24), (58, 12)):
+                out.append(f'<circle cx="{x + 47 + dx}" cy="{y + 22 + dy}" r="3.2" class="f6 fillc"/>')
+        out.append(text(x + 82, y + 98, lab, 'tn hi' if i in (2, 3) else 'tn', 'middle'))
+    out.append(text(W / 2, 392, '外框＝身体（带点：被罪削弱）；内框＝心意（金：向着上帝；红：向着自己）', 'ts', 'middle'))
+    out.append(text(W / 2, 412, '依据参考资料的图重画；“重生的人”里的红点是编者补充', 'tw', 'middle'))
+    out.append('</svg>')
+    return '\n'.join(out)

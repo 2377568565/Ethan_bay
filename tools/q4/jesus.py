@@ -13,7 +13,7 @@ OUT = ARGS[0] if ARGS else os.path.join(H.ROOT, 'jesus.html')
 TITLE = '耶稣是人还是神？'
 NO = {cid: i + 1 for i, (_, cid, _, _) in enumerate(T.CHAPTERS)}
 NAME = {cid: t for _, cid, t, _ in T.CHAPTERS}
-FIGS = {'chalcedon': G.chalcedon, 'power': G.power, 'qod': G.qod}
+FIGS = {'chalcedon': G.chalcedon, 'power': G.power, 'qod': G.qod, 'natures': G.natures}
 EXTRA_CSS = r'''
 .dg .jsep{stroke:#fff;stroke-width:1.5;stroke-dasharray:3 4;opacity:.7}
 .dg .jone{fill:var(--surface);stroke:var(--ink);stroke-width:1.4}

@@ -547,6 +547,7 @@ SRC.update({
  'da718': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第717—719页', None, []),
  'da720': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第720—721页', None, []),
  'da722': ('怀爱伦《历代愿望》第76章“犹大”，英文原著第721—722页', None, []),
+ 'ctr208': ('怀爱伦《得胜的基督》（Christ Triumphant）7月20日“在基督里我们可以有完全的人性”，英文原著第208页（出自1890年第57号文稿，载《文稿发布》第16卷180—183页）', None, []),
  # 《家人总在念叨》（listen.py）用到的资料：医学文献 2026-10 在 PubMed 逐篇核对（摘要、DOI）；怀著和百科用临时任务读取原文核对
  'linton12': ('Linton SJ, et al. Painfully reassuring? The effects of validation on emotions and adherence in a pain test. Eur J Pain 2012;16(4):592-9（“认可感受”与“否定感受”的随机对照实验；PubMed 22396087）', 'https://doi.org/10.1016/j.ejpain.2011.07.011', []),
  'starr08':  ('Starr LR, Davila J. Excessive reassurance seeking, depression, and interpersonal rejection: a meta-analytic review. J Abnorm Psychol 2008;117(4):762-75（反复寻求安慰、抑郁与被人疏远：荟萃分析；PubMed 19025224）', 'https://doi.org/10.1037/a0013866', []),
@@ -697,7 +698,7 @@ SRC.update({
  'da787':    ('怀爱伦《历代愿望》第81章“主已经复活了”，英文原著第787页', None, []),
 })
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
-EGW_KEYS = {'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
+EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
             'gc493', 'aa560', 'aa561', 'pp48', 't6_354', 't6_355', 't6_357', 't6_358', 't6_361', 't6_362',
             'sc19', 'sc31', 'sc47', 'sc51', 'sc57', 'sc60', 'sc62', 'sc64', 'col155', 'da668', 'da671b', 'gc425', 'gc471', 'mb76', 'sc10', 'pp366', 'gc36', 'pp207', 't2_194', 'sm1_188', 'gc458', 'da633', 'gc518', 'col69', 'sm1_382',
