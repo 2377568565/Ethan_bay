@@ -176,6 +176,13 @@ python3 tools/q4/beast.py --pdf   # 666 和兽的印记：图 map（但7章四�
 - `qa_data.py` 里 id 是 `qa27`，卡片编号 26；下架的补充问答 qa5 编号改为 27。
 - 资料：2026-10-13 用临时任务读取（GC/LDE/Ev/TM 原版逐页、约20个百科页面、爱任纽《驳异端》5.30、《天主教教理》882/1461）；`history.py` 的 PRIMARY 加了 `irenaeus`。
 
+## 像素小羊和点阵星空（`lamb.py`、`pixsky.py`，2026-10-22）
+- `lamb.py`：文字网格 `G16`（标志）、`G24`（正式版）是原稿。`base24()` 去掉眼睛和手臂当底图，`LAYERS` 是可换的小图层（睁眼、闭眼、笑眼、左看、右看、手臂、z、金色闪光），`FRAMES` 是每一帧用哪几层，`STATES` 是状态表（触发条件、帧序列和毫秒）。
+  `sprite(px, title, enter)` 把底图和全部图层放进一个 SVG（约 2.6 KB）；`sprite_css()` 只显示 `data-on` 列出的图层；`sprite_js()` 是状态机；`logo()` 是 16×16 标志；`pop_css()`、`pop_js()` 是打卡时弹出的小卡片。
+  `python3 tools/q4/lamb.py 目录` 输出预览 SVG 和剪影图，并打印大小、校验值。
+- `pixsky.py`：180×56 格的点阵星空。`dith()` 是 Bayer 4×4 有序抖动（月亮的明暗交界、启明星光晕、地平线晨光），`poisson()` 是带固定种子的泊松圆盘（星星），`Rng` 是自己写的小随机数发生器（不随 Python 版本变）。
+- 用到的地方：`history.py`（问题彩蛋开头 `ORN`、页尾 `SCENE`、`SCENE_CSS`、`LAMB_JS`），`render.py`（侧栏标志、打卡小卡片的 CSS 和 JS），`welcome.py`（首页左上角），`app.js`（打卡时 `q4lamb.pop()`）。
+
 ## 专题网页的“分享”和“下载 PDF”（每个问题彩蛋都要有）
 - `topic_tools.py`：分享（微信分享 / 复制链接 / 系统分享 / 电脑二维码，分享后送一节经文）和答题后下载 PDF。
   专题网页生成时把 `topic_tools.build(id, title, page, pdf, quiz, ref)` 的结果传给 `history.doc(..., tools)`。

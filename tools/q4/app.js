@@ -1130,6 +1130,7 @@ window.Q4Hub=(function(){
     var box=b.closest('.ckin'),k=box.dataset.ck;
     set('ck:'+k,'1');b.disabled=true;paintCk();   // 先在本机记下，马上有反馈
     if(window.Q4Burst)Q4Burst(b);   // 打卡：按钮变绿，小金点散开
+    if(window.q4lamb&&q4lamb.pop)q4lamb.pop();   // 打卡那一刻：下方弹出小羊，欢喜跳三下（2.2 秒后收起）
     var c=box.querySelector('.ck-cheer');c.textContent=cheers[Math.floor(Math.random()*cheers.length)];c.hidden=false;box.classList.add('pop');
     setTimeout(function(){box.classList.remove('pop');},900);
     H.post({op:'c',id:H.rid('c'),k:k}).then(paintCk,function(){/* 没联网也没关系：本机已记下；下次联网再补 */set('ckpend',JSON.stringify(pend().concat([k])));});

@@ -4,6 +4,7 @@
       python3 render.py all            生成全部单课文件 + 全季合集
 """
 import welcome, intro, bible, qa_data
+import lamb
 import urllib.parse
 import re, sys, os, html, datetime, importlib, subprocess, json
 Q4 = os.path.dirname(os.path.abspath(__file__))
@@ -341,8 +342,13 @@ def prefix(frag, no):
 
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
 THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
+# 像素小羊（2026-10-22）：左上角标志（16×16，深色底上用夜间配色）、打卡时弹出的小卡片
+THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css('.wlogo') + lamb.pop_css()
+              + '.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}'
+              + '.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}\n')
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
-JS = open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
+JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
+      + '\n' + lamb.sprite_js() + lamb.pop_js())
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <details class="fnote fold"><summary><span class="fs">版权与引用说明</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -541,7 +547,7 @@ def homeui():
         return f'<a href="{href}" data-t="{t}" data-tip="{label}"{extra}>{icon}<span class="lbl">{label}</span></a>'
     nqa = len(qa_data.ITEMS)
     side = (f'<aside class="side" id="side" aria-label="栏目">'
-            f'<a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark">{I_DAWN}</span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a>'
+            f'<a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark">{lamb.logo(32)}</span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a>'
             f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索</span><kbd>Ctrl K</kbd></button>'
             '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课', 'home') +
             f'<a href="#qa" data-t="qa" data-tip="问题彩蛋" data-egg>{I_SPARK}<span class="lbl">问题彩蛋</span><em class="lbl cnt">{nqa}</em></a>' +
@@ -816,7 +822,7 @@ def build_combined(nos):
         bottom = f'<nav class="lnext" aria-label="上一课下一课">{pn(n - 1, -1)}{pn(n + 1, 1)}</nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
-    ui = dict(user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
+    ui = dict(logo=lamb.logo(32), user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
               nqa=len(qa_data.ITEMS), nsongs=len(songs()))
     body = welcome.welcome_html(titles, ui) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)

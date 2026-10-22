@@ -6,6 +6,7 @@
 import html, json, os, re, sys, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bible
+import lamb, pixsky
 import history_text as T, history_data as D, history_svg as G, history_sources as SR
 try:
     from history_checked import CHECKED      # 核对通过的网址（由 GitHub 上的核对结果整理）
@@ -367,7 +368,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None):
 <p class="note2">和学课网站的设置是同一套。</p></div></div>
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
-<script>{JS}</script>
+<script>{JS}{LAMB_JS}</script>
 {tail}
 </body>
 </html>
@@ -412,36 +413,19 @@ def related(title):
     return f'<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg">{"".join(cards)}</div></section>'
 
 
-def _spark(x, y, r):
-    a = r * 0.28
-    return (f'<path class="spk" d="M{x} {y - r}L{x + a:.1f} {y - a:.1f}L{x + r} {y}L{x + a:.1f} {y + a:.1f}L{x} {y + r}'
-            f'L{x - a:.1f} {y + a:.1f}L{x - r} {y}L{x - a:.1f} {y - a:.1f}Z"/>')
+ORN = '<span class="orn">' + lamb.sprite(48, '小羊') + '</span>'   # 开头：小羊（第一次看到时左右看一下、眨眼）
 
+# 页尾：点阵星空 + 站在地平线上的小羊（读到这里＝读完一篇，它欢喜跳三下；深夜它睡着）。经文放在星空上面，离会动的小羊远一些。
+SCENE = ('<div class="scene"><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p><div class="stage">'
+         + pixsky.svg() + lamb.sprite(48, '小羊', enter='joy') + '</div></div>')
 
-ORN = ('<svg class="orn" viewBox="0 0 132 48" aria-hidden="true">'
-       '<ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/>'
-       '<path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/>'
-       + _spark(78, 12, 6) + _spark(104, 30, 4) + _spark(56, 38, 3) +
-       '<circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/>'
-       '</svg>')
-
-_stars = ''.join(f'<circle cx="{x}" cy="{y}" r="{r}" class="sd"/>' for x, y, r in
-                 [(40, 30, 1.4), (96, 64, 1), (150, 22, 1.2), (210, 52, 1), (268, 18, 1.5), (330, 70, 1.1), (402, 28, 1),
-                  (452, 58, 1.3), (520, 16, 1), (600, 30, 1.2), (660, 70, 1), (700, 24, 1.4), (24, 96, 1), (360, 40, 1.2)])
-SCENE = ('<div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210">'
-         '<defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs>'
-         '<rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/>'
-         '<path class="hz" d="M0 186 Q360 142 720 186"/>'
-         + _stars + _spark(122, 44, 7) + _spark(486, 30, 5) + _spark(300, 92, 4) + _spark(640, 104, 5) +
-         '<path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/>'
-         '<g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/>'
-         '<path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g>'
-         '<g class="dove"><g transform="translate(300 96)">'
-         '<path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/>'
-         '<path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/>'
-         '<path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/>'
-         '<ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g>'
-         '</svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>')
+# 星空每格的大小：手机 2px（360×112，小羊 48px），宽屏 3px（540×168，小羊 72px）。都是整数倍，点和小羊的像素一样清楚。
+_LX, _LY, _ = pixsky.LAMB
+SCENE_CSS = ''.join(
+    (f'@media (min-width:600px){{' if k == 3 else '')
+    + f'.scene .stage{{position:relative;flex:none;width:{pixsky.COLS * k}px;height:{pixsky.ROWS * k}px}}'
+    + f'.scene .lamb{{position:absolute;left:{_LX * k}px;top:{_LY * k}px;width:{24 * k}px;height:{24 * k}px}}'
+    + ('}' if k == 3 else '') for k in (2, 3)) + '.scene .sky{display:block;width:100%;height:100%}\n'
 
 
 CSS = r'''
@@ -775,11 +759,7 @@ html.sheetopen{overflow:hidden}
 .mini tr:hover td{background:var(--gold-soft)}
 .mini td:first-child{font-weight:600}
 .hero{position:relative;padding-top:58px}
-.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
-.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
-.orn .moon,.scene .moon{fill:var(--gold)}
-.orn .spk,.scene .spk{fill:var(--gold)}
-.orn .sd,.scene .sd{fill:var(--muted)}
+.orn{position:absolute;left:0;top:6px;width:48px;height:48px}
 .rel{margin:40px 0 0}
 .relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
 .relh::before{content:"└ ";font-family:var(--mono)}
@@ -790,24 +770,15 @@ html.sheetopen{overflow:hidden}
 .reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
 .relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
 .relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.scene{margin:36px -16px 0;text-align:center}
-.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
-.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
-.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
-.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
-.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
-.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
-.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
-.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
-.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
-.scene.in .dove{animation:fly 6s ease-in-out infinite}
-.scene.in .planet{animation:bob 9s ease-in-out infinite}
-@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+.scene{margin:40px -16px 0;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 16px 14px;text-align:center}
+'''+SCENE_CSS+r'''@media (prefers-reduced-motion:reduce){.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
 @media print{.orn,.scene,.rel,.pxw{display:none!important}}
+'''+lamb.sprite_css()+pixsky.CSS+r'''
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 '''
+
+LAMB_JS = lamb.sprite_js()   # 小羊的动作（开头和页尾两只）
 
 JS = r'''
 (function(){
@@ -868,9 +839,6 @@ JS = r'''
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
   /* 树形目录：点“部分”展开或收起 */
   document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
-  /* 页面底部的星空：看得见时才动 */
-  var sc=document.querySelector('.scene');
-  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){
