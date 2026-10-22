@@ -23,8 +23,9 @@ JOBS = [
     ('iren532', 'https://www.newadvent.org/fathers/0103532.htm', ['that very creation', 'restored', 'Abraham', 'inherit']),
     ('iren536', 'https://www.newadvent.org/fathers/0103536.htm', ['mansions', 'new heaven', 'hundred-fold', 'paradise', 'city']),
     ('ber17a', 'https://www.sefaria.org/api/texts/Berakhot.17a?context=0&commentary=0', ['World-to-Come', 'World to Come', 'eating', 'radiance', 'crowns']),
-    ('lewis_mc', 'https://archive.org/stream/MereChristianityCSLewis/Mere%20Christianity%20-%20C.%20S.%20Lewis_djvu.txt', ['another world', 'no experience in this world', 'Hope', 'Aim at Heaven', 'harps']),
-    ('lewis_wg', 'https://www.verber.com/mark/xian/weight-of-glory.pdf', ['too easily pleased', 'mud pies', 'ordinary people', 'immortal']),
+    ('lewis_mc', 'https://archive.org/stream/MereChristianityCSLewis/Mere%20Christianity%20-%20C.%20S.%20Lewis_djvu.txt', ['another world', 'no experience in this world', 'Aim at Heaven']),
+    ('lewis_mc2', 'https://www.fadedpage.com/books/20140843/html.php', ['another world', 'no experience in this world', 'Aim at Heaven']),
+    ('chesterton', 'https://www.gutenberg.org/cache/epub/130/pg130.txt', ['Do it again', 'appetite of infancy', 'younger than we']),
     ('sdafb_pdf', 'https://www.adventist.org/wp-content/uploads/2020/06/ADV-28Beliefs2020.pdf', ['Millennium', 'New Earth', 'eternal home', 'thousand years']),
     ('heaven_w', W + 'Heaven_in_Christianity', ['harp', 'cloud', 'New Earth', 'beatific', 'Adventist', 'recogni']),
     ('newjer_w', W + 'New_Jerusalem', ['12,000', 'stadia', 'cube', 'Holy of Holies', '144']),
@@ -41,12 +42,12 @@ JOBS = [
     ('nhe_w', W + 'New_Heaven_and_New_Earth', ['Isaiah 65', 'Revelation 21', 'renewal', 'annihilation', 'Adventist']),
 ]
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
-EGW = [('lde', 'en_LDE', range(230, 310), ['personal identity', 'recogni', 'Heaven is a school', 'marriage', 'little children', 'mothers'])]
-RAW = [('gc', 'en_GC', range(566, 618)), ('ed', 'en_Ed', range(224, 252)), ('pp', 'en_PP', range(34, 45)), ('sm1', 'en_1SM', range(148, 178))]
+EGW = []
+RAW = [('gca', 'en_GC', range(576, 585)), ('gcb', 'en_GC', range(606, 617)), ('ed', 'en_Ed', range(230, 245)), ('pp', 'en_PP', range(36, 43)), ('sm1', 'en_1SM', range(155, 173))]
 
 
 def get(url):
-    r = requests.get(url, headers=UA, timeout=90)
+    r = requests.get(url, headers=UA, timeout=40)
     if r.status_code != 200:
         return r.status_code, ''
     t = re.sub(r'(?is)<(script|style)\b.*?</\1>', ' ', r.text)
@@ -67,12 +68,22 @@ def ctx(key, full, pats, n=3, w=1100):
 
 
 OUT = {}
+api = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/check-runs"
+hd = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'}
+
+
+def post(key, t):
+    r = requests.post(api, headers=hd, json={'name': f'chk:{key}', 'head_sha': os.environ['GITHUB_SHA'], 'status': 'completed',
+                      'conclusion': 'neutral', 'output': {'title': key, 'summary': key, 'text': t[:65000]}})
+    print('check', key, len(t), r.status_code, flush=True)
+
+
 for key, url, pats in JOBS:
     try:
         c, t = get(url)
     except Exception as e:
         c, t = str(e)[:80], ''
-    OUT[key] = f'{c} {url}\n' + (ctx(key, t, pats) if pats else t[:60000])
+    post(key, f'{c} {url}\n' + (ctx(key, t, pats) if pats else t[:60000]))
 
 
 def page(bp):
@@ -104,10 +115,4 @@ with ThreadPoolExecutor(2) as ex:
         texts = list(ex.map(page, [(b, p) for p in seo]))
         full = ''.join(f' {{seo{p}}} ' + t for p, t in zip(seo, texts))
         for i in range(0, max(1, len(full)), 60000):
-            OUT[f'raw_{key}{ps[0]}_{i // 60000}'] = full[i:i + 60000]
-api = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/check-runs"
-hd = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'}
-for key, t in OUT.items():
-    r = requests.post(api, headers=hd, json={'name': f'chk:{key}', 'head_sha': os.environ['GITHUB_SHA'], 'status': 'completed',
-                      'conclusion': 'neutral', 'output': {'title': key, 'summary': key, 'text': t[:65000]}})
-    print('check', key, len(t), r.status_code)
+            post(f'raw_{key}{ps[0]}_{i // 60000}', full[i:i + 60000])
