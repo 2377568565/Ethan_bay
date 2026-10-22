@@ -152,8 +152,12 @@ def qod():
 def natures():
     """照参考资料原图的意思重画（2026-10-23 依提供资料的牧者意见修改）：
     白＝圣洁、洁净；黑点＝罪的污染；黑＝被罪污染的心。框里的颜色固定，不随夜间模式颠倒；图下逐一说明每个记号。"""
-    W, H = 400, 560
+    W, H = 400, 586
     INK, PAPER = '#1A2132', '#FFFFFF'
+    OY = 8   # 整张图外面加一个框（2026-10-23 牧者建议）：白底黑框，像印在纸上的图，夜间也一样
+
+    def tx(x, y, s, cls, anchor='start'):   # 框里的字固定用深色（行内样式压过主题颜色）
+        return text(x, y, s, cls, anchor).replace('<text ', f'<text style="fill:{INK}" ', 1)
     out = [f'<svg viewBox="0 0 {W} {H}" class="dg" role="img" aria-labelledby="jsn4t jsn4d">',
            '<title id="jsn4t">身体与心意：六种状态</title>',
            '<desc id="jsn4d">每一格的外框代表身体，内框代表心意。外框白色：身体没有受罪的影响；外框带黑点：身体受了罪的影响。'
@@ -162,7 +166,8 @@ def natures():
            '重生的人：外框带黑点、内框白，因为宝血洗净了他，上帝看他好像从来没有犯过罪；他还会跌倒，是因为肉体的软弱。'
            '耶稣复活以后、义人复活以后：外框白、内框白。</desc>',
            f'<defs><pattern id="jsdots" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{PAPER}"/>'
-           f'<circle cx="3.5" cy="3.5" r="1.3" fill="{INK}"/></pattern></defs>']
+           f'<circle cx="3.5" cy="3.5" r="1.3" fill="{INK}"/></pattern></defs>',
+           f'<rect x="3" y="3" width="{W - 6}" height="{H - 6}" rx="10" fill="{PAPER}" stroke="{INK}" stroke-width="2.4"/>']
 
     def cell(x, y, w, h, fallen, mind):
         o = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>'
@@ -175,23 +180,23 @@ def natures():
              ('耶稣复活以后', False, 'w'), ('义人复活以后', False, 'w')]
     for i, (lab, fallen, mind) in enumerate(cells):
         x = 22 + (i % 2) * 192
-        y = 14 + (i // 2) * 124
+        y = 14 + OY + (i // 2) * 124
         out.append(cell(x, y, 164, 80, fallen, mind))
-        out.append(text(x + 82, y + 98, lab, 'tn hi' if i in (2, 3) else 'tn', 'middle'))
+        out.append(tx(x + 82, y + 98, lab, 'tn', 'middle'))
     # 图例：每个记号都写出意思
     legend = [(False, None, '外框白：身体没有受罪的影响'),
               (True, None, '外框带黑点：身体受了罪的影响（软弱、会死）'),
               (None, 'w', '内框白：心意圣洁、洁净'),
               (None, 'k', '内框黑：心意被罪污染、向着自己')]
     for k, (fallen, mind, s) in enumerate(legend):
-        y = 392 + k * 34
+        y = 392 + OY + k * 34
         if mind is None:
             out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
         else:
             out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{PAPER}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 2"/>')   # 白底，夜间也看得见黑框
             out.append(f'<rect x="38" y="{y + 6}" width="20" height="12" rx="2" fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
-        out.append(text(80, y + 17, s, 'ts'))
-    out.append(text(W / 2, 540, '重生的人：宝血洗净，心是洁白的；还会跌倒，是因为肉体的软弱', 'tw', 'middle'))
-    out.append(text(W / 2, 556, '依据参考资料的原图重画', 'tw', 'middle'))
+        out.append(tx(80, y + 17, s, 'ts'))
+    out.append(tx(W / 2, 548 + OY - 4, '重生的人：宝血洗净，心是洁白的；还会跌倒，是因为肉体的软弱', 'tw', 'middle'))
+    out.append(tx(W / 2, 564 + OY - 4, '依据参考资料的原图重画', 'tw', 'middle'))
     out.append('</svg>')
     return '\n'.join(out)
