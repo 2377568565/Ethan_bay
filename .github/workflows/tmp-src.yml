@@ -1,0 +1,19 @@
+name: tmp-src
+# 临时：在 GitHub 上打开容器里打不开的网页/PDF，把关键句存进“检查结果”（check run）供核对。查完删除本文件和 tools/q4/tmp_src.py。
+on:
+  push:
+    branches: [claude/adventist-lesson-analysis-dhqrxg]
+    paths: ['.github/workflows/tmp-src.yml', 'tools/q4/tmp_src.py']
+permissions:
+  contents: read
+  checks: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests pypdf
+      - run: python3 tools/q4/tmp_src.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
