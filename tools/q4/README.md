@@ -37,7 +37,7 @@ python3 tools/q4/history.py           # 生成仓库根目录的 history.html（
 - `history_checked.py`：核对通过的网址（直接打开的，或用网页时光机存档核对的）。页面只用这里面的网址；新加的资料没核对过，生成时会提示。
 - 怀爱伦著作等书籍按英文原著页码引用，没有网址。
 
-## 专题网页：耶稣是人还是神？（`jesus.html`）
+## 专题网页：耶稣具有完全的人性和完全的神性吗？（`jesus.html`，原名“耶稣是人还是神？”）
 ```sh
 python3 tools/q4/jesus.py             # 版式、出处、经文和家谱页共用 history.py；正文 jesus_text.py，三张图 jesus_svg.py
 ```

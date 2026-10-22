@@ -23,7 +23,7 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 | 某一课的内容 `data/lNN.py`、`render.py`、`gen_yw.py`、`welcome.py`、`intro.py`、`bible.py` | `python3 tools/q4/render.py all`（放后台跑） | 8–10 分钟 |
 | 只改了交互或样式 `app.js`、`base.css`、`extra.css`、`theme.css`，或 `qa_data.py` 加减卡片 | `python3 tools/q4/_combined_only.py` | 约 1 分钟 |
 | 专题页《基督教两千年家谱》 | `python3 tools/q4/history.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
-| 专题页《耶稣是人还是神？》 | `python3 tools/q4/jesus.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
+| 专题页《耶稣具有完全的人性和完全的神性吗？》（jesus） | `python3 tools/q4/jesus.py`（加 `--pdf` 同时重做 PDF） | 几秒（PDF 约 1 分钟） |
 | 补充问答（目前下架） | `python3 tools/q4/jesus2.py` | 几秒 |
 | 问题彩蛋 01/02 的 PDF | `python3 tools/q4/qa/build.py` | — |
 

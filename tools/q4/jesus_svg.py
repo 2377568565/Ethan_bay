@@ -150,29 +150,48 @@ def qod():
 
 # ---------------- 图 4：身体与心意（参考资料的图，编者重画并补充） ----------------
 def natures():
-    W, H = 400, 430
+    """照参考资料原图的意思重画（2026-10-23 依提供资料的牧者意见修改）：
+    白＝圣洁、洁净；黑点＝罪的污染；黑＝被罪污染的心。框里的颜色固定，不随夜间模式颠倒；图下逐一说明每个记号。"""
+    W, H = 400, 560
+    INK, PAPER = '#1A2132', '#FFFFFF'
     out = [f'<svg viewBox="0 0 {W} {H}" class="dg" role="img" aria-labelledby="jsn4t jsn4d">',
            '<title id="jsn4t">身体与心意：六种状态</title>',
-           '<desc id="jsn4d">每个方框外框代表身体，内框代表心意。白色外框：没有退化的身体；带点的外框：被罪削弱、退化的身体。'
-           '金色内框：向着上帝的心意；红色内框：向着自己的心意。亚当堕落前：白外框、金内框。亚当堕落后：点外框、红内框。'
-           '耶稣在世：点外框、金内框。重生的人：点外框、金内框，但内框里还有几个红点，表示还有待治死的倾向（编者补充）。'
-           '耶稣复活后、义人复活后：白外框、金内框。参考资料的原图把重生的人画成和耶稣一样；编者加了红点。</desc>',
-           '<defs><pattern id="jsdots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" class="root"/></pattern></defs>']
-    cells = [('亚当堕落前', False, 'w'), ('亚当堕落后', True, 'b'),
-             ('耶稣在世', True, 'w'), ('重生的人（编者补充红点）', True, 's'),
+           '<desc id="jsn4d">每一格的外框代表身体，内框代表心意。外框白色：身体没有受罪的影响；外框带黑点：身体受了罪的影响。'
+           '内框白色：心意圣洁、洁净；内框黑色：心意被罪污染、向着自己。'
+           '亚当堕落前：外框白、内框白。亚当堕落后：外框带黑点、内框黑。耶稣在世：外框带黑点、内框白。'
+           '重生的人：外框带黑点、内框白，因为宝血洗净了他，上帝看他好像从来没有犯过罪；他还会跌倒，是因为肉体的软弱。'
+           '耶稣复活以后、义人复活以后：外框白、内框白。</desc>',
+           f'<defs><pattern id="jsdots" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{PAPER}"/>'
+           f'<circle cx="3.5" cy="3.5" r="1.3" fill="{INK}"/></pattern></defs>']
+
+    def cell(x, y, w, h, fallen, mind):
+        o = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>'
+        iw, ih = w * .43, h * .45
+        o += (f'<rect x="{x + (w - iw) / 2:.1f}" y="{y + (h - ih) / 2:.1f}" width="{iw:.1f}" height="{ih:.1f}" rx="3" '
+              f'fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+        return o
+    cells = [('亚当堕落前', False, 'w'), ('亚当堕落后', True, 'k'),
+             ('耶稣在世', True, 'w'), ('重生的人', True, 'w'),
              ('耶稣复活以后', False, 'w'), ('义人复活以后', False, 'w')]
     for i, (lab, fallen, mind) in enumerate(cells):
         x = 22 + (i % 2) * 192
         y = 14 + (i // 2) * 124
-        out.append(f'<rect x="{x}" y="{y}" width="164" height="80" rx="6" class="box"/>')
-        if fallen:
-            out.append(f'<rect x="{x}" y="{y}" width="164" height="80" rx="6" fill="url(#jsdots)"/>')
-        out.append(f'<rect x="{x + 47}" y="{y + 22}" width="70" height="36" rx="3" class="{"f6" if mind == "b" else "f4"} fillc"/>')
-        if mind == 's':
-            for dx, dy in ((14, 10), (40, 24), (58, 12)):
-                out.append(f'<circle cx="{x + 47 + dx}" cy="{y + 22 + dy}" r="3.2" class="f6 fillc"/>')
+        out.append(cell(x, y, 164, 80, fallen, mind))
         out.append(text(x + 82, y + 98, lab, 'tn hi' if i in (2, 3) else 'tn', 'middle'))
-    out.append(text(W / 2, 392, '外框＝身体（带点：被罪削弱）；内框＝心意（金：向着上帝；红：向着自己）', 'ts', 'middle'))
-    out.append(text(W / 2, 412, '依据参考资料的图重画；“重生的人”里的红点是编者补充', 'tw', 'middle'))
+    # 图例：每个记号都写出意思
+    legend = [(False, None, '外框白：身体没有受罪的影响'),
+              (True, None, '外框带黑点：身体受了罪的影响（软弱、会死）'),
+              (None, 'w', '内框白：心意圣洁、洁净'),
+              (None, 'k', '内框黑：心意被罪污染、向着自己')]
+    for k, (fallen, mind, s) in enumerate(legend):
+        y = 392 + k * 34
+        if mind is None:
+            out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+        else:
+            out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{PAPER}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 2"/>')   # 白底，夜间也看得见黑框
+            out.append(f'<rect x="38" y="{y + 6}" width="20" height="12" rx="2" fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+        out.append(text(80, y + 17, s, 'ts'))
+    out.append(text(W / 2, 540, '重生的人：宝血洗净，心是洁白的；还会跌倒，是因为肉体的软弱', 'tw', 'middle'))
+    out.append(text(W / 2, 556, '依据参考资料的原图重画', 'tw', 'middle'))
     out.append('</svg>')
     return '\n'.join(out)
