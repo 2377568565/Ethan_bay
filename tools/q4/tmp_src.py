@@ -1,49 +1,28 @@
-# 临时：核对问题彩蛋32（天堂）要用的资料（网页关键句 + 怀著原版逐页文字）。查完删除。
+# 临时：核对问题彩蛋32（天堂）要用的资料（第二次）（网页关键句 + 怀著原版逐页文字）。查完删除。
 import io, os, re, html, requests
 from concurrent.futures import ThreadPoolExecutor
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
 W = 'https://en.wikipedia.org/wiki/'
+W = 'https://en.wikipedia.org/wiki/'
 JOBS = [
-    ('ccc1023', 'https://www.scborromeo.org/ccc/para/1023.htm', []),
-    ('ccc1024', 'https://www.scborromeo.org/ccc/para/1024.htm', []),
-    ('ccc1025', 'https://www.scborromeo.org/ccc/para/1025.htm', []),
-    ('ccc1026', 'https://www.scborromeo.org/ccc/para/1026.htm', []),
-    ('ccc1027', 'https://www.scborromeo.org/ccc/para/1027.htm', []),
-    ('ccc1028', 'https://www.scborromeo.org/ccc/para/1028.htm', []),
-    ('ccc1029', 'https://www.scborromeo.org/ccc/para/1029.htm', []),
-    ('ccc1042', 'https://www.scborromeo.org/ccc/para/1042.htm', []),
-    ('ccc1043', 'https://www.scborromeo.org/ccc/para/1043.htm', []),
-    ('ccc1044', 'https://www.scborromeo.org/ccc/para/1044.htm', []),
-    ('ccc1045', 'https://www.scborromeo.org/ccc/para/1045.htm', []),
-    ('ccc1046', 'https://www.scborromeo.org/ccc/para/1046.htm', []),
-    ('ccc1047', 'https://www.scborromeo.org/ccc/para/1047.htm', []),
-    ('ccc1048', 'https://www.scborromeo.org/ccc/para/1048.htm', []),
-    ('aug2230', 'https://www.newadvent.org/fathers/120122.htm', ['rest and see', 'end without end', 'seventh day', 'free will', 'recogni', 'know one another', 'see God']),
-    ('aug2229', 'https://www.newadvent.org/fathers/120122.htm', ['Chapter 29', 'bodily eyes', 'spiritual body']),
-    ('iren532', 'https://www.newadvent.org/fathers/0103532.htm', ['that very creation', 'restored', 'Abraham', 'inherit']),
-    ('iren536', 'https://www.newadvent.org/fathers/0103536.htm', ['mansions', 'new heaven', 'hundred-fold', 'paradise', 'city']),
-    ('ber17a', 'https://www.sefaria.org/api/texts/Berakhot.17a?context=0&commentary=0', ['World-to-Come', 'World to Come', 'eating', 'radiance', 'crowns']),
-    ('lewis_mc', 'https://archive.org/stream/MereChristianityCSLewis/Mere%20Christianity%20-%20C.%20S.%20Lewis_djvu.txt', ['another world', 'no experience in this world', 'Aim at Heaven']),
-    ('lewis_mc2', 'https://www.fadedpage.com/books/20140843/html.php', ['another world', 'no experience in this world', 'Aim at Heaven']),
-    ('chesterton', 'https://www.gutenberg.org/cache/epub/130/pg130.txt', ['Do it again', 'appetite of infancy', 'younger than we']),
-    ('sdafb_pdf', 'https://www.adventist.org/wp-content/uploads/2020/06/ADV-28Beliefs2020.pdf', ['Millennium', 'New Earth', 'eternal home', 'thousand years']),
-    ('heaven_w', W + 'Heaven_in_Christianity', ['harp', 'cloud', 'New Earth', 'beatific', 'Adventist', 'recogni']),
-    ('newjer_w', W + 'New_Jerusalem', ['12,000', 'stadia', 'cube', 'Holy of Holies', '144']),
-    ('stadion_w', W + 'Stadion_(unit)', ['185', 'Attic', 'metres', 'Roman']),
-    ('twain_w', W + 'Letters_from_the_Earth', ['harp', 'heaven', '1909', '1962', 'sing']),
-    ('wright_w', W + 'Surprised_by_Hope', ['2008', 'end of the world', 'resurrection', 'new creation']),
-    ('beat_w', W + 'Beatific_vision', ['face to face', '1 Corinthians', 'Aquinas', 'Benedict XII']),
-    ('inter_w', W + 'Intermediate_state', ['soul sleep', 'Adventist', 'Luther', 'Tyndale']),
-    ('parad_w', W + 'Paradise', ['Persian', 'pairi', 'walled', 'Septuagint']),
-    ('mc_w', W + 'Mere_Christianity', ['1952', 'broadcast', 'BBC', '1941']),
-    ('wtc_w', W + 'World_to_come', ['Olam', 'Berakhot', 'eating', 'Maimonides']),
-    ('somasema_w', W + 'Soma_sema', ['tomb', 'Gorgias', 'Cratylus', 'Orphic']),
-    ('mansion_w', 'https://en.wiktionary.org/wiki/mansio', ['dwelling', 'staying', 'station']),
-    ('nhe_w', W + 'New_Heaven_and_New_Earth', ['Isaiah 65', 'Revelation 21', 'renewal', 'annihilation', 'Adventist']),
+    ('twain1', 'https://www.sacred-texts.com/aor/twain/letearth.htm', ['harp', 'sings', 'everybody']),
+    ('twain2', 'http://www.online-literature.com/twain/letters-from-the-earth/2/', ['harp', 'sings', 'everybody']),
+    ('twain3', 'https://en.wikiquote.org/wiki/Letters_from_the_Earth', ['harp', 'sing']),
+    ('lewis_wq', 'https://en.wikiquote.org/wiki/Mere_Christianity', ['another world', 'Aim at Heaven', 'thrown in']),
+    ('lewis_wq2', 'https://en.wikiquote.org/wiki/C._S._Lewis', ['another world', 'Aim at Heaven', 'thrown in']),
+    ('wright_wq', 'https://en.wikiquote.org/wiki/N._T._Wright', ['end of the world', 'Heaven is important']),
+    ('wright_w2', W + 'N._T._Wright', ['Surprised by Hope', 'end of the world']),
+    ('plato_g', 'https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0178%3Atext%3DGorg.%3Apage%3D493', ['tomb']),
+    ('plato_c', 'https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0172%3Atext%3DCrat.%3Apage%3D400', ['tomb']),
+    ('orph_w', W + 'Orphism_(religion)', ['tomb', 'soma']),
+    ('mortal_w', W + 'Christian_mortalism', ['Tyndale', 'Adventist', 'soul sleep', 'Luther']),
+    ('wcf32', 'https://www.opc.org/wcf.html', ['highest heavens', 'XXXII', 'Of the State of Men after Death']),
+    ('sdafb27', 'https://web.archive.org/web/2024id_/https://www.adventist.org/the-millennium-and-the-end-of-sin/', ['thousand', 'heaven', 'earth']),
+    ('sdafb28', 'https://web.archive.org/web/2024id_/https://www.adventist.org/the-new-earth/', ['new earth', 'home', 'eternal']),
 ]
 M = 'https://media2.egwwritings.org/swf/{b}/files/assets/seo/page{p}.html'
 EGW = []
-RAW = [('gca', 'en_GC', range(576, 585)), ('gcb', 'en_GC', range(606, 617)), ('ed', 'en_Ed', range(230, 245)), ('pp', 'en_PP', range(36, 43)), ('sm1', 'en_1SM', range(155, 173))]
+RAW = [('gcc', 'en_GC', range(538, 577))]
 
 
 def get(url):
