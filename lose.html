@@ -306,6 +306,68 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
 html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
+.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+.orn .moon,.scene .moon{fill:var(--gold)}
+.orn .spk,.scene .spk{fill:var(--gold)}
+.orn .sd,.scene .sd{fill:var(--muted)}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:36px -16px 0;text-align:center}
+.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
+.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
+.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
+.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
+.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
+.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
+.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
+.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.scene.in .dove{animation:fly 6s ease-in-out infinite}
+.scene.in .planet{animation:bob 9s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
@@ -346,13 +408,13 @@ html.sheetopen{overflow:hidden}
 .causes .cause h4{padding-right:30px}
 </style>
 </head>
-<body>
+<body data-mins="20">
 <div class="prog" aria-hidden="true"><i></i></div>
 <header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">信了主，还会失去救恩吗？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
-<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种完全相反的担心</a></li><li><a href="#views"><span class="tn">02</span>各派怎么说</a></li></ol></li><li><span class="tp">第二部分 · 圣经的两组经文</span><ol><li><a href="#secure"><span class="tn">03</span>第一组：保障的经文</a></li><li><a href="#warn"><span class="tn">04</span>第二组：警告的经文</a></li><li><a href="#people"><span class="tn">05</span>圣经里离开的人</a></li><li><a href="#how"><span class="tn">06</span>两组经文怎样放在一起？</a></li></ol></li><li><span class="tp">第三部分 · 几处最让人害怕的经文</span><ol><li><a href="#heb6"><span class="tn">07</span>希伯来书6章和10章：“不能叫他们重新懊悔了”？</a></li><li><a href="#gal54"><span class="tn">08</span>“从恩典中坠落”是什么意思？</a></li><li><a href="#unpard"><span class="tn">09</span>“不得赦免的罪”：我是不是犯了？</a></li></ol></li><li><span class="tp">第四部分 · 怎样离开，怎样回来</span><ol><li><a href="#drift"><span class="tn">10</span>人是怎样离开的？</a></li><li><a href="#back"><span class="tn">11</span>离开了，还能回来吗？</a></li><li><a href="#life"><span class="tn">12</span>在确据中警醒：每天怎样活</a></li></ol></li><li><span class="tp">第五部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">13</span>一页总结</a></li><li><a href="#faq"><span class="tn">14</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种完全相反的担心</a></li><li><a href="#views"><span class="tn">02</span>各派怎么说</a></li></ol></li><li><span class="tp">第二部分 · 圣经的两组经文</span><ol><li><a href="#secure"><span class="tn">03</span>第一组：保障的经文</a></li><li><a href="#warn"><span class="tn">04</span>第二组：警告的经文</a></li><li><a href="#people"><span class="tn">05</span>圣经里离开的人</a></li><li><a href="#how"><span class="tn">06</span>两组经文怎样放在一起？</a></li></ol></li><li><span class="tp">第三部分 · 几处最让人害怕的经文</span><ol><li><a href="#heb6"><span class="tn">07</span>希伯来书6章和10章：“不能叫他们重新懊悔了”？</a></li><li><a href="#gal54"><span class="tn">08</span>“从恩典中坠落”是什么意思？</a></li><li><a href="#unpard"><span class="tn">09</span>“不得赦免的罪”：我是不是犯了？</a></li></ol></li><li><span class="tp">第四部分 · 怎样离开，怎样回来</span><ol><li><a href="#drift"><span class="tn">10</span>人是怎样离开的？</a></li><li><a href="#back"><span class="tn">11</span>离开了，还能回来吗？</a></li><li><a href="#life"><span class="tn">12</span>在确据中警醒：每天怎样活</a></li></ol></li><li><span class="tp">第五部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">13</span>一页总结</a></li><li><a href="#faq"><span class="tn">14</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 20 分钟读完<span data-left></span></p></div></aside>
 <main>
-<header class="hero">
+<header class="hero"><svg class="orn" viewBox="0 0 132 48" aria-hidden="true"><ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/><path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/><path class="spk" d="M78 6L79.7 10.3L84 12L79.7 13.7L78 18L76.3 13.7L72 12L76.3 10.3Z"/><path class="spk" d="M104 26L105.1 28.9L108 30L105.1 31.1L104 34L102.9 31.1L100 30L102.9 28.9Z"/><path class="spk" d="M56 35L56.8 37.2L59 38L56.8 38.8L56 41L55.2 38.8L53 38L55.2 37.2Z"/><circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/></svg>
 <p class="eyebrow">问题彩蛋 · 13 · 得救的保障与警告</p>
 <h1>信了主，还会失去救恩吗？<small class="h1s">一次得救永远得救？不得赦免的罪？离开了还能回来吗？</small></h1><p class="meta">约 0.8 万字 · 细读约 20 分钟 · 14 章 · 8 条资料出处</p>
 <p class="hsub">“谁也不能从我手里把他们夺去”，可是希伯来书又说“就不能叫他们重新懊悔了”。信了主还会失去救恩吗？我是不是已经犯了不得赦免的罪？离开教会多年，还能回来吗？我们把保障的经文和警告的经文并排放在一起，查原文，看各派信条，一件一件理清。</p>
@@ -456,7 +518,7 @@ html.sheetopen{overflow:hidden}
 <div class="box"><p class="lab">编者的理解：给正在害怕的人</p><p>如果你因为担心自己犯了不得赦免的罪而难过、而想回到上帝面前，这份难过本身就说明圣灵还在你心里工作。不得赦免的罪的特点，恰恰是对圣灵的感动完全无动于衷。“我们若认自己的罪，上帝是信实的，是公义的，必要赦免我们的罪。”（约壹1:9）</p></div>
 </section><div class="part" id="part4"><span>第四部分</span><b>怎样离开，怎样回来</b></div><section class="ch" id="drift"><h2><span class="no">10</span>人是怎样离开的？</h2>
 <p>圣经很少描写一个人“一下子”失去救恩。更常见的是一个渐渐的过程：</p>
-<figure class="fig"><svg viewBox="0 0 400 360" class="dg" role="img" aria-labelledby="lf1t lf1d">
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>离开的路，回家的路</span></figcaption><svg viewBox="0 0 400 360" class="dg" role="img" aria-labelledby="lf1t lf1d">
 <title id="lf1t">离开的路，回家的路</title>
 <desc id="lf1d">左边是圣经描写的人怎样渐渐离开上帝：随流失去；世上的思虑和钱财的迷惑把道挤住；离弃起初的爱心；被罪迷惑，心里刚硬；最后存着不信的恶心，离弃永生上帝。右边是回家的路：回想是从哪里坠落的；像浪子一样醒悟起来；认罪；父亲远远看见就跑去抱他；死而复活，失而又得。离开很少是一下子的，回来却随时可以开始。</desc>
 <text x="100.0" y="22.0" class="tn hi" text-anchor="middle">离开的路（渐渐的）</text>
@@ -554,11 +616,12 @@ html.sheetopen{overflow:hidden}
 <p class="note2">网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一读取原文核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
 <ol class="srcs"><li id="s1" data-k="wcf_text"><span class="sk">官方网站</span><span class="sd">《威斯敏斯德信条》全文（美国正统长老会网站），第3章“论上帝永远的预旨”、第17章“论圣徒的坚忍”</span><a class="su" href="https://www.opc.org/wcf.html" target="_blank" rel="noopener">opc.org ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a></span></li><li id="s2" data-k="augs12"><span class="sk">官方网站</span><span class="sd">《奥格斯堡信条》第12条“论悔改”</span><a class="su" href="https://bookofconcord.org/augsburg-confession/article-xii/" target="_blank" rel="noopener">bookofconcord.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a></span></li><li id="s3" data-k="eternalsec_w"><span class="sk">百科全书</span><span class="sd">永远的保障（Eternal security，维基百科英文版：各宗派的看法）</span><a class="su" href="https://en.wikipedia.org/wiki/Eternal_security" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a><a href="#r3-2" aria-label="回到正文第2处">↑</a></span></li><li id="s4" data-k="armin_wiki"><span class="sk">百科全书</span><span class="sd">阿民念主义（维基百科英文版：阿民念、1610年《抗辩书》）</span><a class="su" href="https://en.wikipedia.org/wiki/Arminianism" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a></span></li><li id="s5" data-k="freegrace_wiki"><span class="sk">百科全书</span><span class="sd">“自由恩典神学”（Free Grace theology，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Free_Grace_theology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a></span></li><li id="s6" data-k="pp207"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》第19章“归回迦南”，英文原著第207—208页</span><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a></span></li><li id="s7" data-k="col155"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《基督比喻实训》（Christ’s Object Lessons）“两个祷告的人”，英文原著第155页</span><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="unpard_w"><span class="sk">百科全书</span><span class="sd">不得赦免的罪（Eternal sin，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Eternal_sin" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li></ol>
 </section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="rom7.html"><span class="reln">问题彩蛋 08</span><b>我还会犯罪，能得救吗？</b><small>罗马书7章“立志为善由得我，只是行出来由不得我”；还有“在罪中得救”“一次得救永远得救”“得救是命定的”</small></a><a class="relc" href="judas.html"><span class="reln">问题彩蛋 30</span><b>犹大是注定要卖主的吗？</b><small>耶稣一次又一次地挽回他：犹大能得救吗？我们怎样才不会成为犹大？</small></a><a class="relc" href="elect.html"><span class="reln">问题彩蛋 10</span><b>上帝早就定好谁得救吗？</b><small>“雅各是我所爱的，以扫是我所恶的”（罗9:13）到底在说什么？预定论、拣选和人的选择</small></a></div></section><div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210"><defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs><rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/><path class="hz" d="M0 186 Q360 142 720 186"/><circle cx="40" cy="30" r="1.4" class="sd"/><circle cx="96" cy="64" r="1" class="sd"/><circle cx="150" cy="22" r="1.2" class="sd"/><circle cx="210" cy="52" r="1" class="sd"/><circle cx="268" cy="18" r="1.5" class="sd"/><circle cx="330" cy="70" r="1.1" class="sd"/><circle cx="402" cy="28" r="1" class="sd"/><circle cx="452" cy="58" r="1.3" class="sd"/><circle cx="520" cy="16" r="1" class="sd"/><circle cx="600" cy="30" r="1.2" class="sd"/><circle cx="660" cy="70" r="1" class="sd"/><circle cx="700" cy="24" r="1.4" class="sd"/><circle cx="24" cy="96" r="1" class="sd"/><circle cx="360" cy="40" r="1.2" class="sd"/><path class="spk" d="M122 37L124.0 42.0L129 44L124.0 46.0L122 51L120.0 46.0L115 44L120.0 42.0Z"/><path class="spk" d="M486 25L487.4 28.6L491 30L487.4 31.4L486 35L484.6 31.4L481 30L484.6 28.6Z"/><path class="spk" d="M300 88L301.1 90.9L304 92L301.1 93.1L300 96L298.9 93.1L296 92L298.9 90.9Z"/><path class="spk" d="M640 99L641.4 102.6L645 104L641.4 105.4L640 109L638.6 105.4L635 104L638.6 102.6Z"/><path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/><g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/><path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g><g class="dove"><g transform="translate(300 96)"><path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/><path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/><path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/><ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g></svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
-<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
-<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种完全相反的担心</a></li><li><a href="#views"><span class="tn">02</span>各派怎么说</a></li></ol></li><li><span class="tp">第二部分 · 圣经的两组经文</span><ol><li><a href="#secure"><span class="tn">03</span>第一组：保障的经文</a></li><li><a href="#warn"><span class="tn">04</span>第二组：警告的经文</a></li><li><a href="#people"><span class="tn">05</span>圣经里离开的人</a></li><li><a href="#how"><span class="tn">06</span>两组经文怎样放在一起？</a></li></ol></li><li><span class="tp">第三部分 · 几处最让人害怕的经文</span><ol><li><a href="#heb6"><span class="tn">07</span>希伯来书6章和10章：“不能叫他们重新懊悔了”？</a></li><li><a href="#gal54"><span class="tn">08</span>“从恩典中坠落”是什么意思？</a></li><li><a href="#unpard"><span class="tn">09</span>“不得赦免的罪”：我是不是犯了？</a></li></ol></li><li><span class="tp">第四部分 · 怎样离开，怎样回来</span><ol><li><a href="#drift"><span class="tn">10</span>人是怎样离开的？</a></li><li><a href="#back"><span class="tn">11</span>离开了，还能回来吗？</a></li><li><a href="#life"><span class="tn">12</span>在确据中警醒：每天怎样活</a></li></ol></li><li><span class="tp">第五部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">13</span>一页总结</a></li><li><a href="#faq"><span class="tn">14</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种完全相反的担心</a></li><li><a href="#views"><span class="tn">02</span>各派怎么说</a></li></ol></li><li><span class="tp">第二部分 · 圣经的两组经文</span><ol><li><a href="#secure"><span class="tn">03</span>第一组：保障的经文</a></li><li><a href="#warn"><span class="tn">04</span>第二组：警告的经文</a></li><li><a href="#people"><span class="tn">05</span>圣经里离开的人</a></li><li><a href="#how"><span class="tn">06</span>两组经文怎样放在一起？</a></li></ol></li><li><span class="tp">第三部分 · 几处最让人害怕的经文</span><ol><li><a href="#heb6"><span class="tn">07</span>希伯来书6章和10章：“不能叫他们重新懊悔了”？</a></li><li><a href="#gal54"><span class="tn">08</span>“从恩典中坠落”是什么意思？</a></li><li><a href="#unpard"><span class="tn">09</span>“不得赦免的罪”：我是不是犯了？</a></li></ol></li><li><span class="tp">第四部分 · 怎样离开，怎样回来</span><ol><li><a href="#drift"><span class="tn">10</span>人是怎样离开的？</a></li><li><a href="#back"><span class="tn">11</span>离开了，还能回来吗？</a></li><li><a href="#life"><span class="tn">12</span>在确据中警醒：每天怎样活</a></li></ol></li><li><span class="tp">第五部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">13</span>一页总结</a></li><li><a href="#faq"><span class="tn">14</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 20 分钟读完<span data-left></span></p></div></div></div>
 <div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
 <p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
 <p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
@@ -577,8 +640,11 @@ html.sheetopen{overflow:hidden}
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
-  var pb=document.querySelector('.prog i'),tick=false;
-  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
   /* 弹出层 */
   function open(s){s.hidden=false;de.classList.add('sheetopen');}
@@ -613,10 +679,17 @@ html.sheetopen{overflow:hidden}
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
     cur=id;
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
     var side=document.querySelector('.toc-side a.on');
     if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
   }
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 页面底部的星空：看得见时才动 */
+  var sc=document.querySelector('.scene');
+  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){

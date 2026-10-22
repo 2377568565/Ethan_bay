@@ -306,6 +306,68 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
 html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
+.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+.orn .moon,.scene .moon{fill:var(--gold)}
+.orn .spk,.scene .spk{fill:var(--gold)}
+.orn .sd,.scene .sd{fill:var(--muted)}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:36px -16px 0;text-align:center}
+.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
+.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
+.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
+.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
+.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
+.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
+.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
+.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.scene.in .dove{animation:fly 6s ease-in-out infinite}
+.scene.in .planet{animation:bob 9s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
@@ -346,13 +408,13 @@ html.sheetopen{overflow:hidden}
 .causes .cause h4{padding-right:30px}
 </style>
 </head>
-<body>
+<body data-mins="40">
 <div class="prog" aria-hidden="true"><i></i></div>
 <header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">我还会犯罪，能得救吗？——罗马书7章“立志为善由得我”</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
-<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种声音，两条沟</a></li></ol></li><li><span class="tp">第二部分 · 罗马书7章到底在说什么</span><ol><li><a href="#road"><span class="tn">02</span>先看上下文：罗马书5—8章是一条路</a></li><li><a href="#text"><span class="tn">03</span>一句一句读罗马书7:14-25</a></li><li><a href="#who"><span class="tn">04</span>这个“我”是谁？两种解释</a></li></ol></li><li><span class="tp">第三部分 · 罪的两面，救恩的两面</span><ol><li><a href="#two"><span class="tn">05</span>罪的两面：罪责与罪的权势</a></li><li><a href="#will"><span class="tn">06</span>“立志由得我”：意志能做什么，不能做什么</a></li></ol></li><li><span class="tp">第四部分 · 信主多年还会犯罪</span><ol><li><a href="#still"><span class="tn">07</span>信主多年还会犯罪：跌倒与住在罪中</a></li><li><a href="#sure"><span class="tn">08</span>我能知道自己得救了吗？</a></li></ol></li><li><span class="tp">第五部分 · 几种流行的说法</span><ol><li><a href="#insin"><span class="tn">09</span>“在罪中得救”和“不是我，是老亚当”</a></li><li><a href="#forever"><span class="tn">10</span>“永远的义为我存留”</a></li><li><a href="#once"><span class="tn">11</span>“一次得救，永远得救”？</a></li><li><a href="#predest"><span class="tn">12</span>“得救是命定的”？</a></li><li><a href="#perfect"><span class="tn">13</span>“要完全”：最后一代与恩门关闭</a></li></ol></li><li><span class="tp">第六部分 · 怎样活出来</span><ol><li><a href="#live"><span class="tn">14</span>每天怎样活：从第7章搬到第8章</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">15</span>一页总结</a></li><li><a href="#faq"><span class="tn">16</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种声音，两条沟</a></li></ol></li><li><span class="tp">第二部分 · 罗马书7章到底在说什么</span><ol><li><a href="#road"><span class="tn">02</span>先看上下文：罗马书5—8章是一条路</a></li><li><a href="#text"><span class="tn">03</span>一句一句读罗马书7:14-25</a></li><li><a href="#who"><span class="tn">04</span>这个“我”是谁？两种解释</a></li></ol></li><li><span class="tp">第三部分 · 罪的两面，救恩的两面</span><ol><li><a href="#two"><span class="tn">05</span>罪的两面：罪责与罪的权势</a></li><li><a href="#will"><span class="tn">06</span>“立志由得我”：意志能做什么，不能做什么</a></li></ol></li><li><span class="tp">第四部分 · 信主多年还会犯罪</span><ol><li><a href="#still"><span class="tn">07</span>信主多年还会犯罪：跌倒与住在罪中</a></li><li><a href="#sure"><span class="tn">08</span>我能知道自己得救了吗？</a></li></ol></li><li><span class="tp">第五部分 · 几种流行的说法</span><ol><li><a href="#insin"><span class="tn">09</span>“在罪中得救”和“不是我，是老亚当”</a></li><li><a href="#forever"><span class="tn">10</span>“永远的义为我存留”</a></li><li><a href="#once"><span class="tn">11</span>“一次得救，永远得救”？</a></li><li><a href="#predest"><span class="tn">12</span>“得救是命定的”？</a></li><li><a href="#perfect"><span class="tn">13</span>“要完全”：最后一代与恩门关闭</a></li></ol></li><li><span class="tp">第六部分 · 怎样活出来</span><ol><li><a href="#live"><span class="tn">14</span>每天怎样活：从第7章搬到第8章</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">15</span>一页总结</a></li><li><a href="#faq"><span class="tn">16</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 40 分钟读完<span data-left></span></p></div></aside>
 <main>
-<header class="hero">
+<header class="hero"><svg class="orn" viewBox="0 0 132 48" aria-hidden="true"><ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/><path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/><path class="spk" d="M78 6L79.7 10.3L84 12L79.7 13.7L78 18L76.3 13.7L72 12L76.3 10.3Z"/><path class="spk" d="M104 26L105.1 28.9L108 30L105.1 31.1L104 34L102.9 31.1L100 30L102.9 28.9Z"/><path class="spk" d="M56 35L56.8 37.2L59 38L56.8 38.8L56 41L55.2 38.8L53 38L55.2 37.2Z"/><circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/></svg>
 <p class="eyebrow">问题彩蛋 · 08 · 罗马书7章“立志为善由得我，只是行出来由不得我”</p>
 <h1>我还会犯罪，能得救吗？<small class="h1s">罗马书7章与“在罪中得救”“一次得救永远得救”“得救是命定的”</small></h1><p class="meta">约 1.7 万字 · 细读约 35 分钟 · 16 章 · 29 条资料出处</p>
 <p class="hsub">信主很多年了，还是会发脾气，还是那几样老毛病——再这样下去，我还能得救吗？另一边又有人说：犯罪没关系，不是我犯的，是老亚当；耶稣替我死了，永远的义为我存留；得救早就命定了。这两种声音方向相反，却都引用罗马书。我们按圣经的原文次序，一步一步理清。</p>
@@ -382,7 +444,7 @@ html.sheetopen{overflow:hidden}
 <div class="box"><p class="lab">先说明</p><p>这些问题在基督教历史上争论了很多个世纪，有很多敬虔的人站在不同的一边。本页尽量客观地列出各方的说法和依据；“编者的理解”只供参考，判断留给读者。怀爱伦著作按英文原著页码引用，都对照原版核对过。</p></div>
 </section><div class="part" id="part2"><span>第二部分</span><b>罗马书7章到底在说什么</b></div><section class="ch" id="road"><h2><span class="no">02</span>先看上下文：罗马书5—8章是一条路</h2>
 <p>罗马书7章不能单独读。保罗写信时没有分章，第7章夹在第6章和第8章中间，是一整段论证的一部分：</p>
-<figure class="fig"><svg viewBox="0 0 400 350" class="dg" role="img" aria-labelledby="rf2t rf2d">
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>罗马书5到8章的一条路</span></figcaption><svg viewBox="0 0 400 350" class="dg" role="img" aria-labelledby="rf2t rf2d">
 <title id="rf2t">罗马书5到8章的一条路</title>
 <desc id="rf2d">第5章：因信称义，与上帝相和。第6章：向罪死了，不容罪在身上作王。第7章：一个人想靠自己、靠律法行善，却做不到，呼喊“我真是苦啊”。第8章：靠着圣灵，在基督里的人不被定罪，律法的义也成就在随从圣灵的人身上。第7章不是终点，第8章才是答案。</desc>
 <circle cx="30" cy="38" r="20" class="f2 fillc"/>
@@ -456,7 +518,7 @@ html.sheetopen{overflow:hidden}
 </ol></div>
 </section><div class="part" id="part3"><span>第三部分</span><b>罪的两面，救恩的两面</b></div><section class="ch" id="two"><h2><span class="no">05</span>罪的两面：罪责与罪的权势</h2>
 <p>很多人对得救感到困惑，是因为把两件事混在了一起。圣经里，罪有两面，救恩也有两面：</p>
-<figure class="fig"><svg viewBox="0 0 400 404" class="dg" role="img" aria-labelledby="rf1t rf1d">
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>罪的两面，救恩的两面</span></figcaption><svg viewBox="0 0 400 404" class="dg" role="img" aria-labelledby="rf1t rf1d">
 <title id="rf1t">罪的两面，救恩的两面</title>
 <desc id="rf1d">罪有两面：一面是罪责，就是我们欠下的债，需要赦免，上帝因信称我们为义，这是立刻、完全的；另一面是罪的权势，就是里面的败坏和捆绑，需要改变，上帝赐新心、借圣灵使人成圣，这是一生之久的。两面都来自基督，祂是我们的公义、圣洁、救赎。</desc>
 <rect x="130" y="10" width="140" height="44" rx="12" class="f0 fillc"/>
@@ -677,11 +739,12 @@ html.sheetopen{overflow:hidden}
 <p class="note2">网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一读取原文核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
 <ol class="srcs"><li id="s1" data-k="wesley_r7"><span class="sk">官方网站</span><span class="sd">卫斯理《新约注释》（Explanatory Notes）罗马书第7章（BibleHub 网站）</span><a class="su" href="https://biblehub.com/commentaries/wes/romans/7.htm" target="_blank" rel="noopener">biblehub.com ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a></span></li><li id="s2" data-k="sc19"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第2章“罪人需要基督”，英文原著第19页</span><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a></span></li><li id="s3" data-k="calvin_r7"><span class="sk">官方网站</span><span class="sd">加尔文《罗马书注释》第7章（英译本，BibleHub 网站）</span><a class="su" href="https://biblehub.com/commentaries/calvin/romans/7.htm" target="_blank" rel="noopener">biblehub.com ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a></span></li><li id="s4" data-k="sc62"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第7章“作门徒的考验”，英文原著第62—63页</span><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a></span></li><li id="s5" data-k="sc47"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第5章“献身”，英文原著第47—48页</span><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a><a href="#r5-2" aria-label="回到正文第2处">↑</a></span></li><li id="s6" data-k="sc64"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第7章“作门徒的考验”，英文原著第64页</span><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a></span></li><li id="s7" data-k="sc57"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第7章“作门徒的考验”，英文原著第57—58页</span><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="col155"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《基督比喻实训》（Christ’s Object Lessons）“两个祷告的人”，英文原著第155页</span><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li><li id="s9" data-k="da668"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第73章“你们心里不要忧愁”，英文原著第668页</span><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a></span></li><li id="s10" data-k="luther_simul"><span class="sk">百科全书</span><span class="sd">路德的神学：“同时是义人又是罪人”（simul justus et peccator，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Theology_of_Martin_Luther" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a></span></li><li id="s11" data-k="antinom_wiki"><span class="sk">百科全书</span><span class="sd">反律主义（维基百科英文版：阿格里科拉、路德的批评、《协同信条》第5、6条）</span><a class="su" href="https://en.wikipedia.org/wiki/Antinomianism" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a></span></li><li id="s12" data-k="augs6"><span class="sk">官方网站</span><span class="sd">《奥格斯堡信条》第6条“论新的顺从”</span><a class="su" href="https://bookofconcord.org/augsburg-confession/article-vi/" target="_blank" rel="noopener">bookofconcord.org ↗</a><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a></span></li><li id="s13" data-k="sc60"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第7章“作门徒的考验”，英文原著第59—60页</span><span class="sb"><a href="#r13-1" aria-label="回到正文第1处">↑</a></span></li><li id="s14" data-k="tulip_wiki"><span class="sk">百科全书</span><span class="sd">加尔文主义五要点（维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Five_Points_of_Calvinism" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r14-1" aria-label="回到正文第1处">↑</a></span></li><li id="s15" data-k="armin_wiki"><span class="sk">百科全书</span><span class="sd">阿民念主义（维基百科英文版：阿民念、1610年《抗辩书》）</span><a class="su" href="https://en.wikipedia.org/wiki/Arminianism" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r15-1" aria-label="回到正文第1处">↑</a><a href="#r15-2" aria-label="回到正文第2处">↑</a></span></li><li id="s16" data-k="wcf_text"><span class="sk">官方网站</span><span class="sd">《威斯敏斯德信条》全文（美国正统长老会网站），第3章“论上帝永远的预旨”、第17章“论圣徒的坚忍”</span><a class="su" href="https://www.opc.org/wcf.html" target="_blank" rel="noopener">opc.org ↗</a><span class="sb"><a href="#r16-1" aria-label="回到正文第1处">↑</a><a href="#r16-2" aria-label="回到正文第2处">↑</a></span></li><li id="s17" data-k="dort_text"><span class="sk">官方网站</span><span class="sd">《多特信经》全文（北美基督教改革宗教会网站），第五要点“圣徒的坚忍”第1—3条</span><a class="su" href="https://www.crcna.org/welcome/beliefs/confessions/canons-dort" target="_blank" rel="noopener">crcna.org ↗</a><span class="sb"><a href="#r17-1" aria-label="回到正文第1处">↑</a></span></li><li id="s18" data-k="freegrace_wiki"><span class="sk">百科全书</span><span class="sd">“自由恩典神学”（Free Grace theology，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Free_Grace_theology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r18-1" aria-label="回到正文第1处">↑</a></span></li><li id="s19" data-k="dort_wiki"><span class="sk">百科全书</span><span class="sd">多特会议（1618—1619年，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Synod_of_Dort" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r19-1" aria-label="回到正文第1处">↑</a></span></li><li id="s20" data-k="mb76"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《福山宝训》（Thoughts from the Mount of Blessing），英文原著第76页</span><span class="sb"><a href="#r20-1" aria-label="回到正文第1处">↑</a></span></li><li id="s21" data-k="lgt_wiki"><span class="sk">百科全书</span><span class="sd">“最后一代神学”（Last Generation Theology，维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Last_Generation_Theology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r21-1" aria-label="回到正文第1处">↑</a></span></li><li id="s22" data-k="sdatheo_wiki"><span class="sk">百科全书</span><span class="sd">复临安息日会神学（维基百科英文版：基督人性之争与“最后一代”之争，两种看法在复临教会圣经研究所都有代表）</span><a class="su" href="https://en.wikipedia.org/wiki/Seventh-day_Adventist_theology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r22-1" aria-label="回到正文第1处">↑</a></span></li><li id="s23" data-k="gc425"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《善恶之争》第24章“在至圣所里”，英文原著第425页</span><span class="sb"><a href="#r23-1" aria-label="回到正文第1处">↑</a></span></li><li id="s24" data-k="da671b"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第73章“你们心里不要忧愁”，英文原著第671页</span><span class="sb"><a href="#r24-1" aria-label="回到正文第1处">↑</a></span></li><li id="s25" data-k="aa561"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《使徒行述》英文原著第561页</span><span class="sb"><a href="#r25-1" aria-label="回到正文第1处">↑</a></span></li><li id="s26" data-k="gc471"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《善恶之争》第27章“现代的奋兴”，英文原著第471—472页</span><span class="sb"><a href="#r26-1" aria-label="回到正文第1处">↑</a></span></li><li id="s27" data-k="sc31"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第3章“悔改”，英文原著第31页</span><span class="sb"><a href="#r27-1" aria-label="回到正文第1处">↑</a></span></li><li id="s28" data-k="sc51"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《拾级就主》第6章“信心与接纳”，英文原著第51页</span><span class="sb"><a href="#r28-1" aria-label="回到正文第1处">↑</a></span></li><li id="s29" data-k="aa560"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《使徒行述》（The Acts of the Apostles）英文原著第560页</span><span class="sb"><a href="#r29-1" aria-label="回到正文第1处">↑</a></span></li></ol>
 </section>
+<div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210"><defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs><rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/><path class="hz" d="M0 186 Q360 142 720 186"/><circle cx="40" cy="30" r="1.4" class="sd"/><circle cx="96" cy="64" r="1" class="sd"/><circle cx="150" cy="22" r="1.2" class="sd"/><circle cx="210" cy="52" r="1" class="sd"/><circle cx="268" cy="18" r="1.5" class="sd"/><circle cx="330" cy="70" r="1.1" class="sd"/><circle cx="402" cy="28" r="1" class="sd"/><circle cx="452" cy="58" r="1.3" class="sd"/><circle cx="520" cy="16" r="1" class="sd"/><circle cx="600" cy="30" r="1.2" class="sd"/><circle cx="660" cy="70" r="1" class="sd"/><circle cx="700" cy="24" r="1.4" class="sd"/><circle cx="24" cy="96" r="1" class="sd"/><circle cx="360" cy="40" r="1.2" class="sd"/><path class="spk" d="M122 37L124.0 42.0L129 44L124.0 46.0L122 51L120.0 46.0L115 44L120.0 42.0Z"/><path class="spk" d="M486 25L487.4 28.6L491 30L487.4 31.4L486 35L484.6 31.4L481 30L484.6 28.6Z"/><path class="spk" d="M300 88L301.1 90.9L304 92L301.1 93.1L300 96L298.9 93.1L296 92L298.9 90.9Z"/><path class="spk" d="M640 99L641.4 102.6L645 104L641.4 105.4L640 109L638.6 105.4L635 104L638.6 102.6Z"/><path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/><g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/><path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g><g class="dove"><g transform="translate(300 96)"><path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/><path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/><path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/><ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g></svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
-<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
-<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种声音，两条沟</a></li></ol></li><li><span class="tp">第二部分 · 罗马书7章到底在说什么</span><ol><li><a href="#road"><span class="tn">02</span>先看上下文：罗马书5—8章是一条路</a></li><li><a href="#text"><span class="tn">03</span>一句一句读罗马书7:14-25</a></li><li><a href="#who"><span class="tn">04</span>这个“我”是谁？两种解释</a></li></ol></li><li><span class="tp">第三部分 · 罪的两面，救恩的两面</span><ol><li><a href="#two"><span class="tn">05</span>罪的两面：罪责与罪的权势</a></li><li><a href="#will"><span class="tn">06</span>“立志由得我”：意志能做什么，不能做什么</a></li></ol></li><li><span class="tp">第四部分 · 信主多年还会犯罪</span><ol><li><a href="#still"><span class="tn">07</span>信主多年还会犯罪：跌倒与住在罪中</a></li><li><a href="#sure"><span class="tn">08</span>我能知道自己得救了吗？</a></li></ol></li><li><span class="tp">第五部分 · 几种流行的说法</span><ol><li><a href="#insin"><span class="tn">09</span>“在罪中得救”和“不是我，是老亚当”</a></li><li><a href="#forever"><span class="tn">10</span>“永远的义为我存留”</a></li><li><a href="#once"><span class="tn">11</span>“一次得救，永远得救”？</a></li><li><a href="#predest"><span class="tn">12</span>“得救是命定的”？</a></li><li><a href="#perfect"><span class="tn">13</span>“要完全”：最后一代与恩门关闭</a></li></ol></li><li><span class="tp">第六部分 · 怎样活出来</span><ol><li><a href="#live"><span class="tn">14</span>每天怎样活：从第7章搬到第8章</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">15</span>一页总结</a></li><li><a href="#faq"><span class="tn">16</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>两种声音，两条沟</a></li></ol></li><li><span class="tp">第二部分 · 罗马书7章到底在说什么</span><ol><li><a href="#road"><span class="tn">02</span>先看上下文：罗马书5—8章是一条路</a></li><li><a href="#text"><span class="tn">03</span>一句一句读罗马书7:14-25</a></li><li><a href="#who"><span class="tn">04</span>这个“我”是谁？两种解释</a></li></ol></li><li><span class="tp">第三部分 · 罪的两面，救恩的两面</span><ol><li><a href="#two"><span class="tn">05</span>罪的两面：罪责与罪的权势</a></li><li><a href="#will"><span class="tn">06</span>“立志由得我”：意志能做什么，不能做什么</a></li></ol></li><li><span class="tp">第四部分 · 信主多年还会犯罪</span><ol><li><a href="#still"><span class="tn">07</span>信主多年还会犯罪：跌倒与住在罪中</a></li><li><a href="#sure"><span class="tn">08</span>我能知道自己得救了吗？</a></li></ol></li><li><span class="tp">第五部分 · 几种流行的说法</span><ol><li><a href="#insin"><span class="tn">09</span>“在罪中得救”和“不是我，是老亚当”</a></li><li><a href="#forever"><span class="tn">10</span>“永远的义为我存留”</a></li><li><a href="#once"><span class="tn">11</span>“一次得救，永远得救”？</a></li><li><a href="#predest"><span class="tn">12</span>“得救是命定的”？</a></li><li><a href="#perfect"><span class="tn">13</span>“要完全”：最后一代与恩门关闭</a></li></ol></li><li><span class="tp">第六部分 · 怎样活出来</span><ol><li><a href="#live"><span class="tn">14</span>每天怎样活：从第7章搬到第8章</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">15</span>一页总结</a></li><li><a href="#faq"><span class="tn">16</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 40 分钟读完<span data-left></span></p></div></div></div>
 <div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
 <p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
 <p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
@@ -700,8 +763,11 @@ html.sheetopen{overflow:hidden}
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
-  var pb=document.querySelector('.prog i'),tick=false;
-  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
   /* 弹出层 */
   function open(s){s.hidden=false;de.classList.add('sheetopen');}
@@ -736,10 +802,17 @@ html.sheetopen{overflow:hidden}
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
     cur=id;
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
     var side=document.querySelector('.toc-side a.on');
     if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
   }
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 页面底部的星空：看得见时才动 */
+  var sc=document.querySelector('.scene');
+  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){

@@ -306,6 +306,68 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
 html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
+.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+.orn .moon,.scene .moon{fill:var(--gold)}
+.orn .spk,.scene .spk{fill:var(--gold)}
+.orn .sd,.scene .sd{fill:var(--muted)}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:36px -16px 0;text-align:center}
+.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
+.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
+.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
+.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
+.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
+.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
+.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
+.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.scene.in .dove{animation:fly 6s ease-in-out infinite}
+.scene.in .planet{animation:bob 9s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
@@ -355,13 +417,13 @@ html.sheetopen{overflow:hidden}
 .causes .cause h4{padding-right:30px}
 </style>
 </head>
-<body>
+<body data-mins="40">
 <div class="prog" aria-hidden="true"><i></i></div>
 <header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">旧约律法，哪些还要守？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
-<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个绕不开的问题</span><ol><li><a href="#q"><span class="tn">01</span>“旧约律法”到底还要不要守？</a></li><li><a href="#two"><span class="tn">02</span>石版上的和书上的</a></li></ol></li><li><span class="tp">第二部分 · 律法有几种？</span><ol><li><a href="#three"><span class="tn">03</span>“道德律、礼仪律、民事律”：这个分法从哪里来？</a></li><li><a href="#object"><span class="tn">04</span>反对的意见：律法能这样切开吗？</a></li></ol></li><li><span class="tp">第三部分 · 三种律法，三种结局</span><ol><li><a href="#moral"><span class="tn">05</span>十条诫：没有被废掉</a></li><li><a href="#shadow"><span class="tn">06</span>献祭和礼仪：影儿遇见了形体</a></li><li><a href="#civil"><span class="tn">07</span>以色列国的法律：原则还在，刑罚不搬过来</a></li></ol></li><li><span class="tp">第四部分 · 耶路撒冷会议：使徒怎样决定</span><ol><li><a href="#acts15"><span class="tn">08</span>耶路撒冷会议：一场关于割礼的大争论</a></li><li><a href="#four"><span class="tn">09</span>为什么偏偏是这四条？</a></li><li><a href="#acts21"><span class="tn">10</span>犹太信徒后来还守律法吗？</a></li></ol></li><li><span class="tp">第五部分 · 割礼、节期、饮食</span><ol><li><a href="#circ"><span class="tn">11</span>割礼：从身体到心</a></li><li><a href="#feast"><span class="tn">12</span>节期：逾越节、五旬节、住棚节</a></li><li><a href="#food"><span class="tn">13</span>饮食：洁净与不洁净</a></li></ol></li><li><span class="tp">第六部分 · 安息日为什么不一样</span><ol><li><a href="#sabbath"><span class="tn">14</span>安息日：为什么和节期不一样？</a></li><li><a href="#col"><span class="tn">15</span>歌罗西书2:16：“不可让人论断”的是什么？</a></li></ol></li><li><span class="tp">第七部分 · 恩典与律法</span><ol><li><a href="#grace"><span class="tn">16</span>律法不能救人，却仍然是爱的道路</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#table"><span class="tn">17</span>一张表看清楚</a></li><li><a href="#kxy"><span class="tn">18</span>知·信·行</a></li><li><a href="#faq"><span class="tn">19</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个绕不开的问题</span><ol><li><a href="#q"><span class="tn">01</span>“旧约律法”到底还要不要守？</a></li><li><a href="#two"><span class="tn">02</span>石版上的和书上的</a></li></ol></li><li><span class="tp">第二部分 · 律法有几种？</span><ol><li><a href="#three"><span class="tn">03</span>“道德律、礼仪律、民事律”：这个分法从哪里来？</a></li><li><a href="#object"><span class="tn">04</span>反对的意见：律法能这样切开吗？</a></li></ol></li><li><span class="tp">第三部分 · 三种律法，三种结局</span><ol><li><a href="#moral"><span class="tn">05</span>十条诫：没有被废掉</a></li><li><a href="#shadow"><span class="tn">06</span>献祭和礼仪：影儿遇见了形体</a></li><li><a href="#civil"><span class="tn">07</span>以色列国的法律：原则还在，刑罚不搬过来</a></li></ol></li><li><span class="tp">第四部分 · 耶路撒冷会议：使徒怎样决定</span><ol><li><a href="#acts15"><span class="tn">08</span>耶路撒冷会议：一场关于割礼的大争论</a></li><li><a href="#four"><span class="tn">09</span>为什么偏偏是这四条？</a></li><li><a href="#acts21"><span class="tn">10</span>犹太信徒后来还守律法吗？</a></li></ol></li><li><span class="tp">第五部分 · 割礼、节期、饮食</span><ol><li><a href="#circ"><span class="tn">11</span>割礼：从身体到心</a></li><li><a href="#feast"><span class="tn">12</span>节期：逾越节、五旬节、住棚节</a></li><li><a href="#food"><span class="tn">13</span>饮食：洁净与不洁净</a></li></ol></li><li><span class="tp">第六部分 · 安息日为什么不一样</span><ol><li><a href="#sabbath"><span class="tn">14</span>安息日：为什么和节期不一样？</a></li><li><a href="#col"><span class="tn">15</span>歌罗西书2:16：“不可让人论断”的是什么？</a></li></ol></li><li><span class="tp">第七部分 · 恩典与律法</span><ol><li><a href="#grace"><span class="tn">16</span>律法不能救人，却仍然是爱的道路</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#table"><span class="tn">17</span>一张表看清楚</a></li><li><a href="#kxy"><span class="tn">18</span>知·信·行</a></li><li><a href="#faq"><span class="tn">19</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 40 分钟读完<span data-left></span></p></div></aside>
 <main>
-<header class="hero">
+<header class="hero"><svg class="orn" viewBox="0 0 132 48" aria-hidden="true"><ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/><path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/><path class="spk" d="M78 6L79.7 10.3L84 12L79.7 13.7L78 18L76.3 13.7L72 12L76.3 10.3Z"/><path class="spk" d="M104 26L105.1 28.9L108 30L105.1 31.1L104 34L102.9 31.1L100 30L102.9 28.9Z"/><path class="spk" d="M56 35L56.8 37.2L59 38L56.8 38.8L56 41L55.2 38.8L53 38L55.2 37.2Z"/><circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/></svg>
 <p class="eyebrow">问题彩蛋 · 28 · 律法与恩典</p>
 <h1>旧约律法，哪些还要守？<small class="h1s">割礼、节期、饮食、安息日：道德律、礼仪律、民事律怎么分？耶路撒冷会议怎样决定？</small></h1><p class="meta">约 1.7 万字 · 细读约 35 分钟 · 19 章 · 17 条资料出处</p>
 <p class="hsub">旧约要行割礼、守逾越节、不吃猪肉，今天的基督徒为什么大多不守？既然割礼和节期都不用守了，为什么安息日还要守，是不是挑着守？保罗说“不可让人论断”安息日，又是什么意思？我们把经文、使徒的会议、各教会自己的文件都摆出来。</p>
@@ -396,7 +458,7 @@ html.sheetopen{overflow:hidden}
 <p><b>第二种：其他的律例典章，由摩西写在书上，放在约柜旁边。</b></p>
 <blockquote class="verse"><p><sup>24</sup>摩西将这律法的话写在书上，及至写完了，<sup>25</sup>就吩咐抬耶和华约柜的利未人说：<sup>26</sup>将这律法书放在耶和华你们上帝的约柜旁，可以在那里见证以色列人的不是……</p><cite>申命记 31:24—26</cite></blockquote>
 <p>一个在柜<b>里</b>，一个在柜<b>旁</b>；一个是上帝的指头写的，一个是摩西的手写的；一个刻在石头上，一个写在书卷上。</p>
-<figure class="fig"><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="lwf1t lwf1d">
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>约柜里和约柜旁</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="lwf1t lwf1d">
 <title id="lwf1t">约柜里和约柜旁</title>
 <desc id="lwf1d">左边：十条诫，上帝亲口宣讲、用指头写在两块石版上，放在约柜里（出31:18；申4:13；10:4-5）。右边：其他律例典章，由摩西写在书上，放在约柜旁（申31:24-26）。</desc>
 <text x="200.0" y="22.0" class="tn hi" text-anchor="middle">同一座山上，两种写法、两个位置</text>
@@ -430,7 +492,7 @@ html.sheetopen{overflow:hidden}
 <p><b>《天主教教理》</b>第2072条论十诫：</p>
 <blockquote class="quote"><p>……十诫在它最基本的内容上，显明了重大的义务。它们在根本上是不可改变的，在任何时候、任何地方都有约束力。没有人可以豁免它们。十诫是上帝刻在人心里的。</p><cite>《天主教教理》第2072条（编者译）<a class="cite" id="r5-1" href="#s5" data-n="5">5</a></cite></blockquote>
 <p>维基百科的总结是：大多数基督徒（包括天主教、路德宗、改革宗）相信，旧约中只有道德律的部分仍然适用，礼仪律已经过去；少数人认为全都不适用（例如时代论）；也有人认为全部仍然适用（例如一些弥赛亚犹太信徒）。<a class="cite" id="r6-1" href="#s6" data-n="6">6</a></p>
-<figure class="fig"><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="lwf2t lwf2d">
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>三种律法，三种结局</span></figcaption><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="lwf2t lwf2d">
 <title id="lwf2t">三种律法，三种结局</title>
 <desc id="lwf2d">道德律（十条诫）：仍然有效，写在心上（太5:17；来8:10）。礼仪律（献祭、祭司、节期、割礼、洁净礼）：后事的影儿，在基督里成全（西2:17；来9:10）。民事律（以色列国的法律和刑罚）：随那个国家终止，公平的原则仍可借鉴（约8:11；申4:6）。依据：阿奎那、加尔文、《威斯敏斯德信条》第19章的三分法。</desc>
 <rect x="20" y="14" width="360" height="76" rx="12" class="f4 fillc"/>
@@ -588,7 +650,7 @@ html.sheetopen{overflow:hidden}
 </section><div class="part" id="part6"><span>第六部分</span><b>安息日为什么不一样</b></div><section class="ch" id="sabbath"><h2><span class="no">14</span>安息日：为什么和节期不一样？</h2>
 <p>现在可以回答本题最常被问的一句：既然割礼、节期、献祭都不用守了，为什么每周的安息日还要守？</p>
 <p>把前面的经文放在一起，安息日和那些礼仪有几个明显的不同：</p>
-<figure class="fig"><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="lwf3t lwf3d">
+<figure class="fig"><figcaption class="fgl"><b>图 3</b><span>每周的安息日与年节的“安息日”</span></figcaption><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="lwf3t lwf3d">
 <title id="lwf3t">每周的安息日与年节的“安息日”</title>
 <desc id="lwf3d">对比两种“安息日”。每周的安息日：从创造开始（创2:2-3）；每到第七日；写在十条诫里的石版上（出20:8-11）；回头纪念创造；为人设立（可2:27）。年节的安息日：西奈山以后设立（利23章）；跟着日期走，例如七月初一、七月初十；写在律法书里；预表基督和救恩；“在耶和华的安息日以外”（利23:38）。</desc>
 <text x="200.0" y="20.0" class="tn hi" text-anchor="middle">利23:38：“在耶和华的安息日以外”</text>
@@ -673,11 +735,12 @@ html.sheetopen{overflow:hidden}
 <p class="note2">医学文献、网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
 <ol class="srcs"><li id="s1" data-k="pp364"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》第32章“律法与两约”，英文原著第364—365页</span><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a></span></li><li id="s2" data-k="aquinas99"><span class="sk">原始文献</span><span class="sd">阿奎那《神学大全》第二集上部第99题“论旧律法的诫命”（英译本）</span><a class="su" href="https://www.newadvent.org/summa/2099.htm" target="_blank" rel="noopener">newadvent.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a></span></li><li id="s3" data-k="calvin420"><span class="sk">原始文献</span><span class="sd">加尔文《基督教要义》第4卷第20章（论政府，其中讲到律法的三部分，CCEL 英译本）</span><a class="su" href="https://www.ccel.org/ccel/calvin/institutes.vi.xxi.html" target="_blank" rel="noopener">ccel.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a></span></li><li id="s4" data-k="wcf19"><span class="sk">原始文献</span><span class="sd">《威斯敏斯德信条》第19章“论上帝的律法”第3—5节（1646年，美国正统长老会网站）</span><a class="su" href="https://www.opc.org/wcf.html" target="_blank" rel="noopener">opc.org ↗</a><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a><a href="#r4-2" aria-label="回到正文第2处">↑</a></span></li><li id="s5" data-k="ccc2072"><span class="sk">官方网站</span><span class="sd">《天主教教理》第2072条（英文版）</span><a class="su" href="https://www.scborromeo.org/ccc/para/2072.htm" target="_blank" rel="noopener">scborromeo.org ↗</a><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a></span></li><li id="s6" data-k="oldcov_w"><span class="sk">百科全书</span><span class="sd">基督教对旧约律法的看法（Christian views on the Old Covenant，维基百科英文版：多数教会认为道德律仍然有效；时代论、新约神学、弥赛亚犹太人的看法；奥古斯丁《驳福斯图斯》与731年格列高利三世论吃血）</span><a class="su" href="https://en.wikipedia.org/wiki/Christian_views_on_the_Old_Covenant" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a><a href="#r6-2" aria-label="回到正文第2处">↑</a></span></li><li id="s7" data-k="m613_w"><span class="sk">百科全书</span><span class="sd">613条诫命（613 commandments，维基百科英文版：迈蒙尼德的计数、248与365的说法）</span><a class="su" href="https://en.wikipedia.org/wiki/613_commandments" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="nct_w"><span class="sk">百科全书</span><span class="sd">新约神学（New Covenant theology，维基百科英文版：认为旧约的律法都已被“基督的律法”取代）</span><a class="su" href="https://en.wikipedia.org/wiki/New_Covenant_theology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li><li id="s9" data-k="pp373"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》第32章“律法与两约”，英文原著第373页</span><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a></span></li><li id="s10" data-k="da307"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第31章“山边宝训”，英文原著第307—308页</span><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a><a href="#r10-2" aria-label="回到正文第2处">↑</a></span></li><li id="s11" data-k="pp367"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》第32章“律法与两约”，英文原著第367页</span><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a></span></li><li id="s12" data-k="pp374"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《先祖与先知》第32章“律法与两约”，英文原著第374页</span><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a></span></li><li id="s13" data-k="council_w"><span class="sk">百科全书</span><span class="sd">耶路撒冷会议（Council of Jerusalem，维基百科英文版：约公元48—50年）</span><a class="su" href="https://en.wikipedia.org/wiki/Council_of_Jerusalem" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r13-1" aria-label="回到正文第1处">↑</a></span></li><li id="s14" data-k="aa195"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《使徒行述》第19章“犹太人与外邦人”，英文原著第195—196页</span><span class="sb"><a href="#r14-1" aria-label="回到正文第1处">↑</a></span></li><li id="s15" data-k="decree_w"><span class="sk">百科全书</span><span class="sd">使徒的决定（Apostolic Decree，维基百科英文版：四条禁戒与利未记17—18章）</span><a class="su" href="https://en.wikipedia.org/wiki/Apostolic_Decree" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r15-1" aria-label="回到正文第1处">↑</a></span></li><li id="s16" data-k="aa191"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《使徒行述》第19章“犹太人与外邦人”，英文原著第191页</span><span class="sb"><a href="#r16-1" aria-label="回到正文第1处">↑</a></span></li><li id="s17" data-k="sm1_233"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《信息选粹》第一册第31章“加拉太书中的律法”，英文原著第233页</span><span class="sb"><a href="#r17-1" aria-label="回到正文第1处">↑</a></span></li></ol>
 </section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="sabbath.html"><span class="reln">问题彩蛋 06</span><b>谁改了安息日？</b><small>第七日为什么是星期六？谁把它改成了星期日？全世界都守星期天，怎么就复临信徒“特殊”？</small></a><a class="relc" href="keep.html"><span class="reln">问题彩蛋 07</span><b>安息日，到底能做什么？</b><small>高考撞上星期六、老板要加班、单位调休、逛公园、睡懒觉、聚会到下午四点……还有“守安息日又不能叫人得救”</small></a><a class="relc" href="rom7.html"><span class="reln">问题彩蛋 08</span><b>我还会犯罪，能得救吗？</b><small>罗马书7章“立志为善由得我，只是行出来由不得我”；还有“在罪中得救”“一次得救永远得救”“得救是命定的”</small></a></div></section><div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210"><defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs><rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/><path class="hz" d="M0 186 Q360 142 720 186"/><circle cx="40" cy="30" r="1.4" class="sd"/><circle cx="96" cy="64" r="1" class="sd"/><circle cx="150" cy="22" r="1.2" class="sd"/><circle cx="210" cy="52" r="1" class="sd"/><circle cx="268" cy="18" r="1.5" class="sd"/><circle cx="330" cy="70" r="1.1" class="sd"/><circle cx="402" cy="28" r="1" class="sd"/><circle cx="452" cy="58" r="1.3" class="sd"/><circle cx="520" cy="16" r="1" class="sd"/><circle cx="600" cy="30" r="1.2" class="sd"/><circle cx="660" cy="70" r="1" class="sd"/><circle cx="700" cy="24" r="1.4" class="sd"/><circle cx="24" cy="96" r="1" class="sd"/><circle cx="360" cy="40" r="1.2" class="sd"/><path class="spk" d="M122 37L124.0 42.0L129 44L124.0 46.0L122 51L120.0 46.0L115 44L120.0 42.0Z"/><path class="spk" d="M486 25L487.4 28.6L491 30L487.4 31.4L486 35L484.6 31.4L481 30L484.6 28.6Z"/><path class="spk" d="M300 88L301.1 90.9L304 92L301.1 93.1L300 96L298.9 93.1L296 92L298.9 90.9Z"/><path class="spk" d="M640 99L641.4 102.6L645 104L641.4 105.4L640 109L638.6 105.4L635 104L638.6 102.6Z"/><path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/><g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/><path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g><g class="dove"><g transform="translate(300 96)"><path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/><path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/><path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/><ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g></svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
-<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
-<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个绕不开的问题</span><ol><li><a href="#q"><span class="tn">01</span>“旧约律法”到底还要不要守？</a></li><li><a href="#two"><span class="tn">02</span>石版上的和书上的</a></li></ol></li><li><span class="tp">第二部分 · 律法有几种？</span><ol><li><a href="#three"><span class="tn">03</span>“道德律、礼仪律、民事律”：这个分法从哪里来？</a></li><li><a href="#object"><span class="tn">04</span>反对的意见：律法能这样切开吗？</a></li></ol></li><li><span class="tp">第三部分 · 三种律法，三种结局</span><ol><li><a href="#moral"><span class="tn">05</span>十条诫：没有被废掉</a></li><li><a href="#shadow"><span class="tn">06</span>献祭和礼仪：影儿遇见了形体</a></li><li><a href="#civil"><span class="tn">07</span>以色列国的法律：原则还在，刑罚不搬过来</a></li></ol></li><li><span class="tp">第四部分 · 耶路撒冷会议：使徒怎样决定</span><ol><li><a href="#acts15"><span class="tn">08</span>耶路撒冷会议：一场关于割礼的大争论</a></li><li><a href="#four"><span class="tn">09</span>为什么偏偏是这四条？</a></li><li><a href="#acts21"><span class="tn">10</span>犹太信徒后来还守律法吗？</a></li></ol></li><li><span class="tp">第五部分 · 割礼、节期、饮食</span><ol><li><a href="#circ"><span class="tn">11</span>割礼：从身体到心</a></li><li><a href="#feast"><span class="tn">12</span>节期：逾越节、五旬节、住棚节</a></li><li><a href="#food"><span class="tn">13</span>饮食：洁净与不洁净</a></li></ol></li><li><span class="tp">第六部分 · 安息日为什么不一样</span><ol><li><a href="#sabbath"><span class="tn">14</span>安息日：为什么和节期不一样？</a></li><li><a href="#col"><span class="tn">15</span>歌罗西书2:16：“不可让人论断”的是什么？</a></li></ol></li><li><span class="tp">第七部分 · 恩典与律法</span><ol><li><a href="#grace"><span class="tn">16</span>律法不能救人，却仍然是爱的道路</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#table"><span class="tn">17</span>一张表看清楚</a></li><li><a href="#kxy"><span class="tn">18</span>知·信·行</a></li><li><a href="#faq"><span class="tn">19</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个绕不开的问题</span><ol><li><a href="#q"><span class="tn">01</span>“旧约律法”到底还要不要守？</a></li><li><a href="#two"><span class="tn">02</span>石版上的和书上的</a></li></ol></li><li><span class="tp">第二部分 · 律法有几种？</span><ol><li><a href="#three"><span class="tn">03</span>“道德律、礼仪律、民事律”：这个分法从哪里来？</a></li><li><a href="#object"><span class="tn">04</span>反对的意见：律法能这样切开吗？</a></li></ol></li><li><span class="tp">第三部分 · 三种律法，三种结局</span><ol><li><a href="#moral"><span class="tn">05</span>十条诫：没有被废掉</a></li><li><a href="#shadow"><span class="tn">06</span>献祭和礼仪：影儿遇见了形体</a></li><li><a href="#civil"><span class="tn">07</span>以色列国的法律：原则还在，刑罚不搬过来</a></li></ol></li><li><span class="tp">第四部分 · 耶路撒冷会议：使徒怎样决定</span><ol><li><a href="#acts15"><span class="tn">08</span>耶路撒冷会议：一场关于割礼的大争论</a></li><li><a href="#four"><span class="tn">09</span>为什么偏偏是这四条？</a></li><li><a href="#acts21"><span class="tn">10</span>犹太信徒后来还守律法吗？</a></li></ol></li><li><span class="tp">第五部分 · 割礼、节期、饮食</span><ol><li><a href="#circ"><span class="tn">11</span>割礼：从身体到心</a></li><li><a href="#feast"><span class="tn">12</span>节期：逾越节、五旬节、住棚节</a></li><li><a href="#food"><span class="tn">13</span>饮食：洁净与不洁净</a></li></ol></li><li><span class="tp">第六部分 · 安息日为什么不一样</span><ol><li><a href="#sabbath"><span class="tn">14</span>安息日：为什么和节期不一样？</a></li><li><a href="#col"><span class="tn">15</span>歌罗西书2:16：“不可让人论断”的是什么？</a></li></ol></li><li><span class="tp">第七部分 · 恩典与律法</span><ol><li><a href="#grace"><span class="tn">16</span>律法不能救人，却仍然是爱的道路</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#table"><span class="tn">17</span>一张表看清楚</a></li><li><a href="#kxy"><span class="tn">18</span>知·信·行</a></li><li><a href="#faq"><span class="tn">19</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 40 分钟读完<span data-left></span></p></div></div></div>
 <div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
 <p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
 <p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
@@ -696,8 +759,11 @@ html.sheetopen{overflow:hidden}
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
-  var pb=document.querySelector('.prog i'),tick=false;
-  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
   /* 弹出层 */
   function open(s){s.hidden=false;de.classList.add('sheetopen');}
@@ -732,10 +798,17 @@ html.sheetopen{overflow:hidden}
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
     cur=id;
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
     var side=document.querySelector('.toc-side a.on');
     if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
   }
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 页面底部的星空：看得见时才动 */
+  var sc=document.querySelector('.scene');
+  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){

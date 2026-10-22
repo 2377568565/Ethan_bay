@@ -306,6 +306,68 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
 html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
+.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+.orn .moon,.scene .moon{fill:var(--gold)}
+.orn .spk,.scene .spk{fill:var(--gold)}
+.orn .sd,.scene .sd{fill:var(--muted)}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:36px -16px 0;text-align:center}
+.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
+.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
+.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
+.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
+.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
+.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
+.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
+.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.scene.in .dove{animation:fly 6s ease-in-out infinite}
+.scene.in .planet{animation:bob 9s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
@@ -355,13 +417,13 @@ html.sheetopen{overflow:hidden}
 .causes .cause h4{padding-right:30px}
 </style>
 </head>
-<body>
+<body data-mins="35">
 <div class="prog" aria-hidden="true"><i></i></div>
 <header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">犹大是注定要卖主的吗？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
-<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个让人不安的名字</span><ol><li><a href="#q"><span class="tn">01</span>“主，是我吗？”</a></li><li><a href="#who"><span class="tn">02</span>犹大是谁？</a></li></ol></li><li><span class="tp">第二部分 · 他是注定的吗？</span><ol><li><a href="#fore"><span class="tn">03</span>耶稣早就知道</a></li><li><a href="#prophecy"><span class="tn">04</span>“经上的话必须应验”是什么意思？</a></li><li><a href="#both"><span class="tn">05</span>上帝的计划，人的责任</a></li><li><a href="#son"><span class="tn">06</span>“灭亡之子”是生来注定的意思吗？</a></li><li><a href="#satan"><span class="tn">07</span>“撒但入了他的心”：不是一下子的事</a></li></ol></li><li><span class="tp">第三部分 · 耶稣一次又一次地挽回他</span><ol><li><a href="#rescue"><span class="tn">08</span>耶稣挽回犹大的历程</a></li></ol></li><li><span class="tp">第四部分 · 他是怎样一步步走下去的</span><ol><li><a href="#down"><span class="tn">09</span>下坡路：从爱钱到卖主</a></li><li><a href="#why"><span class="tn">10</span>犹大为什么要卖主？各种说法</a></li></ol></li><li><span class="tp">第五部分 · 后悔，却没有回来</span><ol><li><a href="#regret"><span class="tn">11</span>后悔，却没有回来</a></li><li><a href="#peter"><span class="tn">12</span>彼得和犹大：同一夜，两个结局</a></li><li><a href="#death"><span class="tn">13</span>犹大的死：两处记载</a></li></ol></li><li><span class="tp">第六部分 · 他能得救吗？</span><ol><li><a href="#saved"><span class="tn">14</span>犹大能得救吗？</a></li></ol></li><li><span class="tp">第七部分 · 我会不会成为犹大？</span><ol><li><a href="#me"><span class="tn">15</span>我们怎样才不会成为犹大？</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#kxy"><span class="tn">16</span>知·信·行</a></li><li><a href="#faq"><span class="tn">17</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个让人不安的名字</span><ol><li><a href="#q"><span class="tn">01</span>“主，是我吗？”</a></li><li><a href="#who"><span class="tn">02</span>犹大是谁？</a></li></ol></li><li><span class="tp">第二部分 · 他是注定的吗？</span><ol><li><a href="#fore"><span class="tn">03</span>耶稣早就知道</a></li><li><a href="#prophecy"><span class="tn">04</span>“经上的话必须应验”是什么意思？</a></li><li><a href="#both"><span class="tn">05</span>上帝的计划，人的责任</a></li><li><a href="#son"><span class="tn">06</span>“灭亡之子”是生来注定的意思吗？</a></li><li><a href="#satan"><span class="tn">07</span>“撒但入了他的心”：不是一下子的事</a></li></ol></li><li><span class="tp">第三部分 · 耶稣一次又一次地挽回他</span><ol><li><a href="#rescue"><span class="tn">08</span>耶稣挽回犹大的历程</a></li></ol></li><li><span class="tp">第四部分 · 他是怎样一步步走下去的</span><ol><li><a href="#down"><span class="tn">09</span>下坡路：从爱钱到卖主</a></li><li><a href="#why"><span class="tn">10</span>犹大为什么要卖主？各种说法</a></li></ol></li><li><span class="tp">第五部分 · 后悔，却没有回来</span><ol><li><a href="#regret"><span class="tn">11</span>后悔，却没有回来</a></li><li><a href="#peter"><span class="tn">12</span>彼得和犹大：同一夜，两个结局</a></li><li><a href="#death"><span class="tn">13</span>犹大的死：两处记载</a></li></ol></li><li><span class="tp">第六部分 · 他能得救吗？</span><ol><li><a href="#saved"><span class="tn">14</span>犹大能得救吗？</a></li></ol></li><li><span class="tp">第七部分 · 我会不会成为犹大？</span><ol><li><a href="#me"><span class="tn">15</span>我们怎样才不会成为犹大？</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#kxy"><span class="tn">16</span>知·信·行</a></li><li><a href="#faq"><span class="tn">17</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 35 分钟读完<span data-left></span></p></div></aside>
 <main>
-<header class="hero">
+<header class="hero"><svg class="orn" viewBox="0 0 132 48" aria-hidden="true"><ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/><path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/><path class="spk" d="M78 6L79.7 10.3L84 12L79.7 13.7L78 18L76.3 13.7L72 12L76.3 10.3Z"/><path class="spk" d="M104 26L105.1 28.9L108 30L105.1 31.1L104 34L102.9 31.1L100 30L102.9 28.9Z"/><path class="spk" d="M56 35L56.8 37.2L59 38L56.8 38.8L56 41L55.2 38.8L53 38L55.2 37.2Z"/><circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/></svg>
 <p class="eyebrow">问题彩蛋 · 30 · 犹大</p>
 <h1>犹大是注定要卖主的吗？<small class="h1s">耶稣一次又一次地挽回他：犹大能得救吗？我们怎样才不会成为犹大？</small></h1><p class="meta">约 1.5 万字 · 细读约 35 分钟 · 17 章 · 15 条资料出处</p>
 <p class="hsub">圣经早就预言有人要卖主，那犹大是不是“注定”的？耶稣既然早就知道，为什么还拣选他、把钱囊交给他、还洗他的脚？犹大后悔了，为什么还说他灭亡了？他和同一夜三次不认主的彼得差在哪里？我们把四卷福音书、希腊原文、各教会的看法和《历代愿望》第76章“犹大”一起摆出来。</p>
@@ -450,7 +512,7 @@ html.sheetopen{overflow:hidden}
 <p>同样的雅各书也给了出路：“务要抵挡魔鬼，魔鬼就必离开你们逃跑了。你们亲近上帝，上帝就必亲近你们”（雅4:7-8）。</p>
 </section><div class="part" id="part3"><span>第三部分</span><b>耶稣一次又一次地挽回他</b></div><section class="ch" id="rescue"><h2><span class="no">08</span>耶稣挽回犹大的历程</h2>
 <p>这是本题最重要的一章。把四卷福音书放在一起读，会发现耶稣一次又一次地向犹大伸出手：</p>
-<figure class="fig"><svg viewBox="0 0 400 456" class="dg" role="img" aria-labelledby="jdf1t jdf1d">
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>耶稣挽回犹大的历程</span></figcaption><svg viewBox="0 0 400 456" class="dg" role="img" aria-labelledby="jdf1t jdf1d">
 <title id="jdf1t">耶稣挽回犹大的历程</title>
 <desc id="jdf1d">从上到下九步：拣选（路6:12-16）；差遣，同样的权柄（太10:1-8）；托付钱囊（约12:6；13:29）；不点名的警告（约6:70）；伯大尼只说“由她吧”（约12:7）；洗他的脚（约13:5、11）；犹大问“拉比，是我吗？”耶稣说“你说的是”（太26:25）；亲手递饼（约13:26）；园中叫他“朋友”、叫他的名字（太26:50；路22:48）。</desc>
 <path d="M58 30 L58 382" class="ax"/>
@@ -522,7 +584,7 @@ html.sheetopen{overflow:hidden}
 <div class="box"><p class="lab">编者的理解</p><p>耶稣明明知道结局，为什么还这样一次又一次地挽回？因为“知道”不等于“放弃”。祂对耶路撒冷也是这样：明知它要拒绝，还是为它哀哭：“我多次愿意聚集你的儿女……只是你们不愿意”（太23:37）。犹大的故事最让人心碎的，不是他有多坏，而是耶稣有多爱他。</p></div>
 </section><div class="part" id="part4"><span>第四部分</span><b>他是怎样一步步走下去的</b></div><section class="ch" id="down"><h2><span class="no">09</span>下坡路：从爱钱到卖主</h2>
 <p>圣经给了我们几个关键的线索：犹大是贼、常偷钱囊里的钱（约12:6）；他主动去问祭司长“你们愿意给我多少钱？”（太26:15）；撒但入了他的心（路22:3）。怀爱伦在《历代愿望》里把这条下坡路写得更细，下面按她的描写整理（这些细节是她的补充，福音书没有一一记载）：</p>
-<figure class="fig"><svg viewBox="0 0 400 360" class="dg" role="img" aria-labelledby="jdf2t jdf2d">
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>犹大的下坡路</span></figcaption><svg viewBox="0 0 400 360" class="dg" role="img" aria-labelledby="jdf2t jdf2d">
 <title id="jdf2t">犹大的下坡路</title>
 <desc id="jdf2d">像台阶一样往下走的七步：爱钱（约12:6）；从钱囊里偷拿小钱；约翰福音6章以后，留着“随时退出”的心；批评、挑起谁为大的争论；伯大尼被温和责备，怀恨（太26:14）；去见祭司长：“你们愿意给我多少钱？”（太26:15）；拒绝洗脚时的感动，出去，“那时候是夜间了”（约13:30）。依据经文和怀爱伦《历代愿望》第76章的描写。</desc>
 <rect x="14" y="16" width="230" height="34" rx="8" class="f1 fillc"/>
@@ -575,7 +637,7 @@ html.sheetopen{overflow:hidden}
 <p>古代教会也有相似的看法。据百科所引，《特伦托会议要理问答》引用教宗利奥一世（5世纪）的话：犹大若不是这样否认了上帝的全能，他本可以得着怜悯。<a class="cite" id="r2-8" href="#s2" data-n="2">2</a></p>
 </section><section class="ch" id="peter"><h2><span class="no">12</span>彼得和犹大：同一夜，两个结局</h2>
 <p>同一个晚上，有两个门徒失败了：一个出卖，一个三次不认主。他们的结局却完全不同。</p>
-<figure class="fig"><svg viewBox="0 0 400 340" class="dg" role="img" aria-labelledby="jdf3t jdf3d">
+<figure class="fig"><figcaption class="fgl"><b>图 3</b><span>彼得与犹大：同一夜，两个结局</span></figcaption><svg viewBox="0 0 400 340" class="dg" role="img" aria-labelledby="jdf3t jdf3d">
 <title id="jdf3t">彼得与犹大：同一夜，两个结局</title>
 <desc id="jdf3d">左边彼得：三次不认主；主转过身来看他；出去痛哭；回到门徒中间；三次“你爱我吗？”，被托付牧养（约21:15-17）。右边犹大：用亲嘴的暗号卖主；后悔，把钱退给祭司长；“那与我们有什么相干？”；出去吊死了；“往自己的地方去了”（徒1:25）。中间写着：差别不在罪的大小，而在往哪里去。</desc>
 <rect x="14" y="14" width="180" height="270" rx="12" class="f4 fillc"/>
@@ -666,11 +728,12 @@ html.sheetopen{overflow:hidden}
 <p class="note2">医学文献、网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
 <ol class="srcs"><li id="s1" data-k="da716"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第76章“犹大”，英文原著第716—717页</span><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a><a href="#r1-3" aria-label="回到正文第3处">↑</a></span></li><li id="s2" data-k="judas_w"><span class="sk">百科全书</span><span class="sd">加略人犹大（Judas Iscariot，维基百科英文版：名字的几种解释、两处死亡记载、各教会对他结局的看法、特伦托会议第6届第6条）</span><a class="su" href="https://en.wikipedia.org/wiki/Judas_Iscariot" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a><a href="#r2-2" aria-label="回到正文第2处">↑</a><a href="#r2-3" aria-label="回到正文第3处">↑</a><a href="#r2-4" aria-label="回到正文第4处">↑</a><a href="#r2-5" aria-label="回到正文第5处">↑</a><a href="#r2-6" aria-label="回到正文第6处">↑</a><a href="#r2-7" aria-label="回到正文第7处">↑</a><a href="#r2-8" aria-label="回到正文第8处">↑</a><a href="#r2-9" aria-label="回到正文第9处">↑</a><a href="#r2-10" aria-label="回到正文第10处">↑</a></span></li><li id="s3" data-k="judas_ce"><span class="sk">百科全书</span><span class="sd">《天主教百科全书》（1910）“加略人犹大”条（New Advent）</span><a class="su" href="https://www.newadvent.org/cathen/08539a.htm" target="_blank" rel="noopener">newadvent.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a></span></li><li id="s4" data-k="silver_w"><span class="sk">百科全书</span><span class="sd">三十块钱（Thirty pieces of silver，维基百科英文版：出21:32 奴仆的身价、亚11章）</span><a class="su" href="https://en.wikipedia.org/wiki/Thirty_pieces_of_silver" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a></span></li><li id="s5" data-k="da293"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第30章“设立十二个门徒”（He Ordained Twelve），英文原著第293—295页</span><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a></span></li><li id="s6" data-k="sonperd_w"><span class="sk">百科全书</span><span class="sd">灭亡之子（Son of perdition，维基百科英文版：约17:12 与帖后2:3）</span><a class="su" href="https://en.wikipedia.org/wiki/Son_of_perdition" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a></span></li><li id="s7" data-k="da563"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第62章“在西门家里坐席”，英文原著第563—564页</span><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="da645"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第71章“仆人的仆人”，英文原著第645页</span><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li><li id="s9" data-k="da653"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第72章“记念我”，英文原著第653—655页</span><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a></span></li><li id="s10" data-k="da696"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第74章“客西马尼园”，英文原著第695—696页</span><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a></span></li><li id="s11" data-k="da718"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第76章“犹大”，英文原著第717—719页</span><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a><a href="#r11-2" aria-label="回到正文第2处">↑</a></span></li><li id="s12" data-k="da720"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第76章“犹大”，英文原著第720—721页</span><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a><a href="#r12-2" aria-label="回到正文第2处">↑</a></span></li><li id="s13" data-k="gjudas_w"><span class="sk">百科全书</span><span class="sd">《犹大福音》（Gospel of Judas，维基百科英文版：科普特文抄本、碳定年220—340年、爱任纽约180年称之为“虚构的历史”）</span><a class="su" href="https://en.wikipedia.org/wiki/Gospel_of_Judas" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r13-1" aria-label="回到正文第1处">↑</a></span></li><li id="s14" data-k="da722"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第76章“犹大”，英文原著第721—722页</span><span class="sb"><a href="#r14-1" aria-label="回到正文第1处">↑</a><a href="#r14-2" aria-label="回到正文第2处">↑</a></span></li><li id="s15" data-k="da656"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第72章“记念我”，英文原著第656页</span><span class="sb"><a href="#r15-1" aria-label="回到正文第1处">↑</a></span></li></ol>
 </section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="lose.html"><span class="reln">问题彩蛋 13</span><b>信了主，还会失去救恩吗？</b><small>一次得救永远得救？希伯来书6章“不能重新懊悔”？不得赦免的罪？离开了还能回来吗？</small></a><a class="relc" href="elect.html"><span class="reln">问题彩蛋 10</span><b>上帝早就定好谁得救吗？</b><small>“雅各是我所爱的，以扫是我所恶的”（罗9:13）到底在说什么？预定论、拣选和人的选择</small></a><a class="relc" href="rom7.html"><span class="reln">问题彩蛋 08</span><b>我还会犯罪，能得救吗？</b><small>罗马书7章“立志为善由得我，只是行出来由不得我”；还有“在罪中得救”“一次得救永远得救”“得救是命定的”</small></a></div></section><div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210"><defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs><rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/><path class="hz" d="M0 186 Q360 142 720 186"/><circle cx="40" cy="30" r="1.4" class="sd"/><circle cx="96" cy="64" r="1" class="sd"/><circle cx="150" cy="22" r="1.2" class="sd"/><circle cx="210" cy="52" r="1" class="sd"/><circle cx="268" cy="18" r="1.5" class="sd"/><circle cx="330" cy="70" r="1.1" class="sd"/><circle cx="402" cy="28" r="1" class="sd"/><circle cx="452" cy="58" r="1.3" class="sd"/><circle cx="520" cy="16" r="1" class="sd"/><circle cx="600" cy="30" r="1.2" class="sd"/><circle cx="660" cy="70" r="1" class="sd"/><circle cx="700" cy="24" r="1.4" class="sd"/><circle cx="24" cy="96" r="1" class="sd"/><circle cx="360" cy="40" r="1.2" class="sd"/><path class="spk" d="M122 37L124.0 42.0L129 44L124.0 46.0L122 51L120.0 46.0L115 44L120.0 42.0Z"/><path class="spk" d="M486 25L487.4 28.6L491 30L487.4 31.4L486 35L484.6 31.4L481 30L484.6 28.6Z"/><path class="spk" d="M300 88L301.1 90.9L304 92L301.1 93.1L300 96L298.9 93.1L296 92L298.9 90.9Z"/><path class="spk" d="M640 99L641.4 102.6L645 104L641.4 105.4L640 109L638.6 105.4L635 104L638.6 102.6Z"/><path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/><g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/><path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g><g class="dove"><g transform="translate(300 96)"><path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/><path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/><path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/><ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g></svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
-<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
-<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个让人不安的名字</span><ol><li><a href="#q"><span class="tn">01</span>“主，是我吗？”</a></li><li><a href="#who"><span class="tn">02</span>犹大是谁？</a></li></ol></li><li><span class="tp">第二部分 · 他是注定的吗？</span><ol><li><a href="#fore"><span class="tn">03</span>耶稣早就知道</a></li><li><a href="#prophecy"><span class="tn">04</span>“经上的话必须应验”是什么意思？</a></li><li><a href="#both"><span class="tn">05</span>上帝的计划，人的责任</a></li><li><a href="#son"><span class="tn">06</span>“灭亡之子”是生来注定的意思吗？</a></li><li><a href="#satan"><span class="tn">07</span>“撒但入了他的心”：不是一下子的事</a></li></ol></li><li><span class="tp">第三部分 · 耶稣一次又一次地挽回他</span><ol><li><a href="#rescue"><span class="tn">08</span>耶稣挽回犹大的历程</a></li></ol></li><li><span class="tp">第四部分 · 他是怎样一步步走下去的</span><ol><li><a href="#down"><span class="tn">09</span>下坡路：从爱钱到卖主</a></li><li><a href="#why"><span class="tn">10</span>犹大为什么要卖主？各种说法</a></li></ol></li><li><span class="tp">第五部分 · 后悔，却没有回来</span><ol><li><a href="#regret"><span class="tn">11</span>后悔，却没有回来</a></li><li><a href="#peter"><span class="tn">12</span>彼得和犹大：同一夜，两个结局</a></li><li><a href="#death"><span class="tn">13</span>犹大的死：两处记载</a></li></ol></li><li><span class="tp">第六部分 · 他能得救吗？</span><ol><li><a href="#saved"><span class="tn">14</span>犹大能得救吗？</a></li></ol></li><li><span class="tp">第七部分 · 我会不会成为犹大？</span><ol><li><a href="#me"><span class="tn">15</span>我们怎样才不会成为犹大？</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#kxy"><span class="tn">16</span>知·信·行</a></li><li><a href="#faq"><span class="tn">17</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 一个让人不安的名字</span><ol><li><a href="#q"><span class="tn">01</span>“主，是我吗？”</a></li><li><a href="#who"><span class="tn">02</span>犹大是谁？</a></li></ol></li><li><span class="tp">第二部分 · 他是注定的吗？</span><ol><li><a href="#fore"><span class="tn">03</span>耶稣早就知道</a></li><li><a href="#prophecy"><span class="tn">04</span>“经上的话必须应验”是什么意思？</a></li><li><a href="#both"><span class="tn">05</span>上帝的计划，人的责任</a></li><li><a href="#son"><span class="tn">06</span>“灭亡之子”是生来注定的意思吗？</a></li><li><a href="#satan"><span class="tn">07</span>“撒但入了他的心”：不是一下子的事</a></li></ol></li><li><span class="tp">第三部分 · 耶稣一次又一次地挽回他</span><ol><li><a href="#rescue"><span class="tn">08</span>耶稣挽回犹大的历程</a></li></ol></li><li><span class="tp">第四部分 · 他是怎样一步步走下去的</span><ol><li><a href="#down"><span class="tn">09</span>下坡路：从爱钱到卖主</a></li><li><a href="#why"><span class="tn">10</span>犹大为什么要卖主？各种说法</a></li></ol></li><li><span class="tp">第五部分 · 后悔，却没有回来</span><ol><li><a href="#regret"><span class="tn">11</span>后悔，却没有回来</a></li><li><a href="#peter"><span class="tn">12</span>彼得和犹大：同一夜，两个结局</a></li><li><a href="#death"><span class="tn">13</span>犹大的死：两处记载</a></li></ol></li><li><span class="tp">第六部分 · 他能得救吗？</span><ol><li><a href="#saved"><span class="tn">14</span>犹大能得救吗？</a></li></ol></li><li><span class="tp">第七部分 · 我会不会成为犹大？</span><ol><li><a href="#me"><span class="tn">15</span>我们怎样才不会成为犹大？</a></li></ol></li><li><span class="tp">第八部分 · 总结与问答</span><ol><li><a href="#kxy"><span class="tn">16</span>知·信·行</a></li><li><a href="#faq"><span class="tn">17</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 35 分钟读完<span data-left></span></p></div></div></div>
 <div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
 <p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
 <p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
@@ -689,8 +752,11 @@ html.sheetopen{overflow:hidden}
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
-  var pb=document.querySelector('.prog i'),tick=false;
-  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
   /* 弹出层 */
   function open(s){s.hidden=false;de.classList.add('sheetopen');}
@@ -725,10 +791,17 @@ html.sheetopen{overflow:hidden}
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
     cur=id;
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
     var side=document.querySelector('.toc-side a.on');
     if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
   }
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 页面底部的星空：看得见时才动 */
+  var sc=document.querySelector('.scene');
+  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){

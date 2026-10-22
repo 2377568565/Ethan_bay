@@ -331,6 +331,12 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None):
         print('  ! 这一页没有“分享”和“下载 PDF”按钮（tools）', file=sys.stderr)
     tb = tools['bar'] if tools else ''
     tail = tools['tail'] if tools else ''
+    main = label_figs(main)
+    main = main.replace('<header class="hero">', '<header class="hero">' + ORN, 1)
+    words = len(re.sub(r'<[^>]+>|\s', '', main + srcs))
+    mins = max(5, round(words / 450 / 5) * 5)
+    pxw = f'<div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 {mins} 分钟读完<span data-left></span></p></div>'
+    rel = related(title)
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -341,19 +347,20 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None):
 <script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}try{{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}}catch(e){{}}</script>
 <style>{CSS}</style>
 </head>
-<body>
+<body data-mins="{mins}">
 <div class="prog" aria-hidden="true"><i></i></div>
 <header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">{title}</span>{tb}<button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
-<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p></aside>
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p>{pxw}</aside>
 <main>
 {main}
 {srcs}
+{rel}{SCENE}
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
-<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录</button>
-<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p></div></div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p>{pxw}</div></div>
 <div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
 <p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
 <p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
@@ -365,6 +372,76 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None):
 </body>
 </html>
 '''
+
+
+def label_figs(main):
+    """给没有图注的 figure.fig 加上“图 N · 标题”（标题取自 SVG 的 <title>）；已经有 <p class="cap">图 N 的保持原样。"""
+    out, pos, n = [], 0, 0
+    for m in re.finditer(r'<figure class="fig">(.*?)</figure>', main, re.S):
+        n += 1
+        out.append(main[pos:m.start()])
+        body = m.group(1)
+        has_cap = re.match(r'\s*<p class="cap">', main[m.end():m.end() + 40])
+        tm = re.search(r'<title[^>]*>(.*?)</title>', body, re.S)
+        if has_cap or not tm:
+            out.append(m.group(0))
+        else:
+            out.append(f'<figure class="fig"><figcaption class="fgl"><b>图 {n}</b><span>{tm.group(1)}</span></figcaption>{body}</figure>')
+        pos = m.end()
+    out.append(main[pos:])
+    return ''.join(out)
+
+
+def related(title):
+    """页面底部的“相关阅读”：按 qa_data.RELATED 取三篇。"""
+    try:
+        import qa_data
+    except Exception:
+        return ''
+    by = {d['id']: d for d in qa_data.ITEMS if d.get('url')}
+    me = next((d for d in by.values() if d['q'] == title), None)
+    if not me:
+        return ''
+    cards = []
+    for i in getattr(qa_data, 'RELATED', {}).get(me['id'], []):
+        d = by.get(i)
+        if d:
+            cards.append(f'<a class="relc" href="{d["url"]}"><span class="reln">问题彩蛋 {d["no"]:02d}</span><b>{d["q"]}</b><small>{d.get("sub", "")}</small></a>')
+    if not cards:
+        return ''
+    return f'<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg">{"".join(cards)}</div></section>'
+
+
+def _spark(x, y, r):
+    a = r * 0.28
+    return (f'<path class="spk" d="M{x} {y - r}L{x + a:.1f} {y - a:.1f}L{x + r} {y}L{x + a:.1f} {y + a:.1f}L{x} {y + r}'
+            f'L{x - a:.1f} {y + a:.1f}L{x - r} {y}L{x - a:.1f} {y - a:.1f}Z"/>')
+
+
+ORN = ('<svg class="orn" viewBox="0 0 132 48" aria-hidden="true">'
+       '<ellipse cx="62" cy="26" rx="56" ry="14" class="orb"/>'
+       '<path class="moon" d="M30 9a14 14 0 1 0 0 28a18 18 0 0 1 0-28z"/>'
+       + _spark(78, 12, 6) + _spark(104, 30, 4) + _spark(56, 38, 3) +
+       '<circle cx="92" cy="9" r="1.4" class="sd"/><circle cx="120" cy="16" r="1.1" class="sd"/><circle cx="46" cy="20" r="1" class="sd"/>'
+       '</svg>')
+
+_stars = ''.join(f'<circle cx="{x}" cy="{y}" r="{r}" class="sd"/>' for x, y, r in
+                 [(40, 30, 1.4), (96, 64, 1), (150, 22, 1.2), (210, 52, 1), (268, 18, 1.5), (330, 70, 1.1), (402, 28, 1),
+                  (452, 58, 1.3), (520, 16, 1), (600, 30, 1.2), (660, 70, 1), (700, 24, 1.4), (24, 96, 1), (360, 40, 1.2)])
+SCENE = ('<div class="scene" aria-hidden="true"><svg viewBox="0 0 720 210">'
+         '<defs><radialGradient id="dawn" cx="50%" cy="100%" r="62%"><stop offset="0" class="dw0"/><stop offset="1" class="dw1"/></radialGradient></defs>'
+         '<rect x="0" y="120" width="720" height="90" fill="url(#dawn)"/>'
+         '<path class="hz" d="M0 186 Q360 142 720 186"/>'
+         + _stars + _spark(122, 44, 7) + _spark(486, 30, 5) + _spark(300, 92, 4) + _spark(640, 104, 5) +
+         '<path class="moon" d="M84 74a20 20 0 1 0 0 40a26 26 0 0 1 0-40z"/>'
+         '<g class="planet"><circle cx="590" cy="70" r="26" class="pl"/><ellipse cx="590" cy="72" rx="46" ry="9" class="ring" transform="rotate(-14 590 72)"/>'
+         '<path class="pls" d="M572 58a26 26 0 0 1 30-8"/></g>'
+         '<g class="dove"><g transform="translate(300 96)">'
+         '<path class="dv" d="M0 16C10 6 22 4 32 8C36-6 50-14 64-12C54-4 48 4 46 12C56 12 64 15 72 20C60 23 50 23 40 22C30 28 14 28 0 16Z"/>'
+         '<path class="dvw" d="M32 8C38 0 48-6 58-8"/><circle cx="64" cy="18" r="1.2" class="sd"/>'
+         '<path class="olv" d="M72 20L84 22"/><ellipse cx="80" cy="18.6" rx="3.2" ry="1.5" class="lf" transform="rotate(-25 80 18.6)"/>'
+         '<ellipse cx="84" cy="24.5" rx="3.2" ry="1.5" class="lf" transform="rotate(25 84 24.5)"/></g></g>'
+         '</svg><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p></div>')
 
 
 CSS = r'''
@@ -667,6 +744,68 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
 html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:-4px;top:12px;width:132px;height:48px;overflow:visible}
+.orn .orb,.scene .hz{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+.orn .moon,.scene .moon{fill:var(--gold)}
+.orn .spk,.scene .spk{fill:var(--gold)}
+.orn .sd,.scene .sd{fill:var(--muted)}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:36px -16px 0;text-align:center}
+.scene svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto}
+.scene .dw0{stop-color:var(--gold);stop-opacity:.22}.scene .dw1{stop-color:var(--gold);stop-opacity:0}
+.scene .pl{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.4}
+.scene .ring{fill:none;stroke:var(--gold);stroke-width:1.4}
+.scene .pls{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.7}
+.scene .dv{fill:var(--surface);stroke:var(--ink-2);stroke-width:1.3;stroke-linejoin:round}
+.scene .dvw{fill:none;stroke:var(--ink-2);stroke-width:1.1}
+.scene .olv{stroke:#5E8A4A;stroke-width:1.4}.scene .lf{fill:#6E9B57}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.scene.in .dove{animation:fly 6s ease-in-out infinite}
+.scene.in .planet{animation:bob 9s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-8px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.scene.in .dove,.scene.in .planet,.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 '''
 
@@ -682,8 +821,11 @@ JS = r'''
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
   function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
   /* 阅读进度 */
-  var pb=document.querySelector('.prog i'),tick=false;
-  function prog(){tick=false;var h=de.scrollHeight-innerHeight;pb.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';}
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
   /* 弹出层 */
   function open(s){s.hidden=false;de.classList.add('sheetopen');}
@@ -718,10 +860,17 @@ JS = r'''
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
     cur=id;
     if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
     var side=document.querySelector('.toc-side a.on');
     if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
   }
   var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 页面底部的星空：看得见时才动 */
+  var sc=document.querySelector('.scene');
+  if(sc&&'IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(x){sc.classList.toggle('in',x.isIntersecting);});}).observe(sc);
   /* 教派名片：全部展开 */
   var ab=document.querySelector('[data-allopen]');
   if(ab)ab.addEventListener('click',function(){
