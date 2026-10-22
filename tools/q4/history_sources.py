@@ -697,6 +697,41 @@ SRC.update({
  'gc550':    ('怀爱伦《善恶之争》第33章“第一个大骗局”，英文原著第550页', None, []),
  'da787':    ('怀爱伦《历代愿望》第81章“主已经复活了”，英文原著第787页', None, []),
 })
+# 《“我原谅你”，为什么要用血来写？》（blood.py，问题彩蛋 31）用到的资料：2026-10 用临时任务读取原文核对（怀著按逐页原版的标准页码标记）
+SRC.update({
+ 'atone_w':  ('基督教的赎罪论（Atonement in Christianity，维基百科英文版：赎价、得胜、满足、道德感化、刑罚代替、政府说等各种解释的概述）', 'https://en.wikipedia.org/wiki/Atonement_in_Christianity', ['Anselm']),
+ 'cv_w':     ('《得胜的基督》（Christus Victor，维基百科英文版：瑞典路德会主教奥伦1930年瑞典文、1931年英文出版；认为早期教父多持“经典的”得胜说，安瑟伦约1097年发表《上帝为何成为人》后转向满足说）', 'https://en.wikipedia.org/wiki/Christus_Victor', ['1931']),
+ 'satis_w':  ('满足说（Satisfaction theory of atonement，维基百科英文版：安瑟伦《上帝为何成为人》，书中“或者偿还被夺去的尊荣，或者受刑罚”一句的拉丁原文）', 'https://en.wikipedia.org/wiki/Satisfaction_theory_of_atonement', ['Cur Deus Homo']),
+ 'anselm':   ('安瑟伦《上帝为何成为人》（Cur Deus Homo）英译本（福特汉姆大学中古史料库）：第一卷第12章题目、第二卷第6章', 'https://sourcebooks.fordham.edu/basis/anselm-curdeus.asp', ['none but God can make']),
+ 'moral_w':  ('道德感化说（Moral influence theory of atonement，维基百科英文版：阿伯拉尔，1079—1142）', 'https://en.wikipedia.org/wiki/Moral_influence_theory_of_atonement', ['Abelard']),
+ 'penal_w':  ('刑罚代替说（Penal substitution，维基百科英文版：路德、加尔文；2003年查尔克一句话引起的争论）', 'https://en.wikipedia.org/wiki/Penal_substitution', ['cosmic child abuse']),
+ 'chalke_w': ('斯蒂夫·查尔克（Steve Chalke，维基百科英文版：2003年与艾伦·曼合著《耶稣失落的信息》，因不接受刑罚代替说的一种讲法，在福音派中引起争论）', 'https://en.wikipedia.org/wiki/Steve_Chalke', ['Lost Message']),
+ 'korban_w': ('祭祀（Korban，维基百科英文版：圣殿被毁后的犹太传统，约哈难·本·撒该引何6:6；《巴比伦塔木德》里几位拉比认为遵行律法、行善、研读经典比献动物祭更大）', 'https://en.wikipedia.org/wiki/Korban', ['Hosea 6:6']),
+ 'gov_w':    ('政府说（Governmental theory of atonement，维基百科英文版：格劳秀斯1617年《为大公信仰辩护：论基督的满足》）', 'https://en.wikipedia.org/wiki/Governmental_theory_of_atonement', ['1617']),
+ 'ransom_w': ('赎价说（Ransom theory of atonement，维基百科英文版：俄利根、尼撒的格列高利、奥古斯丁；拿先斯的格列高利反对“赎价付给魔鬼”）', 'https://en.wikipedia.org/wiki/Ransom_theory_of_atonement', ['Gregory of Nyssa']),
+ 'calvin216':('加尔文《基督教要义》第二卷第16章第4—5节（英译本，CCEL）', 'https://www.ccel.org/ccel/calvin/institutes.iv.xvii.html', ['Incomprehensible and immutable']),
+ 'ccc613':   ('《天主教教理》第613条（英文版）', 'https://www.scborromeo.org/ccc/para/613.htm', ['Paschal sacrifice']),
+ 'ccc614':   ('《天主教教理》第614条（英文版）', 'https://www.scborromeo.org/ccc/para/614.htm', ['unique']),
+ 'ccc615':   ('《天主教教理》第615条（英文版）', 'https://www.scborromeo.org/ccc/para/615.htm', ['substitution']),
+ 'ccc616':   ('《天主教教理》第616条（英文版）', 'https://www.scborromeo.org/ccc/para/616.htm', ['to the end']),
+ 'ardn4':    ('《拉比拿单论先贤》（Avot de-Rabbi Natan）第4章：约哈难·本·撒该与约书亚看见圣殿的废墟（英译本，Sefaria）', "https://www.sefaria.org/Avot_D'Rabbi_Natan.4", ['lovingkindness']),
+ 'yoma8':    ('《密释纳·赎罪日篇》第8章第8—9节（英译本，Sefaria）', 'https://www.sefaria.org/Mishnah_Yoma.8', ['appeases']),
+ 'sdafb_w':  ('基督复临安息日会28条基本信仰（维基百科英文版条目列表：第9条“基督的生、死与复活”）', 'https://en.wikipedia.org/wiki/28_Fundamental_Beliefs', ['Life, Death']),
+ 'sc13':     ('怀爱伦《拾级就主》第1章“上帝对人类的爱”，英文原著第13—14页', None, []),
+ 'sc35':     ('怀爱伦《拾级就主》第3章“悔改”，英文原著第35页', None, []),
+ 'pp63':     ('怀爱伦《先祖与先知》第4章“救赎的计划”，英文原著第63—64页', None, []),
+ 'pp66':     ('怀爱伦《先祖与先知》第4章“救赎的计划”，英文原著第66页', None, []),
+ 'pp68':     ('怀爱伦《先祖与先知》第4章“救赎的计划”，英文原著第68页', None, []),
+ 'pp68b':    ('怀爱伦《先祖与先知》第4章“救赎的计划”，英文原著第68—69页', None, []),
+ 'pp69':     ('怀爱伦《先祖与先知》第4章“救赎的计划”，英文原著第69页', None, []),
+ 'pp72':     ('怀爱伦《先祖与先知》第5章“该隐和亚伯受试验”，英文原著第72页', None, []),
+ 'da25b':    ('怀爱伦《历代愿望》第1章“上帝与我们同在”，英文原著第25页', None, []),
+ 'da753':    ('怀爱伦《历代愿望》第78章“髑髅地”，英文原著第753页', None, []),
+ 'da758':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第758页', None, []),
+ 'da761':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第761页', None, []),
+ 'da762':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第762页', None, []),
+ 'da764':    ('怀爱伦《历代愿望》第79章“成了”，英文原著第764页', None, []),
+})
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
@@ -705,3 +740,4 @@ EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da6
             'pp679', 'gc551', 'gc552', 'ah340', 'ah341', 'ah343', 'cg244', 'cg245', 'cg250', 'cg283', 'cg225', 'mh127', 'mh296', 'col351', 'cs138', 'cs66', 'cs157', 'pp111', 'ed128', 'sm1_16', 'sm1_21', 'gcvii', 'ed13', 'da20', 'gc492', 'gc498', 'gc678', 'pp34', 'pp42', 'pp49', 'pp331', 'da224',
             'mh483', 'mh486', 'mh487', 'da146', 'da752', 'ah360', 'ah363', 'ah438', 'ah441',
             'mh229', 'mh241', 'mh251', 'mh360', 'mh373', 'mh481', 'sc116'}
+EGW_KEYS |= {'sc13', 'sc35', 'pp63', 'pp66', 'pp68', 'pp68b', 'pp69', 'pp72', 'da25b', 'da753', 'da758', 'da761', 'da762', 'da764'}
