@@ -167,13 +167,13 @@ def natures():
            '耶稣复活以后、义人复活以后：外框白、内框白。</desc>',
            f'<defs><pattern id="jsdots" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{PAPER}"/>'
            f'<circle cx="3.5" cy="3.5" r="1.3" fill="{INK}"/></pattern></defs>',
-           f'<rect x="3" y="3" width="{W - 6}" height="{H - 6}" rx="10" fill="{PAPER}" stroke="{INK}" stroke-width="2.4"/>']
+           f'<rect x="3" y="3" width="{W - 6}" height="{H - 6}" rx="10" fill="{PAPER}" stroke="{INK}" stroke-width="3.2"/>']
 
     def cell(x, y, w, h, fallen, mind):
-        o = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>'
+        o = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="2.8"/>'
         iw, ih = w * .43, h * .45
         o += (f'<rect x="{x + (w - iw) / 2:.1f}" y="{y + (h - ih) / 2:.1f}" width="{iw:.1f}" height="{ih:.1f}" rx="3" '
-              f'fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+              f'fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="2.8"/>')
         return o
     cells = [('亚当堕落前', False, 'w'), ('亚当堕落后', True, 'k'),
              ('耶稣在世', True, 'w'), ('重生的人', True, 'w'),
@@ -191,10 +191,10 @@ def natures():
     for k, (fallen, mind, s) in enumerate(legend):
         y = 392 + OY + k * 34
         if mind is None:
-            out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+            out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{"url(#jsdots)" if fallen else PAPER}" stroke="{INK}" stroke-width="2.8"/>')
         else:
             out.append(f'<rect x="28" y="{y}" width="40" height="24" rx="4" fill="{PAPER}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 2"/>')   # 白底，夜间也看得见黑框
-            out.append(f'<rect x="38" y="{y + 6}" width="20" height="12" rx="2" fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="1.6"/>')
+            out.append(f'<rect x="38" y="{y + 6}" width="20" height="12" rx="2" fill="{INK if mind == "k" else PAPER}" stroke="{INK}" stroke-width="2.8"/>')
         out.append(tx(80, y + 17, s, 'ts'))
     out.append(tx(W / 2, 548 + OY - 4, '重生的人：宝血洗净，心是洁白的；还会跌倒，是因为肉体的软弱', 'tw', 'middle'))
     out.append(tx(W / 2, 564 + OY - 4, '依据参考资料的原图重画', 'tw', 'middle'))
