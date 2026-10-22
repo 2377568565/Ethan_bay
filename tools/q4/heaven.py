@@ -16,6 +16,20 @@ NO = {cid: i + 1 for i, (_, cid, _, _) in enumerate(T.CHAPTERS)}
 NAME = {cid: t for _, cid, t, _ in T.CHAPTERS}
 FIGS = {'road': G.road, 'bookend': G.bookend, 'near': G.near, 'cube': G.cube, 'know': G.know, 'keep': G.keep, 'bored': G.bored}
 EXTRA_CSS = r'''
+/* 名人诗文（2026-10-23 用户要的：选一些有名的诗文作补充） */
+.poem{margin:1.2em 0;padding:16px 18px 10px;border-radius:14px;border:1px solid var(--rule);border-left:4px solid var(--gold,#B8862B);background:var(--surface)}
+.poem figcaption{font-family:var(--serif);font-weight:700;font-size:1.05rem;margin:0 0 .6em;color:var(--ink)}
+.poem p{font-family:var(--serif);line-height:1.95;margin:0 0 .9em}
+.poem .pcite{font-family:inherit;font-size:.82rem;color:var(--muted);margin:.2em 0 .6em}
+.poem details{margin:.4em 0 .4em;border-top:1px dashed var(--rule);padding-top:.5em}
+.poem summary{cursor:pointer;font-size:.88rem;color:var(--ink-2)}
+.poem details p[lang=en]{font-size:.92rem;line-height:1.75;overflow-wrap:anywhere;margin-top:.6em}
+/* 本页表格：只给“经文”栏不换行，其他栏按比例分，避免某一栏被挤成一个字宽（2026-10-23） */
+.ch .atbl td:first-child{width:24%}
+.ch .atbl td:last-child,.ch .atbl th:last-child{white-space:nowrap;width:1%}
+.ch .ptbl td:first-child,.ch .wtbl td:first-child{width:38%}
+.ch .ktbl td:first-child{width:30%}
+.ch .ltbl td:first-child{width:24%}
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
 .tblwrap.two-col .dtbl{min-width:0;width:100%}
 .dtbl th,.dtbl td{width:50%}
@@ -24,9 +38,6 @@ EXTRA_CSS = r'''
 .ch .mini th{white-space:normal}
 .ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
 .ch .mini td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
-.ch .ftbl td:first-child{width:22%;white-space:nowrap}
-.ch .atbl td:nth-child(2){white-space:nowrap}
-.ch .atbl td:first-child{width:30%}
 .tblwrap.two-col .stbl{min-width:0;width:100%}
 .stbl th,.stbl td{width:50%}
 .hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
@@ -35,9 +46,6 @@ EXTRA_CSS = r'''
 .obj .o h4{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font-size:1rem;line-height:1.5}
 .obj .o h4 .ci{flex:none;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;display:grid;place-items:center;margin-top:1px}
 .obj .o p{margin:.4em 0}
-.ch .wtbl td:first-child small{overflow-wrap:normal;word-break:keep-all}
-.ch .wtbl td:first-child{white-space:nowrap}
-.ch .wtbl td:first-child i{overflow-wrap:normal;word-break:normal}
 .ch .wtbl td i{font-style:normal;font-weight:650}
 .vlist{padding-left:1.2em}
 .vlist li{margin:.35em 0}
@@ -51,15 +59,12 @@ EXTRA_CSS = r'''
 .tblwrap.two-col .ktbl2{min-width:0;width:100%}
 .ktbl2 th,.ktbl2 td{width:50%}
 .ktbl2 thead th{white-space:normal}
-.ch .ktbl td:first-child{width:24%;white-space:nowrap}
-.ch .ptbl td:first-child{white-space:nowrap}
 .cause .neg1,.cause .pos1,.cause .step1,.cause .m1,.cause .m2{margin:.3em 0;font-size:.92rem}
 .cause .m1{color:var(--c1);font-weight:600}
 .cause .m2{color:var(--muted)}
 .cause .neg1{color:var(--muted)}
 .cause .pos1{color:var(--ink)}
 .cause .step1{color:var(--c1);font-weight:600}
-.ch .ltbl td:first-child{width:32%}
 .causes .cause h4{padding-right:30px}
 '''
 

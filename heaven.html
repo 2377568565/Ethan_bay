@@ -158,7 +158,7 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
 /* 小表格 */
 .mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
-.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top;min-width:4.5em}
 .mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
 /* 年表 */
 .tl{margin:10px 0}
@@ -356,6 +356,20 @@ html.sheetopen{overflow:hidden}
 .lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.sky .km,.sky .kg{fill:var(--gold)}.sky .ks,.sky .kh{fill:var(--muted)}.sky .kd{fill:var(--gold);opacity:.55}
 @media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
 
+/* 名人诗文（2026-10-23 用户要的：选一些有名的诗文作补充） */
+.poem{margin:1.2em 0;padding:16px 18px 10px;border-radius:14px;border:1px solid var(--rule);border-left:4px solid var(--gold,#B8862B);background:var(--surface)}
+.poem figcaption{font-family:var(--serif);font-weight:700;font-size:1.05rem;margin:0 0 .6em;color:var(--ink)}
+.poem p{font-family:var(--serif);line-height:1.95;margin:0 0 .9em}
+.poem .pcite{font-family:inherit;font-size:.82rem;color:var(--muted);margin:.2em 0 .6em}
+.poem details{margin:.4em 0 .4em;border-top:1px dashed var(--rule);padding-top:.5em}
+.poem summary{cursor:pointer;font-size:.88rem;color:var(--ink-2)}
+.poem details p[lang=en]{font-size:.92rem;line-height:1.75;overflow-wrap:anywhere;margin-top:.6em}
+/* 本页表格：只给“经文”栏不换行，其他栏按比例分，避免某一栏被挤成一个字宽（2026-10-23） */
+.ch .atbl td:first-child{width:24%}
+.ch .atbl td:last-child,.ch .atbl th:last-child{white-space:nowrap;width:1%}
+.ch .ptbl td:first-child,.ch .wtbl td:first-child{width:38%}
+.ch .ktbl td:first-child{width:30%}
+.ch .ltbl td:first-child{width:24%}
 .dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
 .tblwrap.two-col .dtbl{min-width:0;width:100%}
 .dtbl th,.dtbl td{width:50%}
@@ -364,9 +378,6 @@ html.sheetopen{overflow:hidden}
 .ch .mini th{white-space:normal}
 .ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
 .ch .mini td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
-.ch .ftbl td:first-child{width:22%;white-space:nowrap}
-.ch .atbl td:nth-child(2){white-space:nowrap}
-.ch .atbl td:first-child{width:30%}
 .tblwrap.two-col .stbl{min-width:0;width:100%}
 .stbl th,.stbl td{width:50%}
 .hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
@@ -375,9 +386,6 @@ html.sheetopen{overflow:hidden}
 .obj .o h4{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font-size:1rem;line-height:1.5}
 .obj .o h4 .ci{flex:none;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;display:grid;place-items:center;margin-top:1px}
 .obj .o p{margin:.4em 0}
-.ch .wtbl td:first-child small{overflow-wrap:normal;word-break:keep-all}
-.ch .wtbl td:first-child{white-space:nowrap}
-.ch .wtbl td:first-child i{overflow-wrap:normal;word-break:normal}
 .ch .wtbl td i{font-style:normal;font-weight:650}
 .vlist{padding-left:1.2em}
 .vlist li{margin:.35em 0}
@@ -391,15 +399,12 @@ html.sheetopen{overflow:hidden}
 .tblwrap.two-col .ktbl2{min-width:0;width:100%}
 .ktbl2 th,.ktbl2 td{width:50%}
 .ktbl2 thead th{white-space:normal}
-.ch .ktbl td:first-child{width:24%;white-space:nowrap}
-.ch .ptbl td:first-child{white-space:nowrap}
 .cause .neg1,.cause .pos1,.cause .step1,.cause .m1,.cause .m2{margin:.3em 0;font-size:.92rem}
 .cause .m1{color:var(--c1);font-weight:600}
 .cause .m2{color:var(--muted)}
 .cause .neg1{color:var(--muted)}
 .cause .pos1{color:var(--ink)}
 .cause .step1{color:var(--c1);font-weight:600}
-.ch .ltbl td:first-child{width:32%}
 .causes .cause h4{padding-right:30px}
 </style>
 </head>
@@ -411,7 +416,7 @@ html.sheetopen{overflow:hidden}
 <main>
 <header class="hero"><span class="orn"><svg class="lamb" data-on="eo ld rd" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></span>
 <p class="eyebrow">问题彩蛋 · 32 · 永远的家</p>
-<h1>永远住在天上，会不会很无聊？<small class="h1s">天堂是什么样子？在那里还认得家人吗？一直唱诗弹琴，不会腻吗？</small></h1><p class="meta">约 3.5 万字 · 细读约 75 分钟 · 31 章 · 35 条资料出处</p>
+<h1>永远住在天上，会不会很无聊？<small class="h1s">天堂是什么样子？在那里还认得家人吗？一直唱诗弹琴，不会腻吗？</small></h1><p class="meta">约 3.7 万字 · 细读约 80 分钟 · 31 章 · 35 条资料出处</p>
 <p class="hsub">说到天堂，很多人脑子里是云彩、白袍、竖琴和永远的礼拜，心里却有三个不太敢问的问题：那到底是个什么样的地方？先走一步的父母、夭折的孩子、相伴一生的配偶，到时候还认得吗？一万年、十万年地住下去，再好也会腻吧？这一页以经解经，从创世记读到启示录，看圣经怎样描写那个家，看耶稣复活的身体告诉我们什么，看保罗怎样安慰失去亲人的人，再一个一个回答“会不会无聊”。</p>
 <div class="answer"><p class="lab">先说结论</p>
 <ol class="lineage"><li class="f6"><span class="ly">在哪里</span><b>最后的家不在云上，而在更新了的地上：“上帝的帐幕在人间，他要与人同住”</b><small>启21:1-3</small></li><li class="f6"><span class="ly">什么样子</span><b>失去的伊甸回来了：生命河、生命树，“以后再没有咒诅”</b><small>启22:1-3</small></li><li class="f6"><span class="ly">最核心的</span><b>不是街道和宝石，而是“也要见他的面”</b><small>启22:4</small></li><li class="f6"><span class="ly">认得家人吗</span><b>会。耶稣复活后被认出来；“到那时就全知道，如同主知道我一样”</b><small>林前13:12</small></li><li class="f6"><span class="ly">会无聊吗</span><b>不会。上帝是无限的，祂的国“加增无穷”；那里有事做、有人爱、永远有新的</b><small>赛9:7</small></li><li class="f6"><span class="ly">今天</span><b>“凡向他有这指望的，就洁净自己”；天堂的生活，从认识上帝开始</b><small>约壹3:3；约17:3</small></li></ol>
@@ -967,7 +972,8 @@ html.sheetopen{overflow:hidden}
 <blockquote class="verse"><p><sup>8</sup>四活物各有六个翅膀，遍体内外都满了眼睛。他们昼夜不住地说：圣哉！圣哉！圣哉！主上帝是昔在、今在、以后永在的全能者。<sup>9</sup>每逢四活物将荣耀、尊贵、感谢归给那坐在宝座上、活到永永远远者的时候，<sup>10</sup>那二十四位长老就俯伏在坐宝座的面前敬拜那活到永永远远的，又把他们的冠冕放在宝座前，说：<sup>11</sup>我们的主，我们的上帝，你是配得荣耀、尊贵、权柄的；因为你创造了万物，并且万物是因你的旨意被创造而有的。</p><cite>启示录 4:8—11</cite></blockquote>
 <p>请注意他们敬拜的理由：“因为你创造了万物”（启4:11）。下一章，他们唱新歌：“你配拿书卷……因为你曾被杀，用自己的血……买了人来”（启5:9）。第15章：“你的作为大哉！奇哉！……因你公义的作为已经显出来了”（启15:3-4）。</p>
 <p><b>编者的理解</b>：天上的敬拜不是一种规定的仪式，不是“必须唱满多少小时”，而是<b>看见了以后忍不住的回应</b>。就像一个人第一次看见大海、第一次抱着自己刚出生的孩子，会忍不住喊出来。上帝是无限的（见<a class="xref" href="#infinite">第 21 章《第一个回答：上帝是无限的》</a>），所以永远有新的看见，也就永远有新的歌——启示录两次提到“新歌”（启5:9；14:3）。</p>
-<p>至于“圣哉、圣哉、圣哉”的重复，英国作家切斯特顿在《回到正统》（1908 年）第4章里有一段很有名的话：孩子们生命力旺盛，所以喜欢同一件事一再重复，总是说“再来一次”；大人却做不了几次就累坏了。“因为大人没有强壮到能在单调中欢喜。但也许上帝强壮到能在单调中欢喜。也许上帝每天早上对太阳说‘再来一次’，每天晚上对月亮说‘再来一次’……也许祂有一种永远像婴孩一样的胃口；因为我们犯了罪，变老了，而我们的父比我们年轻。”<a class="cite" id="r31-1" href="#s31" data-n="31">31</a></p>
+<p>至于“圣哉、圣哉、圣哉”的重复，英国作家切斯特顿（G. K. Chesterton）在《正统》（Orthodoxy，1908 年，又译《回到正统》）第4章里有一段很有名的话，后来常被单独摘出来，题作“我们的父，比我们年轻”（Our Father is Younger Than We）<a class="cite" id="r31-1" href="#s31" data-n="31">31</a>。它原是一段散文，读起来却像一首诗：</p>
+<figure class="poem"><figcaption>我们的父，比我们年轻</figcaption><p>人变换行止，多是源于一丝倦怠、几分力竭。<br>登上巴士，是倦了步行；缓步前行，是厌了久坐。<br>倘若一个人的生命与欢喜浩大无垠，永不厌倦奔赴伊斯灵顿，他便会日日前往，一如泰晤士河奔往希尔内斯，从不停歇。</p><p>或许太阳准时升起，并非出于机械的本分，只因它永爱这一场破晓。<br>它周而复始，不是因为生机枯寂，而是生命奔涌不息。<br>这道理，在孩童身上最是分明：当他们寻到心爱的游戏、欢喜的玩笑，便沉醉不已。孩子富有余力，节律地蹬动小腿，不是生机匮乏，恰恰是生命力满溢。<br>孩童满怀蓬勃元气，灵魂热烈而自由，所以他们偏爱不变与重复，总仰着小脸央求：“再来一次。”<br>大人陪着重复，直到心力耗尽。凡夫俗子，无力在单调之中欢欣起舞。</p><p>可神，或许强大到足以在往复里得享喜乐。<br>或许每一个清晨，祂都向着太阳说：再来一次；<br>每一个黄昏，向着明月说：再来一次。<br>雏菊千千万万，模样相近，未必是冰冷必然的律则。<br>或许每一朵雏菊，都是祂亲手一一造下，而祂，从没有厌倦。<br>祂保有孩童那般永不衰减的热忱与渴慕。<br>我们因罪老去，而我们的父，比我们更为年轻。<br>自然之中生生不息的轮回，不是简单的循环重演，<br>它是天地盛大的返场，一曲永不落幕的安可。</p><p class="pcite">切斯特顿《正统》第4章（诗意译文，意译）</p><details><summary>英文原文</summary><p lang="en">A man varies his movements because of some slight element of failure or fatigue. He gets into an omnibus because he is tired of walking; or he walks because he is tired of sitting still. But if his life and joy were so gigantic that he never tired of going to Islington, he might go to Islington as regularly as the Thames goes to Sheerness. … It might be true that the sun rises regularly because he never gets tired of rising. His routine might be due, not to a lifelessness, but to a rush of life. The thing I mean can be seen, for instance, in children, when they find some game or joke that they specially enjoy. A child kicks his legs rhythmically through excess, not absence, of life. Because children have abounding vitality, because they are in spirit fierce and free, therefore they want things repeated and unchanged. They always say, “Do it again”; and the grown-up person does it again until he is nearly dead. For grown-up people are not strong enough to exult in monotony. But perhaps God is strong enough to exult in monotony. It is possible that God says every morning, “Do it again” to the sun; and every evening, “Do it again” to the moon. It may not be automatic necessity that makes all daisies alike; it may be that God makes every daisy separately, but has never got tired of making them. It may be that He has the eternal appetite of infancy; for we have sinned and grown old, and our Father is younger than we. The repetition in Nature may not be a mere recurrence; it may be a theatrical ENCORE.</p><p class="pcite">G. K. Chesterton, <i>Orthodoxy</i> (1908), ch. 4 “The Ethics of Elfland”（中间“…”处原文略去两句）</p></details></figure>
 <p><b>编者的理解</b>：切斯特顿说的是大自然的重复，但道理一样——重复本身不叫人无聊；叫人无聊的，是心老了、麻木了。在没有罪的世界里，人会重新得着孩子那样的心——同一句“圣哉”，每一次说出来都是新的。</p>
 <p>还有一点：敬拜也不只是唱歌。以赛亚说：“每逢月朔、安息日，凡有血气的必来在我面前下拜”（赛66:23）。<b>编者的理解</b>：在新天新地里，敬拜有节奏——六日工作、建造、学习，第七日一同来到上帝面前。起初创造时就有的安息日（创2:2-3），到最后仍然存在，成为永远的生活节奏的一部分。“建造房屋”（赛65:21）和“来在我面前下拜”（赛66:23），在同一位先知、同一段预言里。</p>
 <p>奥古斯丁在《上帝之城》的最后一章（第22卷第30章）这样描写永远的安息：“在那里，我们要安息并且看见，看见并且爱，爱并且赞美。这就是在那没有终了的终了所要有的。”<a class="cite" id="r32-1" href="#s32" data-n="32">32</a></p>

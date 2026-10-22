@@ -580,7 +580,7 @@ main{max-width:720px;margin:0 auto;min-width:0}
 .solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
 /* 小表格 */
 .mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
-.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top;min-width:4.5em}
 .mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
 /* 年表 */
 .tl{margin:10px 0}

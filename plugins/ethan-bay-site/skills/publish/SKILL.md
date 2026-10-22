@@ -38,6 +38,7 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
    node plugins/ethan-bay-site/skills/publish/scripts/overflow.js jesus.html        # 320/360/390 × 白天/夜间 × 标准/特大字号
    SHOT=/tmp/shots node .../overflow.js history.html                                # 另存截图，用 Read 看图检查
    ```
+   node plugins/ethan-bay-site/skills/publish/scripts/cols.js heaven.html        # 表格有没有某一栏被挤成“一个字一行”（320/390/768/1280/1600 宽）
    全部 `✓` 才算过。常见原因：表格 `th{white-space:nowrap}`、长英文名或网址不换行、连续的“↑↑↑”。修法：`overflow-wrap:anywhere`、把英文名放进 `<small>`、表格用 `.tblwrap` 包起来。
 2. **经文和引文**：新加或改过的引文按 `verify-sources` 技能核对（`check_cuv.py`）。
 3. **看一眼效果**：用 Playwright 截图（Chromium 已装好，模块在 `/opt/node22/lib/node_modules/playwright`，不要运行 `playwright install`）。
@@ -68,3 +69,10 @@ python3 tools/q4/fetch_assets.py             # 字体和圣经数据下载到 to
 
 ## 6. 汇报
 用一两句白话：改了什么、在哪里看（给网址或“问题彩蛋第几张卡片”）、要不要刷新。不贴代码，不讲过程。
+
+## 表格不能把某一栏挤成“一个字一行”（2026-10-23 用户截图反映）
+- 起因：问题彩蛋 32 照抄了 31 的表格样式，31 里“第 2 栏不换行”是给经文出处用的，32 的第 2 栏却是长句子，结果第 3 栏“经文”在电脑上被挤成一个字一行。
+- 现在 `history.py` 的共用样式给每一格设了最小宽度（`.mini th,.mini td{min-width:4.5em}`），所有专题页一起生效。
+- 每页自己的表格样式**不要照抄别的页**：只给“经文出处”那一栏 `white-space:nowrap`，长句子的栏绝不能不换行。
+- 每次生成专题页后都跑 `cols.js`，全部 ✓ 才能推送；它也支持 `CSS='…'` 临时加样式，先试修法再改源文件。
+
