@@ -1,0 +1,15 @@
+{
+ "note": "补录：第4课星期日解读（标题区加了问题彩蛋《耶稣是人还是神？》入口，段落多了一段）。声音 D：Kokoro 女声 zf_001。全季重录时把 jobs 改回每课一个任务（kinds: yw,jd,qa；lessons: 0—13）。",
+ "out": "audio/kk-f",
+ "check": false,
+ "jobs": [
+  {
+   "name": "",
+   "engine": "kokoro",
+   "voice": "zf_001",
+   "ids": "l4-sun",
+   "kinds": "",
+   "lessons": ""
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "ethan-bay-site",
+  "version": "1.0.0",
+  "description": "《预言的恩赐》安息日学研读网站（2377568565/Ethan_bay）的操作手册：生成与发布、逐课研读页、问题彩蛋专题页、引文核对、回答信仰问题、音乐栏目、朗读录音、互动数据。",
+  "author": {
+    "name": "Ethan"
+  },
+  "homepage": "https://2377568565.github.io/Ethan_bay/",
+  "repository": "https://github.com/2377568565/Ethan_bay"
+}

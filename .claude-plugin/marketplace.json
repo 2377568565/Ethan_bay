@@ -1,0 +1,14 @@
+{
+  "name": "ethan-bay",
+  "owner": {
+    "name": "Ethan"
+  },
+  "description": "Ethan 的《预言的恩赐》安息日学网站专用插件",
+  "plugins": [
+    {
+      "name": "ethan-bay-site",
+      "source": "./plugins/ethan-bay-site",
+      "description": "《预言的恩赐》安息日学研读网站的操作手册"
+    }
+  ]
+}
