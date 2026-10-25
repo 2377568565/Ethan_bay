@@ -153,6 +153,12 @@ python3 tools/q4/raise.py --pdf   # 教养孩子：图 four（四种教养方式
 - `render.py` 的 `qa_pages()`：分类标签、书架、目录卡（仍用 `.qcard[data-art]`，app.js 的“新文章”提醒和浮层照常工作）；标签切换只改 `.qahome` 的 `data-f`，显示隐藏交给 `theme.css`。
 - `qa_index.py` → `qa-index.html`：经文索引（套 `history.py` 的版式，约 24 KB 压缩后）。
 
+## 专题网页：问题彩蛋 33（`faiths.html`）
+- 《宗教这么多，为什么偏偏是耶稣？》：`faiths.py`（入口）、`faiths_text.py`（7 部分 32 章、FAQ 10 条、10 道题；`deep()` 生成“深入一点”展开框）、`faiths_svg.py`（7 张图；颜色固定：金＝基督教、蓝绿＝伊斯兰教、橙＝佛教、蓝＝道教）。
+- 资料：《古兰经》马坚译本（AlQuran Cloud API `ayah/{章:节}/editions/zh.jian,en.sahih`）；圣训（fawazahmed0/hadith-api）；佛经（CBETA `cbdata.dila.edu.tw/stable/juans`）；巴利《自说经》（SuttaCentral API）；《道德经》王弼本（维基文库）；怀著 DA 638（逐页原版，DA 638 ↔ seo550 左右）。引文都用脚本逐字比对（佛经用 opencc 把简体转回繁体再比）。
+- 网上原文里两个明显的错字（3:85“伊斯教”、7:8“功过薄”）照正确的写法引用。
+- 未能核对、所以没有用的：卡尔·巴特评论净土真宗的话、《古兰经》马坚译本的出版年。
+
 ## 专题网页：问题彩蛋 32（`heaven.html`）
 - 《永远住在天上，会不会很无聊？》：`heaven.py`（入口）、`heaven_text.py`（7 部分 31 章、FAQ 12 条、10 道题，答案位置 A—D 分散）、`heaven_svg.py`（7 张逻辑图：从今天到永远的次序、创世记与启示录首尾对照、上帝一步一步走近人、整座城就是至圣所、认得的六步推理、留下/改变/不再有、无聊的四个回答）、`heaven_egw.py`（怀著引文和中译，每条对应 `history_sources.py` 里的键）。
 - 资料：怀著 GC 644—645、661、674—678，Ed 303、305、307、308，PP 50，1SM 172—173 用临时任务读取逐页原版核对；《天主教教理》1042—1047（scborromeo）、爱任纽《驳异端》5.32、奥古斯丁《上帝之城》22.30（newadvent）、切斯特顿《回到正统》（古登堡）、路易斯《返璞归真》和马克·吐温《地球来信》（维基语录）、《威斯敏斯德信条》32章（opc.org）、复临基本信仰第28条（网页时光机存档）；心理学两篇在 PubMed 核对。
