@@ -2330,6 +2330,7 @@ body:not(.combined) .hl-toast{bottom:24px}
 .qn-list{flex:1 1 auto;min-height:0;display:grid;align-content:start;gap:10px;padding:14px 14px 6px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .qn-it{display:flex;align-items:center;gap:12px;padding:13px 12px 13px 13px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);color:var(--ink);text-decoration:none;
   -webkit-tap-highlight-color:transparent;transition:transform .18s var(--ease),border-color .2s}
+.qn-it[hidden]{display:none}
 .qn-it:hover{border-color:var(--gold-2)}
 .qn-it:active{transform:scale(.98)}
 .qn-no{flex:none;display:grid;place-content:center;width:52px;height:56px;border-radius:14px;background:var(--gold-soft);color:var(--gold);font-size:.6rem;letter-spacing:.06em;line-height:1.15;text-align:center}
@@ -2363,7 +2364,7 @@ body:not(.combined) .hl-toast{bottom:24px}
 <script type="application/json" id="wfonts">[["LessonSerif", "600", "site/8c2ea53e85.woff2"], ["LessonSerif", "900", "site/7c35e3bb3d.woff2"]]</script>
 <style>html:not(.wf){--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}</style>
 <script>(function(){
-var B="site/1029a4f543.json",J="site/b87119a753.js",K=[B,J],P;
+var B="site/1029a4f543.json",J="site/11a4e277eb.js",K=[B,J],P;
 function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
  r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
 function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
