@@ -1096,3 +1096,58 @@ body:not(.combined) .hl-toast{bottom:24px}
 .qidxlink b{display:block;font-size:.98rem}
 .qidxlink small{display:block;font-size:.8rem;color:var(--muted);line-height:1.55}
 .qidxlink .ae-go{color:var(--gold);font-size:.86rem;white-space:nowrap}
+
+/* ---------- 新上架弹窗（2026-10-25）：最近 72 小时内上架或更新的问题彩蛋 ----------
+   上面一条是首页的“黎明的光”（白天夜间都是深色底），小羊挥手；下面每篇一张卡片，点了直接打开。
+   手机从底部升起，电脑在中间浮现；只动 opacity 和 transform，系统设了“减少动态效果”就不动。 */
+.qnew{position:fixed;inset:0;z-index:140;display:grid;place-items:center;padding:24px}
+.qnew[hidden]{display:none}
+.qn-bg{position:absolute;inset:0;background:rgba(8,12,20,.5);opacity:0;transition:opacity .3s ease;touch-action:none}
+.qn-card{position:relative;display:flex;flex-direction:column;width:100%;max-width:440px;max-height:min(660px,calc(100vh - 48px));max-height:min(660px,calc(100dvh - 48px));overflow:hidden;
+  border-radius:24px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 24px 60px -12px rgba(8,12,20,.5);outline:0;
+  opacity:0;transform:translateY(18px) scale(.97);transition:opacity .3s ease,transform .45s var(--ease)}
+.qnew.on .qn-bg{opacity:1}
+.qnew.on .qn-card{opacity:1;transform:none}
+.qn-hd{position:relative;flex:none;overflow:hidden;padding:20px 22px 18px;text-align:center;color:#F6EEDC;
+  background:linear-gradient(180deg,#0F1730 0%,#1D2440 42%,#45394A 74%,#8A6744 100%)}
+.qn-sky{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 118%,rgba(255,214,150,.55),rgba(255,190,120,.16) 50%,transparent 75%),
+  radial-gradient(1px 1px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 24% 52%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 33% 12%,#fff 50%,transparent 51%),
+  radial-gradient(1px 1px at 70% 18%,#fff 50%,transparent 51%),radial-gradient(1.3px 1.3px at 82% 44%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 90% 14%,#fff 50%,transparent 51%),
+  radial-gradient(1px 1px at 8% 64%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 62% 8%,#fff 50%,transparent 51%);opacity:.8}
+.qn-sky::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,232,190,.6),transparent)}
+.qn-x{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#F6EEDC;font:400 22px/1 var(--sans);cursor:pointer}
+.qn-x:hover{background:rgba(255,255,255,.2)}
+.qn-lamb{position:relative;display:block;width:48px;height:48px;margin:0 auto 6px}
+.qn-k{position:relative;margin:0;font-size:.7rem;font-weight:700;letter-spacing:.22em;color:#E6C98B}
+.qn-hd h3{position:relative;margin:6px 0 3px;font-family:var(--serif);font-weight:900;font-size:1.28rem;line-height:1.35;letter-spacing:.06em;color:#FFF8E8}
+.qn-s{position:relative;margin:0;font-size:.8rem;color:rgba(246,238,220,.78)}
+.qn-list{flex:1 1 auto;min-height:0;display:grid;align-content:start;gap:10px;padding:14px 14px 6px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.qn-it{display:flex;align-items:center;gap:12px;padding:13px 12px 13px 13px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);color:var(--ink);text-decoration:none;
+  -webkit-tap-highlight-color:transparent;transition:transform .18s var(--ease),border-color .2s}
+.qn-it:hover{border-color:var(--gold-2)}
+.qn-it:active{transform:scale(.98)}
+.qn-no{flex:none;display:grid;place-content:center;width:52px;height:56px;border-radius:14px;background:var(--gold-soft);color:var(--gold);font-size:.6rem;letter-spacing:.06em;line-height:1.15;text-align:center}
+.qn-no b{display:block;font-family:var(--serif);font-size:1.4rem;font-weight:900;letter-spacing:0}
+.qn-b{flex:1;min-width:0;display:grid;gap:3px}
+.qn-tag{justify-self:start;padding:1px 9px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.1em;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}
+.qn-it[data-k="upd"] .qn-tag{color:var(--slate);background:var(--slate-soft)}
+.qn-q{font-family:var(--serif);font-weight:800;font-size:1rem;line-height:1.45}
+.qn-sub{font-size:.8rem;line-height:1.55;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qn-m{font-size:.72rem;color:var(--muted)}
+.qn-note{font-size:.76rem;line-height:1.5;color:var(--slate)}
+.qn-note[hidden]{display:none}
+.qn-go{flex:none;color:var(--gold);font-size:1.1rem}
+.qn-ft{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rule)}
+.qn-all{font-size:.86rem;font-weight:600;color:var(--gold);text-decoration:none}
+.qn-ok{min-width:96px}
+.qnew.on .qn-it{animation:qnin .45s var(--ease) both;animation-delay:calc(.14s + var(--i,0) * .07s)}
+@keyframes qnin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:699.98px){
+  .qnew{place-items:end center;padding:0}
+  .qn-card{max-width:none;max-height:88vh;max-height:88dvh;border-radius:24px 24px 0 0;border-bottom:0;opacity:1;transform:translateY(100%);transition:transform .42s var(--ease)}
+  .qn-hd{padding-top:22px}
+}
+@media (max-height:700px){.qn-hd{padding:14px 18px 12px}.qn-lamb,.qn-lamb svg{width:36px;height:36px}.qn-lamb{margin-bottom:4px}.qn-hd h3{margin-top:4px}}
+@media (max-width:359.98px){.qn-hd h3{font-size:1.16rem}.qn-it{gap:10px;padding:12px 10px}.qn-no{width:46px}.qn-list{padding:12px 10px 6px}}
+@media (prefers-reduced-motion:reduce){.qn-bg,.qn-card{transition:none}.qnew.on .qn-it{animation:none}.qn-it:active{transform:none}}

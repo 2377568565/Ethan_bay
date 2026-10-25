@@ -343,7 +343,7 @@ def prefix(frag, no):
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
 THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
 # 像素小羊（2026-10-22）：左上角标志（16×16，深色底上用夜间配色）、打卡时弹出的小卡片
-THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css('.wlogo') + lamb.pop_css()
+THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css('.wlogo') + lamb.dark_css('.qn-hd') + lamb.pop_css()
               + '.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}'
               + '.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}\n')
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
@@ -772,6 +772,46 @@ def qa_pages():
         out.append(f'<div class="lesson" id="{it["id"]}" data-title="{it["q"]} · 问题彩蛋">\n{top}\n{qa_article(it, tail)}\n{bottom}\n</div>')
     return '\n'.join(out)
 
+def qa_new_html():
+    """首页“新上架”弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开。
+    这里只放候选：最新的一次上架或更新往前 10 天以内的几篇（按时间从新到旧）。
+    真正显示哪几篇，由 app.js 按读者手机上“现在”的时间往前推 72 小时决定，所以网站很久不更新也不会弹出旧文章。"""
+    import qa_catalog
+    tz = datetime.timezone(datetime.timedelta(hours=8))
+    def ms(s):
+        return int(datetime.datetime.strptime(s, '%Y-%m-%d %H:%M').replace(tzinfo=tz).timestamp() * 1000)
+    rows = []
+    for it in qa_data.ITEMS:
+        if not it.get('at'):
+            continue
+        add = ms(it['at']); upd = ms(it['upd'][0]) if it.get('upd') else 0
+        rows.append((max(add, upd), add, upd, it))
+    if not rows:
+        return ''
+    top = max(r[0] for r in rows)
+    rows = sorted((r for r in rows if r[0] >= top - 10 * 86400000), key=lambda r: (-r[0], r[3]['no']))
+    E = lambda x: html.escape(x, quote=True)
+    items = ''
+    for _, add, upd, it in rows:
+        link = (f'href="{it["url"]}" data-art="{it["id"]}" data-title="{E(it["q"])}"' if it.get('url') else f'href="#{it["id"]}" data-art="{it["id"]}"')
+        note = f'<span class="qn-note" hidden>更新：{E(it["upd"][1])}</span>' if it.get('upd') else ''
+        up = f' data-upd="{upd}"' if upd else ''
+        items += (f'<a class="qn-it" {link} data-add="{add}"{up}>'
+                  f'<span class="qn-no">No.<b>{it["no"]:02d}</b></span>'
+                  f'<span class="qn-b"><span class="qn-tag"></span><span class="qn-q">{E(it["q"])}</span><span class="qn-sub">{E(it["sub"])}</span>'
+                  f'<span class="qn-m">约 {qa_catalog.meta(it)["mins"]} 分钟读完</span>{note}</span>'
+                  f'<span class="qn-go" aria-hidden="true">→</span></a>')
+    lam = lamb.sprite(48, '小羊', enter='wave').replace('role="img" aria-label="小羊"', 'aria-hidden="true"')
+    return ('<div id="qnew" class="qnew" hidden>\n  <div class="qn-bg" data-qnx></div>\n'
+            '  <div class="qn-card" role="dialog" aria-modal="true" aria-labelledby="qn-t" tabindex="-1">\n'
+            '    <header class="qn-hd"><span class="qn-sky" aria-hidden="true"></span>\n'
+            '      <button class="qn-x" type="button" data-qnx aria-label="关闭">×</button>\n'
+            f'      <span class="qn-lamb">{lam}</span>\n'
+            '      <p class="qn-k">问题彩蛋 · 最近三天</p>\n      <h3 id="qn-t">新上架的问题彩蛋</h3>\n      <p class="qn-s">点一篇，马上开始读</p>\n'
+            f'    </header>\n    <div class="qn-list">{items}</div>\n'
+            '    <div class="qn-ft"><a class="qn-all" href="#qa">看全部问题彩蛋 →</a><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>\n'
+            '  </div>\n</div>')
+
 def build_combined(nos):
     mods = {}; frags = {}
     for no in nos:
@@ -847,7 +887,7 @@ def build_combined(nos):
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
     ui = dict(logo=lamb.logo(32), user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
               nqa=len(qa_data.ITEMS), nsongs=len(songs()))
-    body = welcome.welcome_html(titles, ui) + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
+    body = welcome.welcome_html(titles, ui) + '\n' + qa_new_html() + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)

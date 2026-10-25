@@ -2302,7 +2302,62 @@ body:not(.combined) .hl-toast{bottom:24px}
 .qidxlink small{display:block;font-size:.8rem;color:var(--muted);line-height:1.55}
 .qidxlink .ae-go{color:var(--gold);font-size:.86rem;white-space:nowrap}
 
-.lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.mark .lw{fill:#ECE6DA}.mark .ls{fill:#E3DCCD}.mark .lk{fill:#767A86}.mark .lg{fill:#9A742C}.wlogo .lw{fill:#ECE6DA}.wlogo .ls{fill:#E3DCCD}.wlogo .lk{fill:#767A86}.wlogo .lg{fill:#9A742C}.lambpop{position:fixed;z-index:132;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));padding:10px 14px 8px;border-radius:18px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(20,24,40,.16);opacity:0;transform:translate(-50%,12px);transition:opacity .2s ease,transform .2s ease;pointer-events:none}.lambpop.on{opacity:1;transform:translate(-50%,0)}@media (min-width:1024px){.lambpop{bottom:96px}}@media (prefers-reduced-motion:reduce){.lambpop{transition:none;transform:translate(-50%,0)}}.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}
+/* ---------- 新上架弹窗（2026-10-25）：最近 72 小时内上架或更新的问题彩蛋 ----------
+   上面一条是首页的“黎明的光”（白天夜间都是深色底），小羊挥手；下面每篇一张卡片，点了直接打开。
+   手机从底部升起，电脑在中间浮现；只动 opacity 和 transform，系统设了“减少动态效果”就不动。 */
+.qnew{position:fixed;inset:0;z-index:140;display:grid;place-items:center;padding:24px}
+.qnew[hidden]{display:none}
+.qn-bg{position:absolute;inset:0;background:rgba(8,12,20,.5);opacity:0;transition:opacity .3s ease;touch-action:none}
+.qn-card{position:relative;display:flex;flex-direction:column;width:100%;max-width:440px;max-height:min(660px,calc(100vh - 48px));max-height:min(660px,calc(100dvh - 48px));overflow:hidden;
+  border-radius:24px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 24px 60px -12px rgba(8,12,20,.5);outline:0;
+  opacity:0;transform:translateY(18px) scale(.97);transition:opacity .3s ease,transform .45s var(--ease)}
+.qnew.on .qn-bg{opacity:1}
+.qnew.on .qn-card{opacity:1;transform:none}
+.qn-hd{position:relative;flex:none;overflow:hidden;padding:20px 22px 18px;text-align:center;color:#F6EEDC;
+  background:linear-gradient(180deg,#0F1730 0%,#1D2440 42%,#45394A 74%,#8A6744 100%)}
+.qn-sky{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 118%,rgba(255,214,150,.55),rgba(255,190,120,.16) 50%,transparent 75%),
+  radial-gradient(1px 1px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 24% 52%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 33% 12%,#fff 50%,transparent 51%),
+  radial-gradient(1px 1px at 70% 18%,#fff 50%,transparent 51%),radial-gradient(1.3px 1.3px at 82% 44%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 90% 14%,#fff 50%,transparent 51%),
+  radial-gradient(1px 1px at 8% 64%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 62% 8%,#fff 50%,transparent 51%);opacity:.8}
+.qn-sky::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,232,190,.6),transparent)}
+.qn-x{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#F6EEDC;font:400 22px/1 var(--sans);cursor:pointer}
+.qn-x:hover{background:rgba(255,255,255,.2)}
+.qn-lamb{position:relative;display:block;width:48px;height:48px;margin:0 auto 6px}
+.qn-k{position:relative;margin:0;font-size:.7rem;font-weight:700;letter-spacing:.22em;color:#E6C98B}
+.qn-hd h3{position:relative;margin:6px 0 3px;font-family:var(--serif);font-weight:900;font-size:1.28rem;line-height:1.35;letter-spacing:.06em;color:#FFF8E8}
+.qn-s{position:relative;margin:0;font-size:.8rem;color:rgba(246,238,220,.78)}
+.qn-list{flex:1 1 auto;min-height:0;display:grid;align-content:start;gap:10px;padding:14px 14px 6px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.qn-it{display:flex;align-items:center;gap:12px;padding:13px 12px 13px 13px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);color:var(--ink);text-decoration:none;
+  -webkit-tap-highlight-color:transparent;transition:transform .18s var(--ease),border-color .2s}
+.qn-it:hover{border-color:var(--gold-2)}
+.qn-it:active{transform:scale(.98)}
+.qn-no{flex:none;display:grid;place-content:center;width:52px;height:56px;border-radius:14px;background:var(--gold-soft);color:var(--gold);font-size:.6rem;letter-spacing:.06em;line-height:1.15;text-align:center}
+.qn-no b{display:block;font-family:var(--serif);font-size:1.4rem;font-weight:900;letter-spacing:0}
+.qn-b{flex:1;min-width:0;display:grid;gap:3px}
+.qn-tag{justify-self:start;padding:1px 9px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.1em;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}
+.qn-it[data-k="upd"] .qn-tag{color:var(--slate);background:var(--slate-soft)}
+.qn-q{font-family:var(--serif);font-weight:800;font-size:1rem;line-height:1.45}
+.qn-sub{font-size:.8rem;line-height:1.55;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qn-m{font-size:.72rem;color:var(--muted)}
+.qn-note{font-size:.76rem;line-height:1.5;color:var(--slate)}
+.qn-note[hidden]{display:none}
+.qn-go{flex:none;color:var(--gold);font-size:1.1rem}
+.qn-ft{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rule)}
+.qn-all{font-size:.86rem;font-weight:600;color:var(--gold);text-decoration:none}
+.qn-ok{min-width:96px}
+.qnew.on .qn-it{animation:qnin .45s var(--ease) both;animation-delay:calc(.14s + var(--i,0) * .07s)}
+@keyframes qnin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:699.98px){
+  .qnew{place-items:end center;padding:0}
+  .qn-card{max-width:none;max-height:88vh;max-height:88dvh;border-radius:24px 24px 0 0;border-bottom:0;opacity:1;transform:translateY(100%);transition:transform .42s var(--ease)}
+  .qn-hd{padding-top:22px}
+}
+@media (max-height:700px){.qn-hd{padding:14px 18px 12px}.qn-lamb,.qn-lamb svg{width:36px;height:36px}.qn-lamb{margin-bottom:4px}.qn-hd h3{margin-top:4px}}
+@media (max-width:359.98px){.qn-hd h3{font-size:1.16rem}.qn-it{gap:10px;padding:12px 10px}.qn-no{width:46px}.qn-list{padding:12px 10px 6px}}
+@media (prefers-reduced-motion:reduce){.qn-bg,.qn-card{transition:none}.qnew.on .qn-it{animation:none}.qn-it:active{transform:none}}
+
+.lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.mark .lw{fill:#ECE6DA}.mark .ls{fill:#E3DCCD}.mark .lk{fill:#767A86}.mark .lg{fill:#9A742C}.wlogo .lw{fill:#ECE6DA}.wlogo .ls{fill:#E3DCCD}.wlogo .lk{fill:#767A86}.wlogo .lg{fill:#9A742C}.qn-hd .lw{fill:#ECE6DA}.qn-hd .ls{fill:#E3DCCD}.qn-hd .lk{fill:#767A86}.qn-hd .lg{fill:#9A742C}.lambpop{position:fixed;z-index:132;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));padding:10px 14px 8px;border-radius:18px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(20,24,40,.16);opacity:0;transform:translate(-50%,12px);transition:opacity .2s ease,transform .2s ease;pointer-events:none}.lambpop.on{opacity:1;transform:translate(-50%,0)}@media (min-width:1024px){.lambpop{bottom:96px}}@media (prefers-reduced-motion:reduce){.lambpop{transition:none;transform:translate(-50%,0)}}.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}
 
 </style>
 </head>
@@ -2358,6 +2413,20 @@ body:not(.combined) .hl-toast{bottom:24px}
 </div>
 </div>
 <div id="wtoast" class="wtoast" role="status" hidden>✦ 本周研读已满 1 小时！回到首页看看：晨光已经变成满天的荣光。</div>
+<div id="qnew" class="qnew" hidden>
+  <div class="qn-bg" data-qnx></div>
+  <div class="qn-card" role="dialog" aria-modal="true" aria-labelledby="qn-t" tabindex="-1">
+    <header class="qn-hd"><span class="qn-sky" aria-hidden="true"></span>
+      <button class="qn-x" type="button" data-qnx aria-label="关闭">×</button>
+      <span class="qn-lamb"><svg class="lamb" data-on="eo ld rd" data-enter="wave" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" aria-hidden="true"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></span>
+      <p class="qn-k">问题彩蛋 · 最近三天</p>
+      <h3 id="qn-t">新上架的问题彩蛋</h3>
+      <p class="qn-s">点一篇，马上开始读</p>
+    </header>
+    <div class="qn-list"><a class="qn-it" href="faiths.html" data-art="qa34" data-title="宗教这么多，为什么偏偏是耶稣？" data-add="1792904340000"><span class="qn-no">No.<b>33</b></span><span class="qn-b"><span class="qn-tag"></span><span class="qn-q">宗教这么多，为什么偏偏是耶稣？</span><span class="qn-sub">伊斯兰教、佛教、道教和基督教，到底哪里一样、哪里不一样？</span><span class="qn-m">约 65 分钟读完</span></span><span class="qn-go" aria-hidden="true">→</span></a><a class="qn-it" href="heaven.html" data-art="qa33" data-title="永远住在天上，会不会很无聊？" data-add="1792655280000" data-upd="1792658340000"><span class="qn-no">No.<b>32</b></span><span class="qn-b"><span class="qn-tag"></span><span class="qn-q">永远住在天上，会不会很无聊？</span><span class="qn-sub">天堂是什么样子？在那里还认得家人吗？一直唱诗弹琴，不会腻吗？</span><span class="qn-m">约 80 分钟读完</span><span class="qn-note" hidden>更新：加入切斯特顿《正统》里“我们的父，比我们年轻”一段</span></span><span class="qn-go" aria-hidden="true">→</span></a><a class="qn-it" href="blood.html" data-art="qa32" data-title="“我原谅你”，为什么要用血来写？" data-add="1792650180000"><span class="qn-no">No.<b>31</b></span><span class="qn-b"><span class="qn-tag"></span><span class="qn-q">“我原谅你”，为什么要用血来写？</span><span class="qn-sub">为什么非要流血才能赦罪？上帝不能直接原谅吗？十字架是残忍，还是爱？</span><span class="qn-m">约 70 分钟读完</span></span><span class="qn-go" aria-hidden="true">→</span></a><a class="qn-it" href="jesus.html" data-art="qa4" data-title="耶稣具有完全的人性和完全的神性吗？" data-add="1791078720000" data-upd="1792647600000"><span class="qn-no">No.<b>04</b></span><span class="qn-b"><span class="qn-tag"></span><span class="qn-q">耶稣具有完全的人性和完全的神性吗？</span><span class="qn-sub">祂既有神性，对抗试探岂不是比我们容易？祂还能作我们的榜样吗？</span><span class="qn-m">约 55 分钟读完</span><span class="qn-note" hidden>更新：改了题目；加了两章（一份参考资料、从上帝的心意看这个问题）；“身体与心意”图依牧者意见重画</span></span><span class="qn-go" aria-hidden="true">→</span></a></div>
+    <div class="qn-ft"><a class="qn-all" href="#qa">看全部问题彩蛋 →</a><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>
+  </div>
+</div>
 <nav class="tabbar" id="tabbar" aria-label="主要栏目"><a class="tab" href="#welcome" data-t="welcome" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg><span>首页</span></a><a class="tab" href="#home" data-t="home"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/></svg><span>学课</span></a><a class="tab" href="#qa" data-t="qa" data-egg><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7zM18.5 15.5c.3 1.9 1 2.6 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.4 2.7-1.1 3-3z"/></svg><span>彩蛋</span></a><a class="tab" href="#music" data-t="music"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5V5.5l11-2v13"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="16.5" r="2.5"/></svg><span>音乐</span></a><button class="tab" type="button" data-me data-t="me"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/></svg><span>我的</span></button></nav>
 <aside class="side" id="side" aria-label="栏目"><a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark"><svg class="lamb16" viewBox="0 0 16 16" width="32" height="32" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="lw" d="M4 2h2v1h-2zM7 2h2v1h-2zM10 2h2v1h-2zM3 3h10v1h-10zM3 4h10v1h-10zM3 5h2v1h-2zM6 5h4v1h-4zM11 5h2v1h-2zM3 6h2v1h-2zM6 6h4v1h-4zM11 6h2v1h-2zM3 7h4v1h-4zM9 7h4v1h-4zM4 8h8v1h-8zM5 9h2v1h-2zM9 9h2v1h-2zM3 10h10v1h-10zM4 11h8v1h-8z"/><path class="ls" d="M1 5h1v1h-1zM14 5h1v1h-1zM4 12h8v1h-8z"/><path class="lk" d="M4 1h2v1h-2zM7 1h2v1h-2zM10 1h2v1h-2zM3 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM12 2h1v1h-1zM2 3h1v1h-1zM13 3h1v1h-1zM1 4h2v1h-2zM13 4h2v1h-2zM0 5h1v1h-1zM2 5h1v1h-1zM5 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM0 6h3v1h-3zM5 6h1v1h-1zM10 6h1v1h-1zM13 6h3v1h-3zM2 7h1v1h-1zM7 7h2v1h-2zM13 7h1v1h-1zM3 8h1v1h-1zM12 8h1v1h-1zM3 9h2v1h-2zM11 9h2v1h-2zM1 10h2v1h-2zM13 10h2v1h-2zM3 11h1v1h-1zM12 11h1v1h-1zM3 12h1v1h-1zM12 12h1v1h-1zM4 13h8v1h-8zM4 14h2v1h-2zM10 14h2v1h-2zM3 15h3v1h-3zM10 15h3v1h-3z"/><path class="lg" d="M7 9h2v1h-2z"/></svg></span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a><button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="lbl">搜索</span><kbd>Ctrl K</kbd></button><nav class="snav"><a href="#welcome" data-t="welcome" data-tip="首页" data-gohome><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg><span class="lbl">首页</span></a><a href="#home" data-t="home" data-tip="学课"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/></svg><span class="lbl">学课</span></a><a href="#qa" data-t="qa" data-tip="问题彩蛋" data-egg><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7zM18.5 15.5c.3 1.9 1 2.6 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.4 2.7-1.1 3-3z"/></svg><span class="lbl">问题彩蛋</span><em class="lbl cnt">33</em></a><a href="#ask" data-t="ask" data-tip="提问区"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><i class="sdot" aria-hidden="true"></i><span class="lbl">提问区</span></a><a href="#music" data-t="music" data-tip="音乐"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5V5.5l11-2v13"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="16.5" r="2.5"/></svg><span class="lbl">音乐</span></a><button type="button" data-me data-t="me" data-tip="我的"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/></svg><span class="lbl">我的</span></button></nav><a class="sweek" href="#home" hidden><span class="label sw-k"></span><b class="sw-t"></b><span class="bar"><i></i></span><small class="sw-m"></small></a><div class="sfoot"><div class="splay"><div class="sidle" data-tip="播放诗歌"><button class="pp" type="button" aria-label="播放诗歌"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></button><span class="lbl si"><b>诗歌</b><small>点一下开始播放</small></span></div></div><button class="sbtn sacct" type="button" data-acct data-tip="账号"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/></svg><span class="lbl ac-n">账号</span></button><button class="sbtn" type="button" data-rsettings data-tip="字号与外观"><span class="aa" aria-hidden="true">A<small>A</small></span><span class="lbl">字号与外观</span></button></div></aside>
 <div class="rprog" aria-hidden="true"><i></i></div>
@@ -12243,6 +12312,65 @@ window.Q4Hub=(function(){
   window.Q4Marks={lessons:lessons,raw:function(L){return get('hl:'+L)||'';},merge:merge,count:count,open:openList,paint:paintAll};
   function boot(){paintAll();maybeTip();}
   if(document.readyState==='complete')setTimeout(boot,300);else addEventListener('load',function(){setTimeout(boot,300);});
+})();
+
+/* ---------- 新上架弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开 ----------
+   72 小时从读者打开网页的那一刻往前算（用手机上的时间）。候选文章和上架、更新时间由 render.qa_new_html 写在网页里。
+   同一篇的同一次上架（或更新）在一台设备上只弹一次：关掉、点开、或者从别处读过，就不再为它弹；72 小时内又有新的才再弹，弹出时仍列出这 72 小时里的全部。
+   只在打开网站时停在首页才弹：从分享链接直接进某一课、某一篇时不打扰；别的面板开着时也不弹。 */
+(function(){
+  var Q=document.getElementById('qnew');if(!Q||!document.body.classList.contains('combined'))return;
+  var H=72*36e5,now=Date.now(),de=document.documentElement,RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  var seen={};try{seen=JSON.parse(get('qnseen')||'{}')||{};}catch(e){seen={};}
+  function save(){var c=now-30*864e5;for(var k in seen)if(!(seen[k]>c))delete seen[k];set('qnseen',JSON.stringify(seen));}
+  function bj(t){var x=t+8*36e5,d=new Date(x);return {m:d.getUTCMonth()+1,d:d.getUTCDate(),h:d.getUTCHours(),mi:d.getUTCMinutes(),day:Math.floor(x/864e5)};}   // 北京时间
+  function when(t){var a=bj(t),dd=bj(now).day-a.day;return (dd===0?'今天':dd===1?'昨天':dd===2?'前天':a.m+'月'+a.d+'日')+' '+a.h+':'+(a.mi<10?'0':'')+a.mi;}
+  function within(t){return t&&now-t<H&&now-t>-864e5;}   // 手机时间比网页上的时间早一天以上（时间设错了），就不算
+  var live=[],fresh=0,nn=0;
+  [].forEach.call(Q.querySelectorAll('.qn-it'),function(a){
+    var add=+a.dataset.add,up=+a.dataset.upd||0,k=within(add)?'new':within(up)?'upd':'';
+    if(!k){a.parentNode.removeChild(a);return;}
+    var t=k==='new'?Math.max(add,up):up;a.dataset.k=k;a.dataset.t=t;
+    a.querySelector('.qn-tag').textContent=k==='new'?'新上架':'有更新';
+    var m=a.querySelector('.qn-m');m.textContent=when(k==='new'?add:up)+(k==='new'?' 上架':' 更新')+' · '+m.textContent;
+    var n=a.querySelector('.qn-note');if(n)n.hidden=k!=='upd';
+    if(!(seen[a.dataset.art]>=t))fresh++;
+    if(k==='new')nn++;
+    a.style.setProperty('--i',live.length);live.push(a);
+  });
+  if(!live.length){Q.parentNode.removeChild(Q);return;}
+  var nu=live.length-nn;
+  Q.querySelector('#qn-t').textContent=nn?'新上架 '+nn+' 篇'+(nu?'，更新 '+nu+' 篇':''):'更新了 '+nu+' 篇';
+  function mark(id){var a=Q.querySelector('.qn-it[data-art="'+id+'"]');if(a&&!(seen[id]>=+a.dataset.t)){seen[id]=+a.dataset.t;save();}}
+  function markAll(){live.forEach(function(a){mark(a.dataset.art);});}
+  var back=null;
+  function hide(){Q.classList.remove('on');de.classList.remove('qnon');}
+  function close(){if(Q.hidden)return;markAll();hide();setTimeout(function(){Q.hidden=true;},RM?0:450);
+    if(back&&back.focus&&document.contains(back))try{back.focus({preventScroll:true});}catch(e){}}
+  function show(){
+    back=document.activeElement;Q.hidden=false;de.classList.add('qnon');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){Q.classList.add('on');});});   // 先排好版、画出一帧，再升起
+    setTimeout(function(){try{Q.querySelector('.qn-card').focus({preventScroll:true});}catch(e){}},80);
+  }
+  Q.addEventListener('click',function(e){
+    if(e.target.closest('[data-qnx]')){e.preventDefault();close();return;}
+    if(e.target.closest('a')){markAll();hide();Q.hidden=true;}   // 点了一篇：弹窗马上让开，链接照常打开（专题网页在网站里的浮层打开）
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!Q.hidden){e.stopPropagation();close();}},true);   // Esc 只关弹窗，不连首页一起关
+  // 从别处读了这一篇（问题彩蛋列表、学课里的入口、直接打开链接），也不再为它弹
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-art]');if(a&&!Q.contains(a))mark(a.dataset.art);},true);
+  function onHash(){var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];if(/^qa\d+$/.test(h))mark(h);}
+  window.addEventListener('hashchange',onHash);onHash();
+  if(!fresh)return;
+  var h0=location.hash.slice(1);if(h0&&h0!=='home'&&h0!=='welcome')return;
+  function busy(){return /(^| )(tovon|bopen|present)( |$)/.test(de.className)||!!document.querySelector('.hconf:not([hidden]),.shsheet:not([hidden]),#bpop:not([hidden])');}
+  function go(){if(!Q.hidden||!(window.Q4Welcome&&Q4Welcome.isOpen())||busy())return;
+    for(var i=0,f=0;i<live.length;i++)if(!(seen[live[i].dataset.art]>=+live[i].dataset.t))f++;
+    if(f)show();}
+  function later(){setTimeout(go,1200);}   // 开场画面淡出、首页排好以后再弹
+  if(document.readyState==='complete')later();else addEventListener('load',later);
 })();
 
 /* ---------- 网页就绪：开场画面淡出；稍后再换上正文字体（在线版首屏先用手机自带的字体，省下约 800 KB） ---------- */

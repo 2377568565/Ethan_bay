@@ -153,6 +153,12 @@ python3 tools/q4/raise.py --pdf   # 教养孩子：图 four（四种教养方式
 - `render.py` 的 `qa_pages()`：分类标签、书架、目录卡（仍用 `.qcard[data-art]`，app.js 的“新文章”提醒和浮层照常工作）；标签切换只改 `.qahome` 的 `data-f`，显示隐藏交给 `theme.css`。
 - `qa_index.py` → `qa-index.html`：经文索引（套 `history.py` 的版式，约 24 KB 压缩后）。
 
+## 首页的“新上架”弹窗（2026-10-25）
+- 打开网站停在首页时，弹出最近 72 小时内上架或更新的问题彩蛋（按读者手机上的时间往前推 72 小时），点一篇直接在网站的浮层里打开。
+- 数据：`qa_data.ITEMS` 每篇的 `at`（上架，北京时间）和可选的 `upd=(时间, 一句说明)`。`render.qa_new_html()` 把最新一次往前 10 天内的几篇写进首页作候选；`app.js`“新上架弹窗”在读者手机上筛出 72 小时内的，没有就不弹。
+- 只弹一次：`localStorage` 的 `q4:qnseen` 记下每篇看过的上架/更新时间（关掉、点开、从别处读过都算），30 天前的记录自动清掉。
+- 样式：`theme.css` 的 `.qnew`（手机从底部升起，电脑在中间；只动 opacity / transform）。小羊在深色底上用 `lamb.dark_css('.qn-hd')`。
+
 ## 专题网页：问题彩蛋 33（`faiths.html`）
 - 《宗教这么多，为什么偏偏是耶稣？》：`faiths.py`（入口）、`faiths_text.py`（7 部分 32 章、FAQ 10 条、10 道题；`deep()` 生成“深入一点”展开框）、`faiths_svg.py`（7 张图；颜色固定：金＝基督教、蓝绿＝伊斯兰教、橙＝佛教、蓝＝道教）。
 - 资料：《古兰经》马坚译本（AlQuran Cloud API `ayah/{章:节}/editions/zh.jian,en.sahih`）；圣训（fawazahmed0/hadith-api）；佛经（CBETA `cbdata.dila.edu.tw/stable/juans`）；巴利《自说经》（SuttaCentral API）；《道德经》王弼本（维基文库）；怀著 DA 638（逐页原版，DA 638 ↔ seo550 左右）。引文都用脚本逐字比对（佛经用 opencc 把简体转回繁体再比）。

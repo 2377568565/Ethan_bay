@@ -2850,6 +2850,65 @@ window.Q4Hub=(function(){
   if(document.readyState==='complete')setTimeout(boot,300);else addEventListener('load',function(){setTimeout(boot,300);});
 })();
 
+/* ---------- 新上架弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开 ----------
+   72 小时从读者打开网页的那一刻往前算（用手机上的时间）。候选文章和上架、更新时间由 render.qa_new_html 写在网页里。
+   同一篇的同一次上架（或更新）在一台设备上只弹一次：关掉、点开、或者从别处读过，就不再为它弹；72 小时内又有新的才再弹，弹出时仍列出这 72 小时里的全部。
+   只在打开网站时停在首页才弹：从分享链接直接进某一课、某一篇时不打扰；别的面板开着时也不弹。 */
+(function(){
+  var Q=document.getElementById('qnew');if(!Q||!document.body.classList.contains('combined'))return;
+  var H=72*36e5,now=Date.now(),de=document.documentElement,RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  var seen={};try{seen=JSON.parse(get('qnseen')||'{}')||{};}catch(e){seen={};}
+  function save(){var c=now-30*864e5;for(var k in seen)if(!(seen[k]>c))delete seen[k];set('qnseen',JSON.stringify(seen));}
+  function bj(t){var x=t+8*36e5,d=new Date(x);return {m:d.getUTCMonth()+1,d:d.getUTCDate(),h:d.getUTCHours(),mi:d.getUTCMinutes(),day:Math.floor(x/864e5)};}   // 北京时间
+  function when(t){var a=bj(t),dd=bj(now).day-a.day;return (dd===0?'今天':dd===1?'昨天':dd===2?'前天':a.m+'月'+a.d+'日')+' '+a.h+':'+(a.mi<10?'0':'')+a.mi;}
+  function within(t){return t&&now-t<H&&now-t>-864e5;}   // 手机时间比网页上的时间早一天以上（时间设错了），就不算
+  var live=[],fresh=0,nn=0;
+  [].forEach.call(Q.querySelectorAll('.qn-it'),function(a){
+    var add=+a.dataset.add,up=+a.dataset.upd||0,k=within(add)?'new':within(up)?'upd':'';
+    if(!k){a.parentNode.removeChild(a);return;}
+    var t=k==='new'?Math.max(add,up):up;a.dataset.k=k;a.dataset.t=t;
+    a.querySelector('.qn-tag').textContent=k==='new'?'新上架':'有更新';
+    var m=a.querySelector('.qn-m');m.textContent=when(k==='new'?add:up)+(k==='new'?' 上架':' 更新')+' · '+m.textContent;
+    var n=a.querySelector('.qn-note');if(n)n.hidden=k!=='upd';
+    if(!(seen[a.dataset.art]>=t))fresh++;
+    if(k==='new')nn++;
+    a.style.setProperty('--i',live.length);live.push(a);
+  });
+  if(!live.length){Q.parentNode.removeChild(Q);return;}
+  var nu=live.length-nn;
+  Q.querySelector('#qn-t').textContent=nn?'新上架 '+nn+' 篇'+(nu?'，更新 '+nu+' 篇':''):'更新了 '+nu+' 篇';
+  function mark(id){var a=Q.querySelector('.qn-it[data-art="'+id+'"]');if(a&&!(seen[id]>=+a.dataset.t)){seen[id]=+a.dataset.t;save();}}
+  function markAll(){live.forEach(function(a){mark(a.dataset.art);});}
+  var back=null;
+  function hide(){Q.classList.remove('on');de.classList.remove('qnon');}
+  function close(){if(Q.hidden)return;markAll();hide();setTimeout(function(){Q.hidden=true;},RM?0:450);
+    if(back&&back.focus&&document.contains(back))try{back.focus({preventScroll:true});}catch(e){}}
+  function show(){
+    back=document.activeElement;Q.hidden=false;de.classList.add('qnon');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){Q.classList.add('on');});});   // 先排好版、画出一帧，再升起
+    setTimeout(function(){try{Q.querySelector('.qn-card').focus({preventScroll:true});}catch(e){}},80);
+  }
+  Q.addEventListener('click',function(e){
+    if(e.target.closest('[data-qnx]')){e.preventDefault();close();return;}
+    if(e.target.closest('a')){markAll();hide();Q.hidden=true;}   // 点了一篇：弹窗马上让开，链接照常打开（专题网页在网站里的浮层打开）
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!Q.hidden){e.stopPropagation();close();}},true);   // Esc 只关弹窗，不连首页一起关
+  // 从别处读了这一篇（问题彩蛋列表、学课里的入口、直接打开链接），也不再为它弹
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-art]');if(a&&!Q.contains(a))mark(a.dataset.art);},true);
+  function onHash(){var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];if(/^qa\d+$/.test(h))mark(h);}
+  window.addEventListener('hashchange',onHash);onHash();
+  if(!fresh)return;
+  var h0=location.hash.slice(1);if(h0&&h0!=='home'&&h0!=='welcome')return;
+  function busy(){return /(^| )(tovon|bopen|present)( |$)/.test(de.className)||!!document.querySelector('.hconf:not([hidden]),.shsheet:not([hidden]),#bpop:not([hidden])');}
+  function go(){if(!Q.hidden||!(window.Q4Welcome&&Q4Welcome.isOpen())||busy())return;
+    for(var i=0,f=0;i<live.length;i++)if(!(seen[live[i].dataset.art]>=+live[i].dataset.t))f++;
+    if(f)show();}
+  function later(){setTimeout(go,1200);}   // 开场画面淡出、首页排好以后再弹
+  if(document.readyState==='complete')later();else addEventListener('load',later);
+})();
+
 /* ---------- 网页就绪：开场画面淡出；稍后再换上正文字体（在线版首屏先用手机自带的字体，省下约 800 KB） ---------- */
 (function(){
   var d=document.documentElement;d.classList.add('ready');
