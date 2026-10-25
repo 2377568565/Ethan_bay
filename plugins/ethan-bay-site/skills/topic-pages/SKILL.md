@@ -14,7 +14,7 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa2 | 罪从哪里来？ | 网页文章 + PDF（`qa/q2.html`） | 第1课星期一 |
 | qa3 | 基督教两千年家谱 | 独立网页 `history.html` | 第12课星期三 |
 | qa4 | 耶稣具有完全的人性和完全的神性吗？ | 独立网页 `jesus.html` | 第4课星期日 |
-| qa5（编号32） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
+| qa5（编号35） | 耶稣是人还是神？补充问答 | 独立网页 `jesus-qa.html`，**2026-10-04 下架修订中**（在 `DRAFTS`） | 不加（`nochip=True`） |
 | qa6（编号05） | 根据圣经，人死了去哪里？ | 独立网页 `death.html`（`death.py`、`death_text.py`、`death_svg.py`），2026-10-11 上架 | 不加（`nochip=True`；对应第9课星期一） |
 | qa7（编号06） | 谁改了安息日？ | 独立网页 `sabbath.html`（`sabbath.py`、`sabbath_text.py`、`sabbath_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
 | qa8（编号07） | 安息日，到底能做什么？ | 独立网页 `keep.html`（`keep.py`、`keep_text.py`、`keep_svg.py`），2026-10-12 上架 | 不加（`nochip=True`） |
@@ -42,6 +42,9 @@ description: 做“问题彩蛋”的专题文章或独立专题网页（如《�
 | qa30（编号29） | 祷告为什么常常没有应验？ | 独立网页 `prayer.html`（`prayer.py`、`prayer_text.py`、`prayer_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa31（编号30） | 犹大是注定要卖主的吗？ | 独立网页 `judas.html`（`judas.py`、`judas_text.py`、`judas_svg.py`），2026-10-13 上架 | 不加（`nochip=True`） |
 | qa32（编号31） | “我原谅你”，为什么要用血来写？ | 独立网页 `blood.html`（`blood.py`、`blood_text.py`、`blood_svg.py`），2026-10-23 上架 | 不加（`nochip=True`） |
+| qa33（编号32） | 永远住在天上，会不会很无聊？ | 独立网页 `heaven.html`（`heaven.py`…），2026-10-22 上架 | 不加（`nochip=True`） |
+| qa34（编号33） | 宗教这么多，为什么偏偏是耶稣？ | 独立网页 `faiths.html`（`faiths.py`…），2026-10-25 上架 | 不加（`nochip=True`） |
+| qa35（编号34） | 我的祖先从没听过耶稣，他们会怎样？ | 独立网页 `unheard.html`（`unheard.py`、`unheard_text.py`、`unheard_svg.py`），2026-10-25 上架 | 不加（`nochip=True`） |
 
 ## 撰写每一篇问题彩蛋的基本原则（用户 2026-10-23 定下，以后每一篇都不变）
 用户原话：

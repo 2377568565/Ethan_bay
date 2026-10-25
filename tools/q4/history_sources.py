@@ -822,6 +822,43 @@ SRC.update({
  'fa_hound_w': ('《天上的猎犬》（维基百科英文版：1890年发表，182行）', 'https://en.wikipedia.org/wiki/The_Hound_of_Heaven', ['Francis Thompson']),
  'fa_da638': ('怀爱伦《历代愿望》第70章“我这弟兄中一个最小的”，英文原著第638页', None, []),
 })
+# 问题彩蛋34（没听过耶稣的祖先会怎样）用到的资料（2026-10-25 用临时任务读取原文核对）
+SRC.update({
+ 'un_radbod': ('弗里西亚国王拉德博德（Radbod，卒于719年）拒绝受洗的传说（维基百科英文版）', 'https://en.wikipedia.org/wiki/Redbad,_King_of_the_Frisians', ['ancestors']),
+ 'un_xavier': ('沙勿略1552年从日本写回欧洲耶稣会的信（福特汉姆大学“近代史资料集”英译本）', 'https://sourcebooks.fordham.edu/mod/1552xavier4.asp', ['irrevocably shut']),
+ 'un_xavier_w': ('方济各·沙勿略（维基百科英文版：1549年到日本鹿儿岛，1552年12月3日死于广东上川岛）', 'https://en.wikipedia.org/wiki/Francis_Xavier', ['Shangchuan']),
+ 'un_harrow': ('“基督降在阴间”的传统说法与彼得前书3:19（维基百科英文版）', 'https://en.wikipedia.org/wiki/Harrowing_of_Hell', ['1 Peter']),
+ 'un_bftd': ('“为死人受洗”与耶稣基督后期圣徒教会（自1840年起施行；维基百科英文版）', 'https://en.wikipedia.org/wiki/Baptism_for_the_dead', ['1840']),
+ 'un_extra': ('“教会以外没有救恩”（出自三世纪迦太基主教居普良；维基百科英文版）', 'https://en.wikipedia.org/wiki/Extra_Ecclesiam_nulla_salus', ['Cyprian']),
+ 'un_wcf10': ('《威斯敏斯德信条》第10章“论有效的呼召”第3—4节（1646年，美国正统长老会网站）', 'https://www.opc.org/wcf.html', ['Elect infants']),
+ 'un_lg16': ('第二次梵蒂冈大公会议《教会宪章》（Lumen Gentium，1964年）第16节（梵蒂冈网站英文版）', 'https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19641121_lumen-gentium_en.html', ['through no fault of their own']),
+ 'un_ccc847': ('《天主教教理》第847条（英文版）', 'https://www.scborromeo.org/ccc/para/847.htm', ['sincere heart']),
+ 'un_ccc848': ('《天主教教理》第848条（英文版）', 'https://www.scborromeo.org/ccc/para/848.htm', ['evangelize']),
+ 'un_ccc1261': ('《天主教教理》第1261条（英文版）', 'https://www.scborromeo.org/ccc/para/1261.htm', ['without Baptism']),
+ 'un_wesley': ('卫斯理讲章《论信心》（On Faith，1872年版第106篇）', 'https://wesley.nnu.edu/john-wesley/the-sermons-of-john-wesley-1872-edition/sermon-106-on-faith/', ['little will be required']),
+ 'un_anon': ('拉纳的“匿名的基督徒”（维基百科英文版）', 'https://en.wikipedia.org/wiki/Anonymous_Christian', ['Rahner']),
+ 'un_univ': ('普救论（维基百科英文版：俄利根等早期教父）', 'https://en.wikipedia.org/wiki/Universal_reconciliation', ['Origen']),
+ 'un_justin': ('殉道者游斯丁《第一护教书》第46章“基督以前世上的道”（英译本，New Advent）', 'https://www.newadvent.org/fathers/0126.htm', ['Heraclitus']),
+ 'un_limbo': ('灵薄狱（Limbo；维基百科英文版：但丁《神曲》、2007年国际神学委员会文件）', 'https://en.wikipedia.org/wiki/Limbo', ['2007']),
+ 'un_dante': ('但丁《神曲·地狱篇》第4歌（意大利文原文，维基文库）；朗费罗英译（1867年，维基文库）', 'https://it.wikisource.org/wiki/Divina_Commedia/Inferno/Canto_IV', ['speme']),
+ 'un_lewis_lb': ('C. S. 路易斯《最后的战役》（The Last Battle，1956年）第15章（维基语录）', 'https://en.wikiquote.org/wiki/The_Last_Battle', ['Emeth']),
+ 'un_pk371': ('怀爱伦《先知与君王》第31章“给外邦人的希望”，英文原著第371页', None, []),
+ 'un_pk376': ('怀爱伦《先知与君王》第31章“给外邦人的希望”，英文原著第373—378页', None, []),
+ 'un_pk188': ('怀爱伦《先知与君王》第14章“以利亚的心志能力”，英文原著第188—189页', None, []),
+ 'un_shangdi': ('上帝（Shangdi；维基百科英文版：商朝甲骨文、周朝、利玛窦与译名）', 'https://en.wikipedia.org/wiki/Shangdi', ['oracle']),
+ 'un_huangyi': ('《诗经·大雅·皇矣》（维基文库）', 'https://zh.wikisource.org/wiki/詩經/皇矣', ['皇矣上帝']),
+ 'un_daming': ('《诗经·大雅·大明》（维基文库）', 'https://zh.wikisource.org/wiki/詩經/大明', ['昭事上帝']),
+ 'un_shundian': ('《尚书·舜典》（维基文库）', 'https://zh.wikisource.org/wiki/尚書/舜典', ['肆類于上帝']),
+ 'un_budeyi': ('杨光先《不得已》上卷《辟邪论》（维基文库）', 'https://zh.wikisource.org/wiki/不得已/上卷', ['古經書所稱之上帝']),
+ 'un_legge': ('理雅各（James Legge；维基百科英文版：“上帝”的译名）', 'https://en.wikipedia.org/wiki/James_Legge', ['Shangdi']),
+ 'un_sinim': ('秦尼姆（Sinim，赛49:12；维基百科英文版：中国或埃及色弗尼两种看法）', 'https://en.wikipedia.org/wiki/Sinim', ['Syene']),
+ 'un_stele': ('大秦景教流行中国碑（维基百科中文版：635年阿罗本到长安、781年立碑、1623年出土、现藏西安碑林博物馆）', 'https://zh.wikipedia.org/wiki/大秦景教流行中國碑', ['阿罗本']),
+ 'un_ricci': ('利玛窦（维基百科英文版：1582年到澳门，1601年进北京）', 'https://en.wikipedia.org/wiki/Matteo_Ricci', ['1601']),
+ 'un_lunyu': ('《论语·先进》（维基文库）', 'https://zh.wikisource.org/wiki/論語/先進第十一', ['未知生']),
+ 'un_aug': ('奥古斯丁《忏悔录》第3卷第12章（英译本，New Advent）', 'https://www.newadvent.org/fathers/110103.htm', ['son of these tears']),
+ 'un_whittier': ('惠蒂尔《永恒的良善》（The Eternal Goodness，1865年作；据1895年《惠蒂尔诗全集》，维基文库）', 'https://en.wikisource.org/wiki/The_Complete_Poetical_Works_of_John_Greenleaf_Whittier/The_Eternal_Goodness', ['islands']),
+ 'un_faber': ('费伯《上帝的怜悯，宽阔无边》（There’s a Wideness in God’s Mercy；据1920年《陆海军赞美诗》，维基文库）', 'https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/There%27s_a_Wideness_in_God%27s_Mercy', ['wideness']),
+})
 # 补充问答页里属于怀爱伦著作的资料（history.py 的 src_kind 用来归类）
 EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da696', 'da716', 'da718', 'da720', 'da722', 'pp364', 'pp367', 'pp373', 'pp374', 'sm1_233', 'da307', 'aa191', 'aa195', 'sc93', 'sc95', 'sc96', 'mh229b', 'col145', 'col141', 'da687', 'da759', 'gc409', 'gc416', 'gc422', 'gc423', 'gc424', 'gc426', 'gc428', 'gc482', 'gc484', 'gc485', 'gc489', 'ew55', 'ev221', 'sc62b', 'wlf12', 'lde74', 'lde229', 'gc266', 'gc438', 'gc439', 'gc440', 'gc442', 'gc445', 'gc449', 'gc452', 'gc565', 'gc579', 'gc605', 'ev234', 'ev304', 'ev573', 'lde224', 'tm117', 'da123', 'da671', 'da686', 'da688', 'da692', 'da693', 'da25', 'da210', 'rh1887', 'rh1888', 'st1888', 't5_422', 't2_509',
             't2_202', 'rh1888s', 'rh1893m', 'rh1893a', 'rh1874', 'yi1898', 'lt97', 'bc5_1131', 'sc17', 'sc43', 'sc58', 'pp49', 'pp306',
@@ -833,3 +870,4 @@ EGW_KEYS = {'ctr208', 'da293', 'da563', 'da645', 'da649', 'da653', 'da656', 'da6
 EGW_KEYS |= {'sc13', 'sc35', 'pp63', 'pp66', 'pp68', 'pp68b', 'pp69', 'pp72', 'da25b', 'da753', 'da758', 'da761', 'da762', 'da764'}
 EGW_KEYS |= {'gc644', 'gc645', 'gc661', 'gc674', 'gc674b', 'gc676', 'gc677a', 'gc677', 'gc678b', 'ed303', 'ed305', 'ed307', 'ed307b', 'ed308', 'pp50', 'sm1_172'}
 EGW_KEYS |= {'fa_da638'}
+EGW_KEYS |= {'un_pk371', 'un_pk376', 'un_pk188'}
