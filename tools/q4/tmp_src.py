@@ -82,7 +82,6 @@ JOBS = [
     ('yomkippur_w', W + 'Yom_Kippur', ['atonement', 'repentance', 'Temple']),
     ('dan9_w', W + "Daniel_9", ['anointed', 'cut off', 'seventy weeks']),
 ]
-]
 
 
 def job(j):
