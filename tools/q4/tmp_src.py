@@ -1,4 +1,4 @@
-# 临时：核对问题彩蛋33（宗教这么多，为什么偏偏是耶稣）要用的资料。每读到一份就发一条 check run。查完删除。
+# 临时：核对问题彩蛋33（宗教这么多，为什么偏偏是耶稣）要用的资料（第二次）。每读到一份就发一条 check run。查完删除。
 import os, re, html, json, time, requests
 from concurrent.futures import ThreadPoolExecutor
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36'}
@@ -43,30 +43,6 @@ def ctx(full, pats, n=3, w=900):
     return '\n'.join(parts)
 
 
-# ---------- 一、《古兰经》：马坚中译本 + Sahih International 英译 ----------
-AYAT = ['1:1', '1:2', '1:3', '1:4', '1:5', '1:6', '1:7', '2:62', '2:75', '2:79', '2:136', '2:183', '2:256', '3:19', '3:45', '3:46', '3:47', '3:49', '3:55',
-        '3:59', '3:85', '4:48', '4:157', '4:158', '4:171', '5:46', '5:47', '5:68', '5:72', '5:73', '5:75', '5:116', '5:117', '6:115', '7:8', '7:9',
-        '9:30', '10:94', '17:13', '19:19', '19:20', '19:21', '19:30', '19:33', '19:34', '19:35', '23:102', '23:103', '33:40', '39:53', '46:9',
-        '61:6', '96:1', '96:2', '96:3', '96:4', '96:5', '99:7', '99:8', '101:6', '101:7', '101:8', '101:9', '112:1', '112:2', '112:3', '112:4', '2:285', '4:136']
-
-
-def ayah(a):
-    for k in range(4):
-        try:
-            r = requests.get(f'https://api.alquran.cloud/v1/ayah/{a}/editions/zh.jian,en.sahih', headers=UA, timeout=40)
-            if r.status_code == 200:
-                d = r.json()['data']
-                return f'{a}\t' + '\t'.join(f"{e['edition']['identifier']}: {e['text']}" for e in d)
-        except Exception as e:
-            pass
-        time.sleep(2 + 2 * k)
-    return f'{a}\tFAIL'
-
-
-with ThreadPoolExecutor(3) as ex:
-    rows = list(ex.map(ayah, AYAT))
-post('quran', '\n'.join(rows))
-
 # ---------- 二、网页资料 ----------
 W = 'https://en.wikipedia.org/wiki/'
 ZW = 'https://zh.wikipedia.org/wiki/'
@@ -74,70 +50,18 @@ WS = 'https://zh.wikisource.org/w/index.php?action=raw&title='
 CB = 'https://cbdata.dila.edu.tw/stable/juans?work={w}&juan={j}'
 SC = 'https://suttacentral.net/api/bilarasuttas/{s}/sujato?lang=en'
 JOBS = [
-    # 伊斯兰教
-    ('hadith_bk', 'https://sunnah.com/bukhari:6463', ['enter Paradise', 'deeds', 'mercy']),
-    ('hadith_bk2', 'https://sunnah.com/bukhari:5673', ['enter Paradise', 'deeds', 'mercy']),
-    ('hadith_gab', 'https://sunnah.com/muslim:8a', ['Islam', 'Iman', 'Ihsan', 'prayer']),
-    ('islam_w', W + 'Islam', ['Muhammad', '610', '622', '632', 'Sunni', 'Shia', 'billion', 'Five Pillars']),
-    ('muh_w', W + 'Muhammad', ['570', '610', '622', '632', 'Hijra', 'Medina', 'Cave of Hira']),
-    ('quran_w', W + 'Quran', ['recitation', 'Uthman', '114', 'Arabic']),
-    ('pillars_w', W + 'Five_Pillars_of_Islam', ['Shahada', 'Salah', 'Zakat', 'Sawm', 'Hajj']),
-    ('iman_w', W + 'Iman_(Islam)', ['six', 'angels', 'books', 'Day of Judgement', 'predestination', 'Gabriel']),
-    ('jesusislam_w', W + 'Jesus_in_Islam', ['virgin', 'crucif', 'substitution', 'Messiah', 'Injil', 'return', 'son of God']),
-    ('tawhid_w', W + 'Tawhid', ['oneness', 'Surah 112', 'shirk']),
-    ('tahrif_w', W + 'Tahrif', ['corrupt', 'Torah', 'Gospel', 'Ibn Hazm']),
-    ('islamchina_w', W + 'Islam_in_China', ['651', 'Tang', 'Hui']),
-    ('majian_w', ZW + '马坚', ['古兰经', '1981', '译']),
-    ('mizan_w', W + 'Mizan', ['scale', 'weigh', 'deeds']),
-    ('pew_w', W + 'Major_religious_groups', ['Christianity', 'Islam', 'Buddhism', 'percent', 'Pew']),
-    ('tacitus_w', W + 'Tacitus_on_Jesus', ['Annals', '116', 'Pontius Pilate', 'Christus']),
-    ('josephus_w', W + 'Josephus_on_Jesus', ['Antiquities', '93', 'James', 'Pilate']),
-    # 佛教
-    ('cb_t0099_15', CB.format(w='T0099', j=15), ['苦聖諦', '轉法輪', '集', '滅', '道']),
-    ('cb_t0210_2', CB.format(w='T0210', j=2), ['諸惡莫作', '自淨其意']),
-    ('cb_t0360_1', CB.format(w='T0360', j=1), ['十方眾生', '至心信樂', '乃至十念', '不取正覺']),
-    ('cb_t0026_60', CB.format(w='T0026', j=60), ['箭', '世有常', '如來終', '不可盡']),
-    ('cb_t0001_2', CB.format(w='T0001', j=2), ['自熾燃', '自歸依', '法歸依']),
-    ('cb_t0235_1', CB.format(w='T0235', j=1), ['一切有為法', '夢幻泡影']),
-    ('cb_t0251_1', CB.format(w='T0251', j=1), ['色即是空', '無苦集滅道', '涅槃']),
-    ('ws_xinjing', WS + '般若波羅蜜多心經', ['色即是空', '涅槃']),
-    ('ws_fajujing', WS + '法句經/卷下', ['諸惡莫作']),
-    ('ws_wuliang', WS + '佛說無量壽經/卷上', ['至心信樂', '十念']),
-    ('sc_sn56_11', SC.format(s='sn56.11'), ['suffering', 'origin', 'cessation', 'path', 'craving']),
-    ('sc_ud6_4', SC.format(s='ud6.4'), ['elephant', 'blind', 'king']),
-    ('sc_mn63', SC.format(s='mn63'), ['arrow', 'eternal', 'undeclared']),
-    ('buddha_w', W + 'The_Buddha', ['BCE', 'Lumbini', 'Kushinagar', 'Bodh Gaya', 'Siddhartha', 'four sights']),
-    ('fnt_w', W + 'Four_Noble_Truths', ['dukkha', 'samudaya', 'nirodha', 'magga', 'craving']),
-    ('marks_w', W + 'Three_marks_of_existence', ['anicca', 'dukkha', 'anatta']),
-    ('anatta_w', W + 'Anattā', ['self', 'soul', 'rebirth']),
-    ('karma_w', W + 'Karma_in_Buddhism', ['intention', 'rebirth', 'cetana']),
-    ('nirvana_w', W + 'Nirvana_(Buddhism)', ['blowing out', 'extinguish', 'rebirth']),
-    ('pureland_w', W + 'Pure_Land_Buddhism', ['Amitabha', 'eighteenth vow', 'nianfo', 'Shandao', 'China']),
-    ('jodo_w', W + 'Jōdo_Shinshū', ['Shinran', 'Barth', 'Christian', 'other power', 'tariki']),
-    ('tanni_w', W + 'Tannishō', ['good person', 'evil person', 'Yuien']),
-    ('bodhi_w', W + 'Bodhisattva', ['Mahayana', 'compassion', 'Avalokiteśvara', 'Guanyin']),
-    ('buddhachina_w', W + 'Buddhism_in_China', ['Han', 'Emperor Ming', 'White Horse', '67']),
-    ('elephant_w', W + 'Blind_men_and_an_elephant', ['Udana', 'Buddh', 'king', 'Jain', 'Newbigin']),
-    ('arrow_w', W + 'Parable_of_the_Poisoned_Arrow', ['Malunkyaputta', 'arrow', 'unanswered']),
-    ('samsara_w', W + 'Saṃsāra_(Buddhism)', ['six realms', 'gods', 'devas']),
-    # 道教
-    ('ws_ddj', WS + '道德經', ['道可道', '有物混成', '道生一', '天地不仁', '谷神不死']),
-    ('ctext_ddj', 'https://ctext.org/dao-de-jing/zh', ['道可道', '有物混成', '道生一', '天地不仁']),
-    ('taoism_w', W + 'Taoism', ['Zhang Daoling', 'Celestial Masters', 'philosophical', 'religious', 'immortality']),
-    ('ddj_w', W + 'Tao_Te_Ching', ['Laozi', 'Guodian', '4th century', 'Mawangdui']),
-    ('laozi_w', W + 'Laozi', ['historicity', 'legend', 'deified', 'Taishang Laojun']),
-    ('zhang_w', W + 'Zhang_Daoling', ['142', 'Five Pecks', 'Celestial']),
-    ('elixir_w', W + 'Chinese_alchemical_elixir_poisoning', ['Tang', 'emperor', 'mercury', 'Qin Shi Huang']),
-    ('xian_w', W + 'Xian_(Taoism)', ['immortal', 'transcendent']),
-    ('cuv_w', W + 'Chinese_Union_Version', ['1919', 'Shangdi', 'Shen', 'Logos', 'Dao']),
-    ('logos_w', W + 'Logos_(Christianity)', ['Chinese', 'Dao', 'Tao']),
-    # 其他
-    ('trilemma_w', W + "Lewis's_trilemma", ['lunatic', 'liar', 'Lord', 'Mere Christianity']),
-    ('lewis_wq', 'https://en.wikiquote.org/wiki/Mere_Christianity', ['poached egg', 'lunatic', 'Son of God']),
-    ('hound_w', W + 'The_Hound_of_Heaven', ['Francis Thompson', '1890', 'I fled Him']),
-    ('hound_txt', 'https://www.gutenberg.org/cache/epub/25269/pg25269.txt', ['I fled Him, down the nights', 'Halts by me']),
-    ('hound_ws', 'https://en.wikisource.org/w/index.php?action=raw&title=The_Hound_of_Heaven', ['I fled Him', 'Halts by me']),
-    ('sdafb_wa', 'https://web.archive.org/web/2024id_/https://www.adventist.org/the-great-controversy/', ['Christ', 'universe']),
+    ('ddj_api', 'https://api.ctext.org/gettext?urn=ctp:dao-de-jing', []),
+    ('ddj_ws1', WS + '道德經_(王弼本)', ['道可道', '有物混成', '道生一', '天地不仁']),
+    ('ddj_ws2', WS + '老子_(王弼本)', ['道可道', '有物混成', '道生一', '天地不仁']),
+    ('ddj_ws3', WS + '道德經_(河上公章句)', ['道可道', '有物混成', '道生一', '天地不仁']),
+    ('ddj_search', 'https://zh.wikisource.org/w/api.php?action=query&list=search&srsearch=%E9%81%93%E5%8F%AF%E9%81%93%20%E6%9C%89%E7%89%A9%E6%B7%B7%E6%88%90&format=json', []),
+    ('ddj_zhw', ZW + '道德经', ['道可道', '有物混成', '道生一', '天地不仁', '郭店']),
+    ('tanni_ja', 'https://ja.wikisource.org/w/index.php?action=raw&title=歎異抄', ['善人なほもて', '悪人をや']),
+    ('tanni_jaw', 'https://ja.wikipedia.org/wiki/歎異抄', ['善人なほもて', '悪人をや', '悪人正機']),
+    ('baima_zhw', ZW + '白马寺', ['永平', '东汉', '68']),
+    ('hanbud_zhw', ZW + '汉传佛教', ['东汉', '传入']),
+    ('hound_ws2', 'https://en.wikisource.org/wiki/The_Hound_of_Heaven', ['I fled Him', 'Halts by me', 'Rise, clasp My hand']),
+    ('hound_pf', 'https://www.poetryfoundation.org/poems/45155/the-hound-of-heaven', ['I fled Him', 'Halts by me', 'Rise, clasp My hand']),
 ]
 
 
@@ -177,7 +101,7 @@ def page(bp):
     return ''
 
 
-RAW = [('da', 'en_DA', range(528, 542)), ('pk', 'en_PK', range(270, 300))]
+RAW = [('da', 'en_DA', range(545, 557)), ('pk', 'en_PK', range(243, 257))]
 with ThreadPoolExecutor(2) as ex:
     for key, b, ps in RAW:
         ps = list(ps)
