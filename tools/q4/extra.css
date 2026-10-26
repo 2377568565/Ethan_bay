@@ -804,7 +804,7 @@ html.sheetopen{overflow:hidden}
 .imgsheet .im-dl[hidden]{display:none}
 .imgsheet .hconf-btns:has(.im-dl[hidden]){grid-template-columns:1fr}
 .wvbtns{display:inline-flex;flex:none;gap:6px}
-.bpop-img{margin-right:8px;min-height:32px;padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);font:600 .8rem/1 var(--sans);cursor:pointer;align-self:center}
+.bpop-img{margin-right:8px;min-height:32px;padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--accent);font:600 .8rem/1 var(--sans);cursor:pointer;align-self:center;white-space:nowrap;flex:none}
 .bpop-head{align-items:center}
 .gift-vimg{margin-left:6px}
 .aq-img{flex:none;min-height:30px;padding:2px 12px;border:1px solid #E3C98F;border-radius:999px;background:#FFF6DD;color:#7A5410;font:500 .8rem/1 var(--sans);cursor:pointer}

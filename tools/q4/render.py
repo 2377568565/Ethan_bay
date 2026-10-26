@@ -314,7 +314,7 @@ POPUP = '''<div id="bpop" class="bpop" hidden>
     <div class="bpop-grip" aria-hidden="true"></div>
     <header class="bpop-head">
       <div><p class="bpop-k">经文 · 三版本对照</p><h3 id="bpop-t"></h3></div>
-      <button class="bpop-img" type="button" data-imgverse="bpop">做成图片</button><button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
+      <button class="bpop-img" type="button" data-bopen>读全章</button><button class="bpop-img" type="button" data-imgverse="bpop">做成图片</button><button class="bpop-x" type="button" data-bclose aria-label="关闭">×</button>
     </header>
     <nav class="bpop-tabs" aria-label="版本">
       <button type="button" data-sec="cuv" class="on">和合本</button><button type="button" data-sec="en">NKJV</button><button type="button" data-sec="og">原文 · 直译</button>
@@ -343,12 +343,13 @@ def prefix(frag, no):
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
 THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
 # 像素小羊（2026-10-22）：左上角标志（16×16，深色底上用夜间配色）、打卡时弹出的小卡片
+THEME_CSS += '\n' + open(os.path.join(Q4, 'bible.css'), encoding='utf-8').read()   # “圣经”栏目（2026-10-26）
 THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css('.wlogo') + lamb.dark_css('.qn-hd') + lamb.pop_css()
               + '.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}'
               + '.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}\n')
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
 JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
-      + '\n' + lamb.sprite_js() + lamb.pop_js())
+      + '\n' + lamb.sprite_js() + lamb.pop_js() + '\n' + open(os.path.join(Q4, 'bible.js'), encoding='utf-8').read())
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <details class="fnote fold"><summary><span class="fs">版权与引用说明</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -451,6 +452,7 @@ def ic(d, extra=''):
 I_HOME = ic('<path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/>')
 I_BOOK = ic('<path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/>')
 I_SPARK = ic('<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7zM18.5 15.5c.3 1.9 1 2.6 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.4 2.7-1.1 3-3z"/>')
+I_BIBLE = ic('<path d="M6.5 3.5H18a1 1 0 0 1 1 1V20H6.5A1.5 1.5 0 0 1 5 18.5v-13a2 2 0 0 1 1.5-2z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H19"/><path d="M12 6.5v6.5M9.5 9h5"/>')   # 圣经（2026-10-26）
 I_NOTE = ic('<path d="M9 18.5V5.5l11-2v13"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="16.5" r="2.5"/>')
 I_CHAT = ic('<path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/><path d="M8 9.5h8M8 12.5h5"/>')
 I_USER = ic('<circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c1.2-3.8 4-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/>')
@@ -522,7 +524,7 @@ def music_page():
 </div>'''
 
 def qr_all():
-    ids = ['qa', 'ask', 'music'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
+    ids = ['qa', 'ask', 'music', 'bible'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
             ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
@@ -540,16 +542,15 @@ def audio_cfg():
 def homeui():
     def tab(href, icon, label, t, extra=''):
         return f'<a class="tab" href="{href}" data-t="{t}"{extra}>{icon}<span>{label}</span></a>'
-    tabbar = ('<nav class="tabbar" id="tabbar" aria-label="主要栏目">' + tab('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + tab('#home', I_BOOK, '学课', 'home') +
-              tab('#qa', I_SPARK, '彩蛋', 'qa', ' data-egg') + tab('#music', I_NOTE, '音乐', 'music') +
-              f'<button class="tab" type="button" data-me data-t="me">{I_USER}<span>我的</span></button></nav>')
+    tabbar = ('<nav class="tabbar" id="tabbar" aria-label="主要栏目">' + tab('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + tab('#home', I_BOOK, '学课', 'home') + tab('#bible', I_BIBLE, '圣经', 'bible') +
+              tab('#qa', I_SPARK, '彩蛋', 'qa', ' data-egg') + tab('#music', I_NOTE, '音乐', 'music') + '</nav>')   # 2026-10-26：加“圣经”，“我的”搬到首页左上角
     def sl(href, icon, label, t, extra=''):
         return f'<a href="{href}" data-t="{t}" data-tip="{label}"{extra}>{icon}<span class="lbl">{label}</span></a>'
     nqa = len(qa_data.ITEMS)
     side = (f'<aside class="side" id="side" aria-label="栏目">'
             f'<a class="brand" href="#welcome" data-gohome data-tip="首页"><span class="mark">{lamb.logo(32)}</span><span class="lbl"><b>预言的恩赐</b><small>2026 年第 4 季</small></span></a>'
             f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索</span><kbd>Ctrl K</kbd></button>'
-            '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课', 'home') +
+            '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课', 'home') + sl('#bible', I_BIBLE, '圣经', 'bible') +
             f'<a href="#qa" data-t="qa" data-tip="问题彩蛋" data-egg>{I_SPARK}<span class="lbl">问题彩蛋</span><em class="lbl cnt">{nqa}</em></a>' +
             f'<a href="#ask" data-t="ask" data-tip="提问区">{I_CHAT}<i class="sdot" aria-hidden="true"></i><span class="lbl">提问区</span></a>' + sl('#music', I_NOTE, '音乐', 'music') +
             f'<button type="button" data-me data-t="me" data-tip="我的">{I_USER}<span class="lbl">我的</span></button></nav>'
@@ -812,6 +813,15 @@ def qa_new_html():
             '    <div class="qn-ft"><a class="qn-all" href="#qa">看全部问题彩蛋 →</a><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>\n'
             '  </div>\n</div>')
 
+def bible_page():
+    """“圣经”栏目（2026-10-26）：网站里的 #bible 页；内容由 bible.js 第一次打开时再装（数据在 site/bible/，biblesite.py 生成）。"""
+    cur = os.path.join(Q4, '..', '..', 'site', 'bible', 'current.txt')   # biblesite.py 写下的当前 index 文件名
+    if not os.path.exists(cur):
+        return ''
+    fn = open(cur, encoding='utf-8').read().strip()
+    return (f'<div class="lesson" id="bible" data-title="圣经"><div id="bbroot" data-index="site/bible/{fn}">'
+            '<p class="bb-load" style="padding:60px 0;text-align:center;color:var(--muted)">正在打开圣经……</p></div></div>')
+
 def build_combined(nos):
     mods = {}; frags = {}
     for no in nos:
@@ -887,7 +897,7 @@ def build_combined(nos):
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
     ui = dict(logo=lamb.logo(32), user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
               nqa=len(qa_data.ITEMS), nsongs=len(songs()))
-    body = welcome.welcome_html(titles, ui) + '\n' + qa_new_html() + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page())
+    body = welcome.welcome_html(titles, ui) + '\n' + qa_new_html() + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page()) + '\n' + bible_page()
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)

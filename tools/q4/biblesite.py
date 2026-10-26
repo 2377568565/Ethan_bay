@@ -43,7 +43,7 @@ def put(name, obj, files):
 
 def clean_cuv(t):
     """和 bible.cuv() 一样整理：上帝、引号、多余空格；空的（和上一节印在一起的）保持空。"""
-    t = t.strip()
+    t = t.strip().replace('\ue317', '讟')   # 原数据把“讟”（谤讟、怨讟，共 8 处）存成私用区字符，手机上显示成方框
     if not t:
         return ''
     if t.startswith('神') and not t.startswith('神人'):
@@ -55,17 +55,97 @@ def clean_cuv(t):
     return t.replace('－', '·')         # “耶和华－你的上帝”里的连接号，排版上用间隔号
 
 
+def para_ends():
+    """原文里的分段记号：希腊文新约用“¶”，希伯来文旧约用“פ”（大段）、“ס”（小段），都标在一段最后一节的最后一个词上。
+    返回 {卷: ["章.节", …]}，阅读页按它把和合本、KJV 分段。"""
+    out = {}
+    for f in bible.HEB_FILES + bible.GRK_FILES:
+        for line in open(os.path.join(bible.BD, f), encoding='utf-8'):
+            m = bible.LINE_RE.match(line)
+            if not m:
+                continue
+            col = line.split('\t')
+            if '¶' in col[1] or re.search(r'\\[ ]?\\?[פס]\s*$', col[1].strip()):
+                b = bible.CODE2IDX.get(m.group(1))
+                if b is not None:
+                    out.setdefault(b, set()).add(f'{m.group(2)}.{m.group(3)}')
+    return {b: sorted(v, key=lambda x: tuple(map(int, x.split('.')))) for b, v in out.items()}
+
+
+def places():
+    """这一节在哪里讲过：学课（合集页里的经文按钮）和问题彩蛋（专题页正文里的经文出处）。
+    返回 (来源列表 [[说明, 网址]…], {"卷.章.节": [来源序号…]})。网址是网站里的地址（#l3-wed、heaven.html#city）。"""
+    import html as H
+    import qa_data
+    src, idx, seen = [], {}, {}
+    def add(key, label, href):
+        k = (label, href)
+        if k not in seen:
+            seen[k] = len(src)
+            src.append([label, href])
+        lst = idx.setdefault(key, [])
+        if seen[k] not in lst:
+            lst.append(seen[k])
+    # 学课
+    DN = {'sab': '安息日', 'sun': '星期日', 'mon': '星期一', 'tue': '星期二', 'wed': '星期三', 'thu': '星期四', 'fri': '星期五', 'sum': '本课总结'}
+    allp = os.path.join(ROOT, 'lessons', '2026-Q4', 'gift-of-prophecy-all.html')
+    if os.path.exists(allp):
+        h = open(allp, encoding='utf-8').read()
+        marks = [(m.start(), m.group(1)) for m in re.finditer(r'id="(l\d+-(?:yw-)?(?:sab|sun|mon|tue|wed|thu|fri|sum|intro))"', h)]
+        mi = 0
+        cur = None
+        for m in re.finditer(r'class="bref"[^>]*data-v="(\d+)\|([^"|]+)', h):
+            while mi < len(marks) and marks[mi][0] < m.start():
+                cur = marks[mi][1]
+                mi += 1
+            if not cur:
+                continue
+            n, rest = cur.split('-', 1)
+            yw = rest.startswith('yw-')
+            d = rest[3:] if yw else rest
+            lab = ('本季导言' if n == 'l0' else f'第{n[1:]}课') + ('' if d == 'intro' else ' · ' + DN.get(d, d)) + (' · 学课原文' if yw else ' · 解读')
+            b = int(m.group(1))
+            for cv in m.group(2).split(';'):
+                c, v = cv.split('.')
+                add(f'{b}.{c}.{v}', lab, '#' + cur)
+    # 问题彩蛋（独立专题页）
+    for it in qa_data.ITEMS:
+        if not it.get('url'):
+            continue
+        p = os.path.join(ROOT, it['url'])
+        if not os.path.exists(p):
+            continue
+        h = open(p, encoding='utf-8').read()
+        h = re.sub(r'(?is)<(script|style)\b.*?</\1>', ' ', h).split('id="sources"')[0]
+        secs = [(m.start(), m.group(1), H.unescape(re.sub(r'<[^>]+>', '', m.group(2))).strip())
+                for m in re.finditer(r'<section class="ch" id="(\w+)"><h2><span class="no">\d+</span>(.*?)</h2>', h)]
+        for k, (pos, sid, title) in enumerate(secs):
+            end = secs[k + 1][0] if k + 1 < len(secs) else len(h)
+            t = H.unescape(re.sub(r'<[^>]+>', '', h[pos:end]))
+            for m in bible.CHAIN_RE.finditer(t):
+                b = bible.NAME2IDX[m.group(1)]
+                for part in re.split(r'[；;]', m.group(2)):
+                    if not re.search(r'\d\s*[:：]', part):
+                        continue
+                    try:
+                        cvs = bible.parse_cv(part)
+                    except Exception:
+                        continue
+                    for c, v in cvs:
+                        add(f'{b}.{c}.{v}', f'问题彩蛋 {it["no"]:02d}《{it["q"]}》· {title}', f'{it["url"]}#{sid}')
+    return src, idx
+
+
 def main():
     bible._load()
     os.makedirs(OUT, exist_ok=True)
-    for f in glob.glob(os.path.join(OUT, '*.json')):     # 只清掉本程序生成的旧文件（同名哈希不变就会原样再写）
-        os.remove(f)
     files, size = {}, collections.Counter()
+    PE = para_ends()
     nch = []
     for b in range(66):
         chs = bible._cuv[b]['chapters']
         nch.append(len(chs))
-        size['cuv'] += put(f'cuv-{b:02d}', [[clean_cuv(v) for v in ch] for ch in chs], files)
+        size['cuv'] += put(f'cuv-{b:02d}', {'v': [[clean_cuv(v) for v in ch] for ch in chs], 'p': PE.get(b, [])}, files)
         kj = []
         for c, ch in enumerate(chs, 1):
             row = []
@@ -97,7 +177,7 @@ def main():
             for v in range(1, nv + 1):
                 ws = []
                 for w, tr, gl, st, lem, mean in orig.get((b, c, v), []):
-                    w = w.replace('¶', '').strip()   # STEPBible 的分段记号
+                    w = re.sub(r'\s+[פס]$', '', w.replace('¶', '')).strip()   # STEPBible 的分段记号（希腊文 ¶，希伯来文 פ / ס）
                     if not w:
                         continue
                     ws.append([w, tr, gl, st])
@@ -125,6 +205,8 @@ def main():
         words.append([w, ''.join(p[0] for p in py), ''.join(py), n])
     words.sort(key=lambda x: (-x[3], x[0]))
     size['words'] += put('words', words, files)
+    ps, pi = places()
+    size['places'] += put('places', {'s': ps, 'v': pi}, files)
     # 书卷：名称、简称、拼音
     books = []
     for i, (code, full, en, ab) in enumerate(bible.BOOKS):
@@ -134,6 +216,17 @@ def main():
     s = json.dumps(idx, ensure_ascii=False, separators=(',', ':'))
     fn = f'index-{h(s)}.json'
     open(os.path.join(OUT, fn), 'w', encoding='utf-8').write(s)
+    # 旧文件留一代（微信会缓存旧网页，旧网页还会去找旧数据）：保留这次的和上一次 current.txt 指向的，其余旧的删掉
+    keep = {fn, *files.values()}
+    cur = os.path.join(OUT, 'current.txt')
+    if os.path.exists(cur):
+        prev = open(cur, encoding='utf-8').read().strip()
+        if os.path.exists(os.path.join(OUT, prev)):
+            keep |= {prev, *json.load(open(os.path.join(OUT, prev), encoding='utf-8'))['files'].values()}
+    for f in glob.glob(os.path.join(OUT, '*.json')):
+        if os.path.basename(f) not in keep:
+            os.remove(f)
+    open(cur, 'w', encoding='utf-8').write(fn + '\n')
     print('index', fn, {k: f'{v / 1e6:.1f} MB' for k, v in size.items()}, len(words), '个词')
     return fn
 

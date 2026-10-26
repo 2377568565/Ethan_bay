@@ -1,321 +1,506 @@
-/* “圣经”栏目（2026-10-26）：和合本、KJV、原文，切换和对照；书卷、出处、人名地名和词语、全文搜索。
-   数据按卷放在 site/bible/（文件名带内容哈希），下载一次就存在手机里（IndexedDB “q4bible”，和网站其他缓存分开，免得被清理掉）。 */
+/* “圣经”栏目（2026-10-26 第一期）：和合本、KJV、原文（旧约希伯来文、新约希腊文），切换和对照；书本式排版（按段落，诗歌一行一节）；
+   选中经文后的动作条（划线、笔记、书签、复制、分享图、原文、对照、讲过的地方）；阅读设置；记住读到哪一节；最近读过；搜索。
+   既能单独打开（bible.html，网址 #58.11.1），也能装进网站（index.html 的 #bible 页，网址 #bible-58.11.1）。
+   数据在 site/bible/（文件名带内容哈希），下载一次就存进手机（IndexedDB “q4bible”，和网站其他缓存分开）。
+   本机记录：q4:bset 阅读设置，q4:bpos 读到哪里，q4:brecent 最近读过，q4:bmarks 划线、笔记、书签（登录账号后由 app.js 同步 bp、bm 两项）。 */
 (function(){
   'use strict';
-  var $=function(s,r){return (r||document).querySelector(s);};
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
-  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
-  var toastT;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},1600);}
+  function set(k,v){try{if(v==null||v==='')localStorage.removeItem('q4:'+k);else localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function jget(k,d){try{var v=JSON.parse(get(k)||'null');return v==null?d:v;}catch(e){return d;}}
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idle=window.requestIdleCallback||function(f){return setTimeout(f,200);};
 
   /* ---------- 存在手机里的数据 ---------- */
-  var DB=null;
+  var DB=null,MEM={};
   function db(){if(!DB)DB=new Promise(function(ok){try{var r=indexedDB.open('q4bible',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
     r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return DB;}
   function idb(mode,fn){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
     try{var t=d.transaction('f',mode),q=fn(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
-  var MEM={};
   function load(fn){
+    if(!fn)return Promise.reject(new Error('no file'));
     if(MEM[fn])return MEM[fn];
-    var url='site/bible/'+fn;
     return MEM[fn]=idb('readonly',function(s){return s.get(fn);}).then(function(v){
       if(v!=null)return JSON.parse(v);
-      return fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();}).then(function(t){idb('readwrite',function(s){return s.put(t,fn);});return JSON.parse(t);});
+      return fetch('site/bible/'+fn).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();}).then(function(t){idb('readwrite',function(s){return s.put(t,fn);});return JSON.parse(t);});
     }).catch(function(e){delete MEM[fn];throw e;});
   }
   function prune(keep){idb('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();q.onsuccess=function(){(q.result||[]).forEach(function(k){if(keep.indexOf(k)<0)s.delete(k);});};return q;});}
 
+  /* ---------- 图标 ---------- */
+  var IC={down:'<path d="m6 9 6 6 6-6"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',aa:'<path d="M4 18 9 6l5 12M5.8 14h6.4M15 18l3-7 3 7M15.9 16h4.2"/>',
+    x:'<path d="M6 6l12 12M18 6 6 18"/>',back:'<path d="m15 18-6-6 6-6"/>',l:'<path d="m15 18-6-6 6-6"/>',r:'<path d="m9 18 6-6-6-6"/>',
+    note:'<path d="M5 4.5h10l4 4V19.5H5z"/><path d="M15 4.5v4h4M8.5 12h7M8.5 15.5h5"/>',bm:'<path d="M7 4h10v16l-5-3.5L7 20z"/>',copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+    img:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4"/>',org:'<path d="M5 6h14M5 12h9M5 18h12"/><path d="M18.5 10.5 21 13l-2.5 2.5"/>',
+    cmp:'<rect x="3.5" y="5" width="7.5" height="14" rx="1.5"/><rect x="13" y="5" width="7.5" height="14" rx="1.5"/>',place:'<path d="M12 21s-6.5-5.4-6.5-11a6.5 6.5 0 0 1 13 0c0 5.6-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+    clear:'<path d="M5 19h14M7 15l7.5-7.5a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L12 16H7z"/>'};
+  function ic(k){return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>';}
+
   /* ---------- 书卷 ---------- */
-  var IX,BK=[];   // BK[i] = {n:全名, ab:[简称], en:英文, code, ini:拼音首字母, py:全拼, nc:章数}
+  var BK=[],IX=null;
   var CAT=[[0,4,'律法书','--c4'],[5,16,'历史书','--c1'],[17,21,'诗歌智慧书','--c5'],[22,26,'大先知书','--c3'],[27,38,'小先知书','--c3'],
            [39,42,'福音书','--c6'],[43,43,'历史书','--c1'],[44,56,'保罗书信','--c2'],[57,64,'其他书信','--c2'],[65,65,'预言书','--c5']];
   function cat(i){for(var k=0;k<CAT.length;k++)if(i>=CAT[k][0]&&i<=CAT[k][1])return CAT[k];return CAT[0];}
   function ab(i){return BK[i].ab[0];}
-
-  /* ---------- 状态 ---------- */
-  var S={b:0,c:1,mode:'cuv',cmp:{cuv:1,kjv:1,org:0},fs:1};
-  try{var sv=JSON.parse(get('bible')||'{}');for(var k in sv)S[k]=sv[k];}catch(e){}
-  function save(){set('bible',JSON.stringify({b:S.b,c:S.c,mode:S.mode,cmp:S.cmp,fs:S.fs}));}
-  var FS=[.92,1,1.1,1.22,1.36];
-
-  /* ---------- 地址：#58.11 或 #58.11.1（卷从 1 数起，和常见的书卷编号一致） ---------- */
-  function readHash(){var m=/^#(\d+)\.(\d+)(?:\.(\d+))?/.exec(location.hash);if(!m)return null;return {b:+m[1]-1,c:+m[2],v:m[3]?+m[3]:0};}
-  function go(b,c,v,push){
-    b=Math.max(0,Math.min(65,b));c=Math.max(1,Math.min(BK[b].nc,c));
-    var h='#'+(b+1)+'.'+c+(v?'.'+v:'');
-    if(location.hash!==h){if(push===false)history.replaceState(null,'',h);else location.hash=h;}else render(b,c,v);
-  }
-  window.addEventListener('hashchange',function(){var r=readHash();if(r)render(r.b,r.c,r.v);});
-
-  /* ---------- 显示一章 ---------- */
-  var cur={};
+  function poetic(b,c){return b===18||b===19||b===21||b===24||(b===17&&c>=3&&c<=42);}   // 诗篇、箴言、雅歌、哀歌、约伯记 3—42 章：一行一节
   function files(b){var f=IX.files,p=('0'+b).slice(-2);return {cuv:f['cuv-'+p],kjv:f['kjv-'+p],org:f['org-'+p]};}
-  function need(){var m=S.mode;return {cuv:m==='cuv'||(m==='cmp'&&S.cmp.cuv),kjv:m==='kjv'||(m==='cmp'&&S.cmp.kjv),org:m==='org'||(m==='cmp'&&S.cmp.org)};}
-  function render(b,c,v){
-    S.b=b;S.c=c;save();
-    var N=need(),F=files(b),main=$('#main'),tok={};cur=tok;
-    $('#where').textContent=BK[b].n+' '+c;
-    document.title=BK[b].n+' '+c+' · 圣经';
-    var ps=[load(F.cuv),N.kjv?load(F.kjv):Promise.resolve(null),N.org?load(F.org):Promise.resolve(null)];   // 和合本总是要（标题、经文菜单都用到）
-    var slow=setTimeout(function(){if(cur===tok)main.innerHTML='<p class="load">正在下载这一卷（下载一次以后就存在手机里）……</p>';},250);
-    Promise.all(ps).then(function(r){
-      clearTimeout(slow);if(cur!==tok)return;
-      draw(b,c,r[0],r[1],r[2]);
-      if(v){var el=document.getElementById('v'+v);if(el){el.scrollIntoView({block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}
-      else window.scrollTo(0,0);
-    },function(){clearTimeout(slow);if(cur===tok)main.innerHTML='<p class="load">下载失败，请检查网络后<a href="javascript:location.reload()">重新打开</a>。</p>';});
-  }
-  function numLabel(arr,v){   // 和合本把几节印在一起：这一节的号码写成“6-7”
-    var e=v;while(e<arr.length&&!arr[e])e++;
-    return e>v?v+'-'+e:String(v);
-  }
-  function orgLine(words,ot){
-    return '<div class="ol"'+(ot?' dir="rtl"':'')+'>'+words.map(function(w,i){
-      return '<span class="w" data-w="'+i+'"><span class="o">'+esc(w[0])+'</span><span class="t">'+esc(w[1])+'</span><span class="g">'+esc(w[2])+'</span></span>';}).join('')+'</div>';
-  }
-  var DATA={};
-  function draw(b,c,cuv,kjv,org){
-    var ch=cuv[c-1]||[],kc=kjv?kjv[c-1]||[]:[],oc=org?org.v[c-1]||[]:[],ot=b<39,m=S.mode,h=[];
-    DATA={b:b,c:c,cuv:ch,kjv:kc,org:oc,lx:org?org.x:null};
-    var nv=Math.max(ch.length,m==='kjv'||m==='cmp'&&S.cmp.kjv?kc.length:0,m==='org'?oc.length:0);
-    h.push('<div class="chead"><h1>'+esc(BK[b].n)+'</h1><p>第 '+c+' 章'+(BK[b].nc>1?' / 共 '+BK[b].nc+' 章':'')+'</p></div>');
-    if(m==='cmp'){
-      var cols=[];if(S.cmp.cuv)cols.push('和合本');if(S.cmp.kjv)cols.push('KJV');if(S.cmp.org)cols.push(ot?'希伯来文':'希腊文');
-      if(!cols.length){cols=['和合本'];S.cmp.cuv=1;}
-      h.push('<div class="cmphead" style="--cols:repeat('+cols.length+',1fr)">'+cols.map(function(x){return '<span>'+x+'</span>';}).join('')+'</div>');
-      h.push('<div class="vs cmp" style="--cols:repeat('+cols.length+',1fr)">');
-    }else h.push('<div class="vs">');
-    for(var v=1;v<=nv;v++){
-      var t=ch[v-1],k=kc[v-1],o=oc[v-1];
-      if(m==='cuv'){if(!t)continue;h.push('<span class="v" id="v'+v+'" data-v="'+v+'"><sup class="n">'+numLabel(ch,v)+'</sup>'+esc(t)+'</span>');}
-      else if(m==='kjv'){if(!k)continue;h.push('<span class="v" id="v'+v+'" data-v="'+v+'"><sup class="n">'+v+'</sup>'+esc(k)+'</span>');}
-      else if(m==='org'){if(!o||!o.length)continue;h.push('<div class="v" id="v'+v+'" data-v="'+v+'"><span class="vn">'+v+'</span>'+orgLine(o,ot)+'</div>');}
-      else{
-        var rows='';
-        if(S.cmp.cuv)rows+='<div class="row"><span class="lb">和合</span><div>'+(t?'<sup class="n">'+numLabel(ch,v)+'</sup>'+esc(t):'<span class="tip">（和上一节合在一起）</span>')+'</div></div>';
-        if(S.cmp.kjv)rows+='<div class="row k"><span class="lb">KJV</span><div><sup class="n">'+v+'</sup>'+esc(k||'')+'</div></div>';
-        if(S.cmp.org)rows+='<div class="row"><span class="lb">原文</span><div>'+(o&&o.length?orgLine(o,ot):'')+'</div></div>';
-        h.push('<div class="v" id="v'+v+'" data-v="'+v+'">'+rows+'</div>');
-      }
-    }
-    h.push('</div>');
-    if(m==='org'||m==='cmp'&&S.cmp.org)h.push('<p class="note">原文据 STEPBible 的 TAHOT（希伯来文旧约）和 TAGNT（希腊文新约），CC BY 4.0；每个词下面是读音和英文直译，点一个词可以看词典里的原形和字义。</p>');
-    if(m==='kjv'||m==='cmp'&&S.cmp.kjv)h.push('<p class="note">英文是英王钦定本（KJV，公有领域）。分节偶尔和和合本不同。</p>');
-    var pv=prev(b,c),nx=next(b,c);
-    h.push('<div class="pn"><button type="button" data-go="'+(pv?pv.join('.'):'')+'"'+(pv?'':' disabled')+'>‹ '+(pv?esc(BK[pv[0]].n)+' '+pv[1]:'')+'</button>'+
-           '<button type="button" data-go="'+(nx?nx.join('.'):'')+'"'+(nx?'':' disabled')+'>'+(nx?esc(BK[nx[0]].n)+' '+nx[1]:'')+' ›</button></div>');
-    $('#main').innerHTML=h.join('');
-  }
-  function prev(b,c){return c>1?[b,c-1]:b>0?[b-1,BK[b-1].nc]:null;}
-  function next(b,c){return c<BK[b].nc?[b,c+1]:b<65?[b+1,1]:null;}
 
-  /* ---------- 点经文、点原文的词 ---------- */
-  document.addEventListener('click',function(e){
-    var g=e.target.closest('[data-go]');if(g&&g.dataset.go){var p=g.dataset.go.split('.');go(+p[0],+p[1]);return;}
-    var w=e.target.closest('.w');
-    if(w&&DATA.lx&&!e.target.closest('#vm')){
-      var v=w.closest('.v');showVerse(+v.dataset.v,+w.dataset.w);return;}
-    var v2=e.target.closest('#main .v');if(v2)showVerse(+v2.dataset.v,-1);
-  });
-  function refText(v){return ab(DATA.b)+DATA.c+':'+v;}
-  function showVerse(v,wi){
-    var t=DATA.cuv[v-1],k=DATA.kjv[v-1],o=DATA.org[v-1];
-    $('#vmt').textContent=BK[DATA.b].n+' '+DATA.c+':'+v;
-    var h='';
-    if(t)h+='<p class="vq">'+esc(t)+'</p>';
-    if(k&&S.mode!=='cuv')h+='<p class="vq en" style="margin-top:8px;color:var(--ink-2)">'+esc(k)+'</p>';
-    if(wi>=0&&o&&o[wi]){var w=o[wi],lx=DATA.lx[w[3]]||[];h+='<div class="lex"><b>'+esc(w[0])+'</b> '+esc(w[1])+' · '+esc(w[2])+(lx[0]?'<br>词典原形：<b>'+esc(lx[0])+'</b>（'+esc(w[3])+'）'+(lx[1]?' · '+esc(lx[1]):''):'')+'</div>';}
-    h+='<div class="acts"><button type="button" data-a="copy">复制</button><button type="button" data-a="org">原文逐字</button><button type="button" data-a="cmp">三版对照</button></div>';
-    $('#vmb').innerHTML=h;$('#vmb').dataset.v=v;
-    document.querySelectorAll('#main .v.sel').forEach(function(x){x.classList.remove('sel');});
-    var el=document.getElementById('v'+v);if(el)el.classList.add('sel');
-    open('#vm');
-  }
-  $('#vm').addEventListener('click',function(e){
-    var a=e.target.closest('[data-a]');if(!a)return;var v=+$('#vmb').dataset.v;
-    if(a.dataset.a==='copy'){
-      var t=DATA.cuv[v-1]||'',s='“'+t+'”（'+refText(v)+' 和合本）';
-      (navigator.clipboard&&window.isSecureContext?navigator.clipboard.writeText(s):Promise.reject()).then(function(){toast('已复制');},function(){
-        var ta=document.createElement('textarea');ta.value=s;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('已复制');}catch(e){}ta.remove();});
-      close();
-    }else{
-      var want=a.dataset.a==='org'?{org:1}:{cuv:1,kjv:1,org:1},b=DATA.b,c=DATA.c;
-      Promise.all([load(files(b).cuv),load(files(b).kjv),load(files(b).org)]).then(function(r){
-        var ot=b<39,h='',k=(r[1][c-1]||[])[v-1],o=(r[2].v[c-1]||[])[v-1]||[],t=(r[0][c-1]||[])[v-1];
-        if(want.cuv&&t)h+='<p class="vq">'+esc(t)+'</p>';
-        if(want.kjv&&k)h+='<p class="vq en" style="margin-top:8px;color:var(--ink-2)">'+esc(k)+'</p>';
-        h+=orgLine(o,ot);
-        h+='<p class="note" style="margin-top:8px">每个词下面是读音和英文直译（STEPBible，CC BY 4.0）。</p>';
-        DATA.lx=DATA.lx||r[2].x;if(!DATA.org.length)DATA.org=r[2].v[c-1]||[];
-        $('#vmb').innerHTML=h;$('#vmb').dataset.v=v;
+  function mount(root,cfg){
+    if(!root||root._bb)return;root._bb=1;
+    var PRE=cfg.prefix||'',SITE=!!cfg.site;
+    var $=function(s){return root.querySelector(s);};
+    var S=jget('bset',{});   // 阅读设置
+    S.mode=S.mode||'cuv';S.cmp=S.cmp||{cuv:1,kjv:1,org:0};if(S.fs==null)S.fs=1;if(S.lh==null)S.lh=1;if(S.vn==null)S.vn=1;S.lay=S.lay||'para';if(S.og==null)S.og=1;
+    function saveSet(){set('bset',JSON.stringify(S));}
+    var FS=[.94,1.08,1.2,1.34,1.5],LH=[1.75,1.95,2.2];
+
+    root.className='bb';
+    root.innerHTML=
+      '<header class="bb-top"><div class="bb-bar">'+(SITE?'':'<a class="bb-ib" href="./#home" aria-label="回网站首页">'+ic('back')+'</a>')+
+      '<button class="bb-where" type="button" data-a="pick" aria-label="选择书卷和章"><span class="bb-wt">圣经</span>'+ic('down')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="find" aria-label="搜索">'+ic('search')+'</button>'+
+      '<button class="bb-ver" type="button" data-a="ver" aria-label="版本"><span class="bb-vt">和合本</span>'+ic('down')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="set" aria-label="阅读设置">'+ic('aa')+'</button></div><div class="bb-prog" aria-hidden="true"><i></i></div></header>'+
+      '<main class="bb-main"><p class="bb-load">正在打开……</p></main>'+
+      '<div class="bb-act" hidden role="toolbar" aria-label="选中的经文"><div class="bb-ah"><b class="bb-at"></b><button class="bb-ib" type="button" data-a="unsel" aria-label="取消选择">'+ic('x')+'</button></div>'+
+      '<div class="bb-ab"><span class="bb-sw">'+[1,2,3,4].map(function(i){return '<button type="button" class="bb-c'+i+'" data-h="'+i+'" aria-label="划线（颜色'+i+'）"></button>';}).join('')+'</span>'+
+      '<button type="button" data-a="note">'+ic('note')+'笔记</button><button type="button" data-a="bm">'+ic('bm')+'书签</button><button type="button" data-a="copy">'+ic('copy')+'复制</button>'+
+      (SITE?'<button type="button" data-a="img">'+ic('img')+'图片</button>':'')+
+      '<button type="button" data-a="orgv">'+ic('org')+'原文</button><button type="button" data-a="cmpv">'+ic('cmp')+'对照</button><button type="button" data-a="places">'+ic('place')+'讲过</button>'+
+      '<button type="button" data-a="clear">'+ic('clear')+'清除</button></div></div>'+
+      sheet('pick','选择书卷','<div class="bb-seg"><button type="button" data-t="ot" aria-pressed="true">旧约</button><button type="button" data-t="nt" aria-pressed="false">新约</button></div>')+
+      sheet('find','','<label class="bb-q">'+ic('search')+'<input type="search" enterkeyhint="search" autocomplete="off" placeholder="书卷、出处、人名或字句，如 xbl、来11:1、信心"></label>')+
+      sheet('ver','版本','')+sheet('set','阅读设置','')+sheet('det','','')+sheet('nt','笔记','')+
+      '<div class="bb-toast" role="status"></div>';
+    function sheet(k,t,extra){return '<div class="bb-sh" data-sh="'+k+'" hidden><div class="bg" data-close></div><div class="cd" role="dialog" aria-modal="true" aria-label="'+(t||k)+'">'+
+      '<div class="hd">'+(t?'<h2>'+t+'</h2>':'<h2 class="bb-dt"></h2>')+extra+'<button class="bb-ib" type="button" data-close aria-label="关闭">'+ic('x')+'</button></div><div class="bd"></div></div></div>';}
+    function sh(k){return root.querySelector('[data-sh="'+k+'"]');}
+    sh('find').querySelector('.hd h2').remove();   // 搜索面板顶上放搜索框，不要标题
+    var main=$('.bb-main'),top=$('.bb-top'),prog=$('.bb-prog i'),act=$('.bb-act');
+    var toastT;function toast(m){var t=$('.bb-toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},1700);}
+    function visible(){if(SITE){var d=document.documentElement;if(d.getAttribute('data-pg')!=='bible'||d.classList.contains('wopen'))return false;}return !!root.getClientRects().length;}   // 网站里：只有正在看圣经页时才算
+
+    /* ---------- 阅读设置生效 ---------- */
+    function applySet(){
+      root.style.setProperty('--bfs',FS[S.fs]+'rem');root.style.setProperty('--blh',LH[S.lh]);
+      root.classList.toggle('nonum',!S.vn);root.classList.toggle('plain',!S.og);root.classList.toggle('sepia',!!S.sepia);
+      root.dataset.mode=S.mode;
+      $('.bb-vt').textContent={cuv:'和合本',kjv:'KJV',org:'原文',cmp:'对照'}[S.mode];
+    }
+
+    /* ---------- 划线、笔记、书签 ---------- */
+    function marks(){return jget('bmarks',{});}   // {"卷.章.节": [颜色0-4, 笔记, 书签0/1, 时间]}
+    function putMark(key,h,n,bm){var a=marks(),o=a[key]||[0,'',0,0];
+      if(h!=null)o[0]=h;if(n!=null)o[1]=n;if(bm!=null)o[2]=bm;o[3]=Date.now();a[key]=o;   // 删掉的也留一条（带时间），别的设备同步过来的旧记录不会“复活”
+      set('bmarks',JSON.stringify(a));try{window.dispatchEvent(new Event('q4:bmarks'));}catch(e){}}
+
+    /* ---------- 地址 ---------- */
+    var RE=new RegExp('^#'+PRE.replace('-','\\-')+'(\\d+)\\.(\\d+)(?:\\.(\\d+))?');
+    function readHash(){var m=RE.exec(location.hash);if(!m)return null;return {b:+m[1]-1,c:+m[2],v:m[3]?+m[3]:0};}
+    function hashOf(b,c,v){return '#'+PRE+(b+1)+'.'+c+(v?'.'+v:'');}
+    var dir=0;
+    function go(b,c,v,how){
+      b=Math.max(0,Math.min(65,b));c=Math.max(1,Math.min(BK[b].nc,c));
+      var h=hashOf(b,c,v);
+      if(location.hash===h){render(b,c,v);return;}
+      if(how==='replace'){try{history.replaceState(null,'',h);}catch(e){}render(b,c,v);}else location.hash=h;
+    }
+    window.addEventListener('hashchange',function(){if(!IX)return;var r=readHash();if(r)render(r.b,r.c,r.v);});
+
+    /* ---------- 显示一章 ---------- */
+    var C={},tok=0;
+    function need(){var m=S.mode;return {kjv:m==='kjv'||(m==='cmp'&&S.cmp.kjv),org:m==='org'||(m==='cmp'&&S.cmp.org)};}
+    function render(b,c,v){
+      unselect();closeAll();
+      var N=need(),F=files(b),my=++tok,same=C.b===b&&C.c===c;
+      $('.bb-wt').textContent=BK[b].n+' '+c;
+      if(SITE){if(visible())document.title=BK[b].n+' '+c+' · 圣经';}else document.title=BK[b].n+' '+c+' · 圣经';
+      var slow=setTimeout(function(){if(tok===my)main.innerHTML='<p class="bb-load">正在下载这一卷（下载一次以后就存在手机里）……</p>';},300);
+      Promise.all([load(F.cuv),N.kjv?load(F.kjv):null,N.org?load(F.org):null]).then(function(r){
+        clearTimeout(slow);if(tok!==my)return;
+        draw(b,c,r[0],r[1],r[2]);
+        var cls=RM||same?'':(dir<0?' fromL':dir>0?' fromR':'');dir=0;
+        if(cls){var ch=main.firstChild;if(ch)ch.className+=cls;}
+        if(v){var el=root.querySelector('[data-v="'+v+'"]');if(el){scrollToEl(el);if(!fromRestore){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
+        else if(!same)window.scrollTo(0,0);
+        fromRestore=false;
+        remember(b,c,v);
+        idle(function(){prefetch(b,c);});
+      },function(){clearTimeout(slow);if(tok===my)main.innerHTML='<p class="bb-load">下载失败，请检查网络后再点一次。</p>';});
+    }
+    var fromRestore=false;
+    function scrollToEl(el){var y=el.getBoundingClientRect().top+scrollY-(top.offsetHeight+18);window.scrollTo(0,Math.max(0,y));}
+    function numLabel(arr,v){var e=v;while(e<arr.length&&!arr[e])e++;return e>v?v+'-'+e:String(v);}
+    function words(ws,ot){
+      return '<div class="bb-ws'+(ot?'':' grk')+'"'+(ot?' dir="rtl" lang="he"':' lang="grc"')+'>'+ws.map(function(w,i){
+        return '<span class="bb-w" data-w="'+i+'"><span class="o">'+esc(w[0])+'</span><span class="t">'+esc(w[1])+'</span><span class="g">'+esc(w[2])+'</span></span>';}).join('')+'</div>';
+    }
+    function draw(b,c,cuv,kjv,org){
+      var ch=cuv.v[c-1]||[],kc=kjv?kjv[c-1]||[]:[],oc=org?org.v[c-1]||[]:[],ot=b<39,m=S.mode,h=[],mk=marks();
+      var pe={};(cuv.p||[]).forEach(function(x){pe[x]=1;});
+      C={b:b,c:c,cuv:ch,kjv:kc,org:oc,lx:org?org.x:null,cuvF:cuv};
+      h.push('<div class="bb-ch"><div class="bb-head"><b>'+c+'</b><span><h1>'+esc(BK[b].n)+'</h1><small>'+esc(BK[b].en)+' · 第 '+c+' 章 / 共 '+BK[b].nc+' 章</small></span></div>');
+      function mkcls(v){var o=mk[b+'.'+c+'.'+v];return o&&o[0]?' h'+o[0]:'';}
+      function mkicons(v){var o=mk[b+'.'+c+'.'+v];if(!o)return '';return (o[2]?'<span class="bb-mk bm" data-mk="'+v+'" aria-label="书签"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z"/></svg></span>':'')+(o[1]?'<span class="bb-mk" data-mk="'+v+'" aria-label="笔记"><svg viewBox="0 0 24 24"><path d="M5 19.5h4L19.5 9 15 4.5 4.5 15z"/></svg></span>':'');}
+      function vspan(v,txt,lab){return '<span class="bb-v'+mkcls(v)+'" data-v="'+v+'"><sup class="bb-n">'+lab+'</sup>'+esc(txt)+'</span>'+mkicons(v);}
+      if(m==='cuv'||m==='kjv'){
+        var arr=m==='cuv'?ch:kc,poe=poetic(b,c)||S.lay==='verse',para=[];
+        h.push('<div class="bb-txt'+(m==='kjv'?' en" lang="en':'')+'">');
+        for(var v=1;v<=arr.length;v++){
+          var t=arr[v-1];if(!t)continue;
+          var lab=m==='cuv'?numLabel(arr,v):String(v),end=pe[c+'.'+v]||(m==='cuv'&&lab.indexOf('-')>0&&pe[c+'.'+lab.split('-')[1]]);
+          if(poe){h.push('<p class="bb-l'+(end&&poetic(b,c)?' gap':'')+'">'+vspan(v,t,lab)+'</p>');continue;}
+          para.push(vspan(v,t,lab));
+          if(end||v===arr.length){h.push('<p class="bb-p">'+para.join('')+'</p>');para=[];}
+        }
+        if(para.length)h.push('<p class="bb-p">'+para.join('')+'</p>');
+        h.push('</div>');
+      }else if(m==='org'){
+        h.push('<div class="bb-txt">');
+        for(var v2=1;v2<=oc.length;v2++){var o=oc[v2-1];if(!o||!o.length)continue;
+          h.push('<div class="bb-ov bb-v'+mkcls(v2)+'" data-v="'+v2+'"><sup class="bb-n">'+v2+'</sup>'+words(o,ot)+'</div>');}
+        h.push('</div>');
+      }else{
+        var cols=[];if(S.cmp.cuv)cols.push('和合本');if(S.cmp.kjv)cols.push('KJV');if(S.cmp.org)cols.push(ot?'希伯来文':'希腊文');
+        if(!cols.length){S.cmp.cuv=1;cols=['和合本'];}
+        var st=' style="--cols:repeat('+cols.length+',minmax(0,1fr))"',nv=Math.max(ch.length,S.cmp.kjv?kc.length:0,S.cmp.org?oc.length:0);
+        h.push('<div class="bb-cols"'+st+'>'+cols.map(function(x){return '<span>'+x+'</span>';}).join('')+'</div><div class="bb-txt">');
+        for(var v3=1;v3<=nv;v3++){
+          var rows='';
+          if(S.cmp.cuv)rows+='<div class="bb-row"><span class="bb-lb">和合</span><div>'+(ch[v3-1]?'<sup class="bb-n">'+numLabel(ch,v3)+'</sup>'+esc(ch[v3-1]):'<span class="bb-tip">（和上一节印在一起）</span>')+'</div></div>';
+          if(S.cmp.kjv)rows+='<div class="bb-row k" lang="en"><span class="bb-lb">KJV</span><div><sup class="bb-n">'+v3+'</sup>'+esc(kc[v3-1]||'')+'</div></div>';
+          if(S.cmp.org)rows+='<div class="bb-row"><span class="bb-lb">原文</span><div>'+(oc[v3-1]&&oc[v3-1].length?words(oc[v3-1],ot):'')+'</div></div>';
+          h.push('<div class="bb-cv bb-v'+mkcls(v3)+'" data-v="'+v3+'"'+st+'>'+rows+'</div>');
+        }
+        h.push('</div>');
+      }
+      if(m==='org'||(m==='cmp'&&S.cmp.org))h.push('<p class="bb-hint">原文据 STEPBible 的 TAHOT（希伯来文旧约）和 TAGNT（希腊文新约），CC BY 4.0。每个词下面是读音和英文直译；点一节，再点“原文”，可以看词典里的原形和字义。</p>');
+      if(m==='kjv'||(m==='cmp'&&S.cmp.kjv))h.push('<p class="bb-hint">英文是英王钦定本（KJV，公有领域）。分节偶尔和和合本不同。</p>');
+      if(m==='cuv')h.push('<p class="bb-hint">和合本（上帝版，公有领域）。分段依照原文抄本的分段记号（STEPBible）。</p>');
+      var pv=prev(b,c),nx=next(b,c);
+      h.push('<div class="bb-pn"><button type="button" data-go="'+(pv?pv.join('.'):'')+'" data-d="-1"'+(pv?'':' disabled')+'>'+ic('l')+'<span>'+(pv?esc(BK[pv[0]].n)+' '+pv[1]:'')+'</span></button>'+
+             '<button type="button" data-go="'+(nx?nx.join('.'):'')+'" data-d="1"'+(nx?'':' disabled')+'><span>'+(nx?esc(BK[nx[0]].n)+' '+nx[1]:'')+'</span>'+ic('r')+'</button></div></div>');
+      main.innerHTML=h.join('');
+      onScroll();
+    }
+    function prev(b,c){return c>1?[b,c-1]:b>0?[b-1,BK[b-1].nc]:null;}
+    function next(b,c){return c<BK[b].nc?[b,c+1]:b<65?[b+1,1]:null;}
+    function prefetch(b,c){var N=need();[prev(b,c),next(b,c)].forEach(function(p){if(!p||p[0]===b)return;var F=files(p[0]);load(F.cuv).catch(function(){});if(N.kjv)load(F.kjv).catch(function(){});if(N.org)load(F.org).catch(function(){});});}
+
+    /* ---------- 读到哪里、最近读过 ---------- */
+    function remember(b,c,v){
+      var r=jget('brecent',[]).filter(function(x){return !(x[0]===b&&x[1]===c);});r.unshift([b,c]);set('brecent',JSON.stringify(r.slice(0,10)));
+      savePos(v);
+    }
+    function topVerse(){var lim=top.getBoundingClientRect().bottom+8,els=main.querySelectorAll('[data-v]');
+      for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();if(r.bottom>lim)return +els[i].dataset.v;}return 0;}
+    function savePos(v){if(C.b==null)return;if(v==null)v=topVerse();set('bpos',JSON.stringify([C.b,C.c,v||1,Date.now()]));}
+
+    /* ---------- 滚动：顶栏收起、进度条、记位置 ---------- */
+    var lastY=scrollY,ticking=false,posT=null;
+    function onScroll(){
+      ticking=false;if(!visible())return;
+      var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+      prog.style.transform='scaleX('+(h>0?Math.min(1,Math.max(0,y/h)):0).toFixed(3)+')';
+      if(Math.abs(y-lastY)>6){top.classList.toggle('away',y>lastY&&y>120&&!anyOpen());lastY=y;}
+      clearTimeout(posT);posT=setTimeout(function(){if(visible())savePos();},700);
+    }
+    addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll);}},{passive:true});
+
+    /* ---------- 选中经文 ---------- */
+    var SEL=[];
+    function refLabel(vs){vs=vs.slice().sort(function(a,b){return a-b;});var out=[],i=0;
+      while(i<vs.length){var j=i;while(j+1<vs.length&&vs[j+1]===vs[j]+1)j++;out.push(vs[i]+(j>i?'-'+vs[j]:''));i=j+1;}
+      return ab(C.b)+C.c+':'+out.join(',');}
+    function paintSel(){
+      root.querySelectorAll('.bb-v.sel').forEach(function(x){x.classList.remove('sel');});
+      SEL.forEach(function(v){root.querySelectorAll('[data-v="'+v+'"]').forEach(function(x){x.classList.add('sel');});});
+      if(!SEL.length){act.hidden=true;return;}
+      act.hidden=false;$('.bb-at').textContent=BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),'')+(SEL.length>1?' · '+SEL.length+' 节':'');
+      var mk=marks(),o=mk[C.b+'.'+C.c+'.'+SEL[0]]||[0];
+      act.querySelectorAll('[data-h]').forEach(function(x){x.classList.toggle('on',+x.dataset.h===o[0]&&SEL.every(function(v){var q=mk[C.b+'.'+C.c+'.'+v];return q&&q[0]===o[0];}));});
+    }
+    function unselect(){if(SEL.length){SEL=[];paintSel();}}
+    function selText(kind){
+      var arr=kind==='kjv'?C.kjv:C.cuv,vs=SEL.slice().sort(function(a,b){return a-b;});
+      return vs.map(function(v){return arr[v-1]||'';}).filter(Boolean).join(kind==='kjv'?' ':'');
+    }
+
+    /* ---------- 点击 ---------- */
+    root.addEventListener('click',function(e){
+      var t=e.target;
+      if(t.closest('[data-close]')){closeAll();return;}
+      var g=t.closest('[data-go]');if(g&&g.dataset.go){var p=g.dataset.go.split('.');dir=+g.dataset.d||0;go(+p[0],+p[1]);return;}
+      var mkb=t.closest('[data-mk]');if(mkb){SEL=[+mkb.dataset.mk];paintSel();openNote();return;}
+      var hb=t.closest('[data-h]');if(hb&&SEL.length){highlight(+hb.dataset.h);return;}
+      var a=t.closest('[data-a]');
+      if(a){var k=a.dataset.a;
+        if(k==='pick')openPick();else if(k==='find')openFind();else if(k==='ver')openVer();else if(k==='set')openSet();
+        else if(k==='unsel')unselect();else if(k==='note')openNote();else if(k==='bm')bookmark();else if(k==='copy')copy();
+        else if(k==='img')shareImg();else if(k==='orgv')openOrg();else if(k==='cmpv')openCmp();else if(k==='places')openPlaces();else if(k==='clear')clearMarks();
+        return;}
+      var v=t.closest('.bb-main [data-v]');
+      if(v&&!window.getSelection().toString()){var n=+v.dataset.v,i=SEL.indexOf(n);if(i>=0)SEL.splice(i,1);else SEL.push(n);paintSel();}
+    });
+    document.addEventListener('keydown',function(e){
+      if(!visible())return;
+      if(e.key==='Escape'){if(anyOpen())closeAll();else unselect();return;}
+      if(anyOpen()||/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||''))return;
+      if(e.key==='ArrowLeft'){var p=prev(C.b,C.c);if(p){dir=-1;go(p[0],p[1]);}}
+      else if(e.key==='ArrowRight'){var n=next(C.b,C.c);if(n){dir=1;go(n[0],n[1]);}}
+      else if(e.key==='/'){e.preventDefault();openFind();}
+    });
+
+    /* ---------- 动作 ---------- */
+    function highlight(h){
+      var mk=marks(),all=SEL.every(function(v){var o=mk[C.b+'.'+C.c+'.'+v];return o&&o[0]===h;});
+      SEL.forEach(function(v){putMark(C.b+'.'+C.c+'.'+v,all?0:h);});
+      repaintMarks();toast(all?'已取消划线':'已划线');unselect();
+    }
+    function clearMarks(){SEL.forEach(function(v){var o=marks()[C.b+'.'+C.c+'.'+v];if(o&&(o[0]||o[1]||o[2]))putMark(C.b+'.'+C.c+'.'+v,0,'',0);});repaintMarks();toast('已清除划线、笔记和书签');unselect();}
+    function bookmark(){var k=C.b+'.'+C.c+'.'+Math.min.apply(null,SEL),o=marks()[k];putMark(k,null,null,o&&o[2]?0:1);repaintMarks();toast(o&&o[2]?'已取消书签':'已加书签');unselect();}
+    function repaintMarks(){render(C.b,C.c,0);}   // 同一章重画：高度不变，停在原处
+    function copy(){
+      var en=S.mode==='kjv',txt=selText(en?'kjv':'cuv'),ref=refLabel(SEL),s=en?txt+' ('+BK[C.b].en+' '+ref.replace(ab(C.b),'')+' KJV)':'“'+txt+'”（'+ref+' 和合本）';
+      var ok=function(){toast('已复制');unselect();};
+      if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(ok,legacy);else legacy();
+      function legacy(){var ta=document.createElement('textarea');ta.value=s;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){toast('复制没有成功，请长按文字复制');}ta.remove();}
+    }
+    function shareImg(){if(!window.Q4Card)return;window.Q4Card({kind:'verse',text:selText('cuv'),ref:BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),''),qr:'bible'});unselect();}
+
+    /* ---------- 面板 ---------- */
+    function anyOpen(){return !!root.querySelector('.bb-sh:not([hidden])');}
+    function openSh(k,title){closeAll(true);var s=sh(k);if(title!=null){var t=s.querySelector('.bb-dt');if(t)t.textContent=title;}s.hidden=false;top.classList.remove('away');return s.querySelector('.bd');}
+    function closeAll(keep){root.querySelectorAll('.bb-sh').forEach(function(s){s.hidden=true;});}
+
+    function openPick(){pickT=C.b<39?'ot':'nt';pickB=-1;drawPick();openSh('pick');var on=sh('pick').querySelector('.bb-bk.on');if(on)on.scrollIntoView({block:'center'});}
+    var pickT='ot',pickB=-1;
+    function drawPick(){
+      var s=sh('pick'),bd=s.querySelector('.bd'),h='';
+      s.querySelectorAll('[data-t]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.t===pickT?'true':'false');});
+      if(pickB<0){var lo=pickT==='ot'?0:39,hi=pickT==='ot'?38:65,last='';
+        for(var i=lo;i<=hi;i++){var ct=cat(i);if(ct[2]!==last){if(last)h+='</div>';h+='<p class="bb-grp">'+ct[2]+'</p><div class="bb-bks">';last=ct[2];}
+          h+='<button type="button" class="bb-bk'+(i===C.b?' on':'')+'" data-bk="'+i+'" style="--c:var('+ct[3]+')"><b>'+esc(ab(i))+'</b><small>'+esc(BK[i].n)+'</small></button>';}
+        h+='</div>';
+      }else{h+='<button type="button" class="bb-back" data-bk="-1">‹ 全部书卷</button><p class="bb-grp">'+esc(BK[pickB].n)+' · 共 '+BK[pickB].nc+' 章</p><div class="bb-chs">';
+        for(var c=1;c<=BK[pickB].nc;c++)h+='<button type="button" data-ch="'+c+'"'+(pickB===C.b&&c===C.c?' class="on"':'')+'>'+c+'</button>';h+='</div>';}
+      bd.innerHTML=h;bd.scrollTop=0;
+    }
+    sh('pick').addEventListener('click',function(e){
+      var t=e.target.closest('[data-t]');if(t){pickT=t.dataset.t;pickB=-1;drawPick();return;}
+      var b=e.target.closest('[data-bk]');if(b){pickB=+b.dataset.bk;if(pickB>=0&&BK[pickB].nc===1){closeAll();go(pickB,1);return;}drawPick();return;}
+      var c=e.target.closest('[data-ch]');if(c){closeAll();go(pickB,+c.dataset.ch);}
+    });
+
+    function openVer(){
+      var bd=openSh('ver'),o=function(k,t,d){return '<button type="button" class="bb-opt" data-m="'+k+'" aria-pressed="'+(S.mode===k)+'"><span class="rd"></span><span><b>'+t+'</b><small>'+d+'</small></span></button>';};
+      bd.innerHTML=o('cuv','和合本','中文和合本（上帝版，1919 年）')+o('kjv','KJV','英王钦定本（1611 年译，公有领域）')+
+        o('org','原文','旧约希伯来文、新约希腊文，每个词附读音和英文意思')+
+        '<div class="bb-chk" style="margin:-2px 0 10px 40px"><label><input type="checkbox" data-og'+(S.og?' checked':'')+'>每个词下面显示读音和英文意思</label></div>'+
+        o('cmp','对照','同时看几个版本，一节对一节')+
+        '<div class="bb-chk" style="margin:-2px 0 4px 40px"><label><input type="checkbox" data-c="cuv"'+(S.cmp.cuv?' checked':'')+'>和合本</label><label><input type="checkbox" data-c="kjv"'+(S.cmp.kjv?' checked':'')+'>KJV</label><label><input type="checkbox" data-c="org"'+(S.cmp.org?' checked':'')+'>原文</label></div>';
+    }
+    sh('ver').addEventListener('click',function(e){var b=e.target.closest('[data-m]');if(!b)return;S.mode=b.dataset.m;saveSet();applySet();closeAll();render(C.b,C.c,topVerse());});
+    sh('ver').addEventListener('change',function(e){var x=e.target;
+      if(x.hasAttribute('data-og')){S.og=x.checked?1:0;}else if(x.dataset.c){S.cmp[x.dataset.c]=x.checked?1:0;if(S.mode!=='cmp')S.mode='cmp';}
+      saveSet();applySet();openVer();render(C.b,C.c,topVerse());});
+
+    function openSet(){
+      var bd=openSh('set'),th=get('theme')||'auto';
+      function seg(k,arr,cur){return '<span class="bb-seg">'+arr.map(function(x){return '<button type="button" data-s="'+k+'" data-val="'+x[0]+'" aria-pressed="'+(String(cur)===String(x[0]))+'">'+x[1]+'</button>';}).join('')+'</span>';}
+      bd.innerHTML='<div class="bb-srow"><span>字号</span><span class="bb-fs"><button type="button" data-fs="-1">A-</button><i>'+(S.fs+1)+' / '+FS.length+'</i><button type="button" data-fs="1">A+</button></span></div>'+
+        '<div class="bb-srow"><span>行距</span>'+seg('lh',[[0,'紧凑'],[1,'标准'],[2,'宽松']],S.lh)+'</div>'+
+        '<div class="bb-srow"><span>排版</span>'+seg('lay',[['para','按段落'],['verse','每节一行']],S.lay)+'</div>'+
+        '<div class="bb-srow"><span>节号</span>'+seg('vn',[[1,'显示'],[0,'隐藏']],S.vn)+'</div>'+
+        '<div class="bb-srow"><span>纸色</span>'+seg('th',[['auto','跟随系统'],['light','白天'],['sepia','护眼'],['dark','夜间']],S.sepia?'sepia':th)+'</div>'+
+        '<div class="bb-prev bb-txt"><p class="bb-p" style="margin:0"><span class="bb-v"><sup class="bb-n">1</sup>信就是所望之事的实底，是未见之事的确据。</span><span class="bb-v"><sup class="bb-n">2</sup>古人在这信上得了美好的证据。</span></p></div>';
+    }
+    sh('set').addEventListener('click',function(e){
+      var f=e.target.closest('[data-fs]');if(f){S.fs=Math.max(0,Math.min(FS.length-1,S.fs+ +f.dataset.fs));}
+      var s=e.target.closest('[data-s]');
+      if(s){var k=s.dataset.s,v=s.dataset.val;
+        if(k==='th'){S.sepia=v==='sepia'?1:0;var th=v==='sepia'?'light':v;set('theme',th==='auto'?'':th);
+          if(window.Q4Reader&&Q4Reader.th)Q4Reader.th(th);else{if(th==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',th);}}
+        else S[k]=k==='lay'?v:+v;}
+      if(!f&&!s)return;
+      saveSet();applySet();openSet();if(s&&s.dataset.s==='lay')render(C.b,C.c,topVerse());
+    });
+
+    function openNote(){
+      var v=Math.min.apply(null,SEL),k=C.b+'.'+C.c+'.'+v,o=marks()[k]||[0,'',0,0],bd=openSh('nt');
+      sh('nt').querySelector('.hd h2').textContent='笔记 · '+BK[C.b].n+' '+C.c+':'+v;
+      bd.innerHTML='<p class="bb-dq">'+esc(C.cuv[v-1]||'')+'</p><textarea class="bb-note" placeholder="写下你的感想、问题或祷告……">'+esc(o[1])+'</textarea>'+
+        '<div class="bb-btns">'+(o[1]?'<button type="button" data-n="del">删除笔记</button>':'')+'<button type="button" class="ok" data-n="ok">保存</button></div>'+
+        '<p class="bb-tip">笔记存在这台设备上；登录账号后会同步到你的其他设备。</p>';
+      bd.dataset.k=k;setTimeout(function(){var ta=bd.querySelector('textarea');if(ta&&!o[1])ta.focus();},80);
+    }
+    sh('nt').addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;var bd=sh('nt').querySelector('.bd'),k=bd.dataset.k;
+      putMark(k,null,b.dataset.n==='del'?'':bd.querySelector('textarea').value.trim());closeAll();unselect();repaintMarks();toast(b.dataset.n==='del'?'已删除笔记':'已保存笔记');});
+
+    function lex(w,lx){var x=lx&&lx[w[3]];return '<div class="bb-lex"><b>'+esc(w[0])+'</b> '+esc(w[1])+' · '+esc(w[2])+(x&&x[0]?'<br>词典原形：<b>'+esc(x[0])+'</b>（'+esc(w[3])+'）'+(x[1]?' · '+esc(x[1]):''):'')+'</div>';}
+    function openOrg(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','原文逐字 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在打开原文……</p>';
+      load(files(b).org).then(function(org){
+        var oc=org.v[c-1]||[],h='';
+        vs.forEach(function(v){h+='<p class="bb-dq"><sup>'+v+'</sup>'+esc(C.cuv[v-1]||'')+'</p>'+'<div class="bb-ov" data-ov="'+v+'">'+words(oc[v-1]||[],b<39)+'</div>';});
+        h+='<p class="bb-tip">点一个词，可以看词典里的原形和字义。原文据 STEPBible（CC BY 4.0）。</p>';
+        bd.innerHTML=h;bd._oc=oc;bd._lx=org.x;
       });
     }
-  });
-  $('#vmb').addEventListener('click',function(e){   // 弹窗里的原文词：显示词典
-    var w=e.target.closest('.w');if(!w)return;
-    var v=+$('#vmb').dataset.v,o=DATA.org[v-1],x=o&&o[+w.dataset.w],lx=x&&DATA.lx&&DATA.lx[x[3]];if(!x)return;
-    var old=$('#vmb .lex');if(old)old.remove();
-    $('#vmb').insertAdjacentHTML('beforeend','<div class="lex"><b>'+esc(x[0])+'</b> '+esc(x[1])+' · '+esc(x[2])+(lx&&lx[0]?'<br>词典原形：<b>'+esc(lx[0])+'</b>（'+esc(x[3])+'）'+(lx[1]?' · '+esc(lx[1]):''):'')+'</div>');
-  });
-
-  /* ---------- 面板 ---------- */
-  var opened=null;
-  function open(s){close();opened=$(s);opened.hidden=false;document.body.style.overflow='hidden';}
-  function close(){if(opened){opened.hidden=true;opened=null;document.body.style.overflow='';document.querySelectorAll('#main .v.sel').forEach(function(x){x.classList.remove('sel');});}}
-  document.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close();});
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape')close();
-    if(opened||/INPUT|TEXTAREA/.test((e.target||{}).tagName||''))return;
-    if(e.key==='ArrowLeft'){var p=prev(S.b,S.c);if(p)go(p[0],p[1]);}
-    if(e.key==='ArrowRight'){var n=next(S.b,S.c);if(n)go(n[0],n[1]);}
-    if(e.key==='/'||(e.key==='k'&&(e.ctrlKey||e.metaKey))){e.preventDefault();openFind();}
-  });
-
-  /* ---------- 版本开关 ---------- */
-  function setMode(m){S.mode=m;document.body.dataset.mode=m;
-    document.querySelectorAll('.modes [data-mode]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.mode===m?'true':'false');});save();}
-  document.querySelector('.modes').addEventListener('click',function(e){var b=e.target.closest('[data-mode]');if(!b)return;setMode(b.dataset.mode);render(S.b,S.c,0);});
-  document.querySelectorAll('[data-cmp]').forEach(function(x){x.checked=!!S.cmp[x.dataset.cmp];x.addEventListener('change',function(){S.cmp[x.dataset.cmp]=x.checked?1:0;save();render(S.b,S.c,0);});});
-  function setFs(){document.documentElement.style.setProperty('--fs',(1.06*FS[S.fs])+'rem');}
-  $('[data-font]').addEventListener('click',function(){S.fs=(S.fs+1)%FS.length;setFs();save();toast('字号 '+(S.fs+1)+' / '+FS.length);});
-
-  /* ---------- 选书卷、选章 ---------- */
-  var pickT='ot',pickB=-1;
-  function drawPick(){
-    var h='';
-    if(pickB<0){
-      var lo=pickT==='ot'?0:39,hi=pickT==='ot'?38:65,last='';
-      for(var i=lo;i<=hi;i++){var ct=cat(i);if(ct[2]!==last){if(last)h+='</div>';h+='<p class="grp">'+ct[2]+'</p><div class="bks">';last=ct[2];}
-        h+='<button type="button" class="bk'+(i===S.b?' on':'')+'" data-bk="'+i+'" style="--c:var('+ct[3]+')"><b>'+esc(ab(i))+'</b><small>'+esc(BK[i].n)+'</small></button>';}
-      h+='</div>';
-    }else{
-      h+='<button type="button" class="back2" data-bk="-1">‹ 全部书卷</button><p class="grp">'+esc(BK[pickB].n)+' · 共 '+BK[pickB].nc+' 章</p><div class="chs">';
-      for(var c=1;c<=BK[pickB].nc;c++)h+='<button type="button" data-ch="'+c+'"'+(pickB===S.b&&c===S.c?' class="on"':'')+'>'+c+'</button>';
-      h+='</div>';
+    sh('det').addEventListener('click',function(e){var w=e.target.closest('.bb-w');if(!w)return;var bd=sh('det').querySelector('.bd'),ov=w.closest('[data-ov]');if(!ov||!bd._oc)return;
+      var x=(bd._oc[+ov.dataset.ov-1]||[])[+w.dataset.w];if(!x)return;var old=ov.querySelector('.bb-lex');if(old)old.remove();
+      bd.querySelectorAll('.bb-w.on').forEach(function(y){y.classList.remove('on');});w.classList.add('on');ov.insertAdjacentHTML('beforeend',lex(x,bd._lx));});
+    function openCmp(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','三版对照 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在打开……</p>';
+      Promise.all([load(files(b).kjv),load(files(b).org)]).then(function(r){
+        var kc=r[0][c-1]||[],oc=r[1].v[c-1]||[],h='';
+        vs.forEach(function(v){h+='<p class="bb-dq"><sup>'+v+'</sup>'+esc(C.cuv[v-1]||'')+'</p><p class="bb-dq en" lang="en"><sup>'+v+'</sup>'+esc(kc[v-1]||'')+'</p><div class="bb-ov" data-ov="'+v+'">'+words(oc[v-1]||[],b<39)+'</div>';});
+        bd.innerHTML=h;bd._oc=oc;bd._lx=r[1].x;
+      });
     }
-    $('#pickbd').innerHTML=h;
-    document.querySelectorAll('#pick [data-t]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.t===pickT?'true':'false');});
-  }
-  $('[data-pick]').addEventListener('click',function(){pickT=S.b<39?'ot':'nt';pickB=-1;drawPick();open('#pick');var on=$('#pick .bk.on');if(on)on.scrollIntoView({block:'center'});});
-  $('#pick').addEventListener('click',function(e){
-    var t=e.target.closest('[data-t]');if(t){pickT=t.dataset.t;pickB=-1;drawPick();return;}
-    var b=e.target.closest('[data-bk]');if(b){pickB=+b.dataset.bk;if(pickB>=0&&BK[pickB].nc===1){close();go(pickB,1);return;}drawPick();$('#pickbd').scrollTop=0;return;}
-    var c=e.target.closest('[data-ch]');if(c){close();go(pickB,+c.dataset.ch);}
-  });
-
-  /* ---------- 搜索 ---------- */
-  var WORDS=null,ALL=null,KALL=null;
-  function openFind(){open('#find');var q=$('#q');q.value='';showRes('');setTimeout(function(){q.focus();},60);}
-  $('[data-search]').addEventListener('click',openFind);
-  var qt;
-  $('#q').addEventListener('input',function(){clearTimeout(qt);var v=this.value;qt=setTimeout(function(){showRes(v);},120);});
-  $('#q').addEventListener('keydown',function(e){if(e.key==='Enter'){var f=$('#res .rs');if(f)f.click();}});
-  var HAN=/[一-鿿]/;
-  // 常见的异体字、不同写法：搜“借”也能找到和合本的“藉”，搜“祂”也能找到“他”
-  var VAR={'借':'藉','祂':'他','妳':'你','著':'着','於':'于','裏':'里','裡':'里'};
-  function norm(s){return s.replace(/[借祂妳著於裏裡]/g,function(c){return VAR[c];});}
-  function bookScore(q,i){
-    var b=BK[i],ql=q.toLowerCase().replace(/\s+/g,'');
-    if(!ql)return 0;
-    if(b.n===q||b.ab.indexOf(q)>=0)return 100;
-    if(HAN.test(q))return b.n.indexOf(q)===0?90:b.n.indexOf(q)>0?60:0;
-    var en=b.en.toLowerCase().replace(/\s+/g,''),code=b.code.toLowerCase();
-    if(ql===code||ql===en)return 98;
-    if(b.ini.indexOf(ql)===0)return 85+Math.min(ql.length,4);
-    if(b.py.indexOf(ql)===0)return 84;
-    if(ql.length>=2&&en.indexOf(ql)===0)return 80;
-    if(ql.length>=2&&code.indexOf(ql)===0)return 79;
-    return 0;
-  }
-  function books(q){var r=[];for(var i=0;i<66;i++){var s=bookScore(q,i);if(s)r.push([s,i]);}r.sort(function(a,b){return b[0]-a[0]||a[1]-b[1];});return r.map(function(x){return x[1];});}
-  function parseRef(q){   // 来11:1、来 11 1、希伯来书11章1节、xbl11:1、Heb 11:1、1co13
-    var m=/^\s*((?:[1-3]\s*)?[A-Za-z]+|[一-鿿]+?)\s*(\d+)(?:\s*(?:章|[:：.,，\s])\s*(\d+)?)?\s*节?\s*(?:[-–—~]\s*\d+)?\s*$/.exec(q);
-    if(!m)return null;
-    var bs=books(m[1].replace(/\s+/g,''));if(!bs.length)return null;
-    var b=bs[0],c=+m[2],v=m[3]?+m[3]:0;
-    if(BK[b].nc===1&&!m[3]&&c>1){v=c;c=1;}   // 犹大书 5 → 1:5
-    if(c<1||c>BK[b].nc)return null;
-    return {b:b,c:c,v:v};
-  }
-  function wordsFor(q){
-    if(!WORDS)return [];
-    var r=[],ql=q.toLowerCase(),han=HAN.test(q),nq=norm(q);
-    for(var i=0;i<WORDS.length&&r.length<24;i++){var w=WORDS[i];
-      if(han?(w[0].indexOf(nq)>=0&&w[0]!==nq):(w[1].indexOf(ql)===0||ql.length>=3&&w[2].indexOf(ql)===0))r.push(w);}
-    if(han){r.sort(function(a,b){return (b[0].indexOf(nq)===0)-(a[0].indexOf(nq)===0)||b[3]-a[3];});}
-    else r.sort(function(a,b){return (b[1]===ql)-(a[1]===ql)||b[3]-a[3];});
-    return r.slice(0,16);
-  }
-  function recent(){try{return JSON.parse(get('bsrch')||'[]');}catch(e){return [];}}
-  function remember(q){q=q.trim();if(!q)return;var r=recent().filter(function(x){return x!==q;});r.unshift(q);set('bsrch',JSON.stringify(r.slice(0,8)));}
-  var lastQ='';
-  function showRes(q){
-    lastQ=q;q=q.trim();var h='',R=$('#res');
-    if(!q){
-      var rc=recent();
-      h='<p class="tip">可以搜：书卷（<b>xbl</b>、希伯、heb）· 经文出处（<b>来11:1</b>、希伯来书11章、Heb 11:1）· 人名地名和词语（<b>xbl</b> → 希伯仑、希伯来人）· 经文里的字句（<b>信心</b>、<b>恩典</b>）· 英文（<b>faith</b>）</p>';
-      if(rc.length)h+='<p class="grp">最近搜过</p><div class="chips recent">'+rc.map(function(x){return '<button type="button" class="chip" data-q="'+esc(x)+'">'+esc(x)+'</button>';}).join('')+'</div>';
-      R.innerHTML=h;return;
+    var PL=null;
+    function openPlaces(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','讲过的地方 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在查找……</p>';
+      (PL||(PL=load(IX.files.places))).then(function(P){
+        var seen={},h='';
+        vs.forEach(function(v){(P.v[b+'.'+c+'.'+v]||[]).forEach(function(i){if(seen[i])return;seen[i]=1;var s=P.s[i];
+          h+='<a class="bb-pl" href="'+esc(placeHref(s))+'" data-pl="'+i+'">'+esc(s[0])+'<small>'+(/^#/.test(s[1])?'学课':'问题彩蛋')+'</small></a>';});});
+        bd.innerHTML=h||'<p class="bb-tip">本季学课和问题彩蛋里还没有讲过这'+(vs.length>1?'几':'一')+'节。</p>';
+        bd._P=P;
+      });
     }
-    var ref=parseRef(q);
-    if(ref)h+='<button type="button" class="rs go" data-ref="'+ref.b+'.'+ref.c+'.'+ref.v+'"><b>'+esc(BK[ref.b].n)+' '+ref.c+(ref.v?':'+ref.v:'')+'</b><small>直接打开</small></button>';
-    var bs=books(q);
-    if(bs.length&&!ref){h+='<p class="grp">书卷</p>';bs.slice(0,6).forEach(function(i){h+='<button type="button" class="rs" data-ref="'+i+'.1.0"><b>'+esc(BK[i].n)+'</b><small>'+esc(ab(i))+' · '+esc(BK[i].en)+' · 共 '+BK[i].nc+' 章</small></button>';});}
-    if(!ref){
-      var ws=wordsFor(q);
-      if(ws.length)h+='<p class="grp">人名、地名和词语</p><div class="chips">'+ws.map(function(w){return '<button type="button" class="chip" data-q="'+esc(w[0])+'">'+esc(w[0])+'<i>'+w[3]+'</i></button>';}).join('')+'</div>';
-      if(HAN.test(q))h+='<div id="full"><p class="grp">经文</p><p class="tip">正在查找……</p></div>';
-      else if(q.length>=3&&/[aeiouy]/i.test(q)&&!bs.length&&!ws.length)h+='<button type="button" class="more" data-kjv="'+esc(q)+'">在 KJV 英文经文里搜“'+esc(q)+'”</button>';
+    function placeHref(s){return SITE?s[1]:(/^#/.test(s[1])?'./'+s[1]:s[1]);}
+    sh('det').addEventListener('click',function(e){
+      var a=e.target.closest('[data-pl]');if(!a||!SITE)return;
+      var s=sh('det').querySelector('.bd')._P.s[+a.dataset.pl],href=s[1];
+      if(/^#/.test(href)){e.preventDefault();closeAll();unselect();location.hash=href.slice(1);return;}
+      // 问题彩蛋：在网站的浮层里打开那一篇，再跳到那一章
+      var page=href.split('#')[0],sec=href.split('#')[1],art=document.querySelector('a[data-art][href="'+page+'"]');
+      if(!art)return;e.preventDefault();closeAll();unselect();
+      location.hash=art.dataset.art;
+      var tries=0;(function jump(){var f=document.querySelector('.tov iframe[src="'+page+'"]');
+        if(f&&f.dataset.ok==='1'){try{f.contentWindow.location.hash=sec;}catch(err){}return;}
+        if(++tries<40)setTimeout(jump,250);})();
+    });
+
+    /* ---------- 搜索 ---------- */
+    var WORDS=null,ALL=null,KALL=null,lastQ='';
+    var HAN=/[一-鿿]/,VAR={'借':'藉','祂':'他','妳':'你','著':'着','於':'于','裏':'里','裡':'里'};
+    function norm(s){return s.replace(/[借祂妳著於裏裡]/g,function(c){return VAR[c];});}
+    var inp=sh('find').querySelector('input'),res=sh('find').querySelector('.bd'),qt;
+    function openFind(){openSh('find');inp.value='';showRes('');setTimeout(function(){inp.focus();},60);
+      if(!WORDS)load(IX.files.words).then(function(w){WORDS=w;if(lastQ)showRes(lastQ);});}
+    inp.addEventListener('input',function(){clearTimeout(qt);var v=this.value;qt=setTimeout(function(){showRes(v);},120);});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var f=res.querySelector('.bb-rs');if(f)f.click();}});
+    function bookScore(q,i){
+      var b=BK[i],ql=q.toLowerCase().replace(/\s+/g,'');if(!ql)return 0;
+      if(b.n===q||b.ab.indexOf(q)>=0)return 100;
+      if(HAN.test(q))return b.n.indexOf(q)===0?90:b.n.indexOf(q)>0?60:0;
+      var en=b.en.toLowerCase().replace(/\s+/g,''),code=b.code.toLowerCase();
+      if(ql===code||ql===en)return 98;
+      if(b.ini.indexOf(ql)===0)return 85+Math.min(ql.length,4);
+      if(b.py.indexOf(ql)===0)return 84;
+      if(ql.length>=2&&en.indexOf(ql)===0)return 80;
+      if(ql.length>=2&&code.indexOf(ql)===0)return 79;
+      return 0;
     }
-    if(!h)h='<p class="tip">没有找到。可以换个写法，例如书卷的拼音首字母（xbl）、简称（来）或经文里的字词。</p>';
-    R.innerHTML=h;
-    if(!ref&&HAN.test(q))fullText(q,'cuv');
-  }
-  function loadAll(kind){
-    var fs=[];for(var b=0;b<66;b++)fs.push(load(files(b)[kind]));
-    return Promise.all(fs);
-  }
-  var LIMIT=120;
-  function fullText(q,kind,lim){
-    var box=$('#full');if(!box)return;
-    var have=kind==='cuv'?ALL:KALL;
-    if(!have){box.querySelector('.tip').textContent='第一次搜索全文，要下载整本'+(kind==='cuv'?'和合本（约 1.2 MB）':' KJV（约 1.4 MB）')+'，以后就存在手机里……';
-      loadAll(kind).then(function(a){if(kind==='cuv')ALL=a;else KALL=a;if(lastQ.trim()===q||kind==='kjv')fullText(q,kind,lim);});return;}
-    var nq=kind==='cuv'?norm(q):q.toLowerCase(),hits=[],per={},re;
-    for(var b=0;b<66;b++){var bk=have[b];for(var c=0;c<bk.length;c++){var ch=bk[c];for(var v=0;v<ch.length;v++){var t=ch[v];if(!t)continue;
-      var tt=kind==='cuv'?norm(t):t.toLowerCase();if(tt.indexOf(nq)>=0){hits.push([b,c+1,v+1,t]);per[b]=(per[b]||0)+1;}}}}
-    var h='<p class="grp">经文 · 共 '+hits.length+' 节</p>';
-    if(!hits.length)h+='<p class="tip">经文里没有这个词。</p>';
-    var bsum=Object.keys(per).map(Number).sort(function(a,b){return a-b;});
-    if(bsum.length>1)h+='<div class="chips" style="margin-bottom:8px">'+bsum.map(function(b){return '<button type="button" class="chip" data-jb="'+b+'">'+esc(ab(b))+'<i>'+per[b]+'</i></button>';}).join('')+'</div>';
-    var reS=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    try{re=new RegExp(kind==='cuv'?reS.replace(/./g,function(ch){var k=Object.keys(VAR).filter(function(x){return VAR[x]===ch||x===ch;});return k.length?'['+ch+k.join('')+']':ch;}):reS,'gi');}catch(e){re=null;}
-    hits.slice(0,lim||LIMIT).forEach(function(x){
-      var s=esc(x[3]);if(re)s=s.replace(re,function(m){return '<mark>'+m+'</mark>';});
-      h+='<button type="button" class="hit" data-ref="'+x[0]+'.'+x[1]+'.'+x[2]+'" data-b="'+x[0]+'"><em>'+esc(ab(x[0]))+x[1]+':'+x[2]+'</em>'+s+'</button>';});
-    if(hits.length>(lim||LIMIT))h+='<button type="button" class="more" data-moreq="'+esc(q)+'" data-kind="'+kind+'" data-lim="'+((lim||LIMIT)+300)+'">再显示 300 节（还有 '+(hits.length-(lim||LIMIT))+' 节）</button>';
-    box.innerHTML=h;
-  }
-  $('#res').addEventListener('click',function(e){
-    var r=e.target.closest('[data-ref]');if(r){remember($('#q').value);var p=r.dataset.ref.split('.');close();go(+p[0],+p[1],+p[2]);return;}
-    var q=e.target.closest('[data-q]');if(q){$('#q').value=q.dataset.q;showRes(q.dataset.q);return;}
-    var k=e.target.closest('[data-kjv]');if(k){remember(k.dataset.kjv);$('#res').innerHTML='<div id="full"><p class="grp">KJV 经文</p><p class="tip">正在查找……</p></div>';fullText(k.dataset.kjv,'kjv');return;}
-    var m=e.target.closest('[data-moreq]');if(m){fullText(m.dataset.moreq,m.dataset.kind,+m.dataset.lim);return;}
-    var jb=e.target.closest('[data-jb]');if(jb){var el=$('#res .hit[data-b="'+jb.dataset.jb+'"]');if(el)el.scrollIntoView({block:'start'});else toast('这一卷的结果在后面，请点“再显示”');}
-  });
+    function books(q){var r=[];for(var i=0;i<66;i++){var s=bookScore(q,i);if(s)r.push([s,i]);}r.sort(function(a,b){return b[0]-a[0]||a[1]-b[1];});return r.map(function(x){return x[1];});}
+    function parseRef(q){
+      var m=/^\s*((?:[1-3]\s*)?[A-Za-z]+|[一-鿿]+?)\s*(\d+)(?:\s*(?:章|[:：.,，\s])\s*(\d+)?)?\s*节?\s*(?:[-–—~]\s*\d+)?\s*$/.exec(q);
+      if(!m)return null;var bs=books(m[1].replace(/\s+/g,''));if(!bs.length)return null;
+      var b=bs[0],c=+m[2],v=m[3]?+m[3]:0;if(BK[b].nc===1&&!m[3]&&c>1){v=c;c=1;}
+      if(c<1||c>BK[b].nc)return null;return {b:b,c:c,v:v};
+    }
+    function wordsFor(q){
+      if(!WORDS)return [];var r=[],ql=q.toLowerCase(),han=HAN.test(q),nq=norm(q);
+      for(var i=0;i<WORDS.length&&r.length<24;i++){var w=WORDS[i];if(han?(w[0].indexOf(nq)>=0&&w[0]!==nq):(w[1].indexOf(ql)===0||ql.length>=3&&w[2].indexOf(ql)===0))r.push(w);}
+      r.sort(han?function(a,b){return (b[0].indexOf(nq)===0)-(a[0].indexOf(nq)===0)||b[3]-a[3];}:function(a,b){return (b[1]===ql)-(a[1]===ql)||b[3]-a[3];});
+      return r.slice(0,16);
+    }
+    function recentQ(){return jget('bsrch',[]);}
+    function rememberQ(q){q=q.trim();if(!q)return;var r=recentQ().filter(function(x){return x!==q;});r.unshift(q);set('bsrch',JSON.stringify(r.slice(0,8)));}
+    function showRes(q){
+      lastQ=q;q=q.trim();var h='';
+      if(!q){
+        var rc=jget('brecent',[]),rq=recentQ(),mk=marks(),ml=Object.keys(mk).filter(function(k){var o=mk[k];return o[0]||o[1]||o[2];}).sort(function(a,b){return mk[b][3]-mk[a][3];});
+        if(rc.length>1)h+='<p class="bb-grp">最近读过</p><div class="bb-chips">'+rc.slice(0,10).map(function(x){return '<button type="button" class="bb-chip" data-ref="'+x[0]+'.'+x[1]+'.0">'+esc(BK[x[0]].n)+' '+x[1]+'</button>';}).join('')+'</div>';
+        if(rq.length)h+='<p class="bb-grp">最近搜过</p><div class="bb-chips">'+rq.map(function(x){return '<button type="button" class="bb-chip" data-q="'+esc(x)+'">'+esc(x)+'</button>';}).join('')+'</div>';
+        if(ml.length){h+='<p class="bb-grp">书签、划线与笔记 · '+ml.length+'</p>';
+          ml.slice(0,60).forEach(function(k){var p=k.split('.'),o=mk[k],col=['','#E9C46A','#8FD3A8','#9DBDF2','#F2A7B8'][o[0]]||'var(--rule)';
+            h+='<button type="button" class="bb-ml" data-ref="'+k+'" style="border-left-color:'+col+'"><em>'+esc(BK[+p[0]].n)+' '+p[1]+':'+p[2]+(o[2]?' · 书签':'')+'</em>'+(o[1]?esc(o[1]):'<span class="bb-tip">（点开看这一节）</span>')+'</button>';});}
+        h+='<p class="bb-tip" style="margin-top:14px">可以搜：书卷（<b>xbl</b>、希伯、heb）· 经文出处（<b>来11:1</b>、希伯来书11章、Heb 11:1）· 人名地名和词语（<b>xbl</b> → 希伯仑、希伯来人）· 字句（<b>信心</b>）· 英文（<b>faith</b>）</p>';
+        res.innerHTML=h;return;
+      }
+      var ref=parseRef(q);
+      if(ref)h+='<button type="button" class="bb-rs go" data-ref="'+ref.b+'.'+ref.c+'.'+ref.v+'"><b>'+esc(BK[ref.b].n)+' '+ref.c+(ref.v?':'+ref.v:'')+'</b><small>直接打开</small></button>';
+      var bs=books(q),ws=[];
+      if(bs.length&&!ref){h+='<p class="bb-grp">书卷</p>';bs.slice(0,6).forEach(function(i){h+='<button type="button" class="bb-rs" data-ref="'+i+'.1.0"><b>'+esc(BK[i].n)+'</b><small>'+esc(ab(i))+' · '+esc(BK[i].en)+' · 共 '+BK[i].nc+' 章</small></button>';});}
+      if(!ref){
+        ws=wordsFor(q);
+        if(ws.length)h+='<p class="bb-grp">人名、地名和词语</p><div class="bb-chips">'+ws.map(function(w){return '<button type="button" class="bb-chip" data-q="'+esc(w[0])+'">'+esc(w[0])+'<i>'+w[3]+'</i></button>';}).join('')+'</div>';
+        if(HAN.test(q))h+='<div class="bb-full"><p class="bb-grp">经文</p><p class="bb-tip">正在查找……</p></div>';
+        else if(q.length>=3&&/[aeiouy]/i.test(q)&&!bs.length&&!ws.length)h+='<button type="button" class="bb-more" data-kjv="'+esc(q)+'">在 KJV 英文经文里搜“'+esc(q)+'”</button>';
+      }
+      if(!h)h='<p class="bb-tip">没有找到。可以换个写法，例如书卷的拼音首字母（xbl）、简称（来）或经文里的字词。</p>';
+      res.innerHTML=h;
+      if(!ref&&HAN.test(q))fullText(q,'cuv');
+    }
+    function loadAll(kind){var fs=[];for(var b=0;b<66;b++)fs.push(load(files(b)[kind]));return Promise.all(fs);}
+    function fullText(q,kind,lim){
+      var box=res.querySelector('.bb-full');if(!box)return;lim=lim||120;
+      var have=kind==='cuv'?ALL:KALL;
+      if(!have){box.querySelector('.bb-tip').textContent='第一次搜索全文，要下载整本'+(kind==='cuv'?'和合本（约 1.2 MB）':' KJV（约 1.4 MB）')+'，以后就存在手机里……';
+        loadAll(kind).then(function(a){if(kind==='cuv')ALL=a.map(function(x){return x.v;});else KALL=a;if(kind==='kjv'||lastQ.trim()===q)fullText(q,kind,lim);});return;}
+      var nq=kind==='cuv'?norm(q):q.toLowerCase(),hits=[],per={};
+      for(var b=0;b<66;b++){var bk=have[b];for(var c=0;c<bk.length;c++){var ch=bk[c];for(var v=0;v<ch.length;v++){var t=ch[v];if(!t)continue;
+        if((kind==='cuv'?norm(t):t.toLowerCase()).indexOf(nq)>=0){hits.push([b,c+1,v+1,t]);per[b]=(per[b]||0)+1;}}}}
+      var h='<p class="bb-grp">经文 · 共 '+hits.length+' 节</p>';
+      if(!hits.length)h+='<p class="bb-tip">经文里没有这个词。</p>';
+      var bsum=Object.keys(per).map(Number).sort(function(a,b){return a-b;});
+      if(bsum.length>1)h+='<div class="bb-chips" style="margin-bottom:8px">'+bsum.map(function(b){return '<button type="button" class="bb-chip" data-jb="'+b+'">'+esc(ab(b))+'<i>'+per[b]+'</i></button>';}).join('')+'</div>';
+      var reS=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),re=null;
+      try{re=new RegExp(kind==='cuv'?reS.replace(/./g,function(ch){var k=Object.keys(VAR).filter(function(x){return VAR[x]===ch||x===ch;});return k.length?'['+ch+k.join('')+']':ch;}):reS,'gi');}catch(e){}
+      hits.slice(0,lim).forEach(function(x){var s=esc(x[3]);if(re)s=s.replace(re,function(m){return '<mark>'+m+'</mark>';});
+        h+='<button type="button" class="bb-hit" data-ref="'+x[0]+'.'+x[1]+'.'+x[2]+'" data-b="'+x[0]+'"><em>'+esc(ab(x[0]))+x[1]+':'+x[2]+'</em>'+s+'</button>';});
+      if(hits.length>lim)h+='<button type="button" class="bb-more" data-moreq="'+esc(q)+'" data-kind="'+kind+'" data-lim="'+(lim+300)+'">再显示 300 节（还有 '+(hits.length-lim)+' 节）</button>';
+      box.innerHTML=h;
+    }
+    res.addEventListener('click',function(e){
+      var r=e.target.closest('[data-ref]');if(r){rememberQ(inp.value);var p=r.dataset.ref.split('.');closeAll();go(+p[0],+p[1],+p[2]);return;}
+      var q=e.target.closest('[data-q]');if(q){inp.value=q.dataset.q;showRes(q.dataset.q);return;}
+      var k=e.target.closest('[data-kjv]');if(k){rememberQ(k.dataset.kjv);res.innerHTML='<div class="bb-full"><p class="bb-grp">KJV 经文</p><p class="bb-tip">正在查找……</p></div>';fullText(k.dataset.kjv,'kjv');return;}
+      var m=e.target.closest('[data-moreq]');if(m){fullText(m.dataset.moreq,m.dataset.kind,+m.dataset.lim);return;}
+      var jb=e.target.closest('[data-jb]');if(jb){var el=res.querySelector('.bb-hit[data-b="'+jb.dataset.jb+'"]');if(el)el.scrollIntoView({block:'start'});else toast('这一卷的结果在后面，请点“再显示”');}
+    });
 
-  /* ---------- 手机上左右滑动换章 ---------- */
-  var tx0=0,ty0=0,tt0=0;
-  $('#main').addEventListener('touchstart',function(e){var t=e.touches[0];tx0=t.clientX;ty0=t.clientY;tt0=Date.now();},{passive:true});
-  $('#main').addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-tx0,dy=t.clientY-ty0;
-    if(Date.now()-tt0<600&&Math.abs(dx)>80&&Math.abs(dy)<45&&!window.getSelection().toString()){var p=dx>0?prev(S.b,S.c):next(S.b,S.c);if(p)go(p[0],p[1]);}},{passive:true});
+    /* ---------- 手机上左右滑动换章 ---------- */
+    var tx0=0,ty0=0,tt0=0;
+    main.addEventListener('touchstart',function(e){var t=e.touches[0];tx0=t.clientX;ty0=t.clientY;tt0=Date.now();},{passive:true});
+    main.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-tx0,dy=t.clientY-ty0;
+      if(Date.now()-tt0<600&&Math.abs(dx)>80&&Math.abs(dy)<45&&!window.getSelection().toString()){var p=dx>0?prev(C.b,C.c):next(C.b,C.c);if(p){dir=dx>0?-1:1;go(p[0],p[1]);}}},{passive:true});
 
-  /* ---------- 开始 ---------- */
-  setFs();setMode(S.mode);
-  fetch(BIBLE_INDEX).then(function(r){return r.json();}).then(function(ix){
-    IX=ix;BK=ix.books.map(function(x){return {n:x[0],ab:x[1],en:x[2],code:x[3],ini:x[4],py:x[5],nc:x[6]};});
-    var keep=Object.keys(ix.files).map(function(k){return ix.files[k];});setTimeout(function(){prune(keep);},8000);
-    load(ix.files.words).then(function(w){WORDS=w;if(lastQ)showRes(lastQ);});
-    var r=readHash();if(r)render(r.b,r.c,r.v);else go(S.b,S.c,0,false);
-  },function(){$('#main').innerHTML='<p class="load">打开失败，请检查网络后重试。</p>';});
+    /* ---------- 别处改了划线（账号同步） ---------- */
+    window.addEventListener('q4:bmarks-sync',function(){if(C.b!=null&&visible())repaintMarks();});
+    window.addEventListener('pagehide',function(){if(visible())savePos();});
+
+    /* ---------- 开始 ---------- */
+    applySet();
+    fetch(cfg.index).then(function(r){return r.json();}).then(function(ix){
+      IX=ix;BK=ix.books.map(function(x){return {n:x[0],ab:x[1],en:x[2],code:x[3],ini:x[4],py:x[5],nc:x[6]};});
+      var keep=Object.keys(ix.files).map(function(k){return ix.files[k];});setTimeout(function(){prune(keep);},8000);
+      var r=readHash();
+      if(r){render(r.b,r.c,r.v);return;}
+      var p=jget('bpos',null);fromRestore=true;
+      if(p)go(p[0],p[1],p[2]>1?p[2]:0,'replace');else go(0,1,0,'replace');
+    },function(){main.innerHTML='<p class="bb-load">打开失败，请检查网络后重试。</p>';});
+    return {
+      show:function(){var r=readHash();if(r&&IX&&(r.b!==C.b||r.c!==C.c||r.v))render(r.b,r.c,r.v);else if(C.b!=null)document.title=BK[C.b].n+' '+C.c+' · 圣经';},
+      savePos:savePos
+    };
+  }
+  window.Q4Bible={mount:mount};
 })();

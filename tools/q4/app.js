@@ -220,7 +220,7 @@ var q4keep=(function(){
   var home=document.getElementById('home'),cur=null,W=document.getElementById('welcome');
   var T0=document.title;
   function route(){
-    var h=decodeURIComponent(location.hash.slice(1)),m=/^(l\d+|qa\d*|ask|music)(?:-|$)/.exec(h);
+    var h=decodeURIComponent(location.hash.slice(1)),m=/^(l\d+|qa\d*|ask|music|bible)(?:-|$)/.exec(h);
     // 独立网页的问题彩蛋（#qa3 等）在浮层里打开，下面垫着问题彩蛋列表
     var ext=m&&!document.getElementById(m[1])&&document.querySelector('a[data-art="'+m[1]+'"][href$=".html"]');
     var want=(m&&document.getElementById(m[1]))||(ext&&document.getElementById('qa'))||home;
@@ -518,6 +518,9 @@ var q4keep=(function(){
 (function(){
   var src=document.getElementById('bdata'),pop=document.getElementById('bpop');
   if(!src||!pop)return;
+  var curRef=null;
+  document.addEventListener('click',function(e){if(!e.target.closest('[data-bopen]')||!curRef)return;e.preventDefault();var x=pop.querySelector('[data-bclose]');if(x)x.click();   // 在圣经中打开（2026-10-26）：整章看上下文
+    location.hash='bible-'+(curRef.b+1)+'.'+curRef.vs[0][0]+'.'+curRef.vs[0][1];});
   var DATA=null,card=pop.querySelector('.bpop-card'),body=pop.querySelector('.bpop-body'),ttl=pop.querySelector('#bpop-t'),
       tabs=[].slice.call(pop.querySelectorAll('.bpop-tabs button')),last=null,closing=null,de=document.documentElement;
   function data(){if(!DATA&&!src.dataset.src)DATA=JSON.parse(src.textContent);return DATA;}
@@ -570,6 +573,7 @@ var q4keep=(function(){
   function setTab(k){tabs.forEach(function(t){t.classList.toggle('on',t.dataset.sec===k);});}
   function open(el){
     if(closing){clearTimeout(closing);closing=null;}
+    curRef=parse(el.dataset.v);
     if(data())build(parse(el.dataset.v));
     else{ttl.textContent='经文';body.innerHTML='<p class="bload">经文加载中……</p>';waiting=el;fetchData();}
     last=el;
@@ -1751,6 +1755,8 @@ window.Q4Hub=(function(){
     noteKeys().forEach(function(k){m['n:'+k]=get(k)||'';});
     Object.keys(ACTS).forEach(function(l){var on=ACTS[l].filter(function(k){return get(k)==='1';});m['a:'+l]=on.length?JSON.stringify(on):'';});
     if(withResume)m.r=get('resume')||'';
+    var bmk={};try{bmk=JSON.parse(get('bmarks')||'{}')||{};}catch(e){}var bk2=Object.keys(bmk).sort();m.bm=bk2.length?JSON.stringify(bk2.reduce(function(o,k){o[k]=bmk[k];return o;},{})):'';   // 圣经的划线、笔记、书签（2026-10-26）
+    if(withResume)m.bp=get('bpos')||'';   // 圣经读到哪里
     if(withResume){var tp={};try{tp=JSON.parse(get('tpos')||'{}')||{};}catch(e){}var tk=Object.keys(tp).sort();m.tp=tk.length?JSON.stringify(tk.reduce(function(o,k){o[k]=tp[k];return o;},{})):'';}   // 问题彩蛋读到哪里（2026-10-26）
     if(window.Q4Marks){Q4Marks.lessons().forEach(function(L){m['h:'+L]=Q4Marks.raw(L);});Object.keys(VS).forEach(function(k){if(k.indexOf('h:')===0&&m[k]==null)m[k]='';});}   // 划线与笔记（每课一项）
     var ck=lsKeys('ck:').filter(function(k){return get('ck:'+k)==='1';});m.c=ck.length?JSON.stringify(ck):'';   // 读完打卡
@@ -1780,6 +1786,13 @@ window.Q4Hub=(function(){
       if(window.Q4Comm)Q4Comm.paint();
     }else if(k.indexOf('h:')===0){   // 划线与笔记：按每条标记合并
       if(window.Q4Marks)Q4Marks.merge(k.slice(2),v);
+    }else if(k==='bm'){   // 圣经的划线、笔记、书签：每一节取较新的那一份
+      var lb={},rb={};try{lb=JSON.parse(get('bmarks')||'{}')||{};}catch(e){}try{rb=JSON.parse(v||'{}')||{};}catch(e){}
+      Object.keys(rb).forEach(function(x){if(!lb[x]||rb[x][3]>lb[x][3])lb[x]=rb[x];});
+      set('bmarks',JSON.stringify(lb));try{window.dispatchEvent(new Event('q4:bmarks-sync'));}catch(e){}
+    }else if(k==='bp'){   // 圣经读到哪里：取较新的
+      var lp=null,rp=null;try{lp=JSON.parse(get('bpos')||'null');}catch(e){}try{rp=JSON.parse(v||'null');}catch(e){}
+      if(rp&&(!lp||rp[3]>lp[3]))set('bpos',JSON.stringify(rp));
     }else if(k==='tp'){   // 问题彩蛋读到哪里：每篇取较新的那一份
       var lo={},ro={};try{lo=JSON.parse(get('tpos')||'{}')||{};}catch(e){}try{ro=JSON.parse(v||'{}')||{};}catch(e){}
       Object.keys(ro).forEach(function(pg){if(!lo[pg]||ro[pg][2]>lo[pg][2])lo[pg]=ro[pg];});
@@ -1827,7 +1840,7 @@ window.Q4Hub=(function(){
         if(k!=='tm:'+DID){try{OTHERS[k]=JSON.parse(r.v||'null');}catch(e){}}
         if(!st||r.t>st.t)VS[k]={h:fnv(r.v),t:r.t,n:r.n};return;
       }
-      if(k==='c'||k==='g'||k==='tp'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
+      if(k==='c'||k==='g'||k==='tp'||k==='bm'||k==='bp'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
       if(st&&r.t<=st.t)return;   // 已经是最新
       var localEdited=st?fnv(lv)!==st.h:(!first&&lv!=='');
       if(localEdited&&st&&st.lt&&st.lt>r.t)return;   // 两边都改了：本机的更新，稍后上传
@@ -1841,7 +1854,7 @@ window.Q4Hub=(function(){
     Object.keys(cur).forEach(function(k){
       var v=cur[k],h=fnv(v),st=VS[k];
       if(!st&&!v)return;if(st&&st.h===h)return;
-      if((k==='r'||k==='tp')&&!withResume)return;
+      if((k==='r'||k==='tp'||k==='bp')&&!withResume)return;
       jobs.push({k:k,v:v,t:now,old:(st&&st.n)||0});
       VS[k]={h:h,t:now,n:Math.max(1,Math.ceil(v.length/CHUNK)),lt:now,pending:1};
     });
@@ -2854,6 +2867,14 @@ window.Q4Hub=(function(){
   window.Q4Marks={lessons:lessons,raw:function(L){return get('hl:'+L)||'';},merge:merge,count:count,open:openList,paint:paintAll};
   function boot(){paintAll();maybeTip();}
   if(document.readyState==='complete')setTimeout(boot,300);else addEventListener('load',function(){setTimeout(boot,300);});
+})();
+
+/* ---------- “圣经”栏目（2026-10-26）：第一次打开 #bible 时才装上（bible.js），以后再进来只是显示 ---------- */
+(function(){
+  var R=document.getElementById('bbroot');if(!R)return;var api=null;
+  function chk(){if(!window.Q4Bible||document.documentElement.getAttribute('data-pg')!=='bible')return;
+    if(!api)api=Q4Bible.mount(R,{index:R.dataset.index,prefix:'bible-',site:true});else api.show();}
+  window.addEventListener('q4:route',chk);setTimeout(chk,0);   // bible.js 排在本文件后面，等它定义好 Q4Bible
 })();
 
 /* ---------- 新上架弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开 ----------

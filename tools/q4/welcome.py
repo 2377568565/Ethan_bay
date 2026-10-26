@@ -108,7 +108,7 @@ def welcome_html(titles, ui):
 <section class="whero">
   <div class="wsky" aria-hidden="true"><i class="wst"></i><i class="wdawn"></i><i class="whz"></i><i class="wgrain"></i></div>
   <div class="wtop">
-    <span class="wtl"><span class="wlogo">{ui['logo']}</span><button class="wacct glass" type="button" data-acct aria-label="账号：登录后在不同设备之间同步">{ui['user']}<span class="ac-n">账号</span></button></span>
+    <span class="wtl"><span class="wlogo">{ui['logo']}</span><button class="wacct glass" type="button" data-me aria-label="我的：账号、使用时长、字号、继续阅读">{ui['user']}<span>我的</span></button></span>
     <span class="wtr"><button class="glass" type="button" data-rsearch aria-label="搜索全季内容">{ui['search']}</button><button class="glass" type="button" data-rsettings aria-label="字号与夜间模式">{ui['aa']}</button></span>
   </div>
   <div class="whin">
