@@ -2402,7 +2402,7 @@ window.Q4Hub=(function(){
     right:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>'};
 
   /* ===== 标签栏、侧栏：亮起现在所在的栏目 ===== */
-  function tabOf(){if(wOpen())return 'welcome';var p=pg();if(/^l\d+$|^home$/.test(p))return 'home';if(/^qa/.test(p))return 'qa';return p;}
+  function tabOf(){if(wOpen())return 'welcome';var p=pg();if(/^l\d+$|^home$/.test(p))return 'home';if(/^qa/.test(p))return 'qa';if(/^h\d+$/.test(p))return 'health';return p;}
   var TB=document.querySelector('.tabbar'),tind=null;
   if(TB){tind=document.createElement('i');tind.className='tind';tind.setAttribute('aria-hidden','true');TB.appendChild(tind);}
   // 各个标签的中心位置量一次就记住（换页时再量会逼浏览器提前排版新页面，反而更卡）；屏幕转向、窗口变宽时重量

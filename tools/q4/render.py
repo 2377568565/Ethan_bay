@@ -544,7 +544,7 @@ def homeui():
     def tab(href, icon, label, t, extra=''):
         return f'<a class="tab" href="{href}" data-t="{t}"{extra}>{icon}<span>{label}</span></a>'
     tabbar = ('<nav class="tabbar" id="tabbar" aria-label="主要栏目">' + tab('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + tab('#home', I_BOOK, '学课', 'home') + tab('#bible', I_BIBLE, '圣经', 'bible') +
-              tab('#qa', I_SPARK, '彩蛋', 'qa', ' data-egg') + tab('#music', I_NOTE, '音乐', 'music') + '</nav>')   # 2026-10-26：加“圣经”，“我的”搬到首页左上角
+              tab('#qa', I_SPARK, '彩蛋', 'qa', ' data-egg') + tab('#health', I_HEART, '健康', 'health') + tab('#music', I_NOTE, '音乐', 'music') + '</nav>')   # 2026-10-26：加“圣经”，“我的”搬到首页左上角
     def sl(href, icon, label, t, extra=''):
         return f'<a href="{href}" data-t="{t}" data-tip="{label}"{extra}>{icon}<span class="lbl">{label}</span></a>'
     nqa = len(qa_data.ITEMS)
