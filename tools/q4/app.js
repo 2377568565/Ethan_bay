@@ -1757,6 +1757,7 @@ window.Q4Hub=(function(){
     if(withResume)m.r=get('resume')||'';
     var bmk={};try{bmk=JSON.parse(get('bmarks')||'{}')||{};}catch(e){}var bk2=Object.keys(bmk).sort();m.bm=bk2.length?JSON.stringify(bk2.reduce(function(o,k){o[k]=bmk[k];return o;},{})):'';   // 圣经的划线、笔记、书签（2026-10-26）
     if(withResume)m.bp=get('bpos')||'';   // 圣经读到哪里
+    m.pl=get('bplan')||'';   // 圣经读经计划（2026-10-26）
     if(withResume){var tp={};try{tp=JSON.parse(get('tpos')||'{}')||{};}catch(e){}var tk=Object.keys(tp).sort();m.tp=tk.length?JSON.stringify(tk.reduce(function(o,k){o[k]=tp[k];return o;},{})):'';}   // 问题彩蛋读到哪里（2026-10-26）
     if(window.Q4Marks){Q4Marks.lessons().forEach(function(L){m['h:'+L]=Q4Marks.raw(L);});Object.keys(VS).forEach(function(k){if(k.indexOf('h:')===0&&m[k]==null)m[k]='';});}   // 划线与笔记（每课一项）
     var ck=lsKeys('ck:').filter(function(k){return get('ck:'+k)==='1';});m.c=ck.length?JSON.stringify(ck):'';   // 读完打卡
@@ -1790,6 +1791,11 @@ window.Q4Hub=(function(){
       var lb={},rb={};try{lb=JSON.parse(get('bmarks')||'{}')||{};}catch(e){}try{rb=JSON.parse(v||'{}')||{};}catch(e){}
       Object.keys(rb).forEach(function(x){if(!lb[x]||rb[x][3]>lb[x][3])lb[x]=rb[x];});
       set('bmarks',JSON.stringify(lb));try{window.dispatchEvent(new Event('q4:bmarks-sync'));}catch(e){}
+    }else if(k==='pl'){   // 读经计划：取较新的那一份；同一个计划、同一天开始的，两边读完的段落合在一起
+      var lq=null,rq=null;try{lq=JSON.parse(get('bplan')||'null');}catch(e){}try{rq=JSON.parse(v||'null');}catch(e){}
+      if(rq){var nw=(!lq||(rq.t||0)>(lq.t||0))?rq:lq,od=nw===rq?lq:rq;
+        if(od&&nw.id&&od.id===nw.id&&od.s===nw.s){nw.d=nw.d||{};Object.keys(od.d||{}).forEach(function(d){var a=nw.d[d]||[];(od.d[d]||[]).forEach(function(i){if(a.indexOf(i)<0)a.push(i);});nw.d[d]=a;});}
+        set('bplan',JSON.stringify(nw));try{window.dispatchEvent(new Event('q4:bplan'));}catch(e){}}
     }else if(k==='bp'){   // 圣经读到哪里：取较新的
       var lp=null,rp=null;try{lp=JSON.parse(get('bpos')||'null');}catch(e){}try{rp=JSON.parse(v||'null');}catch(e){}
       if(rp&&(!lp||rp[3]>lp[3]))set('bpos',JSON.stringify(rp));
@@ -1840,7 +1846,7 @@ window.Q4Hub=(function(){
         if(k!=='tm:'+DID){try{OTHERS[k]=JSON.parse(r.v||'null');}catch(e){}}
         if(!st||r.t>st.t)VS[k]={h:fnv(r.v),t:r.t,n:r.n};return;
       }
-      if(k==='c'||k==='g'||k==='tp'||k==='bm'||k==='bp'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
+      if(k==='c'||k==='g'||k==='tp'||k==='bm'||k==='bp'||k==='pl'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
       if(st&&r.t<=st.t)return;   // 已经是最新
       var localEdited=st?fnv(lv)!==st.h:(!first&&lv!=='');
       if(localEdited&&st&&st.lt&&st.lt>r.t)return;   // 两边都改了：本机的更新，稍后上传

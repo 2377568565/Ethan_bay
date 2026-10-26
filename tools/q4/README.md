@@ -378,6 +378,14 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
   jieba 在这个容器里装不上（要编译）：`pip download jieba` 后解压，用 `JIEBA_SRC=解压目录` 运行。
 - `bible.js`：书本式排版（段落、诗歌分行、小号金色节号）、往下读时顶栏收起、版本（和合本 / KJV / 原文 / 对照）、选书卷和章、左右滑动换章；点一节出动作条：四色划线、笔记、书签、复制、图片（网站里用 `Q4Card`，二维码 id `bible`）、原文逐字、三版对照、讲过的地方、清除；阅读设置（字号、行距、按段落/每节一行、节号、纸色含护眼）；预先下载前后章。
   搜索认出处（来11:1、xbl11:1、Heb 11:1、犹5）、书卷（拼音首字母、全拼、简称、英文）、人名地名和词语、全文（异体字“借/藉”“祂/他”通搜）、KJV 英文；还有“最近读过”和“我的划线”。
-- 本机存储：`q4:bset` 设置、`q4:bpos` [卷,章,节,时间] 读到哪里、`q4:brecent` 最近读过、`q4:bsrch` 搜索记录、`q4:bmarks` {"卷.章.节":[颜色0—4,笔记,书签0/1,时间]}（删掉的留空记录，好同步）。
+- 第二期（2026-10-26）的数据都在 `biblesite.py` 里生成：
+  - 原始数据在 `tools/q4/bdata/`：`bsbh.json.gz`（BSB 的小标题、平行经文、诗篇分卷，CC0）、`bsbq.json.gz`（BSB 的诗行）、`cuvs.json.gz`（ChiUns 和合本带 Strong 编号，由 `bdata_prep.py` 从 CrossWire 模块整理；模块原件用完已删，需要时用临时任务再下载）。
+    串珠原表在 `.work/b2/xref.txt`（`raw.githubusercontent.com/scrollmapper/bible_databases/2025/sources/extras/cross_references.txt`，OpenBible.info CC BY）。
+  - 小标题中文：`tools/q4/bheads/NN-书卷.txt`，一行对一行照 BSB 的顺序（“章.节[*] 中文”，* 是二级标题，“-”表示不用）。改完运行 `JIEBA_SRC=… python3 tools/q4/bheads_check.py`：
+    它对照本站和合本，列出经文里没有出现过的人名地名（“孤:”“旧:”），**这一版和合本有些名字和旧版不同**（泰尔、大马士革、吕便、塞鲁士……），以本站经文为准。
+  - `cuv-NN` 增加 `h`（小标题：{"章.节": [[级别, 中文, 英文, 平行经文]]}）、`q`（诗行：{"章": [节]}）；`xr-NN` 串珠；`org-NN` 每个词第 5 项是中文、第 6 项是这一节和合本的原样（不同时才有），`x` 的第 3 项是常见译法；
+    `plans` 读经计划（每天的段落：[卷, 起章, 止章] 或 [卷, 章, 章, 起节, 止节]，按字数平均分配）；index 里 `sz` 是各文件大小。
+  - 改了 biblesite.py 再运行之前，先 `git checkout -- site/bible/current.txt` 并恢复已删除的已发布文件（`git ls-files -d site/bible | xargs git checkout --`）：程序会保留 current.txt 指向的上一代，本机连跑几次会把已发布的那一代删掉。
+- 本机存储：`q4:bplan` 读经计划 {id, s:开始日期, d:{天: [读完的段落序号]}, t}（账号同步 `pl`，同一计划两边合并）；`q4:bset` 设置、`q4:bpos` [卷,章,节,时间] 读到哪里、`q4:brecent` 最近读过、`q4:bsrch` 搜索记录、`q4:bmarks` {"卷.章.节":[颜色0—4,笔记,书签0/1,时间]}（删掉的留空记录，好同步）。
   账号同步（`app.js`）：`bm`（划线笔记，每节按时间合并，总是同步）、`bp`（读到哪里，和 `r`、`tp` 一样只在“同步阅读位置”时同步）。
 - 数据存在手机的 IndexedDB “q4bible”（和网站的 q4keep 分开，免得被它清掉）。

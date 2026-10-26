@@ -2535,7 +2535,70 @@ html.tbhide .bb-act{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 .bb-ml em{display:block;font-style:normal;font-size:.74rem;font-weight:700;color:var(--gold)}
 .bb-toast{position:fixed;z-index:125;left:50%;bottom:calc(var(--tbh,0px) + 90px);transform:translate(-50%,10px);opacity:0;transition:opacity .2s,transform .2s;padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;pointer-events:none;white-space:nowrap}
 .bb-toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:359.98px){.bb-main{padding-left:14px;padding-right:14px}.bb-head b{font-size:2.6rem}.bb-ver{padding:0 6px 0 9px}}
+/* ---------- 第二期（2026-10-26）：小标题、诗行、原文中文、串珠、回到刚才、读经计划、下载到手机 ---------- */
+.bb-h{margin:1.5em 0 .55em;font-family:var(--sans);font-size:.86rem;font-weight:800;line-height:1.5;letter-spacing:.04em;color:var(--ink);text-align:left;text-indent:0}
+.bb-txt>.bb-h:first-child,.bb-h+.bb-h{margin-top:.2em}
+.bb-h.l0{margin-bottom:.9em;padding:6px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);text-align:center;font-family:var(--serif);font-size:.9rem;letter-spacing:.18em;color:var(--gold)}
+.bb-h.l2{font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.bb-h.l3{font-family:"SBL Hebrew","Times New Roman",serif;font-size:.95rem;color:var(--gold)}
+.bb-h[lang=en]{font-family:Georgia,"Times New Roman",serif;letter-spacing:0}
+.bb-hr{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:3px}
+.bb-hr button{padding:1px 8px;border:1px solid var(--rule);border-radius:999px;background:none;cursor:pointer;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.bb-hr button:active{background:var(--surface-2)}
+.bb-cv+.bb-h,.bb-ov+.bb-h{margin-top:1.3em}
+.bb-l.po{padding-left:2.4em;text-indent:-1.6em}                       /* 诗行：比“每节一行”多缩进一点，像印刷本的诗 */
+.bb-txt.en .bb-l.po{padding-left:2em;text-indent:-1.4em}
+.bb-p+.bb-l.po,.bb-h+.bb-l.po{margin-top:.2em}
+.bb-l.po+.bb-p{margin-top:.85em}
+.bb-w .z{font-size:.72rem;line-height:1.35;color:var(--gold);direction:ltr;max-width:7em;text-align:center;font-family:var(--serif)}
+.bb-w .z:empty{display:none}
+.bb.plain .bb-w .z{display:none}
+.bb-xr{display:block;width:100%;text-align:left;padding:10px 12px;margin:0 0 6px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);cursor:pointer;color:var(--ink);font-family:var(--serif);font-size:.93rem;line-height:1.7}
+.bb-xr em{display:block;font-style:normal;font-family:var(--sans);font-size:.74rem;font-weight:700;color:var(--gold)}
+.bb .bb-backp{position:fixed;z-index:31;left:50%;top:calc(env(safe-area-inset-top,0px) + 60px);transform:translateX(-50%);display:flex;align-items:center;gap:6px;height:36px;padding:0 14px 0 10px;
+  border:1px solid color-mix(in srgb,var(--gold) 35%,var(--rule));border-radius:999px;background:var(--surface);box-shadow:0 6px 18px rgba(10,14,24,.16);cursor:pointer;font-size:.84rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.bb-backp[hidden]{display:none}
+.bb-backp .ic{width:18px;height:18px}
+@media (min-width:1024px){.bb-backp{left:calc(50% + var(--sw,0px) / 2)}}
+.bb .bb-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:38px;padding:0 16px;border:1px solid transparent;border-radius:999px;cursor:pointer;font-size:.86rem;font-weight:700;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);white-space:nowrap;flex:none}
+.bb .bb-btn.ghost{background:none;border-color:var(--rule);color:var(--ink-2)}
+.bb-btn .ic{width:17px;height:17px}
+.bb .bb-lnk{display:block;padding:6px 0;border:0;background:none;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--gold);text-align:left}
+.bb-pc{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px;padding:12px;margin:0 0 8px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.bb-pc b{font-size:.95rem}.bb-pc small{grid-column:1;font-size:.76rem;color:var(--muted);line-height:1.5}
+.bb-pc .bb-btn{grid-column:2;grid-row:1/3}
+.bb-ph{padding:4px 2px 10px}
+.bb-ph b{display:block;font-family:var(--serif);font-size:1.05rem}
+.bb-ph small{display:block;margin-top:2px;font-size:.78rem;color:var(--muted)}
+.bb-pbar{height:6px;margin:10px 0 4px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bb-pbar i{display:block;height:100%;transform-origin:0 50%;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:999px}
+.bb-pnav{display:flex;align-items:center;gap:6px;margin:8px 0 10px;padding:4px;border-radius:14px;background:var(--paper);border:1px solid var(--rule)}
+.bb-pnav span{flex:1;text-align:center;font-size:.84rem;color:var(--ink-2)}
+.bb-pnav span b{margin-right:8px;font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.bb-pnav .bb-ib:disabled{opacity:.3}
+.bb-pi{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px solid var(--rule)}
+.bb .bb-pk{display:grid;place-items:center;flex:none;width:34px;height:34px;border:2px solid var(--rule);border-radius:50%;background:none;cursor:pointer;color:transparent}
+.bb-pk .ic{width:18px;height:18px;stroke-width:2.4}
+.bb .bb-pi.ok .bb-pk{border-color:var(--ok);background:var(--ok);color:#fff}
+.bb-pg{flex:1;min-width:0;display:block;padding:4px 0;border:0;background:none;cursor:pointer;text-align:left;color:var(--ink)}
+.bb-pg b{display:block;font-family:var(--serif);font-size:1rem}
+.bb-pg small{display:block;font-size:.74rem;color:var(--muted)}
+.bb-pi.ok .bb-pg b{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
+.bb-pend{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;padding:12px;border-radius:12px;background:var(--paper);font-size:.86rem}
+.bb-pend span{flex:1 1 100%}
+.bb-plc{display:flex;align-items:center;gap:10px;margin-top:28px;padding:12px 12px 12px 14px;border:1px solid color-mix(in srgb,var(--gold) 30%,var(--rule));border-radius:14px;background:var(--gold-soft)}
+.bb-plc span{flex:1;min-width:0;font-family:var(--serif);font-size:.95rem}
+.bb-plc small{display:block;font-family:var(--sans);font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.bb-plc.ok{background:var(--paper)}
+.bb-dl{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid var(--rule)}
+.bb-dl>span:first-child{flex:1;min-width:0}
+.bb-dl b{display:block;font-size:.92rem}.bb-dl small{display:block;font-size:.74rem;color:var(--muted);line-height:1.5}
+.bb-dl .bb-btn{height:34px;padding:0 12px}
+.bb-dlp{font-size:.82rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bb-dlok{display:inline-flex;align-items:center;gap:3px;font-size:.8rem;font-weight:700;color:var(--ok);white-space:nowrap}
+.bb-dlok .ic{width:16px;height:16px}
+.bb .bb-dl .bb-lnk{padding:6px 2px;font-size:.78rem;color:var(--muted)}
+@media (max-width:359.98px){.bb-main{padding-left:14px;padding-right:14px}.bb-head b{font-size:2.6rem}.bb-ver{padding:0 9px}.bb-ver .ic{display:none}.bb-bar .bb-ib{width:36px}.bb-where{font-size:1rem;padding:0 2px}}
 @media (min-width:900px){.bb-main{padding-top:34px}}
 @media (prefers-reduced-motion:reduce){.bb-ch,.bb-sh .cd,.bb-sh .bg{animation:none}.bb-top,.bb-toast,.bb-v{transition:none}.bb-v.flash{animation:none}}
 
@@ -2545,7 +2608,7 @@ html.tbhide .bb-act{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 <script type="application/json" id="wfonts">[["LessonSerif", "600", "site/8c2ea53e85.woff2"], ["LessonSerif", "900", "site/7c35e3bb3d.woff2"]]</script>
 <style>html:not(.wf){--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}</style>
 <script>(function(){
-var B="site/1029a4f543.json",J="site/c65e947f53.js",K=[B,J],P;
+var B="site/1029a4f543.json",J="site/516c2f5bf5.js",K=[B,J],P;
 function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
  r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
 function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
@@ -3378,7 +3441,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   </div>
 </div>
 <script type="application/json" id="bdata" data-src="site/9f783e08d0.json"></script>
-<div class="lesson" id="bible" data-title="圣经"><div id="bbroot" data-index="site/bible/index-954159205b.json"><p class="bb-load" style="padding:60px 0;text-align:center;color:var(--muted)">正在打开圣经……</p></div></div>
+<div class="lesson" id="bible" data-title="圣经"><div id="bbroot" data-index="site/bible/index-b2ead00ddc.json"><p class="bb-load" style="padding:60px 0;text-align:center;color:var(--muted)">正在打开圣经……</p></div></div>
 <footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
   <details class="fnote fold"><summary><span class="fs">版权与引用说明</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>

@@ -2,7 +2,9 @@
    选中经文后的动作条（划线、笔记、书签、复制、分享图、原文、对照、讲过的地方）；阅读设置；记住读到哪一节；最近读过；搜索。
    既能单独打开（bible.html，网址 #58.11.1），也能装进网站（index.html 的 #bible 页，网址 #bible-58.11.1）。
    数据在 site/bible/（文件名带内容哈希），下载一次就存进手机（IndexedDB “q4bible”，和网站其他缓存分开）。
-   本机记录：q4:bset 阅读设置，q4:bpos 读到哪里，q4:brecent 最近读过，q4:bmarks 划线、笔记、书签（登录账号后由 app.js 同步 bp、bm 两项）。 */
+   本机记录：q4:bset 阅读设置，q4:bpos 读到哪里，q4:brecent 最近读过，q4:bmarks 划线、笔记、书签，q4:bplan 读经计划（登录账号后由 app.js 同步 bp、bm、pl）。
+   第二期（2026-10-26）：小标题（位置参照 BSB，中文编者拟）和平行经文、诗歌分行（BSB 的诗行）、串珠（OpenBible.info）、
+   原文每个词下面的中文（和合本常见译法，依 FHL 标注的和合本 Strong 编号统计）、读经计划、下载到手机（离线阅读）、跳转后“回到刚才的地方”。 */
 (function(){
   'use strict';
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -34,7 +36,10 @@
     note:'<path d="M5 4.5h10l4 4V19.5H5z"/><path d="M15 4.5v4h4M8.5 12h7M8.5 15.5h5"/>',bm:'<path d="M7 4h10v16l-5-3.5L7 20z"/>',copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
     img:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4"/>',org:'<path d="M5 6h14M5 12h9M5 18h12"/><path d="M18.5 10.5 21 13l-2.5 2.5"/>',
     cmp:'<rect x="3.5" y="5" width="7.5" height="14" rx="1.5"/><rect x="13" y="5" width="7.5" height="14" rx="1.5"/>',place:'<path d="M12 21s-6.5-5.4-6.5-11a6.5 6.5 0 0 1 13 0c0 5.6-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
-    clear:'<path d="M5 19h14M7 15l7.5-7.5a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L12 16H7z"/>'};
+    clear:'<path d="M5 19h14M7 15l7.5-7.5a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L12 16H7z"/>',
+    xr:'<path d="M9.5 14.5l5-5"/><path d="M11 6.6l1.3-1.3a4 4 0 0 1 5.7 5.7L16.7 12.3"/><path d="M13 17.4l-1.3 1.3a4 4 0 0 1-5.7-5.7L7.3 11.7"/>',
+    plan:'<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M8 3.5v4M16 3.5v4M4 10.5h16M8.8 15l2.2 2.2 4.2-4.4"/>',
+    dl:'<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/>',ok:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',undo:'<path d="M9 14 4.5 9.5 9 5"/><path d="M5 9.5h9.5a5 5 0 0 1 0 10H11"/>'};
   function ic(k){return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>';}
 
   /* ---------- 书卷 ---------- */
@@ -44,14 +49,14 @@
   function cat(i){for(var k=0;k<CAT.length;k++)if(i>=CAT[k][0]&&i<=CAT[k][1])return CAT[k];return CAT[0];}
   function ab(i){return BK[i].ab[0];}
   function poetic(b,c){return b===18||b===19||b===21||b===24||(b===17&&c>=3&&c<=42);}   // 诗篇、箴言、雅歌、哀歌、约伯记 3—42 章：一行一节
-  function files(b){var f=IX.files,p=('0'+b).slice(-2);return {cuv:f['cuv-'+p],kjv:f['kjv-'+p],org:f['org-'+p]};}
+  function files(b){var f=IX.files,p=('0'+b).slice(-2);return {cuv:f['cuv-'+p],kjv:f['kjv-'+p],org:f['org-'+p],xr:f['xr-'+p]};}
 
   function mount(root,cfg){
     if(!root||root._bb)return;root._bb=1;
     var PRE=cfg.prefix||'',SITE=!!cfg.site;
     var $=function(s){return root.querySelector(s);};
     var S=jget('bset',{});   // 阅读设置
-    S.mode=S.mode||'cuv';S.cmp=S.cmp||{cuv:1,kjv:1,org:0};if(S.fs==null)S.fs=1;if(S.lh==null)S.lh=1;if(S.vn==null)S.vn=1;S.lay=S.lay||'para';if(S.og==null)S.og=1;
+    S.mode=S.mode||'cuv';S.cmp=S.cmp||{cuv:1,kjv:1,org:0};if(S.fs==null)S.fs=1;if(S.lh==null)S.lh=1;if(S.vn==null)S.vn=1;S.lay=S.lay||'para';if(S.og==null)S.og=1;if(S.hd==null)S.hd=1;
     function saveSet(){set('bset',JSON.stringify(S));}
     var FS=[.94,1.08,1.2,1.34,1.5],LH=[1.75,1.95,2.2];
 
@@ -61,17 +66,19 @@
       '<button class="bb-where" type="button" data-a="pick" aria-label="选择书卷和章"><span class="bb-wt">圣经</span>'+ic('down')+'</button>'+
       '<button class="bb-ib" type="button" data-a="find" aria-label="搜索">'+ic('search')+'</button>'+
       '<button class="bb-ver" type="button" data-a="ver" aria-label="版本"><span class="bb-vt">和合本</span>'+ic('down')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="plan" aria-label="读经计划">'+ic('plan')+'</button>'+
       '<button class="bb-ib" type="button" data-a="set" aria-label="阅读设置">'+ic('aa')+'</button></div><div class="bb-prog" aria-hidden="true"><i></i></div></header>'+
       '<main class="bb-main"><p class="bb-load">正在打开……</p></main>'+
       '<div class="bb-act" hidden role="toolbar" aria-label="选中的经文"><div class="bb-ah"><b class="bb-at"></b><button class="bb-ib" type="button" data-a="unsel" aria-label="取消选择">'+ic('x')+'</button></div>'+
       '<div class="bb-ab"><span class="bb-sw">'+[1,2,3,4].map(function(i){return '<button type="button" class="bb-c'+i+'" data-h="'+i+'" aria-label="划线（颜色'+i+'）"></button>';}).join('')+'</span>'+
       '<button type="button" data-a="note">'+ic('note')+'笔记</button><button type="button" data-a="bm">'+ic('bm')+'书签</button><button type="button" data-a="copy">'+ic('copy')+'复制</button>'+
       (SITE?'<button type="button" data-a="img">'+ic('img')+'图片</button>':'')+
-      '<button type="button" data-a="orgv">'+ic('org')+'原文</button><button type="button" data-a="cmpv">'+ic('cmp')+'对照</button><button type="button" data-a="places">'+ic('place')+'讲过</button>'+
+      '<button type="button" data-a="orgv">'+ic('org')+'原文</button><button type="button" data-a="cmpv">'+ic('cmp')+'对照</button><button type="button" data-a="places">'+ic('place')+'讲过</button><button type="button" data-a="xref">'+ic('xr')+'串珠</button>'+
       '<button type="button" data-a="clear">'+ic('clear')+'清除</button></div></div>'+
       sheet('pick','选择书卷','<div class="bb-seg"><button type="button" data-t="ot" aria-pressed="true">旧约</button><button type="button" data-t="nt" aria-pressed="false">新约</button></div>')+
       sheet('find','','<label class="bb-q">'+ic('search')+'<input type="search" enterkeyhint="search" autocomplete="off" placeholder="书卷、出处、人名或字句，如 xbl、来11:1、信心"></label>')+
-      sheet('ver','版本','')+sheet('set','阅读设置','')+sheet('det','','')+sheet('nt','笔记','')+
+      sheet('ver','版本','')+sheet('set','阅读设置','')+sheet('det','','')+sheet('nt','笔记','')+sheet('plan','读经计划','')+
+      '<button class="bb-backp" type="button" data-a="back" hidden>'+ic('undo')+'<span></span></button>'+
       '<div class="bb-toast" role="status"></div>';
     function sheet(k,t,extra){return '<div class="bb-sh" data-sh="'+k+'" hidden><div class="bg" data-close></div><div class="cd" role="dialog" aria-modal="true" aria-label="'+(t||k)+'">'+
       '<div class="hd">'+(t?'<h2>'+t+'</h2>':'<h2 class="bb-dt"></h2>')+extra+'<button class="bb-ib" type="button" data-close aria-label="关闭">'+ic('x')+'</button></div><div class="bd"></div></div></div>';}
@@ -134,31 +141,40 @@
     function numLabel(arr,v){var e=v;while(e<arr.length&&!arr[e])e++;return e>v?v+'-'+e:String(v);}
     function words(ws,ot){
       return '<div class="bb-ws'+(ot?'':' grk')+'"'+(ot?' dir="rtl" lang="he"':' lang="grc"')+'>'+ws.map(function(w,i){
-        return '<span class="bb-w" data-w="'+i+'"><span class="o">'+esc(w[0])+'</span><span class="t">'+esc(w[1])+'</span><span class="g">'+esc(w[2])+'</span></span>';}).join('')+'</div>';
+        return '<span class="bb-w" data-w="'+i+'"><span class="o">'+esc(w[0])+'</span><span class="t">'+esc(w[1])+'</span><span class="g">'+esc(w[2])+'</span><span class="z">'+esc(w[4]||'')+'</span></span>';}).join('')+'</div>';
     }
     function draw(b,c,cuv,kjv,org){
       var ch=cuv.v[c-1]||[],kc=kjv?kjv[c-1]||[]:[],oc=org?org.v[c-1]||[]:[],ot=b<39,m=S.mode,h=[],mk=marks();
       var pe={};(cuv.p||[]).forEach(function(x){pe[x]=1;});
+      var HD=S.hd&&cuv.h?cuv.h:{},PQ=cuv.q&&cuv.q[c],pset={},allPoe=!cuv.q&&poetic(b,c);   // 诗行：BSB 排成诗行的节（旧数据没有时，诗篇等整章按诗排）
+      if(PQ)PQ.forEach(function(x){pset[x]=1;});
       C={b:b,c:c,cuv:ch,kjv:kc,org:oc,lx:org?org.x:null,cuvF:cuv};
+      function heads(v,en){var L=HD[c+'.'+v];if(!L)return '';
+        return L.map(function(x){var t=en?x[2]:x[1],rf=x[3]||[];
+          return '<h3 class="bb-h l'+x[0]+'"'+(en?' lang="en"':'')+'><span>'+esc(t)+'</span>'+(rf.length?'<span class="bb-hr">'+rf.map(function(r){
+            return '<button type="button" data-go="'+r[1]+'.'+r[2]+'.'+r[3]+'" data-xj>'+esc(r[0])+'</button>';}).join('')+'</span>':'')+'</h3>';}).join('');}
       h.push('<div class="bb-ch"><div class="bb-head"><b>'+c+'</b><span><h1>'+esc(BK[b].n)+'</h1><small>'+esc(BK[b].en)+' · 第 '+c+' 章 / 共 '+BK[b].nc+' 章</small></span></div>');
       function mkcls(v){var o=mk[b+'.'+c+'.'+v];return o&&o[0]?' h'+o[0]:'';}
       function mkicons(v){var o=mk[b+'.'+c+'.'+v];if(!o)return '';return (o[2]?'<span class="bb-mk bm" data-mk="'+v+'" aria-label="书签"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z"/></svg></span>':'')+(o[1]?'<span class="bb-mk" data-mk="'+v+'" aria-label="笔记"><svg viewBox="0 0 24 24"><path d="M5 19.5h4L19.5 9 15 4.5 4.5 15z"/></svg></span>':'');}
       function vspan(v,txt,lab){return '<span class="bb-v'+mkcls(v)+'" data-v="'+v+'"><sup class="bb-n">'+lab+'</sup>'+esc(txt)+'</span>'+mkicons(v);}
       if(m==='cuv'||m==='kjv'){
-        var arr=m==='cuv'?ch:kc,poe=poetic(b,c)||S.lay==='verse',para=[];
+        var arr=m==='cuv'?ch:kc,para=[];
+        var flush=function(){if(para.length){h.push('<p class="bb-p">'+para.join('')+'</p>');para=[];}};
         h.push('<div class="bb-txt'+(m==='kjv'?' en" lang="en':'')+'">');
         for(var v=1;v<=arr.length;v++){
+          var hv=heads(v,m==='kjv');if(hv){flush();h.push(hv);}
           var t=arr[v-1];if(!t)continue;
-          var lab=m==='cuv'?numLabel(arr,v):String(v),end=pe[c+'.'+v]||(m==='cuv'&&lab.indexOf('-')>0&&pe[c+'.'+lab.split('-')[1]]);
-          if(poe){h.push('<p class="bb-l'+(end&&poetic(b,c)?' gap':'')+'">'+vspan(v,t,lab)+'</p>');continue;}
+          var lab=m==='cuv'?numLabel(arr,v):String(v),last=lab.indexOf('-')>0?+lab.split('-')[1]:v,end=pe[c+'.'+v]||pe[c+'.'+last];
+          var poe=allPoe||pset[v]||pset[last];
+          if(poe||S.lay==='verse'){flush();h.push('<p class="bb-l'+(poe?' po':'')+(end&&poe?' gap':'')+'">'+vspan(v,t,lab)+'</p>');continue;}
           para.push(vspan(v,t,lab));
-          if(end||v===arr.length){h.push('<p class="bb-p">'+para.join('')+'</p>');para=[];}
+          if(end)flush();
         }
-        if(para.length)h.push('<p class="bb-p">'+para.join('')+'</p>');
+        flush();
         h.push('</div>');
       }else if(m==='org'){
         h.push('<div class="bb-txt">');
-        for(var v2=1;v2<=oc.length;v2++){var o=oc[v2-1];if(!o||!o.length)continue;
+        for(var v2=1;v2<=oc.length;v2++){var o=oc[v2-1];h.push(heads(v2));if(!o||!o.length)continue;
           h.push('<div class="bb-ov bb-v'+mkcls(v2)+'" data-v="'+v2+'"><sup class="bb-n">'+v2+'</sup>'+words(o,ot)+'</div>');}
         h.push('</div>');
       }else{
@@ -167,6 +183,7 @@
         var st=' style="--cols:repeat('+cols.length+',minmax(0,1fr))"',nv=Math.max(ch.length,S.cmp.kjv?kc.length:0,S.cmp.org?oc.length:0);
         h.push('<div class="bb-cols"'+st+'>'+cols.map(function(x){return '<span>'+x+'</span>';}).join('')+'</div><div class="bb-txt">');
         for(var v3=1;v3<=nv;v3++){
+          h.push(heads(v3));
           var rows='';
           if(S.cmp.cuv)rows+='<div class="bb-row"><span class="bb-lb">和合</span><div>'+(ch[v3-1]?'<sup class="bb-n">'+numLabel(ch,v3)+'</sup>'+esc(ch[v3-1]):'<span class="bb-tip">（和上一节印在一起）</span>')+'</div></div>';
           if(S.cmp.kjv)rows+='<div class="bb-row k" lang="en"><span class="bb-lb">KJV</span><div><sup class="bb-n">'+v3+'</sup>'+esc(kc[v3-1]||'')+'</div></div>';
@@ -175,13 +192,16 @@
         }
         h.push('</div>');
       }
-      if(m==='org'||(m==='cmp'&&S.cmp.org))h.push('<p class="bb-hint">原文据 STEPBible 的 TAHOT（希伯来文旧约）和 TAGNT（希腊文新约），CC BY 4.0。每个词下面是读音和英文直译；点一节，再点“原文”，可以看词典里的原形和字义。</p>');
+      if(m==='org'||(m==='cmp'&&S.cmp.org))h.push('<p class="bb-hint">原文据 STEPBible 的 TAHOT（希伯来文旧约）和 TAGNT（希腊文新约），CC BY 4.0。每个词下面依次是读音、英文直译和中文；中文是这个词在和合本里常见的译法（依信望爱 FHL 标注的和合本 Strong 编号统计，公有领域），不是逐字翻译。点一节，再点“原文”，可以看词典里的原形、字义和这一节和合本的译法。</p>');
       if(m==='kjv'||(m==='cmp'&&S.cmp.kjv))h.push('<p class="bb-hint">英文是英王钦定本（KJV，公有领域）。分节偶尔和和合本不同。</p>');
-      if(m==='cuv')h.push('<p class="bb-hint">和合本（上帝版，公有领域）。分段依照原文抄本的分段记号（STEPBible）。</p>');
+      if(m==='cuv')h.push('<p class="bb-hint">和合本（上帝版，公有领域）。分段依照原文抄本的分段记号（STEPBible）；诗行和小标题的位置参照 BSB（公有领域），小标题是编者拟的，不是经文。</p>');
+      if(m==='kjv'&&S.hd)h.push('<p class="bb-hint">小标题和平行经文出自 BSB（Berean Standard Bible，公有领域）。</p>');
+      h.push('<div class="bb-plb"></div>');
       var pv=prev(b,c),nx=next(b,c);
       h.push('<div class="bb-pn"><button type="button" data-go="'+(pv?pv.join('.'):'')+'" data-d="-1"'+(pv?'':' disabled')+'>'+ic('l')+'<span>'+(pv?esc(BK[pv[0]].n)+' '+pv[1]:'')+'</span></button>'+
              '<button type="button" data-go="'+(nx?nx.join('.'):'')+'" data-d="1"'+(nx?'':' disabled')+'><span>'+(nx?esc(BK[nx[0]].n)+' '+nx[1]:'')+'</span>'+ic('r')+'</button></div></div>');
       main.innerHTML=h.join('');
+      if(PLD)planBar();else if(pst())plansP().then(planBar,function(){});
       onScroll();
     }
     function prev(b,c){return c>1?[b,c-1]:b>0?[b-1,BK[b-1].nc]:null;}
@@ -231,12 +251,16 @@
     root.addEventListener('click',function(e){
       var t=e.target;
       if(t.closest('[data-close]')){closeAll();return;}
-      var g=t.closest('[data-go]');if(g&&g.dataset.go){var p=g.dataset.go.split('.');dir=+g.dataset.d||0;go(+p[0],+p[1]);return;}
+      var g=t.closest('[data-go]');if(g&&g.dataset.go){var p=g.dataset.go.split('.');
+        if(g.hasAttribute('data-xj')){jump(+p[0],+p[1],+p[2]||0);return;}   // 小标题下的平行经文：跳过去，可以再回来
+        dir=+g.dataset.d||0;go(+p[0],+p[1]);return;}
+      var pd=t.closest('[data-pdone]');if(pd){planMark(+pd.dataset.pdone,pd.dataset.pi);return;}
       var mkb=t.closest('[data-mk]');if(mkb){SEL=[+mkb.dataset.mk];paintSel();openNote();return;}
       var hb=t.closest('[data-h]');if(hb&&SEL.length){highlight(+hb.dataset.h);return;}
       var a=t.closest('[data-a]');
       if(a){var k=a.dataset.a;
         if(k==='pick')openPick();else if(k==='find')openFind();else if(k==='ver')openVer();else if(k==='set')openSet();
+        else if(k==='plan')openPlan();else if(k==='back')goBack();else if(k==='xref')openXref();
         else if(k==='unsel')unselect();else if(k==='note')openNote();else if(k==='bm')bookmark();else if(k==='copy')copy();
         else if(k==='img')shareImg();else if(k==='orgv')openOrg();else if(k==='cmpv')openCmp();else if(k==='places')openPlaces();else if(k==='clear')clearMarks();
         return;}
@@ -290,7 +314,7 @@
     sh('pick').addEventListener('click',function(e){
       var t=e.target.closest('[data-t]');if(t){pickT=t.dataset.t;pickB=-1;drawPick();return;}
       var b=e.target.closest('[data-bk]');if(b){pickB=+b.dataset.bk;if(pickB>=0&&BK[pickB].nc===1){closeAll();go(pickB,1);return;}drawPick();return;}
-      var c=e.target.closest('[data-ch]');if(c){closeAll();go(pickB,+c.dataset.ch);}
+      var c=e.target.closest('[data-ch]');if(c){closeAll();dropBack();go(pickB,+c.dataset.ch);}
     });
 
     function openVer(){
@@ -313,9 +337,44 @@
         '<div class="bb-srow"><span>行距</span>'+seg('lh',[[0,'紧凑'],[1,'标准'],[2,'宽松']],S.lh)+'</div>'+
         '<div class="bb-srow"><span>排版</span>'+seg('lay',[['para','按段落'],['verse','每节一行']],S.lay)+'</div>'+
         '<div class="bb-srow"><span>节号</span>'+seg('vn',[[1,'显示'],[0,'隐藏']],S.vn)+'</div>'+
+        '<div class="bb-srow"><span>小标题</span>'+seg('hd',[[1,'显示'],[0,'隐藏']],S.hd)+'</div>'+
         '<div class="bb-srow"><span>纸色</span>'+seg('th',[['auto','跟随系统'],['light','白天'],['sepia','护眼'],['dark','夜间']],S.sepia?'sepia':th)+'</div>'+
-        '<div class="bb-prev bb-txt"><p class="bb-p" style="margin:0"><span class="bb-v"><sup class="bb-n">1</sup>信就是所望之事的实底，是未见之事的确据。</span><span class="bb-v"><sup class="bb-n">2</sup>古人在这信上得了美好的证据。</span></p></div>';
+        '<div class="bb-prev bb-txt"><p class="bb-p" style="margin:0"><span class="bb-v"><sup class="bb-n">1</sup>信就是所望之事的实底，是未见之事的确据。</span><span class="bb-v"><sup class="bb-n">2</sup>古人在这信上得了美好的证据。</span></p></div>'+
+        '<h3 class="bb-grp" style="margin:22px 0 4px">下载到手机</h3><p class="bb-tip" style="margin:0 0 8px">下载以后，读经、换章、搜索都直接用手机里的，不再下载；网络不好时也能读（打开网站本身仍要联网）。</p><div class="bb-dls"></div>';
+      drawDl();
     }
+    /* ---------- 下载到手机（离线阅读） ---------- */
+    var PKG=[['cuv','和合本','含小标题、分段、搜索词语、读经计划',['cuv-','words','places','plans']],['xr','串珠','相关经文',['xr-']],
+             ['kjv','KJV','英文',['kjv-']],['org','原文','希伯来文、希腊文，附读音、英文和中文',['org-']]],DLING={};
+    function pkgFiles(pre){return Object.keys(IX.files).filter(function(k){return pre.some(function(p){return p.slice(-1)==='-'?k.indexOf(p)===0:k===p;});});}
+    function mb(n){return (n/1048576).toFixed(n<1048576*10?1:0)+' MB';}
+    function drawDl(){
+      var box=sh('set').querySelector('.bb-dls');if(!box)return;
+      idb('readonly',function(st){return st.getAllKeys?st.getAllKeys():null;}).then(function(keys){
+        keys=keys||[];var have={};keys.forEach(function(k){have[k]=1;});
+        box.innerHTML=PKG.map(function(p){var ks=pkgFiles(p[3]),n=ks.filter(function(k){return have[IX.files[k]];}).length,sz=ks.reduce(function(a,k){return a+((IX.sz||{})[k]||0);},0),dl=DLING[p[0]];
+          return '<div class="bb-dl"><span><b>'+p[1]+'</b><small>'+p[2]+' · 约 '+mb(sz)+'</small></span>'+
+            (dl?'<span class="bb-dlp">'+dl+'</span>':n===ks.length?'<span class="bb-dlok">'+ic('ok')+'已存好</span><button type="button" class="bb-lnk" data-dldel="'+p[0]+'">删除</button>'
+              :'<button type="button" class="bb-btn" data-dl="'+p[0]+'">'+ic('dl')+(n?'继续下载':'下载')+'</button>')+'</div>';}).join('');
+      });
+    }
+    function dlPkg(id){
+      var p=PKG.filter(function(x){return x[0]===id;})[0],ks=pkgFiles(p[3]),done=0,i=0;
+      try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
+      idb('readonly',function(st){return st.getAllKeys?st.getAllKeys():null;}).then(function(keys){
+        var have={};(keys||[]).forEach(function(k){have[k]=1;});var todo=ks.map(function(k){return IX.files[k];}).filter(function(f){return !have[f];}),N=todo.length,fail=0;
+        if(!N){drawDl();return;}
+        DLING[id]='0 / '+N;drawDl();
+        function one(){if(i>=N)return Promise.resolve();var f=todo[i++];
+          return fetch('site/bible/'+f).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){return idb('readwrite',function(st){return st.put(t,f);});},function(){fail++;})
+            .then(function(){done++;DLING[id]=done+' / '+N;var el=sh('set').querySelector('.bb-dlp');if(el&&!sh('set').hidden)drawDl();return one();});}
+        Promise.all([one(),one(),one()]).then(function(){delete DLING[id];drawDl();toast(fail?'有 '+fail+' 个文件没下载成功，请再点一次':p[1]+'已经存到手机里');});
+      });
+    }
+    function delPkg(id){var p=PKG.filter(function(x){return x[0]===id;})[0];
+      pkgFiles(p[3]).forEach(function(k){var f=IX.files[k];delete MEM[f];idb('readwrite',function(st){return st.delete(f);});});
+      setTimeout(drawDl,300);toast('已从手机里删除'+p[1]);}
+    sh('set').addEventListener('click',function(e){var a=e.target.closest('[data-dl]');if(a){dlPkg(a.dataset.dl);return;}var d=e.target.closest('[data-dldel]');if(d)delPkg(d.dataset.dldel);});
     sh('set').addEventListener('click',function(e){
       var f=e.target.closest('[data-fs]');if(f){S.fs=Math.max(0,Math.min(FS.length-1,S.fs+ +f.dataset.fs));}
       var s=e.target.closest('[data-s]');
@@ -324,7 +383,7 @@
           if(window.Q4Reader&&Q4Reader.th)Q4Reader.th(th);else{if(th==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',th);}}
         else S[k]=k==='lay'?v:+v;}
       if(!f&&!s)return;
-      saveSet();applySet();openSet();if(s&&s.dataset.s==='lay')render(C.b,C.c,topVerse());
+      saveSet();applySet();openSet();if(s&&(s.dataset.s==='lay'||s.dataset.s==='hd'))render(C.b,C.c,topVerse());
     });
 
     function openNote(){
@@ -338,7 +397,9 @@
     sh('nt').addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;var bd=sh('nt').querySelector('.bd'),k=bd.dataset.k;
       putMark(k,null,b.dataset.n==='del'?'':bd.querySelector('textarea').value.trim());closeAll();unselect();repaintMarks();toast(b.dataset.n==='del'?'已删除笔记':'已保存笔记');});
 
-    function lex(w,lx){var x=lx&&lx[w[3]];return '<div class="bb-lex"><b>'+esc(w[0])+'</b> '+esc(w[1])+' · '+esc(w[2])+(x&&x[0]?'<br>词典原形：<b>'+esc(x[0])+'</b>（'+esc(w[3])+'）'+(x[1]?' · '+esc(x[1]):''):'')+'</div>';}
+    function lex(w,lx){var x=lx&&lx[w[3]];return '<div class="bb-lex"><b>'+esc(w[0])+'</b> '+esc(w[1])+' · '+esc(w[2])+(w[4]?' · '+esc(w[4]):'')+
+      (x&&x[0]?'<br>词典原形：<b>'+esc(x[0])+'</b>（'+esc(w[3])+'）'+(x[1]?' · '+esc(x[1]):''):'')+
+      ((w.length>5?w[5]:w[4])?'<br>和合本这一节译作：'+esc(w.length>5?w[5]:w[4]):'')+(x&&x[2]?'<br>和合本常译作：'+esc(x[2]):'')+'</div>';}
     function openOrg(){
       var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','原文逐字 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
       bd.innerHTML='<p class="bb-load">正在打开原文……</p>';
@@ -386,6 +447,100 @@
         if(f&&f.dataset.ok==='1'){try{f.contentWindow.location.hash=sec;}catch(err){}return;}
         if(++tries<40)setTimeout(jump,250);})();
     });
+
+    /* ---------- 读经计划 ---------- */
+    var PLD=null,planView=0,planAsk=false;
+    function plansP(){return load(IX.files.plans).then(function(d){PLD=d;return d;});}
+    function pst(){var o=jget('bplan',null);return o&&o.id?o:null;}   // {id, s:开始日期, d:{"第几天":[读完的段落序号…]}, t:时间}
+    function savePlan(o){if(o){o.t=Date.now();set('bplan',JSON.stringify(o));}else set('bplan',JSON.stringify({id:'',t:Date.now()}));try{window.dispatchEvent(new Event('q4:bplan'));}catch(e){}}
+    function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+    function dayDate(o,k){var a=o.s.split('-');return new Date(+a[0],a[1]-1,+a[2]+k-1);}
+    function dayNo(o){var a=o.s.split('-'),st=new Date(+a[0],a[1]-1,+a[2]),n=new Date();n=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.round((n-st)/864e5)+1;}
+    function planOf(o){if(!PLD||!o)return null;for(var i=0;i<PLD.length;i++)if(PLD[i].id===o.id)return PLD[i];return null;}
+    function ilabel(it){var n=BK[it[0]].n;if(it.length>3)return n+' '+it[1]+':'+it[3]+'-'+it[4];if(BK[it[0]].nc===1)return n;return n+' '+it[1]+(it[2]>it[1]?'—'+it[2]:'')+' 章';}
+    function dayDone(o,P,k){var d=(o.d||{})[k]||[];return P.days[k-1]&&d.length>=P.days[k-1].length;}
+    function planMark(k,i){var o=pst();if(!o)return;o.d=o.d||{};var d=o.d[k]||[],j=d.indexOf(+i);
+      if(j>=0)d.splice(j,1);else d.push(+i);if(d.length)o.d[k]=d;else delete o.d[k];savePlan(o);
+      var P=planOf(o);if(P&&j<0&&dayDone(o,P,k))toast(k===dayNo(o)?'今天的经文读完了':'第 '+k+' 天读完了');
+      if(!sh('plan').hidden)drawPlan();planBar();}
+    function openPlan(){openSh('plan');sh('plan').querySelector('.bd').innerHTML='<p class="bb-load">正在打开……</p>';planAsk=false;
+      plansP().then(function(){var o=pst(),P=planOf(o);planView=P?Math.max(1,Math.min(P.days.length,dayNo(o))):0;drawPlan();},
+        function(){sh('plan').querySelector('.bd').innerHTML='<p class="bb-load">下载失败，请检查网络后再试。</p>';});}
+    function drawPlan(){
+      var bd=sh('plan').querySelector('.bd'),o=pst(),P=planOf(o),h='';
+      if(!P){
+        h='<p class="bb-tip" style="margin:0 0 12px">选一个计划，每天读一段。读完点“读完了”；进度存在这台设备上，登录账号后各设备同步。</p>';
+        PLD.forEach(function(p){h+='<div class="bb-pc"><b>'+esc(p.n)+'</b><small>'+esc(p.d)+' · 共 '+p.days.length+' 天</small><button type="button" class="bb-btn" data-pstart="'+p.id+'">从今天开始</button></div>';});
+        bd.innerHTML=h;return;
+      }
+      var D=P.days.length,today=dayNo(o),done=0,firstOpen=0;
+      for(var k=1;k<=D;k++){if(dayDone(o,P,k))done++;else if(!firstOpen&&k<today)firstOpen=k;}
+      var dt=dayDate(o,planView),items=P.days[planView-1]||[],dd=(o.d||{})[planView]||[];
+      h+='<div class="bb-ph"><b>'+esc(P.n)+'</b><small>'+(today>D?'计划已经到期':'今天是第 '+Math.max(1,today)+' 天')+' · 共 '+D+' 天 · 已读完 '+done+' 天</small>'+
+        '<div class="bb-pbar"><i style="transform:scaleX('+(done/D).toFixed(3)+')"></i></div>'+
+        (firstOpen?'<button type="button" class="bb-lnk" data-pday="'+firstOpen+'">前面还有没读完的日子，从第 '+firstOpen+' 天补读 ›</button>':'')+'</div>';
+      h+='<div class="bb-pnav"><button type="button" class="bb-ib" data-pday="'+(planView-1)+'"'+(planView>1?'':' disabled')+' aria-label="前一天">'+ic('l')+'</button>'+
+        '<span><b>第 '+planView+' 天</b>'+(dt.getMonth()+1)+' 月 '+dt.getDate()+' 日'+(planView===today?' · 今天':'')+'</span>'+
+        '<button type="button" class="bb-ib" data-pday="'+(planView+1)+'"'+(planView<D?'':' disabled')+' aria-label="后一天">'+ic('r')+'</button></div>';
+      items.forEach(function(it,i){var ok=dd.indexOf(i)>=0;
+        h+='<div class="bb-pi'+(ok?' ok':'')+'"><button type="button" class="bb-pk" data-pdone="'+planView+'" data-pi="'+i+'" aria-pressed="'+ok+'" aria-label="读完了">'+ic('ok')+'</button>'+
+          '<button type="button" class="bb-pg" data-pgo="'+planView+'.'+i+'"><b>'+esc(ilabel(it))+'</b><small>'+(ok?'读完了 · 再读一遍':'点这里开始读')+'</small></button></div>';});
+      if(dayDone(o,P,planView))h+='<p class="bb-tip" style="text-align:center">这一天的经文读完了。</p>';
+      h+=planAsk?'<div class="bb-pend"><span>结束这个计划？读过的记录会清空。</span><button type="button" class="bb-btn" data-pend="1">结束</button><button type="button" class="bb-btn ghost" data-pend="0">不结束</button></div>'
+               :'<button type="button" class="bb-lnk" data-pend="ask" style="margin-top:18px">换一个计划</button>';
+      bd.innerHTML=h;
+    }
+    sh('plan').addEventListener('click',function(e){
+      var t=e.target,x;
+      if((x=t.closest('[data-pstart]'))){savePlan({id:x.dataset.pstart,s:ymd(new Date()),d:{}});planView=1;drawPlan();planBar();toast('计划开始了：今天是第 1 天');return;}
+      if((x=t.closest('[data-pday]'))){var o=pst(),P=planOf(o);if(P){planView=Math.max(1,Math.min(P.days.length,+x.dataset.pday));drawPlan();}return;}
+      if((x=t.closest('[data-pgo]'))){var q=x.dataset.pgo.split('.'),P2=planOf(pst()),it=P2&&P2.days[+q[0]-1][+q[1]];if(!it)return;
+        planCtx=+q[0];closeAll();dropBack();go(it[0],it[1],it.length>3?it[3]:0);return;}
+      if((x=t.closest('[data-pend]'))){var v=x.dataset.pend;if(v==='ask'){planAsk=true;drawPlan();return;}if(v==='1'){savePlan(null);planAsk=false;toast('已结束这个计划');planBar();}else planAsk=false;drawPlan();}
+    });
+    // 读到计划里的一章：章末显示“读完了”
+    var planCtx=0;
+    function planBar(){
+      var el=root.querySelector('.bb-plb');if(!el)return;var o=pst(),P=planOf(o);el.innerHTML='';if(!P||C.b==null)return;
+      var D=P.days.length,ks=[];if(planCtx)ks.push(planCtx);var td=Math.max(1,Math.min(D,dayNo(o)));if(ks.indexOf(td)<0)ks.push(td);
+      for(var n=0;n<ks.length;n++){var k=ks[n],items=P.days[k-1]||[];
+        for(var i=0;i<items.length;i++){var it=items[i];if(it[0]!==C.b||C.c<it[1]||C.c>it[2])continue;
+          if(it.length<=3&&C.c<it[2]){                    // 跨几章的一段：读到最后一章再打勾，前面几章只提示接着读
+            el.innerHTML='<div class="bb-plc"><span><small>读经计划 · 第 '+k+' 天</small>'+esc(ilabel(it))+'</span>'+
+              '<button type="button" class="bb-btn ghost" data-go="'+C.b+'.'+(C.c+1)+'" data-d="1">接着读第 '+(C.c+1)+' 章</button></div>';return;}
+          var ok=((o.d||{})[k]||[]).indexOf(i)>=0;
+          el.innerHTML='<div class="bb-plc'+(ok?' ok':'')+'"><span><small>读经计划 · 第 '+k+' 天</small>'+esc(ilabel(it))+'</span>'+
+            '<button type="button" class="bb-btn'+(ok?' ghost':'')+'" data-pdone="'+k+'" data-pi="'+i+'">'+ic('ok')+(ok?'已读完':'读完了')+'</button></div>';return;}}
+    }
+
+    /* ---------- 跳到别处，再回来（串珠、平行经文、搜索结果） ---------- */
+    var backTo=null,backEl=$('.bb-backp');
+    function jump(b,c,v){
+      if(C.b!=null&&!(b===C.b&&c===C.c))backTo={b:C.b,c:C.c,v:SEL.length?Math.min.apply(null,SEL):topVerse()};
+      closeAll();unselect();go(b,c,v);showBack();
+    }
+    function showBack(){if(!backTo){backEl.hidden=true;return;}backEl.querySelector('span').textContent='回到 '+ab(backTo.b)+backTo.c+(backTo.v>1?':'+backTo.v:'');backEl.hidden=false;}
+    function goBack(){var t=backTo;backTo=null;backEl.hidden=true;if(t)go(t.b,t.c,t.v>1?t.v:0);}
+    function dropBack(){if(backTo){backTo=null;backEl.hidden=true;}}
+
+    /* ---------- 串珠（相关经文） ---------- */
+    function rlabel(r){return ab(r[0])+r[1]+':'+r[2]+(r[3]&&r[3]!==r[2]?'-'+r[3]:'');}
+    function openXref(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','串珠 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在查找……</p>';
+      load(files(b).xr).then(function(X){
+        var seen={},refs=[];
+        vs.forEach(function(v){(X[c+'.'+v]||[]).forEach(function(r){var k=r.join('.');if(!seen[k]){seen[k]=1;refs.push(r);}});});
+        if(!refs.length){bd.innerHTML='<p class="bb-tip">这一节没有收录相关经文。</p>';return;}
+        bd.innerHTML=refs.map(function(r,i){return '<button type="button" class="bb-xr" data-xr="'+r.slice(0,3).join('.')+'"><em>'+esc(rlabel(r))+'</em><span data-xt="'+i+'" class="bb-tip">……</span></button>';}).join('')+
+          '<p class="bb-tip" style="margin-top:12px">按相关程度排列。串珠数据：OpenBible.info（CC BY），由读者投票整理。点一条，打开那一节；看完点上面的“回到”，回到这里。</p>';
+        var need={};refs.forEach(function(r){need[r[0]]=1;});
+        Object.keys(need).forEach(function(bb){load(files(+bb).cuv).then(function(cu){refs.forEach(function(r,i){if(r[0]!==+bb)return;
+          var chv=cu.v[r[1]-1]||[],t=[];for(var v=r[2];v<=(r[3]||r[2]);v++)if(chv[v-1])t.push(chv[v-1]);
+          var el=bd.querySelector('[data-xt="'+i+'"]');if(el){var x=t.join('');el.textContent=x.length>90?x.slice(0,88)+'……':x;el.className='';}});},function(){});});
+      },function(){bd.innerHTML='<p class="bb-load">下载失败，请检查网络后再试。</p>';});
+    }
+    sh('det').addEventListener('click',function(e){var x=e.target.closest('[data-xr]');if(!x)return;var p=x.dataset.xr.split('.');jump(+p[0],+p[1],+p[2]);});
 
     /* ---------- 搜索 ---------- */
     var WORDS=null,ALL=null,KALL=null,lastQ='';
@@ -470,7 +625,7 @@
       box.innerHTML=h;
     }
     res.addEventListener('click',function(e){
-      var r=e.target.closest('[data-ref]');if(r){rememberQ(inp.value);var p=r.dataset.ref.split('.');closeAll();go(+p[0],+p[1],+p[2]);return;}
+      var r=e.target.closest('[data-ref]');if(r){rememberQ(inp.value);var p=r.dataset.ref.split('.');jump(+p[0],+p[1],+p[2]);return;}
       var q=e.target.closest('[data-q]');if(q){inp.value=q.dataset.q;showRes(q.dataset.q);return;}
       var k=e.target.closest('[data-kjv]');if(k){rememberQ(k.dataset.kjv);res.innerHTML='<div class="bb-full"><p class="bb-grp">KJV 经文</p><p class="bb-tip">正在查找……</p></div>';fullText(k.dataset.kjv,'kjv');return;}
       var m=e.target.closest('[data-moreq]');if(m){fullText(m.dataset.moreq,m.dataset.kind,+m.dataset.lim);return;}
@@ -485,6 +640,7 @@
 
     /* ---------- 别处改了划线（账号同步） ---------- */
     window.addEventListener('q4:bmarks-sync',function(){if(C.b!=null&&visible())repaintMarks();});
+    window.addEventListener('q4:bplan',function(){if(C.b!=null&&PLD)planBar();});
     window.addEventListener('pagehide',function(){if(visible())savePos();});
 
     /* ---------- 开始 ---------- */
