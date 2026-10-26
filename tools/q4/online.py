@@ -47,5 +47,5 @@ h = h.replace('</head>', '<script>' + boot + '</script>\n</head>', 1)
 open(os.path.join(root, 'index.html'), 'w', encoding='utf-8').write(h)
 keep = set(re.findall(r'site/[0-9a-f]{10}\.\w+', h))
 for f in os.listdir(os.path.join(root, 'site')):
-    if f'site/{f}' not in keep: os.remove(os.path.join(root, 'site', f))
+    if f'site/{f}' not in keep and os.path.isfile(os.path.join(root, 'site', f)): os.remove(os.path.join(root, 'site', f))   # site/bible 等文件夹不动
 print('index.html', len(h.encode()), sorted(keep))

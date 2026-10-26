@@ -1751,6 +1751,7 @@ window.Q4Hub=(function(){
     noteKeys().forEach(function(k){m['n:'+k]=get(k)||'';});
     Object.keys(ACTS).forEach(function(l){var on=ACTS[l].filter(function(k){return get(k)==='1';});m['a:'+l]=on.length?JSON.stringify(on):'';});
     if(withResume)m.r=get('resume')||'';
+    if(withResume){var tp={};try{tp=JSON.parse(get('tpos')||'{}')||{};}catch(e){}var tk=Object.keys(tp).sort();m.tp=tk.length?JSON.stringify(tk.reduce(function(o,k){o[k]=tp[k];return o;},{})):'';}   // 问题彩蛋读到哪里（2026-10-26）
     if(window.Q4Marks){Q4Marks.lessons().forEach(function(L){m['h:'+L]=Q4Marks.raw(L);});Object.keys(VS).forEach(function(k){if(k.indexOf('h:')===0&&m[k]==null)m[k]='';});}   // 划线与笔记（每课一项）
     var ck=lsKeys('ck:').filter(function(k){return get('ck:'+k)==='1';});m.c=ck.length?JSON.stringify(ck):'';   // 读完打卡
     var g=list(get('goals')).sort();m.g=g.length?JSON.stringify(g):'';   // 达到研读目标的周
@@ -1779,6 +1780,10 @@ window.Q4Hub=(function(){
       if(window.Q4Comm)Q4Comm.paint();
     }else if(k.indexOf('h:')===0){   // 划线与笔记：按每条标记合并
       if(window.Q4Marks)Q4Marks.merge(k.slice(2),v);
+    }else if(k==='tp'){   // 问题彩蛋读到哪里：每篇取较新的那一份
+      var lo={},ro={};try{lo=JSON.parse(get('tpos')||'{}')||{};}catch(e){}try{ro=JSON.parse(v||'{}')||{};}catch(e){}
+      Object.keys(ro).forEach(function(pg){if(!lo[pg]||ro[pg][2]>lo[pg][2])lo[pg]=ro[pg];});
+      set('tpos',JSON.stringify(lo));
     }else if(k==='g'){
       set('goals',JSON.stringify(union(list(get('goals')),list(v))));
       if(window.Q4Week)Q4Week.paint();
@@ -1822,7 +1827,7 @@ window.Q4Hub=(function(){
         if(k!=='tm:'+DID){try{OTHERS[k]=JSON.parse(r.v||'null');}catch(e){}}
         if(!st||r.t>st.t)VS[k]={h:fnv(r.v),t:r.t,n:r.n};return;
       }
-      if(k==='c'||k==='g'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
+      if(k==='c'||k==='g'||k==='tp'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
       if(st&&r.t<=st.t)return;   // 已经是最新
       var localEdited=st?fnv(lv)!==st.h:(!first&&lv!=='');
       if(localEdited&&st&&st.lt&&st.lt>r.t)return;   // 两边都改了：本机的更新，稍后上传
@@ -1836,7 +1841,7 @@ window.Q4Hub=(function(){
     Object.keys(cur).forEach(function(k){
       var v=cur[k],h=fnv(v),st=VS[k];
       if(!st&&!v)return;if(st&&st.h===h)return;
-      if(k==='r'&&!withResume)return;
+      if((k==='r'||k==='tp')&&!withResume)return;
       jobs.push({k:k,v:v,t:now,old:(st&&st.n)||0});
       VS[k]={h:h,t:now,n:Math.max(1,Math.ceil(v.length/CHUNK)),lt:now,pending:1};
     });
@@ -2327,6 +2332,7 @@ window.Q4Hub=(function(){
       f.src=x.href;FR[id]=f;OV.appendChild(f);
     }
     OV.classList.toggle('ok',FR[id].dataset.ok==='1');
+    if(FR[id].dataset.ok==='1')try{FR[id].contentWindow.postMessage({q4:'shown'},location.origin);}catch(e){}   // 告诉专题页“又打开了”：它会回到上次读到的地方（2026-10-26）
     on=id;OV.hidden=false;de.classList.add('tovon');
     if(T0===null)T0=document.title;
     if(x.title)document.title=x.title+' · 问题彩蛋';
