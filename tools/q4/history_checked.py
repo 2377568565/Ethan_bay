@@ -466,4 +466,44 @@ CHECKED = {
  'dm_tonstad09': ('https://doi.org/10.2337/dc08-1886', 'live'),   # PubMed 核对摘要（2026-10-26）
  'dm_reynolds16': ('https://doi.org/10.1007/s00125-016-4085-2', 'live'),   # PubMed 核对摘要（2026-10-26）
  'dm_colberg16': ('https://doi.org/10.2337/dc16-1728', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_wang18': ('https://doi.org/10.1161/CIRCULATIONAHA.117.032380', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_lu17': ('https://doi.org/10.1016/S0140-6736(17)32478-9', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_lewington02': ('https://doi.org/10.1016/s0140-6736(02)11911-8', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_hall12': ('https://doi.org/10.1002/cphy.c110058', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_franklin97': ('https://doi.org/10.1161/01.cir.96.1.308', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_vasan02': ('https://doi.org/10.1001/jama.287.8.1003', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_gurven12': ('https://doi.org/10.1161/HYPERTENSIONAHA.111.189100', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_intersalt': ('https://doi.org/10.1136/bmj.297.6644.319', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_zhang20': ('https://doi.org/10.2196/15933', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_he22': ('https://doi.org/10.1136/bmj-2021-066982', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_tan19': ('https://doi.org/10.1136/bmjopen-2018-025623', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_he13': ('https://doi.org/10.1136/bmj.f1325', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_he20': ('https://doi.org/10.1016/j.jacc.2019.11.055', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_neter03': ('https://doi.org/10.1161/01.HYP.0000094221.86888.AE', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_roerecke17': ('https://doi.org/10.1016/S2468-2667(17)30003-8', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_peppard00': ('https://doi.org/10.1056/NEJM200005113421901', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_brook13': ('https://doi.org/10.1161/HYP.0b013e318293645f', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_brown20': ('https://doi.org/10.7326/M20-0065', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_xu20': ('https://doi.org/10.1016/j.jacc.2020.02.052', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_ettehad16': ('https://doi.org/10.1016/S0140-6736(15)01225-8', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_bplttc21': ('https://doi.org/10.1016/S0140-6736(21)00590-0', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_beckett08': ('https://doi.org/10.1056/NEJMoa0801369', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_zhang21': ('https://doi.org/10.1056/NEJMoa2111437', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_sprint15': ('https://doi.org/10.1056/NEJMoa1511939', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_liu25': ('https://doi.org/10.1038/s41440-024-02070-2', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_sheppard20': ('https://doi.org/10.1001/jama.2020.4871', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_qiao22': ('https://doi.org/10.19540/j.cnki.cjcmm.202206024.501', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_meng22': ('https://doi.org/10.1016/j.phymed.2022.154459', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_fan21': ('https://doi.org/10.19540/j.cnki.cjcmm.20200712.501', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_appel97': ('https://doi.org/10.1056/NEJM199704173361601', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_sacks01': ('https://doi.org/10.1056/NEJM200101043440101', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_aburto13': ('https://doi.org/10.1136/bmj.f1378', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_cornelissen13': ('https://doi.org/10.1161/JAHA.112.004473', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_edwards23': ('https://doi.org/10.1136/bjsports-2022-106503', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_neal21': ('https://doi.org/10.1056/NEJMoa2105675', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_whelton98': ('https://doi.org/10.1001/jama.279.11.839', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_pettersen12': ('https://doi.org/10.1017/S1368980011003454', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_yokoyama14': ('https://doi.org/10.1001/jamainternmed.2013.14547', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_buettner25': ('https://doi.org/10.1177/15598276251334310', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'ht_candal25': ('https://doi.org/10.14336/AD.2025.0461', 'live'),   # PubMed 核对摘要（2026-10-26）
 }
