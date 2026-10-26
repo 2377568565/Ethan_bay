@@ -123,9 +123,12 @@ def chius():
     send('cuva', per)
 
 
-for f in (bsb, chius):
-    try:
-        f()
-    except Exception as e:
-        import traceback
-        post(f.__name__ + '-err', traceback.format_exc()[-3000:])
+def chizip():   # 第二次：只把 ChiUns 模块原样存下来，在容器里处理
+    url = 'https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/ChiUns.zip'
+    r = requests.get(url, headers=UA, timeout=120)
+    print(url, r.status_code, len(r.content), flush=True)
+    if r.status_code == 200:
+        open(os.path.join(OUTD, 'ChiUns.zip'), 'wb').write(r.content)
+
+
+chizip()
