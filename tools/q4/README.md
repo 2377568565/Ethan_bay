@@ -368,3 +368,9 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
 - 切换动效：`route()` 和 `turnTo()` 用 `document.startViewTransition`；被点的课名临时取名 `q4t`，平滑移到新页的课名上（`vtDest()`）。不支持时退回 `.pgin` 淡入。
 - 测试时注意：手机往下读时标签栏会收起（`html.tbhide`），要先往上滑一下再点。
 
+
+## “圣经”栏目（2026-10-26，小样阶段）
+- `biblesite.py`：把和合本（上帝版）、KJV、原文（STEPBible TAHOT/TAGNT）按卷拆成 `site/bible/cuv-NN / kjv-NN / org-NN-哈希.json`，另生成搜索词语表 `words-哈希.json`（和合本用 jieba 分词，pypinyin 出拼音首字母和全拼）和清单 `index-哈希.json`。诗篇标题（STEPBible 记作第 0 节）接在第 1 节前面。
+  jieba 在这个容器里装不上（要编译）：`pip download jieba` 后解压，用 `JIEBA_SRC=解压目录` 运行。
+- `biblepage.py` + `bible.js`：阅读页 `bible.html`。版本开关（和合本 / KJV / 原文 / 对照）、选书卷和章、点经文的菜单、左右滑动换章、字号；搜索认出处（来11:1、xbl11:1、Heb 11:1、犹5）、书卷（拼音首字母、全拼、简称、英文）、人名地名和词语、全文（异体字“借/藉”“祂/他”通搜）、KJV 英文。
+- 数据存在手机的 IndexedDB “q4bible”（和网站的 q4keep 分开，免得被它清掉）。
