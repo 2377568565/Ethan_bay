@@ -220,10 +220,10 @@ var q4keep=(function(){
   var home=document.getElementById('home'),cur=null,W=document.getElementById('welcome');
   var T0=document.title;
   function route(){
-    var h=decodeURIComponent(location.hash.slice(1)),m=/^(l\d+|qa\d*|ask|music|bible)(?:-|$)/.exec(h);
-    // 独立网页的问题彩蛋（#qa3 等）在浮层里打开，下面垫着问题彩蛋列表
+    var h=decodeURIComponent(location.hash.slice(1)),m=/^(l\d+|qa\d*|ask|music|bible|health|h\d+)(?:-|$)/.exec(h);
+    // 独立网页的问题彩蛋（#qa3 等）在浮层里打开，下面垫着问题彩蛋列表；健康栏目的文章（#h1 等，2026-10-26）下面垫着健康列表
     var ext=m&&!document.getElementById(m[1])&&document.querySelector('a[data-art="'+m[1]+'"][href$=".html"]');
-    var want=(m&&document.getElementById(m[1]))||(ext&&document.getElementById('qa'))||home;
+    var want=(m&&document.getElementById(m[1]))||(ext&&document.getElementById(/^h\d/.test(m[1])?'health':'qa'))||home;
     if(cur===want)return;
     var first=!cur,t=(m&&h!==m[1])?document.getElementById(h):null;
     document.title=(want.dataset&&want.dataset.title)||T0;
@@ -2347,15 +2347,16 @@ window.Q4Hub=(function(){
     for(var k in FR)FR[k].hidden=(k!==id);
     if(!FR[id]){
       var f=document.createElement('iframe');f.className='tov-f';f.title=x.title||'问题彩蛋';f.setAttribute('allow','clipboard-write; web-share');
-      f.addEventListener('load',function(){f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · 问题彩蛋$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+' · 问题彩蛋';}});
+      f.addEventListener('load',function(){f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · (问题彩蛋|健康)$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+suf(id);}});
       f.src=x.href;FR[id]=f;OV.appendChild(f);
     }
     OV.classList.toggle('ok',FR[id].dataset.ok==='1');
     if(FR[id].dataset.ok==='1')try{FR[id].contentWindow.postMessage({q4:'shown'},location.origin);}catch(e){}   // 告诉专题页“又打开了”：它会回到上次读到的地方（2026-10-26）
     on=id;OV.hidden=false;de.classList.add('tovon');
     if(T0===null)T0=document.title;
-    if(x.title)document.title=x.title+' · 问题彩蛋';
+    if(x.title)document.title=x.title+suf(id);
   }
+  function suf(id){return /^h\d/.test(id)?' · 健康':' · 问题彩蛋';}
   function close(){if(!OV||OV.hidden)return;OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}}
   function prefetch(){   // 在问题彩蛋列表停留时，先把专题网页悄悄下载好，点进去更快
     if(pf)return;pf=true;
@@ -2364,7 +2365,7 @@ window.Q4Hub=(function(){
   function sync(){
     var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];
     if(EXT[h])open(h);else close();
-    if(h==='qa')prefetch();
+    if(h==='qa'||h==='health')prefetch();
   }
   document.addEventListener('click',function(e){
     if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;

@@ -1,0 +1,1226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>糖尿病，真的只能吃一辈子药吗？ · 健康</title>
+<meta name="description" content="为什么年纪大了容易得糖尿病、血糖容易升高？降糖药治的是什么？2 型糖尿病能不能缓解、怎样预防？从血糖的生理、衰老的变化讲起，结合大庆研究、DPP、DiRECT 等研究（都在 PubMed 核对过）">
+<script>try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}try{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
+[hidden]{display:none!important}
+:root{
+  --paper:#F5F1E8;--surface:#FFFDF8;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--link:#3D5672;--gold:#9A742C;--gold-soft:#F3E9D2;--band:#EFE9DD;
+  --c0:#8A8F9C;--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;
+  --c6-soft:#F7E8EB;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}
+.f0{--c:var(--c0)}.f1{--c:var(--c1)}.f2{--c:var(--c2)}.f3{--c:var(--c3)}.f4{--c:var(--c4)}.f5{--c:var(--c5)}.f6{--c:var(--c6)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+p{margin:0 0 .9em}
+a{color:var(--link)}
+b,strong{font-weight:650}
+h1,h2,h3,h4,h5{line-height:1.4;margin:0}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:8px 16px;padding-top:max(8px,env(safe-area-inset-top));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .back{color:var(--accent);text-decoration:none;font-size:.9rem;white-space:nowrap}
+.bar .bt{flex:1;text-align:center;font-weight:650;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .aa,.btn{font:inherit;font-size:.86rem;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+.btn.sm{font-size:.82rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+main{max-width:720px;margin:0 auto;min-width:0}
+.toc-side{display:none}
+@media (min-width:1080px){
+  .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px}
+  .toc-side{display:block;position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:20px 0 40px;font-size:.86rem}
+  .fab-toc,.toc-in{display:none}
+}
+/* 封面 */
+.hero{padding:28px 0 8px}
+.eyebrow{color:var(--accent);font-size:.82rem;letter-spacing:.06em;margin:0 0 6px}
+.hero h1{font-family:var(--serif);font-size:2.1rem;letter-spacing:.04em;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.82rem;margin:0 0 12px}
+.hsub{font-size:1.06rem;color:var(--ink-2);margin:0 0 18px}
+.answer{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:16px 16px 6px;margin:0 0 16px}
+.lab{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin:0 0 6px}
+.lineage{list-style:none;margin:6px 0 14px;padding:0}
+.lineage li{position:relative;padding:0 0 12px 26px}
+.lineage li::before{content:"";position:absolute;left:6px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--surface)}
+.lineage li::after{content:"";position:absolute;left:11px;top:20px;bottom:-6px;width:2px;background:var(--rule)}
+.lineage li:last-child::after{display:none}
+.lineage .ly{display:block;font-size:.76rem;line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}
+.lineage b{font-size:.98rem}
+.lineage small{display:block;color:var(--muted);font-size:.82rem;line-height:1.5}
+.lineage li.f6 b{color:var(--c6)}
+.howto{font-size:.88rem;color:var(--ink-2);background:var(--gold-soft);border-radius:12px;padding:10px 14px}
+.howto span{font-weight:650}
+/* 目录 */
+.toc-in{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px 16px 8px;margin:8px 0 8px}
+.toc-in h2{font-size:1rem;margin:0 0 6px}
+.toc-l,.toc-l ol{list-style:none;margin:0;padding:0}
+.toc-l>li{margin:0 0 8px}
+.tp{display:block;font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:6px 0 2px}
+.toc-l a{display:flex;gap:8px;padding:4px 6px;border-radius:8px;color:var(--ink);text-decoration:none;line-height:1.5}
+.toc-l a:hover{background:var(--band)}
+.toc-l a.on{background:var(--accent-soft);color:var(--accent);font-weight:650}
+.toc-l .tn{flex:none;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.86em;padding-top:.08em}
+.tsh{font-weight:700;font-size:.9rem;margin:0 0 8px}
+.tsrc a{color:var(--accent);text-decoration:none;font-size:.9rem}
+/* 部分、章 */
+.part{margin:48px 0 0;padding:18px 0 0;border-top:2px solid var(--ink)}
+.part span{display:block;font-size:.8rem;letter-spacing:.14em;color:var(--accent);font-weight:700}
+.part b{font-family:var(--serif);font-size:1.5rem}
+.ch{padding:26px 0 8px;scroll-margin-top:56px}
+.ch h2{font-family:var(--serif);font-size:1.42rem;display:flex;gap:10px;align-items:baseline;margin:0 0 14px}
+.ch h2 .no{flex:none;font-family:var(--sans);font-size:.8rem;font-weight:700;color:var(--surface);background:var(--accent);border-radius:6px;padding:1px 7px;transform:translateY(-3px)}
+.ch h3{font-size:1.1rem;margin:22px 0 8px;scroll-margin-top:56px}
+.ch ul,.ch ol{padding-left:1.3em;margin:0 0 1em}
+.ch li{margin:0 0 .4em}
+.xref{color:var(--link);text-decoration:none;border-bottom:1px dashed currentColor}
+/* 出处小数字 */
+.cite{display:inline-block;min-width:1.45em;height:1.45em;line-height:1.45em;margin:0 1px;padding:0 3px;border-radius:5px;font-size:.66em;font-weight:700;text-align:center;vertical-align:.45em;text-decoration:none;color:var(--accent);background:var(--accent-soft);font-variant-numeric:tabular-nums}
+.cite:target,.cite.flash{outline:2px solid var(--accent)}
+/* 经文 */
+.verse{margin:12px 0 16px;padding:10px 14px 10px 16px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0}
+.verse p{font-family:var(--serif);font-size:1.02rem;margin:0 0 2px}
+.verse sup{font-family:var(--sans);font-size:.65em;color:var(--gold);margin:0 2px 0 4px}
+.verse cite{display:block;text-align:right;font-style:normal;font-size:.8rem;color:var(--gold)}
+/* 提示框 */
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.box.sda{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.sda .lab{color:var(--c6)}
+.keys{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+.keys ol{padding-left:1.2em}
+.note2{font-size:.82rem;color:var(--muted)}
+.cap{font-size:.84rem;color:var(--muted);margin:-4px 0 18px}
+/* 图 */
+.fig{margin:14px -12px 10px;padding:12px 6px;background:var(--surface);border:1px solid var(--rule);border-radius:16px}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (min-width:600px){.fig{margin:16px 0 10px;padding:16px}}
+.dg{font-family:var(--sans)}
+.dg .band0{fill:var(--band)}.dg .band1{fill:none}
+.dg .tb{font-size:9px;fill:var(--muted);letter-spacing:.04em}
+.dg .ln{fill:none;stroke:var(--c);stroke-width:5;stroke-linecap:round}
+.dg .dot{fill:var(--surface);stroke:var(--ink);stroke-width:1.8}
+.dg .root{fill:var(--ink)}
+.dg .ty{font-weight:800;fill:var(--ink-2)}
+.dg .tn{font-size:11px;font-weight:650;fill:var(--ink)}
+.dg .tn.hi{font-weight:800}
+.dg .ts{font-size:9px;fill:var(--muted)}
+.dg .tw{font-size:9px;fill:var(--ink-2)}
+.dg .ax{stroke:var(--muted);stroke-width:1;fill:none}
+.dg .ta{font-size:9px;fill:var(--muted)}
+.dg .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.dg .cn{stroke:var(--c);stroke-width:1.6;fill:none}
+.dg .bar{stroke:var(--c);stroke-width:7;stroke-linecap:round;fill:none}
+.dg .bar.hi{stroke-width:10}
+.dg .dash{stroke-dasharray:4 4}
+.dg .bar.dash{stroke-dasharray:6 4;stroke-width:6;stroke-linecap:butt}
+.dg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.dg .flow{fill:none;stroke:var(--rule);stroke-width:1.6}
+.dg .box{fill:var(--paper);stroke:var(--rule);stroke-width:1}
+.dg .fillc{fill:var(--c);stroke:none}
+.dg .tnode{font-size:13px;font-weight:800;fill:#fff}
+.dg .tnode2{font-size:11px;font-weight:600;fill:#fff;opacity:.92}
+/* 六个原因、三项发现、七个独特之处 */
+.causes,.disc3{display:grid;gap:10px;margin:12px 0 16px}
+@media (min-width:600px){.causes{grid-template-columns:1fr 1fr}}
+.cause,.disc3>div,.dist .d{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 4px}
+.cause h4,.disc3 h4,.dist h4{font-size:1rem;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.cause p{font-size:.92rem}
+.cause .eg{font-size:.8rem;color:var(--accent);margin:-4px 0 8px}
+.ci{flex:none;display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:var(--surface);font-size:.78rem;font-weight:700}
+.cause .ci,.disc3 .ci{position:absolute;top:12px;right:12px}
+.disc3>div{border-left:4px solid var(--c6)}
+.disc3 .ci{background:var(--c6)}
+.dist{display:grid;gap:12px;margin:12px 0}
+.dist .d{border-top:4px solid var(--c6)}
+.dist .ci{background:var(--c6)}
+.dist .also{font-size:.84rem;color:var(--muted)}
+/* 年份步骤 */
+.steps{list-style:none;padding:0!important;margin:12px 0 16px!important;border-left:2px solid var(--rule)}
+.steps li{position:relative;padding:0 0 4px 16px;margin:0 0 10px!important}
+.steps li::before{content:"";position:absolute;left:-6px;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.steps .yr{display:inline-block;font-weight:700;color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+/* 小表格 */
+.mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top;min-width:4.5em}
+.mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
+/* 年表 */
+.tl{margin:10px 0}
+.era{position:relative;padding:0 0 6px 18px;border-left:3px solid var(--rule)}
+.era.era-f{border-left-color:var(--c6)}
+.era h4{font-size:.98rem;margin:0 0 6px;padding-top:6px}
+.era h4 small{font-weight:400;color:var(--muted);font-size:.8rem;margin-left:8px}
+.era h4::before{content:"";position:absolute;left:-8px;margin-top:.45em;width:13px;height:13px;border-radius:50%;background:var(--ink)}
+.era.era-f h4::before{background:var(--c6)}
+.era ol{list-style:none;padding:0!important;margin:0 0 12px!important}
+.era li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;font-size:.92rem;line-height:1.7;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.era li:last-child{border-bottom:0}
+.era .y{font-variant-numeric:tabular-nums;color:var(--accent)}
+.era.era-f .y{color:var(--c6)}
+/* 教派名片 */
+.dn-tools{text-align:right;margin:0 0 8px}
+.dns{display:grid;gap:10px}
+.dn{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:14px}
+.dn summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative}
+.dn summary::-webkit-details-marker{display:none}
+.dn summary::after{content:"＋";position:absolute;right:14px;top:12px;color:var(--muted);font-weight:700}
+.dn[open] summary::after{content:"－"}
+.dn-fam{display:inline-block;font-size:.72rem;font-weight:700;color:var(--ink-2);border:1px solid var(--c);border-radius:999px;padding:0 8px;margin-right:8px;vertical-align:.12em}
+.dn-n{font-weight:700;font-size:1.06rem}
+.dn-w{display:block;color:var(--muted);font-size:.84rem;line-height:1.6;margin-top:2px}
+.dn-b{padding:0 14px 10px;font-size:.93rem}
+.dn-m{margin:0 0 4px}.dn-m b{display:inline-block;min-width:5em;color:var(--muted);font-weight:600}
+.dn h5{font-size:.88rem;margin:12px 0 4px}
+.dn ul{margin:0 0 6px;padding-left:1.2em}
+.dn-cmp{display:grid;gap:8px;margin-top:8px}
+@media (min-width:600px){.dn-cmp{grid-template-columns:1fr 1fr}}
+.dn-cmp>div{border-radius:10px;padding:2px 12px 6px}
+.dn-cmp .same{background:color-mix(in srgb,var(--c1) 10%,transparent)}
+.dn-cmp .diff{background:var(--c6-soft)}
+.dn-cmp .same h5{color:var(--c1)}.dn-cmp .diff h5{color:var(--c6)}
+.dn-src{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+#d-sda{border-color:color-mix(in srgb,var(--c6) 50%,var(--rule));border-left-color:var(--c6)}
+/* 对照 */
+.vs{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:12px 12px 4px;margin:12px 0 18px}
+.vs-pick{display:block;font-size:.9rem;margin:0 0 10px}
+.vs-pick span{display:block;color:var(--ink-2);margin-bottom:4px}
+.vs-pick select{font:inherit;font-size:1rem;padding:6px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+.vs-t{width:100%;border-collapse:collapse;font-size:.88rem;table-layout:fixed}
+.vs-t th,.vs-t td{padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6}
+.vs-t tbody th{width:4.6em;color:var(--muted);font-weight:600;font-size:.82rem}
+.vs-t thead th{font-size:.86rem}
+.vs-t .s{background:var(--c6-soft)}
+.vs-t thead .s{color:var(--c6)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:14px;background:var(--surface);margin:8px 0 6px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:.84rem;min-width:1060px}
+.cmp th,.cmp td{padding:8px 8px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6;width:115px}
+.cmp thead th{background:var(--band);font-size:.82rem;white-space:nowrap}
+.cmp .c0{position:sticky;left:0;z-index:1;background:var(--surface);width:76px;min-width:76px;box-shadow:1px 0 0 var(--rule);font-weight:650}
+.cmp thead .c0{background:var(--band)}
+.cmp .s{background:var(--c6-soft)}
+.cmp thead .s{color:var(--c6)}
+/* 光谱 */
+.specs{display:grid;gap:10px;margin:10px 0}
+.spec{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 10px 8px}
+.spec figcaption{font-weight:700;font-size:.96rem;margin:0 4px 2px}
+.sp-ends{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--muted);margin:0 4px 0}
+.spec svg{display:block;width:100%;height:auto}
+.dg .trk{stroke:var(--rule);stroke-width:4;stroke-linecap:round}
+.dg .ldr{stroke:var(--muted);stroke-width:1}
+.dg .sp-d{fill:var(--ink-2);stroke:var(--surface);stroke-width:2}
+.dg .sp-s{fill:var(--c6);stroke:var(--surface);stroke-width:2}
+.dg .sp-t{font-size:11px;fill:var(--ink-2)}
+.dg .sp-ts{font-size:11.5px;font-weight:800;fill:var(--ink)}
+/* 组织 */
+.org{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.org ol{list-style:none;padding:0!important;margin:6px 0 12px!important;display:grid;gap:6px}
+.org li{background:var(--c6-soft);border-radius:10px;padding:6px 12px;margin:0!important;position:relative}
+.org li:nth-child(1){margin:0 0 0 0!important}.org li:nth-child(2){margin-left:10px!important}.org li:nth-child(3){margin-left:20px!important}.org li:nth-child(4){margin-left:30px!important}.org li:nth-child(5){margin-left:40px!important}
+.org b{color:var(--c6)}.org small{display:block;color:var(--ink-2);font-size:.8rem;line-height:1.5}
+/* 图表 */
+.chart{margin:14px 0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 8px}
+.chart figcaption b{display:block;font-size:.96rem}
+.chart figcaption small{display:block;color:var(--muted);font-size:.78rem;line-height:1.55;margin:2px 0 10px}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:6.4em 1fr auto;align-items:center;gap:8px;font-size:.86rem}
+.bl{line-height:1.3}
+.bt{display:flex;align-items:center;gap:6px;min-width:0}
+.bt i{display:block;height:14px;min-width:4px;background:var(--c);border-radius:0 4px 4px 0}
+.bt em{font-style:normal;font-size:.8rem;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* 人物 */
+.ppl{display:grid;gap:12px}
+.pe{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 2px}
+.pe.era-f{border-top:4px solid var(--c6)}
+.pe h4{font-size:.98rem;margin:0 0 6px}
+.pe ul{list-style:none;padding:0!important;margin:0!important}
+.pe li{padding:7px 0;border-top:1px dashed var(--rule);margin:0!important}
+.pe li:first-child{border-top:0}
+.pn{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0}
+.pn span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pr{font-size:.88rem;color:var(--ink-2);margin:0}
+/* 常见问题 */
+.faq{display:grid;gap:8px;margin:10px 0}
+.faq details{background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.faq summary{cursor:pointer;padding:10px 36px 10px 14px;font-weight:650;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:12px;top:10px;color:var(--muted)}
+.faq details[open] summary::after{content:"－"}
+.faq details>div{padding:0 14px 4px;font-size:.94rem}
+/* 人物特写 */
+.prof{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--c);border-radius:16px;padding:14px 16px 4px;margin:0 0 18px}
+.pf-n{font-family:var(--serif);font-size:1.45rem;font-weight:700;line-height:1.35;margin:0 0 2px}
+.pf-n small{display:block;font-family:var(--sans);font-size:.8rem;font-weight:400;color:var(--muted)}
+.pf-y{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin:0 0 8px;padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.pf-s{font-size:.96rem}
+.quote{margin:12px 0 16px;padding:12px 16px;background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.quote p{font-family:var(--serif);font-size:1.03rem;margin:0 0 6px}
+.quote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+.box .quote{background:var(--paper)}
+.mini.two td:first-child{white-space:nowrap;color:var(--muted);font-weight:600;font-size:.82rem}
+.box .mini{background:var(--paper)}
+/* 怀爱伦引文 */
+.egw{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--rule)}
+.egw p{font-family:var(--serif);font-size:1.04rem}
+.egw cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+/* 资料 */
+.srcs{padding-left:2.2em!important;font-size:.86rem}
+.srcs li{margin:0 0 10px!important;line-height:1.6;scroll-margin-top:60px}
+.srcs li:target{background:var(--accent-soft);border-radius:8px}
+.sk{display:inline-block;font-size:.7rem;font-weight:700;border-radius:4px;padding:0 5px;margin-right:6px;background:var(--band);color:var(--ink-2)}
+.su{display:inline-block;margin-left:6px;word-break:break-all}
+.sb a{margin-left:6px;text-decoration:none;color:var(--muted)}
+.su2{display:inline-block;margin-left:8px;font-size:.8rem;color:var(--muted)}
+.foot{border-top:1px solid var(--rule);margin:40px 0 0;padding:16px 0 120px;font-size:.84rem;color:var(--muted)}
+/* 浮动按钮、弹出层 */
+.fab-toc{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;font:inherit;font-size:.9rem;font-weight:650;color:var(--surface);background:var(--ink);border:0;border-radius:999px;padding:9px 16px;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:40}
+.sh-bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sh-card{position:absolute;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));font-size:.94rem}
+.sh-card.small{max-height:60vh}
+@media (min-width:700px){.sh-card{left:50%;right:auto;width:560px;transform:translateX(-50%);bottom:40px;border-radius:18px}}
+.sh-x{position:absolute;right:10px;top:8px;font-size:1.5rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.seg button{font:inherit;font-size:.88rem;flex:1;min-width:4em;padding:7px 4px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pop{position:absolute;z-index:35;width:min(330px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:12px 14px;font-size:.88rem;line-height:1.65}
+.pop .pk{font-size:.72rem;font-weight:700;color:var(--muted);margin:0 0 4px}
+.pop .pd{margin:0 0 8px}
+.pop .pa{display:flex;gap:8px;flex-wrap:wrap}
+.pop .pa a{font-size:.84rem;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:3px 10px}
+.pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
+html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:0;top:6px;width:48px;height:48px}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:40px -16px 0;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 16px 14px;text-align:center}
+/* 回到上次读到的地方：底部一条小提示（6 秒后收起） */
+.rtip{position:fixed;z-index:60;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);padding:9px 10px 9px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translate(-50%,12px);transition:opacity .25s,transform .25s}
+.rtip.on{opacity:1;transform:translate(-50%,0)}
+.rtip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtip button{flex:none;border:0;border-radius:999px;padding:6px 12px;background:color-mix(in srgb,var(--paper) 18%,transparent);color:var(--paper);font:inherit;font-weight:700;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.rtip{transition:none}}
+
+.scene .stage{position:relative;flex:none;width:360px;height:112px}.scene .lamb{position:absolute;left:252px;top:52px;width:48px;height:48px}@media (min-width:600px){.scene .stage{position:relative;flex:none;width:540px;height:168px}.scene .lamb{position:absolute;left:378px;top:78px;width:72px;height:72px}}.scene .sky{display:block;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
+.lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.sky .km,.sky .kg{fill:var(--gold)}.sky .ks,.sky .kh{fill:var(--muted)}.sky .kd{fill:var(--gold);opacity:.55}
+@media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
+
+.deep{margin:1em 0 1.2em;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+.deep>summary{cursor:pointer;padding:10px 14px;font-size:.92rem;font-weight:650;color:var(--ink-2);list-style:none}
+.deep>summary::-webkit-details-marker{display:none}
+.deep>summary::before{content:"＋";display:inline-block;width:1.4em;color:var(--gold)}
+.deep[open]>summary::before{content:"－"}
+.deep>div{padding:0 14px 6px}
+.box.warn{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.warn .lab{color:var(--c6)}
+.hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
+.dg .ahd{fill:var(--muted)}
+.dg .flow{stroke:var(--muted)}
+.dg .tnode2.b{font-size:11px;font-weight:700;opacity:1}
+.dg .tnode2.s{font-size:9px;font-weight:600}
+.dg .cn{stroke-width:1.8}
+.ch .ctbl{width:100%}
+.ch .ctbl td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
+.ch .ctbl td:first-child{width:34%}
+.ch .ptbl{width:100%}
+.ch .ptbl td:first-child{width:28%;font-weight:650}
+.srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+</style>
+</head>
+<body data-mins="55">
+<div class="prog" aria-hidden="true"><i></i></div>
+<header class="bar"><a class="back" href="./#health">← 健康</a><span class="bt">糖尿病，真的只能吃一辈子药吗？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<div class="wrap">
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一张化验单之后</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li></ol></li><li><span class="tp">第二部分 · 血糖是怎样管住的</span><ol><li><a href="#sugar"><span class="tn">03</span>血液里只有一茶匙糖</a></li><li><a href="#two"><span class="tn">04</span>锁生了锈，钥匙又不够</a></li></ol></li><li><span class="tp">第三部分 · 为什么年纪越大越容易得</span><ol><li><a href="#muscle"><span class="tn">05</span>最大的“糖仓库”在缩水</a></li><li><a href="#fat"><span class="tn">06</span>脂肪放错了地方</a></li><li><a href="#beta"><span class="tn">07</span>β细胞会累，也会“退休”</a></li><li><a href="#life"><span class="tn">08</span>几十年的生活，一点一点积累</a></li><li><a href="#mismatch"><span class="tn">09</span>透过现象看本质：老设计，新环境</a></li></ol></li><li><span class="tp">第四部分 · 为什么吃药似乎“断不了根”</span><ol><li><a href="#drugs"><span class="tn">10</span>降糖药各在哪里用力</a></li><li><a href="#cure"><span class="tn">11</span>“只是压血糖”，为什么还要吃</a></li><li><a href="#more"><span class="tn">12</span>为什么药越吃越多</a></li><li><a href="#research"><span class="tn">13</span>研究都是“为了研究而研究”吗</a></li></ol></li><li><span class="tp">第五部分 · 能不能扭转：缓解</span><ol><li><a href="#remit"><span class="tn">14</span>从“不可逆”到“可以缓解”</a></li><li><a href="#how"><span class="tn">15</span>谁更有希望，要怎样做才安全</a></li><li><a href="#tcm"><span class="tn">16</span>中药和保健品，怎样看</a></li><li><a href="#old"><span class="tn">17</span>老年人：目标不一样</a></li></ol></li><li><span class="tp">第六部分 · 年轻人怎样从根上预防</span><ol><li><a href="#prevent"><span class="tn">18</span>证据最硬的一件事：生活方式真的有用</a></li><li><a href="#eat"><span class="tn">19</span>吃：七条朴素的原则</a></li><li><a href="#move"><span class="tn">20</span>动：坐少一点，饭后走一走，练练肌肉</a></li><li><a href="#rest"><span class="tn">21</span>睡、烟和压力</a></li><li><a href="#check"><span class="tn">22</span>早一点知道：查什么，多久查一次</a></li><li><a href="#plan"><span class="tn">23</span>一张给不同的人的行动表</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#hope"><span class="tn">24</span>带着盼望，而不是带着恐惧</a></li><li><a href="#faq"><span class="tn">25</span>常见问题</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 55 分钟读完<span data-left></span></p></div></aside>
+<main>
+<header class="hero"><span class="orn"><svg class="lamb" data-on="eo ld rd" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></span>
+<p class="eyebrow">健康 · 01 · 代谢与慢病</p>
+<h1>糖尿病，真的只能吃一辈子药吗？<small class="h1s">为什么老了容易得、为什么难断根、怎样预防和逆转</small></h1><p class="meta">约 1.8 万字 · 细读约 40 分钟 · 25 章 · 44 条资料出处</p>
+<p class="hsub">为什么很多人年纪大了就得糖尿病，血糖说高就高？一直吃药，为什么好像断不了根？研究那么多，有用的是哪些？得了病还有没有指望？我们年轻人，又该怎样从根上预防？这一篇从身体怎样管血糖讲起，结合生理学、病理学和衰老的研究，再老老实实地看药物、缓解和预防的证据。</p>
+<div class="answer"><p class="lab">先说结论</p>
+<ol class="lineage"><li class="f1"><span class="ly">不是绝望</span><b>2 型糖尿病是一条十几年慢慢走出来的路；走得越早回头，回头的路越短</b><small>大庆研究 30 年</small></li><li class="f1"><span class="ly">病根在哪里</span><b>肌肉、肝脏对胰岛素不灵，胰腺的β细胞又跟不上；多余的脂肪堵在肝脏和胰腺里，是重要的一环</b><small>Taylor 2008</small></li><li class="f1"><span class="ly">为什么老了易得</span><b>年纪不是病因：肌肉变少、脂肪放错地方、β细胞储备下降，再加上几十年的生活习惯，水一点点漫过杯口</b><small></small></li><li class="f1"><span class="ly">药物在做什么</span><b>降糖药不负责清走病根，但能实实在在减少心梗、肾衰和死亡；不能自己停药</b><small>UKPDS 等</small></li><li class="f1"><span class="ly">可以缓解</span><b>确诊几年之内大幅减重，英国研究里将近一半人一年后停药血糖正常；越早越有希望</b><small>DiRECT</small></li><li class="f1"><span class="ly">年轻人怎样做</span><b>吃得粗一点、动得多一点、睡得够一点、坐得少一点、不吸烟，定期查血糖</b><small>大庆、DPP</small></li></ol>
+<p>下面先讲血糖是怎样管住的，再看衰老和生活怎样让它失灵，然后看药物在做什么、怎样争取“缓解”、年轻人怎样预防。医学研究都在 PubMed 上核对过摘要；“编者的理解”只供参考。<b>本篇不能代替医生的诊断和处方，换药、停药一定先问医生。</b></p></div>
+<p class="howto"><span>怎样读这一页：</span>点正文里<a class="cite demo" href="#sources">1</a>这样的小数字，可以看到出处；点<a class="xref" href="#remit">第 14 章《从“不可逆”到“可以缓解”》</a>之类的蓝色字，可以跳到相关的章节；右下角的“目录”按钮随时可以跳到任何一章。</p>
+</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div>
+<nav class="toc-in" aria-label="目录"><h2>目录</h2><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一张化验单之后</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li></ol></li><li><span class="tp">第二部分 · 血糖是怎样管住的</span><ol><li><a href="#sugar"><span class="tn">03</span>血液里只有一茶匙糖</a></li><li><a href="#two"><span class="tn">04</span>锁生了锈，钥匙又不够</a></li></ol></li><li><span class="tp">第三部分 · 为什么年纪越大越容易得</span><ol><li><a href="#muscle"><span class="tn">05</span>最大的“糖仓库”在缩水</a></li><li><a href="#fat"><span class="tn">06</span>脂肪放错了地方</a></li><li><a href="#beta"><span class="tn">07</span>β细胞会累，也会“退休”</a></li><li><a href="#life"><span class="tn">08</span>几十年的生活，一点一点积累</a></li><li><a href="#mismatch"><span class="tn">09</span>透过现象看本质：老设计，新环境</a></li></ol></li><li><span class="tp">第四部分 · 为什么吃药似乎“断不了根”</span><ol><li><a href="#drugs"><span class="tn">10</span>降糖药各在哪里用力</a></li><li><a href="#cure"><span class="tn">11</span>“只是压血糖”，为什么还要吃</a></li><li><a href="#more"><span class="tn">12</span>为什么药越吃越多</a></li><li><a href="#research"><span class="tn">13</span>研究都是“为了研究而研究”吗</a></li></ol></li><li><span class="tp">第五部分 · 能不能扭转：缓解</span><ol><li><a href="#remit"><span class="tn">14</span>从“不可逆”到“可以缓解”</a></li><li><a href="#how"><span class="tn">15</span>谁更有希望，要怎样做才安全</a></li><li><a href="#tcm"><span class="tn">16</span>中药和保健品，怎样看</a></li><li><a href="#old"><span class="tn">17</span>老年人：目标不一样</a></li></ol></li><li><span class="tp">第六部分 · 年轻人怎样从根上预防</span><ol><li><a href="#prevent"><span class="tn">18</span>证据最硬的一件事：生活方式真的有用</a></li><li><a href="#eat"><span class="tn">19</span>吃：七条朴素的原则</a></li><li><a href="#move"><span class="tn">20</span>动：坐少一点，饭后走一走，练练肌肉</a></li><li><a href="#rest"><span class="tn">21</span>睡、烟和压力</a></li><li><a href="#check"><span class="tn">22</span>早一点知道：查什么，多久查一次</a></li><li><a href="#plan"><span class="tn">23</span>一张给不同的人的行动表</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#hope"><span class="tn">24</span>带着盼望，而不是带着恐惧</a></li><li><a href="#faq"><span class="tn">25</span>常见问题</a></li></ol></li></ol></nav><div class="part" id="part1"><span>第一部分</span><b>先把问题摆上桌</b></div><section class="ch" id="q"><h2><span class="no">01</span>一张化验单之后</h2>
+<p>楼下的王阿姨六十二岁，单位体检，空腹血糖 8.6。医生说：“糖尿病，先吃二甲双胍。”她拿着药回家，坐在沙发上半天没说话。晚上给女儿打电话：“完了，这个病是要吃一辈子药的，治不好的。”</p>
+<p>这样的场景，很多家庭都经历过。你也许还有更多的疑问：</p>
+<ul>
+<li>为什么人年纪大了，好像就容易得糖尿病，血糖说高就高？</li>
+<li>如果吃药只是把血糖压下去，病根还在，那吃药到底在治什么？为什么会有这种“治不好”的病？</li>
+<li>论文那么多，好像都在“为了研究而研究”；吃西药是无奈，吃中药又没有验证，得了糖尿病，人生是不是就没有指望了？</li>
+<li>我们年轻人还没有得，到底怎样才能从根上预防？</li>
+</ul>
+<p>这些问题问得很好，而且问到了点子上。这一篇想把它们一个一个讲清楚。我们从身体怎样管血糖讲起，再看衰老给身体带来了什么变化，然后老老实实地看：药物在做什么、不做什么；有没有办法让糖尿病“退回去”；年轻人怎样预防。</p>
+<p>先说一句结论，免得你担心：<b>得了 2 型糖尿病，并不是人生绝望。</b>它是一条十几年慢慢走出来的路。走到哪一步，都还有可以做的事；越早回头，回头的路越短。</p>
+<div class="box"><p class="lab">这一篇怎样读</p><ul>
+<li><b>讲的主要是 2 型糖尿病。</b>它占了糖尿病的绝大多数，就是中老年人常得的那一种。1 型糖尿病是另一回事（见<a class="xref" href="#two">第 4 章《锁生了锈，钥匙又不够》</a>里的小框）。</li>
+<li><b>资料都有出处。</b>医学研究都在 PubMed（美国国家医学图书馆的文献库）上核对过摘要，点正文里的小数字可以看到出处和链接。</li>
+<li><b>分清证据的分量。</b>“随机对照试验”是把人随机分成两组来比，最有说服力；“观察研究”只能看出“有关联”，不一定是“因为所以”。文中会说明是哪一种。</li>
+<li><b>编者的理解</b>会标出来。<b>这一篇不能代替医生的诊断和处方</b>；任何换药、停药，都要先问医生。</li>
+</ul></div>
+</section><section class="ch" id="scale"><h2><span class="no">02</span>中国有多少人在这条路上</h2>
+<p>先看看这个病有多常见。</p>
+<p>2018 年，中国疾控中心的团队在全国测了十几万成年人的空腹血糖、糖化血红蛋白，没确诊的人还做了糖耐量试验。结果，<b>成年人里大约每八个人就有一个糖尿病（12.4%）</b>；还有 38.1% 处在“糖尿病前期”——血糖已经偏高，只是还没到糖尿病的标准<a class="cite" id="r1-1" href="#s1" data-n="1">1</a>。</p>
+<p>更让人吃惊的是后面几个数字：有糖尿病的人里，只有 36.7% 知道自己有；接受治疗的只有 32.9%；治疗的人里，控制达标的大约一半<a class="cite" id="r1-2" href="#s1" data-n="1">1</a>。另一项覆盖全国 31 个省、七万多人的调查也发现，新查出来的糖尿病（6.8%）比已经知道的（6.0%）还多<a class="cite" id="r2-1" href="#s2" data-n="2">2</a>。</p>
+<p>也就是说，<b>很多人已经走在这条路上，自己却不知道。</b>这条路前面几段没有感觉：不痛、不痒、照样吃饭睡觉。等到口渴、消瘦、视力模糊，往往已经走了很远。</p>
+<p>这两项调查还看到：五十岁以后患病的人明显多起来<a class="cite" id="r2-2" href="#s2" data-n="2">2</a>；从 2013 年到 2018 年，活动少、红肉吃得多、超重和肥胖的人都在增加<a class="cite" id="r1-3" href="#s1" data-n="1">1</a>。这两点，正好是后面要讲的两条线索：<b>年纪</b>，和<b>几十年的生活</b>。</p>
+</section><div class="part" id="part2"><span>第二部分</span><b>血糖是怎样管住的</b></div><section class="ch" id="sugar"><h2><span class="no">03</span>血液里只有一茶匙糖</h2>
+<p>要明白糖尿病，先要明白身体平常是怎样管血糖的。</p>
+<p>一个成年人全身的血大约五升。空腹血糖如果是 5 毫摩尔每升，算下来，全身血液里的葡萄糖只有四五克，<b>大约一茶匙</b>（编者按正常值估算）。一碗米饭消化以后，进到血里的糖远远不止这一茶匙。可是健康的人吃完饭，血糖只是稍稍升高，两个小时左右又回到原处。多出来的糖到哪里去了？</p>
+<p>请看下面这张图。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>血糖从哪里来、到哪里去：胰岛素是开门的钥匙</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="dmpt dmpd">
+<title id="dmpt">血糖从哪里来、到哪里去：胰岛素是开门的钥匙</title>
+<desc id="dmpd">血液里的糖只有大约一茶匙，却时时刻刻在进出。进来的有两路：吃进去的食物经过肠道吸收；空腹和夜里由肝脏自己造糖、放糖。出去的有四路：饭后最大的去处是肌肉，其次是肝脏和脂肪，这三处都要胰岛素来开门；大脑用糖不需要胰岛素。胰岛素由胰腺里的β细胞分泌。2 型糖尿病有两个环节出问题：门锁生了锈（胰岛素抵抗），钥匙也不够（β细胞分泌不足）。</desc>
+<rect x="148" y="104" width="104" height="92" rx="46" class="f6 fillc" opacity=".18"/>
+<rect x="148" y="104" width="104" height="92" rx="46" class="cn f6" style="--c:var(--c6)"/>
+<text x="200.0" y="140.0" class="tn" text-anchor="middle">血液里的糖</text>
+<text x="200.0" y="156.0" class="ts" text-anchor="middle">全身只有约一茶匙</text>
+<text x="200.0" y="170.0" class="ts" text-anchor="middle">（约 4—5 克）</text>
+<rect x="8" y="86" width="100" height="38" rx="9" class="f3 fillc"/><text x="58.0" y="103.0" class="tnode2 b" text-anchor="middle">吃进的食物</text><text x="58.0" y="116.0" class="tnode2 s" text-anchor="middle">肠道吸收</text>
+<rect x="8" y="176" width="100" height="38" rx="9" class="f3 fillc"/><text x="58.0" y="193.0" class="tnode2 b" text-anchor="middle">肝脏造糖、放糖</text><text x="58.0" y="206.0" class="tnode2 s" text-anchor="middle">空腹和夜里</text>
+<path d="M110.0 105.0 L145.2 131.4" class="flow"/><path d="M150.0 135.0 L147.2 128.8 L143.2 134.0 Z" class="ahd"/>
+<path d="M110.0 195.0 L145.0 171.4" class="flow"/><path d="M150.0 168.0 L143.2 168.6 L146.9 174.1 Z" class="ahd"/>
+<text x="58.0" y="80.0" class="ty" text-anchor="middle">进</text>
+<rect x="292" y="56" width="100" height="38" rx="9" class="f1 fillc"/><text x="342.0" y="73.0" class="tnode2 b" text-anchor="middle">肌肉</text><text x="342.0" y="86.0" class="tnode2 s" text-anchor="middle">饭后最大的去处</text>
+<path d="M252.0 150.0 L287.3 80.4" class="flow"/><path d="M290.0 75.0 L284.3 78.9 L290.2 81.8 Z" class="ahd"/>
+<circle cx="282" cy="75" r="7" class="f4 fillc"/>
+<rect x="292" y="106" width="100" height="38" rx="9" class="f1 fillc"/><text x="342.0" y="123.0" class="tnode2 b" text-anchor="middle">肝脏</text><text x="342.0" y="136.0" class="tnode2 s" text-anchor="middle">存成肝糖原</text>
+<path d="M252.0 150.0 L285.0 128.3" class="flow"/><path d="M290.0 125.0 L283.2 125.5 L286.8 131.1 Z" class="ahd"/>
+<circle cx="282" cy="125" r="7" class="f4 fillc"/>
+<rect x="292" y="156" width="100" height="38" rx="9" class="f1 fillc"/><text x="342.0" y="173.0" class="tnode2 b" text-anchor="middle">脂肪</text><text x="342.0" y="186.0" class="tnode2 s" text-anchor="middle">存成脂肪</text>
+<path d="M252.0 150.0 L285.0 171.7" class="flow"/><path d="M290.0 175.0 L286.8 168.9 L283.2 174.5 Z" class="ahd"/>
+<circle cx="282" cy="175" r="7" class="f4 fillc"/>
+<rect x="292" y="206" width="100" height="38" rx="9" class="f3 fillc"/><text x="342.0" y="223.0" class="tnode2 b" text-anchor="middle">大脑</text><text x="342.0" y="236.0" class="tnode2 s" text-anchor="middle">不用钥匙</text>
+<path d="M252.0 150.0 L287.3 219.6" class="flow"/><path d="M290.0 225.0 L290.2 218.2 L284.3 221.1 Z" class="ahd"/>
+<text x="342.0" y="50.0" class="ty" text-anchor="middle">出</text>
+<rect x="150" y="16" width="100" height="38" rx="9" class="f4 fillc"/><text x="200.0" y="33.0" class="tnode2 b" text-anchor="middle">胰腺 β 细胞</text><text x="200.0" y="46.0" class="tnode2 s" text-anchor="middle">分泌胰岛素</text>
+<path d="M250 35 C300 35 282 70 282 70" class="flow dash"/>
+<circle cx="300" cy="24" r="7" class="f4 fillc"/>
+<text x="312.0" y="28.0" class="tw" text-anchor="start">＝胰岛素“开门”</text>
+<text x="200.0" y="236.0" class="tn" text-anchor="middle">2 型糖尿病：两个环节一起出问题</text>
+<rect x="14" y="248" width="180" height="40" rx="9" class="f6 fillc"/><text x="104.0" y="266.0" class="tnode2 b" text-anchor="middle">门锁生锈：胰岛素抵抗</text><text x="104.0" y="279.0" class="tnode2 s" text-anchor="middle">肌肉、肝脏对钥匙不灵</text>
+<rect x="206" y="248" width="180" height="40" rx="9" class="f6 fillc"/><text x="296.0" y="266.0" class="tnode2 b" text-anchor="middle">钥匙不够：β 细胞乏力</text><text x="296.0" y="279.0" class="tnode2 s" text-anchor="middle">分泌赶不上需要</text>
+</svg></figure>
+<p>血糖的“进口”有两个：一个是吃进去的食物，在肠道里被吸收；另一个是肝脏——空腹和夜里没吃东西的时候，肝脏会把存着的糖放出来，还会自己造糖，免得血糖太低。</p>
+<p>“出口”有好几个。饭后最大的去处是<b>肌肉</b>，其次是肝脏和脂肪组织。这三个地方要收糖，都需要一把钥匙来开门，这把钥匙就是<b>胰岛素</b>。大脑用糖不需要胰岛素，所以血糖太低时，最先受不了的是大脑。</p>
+<p>胰岛素由胰腺里的一种细胞分泌，叫<b>β细胞</b>。吃完饭血糖一升，β细胞就放出胰岛素：一方面让肌肉、肝脏、脂肪把糖收进去，一方面叫肝脏先别再放糖。空腹时，β细胞少放一点，另一种激素（胰高糖素）让肝脏放糖。一收一放，血糖就稳住了。</p>
+<p>这套系统设计得非常精密。糖尿病，就是这套系统慢慢失灵了。</p>
+</section><section class="ch" id="two"><h2><span class="no">04</span>锁生了锈，钥匙又不够</h2>
+<p>2 型糖尿病的“失灵”，有两个环节。</p>
+<p><b>第一个环节：锁生了锈。</b>肌肉、肝脏对胰岛素不那么灵了，同样多的胰岛素，开的门少了。这叫<b>胰岛素抵抗</b>。研究糖尿病几十年的德弗朗佐（DeFronzo）等学者认为，骨骼肌的胰岛素抵抗是 2 型糖尿病最早、最主要的缺陷之一<a class="cite" id="r3-1" href="#s3" data-n="3">3</a>。</p>
+<p><b>第二个环节：钥匙不够。</b>锁不灵了，β细胞就加班，多放胰岛素来补。很多人这样撑了好多年，血糖都还正常。可是β细胞不能永远加班。一旦它跟不上，血糖就开始升高。</p>
+<p>所以，<b>只有胰岛素抵抗，不一定得糖尿病；β细胞跟不上，才真正发病。</b>两个环节缺一不可。这也解释了一个常见的现象：同样胖的两个人，一个得了糖尿病，一个没有——差别常常在β细胞能不能扛得住。</p>
+<p>英国一项追踪了 4,209 名新诊断病人的大型研究（UKPDS）发现，不管用饮食、磺脲类药、胰岛素还是二甲双胍，六年里血糖都在一年年往上走；研究者指出，这和β细胞功能逐渐丧失有关，并且在报告标题里直接写着：2 型糖尿病是“一种进展性的疾病”<a class="cite" id="r4-1" href="#s4" data-n="4">4</a>。</p>
+<p>把这些放在一起，就是下面这条路：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>十几年的一条路：2 型糖尿病怎样一步步来，哪里可以出手</span></figcaption><svg viewBox="0 0 400 318" class="dg" role="img" aria-labelledby="dmct dmcd">
+<title id="dmct">十几年的一条路：2 型糖尿病怎样一步步来，哪里可以出手</title>
+<desc id="dmcd">从左到右是常见的病程：先是血糖正常；接着出现胰岛素抵抗，β细胞加班多分泌胰岛素，血糖还能维持正常，这一段往往持续多年；然后β细胞跟不上，进入糖尿病前期；再往下就是 2 型糖尿病，血糖越来越难控制；多年后出现眼、肾、神经和心脑血管并发症。三个出手的时机：糖尿病前期以前，改变生活方式可以预防或推迟（大庆研究、美国糖尿病预防计划）；确诊早期大幅减重，相当一部分人可以缓解（英国 DiRECT 研究）；任何阶段，规范治疗都能减少并发症（英国前瞻性糖尿病研究等）。</desc>
+<rect x="20" y="14" width="150" height="40" rx="9" class="f1 fillc"/><text x="95.0" y="38.0" class="tnode2 b" text-anchor="middle">血糖正常</text>
+<path d="M95.0 55.0 L95.0 63.0" class="flow"/><path d="M95.0 69.0 L98.3 63.0 L91.7 63.0 Z" class="ahd"/>
+<rect x="20" y="70" width="150" height="40" rx="9" class="f3 fillc"/><text x="95.0" y="88.0" class="tnode2 b" text-anchor="middle">胰岛素抵抗</text><text x="95.0" y="101.0" class="tnode2 s" text-anchor="middle">β细胞加班，血糖还正常</text>
+<path d="M95.0 111.0 L95.0 119.0" class="flow"/><path d="M95.0 125.0 L98.3 119.0 L91.7 119.0 Z" class="ahd"/>
+<rect x="20" y="126" width="150" height="40" rx="9" class="f4 fillc"/><text x="95.0" y="144.0" class="tnode2 b" text-anchor="middle">糖尿病前期</text><text x="95.0" y="157.0" class="tnode2 s" text-anchor="middle">空腹或饭后偏高</text>
+<path d="M95.0 167.0 L95.0 175.0" class="flow"/><path d="M95.0 181.0 L98.3 175.0 L91.7 175.0 Z" class="ahd"/>
+<rect x="20" y="182" width="150" height="40" rx="9" class="f6 fillc"/><text x="95.0" y="200.0" class="tnode2 b" text-anchor="middle">2 型糖尿病</text><text x="95.0" y="213.0" class="tnode2 s" text-anchor="middle">β细胞越来越累</text>
+<path d="M95.0 223.0 L95.0 231.0" class="flow"/><path d="M95.0 237.0 L98.3 231.0 L91.7 231.0 Z" class="ahd"/>
+<rect x="20" y="238" width="150" height="40" rx="9" class="f6 fillc"/><text x="95.0" y="256.0" class="tnode2 b" text-anchor="middle">并发症</text><text x="95.0" y="269.0" class="tnode2 s" text-anchor="middle">眼、肾、神经、心脑血管</text>
+<text x="95.0" y="300.0" class="ts" text-anchor="middle">常常要十几年；前面几段没有感觉</text>
+<circle cx="180" cy="34.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="37.5" class="tnode2 s" text-anchor="middle">1</text>
+<circle cx="180" cy="90.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="93.5" class="tnode2 s" text-anchor="middle">1</text>
+<circle cx="180" cy="146.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="149.5" class="tnode2 s" text-anchor="middle">1</text>
+<circle cx="180" cy="194.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="197.5" class="tnode2 s" text-anchor="middle">2</text>
+<circle cx="180" cy="210.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="213.5" class="tnode2 s" text-anchor="middle">3</text>
+<circle cx="180" cy="258.0" r="7" class="f1 fillc"/>
+<text x="180.0" y="261.5" class="tnode2 s" text-anchor="middle">3</text>
+<rect x="200" y="64" width="190" height="56" rx="10" class="box"/>
+<rect x="200" y="64" width="6" height="56" rx="3" class="f1 fillc"/>
+<text x="214.0" y="82.0" class="tn" text-anchor="start">① 预防或推迟</text>
+<text x="214.0" y="98.0" class="tw" text-anchor="start">改变饮食、多动、减重</text>
+<text x="214.0" y="112.0" class="ts" text-anchor="start">大庆研究、DPP、芬兰研究</text>
+<rect x="200" y="166" width="190" height="56" rx="10" class="box"/>
+<rect x="200" y="166" width="6" height="56" rx="3" class="f1 fillc"/>
+<text x="214.0" y="184.0" class="tn" text-anchor="start">② 争取缓解</text>
+<text x="214.0" y="200.0" class="tw" text-anchor="start">确诊早期，大幅减重</text>
+<text x="214.0" y="214.0" class="ts" text-anchor="start">DiRECT：病程越短越有望</text>
+<rect x="200" y="250" width="190" height="56" rx="10" class="box"/>
+<rect x="200" y="250" width="6" height="56" rx="3" class="f1 fillc"/>
+<text x="214.0" y="268.0" class="tn" text-anchor="start">③ 减少并发症</text>
+<text x="214.0" y="284.0" class="tw" text-anchor="start">规范用药，管好血压血脂</text>
+<text x="214.0" y="298.0" class="ts" text-anchor="start">UKPDS 等长期研究</text>
+<text x="295.0" y="40.0" class="ty" text-anchor="middle">可以出手的三个时机</text>
+</svg></figure>
+<p>这张图是整篇文章的骨架。后面讲预防，讲的是左边几段；讲缓解，讲的是刚刚走进“2 型糖尿病”的那一段；讲药物，讲的是怎样防止走到最后一段。</p>
+<details class="deep"><summary>1 型糖尿病是怎么回事？</summary><div>
+<p>1 型糖尿病和 2 型是两回事。1 型是身体的免疫系统攻击了β细胞，β细胞被毁坏，几乎不能分泌胰岛素。它多在儿童和年轻人身上发病，也有成年人慢慢发病的类型。1 型和饮食、肥胖关系不大，目前不能靠生活方式预防，<b>必须用胰岛素</b>，不能停。</p>
+<p>本篇讲的“预防”“缓解”，都只针对 2 型糖尿病。如果家里有孩子或年轻人突然口渴、多尿、消瘦，要尽快就医，不要套用本篇的建议。诊断和分型以医生为准<a class="cite" id="r5-1" href="#s5" data-n="5">5</a>。</p>
+</div></details></section><div class="part" id="part3"><span>第三部分</span><b>为什么年纪越大越容易得</b></div><section class="ch" id="muscle"><h2><span class="no">05</span>最大的“糖仓库”在缩水</h2>
+<p>现在回到第一个问题：为什么年纪大了容易得？</p>
+<p>先看肌肉。前面说过，饭后的糖大多要靠肌肉收进去。可是人过中年，如果不刻意锻炼，肌肉会一年年变少、变弱。肌肉少了，饭后能收糖的“仓库”就小了。</p>
+<p>美国一项对一万四千多名成年人的分析发现，肌肉量明显偏少（医学上叫“肌少症”）的人，不论胖不胖，胰岛素抵抗都更明显；而且在六十岁以下的人身上，这个关联反而更强。研究者据此认为，肌肉少可能是将来容易得糖尿病的一个早期信号<a class="cite" id="r6-1" href="#s6" data-n="6">6</a>。这是一项“横断面”研究，只能看出关联，不能证明因果，但和肌肉在血糖中的角色是吻合的。</p>
+<p>不只是肌肉变少，肌肉“发动机”也在变弱。耶鲁大学的团队找来一群健康、偏瘦的老人，和年轻人比较；两组人的肌肉量、脂肪量都配得差不多。结果老人的胰岛素抵抗明显得多，主要是肌肉收糖的能力差；老人肌肉和肝脏里堆的脂肪更多；肌肉里线粒体（细胞里的“发电厂”）的产能大约低了 40%<a class="cite" id="r7-1" href="#s7" data-n="7">7</a>。</p>
+<p>这说明，就算体重不变，年纪本身也会让肌肉对胰岛素不那么灵。<b>好消息是，肌肉是全身最“听话”的组织之一</b>——练它，它就长；用它，它就灵。这一点到<a class="xref" href="#move">第 20 章《动：坐少一点，饭后走一走，练练肌肉》</a>还会再讲。</p>
+</section><section class="ch" id="fat"><h2><span class="no">06</span>脂肪放错了地方</h2>
+<p>第二条线索，是脂肪。</p>
+<p>人们常说“胖了容易得糖尿病”，这话不错，但不够准确。更要紧的是<b>脂肪放在哪里</b>。皮下的脂肪相对“安分”；麻烦的是挤进肝脏、胰腺和腹腔里的脂肪。</p>
+<p>英国纽卡斯尔大学的泰勒（Roy Taylor）教授提出过一个“双循环”的解释<a class="cite" id="r8-1" href="#s8" data-n="8">8</a>：</p>
+<ol class="steps">
+<li>肌肉对胰岛素不灵了，吃进来的多余能量更容易被送到肝脏，在那里变成脂肪，慢慢形成<b>脂肪肝</b>。</li>
+<li>肝脏里脂肪多了，对胰岛素也不灵了：明明血糖不低，肝脏还在往外放糖，空腹血糖就高起来。</li>
+<li>肝脏把多余的脂肪打包送出去，一部分落到<b>胰腺</b>里。β细胞泡在过多的脂肪酸里，分泌胰岛素的能力被压制。</li>
+<li>泰勒指出：这种压制<b>起初是可逆的，时间长了才变成永久的</b>。</li>
+</ol>
+<p>这个解释最重要的地方，不是它描述了怎样得病，而是它指出了一条<b>回头的路</b>：如果肝脏和胰腺里的脂肪能减下去，这两个循环就可能反过来转。后来的研究真的看到了这一幕（见<a class="xref" href="#remit">第 14 章《从“不可逆”到“可以缓解”》</a>）。</p>
+<p>那么，体重正常的人为什么也会得？泰勒和英国糖尿病研究的老前辈霍尔曼（Holman）又提出“<b>个人脂肪阈值</b>”的假说：每个人能承受的脂肪量不一样，一旦超过自己的那条线，就容易发病——这条线和别人比胖不胖无关<a class="cite" id="r9-1" href="#s9" data-n="9">9</a>。英国那项著名的长期研究里，三个新诊断病人中就有一个体重指数低于 25，也就是“不胖”<a class="cite" id="r9-2" href="#s9" data-n="9">9</a>。</p>
+<p>这一点对中国人特别要紧。研究发现，东亚人在较低的体重指数就会得 2 型糖尿病；同样的体重指数，东亚人的体脂更多，更容易堆在腹部内脏；早期就有β细胞功能不足<a class="cite" id="r10-1" href="#s10" data-n="10">10</a>。也就是说，<b>我们的“杯子”平均偏小</b>。亚洲人得糖尿病时，往往没那么胖、年纪更轻，带病生活的年数更长<a class="cite" id="r11-1" href="#s11" data-n="11">11</a>。</p>
+<p>所以，“我不胖，不会得糖尿病”这句话，对中国人尤其不可靠。腰围变粗、肚子变大，往往比体重更早发出信号。</p>
+</section><section class="ch" id="beta"><h2><span class="no">07</span>β细胞会累，也会“退休”</h2>
+<p>第三条线索，是β细胞本身。</p>
+<p>美国密歇根大学的学者总结了几十年的研究：人的糖耐量随着年龄逐渐下降；把胰岛素抵抗的影响扣除以后，老年人的胰岛素分泌仍然一致地显出缺陷；β细胞对肠道分泌的一些激素（肠促胰素）也可能变得不那么敏感。研究者认为，β细胞不能充分代偿随年龄增加的胰岛素抵抗，是老年人容易出现饭后高血糖和 2 型糖尿病的原因之一<a class="cite" id="r12-1" href="#s12" data-n="12">12</a>。</p>
+<p>得了 2 型糖尿病以后，β细胞的数量也会减少。一项分析了 124 例尸检胰腺的研究发现：肥胖的糖尿病人，β细胞的相对体积比同样肥胖、没有糖尿病的人少了 63%；空腹血糖受损的人已经少了 40%；偏瘦的糖尿病人少了 41%。β细胞减少的主要原因，是凋亡（细胞“自杀”）增加了；而新生和分裂的速度和正常人差不多<a class="cite" id="r13-1" href="#s13" data-n="13">13</a>。</p>
+<p>读到这里，你也许明白了为什么有人说糖尿病“断不了根”：<b>β细胞一旦大量损失，很难再补回来。</b>可是同样的研究也给人盼望：在空腹血糖刚刚受损的阶段，损失还没有那么多；而泰勒的研究显示，被脂肪“压住”的β细胞，有一部分只是暂时“罢工”，并没有死。越早把压力拿开，能救回来的越多。</p>
+<details class="deep"><summary>“糖毒性”和“脂毒性”是什么意思？</summary><div>
+<p>医生有时会说“糖毒性”“脂毒性”。意思是：血糖长期偏高、血里的脂肪酸长期偏多，本身就会进一步伤害β细胞，使它分泌更少，血糖于是更高——形成恶性循环。</p>
+<p>这就是为什么确诊以后，医生常常希望尽快把血糖控制下来：不只是为了眼前的数字，也是为了让疲惫的β细胞喘一口气。泰勒的“双循环”解释，就是这类机制的一种描述<a class="cite" id="r8-2" href="#s8" data-n="8">8</a>。</p>
+</div></details></section><section class="ch" id="life"><h2><span class="no">08</span>几十年的生活，一点一点积累</h2>
+<p>肌肉、脂肪、β细胞的变化，有一部分是年龄带来的；但更大的一部分，是几十年的生活习惯一点点积累出来的。下面几项，都有不错的研究支持：</p>
+<p><b>睡得太少。</b>芝加哥大学做过一个实验：11 位健康的年轻男性，连续六晚每晚只在床上躺四个小时。结果他们的糖耐量明显下降，晚上的压力激素（皮质醇）升高，交感神经更活跃。研究者说，这些变化“和正常衰老时看到的相似”<a class="cite" id="r14-1" href="#s14" data-n="14">14</a>。一项汇总了 48 万多人的分析发现，每天睡 7—8 小时的人糖尿病风险最低；睡不到 7 小时的，每少睡一小时风险约增加 9%；睡得太长也不好<a class="cite" id="r15-1" href="#s15" data-n="15">15</a>。</p>
+<p><b>吃得太“精”。</b>美国国立卫生研究院让 20 个人住进医院，两周吃超加工食品、两周吃未加工的食物，想吃多少吃多少。两种饭菜的热量、糖、脂肪、纤维都配得差不多。结果吃超加工食品的两周，每天不知不觉多吃了大约 500 千卡，体重增加了约 0.9 公斤；吃天然食物的两周，体重反而减了约 0.9 公斤<a class="cite" id="r16-1" href="#s16" data-n="16">16</a>。</p>
+<p><b>喝甜饮料。</b>汇总 31 万人的研究发现，每天喝一两份含糖饮料的人，2 型糖尿病风险比几乎不喝的人高 26%<a class="cite" id="r17-1" href="#s17" data-n="17">17</a>。</p>
+<p><b>白米饭吃得多。</b>一项汇总 35 万人的分析发现，中国人、日本人平均每天吃三四份白米饭；吃得最多的人比吃得最少的人风险高 55%，而在吃米饭很少的西方人身上没有看到明显差别；每天多吃一份，风险约增加 11%<a class="cite" id="r18-1" href="#s18" data-n="18">18</a>。这是观察研究，但对以米饭为主食的我们，是一个值得重视的提醒。</p>
+<p><b>吸烟。</b>汇总 88 项研究、590 万人的分析发现，吸烟的人 2 型糖尿病风险高 37%，吸得越多越高；连吸二手烟的人风险也高 22%。刚戒烟的几年风险反而偏高（可能和戒烟后体重增加有关），但戒得越久，风险越接近从不吸烟的人<a class="cite" id="r19-1" href="#s19" data-n="19">19</a>。</p>
+<p><b>久坐、不动</b>，前面已经讲过它对肌肉的影响；中国的全国调查也看到，活动少的人这几年在增加<a class="cite" id="r1-4" href="#s1" data-n="1">1</a>。</p>
+<p>还有两样是自己选不了的：<b>遗传</b>和<b>出生前后的营养</b>。家里父母、兄弟姐妹有糖尿病的人，风险明显更高。荷兰在 1944—1945 年冬天经历过一场饥荒；研究追踪了那时在母腹中的孩子，发现他们成年后的饭后血糖偏高，在孕晚期受饥荒影响、成年后又发胖的人身上最明显<a class="cite" id="r20-1" href="#s20" data-n="20">20</a>。这些因素改变不了，却能提醒我们：<b>有家族史、出生时偏瘦小的人，杯子可能更小，更要早一点注意。</b></p>
+</section><section class="ch" id="mismatch"><h2><span class="no">09</span>透过现象看本质：老设计，新环境</h2>
+<p>现在可以把几条线索收拢起来了。请看这张图：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 3</b><span>为什么年纪越大越容易得：几股水流进同一个杯子</span></figcaption><svg viewBox="0 0 400 330" class="dg" role="img" aria-labelledby="dmvt dmvd">
+<title id="dmvt">为什么年纪越大越容易得：几股水流进同一个杯子</title>
+<desc id="dmvd">左边是随年龄来的变化：肌肉变少；肌肉里的线粒体变弱，脂肪钻进肌肉；腹部、肝脏、胰腺的脂肪变多；β细胞的储备和对肠道激素的反应变差。右边是几十年生活习惯的累积：睡得少、坐得多、吃得精、喝甜饮料、吸烟。它们都流进同一个杯子。每个人杯子的大小（个人能承受的阈值）不同，和遗传、出生前后的营养有关，东亚人的杯子平均偏小。水一旦漫过杯口，血糖就升高。年纪本身不是病因，而是让杯子里的水一点点涨起来的时间。这张图是编者根据本页引用的研究整理的示意。</desc>
+<text x="80.0" y="16.0" class="ty" text-anchor="middle">随年龄来的变化</text>
+<text x="320.0" y="16.0" class="ty" text-anchor="middle">几十年的生活习惯</text>
+<rect x="8" y="26" width="144" height="26" rx="9" class="f6 fillc"/><text x="80.0" y="43.0" class="tnode2 b" text-anchor="middle">肌肉变少</text>
+<path d="M152.0 39.0 L165.4 162.0" class="flow"/><path d="M166.0 168.0 L168.6 161.7 L162.1 162.4 Z" class="ahd"/>
+<rect x="8" y="60" width="144" height="26" rx="9" class="f6 fillc"/><text x="80.0" y="77.0" class="tnode2 b" text-anchor="middle">线粒体变弱</text>
+<path d="M152.0 73.0 L170.8 162.1" class="flow"/><path d="M172.0 168.0 L174.0 161.4 L167.5 162.8 Z" class="ahd"/>
+<rect x="8" y="94" width="144" height="26" rx="9" class="f6 fillc"/><text x="80.0" y="111.0" class="tnode2 b" text-anchor="middle">肝、胰、腹部脂肪变多</text>
+<path d="M152.0 107.0 L175.6 162.5" class="flow"/><path d="M178.0 168.0 L178.7 161.2 L172.6 163.8 Z" class="ahd"/>
+<rect x="8" y="128" width="144" height="26" rx="9" class="f6 fillc"/><text x="80.0" y="145.0" class="tnode2 b" text-anchor="middle">β细胞储备下降</text>
+<path d="M152.0 141.0 L179.4 164.1" class="flow"/><path d="M184.0 168.0 L181.5 161.6 L177.3 166.7 Z" class="ahd"/>
+<rect x="248" y="26" width="144" height="26" rx="9" class="f6 fillc"/><text x="320.0" y="43.0" class="tnode2 b" text-anchor="middle">睡得少</text>
+<path d="M248.0 39.0 L234.6 162.0" class="flow"/><path d="M234.0 168.0 L237.9 162.4 L231.4 161.7 Z" class="ahd"/>
+<rect x="248" y="60" width="144" height="26" rx="9" class="f6 fillc"/><text x="320.0" y="77.0" class="tnode2 b" text-anchor="middle">坐得多</text>
+<path d="M248.0 73.0 L229.2 162.1" class="flow"/><path d="M228.0 168.0 L232.5 162.8 L226.0 161.4 Z" class="ahd"/>
+<rect x="248" y="94" width="144" height="26" rx="9" class="f6 fillc"/><text x="320.0" y="111.0" class="tnode2 b" text-anchor="middle">吃得精、甜饮料</text>
+<path d="M248.0 107.0 L224.4 162.5" class="flow"/><path d="M222.0 168.0 L227.4 163.8 L221.3 161.2 Z" class="ahd"/>
+<rect x="248" y="128" width="144" height="26" rx="9" class="f6 fillc"/><text x="320.0" y="145.0" class="tnode2 b" text-anchor="middle">吸烟</text>
+<path d="M248.0 141.0 L220.6 164.1" class="flow"/><path d="M216.0 168.0 L222.7 166.7 L218.5 161.6 Z" class="ahd"/>
+<path d="M150 176 L162 300 L238 300 L250 176" class="cn f3" style="--c:var(--c3);stroke-width:2.4"/>
+<path d="M156 226 L244 226 L238 300 L162 300 Z" class="f3 fillc" opacity=".22"/>
+<path d="M146 190 L254 190" class="cn f6 dash" style="--c:var(--c6)"/>
+<text x="258.0" y="194.0" class="tw" text-anchor="start">杯口＝个人阈值</text>
+<text x="200.0" y="252.0" class="tn" text-anchor="middle">代谢负担</text>
+<text x="200.0" y="268.0" class="ts" text-anchor="middle">一年年涨上来</text>
+<text x="52.0" y="220.0" class="tw" text-anchor="start">杯子大小：</text>
+<text x="52.0" y="234.0" class="ts" text-anchor="start">遗传、出生前后</text>
+<text x="52.0" y="247.0" class="ts" text-anchor="start">的营养、种族</text>
+<text x="52.0" y="260.0" class="ts" text-anchor="start">（东亚人偏小）</text>
+<text x="300.0" y="236.0" class="tw" text-anchor="start">漫过杯口</text>
+<text x="300.0" y="250.0" class="tn" text-anchor="start">＝血糖升高</text>
+<text x="200.0" y="322.0" class="ts" text-anchor="middle">编者整理的示意：年纪不是病因，而是让水慢慢涨上来的时间</text>
+</svg></figure>
+<p>左边，是随着年龄来的变化：肌肉少了，线粒体弱了，脂肪挤进肝脏、胰腺和肚子里，β细胞的储备下降。右边，是几十年的生活：睡得少、坐得多、吃得精、喝甜的、吸烟。它们都流进同一个杯子。每个人杯子的大小不一样，和遗传、出生前后的营养、种族有关。水一旦漫过杯口，血糖就升高了。</p>
+<p>所以，“年纪大了就会得糖尿病”这句话，只说对了一半。<b>年纪本身不是病因，而是让杯子里的水一点点涨起来的时间。</b>同样是七十岁，有人一辈子血糖正常，有人五十岁就得了——差别在杯子有多大、水流得有多快。（编者的理解）</p>
+<p>那么，为什么人体会有这样一个“缺陷”？早在 1962 年，美国遗传学家尼尔（Neel）就提出一个有名的假说：人类在漫长的历史中常常挨饿，能把能量存起来的“节俭”体质在饥荒年代是优点；到了食物丰盛、不必劳作的“进步”时代，这个优点反而成了缺点<a class="cite" id="r21-1" href="#s21" data-n="21">21</a>。这个“节俭基因”假说到今天还有争议，细节未必都对；但它点出的道理很多学者都认同：<b>我们的身体是为“常常不够吃、天天要走路”的生活设计的，今天的环境却是“随时吃得到、整天坐着”。</b></p>
+<p>从这个角度看，2 型糖尿病不是身体“坏掉了”，而是身体在一个它不熟悉的环境里，长期超负荷运转的结果。（编者的理解）这也就决定了治本的方向：<b>不是只把血糖压下去，而是把杯子里的水放掉一些，让杯子不再漫出来。</b></p>
+</section><div class="part" id="part4"><span>第四部分</span><b>为什么吃药似乎“断不了根”</b></div><section class="ch" id="drugs"><h2><span class="no">10</span>降糖药各在哪里用力</h2>
+<p>现在来看第二个问题：吃药到底在治什么？</p>
+<p>常用的降糖药，大致可以按它们“在哪里用力”来理解：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 4</b><span>降糖药各在哪里用力：管住血糖，但不负责清走多余的脂肪</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="dmdt dmdd">
+<title id="dmdt">降糖药各在哪里用力：管住血糖，但不负责清走多余的脂肪</title>
+<desc id="dmdd">二甲双胍主要让肝脏少放糖，也改善身体对胰岛素的反应；磺脲类药让β细胞多分泌胰岛素；GLP-1 受体激动剂和 DPP-4 抑制剂借着肠道激素，按血糖高低促进胰岛素分泌、减少胰高糖素，GLP-1 受体激动剂还让人吃得少、体重下降；SGLT2 抑制剂让肾脏把多余的糖从尿里排出去；胰岛素直接补上钥匙。它们都在“管血糖”，其中几类还能减少心脏和肾脏的病；但是堵在肝脏和胰腺里的多余脂肪，主要要靠减轻体重来清走。</desc>
+<rect x="8" y="14" width="110" height="46" rx="9" class="f3 fillc"/><text x="63.0" y="41.0" class="tnode2 b" text-anchor="middle">肝脏</text>
+<path d="M186.0 37.0 L126.0 37.0" class="flow"/><path d="M120.0 37.0 L126.0 40.3 L126.0 33.7 Z" class="ahd"/>
+<rect x="188" y="14" width="204" height="46" rx="9" class="box"/>
+<rect x="188" y="14" width="6" height="46" rx="3" class="f5 fillc"/>
+<text x="202.0" y="33.0" class="tn" text-anchor="start">二甲双胍</text>
+<text x="202.0" y="49.0" class="tw" text-anchor="start">让肝脏少放糖</text>
+<rect x="8" y="74" width="110" height="46" rx="9" class="f3 fillc"/><text x="63.0" y="101.0" class="tnode2 b" text-anchor="middle">胰腺 β 细胞</text>
+<path d="M186.0 97.0 L126.0 97.0" class="flow"/><path d="M120.0 97.0 L126.0 100.3 L126.0 93.7 Z" class="ahd"/>
+<rect x="188" y="74" width="204" height="46" rx="9" class="box"/>
+<rect x="188" y="74" width="6" height="46" rx="3" class="f5 fillc"/>
+<text x="202.0" y="93.0" class="tn" text-anchor="start">磺脲类</text>
+<text x="202.0" y="109.0" class="tw" text-anchor="start">逼β细胞多分泌</text>
+<rect x="8" y="134" width="110" height="46" rx="9" class="f3 fillc"/><text x="63.0" y="161.0" class="tnode2 b" text-anchor="middle">肠道激素</text>
+<path d="M186.0 157.0 L126.0 157.0" class="flow"/><path d="M120.0 157.0 L126.0 160.3 L126.0 153.7 Z" class="ahd"/>
+<rect x="188" y="134" width="204" height="46" rx="9" class="box"/>
+<rect x="188" y="134" width="6" height="46" rx="3" class="f5 fillc"/>
+<text x="202.0" y="153.0" class="tn" text-anchor="start">GLP-1 类、DPP-4 抑制剂</text>
+<text x="202.0" y="169.0" class="tw" text-anchor="start">按需促分泌；前者还减重</text>
+<rect x="8" y="194" width="110" height="46" rx="9" class="f3 fillc"/><text x="63.0" y="221.0" class="tnode2 b" text-anchor="middle">肾脏</text>
+<path d="M186.0 217.0 L126.0 217.0" class="flow"/><path d="M120.0 217.0 L126.0 220.3 L126.0 213.7 Z" class="ahd"/>
+<rect x="188" y="194" width="204" height="46" rx="9" class="box"/>
+<rect x="188" y="194" width="6" height="46" rx="3" class="f5 fillc"/>
+<text x="202.0" y="213.0" class="tn" text-anchor="start">SGLT2 抑制剂</text>
+<text x="202.0" y="229.0" class="tw" text-anchor="start">把多余的糖排到尿里</text>
+<rect x="8" y="254" width="110" height="38" rx="9" class="f4 fillc"/><text x="63.0" y="271.0" class="tnode2 b" text-anchor="middle">胰岛素</text><text x="63.0" y="284.0" class="tnode2 s" text-anchor="middle">直接补上钥匙</text>
+<rect x="132" y="248" width="260" height="48" rx="10" class="box"/>
+<rect x="132" y="248" width="6" height="48" rx="3" class="f1 fillc"/>
+<text x="146.0" y="266.0" class="tn" text-anchor="start">肝脏、胰腺里多余的脂肪：</text>
+<text x="146.0" y="284.0" class="tw" text-anchor="start">主要靠减轻体重来清走（见“缓解”一章）</text>
+</svg></figure>
+<ul>
+<li><b>二甲双胍</b>：主要让肝脏少放糖，也改善身体对胰岛素的反应。它用了几十年，便宜，不容易引起低血糖，是很多指南推荐的第一线药物。</li>
+<li><b>磺脲类</b>（如格列本脲、格列齐特等）：让β细胞多分泌胰岛素。效果快，但可能引起低血糖，老年人尤其要小心。</li>
+<li><b>GLP-1 受体激动剂、DPP-4 抑制剂</b>：借着肠道的激素，按血糖高低促进胰岛素分泌；GLP-1 受体激动剂还让人吃得少、体重下降。</li>
+<li><b>SGLT2 抑制剂</b>：让肾脏把多余的糖从尿里排出去。</li>
+<li><b>胰岛素</b>：β细胞实在分泌不够时，直接补上。</li>
+</ul>
+<p>你会发现，这些药大多是在“系统的某一处”帮一把：让肝脏少放一点、让β细胞多挤一点、让肾脏多排一点。<b>它们管住了血糖，却不负责把堵在肝脏和胰腺里的多余脂肪清走。</b>从这个意义上说，你的直觉是对的：单靠这些药，大多不能把病根拔掉。</p>
+<p>可是，如果话只说到这里，就会误导人。下一章要讲：为什么医生还是坚持让你吃药。</p>
+</section><section class="ch" id="cure"><h2><span class="no">11</span>“只是压血糖”，为什么还要吃</h2>
+<p>因为<b>糖尿病真正伤人的，不是血糖这个数字本身，而是它多年以后带来的并发症</b>：眼睛失明、肾功能衰竭要透析、脚上的伤口烂了要截肢、心肌梗死、中风。降糖药的价值，主要不在于“根治”，而在于让人不走到这一步。</p>
+<p>这不是空话，有长期的随机对照试验为证：</p>
+<ul>
+<li>英国前瞻性糖尿病研究（UKPDS）在试验结束后又追踪了十年。最初被分到二甲双胍组的超重病人，心肌梗死少了 33%，全因死亡少了 27%；用磺脲类或胰岛素强化控制的病人，微血管并发症少了 24%，心肌梗死和死亡也逐渐减少。有意思的是，两组的血糖差别在试验结束一年后就消失了，好处却持续了十年——学者称之为“遗留效应”<a class="cite" id="r22-1" href="#s22" data-n="22">22</a>。</li>
+<li>一项 7,020 人的试验中，SGLT2 抑制剂恩格列净使心血管死亡从 5.9% 降到 3.7%（减少 38%），心衰住院减少 35%，全因死亡减少 32%<a class="cite" id="r23-1" href="#s23" data-n="23">23</a>。</li>
+<li>一项 9,340 人的试验中，GLP-1 受体激动剂利拉鲁肽使心血管死亡、非致死性心梗和中风的总发生率从 14.9% 降到 13.0%，全因死亡也减少<a class="cite" id="r24-1" href="#s24" data-n="24">24</a>。</li>
+</ul>
+<p>（后两项试验由药厂资助；它们是按事先登记的方案做的大型随机双盲试验，结果经过同行审查，后来也被其他研究支持。读研究时注意资助方，是好习惯。）</p>
+<p>所以更准确的说法是：<b>降糖药治的不是“根”，而是“果”——它们拦住的是这条路的最后一段。</b>拔根要靠生活方式（见第五、六部分）；拦果要靠药物。两样不是对立的，最好一起做。（编者的理解）</p>
+<details class="deep"><summary>二甲双胍“伤肝伤肾”吗？</summary><div>
+<p>这是很多老人最担心的。二甲双胍本身不是伤肾的药；它从肾脏排出，所以<b>肾功能明显下降时要减量或停用</b>，这要由医生根据化验结果决定。这和“吃了伤肾”是两回事。</p>
+<p>二甲双胍确实有需要注意的地方：一是刚开始吃时可能肚子不舒服、腹泻，多数人慢慢适应；二是长期服用会让维生素 B12 降低。一项随机对照试验中，吃了四年多二甲双胍的人，B12 平均低了 19%，B12 缺乏的人多了 7.2 个百分点；研究者建议长期服用的人定期查 B12<a class="cite" id="r25-1" href="#s25" data-n="25">25</a>。</p>
+<p>最要紧的一条：<b>不要因为听说“伤肾”就自己停药。</b>有疑问，带着化验单去问医生。</p>
+</div></details></section><section class="ch" id="more"><h2><span class="no">12</span>为什么药越吃越多</h2>
+<p>很多病人会发现：刚开始一种药就够了，过几年要加第二种，再过几年要打胰岛素。于是有人说：“这药会上瘾，越吃越重。”</p>
+<p>其实不是药让病变重了，而是<b>病本身在往前走</b>。前面讲过，英国的 UKPDS 研究里，不管用哪一种治疗，血糖都在一年年往上走，和β细胞功能逐渐丧失有关<a class="cite" id="r4-2" href="#s4" data-n="4">4</a>。如果肝脏和胰腺里的脂肪还在、生活方式没有变，β细胞就还在被压着，一年比一年累。药只是在帮它分担，病根却没有动。</p>
+<p>这也回答了你问的那个“奇怪”：为什么会有这种似乎“治不好”的病？因为它的根，扎在每一天的吃、动、睡里，扎在年龄带来的变化里；药片进不了那么深。<b>能进到那么深的，是生活本身。</b>（编者的理解）</p>
+<p>反过来说，如果病根被动了——体重明显减下来、肝脏和胰腺的脂肪清掉了——有些人的药就能减，甚至能停。这就是第五部分要讲的“缓解”。</p>
+</section><section class="ch" id="research"><h2><span class="no">13</span>研究都是“为了研究而研究”吗</h2>
+<p>你在提问里说：现在论文很多，大量研究好像都是无效的，只是为了研究而研究。这个感觉不是凭空来的。</p>
+<p>2009 年，两位研究方法学的专家查默斯（Chalmers）和格拉齐乌（Glasziou）在《柳叶刀》上发表了一篇很有名的文章，题目就叫《研究证据产生和报告中可以避免的浪费》。他们估计，大量的医学研究投入，因为问题选得不对、设计不好、结果没有发表或者写得没法用，被白白浪费了<a class="cite" id="r26-1" href="#s26" data-n="26">26</a>。所以，你对“研究泛滥”的警惕是有道理的。</p>
+<p>可是，“很多研究是浪费”，不等于“研究都没有用”。这一篇里引用的几项研究，就实实在在改变了全世界治疗糖尿病的方法：</p>
+<ul>
+<li>中国大庆的医生在 1986 年开始的研究，第一次用随机分组证明，饮食和运动能减少糖尿病的发生；三十年后，它还证明了能让人活得更久（见<a class="xref" href="#prevent">第 18 章《证据最硬的一件事：生活方式真的有用》</a>）。</li>
+<li>英国的 DiRECT 研究，把“糖尿病不可逆”的旧观念改写成“相当一部分人可以缓解”（见<a class="xref" href="#remit">第 14 章《从“不可逆”到“可以缓解”》</a>）。</li>
+<li>大型药物试验告诉我们，哪些药不只降血糖，还能保护心脏和肾脏。</li>
+</ul>
+<p>面对铺天盖地的“研究表明”，普通人可以问自己五个问题：</p>
+<ol class="steps">
+<li>是<b>人</b>的研究，还是动物、细胞的研究？（老鼠身上有效，人身上未必。）</li>
+<li>是<b>随机对照试验</b>，还是观察到的关联？</li>
+<li>看的是<b>真正要紧的结局</b>（死亡、心梗、截肢、失明），还是只看化验数字？</li>
+<li>有<b>多少人</b>、追踪了<b>多久</b>？</li>
+<li><b>谁出的钱</b>？结论是不是被别的研究重复过？</li>
+</ol>
+<p>用这五个问题去看，大部分保健品广告和“偏方根治”的说法，第一关就过不去；而本篇引用的预防和缓解研究，大多能过五关。</p>
+</section><div class="part" id="part5"><span>第五部分</span><b>能不能扭转：缓解</b></div><section class="ch" id="remit"><h2><span class="no">14</span>从“不可逆”到“可以缓解”</h2>
+<p>这一章，是整篇文章最想告诉你的好消息。</p>
+<p>2014 年到 2017 年，英国在苏格兰和英格兰东北部的 49 家社区诊所做了一项试验，叫 DiRECT。参加的是 20—65 岁、确诊 2 型糖尿病不到 6 年、超重或肥胖、还没有用胰岛素的病人。一半诊所照常治疗；另一半诊所的病人在医生指导下<b>先停掉降糖药和降压药</b>，用每天 825—853 千卡的配方营养餐代替正常饮食 3—5 个月，再逐步恢复普通饭菜，之后长期有人帮助他们保持体重<a class="cite" id="r27-1" href="#s27" data-n="27">27</a>。</p>
+<p>一年后，干预组 46% 的人糖尿病<b>缓解</b>了——停了所有降糖药，血糖仍在正常范围；对照组只有 4%。体重减得越多，缓解的人越多<a class="cite" id="r27-2" href="#s27" data-n="27">27</a>：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 5</b><span>减掉的体重越多，缓解的人越多（DiRECT 研究，12 个月）</span></figcaption><svg viewBox="0 0 400 182" class="dg" role="img" aria-labelledby="dmrt dmrd">
+<title id="dmrt">减掉的体重越多，缓解的人越多（DiRECT 研究，12 个月）</title>
+<desc id="dmrd">英国 DiRECT 研究 12 个月时，按体重变化分组看糖尿病缓解的比例：体重增加的 76 人中没有人缓解；减重 0—5 公斤的 7%；5—10 公斤的 34%；10—15 公斤的 57%；减重 15 公斤以上的 86%。缓解的定义是停用所有降糖药后，糖化血红蛋白低于 6.5%。参加的人病程都在 6 年以内、没有用胰岛素。</desc>
+<text x="8.0" y="26.0" class="tn" text-anchor="start">12 个月时体重的变化</text>
+<text x="122.0" y="47.0" class="tw" text-anchor="end">体重增加</text>
+<rect x="128" y="38" width="1.5" height="13" rx="4" class="f6 fillc"/>
+<text x="133.0" y="48.0" class="tw" text-anchor="start">0%</text>
+<text x="122.0" y="69.0" class="tw" text-anchor="end">减 0—5 公斤</text>
+<rect x="128" y="60" width="15.5" height="13" rx="4" class="f3 fillc"/>
+<text x="148.5" y="70.0" class="tw" text-anchor="start">7%</text>
+<text x="122.0" y="91.0" class="tw" text-anchor="end">减 5—10 公斤</text>
+<rect x="128" y="82" width="75.5" height="13" rx="4" class="f3 fillc"/>
+<text x="208.5" y="92.0" class="tw" text-anchor="start">34%</text>
+<text x="122.0" y="113.0" class="tw" text-anchor="end">减 10—15 公斤</text>
+<rect x="128" y="104" width="126.5" height="13" rx="4" class="f1 fillc"/>
+<text x="259.5" y="114.0" class="tw" text-anchor="start">57%</text>
+<text x="122.0" y="135.0" class="tw" text-anchor="end">减 15 公斤以上</text>
+<rect x="128" y="126" width="190.9" height="13" rx="4" class="f1 fillc"/>
+<text x="323.9" y="136.0" class="tw" text-anchor="start">86%</text>
+<text x="200.0" y="174.0" class="ts" text-anchor="middle">数据：Lean 等，《柳叶刀》2018（病程 6 年内、未用胰岛素的病人）</text>
+</svg></figure>
+<p>减重 15 公斤以上的人，86% 缓解了。两年后，干预组仍有 36% 处于缓解；两年里保持减重 10 公斤以上的人，64% 缓解<a class="cite" id="r28-1" href="#s28" data-n="28">28</a>。</p>
+<p>研究团队还给其中一部分人做了磁共振检查，看身体里面到底发生了什么。减重以后，肝脏的脂肪含量从平均 16.0% 降到 3.1%，胰腺的脂肪也下降了。真正决定能不能缓解的，是<b>β细胞“第一时相”的胰岛素分泌有没有恢复</b>——缓解的人恢复了，而且一年后仍然保持；缓解的人平均病程（2.7 年）比没缓解的人（3.8 年）短。研究者说，这改变了“β细胞功能一旦丧失就不可逆”的旧看法<a class="cite" id="r29-1" href="#s29" data-n="29">29</a>。</p>
+<p>还记得前面那个“双循环”吗？这就是它倒过来转的样子：脂肪从肝脏、胰腺里退出去，被压住的β细胞重新开始工作。</p>
+<details class="deep"><summary>“缓解”和“根治”有什么不同？</summary><div>
+<p>美国糖尿病协会召集的国际专家小组在 2021 年发表共识：建议用“缓解”（remission）这个词，标准是<b>停用降糖药至少 3 个月后，糖化血红蛋白低于 6.5%</b>；同时提醒，缓解的人还要继续定期检查<a class="cite" id="r30-1" href="#s30" data-n="30">30</a>。</p>
+<p>为什么不叫“根治”？因为缓解以后，如果体重又回去了，血糖也可能跟着回去。DiRECT 追踪到第五年，继续接受低强度支持的人里，13% 仍在缓解；在第二年缓解的人中，约四分之一到第五年仍然缓解。不过，整个干预组在五年里发生的严重不良事件，只有对照组的一半左右<a class="cite" id="r31-1" href="#s31" data-n="31">31</a>。</p>
+<p>所以，缓解不是一劳永逸，而是一种需要维持的状态。就算后来血糖又上来了，那几年“药少吃、身体轻”的日子，也是实实在在赚到的。（编者的理解）</p>
+</div></details><details class="deep"><summary>强度不同，结果也不同：Look AHEAD 研究</summary><div>
+<p>美国的 Look AHEAD 研究也让超重的糖尿病人强化生活方式，但没有用配方餐那样快速减重。第一年，强化组体重比对照组多减了约 7.9%；部分或完全缓解的人，第一年有 11.5%，第四年 7.3%，对照组都是 2%。研究者坦白地说，这样的“绝对缓解率并不高”<a class="cite" id="r32-1" href="#s32" data-n="32">32</a>。</p>
+<p>两项研究放在一起看，可以得出一个朴素的结论：<b>减重的幅度和持续的时间，决定了缓解的机会。</b></p>
+</div></details></section><section class="ch" id="how"><h2><span class="no">15</span>谁更有希望，要怎样做才安全</h2>
+<p>DiRECT 告诉我们，哪些人更有希望：</p>
+<ul>
+<li><b>病程短</b>的人（研究只收了确诊不到 6 年的人，缓解的人病程更短）<a class="cite" id="r27-3" href="#s27" data-n="27">27</a><a class="cite" id="r29-2" href="#s29" data-n="29">29</a>；</li>
+<li>还<b>没有用胰岛素</b>的人；</li>
+<li>能<b>减下较多体重、并且保持住</b>的人。</li>
+</ul>
+<p>那么，体重本来就不重的中国病人呢？按照“个人脂肪阈值”的假说，关键不是减到“标准体重”，而是减到<b>自己那条线以下</b>；体重正常的人，适度减重也可能有帮助<a class="cite" id="r9-3" href="#s9" data-n="9">9</a>。这还是一个假说，正在研究中，但和东亚人“体重不高、肚子里脂肪多”的特点是吻合的<a class="cite" id="r10-2" href="#s10" data-n="10">10</a>。（编者的理解）</p>
+<div class="box warn"><p class="lab">安全第一：一定要在医生指导下做</p><ul>
+<li><b>正在用胰岛素或磺脲类药的人，突然大幅少吃，可能发生严重的低血糖。</b>DiRECT 是在医生的安排下先停药、再开始配方餐的<a class="cite" id="r27-4" href="#s27" data-n="27">27</a>，自己照着做是有危险的。</li>
+<li>药怎么减、什么时候减，要由医生根据血糖决定；同时要监测血压（研究里连降压药也是在医生安排下调整的）。</li>
+<li>有严重的心、肾、肝病，孕妇，或者有进食障碍的人，不适合自己做低热量饮食。</li>
+<li>“缓解”以后也要定期查血糖、查眼底、查肾功能、查脚。</li>
+</ul></div>
+<p>具体怎么吃、怎么动，第六部分会讲。那些办法，对预防和缓解都适用；区别只在于，已经确诊的人要和医生一起做。</p>
+</section><section class="ch" id="tcm"><h2><span class="no">16</span>中药和保健品，怎样看</h2>
+<p>你在提问里说：吃中药，又缺少临床验证。这个问题需要分开来看。</p>
+<p><b>有经过严格检验的中药研究吗？有，但不多。</b>例如一项在中国多家医院做的双盲、随机、安慰剂对照试验：420 名糖耐量受损的人，一半吃一种含十味中药的胶囊（天芪胶囊），一半吃外观一样的安慰剂，两组都接受同样的生活方式教育。一年后，吃胶囊的人有 18.2% 发展成糖尿病，安慰剂组是 29.3%，风险降低约 32%，没有发生严重不良反应<a class="cite" id="r33-1" href="#s33" data-n="33">33</a>。这是一项设计规范的研究；不过它只做了一年，还需要更长时间、更多研究来确认，而且它预防的是糖尿病前期的进展，不是“根治”。</p>
+<p><b>可是，市面上大量号称“降糖”“根治”的产品，从来没有这样检验过。</b>更危险的是，有些“纯中药”“纯天然”的降糖产品里，偷偷掺了西药。香港的一项研究分析了 2005—2010 年转到中毒中心的 27 个病例，29 种“草药降糖产品”里查出了八种没有标明的降糖西药，最多的是格列本脲（22 种），其次是早已因为危险而被禁用的苯乙双胍（18 种）；63% 的病人出现了中毒反应，最常见的是低血糖，其次是乳酸酸中毒<a class="cite" id="r34-1" href="#s34" data-n="34">34</a>。</p>
+<p>所以，几条朴素的原则（编者整理）：</p>
+<ol class="steps">
+<li><b>凡是说“根治”“停药”“不用控制饮食”的，都不要信。</b>前面讲过，连最有效的办法也只敢说“缓解”。</li>
+<li>想用中药，找正规医院的医生；<b>告诉医生你在吃什么</b>，不要和西药“二选一”、自己停掉西药。</li>
+<li>不买来路不明的“祖传秘方”“特效胶囊”。</li>
+<li>用了以后血糖突然变得特别好、甚至心慌出汗，要警惕里面掺了药，赶快就医。</li>
+</ol>
+</section><section class="ch" id="old"><h2><span class="no">17</span>老年人：目标不一样</h2>
+<p>说到这里，要特别为家里的老人说几句。</p>
+<p>老年人的治疗目标，和中年人不完全一样。美国糖尿病协会的指南建议：身体比较健康的老人，糖化血红蛋白可以定在 7.0%—7.5% 以下；身体比较弱、病比较多的老人，可以放宽到 8.0% 以下；身体非常衰弱的，重点是<b>避免低血糖</b>和高血糖带来的不适，不必追求漂亮的化验数字<a class="cite" id="r35-1" href="#s35" data-n="35">35</a>。</p>
+<p>为什么要放宽？因为对老人来说，<b>低血糖往往比偏高一点的血糖更危险</b>：头晕、跌倒、骨折，甚至诱发心脏问题。所以老人用药要尽量选不容易引起低血糖的；饭量变少、生病吃不下饭的时候，要及时问医生要不要减药。</p>
+<p>对老人来说，“缓解”不一定是目标；但前面讲的生活方式，照样有用，尤其是<b>练肌肉</b>：肌肉多一点，收糖的仓库就大一点，也更不容易跌倒。</p>
+</section><div class="part" id="part6"><span>第六部分</span><b>年轻人怎样从根上预防</b></div><section class="ch" id="prevent"><h2><span class="no">18</span>证据最硬的一件事：生活方式真的有用</h2>
+<p>现在来到年轻人最关心的问题：怎样从根上预防？</p>
+<p>先看证据。全世界有三项经典的随机对照试验，结果惊人地一致：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 6</b><span>生活方式能不能预防？三个随机对照试验的结果</span></figcaption><svg viewBox="0 0 400 322" class="dg" role="img" aria-labelledby="dmxt dmxd">
+<title id="dmxt">生活方式能不能预防？三个随机对照试验的结果</title>
+<desc id="dmxd">中国大庆研究（糖耐量受损的人，6 年累计发病）：对照组 67.7%，饮食组 43.8%，运动组 41.1%，饮食加运动组 46.0%。美国糖尿病预防计划（平均 2.8 年，每 100 人每年的发病数）：安慰剂 11.0，二甲双胍 7.8，生活方式 4.8。芬兰糖尿病预防研究（4 年累计发病）：对照组 23%，生活方式组 11%。三个研究的人群、时间和计算方法不同，只能各自比较，不能横向比较。</desc>
+<text x="8.0" y="26.0" class="tn" text-anchor="start">中国大庆研究（6 年累计发病）</text>
+<text x="122.0" y="47.0" class="tw" text-anchor="end">对照组</text>
+<rect x="128" y="38" width="201.8" height="13" rx="4" class="f6 fillc"/>
+<text x="334.8" y="48.0" class="tw" text-anchor="start">67.7%</text>
+<text x="122.0" y="69.0" class="tw" text-anchor="end">饮食组</text>
+<rect x="128" y="60" width="130.6" height="13" rx="4" class="f1 fillc"/>
+<text x="263.6" y="70.0" class="tw" text-anchor="start">43.8%</text>
+<text x="122.0" y="91.0" class="tw" text-anchor="end">运动组</text>
+<rect x="128" y="82" width="122.5" height="13" rx="4" class="f1 fillc"/>
+<text x="255.5" y="92.0" class="tw" text-anchor="start">41.1%</text>
+<text x="122.0" y="113.0" class="tw" text-anchor="end">饮食加运动</text>
+<rect x="128" y="104" width="137.1" height="13" rx="4" class="f1 fillc"/>
+<text x="270.1" y="114.0" class="tw" text-anchor="start">46%</text>
+<text x="8.0" y="140.0" class="tn" text-anchor="start">美国 DPP（每百人每年发病）</text>
+<text x="122.0" y="161.0" class="tw" text-anchor="end">安慰剂</text>
+<rect x="128" y="152" width="201.8" height="13" rx="4" class="f6 fillc"/>
+<text x="334.8" y="162.0" class="tw" text-anchor="start">11</text>
+<text x="122.0" y="183.0" class="tw" text-anchor="end">二甲双胍</text>
+<rect x="128" y="174" width="143.1" height="13" rx="4" class="f5 fillc"/>
+<text x="276.1" y="184.0" class="tw" text-anchor="start">7.8</text>
+<text x="122.0" y="205.0" class="tw" text-anchor="end">生活方式</text>
+<rect x="128" y="196" width="88.1" height="13" rx="4" class="f1 fillc"/>
+<text x="221.1" y="206.0" class="tw" text-anchor="start">4.8</text>
+<text x="8.0" y="232.0" class="tn" text-anchor="start">芬兰 DPS（4 年累计发病）</text>
+<text x="122.0" y="253.0" class="tw" text-anchor="end">对照组</text>
+<rect x="128" y="244" width="201.8" height="13" rx="4" class="f6 fillc"/>
+<text x="334.8" y="254.0" class="tw" text-anchor="start">23%</text>
+<text x="122.0" y="275.0" class="tw" text-anchor="end">生活方式</text>
+<rect x="128" y="266" width="96.5" height="13" rx="4" class="f1 fillc"/>
+<text x="229.5" y="276.0" class="tw" text-anchor="start">11%</text>
+<text x="200.0" y="314.0" class="ts" text-anchor="middle">每组各自按比例画，组与组之间不能比较；大庆、芬兰是 %，DPP 是每百人每年</text>
+</svg></figure>
+<p><b>第一项来自中国。</b>1986 年，黑龙江大庆的医生在 33 家诊所筛查了 11 万多人，找出 577 位糖耐量受损（也就是糖尿病前期）的人，按诊所随机分成对照、饮食、运动、饮食加运动四组。六年后，对照组 67.7% 得了糖尿病，三个干预组只有 41%—46%；调整基线差别后，风险分别降低了 31%、46% 和 42%；而且偏瘦的人和超重的人效果相似<a class="cite" id="r36-1" href="#s36" data-n="36">36</a>。</p>
+<p>更了不起的是三十年后的随访：干预组的人得糖尿病的时间平均推迟了将近 4 年，心血管事件少了 26%，微血管并发症少了 35%，心血管死亡少了 33%，全因死亡少了 26%，平均多活了 1.44 年<a class="cite" id="r37-1" href="#s37" data-n="37">37</a>。六年的生活方式改变，换来了三十年的好处。</p>
+<p><b>第二项来自芬兰。</b>522 位超重、糖耐量受损的中年人，干预组接受个别指导：减重、少吃脂肪尤其是饱和脂肪、多吃纤维、多运动。第一年平均只减了 4.2 公斤，四年累计发病率却从 23% 降到 11%，风险降低 58%<a class="cite" id="r38-1" href="#s38" data-n="38">38</a>。</p>
+<p><b>第三项来自美国</b>，叫“糖尿病预防计划”（DPP）。3,234 位高危的人分成三组：安慰剂、二甲双胍、生活方式（目标是体重至少减 7%、每周至少运动 150 分钟）。平均 2.8 年后，生活方式组发病减少 58%，二甲双胍组减少 31%——<b>改变生活方式比吃药更有效</b><a class="cite" id="r39-1" href="#s39" data-n="39">39</a>。</p>
+<p>当然，好处要靠坚持。DPP 追踪到 15 年时，生活方式组和二甲双胍组的发病仍然分别比安慰剂组少 27% 和 18%，但组间差距在慢慢缩小；而那些没有发展成糖尿病的人，眼、肾、神经的并发症少了 28%<a class="cite" id="r40-1" href="#s40" data-n="40">40</a>。预防不是一次性的考试，而是一辈子的生活。</p>
+<p>请注意这些试验要求的改变有多“普通”：不是吃什么神奇的食物，也不是练到筋疲力尽，而是<b>少吃一点、吃得粗一点、每天多走一走、体重减掉百分之五到七</b>。根，就是这样一点点拔掉的。</p>
+</section><section class="ch" id="eat"><h2><span class="no">19</span>吃：七条朴素的原则</h2>
+<p>吃什么，网上的说法最多，也最乱。这里只讲有较好证据、也适合中国家庭的几条：</p>
+<ol class="steps">
+<li><b>以植物性的天然食物为主。</b>哈佛团队追踪 20 万美国人二三十年，把吃全谷、蔬菜、水果、坚果、豆类、植物油、茶和咖啡多的人，和吃精米白面、甜饮料、果汁、甜点、土豆多的人分开来看：前者风险低得多，后者（虽然也是“素”的）风险反而更高<a class="cite" id="r41-1" href="#s41" data-n="41">41</a>。<b>关键不在“吃素”两个字，而在吃的是不是天然、粗加工的植物。</b></li>
+<li><b>主食换一部分粗粮和豆类。</b>白米饭和中国人糖尿病风险的关联前面讲过<a class="cite" id="r18-2" href="#s18" data-n="18">18</a>。不必一口白米都不吃，可以把一半换成糙米、燕麦、杂豆、红薯等。</li>
+<li><b>不喝含糖饮料。</b>奶茶、可乐、果汁饮料都算<a class="cite" id="r17-2" href="#s17" data-n="17">17</a>。口渴喝白水、淡茶。</li>
+<li><b>少吃超加工食品。</b>饼干、薯片、方便面、香肠、甜面包……它们让人不知不觉多吃<a class="cite" id="r16-2" href="#s16" data-n="16">16</a>。看配料表，一长串看不懂的，少买。</li>
+<li><b>水果吃完整的，不要榨成汁。</b>完整的水果有纤维，吃得慢；果汁在“不健康的植物性食物”里<a class="cite" id="r41-2" href="#s41" data-n="41">41</a>。</li>
+<li><b>每一餐先装半盘蔬菜。</b>一个简单的办法：盘子一半是蔬菜，四分之一是豆腐、豆类、鱼蛋等蛋白质，四分之一是主食（编者整理的通俗做法）。</li>
+<li><b>吃到七八分饱。</b>能量过剩，是脂肪挤进肝脏、胰腺的起点<a class="cite" id="r8-3" href="#s8" data-n="8">8</a>。</li>
+</ol>
+<p>顺便说一个和本站读者有关的研究。美国罗马林达大学的“复临信徒健康研究 2”调查了北美六万多名基督复临安息日会的信徒：纯素食者的 2 型糖尿病患病率是 2.9%，蛋奶素食者 3.2%，非素食者 7.6%；把年龄、运动、体重等因素都考虑进去以后，素食者的风险仍然只有非素食者的一半左右<a class="cite" id="r42-1" href="#s42" data-n="42">42</a>。这是一项横断面的观察研究，不能证明因果；但它和前面哈佛的结果方向一致。</p>
+</section><section class="ch" id="move"><h2><span class="no">20</span>动：坐少一点，饭后走一走，练练肌肉</h2>
+<p>运动有三件事，各有各的用处。</p>
+<p><b>第一，每周累计至少 150 分钟中等强度的活动</b>，比如快走、骑车、游泳，分散在至少三天，不要连着两天不动。<b>第二，每周两三次力量练习</b>，练大肌肉群，不要连着两天练同一处。<b>第三，坐久了要起来动一动</b>，大约每 30 分钟起身活动一下。这是美国糖尿病协会关于运动的立场声明里的建议<a class="cite" id="r43-1" href="#s43" data-n="43">43</a>。</p>
+<p>其中有一个特别简单、特别适合中国家庭的办法：<b>饭后走一走。</b>新西兰的一项随机交叉试验，让 41 位平均 60 岁的 2 型糖尿病人做比较：一种是每天找时间走 30 分钟，一种是每顿饭后走 10 分钟——总时间一样。结果饭后走的那两周，饭后血糖整体低了 12%；晚饭后尤其明显，低了 22%<a class="cite" id="r44-1" href="#s44" data-n="44">44</a>。中国人晚饭往往吃得最多、饭后又最容易坐着看手机，这一条特别值得试。</p>
+<p><b>力量练习</b>对年纪大的人尤其要紧。前面讲过，肌肉是饭后收糖最多的地方，而肌肉会随年龄流失<a class="cite" id="r3-2" href="#s3" data-n="3">3</a><a class="cite" id="r6-2" href="#s6" data-n="6">6</a>。在家里就能做：靠墙半蹲、从椅子上站起坐下、提装水的瓶子、弹力带。老人从轻的开始，量力而行；有心脏病或关节病的，先问医生。</p>
+</section><section class="ch" id="rest"><h2><span class="no">21</span>睡、烟和压力</h2>
+<p><b>睡够 7—8 小时。</b>研究显示这个范围的风险最低<a class="cite" id="r15-2" href="#s15" data-n="15">15</a>。熬夜少睡几晚，年轻人的糖代谢就会出现“像衰老一样”的变化<a class="cite" id="r14-2" href="#s14" data-n="14">14</a>。手机不进卧室、晚饭别太晚、白天晒晒太阳，都对睡眠有帮助。</p>
+<p><b>不吸烟，也远离二手烟。</b>吸烟的人风险高 37%，二手烟也高 22%；戒烟头几年要注意别因此发胖，坚持下去，风险会慢慢回落<a class="cite" id="r19-2" href="#s19" data-n="19">19</a>。</p>
+<p><b>压力和情绪。</b>长期的压力会让身体的压力激素升高；少睡觉时，晚间皮质醇升高、交感神经更活跃，同时糖耐量下降<a class="cite" id="r14-3" href="#s14" data-n="14">14</a>。压力和糖尿病的关系还在研究中，本篇不夸大；但学会休息、把重担交托出去，对身体和心灵都有益处。本站的问题彩蛋《喜乐的心，为什么是良药？》讲过这方面的研究和圣经的教导，可以参考。</p>
+</section><section class="ch" id="check"><h2><span class="no">22</span>早一点知道：查什么，多久查一次</h2>
+<p>前面说过，中国有一大半糖尿病人不知道自己有病<a class="cite" id="r1-5" href="#s1" data-n="1">1</a><a class="cite" id="r2-3" href="#s2" data-n="2">2</a>。所以预防的另一半，是<b>早一点知道</b>。</p>
+<p>常用的诊断标准是这样的（美国糖尿病协会的标准，世界卫生组织和中国的标准大体相同）<a class="cite" id="r5-2" href="#s5" data-n="5">5</a>：</p>
+<div class="tblwrap"><table class="mini ctbl"><thead><tr><th>查什么</th><th>正常</th><th>糖尿病前期</th><th>糖尿病</th></tr></thead><tbody>
+<tr><td>空腹血糖（毫摩尔/升）</td><td>低于 5.6</td><td>5.6—6.9<small>（中国和世卫组织以 6.1 为起点）</small></td><td>7.0 及以上</td></tr>
+<tr><td>喝糖水后 2 小时血糖（毫摩尔/升）</td><td>低于 7.8</td><td>7.8—11.0</td><td>11.1 及以上</td></tr>
+<tr><td>糖化血红蛋白</td><td>低于 5.7%</td><td>5.7%—6.4%</td><td>6.5% 及以上</td></tr>
+</tbody></table></div>
+<p>“糖化血红蛋白”反映的是过去两三个月的平均血糖，不受当天吃没吃饭的影响。诊断糖尿病一般需要复查确认，或者两项同时超标；有明显口渴、多尿、消瘦的，随机血糖 11.1 以上也可以诊断<a class="cite" id="r5-3" href="#s5" data-n="5">5</a>。</p>
+<p>多久查一次？美国糖尿病协会建议：<b>所有成年人从 35 岁开始</b>查；超重、又有家族史、高血压、血脂异常、不爱运动等危险因素的人，<b>不论年龄都应该查</b>（亚裔美国人体重指数 23 以上就算超重）；结果正常的，至少每三年复查一次<a class="cite" id="r5-4" href="#s5" data-n="5">5</a>。</p>
+<p>编者的建议：每年体检时，除了空腹血糖，最好加查一项糖化血红蛋白；如果空腹血糖已经在 5.6 以上，或者有家族史，可以请医生安排一次糖耐量试验。<b>“空腹血糖正常”不等于没问题</b>——很多东亚人是饭后血糖先高起来的。</p>
+</section><section class="ch" id="plan"><h2><span class="no">23</span>一张给不同的人的行动表</h2>
+<p>把前面讲的放在一起，按你现在所处的位置，大致可以这样做（编者整理；已经在用药的人，请和医生一起调整）：</p>
+<div class="tblwrap"><table class="mini ptbl"><thead><tr><th>你现在</th><th>最重要的几件事</th></tr></thead><tbody>
+<tr><td>年轻、血糖正常</td><td>保持腰围；不喝甜饮料；主食加粗粮；每周 150 分钟活动加两次力量练习；睡够 7—8 小时；不吸烟；35 岁起定期查血糖（有家族史、超重的更早）</td></tr>
+<tr><td>糖尿病前期</td><td>这是最值得出手的时候：体重减 5%—7%；每天快走；晚饭后走 10 分钟；每年复查，必要时问医生是否需要药物</td></tr>
+<tr><td>刚确诊几年、没用胰岛素</td><td>和医生商量争取“缓解”：在医生指导下明显减重（超重的人目标可以是 10—15 公斤），配合调整药物；同时查眼底、肾、脚</td></tr>
+<tr><td>病程较长、已经多药或打胰岛素</td><td>按时用药、不自行停药；生活方式照样有用，可以减少用药量、减轻体重；管好血压、血脂；每年查并发症</td></tr>
+<tr><td>年纪大、身体弱</td><td>以避免低血糖为先；目标可以放宽；练腿部力量、防跌倒；吃不下饭时及时问医生减药</td></tr>
+</tbody></table></div>
+</section><div class="part" id="part7"><span>第七部分</span><b>结语与问答</b></div><section class="ch" id="hope"><h2><span class="no">24</span>带着盼望，而不是带着恐惧</h2>
+<p>回到开头的王阿姨。</p>
+<p>如果她读了这篇文章，也许会对女儿换一种说法：“我的血糖高了，说明身体这些年太累了。医生给的药我按时吃，它能保护我的眼睛、肾和心脏。同时我要每天饭后去散步，饭里加点粗粮，把肚子减下去一些。说不定过一两年，药还能减呢。”</p>
+<p>这就是本篇想说的全部：</p>
+<ul>
+<li>2 型糖尿病不是突然掉下来的灾难，而是一条十几年慢慢走出来的路。年纪不是病因，而是让水慢慢涨起来的时间。</li>
+<li>病根在于肌肉、肝脏对胰岛素不灵，β细胞又跟不上；多余的脂肪堵在肝脏和胰腺里，是其中关键的一环。</li>
+<li>降糖药大多不负责拔根，但它们实实在在地拦住了失明、肾衰、心梗这些最坏的结局。不要轻看它们，也不要自己停。</li>
+<li>拔根的力量，在每天的生活里。确诊早期大幅减重，相当一部分人可以缓解；糖尿病前期改变生活方式，可以推迟甚至避免发病。</li>
+</ul>
+<p>圣经说：</p>
+<blockquote class="verse"><p><sup>19</sup>岂不知你们的身子就是圣灵的殿吗？这圣灵是从上帝而来，住在你们里头的；并且你们不是自己的人，<sup>20</sup>因为你们是重价买来的。所以，要在你们的身子上荣耀上帝。</p><cite>哥林多前书 6:19—20</cite></blockquote>
+<p>照顾身体，不是为了怕死，也不是为了和别人比谁更健康；而是因为这身体是上帝托付给我们的，我们要用它去爱人、去服事。每一次饭后的散步、每一碗换成粗粮的饭、每一个早睡的晚上，都是对这份托付的一个小小的回应。（编者的理解）</p>
+<p>如果你已经在这条路上，请不要绝望。你不是一个人在走，医生、家人、教会的弟兄姐妹都可以和你同行。如果你还年轻、还没有走上这条路，那就从今天开始，把这条路的入口看清楚，绕开它。</p>
+<p class="note2">本篇是健康科普，不能代替医生的诊断和处方。文中的研究结论都转述自已发表的论文摘要和指南，出处见文末。</p>
+</section><section class="ch" id="faq"><h2><span class="no">25</span>常见问题</h2><div class="faq"><details><summary>吃糖多就会得糖尿病吗？</summary><div><p>不是“吃一口糖就得”。2 型糖尿病的关键是长期能量过剩、脂肪放错地方，再加上年龄、遗传等因素。不过，含糖饮料确实和更高的风险相关<a class="cite" id="r17-3" href="#s17" data-n="17">17</a>；甜食、精米白面容易让人吃多，最好少吃。</p></div></details><details><summary>得了糖尿病，是不是自己“吃出来的”、是自己的错？</summary><div><p>不完全是。遗传、出生前后的营养、年龄、种族都会影响一个人的“杯子”有多大，这些都不是自己能选的<a class="cite" id="r20-2" href="#s20" data-n="20">20</a><a class="cite" id="r10-3" href="#s10" data-n="10">10</a>。与其自责，不如把力气用在今天能改变的事情上。</p></div></details><details><summary>血糖控制好了，可以自己停药吗？</summary><div><p>不可以自己停。血糖好可能正是药在起作用。想减药、停药，要和医生一起，按“缓解”的标准一步步来，并且继续定期检查<a class="cite" id="r30-2" href="#s30" data-n="30">30</a>。</p></div></details><details><summary>我体重正常，也需要注意吗？</summary><div><p>需要。东亚人在较低的体重指数就可能得糖尿病，腹部内脏脂肪多的人风险更高<a class="cite" id="r10-4" href="#s10" data-n="10">10</a>；三分之一的新诊断病人体重并不超标<a class="cite" id="r9-4" href="#s9" data-n="9">9</a>。腰围和饭后血糖都值得关注。</p></div></details><details><summary>水果能吃吗？</summary><div><p>一般可以吃完整的水果，注意量，最好放在两餐之间；不要用果汁代替水果<a class="cite" id="r41-3" href="#s41" data-n="41">41</a>。血糖控制很差的时候，先问医生或营养师。</p></div></details><details><summary>听说二甲双胍伤肾，是真的吗？</summary><div><p>二甲双胍本身不是伤肾的药，但它从肾脏排出，肾功能明显下降时要减量或停用，这要由医生根据化验决定。长期吃要定期查维生素 B12<a class="cite" id="r25-2" href="#s25" data-n="25">25</a>。</p></div></details><details><summary>1 型糖尿病也能用这些办法“缓解”吗？</summary><div><p>不能。1 型糖尿病是自身免疫破坏了β细胞，必须用胰岛素。本篇讲的预防和缓解只针对 2 型<a class="cite" id="r5-5" href="#s5" data-n="5">5</a>。</p></div></details><details><summary>打了胰岛素，是不是就一辈子离不开了？</summary><div><p>不一定。有些人刚确诊时血糖很高，短期用胰岛素让β细胞“歇一歇”，以后可以换成口服药；也有人β细胞确实不够了，需要长期用。是否能减，由医生根据病情判断。</p></div></details></div></section>
+<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div></div><section class="ch" id="sources"><h2><span class="no">✦</span>资料出处</h2>
+<p>本页引用的医学研究和指南，都在 PubMed（美国国家医学图书馆的文献库）上核对过摘要，附 DOI 或 PubMed 链接；本页只转述摘要和指南里的结论，数字以原文为准。外文引文的中文都是编者所译。经文用和合本。</p>
+<p class="note2">资料在 2026 年 10 月逐一核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
+<ol class="srcs"><li id="s1" data-k="dm_wang21"><span class="sk">学术研究</span><span class="sd">Wang L, et al. Prevalence and Treatment of Diabetes in China, 2013-2018. JAMA 2021;326(24):2498-2506（全国 17 万多名成年人；PubMed 34962526）</span><a class="su" href="https://doi.org/10.1001/jama.2021.22208" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a><a href="#r1-3" aria-label="回到正文第3处">↑</a><a href="#r1-4" aria-label="回到正文第4处">↑</a><a href="#r1-5" aria-label="回到正文第5处">↑</a></span></li><li id="s2" data-k="dm_li20"><span class="sk">学术研究</span><span class="sd">Li Y, et al. Prevalence of diabetes recorded in mainland China using 2018 diagnostic criteria from the ADA. BMJ 2020;369:m997（31 个省 75,880 人；PubMed 32345662）</span><a class="su" href="https://doi.org/10.1136/bmj.m997" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a><a href="#r2-2" aria-label="回到正文第2处">↑</a><a href="#r2-3" aria-label="回到正文第3处">↑</a></span></li><li id="s3" data-k="dm_defronzo09"><span class="sk">学术研究</span><span class="sd">DeFronzo RA, Tripathy D. Skeletal muscle insulin resistance is the primary defect in type 2 diabetes. Diabetes Care 2009;32(Suppl 2):S157-63（综述；PubMed 19875544）</span><a class="su" href="https://doi.org/10.2337/dc09-S302" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a><a href="#r3-2" aria-label="回到正文第2处">↑</a></span></li><li id="s4" data-k="dm_ukpds16"><span class="sk">官方网站</span><span class="sd">UK Prospective Diabetes Study Group. UKPDS 16: Overview of 6 years’ therapy of type II diabetes: a progressive disease. Diabetes 1995;44(11):1249-58（4,209 名新诊断病人；PubMed 7589820）</span><a class="su" href="https://pubmed.ncbi.nlm.nih.gov/7589820/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov ↗</a><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a><a href="#r4-2" aria-label="回到正文第2处">↑</a></span></li><li id="s5" data-k="dm_ada24dx"><span class="sk">学术研究</span><span class="sd">American Diabetes Association. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2024. Diabetes Care 2024;47(Suppl 1):S20-S42（PubMed 38078589）</span><a class="su" href="https://doi.org/10.2337/dc24-S002" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a><a href="#r5-2" aria-label="回到正文第2处">↑</a><a href="#r5-3" aria-label="回到正文第3处">↑</a><a href="#r5-4" aria-label="回到正文第4处">↑</a><a href="#r5-5" aria-label="回到正文第5处">↑</a></span></li><li id="s6" data-k="dm_srikanthan10"><span class="sk">学术研究</span><span class="sd">Srikanthan P, Hevener AL, Karlamangla AS. Sarcopenia exacerbates obesity-associated insulin resistance and dysglycemia. PLoS One 2010;5(5):e10805（美国 14,528 人横断面研究；PubMed 22421977）</span><a class="su" href="https://doi.org/10.1371/journal.pone.0010805" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a><a href="#r6-2" aria-label="回到正文第2处">↑</a></span></li><li id="s7" data-k="dm_petersen03"><span class="sk">学术研究</span><span class="sd">Petersen KF, et al. Mitochondrial dysfunction in the elderly: possible role in insulin resistance. Science 2003;300(5622):1140-2（PubMed 12750520）</span><a class="su" href="https://doi.org/10.1126/science.1082889" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="dm_taylor08"><span class="sk">学术研究</span><span class="sd">Taylor R. Pathogenesis of type 2 diabetes: tracing the reverse route from cure to cause. Diabetologia 2008;51(10):1781-9（“双循环”假说；PubMed 18726585）</span><a class="su" href="https://doi.org/10.1007/s00125-008-1116-7" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a><a href="#r8-2" aria-label="回到正文第2处">↑</a><a href="#r8-3" aria-label="回到正文第3处">↑</a></span></li><li id="s9" data-k="dm_pft15"><span class="sk">学术研究</span><span class="sd">Taylor R, Holman RR. Normal weight individuals who develop type 2 diabetes: the personal fat threshold. Clin Sci 2015;128(7):405-10（“个人脂肪阈值”假说；PubMed 25515001）</span><a class="su" href="https://doi.org/10.1042/CS20140553" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a><a href="#r9-2" aria-label="回到正文第2处">↑</a><a href="#r9-3" aria-label="回到正文第3处">↑</a><a href="#r9-4" aria-label="回到正文第4处">↑</a></span></li><li id="s10" data-k="dm_ma13"><span class="sk">学术研究</span><span class="sd">Ma RCW, Chan JCN. Type 2 diabetes in East Asians: similarities and differences with populations in Europe and the United States. Ann N Y Acad Sci 2013;1281:64-91（PubMed 23551121）</span><a class="su" href="https://doi.org/10.1111/nyas.12098" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a><a href="#r10-2" aria-label="回到正文第2处">↑</a><a href="#r10-3" aria-label="回到正文第3处">↑</a><a href="#r10-4" aria-label="回到正文第4处">↑</a></span></li><li id="s11" data-k="dm_yoon06"><span class="sk">学术研究</span><span class="sd">Yoon KH, et al. Epidemic obesity and type 2 diabetes in Asia. Lancet 2006;368(9548):1681-8（PubMed 17098087）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(06)69703-1" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a></span></li><li id="s12" data-k="dm_chang03"><span class="sk">学术研究</span><span class="sd">Chang AM, Halter JB. Aging and insulin secretion. Am J Physiol Endocrinol Metab 2003;284(1):E7-12（综述；PubMed 12485807）</span><a class="su" href="https://doi.org/10.1152/ajpendo.00366.2002" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a></span></li><li id="s13" data-k="dm_butler03"><span class="sk">学术研究</span><span class="sd">Butler AE, et al. Beta-cell deficit and increased beta-cell apoptosis in humans with type 2 diabetes. Diabetes 2003;52(1):102-10（124 例尸检；PubMed 12502499）</span><a class="su" href="https://doi.org/10.2337/diabetes.52.1.102" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r13-1" aria-label="回到正文第1处">↑</a></span></li><li id="s14" data-k="dm_spiegel99"><span class="sk">学术研究</span><span class="sd">Spiegel K, Leproult R, Van Cauter E. Impact of sleep debt on metabolic and endocrine function. Lancet 1999;354(9188):1435-9（PubMed 10543671）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(99)01376-8" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r14-1" aria-label="回到正文第1处">↑</a><a href="#r14-2" aria-label="回到正文第2处">↑</a><a href="#r14-3" aria-label="回到正文第3处">↑</a></span></li><li id="s15" data-k="dm_shan15"><span class="sk">学术研究</span><span class="sd">Shan Z, et al. Sleep duration and risk of type 2 diabetes: a meta-analysis of prospective studies. Diabetes Care 2015;38(3):529-37（48 万多人；PubMed 25715415）</span><a class="su" href="https://doi.org/10.2337/dc14-2073" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r15-1" aria-label="回到正文第1处">↑</a><a href="#r15-2" aria-label="回到正文第2处">↑</a></span></li><li id="s16" data-k="dm_hall19"><span class="sk">学术研究</span><span class="sd">Hall KD, et al. Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial. Cell Metab 2019;30(1):67-77（PubMed 31105044）</span><a class="su" href="https://doi.org/10.1016/j.cmet.2019.05.008" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r16-1" aria-label="回到正文第1处">↑</a><a href="#r16-2" aria-label="回到正文第2处">↑</a></span></li><li id="s17" data-k="dm_malik10"><span class="sk">学术研究</span><span class="sd">Malik VS, et al. Sugar-sweetened beverages and risk of metabolic syndrome and type 2 diabetes: a meta-analysis. Diabetes Care 2010;33(11):2477-83（31 万人；PubMed 20693348）</span><a class="su" href="https://doi.org/10.2337/dc10-1079" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r17-1" aria-label="回到正文第1处">↑</a><a href="#r17-2" aria-label="回到正文第2处">↑</a><a href="#r17-3" aria-label="回到正文第3处">↑</a></span></li><li id="s18" data-k="dm_hu12"><span class="sk">学术研究</span><span class="sd">Hu EA, Pan A, Malik V, Sun Q. White rice consumption and risk of type 2 diabetes: meta-analysis and systematic review. BMJ 2012;344:e1454（35 万人；PubMed 22422870）</span><a class="su" href="https://doi.org/10.1136/bmj.e1454" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r18-1" aria-label="回到正文第1处">↑</a><a href="#r18-2" aria-label="回到正文第2处">↑</a></span></li><li id="s19" data-k="dm_pan15"><span class="sk">学术研究</span><span class="sd">Pan A, et al. Relation of active, passive, and quitting smoking with incident type 2 diabetes: a systematic review and meta-analysis. Lancet Diabetes Endocrinol 2015;3(12):958-67（88 项研究、590 万人；PubMed 26388413）</span><a class="su" href="https://doi.org/10.1016/S2213-8587(15)00316-2" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r19-1" aria-label="回到正文第1处">↑</a><a href="#r19-2" aria-label="回到正文第2处">↑</a></span></li><li id="s20" data-k="dm_ravelli98"><span class="sk">学术研究</span><span class="sd">Ravelli AC, et al. Glucose tolerance in adults after prenatal exposure to famine. Lancet 1998;351(9097):173-7（荷兰 1944—1945 年饥荒；PubMed 9449872）</span><a class="su" href="https://doi.org/10.1016/s0140-6736(97)07244-9" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r20-1" aria-label="回到正文第1处">↑</a><a href="#r20-2" aria-label="回到正文第2处">↑</a></span></li><li id="s21" data-k="dm_neel62"><span class="sk">官方网站</span><span class="sd">Neel JV. Diabetes mellitus: a “thrifty” genotype rendered detrimental by “progress”? Am J Hum Genet 1962;14:353-62（“节俭基因”假说；PubMed 13937884）</span><a class="su" href="https://pubmed.ncbi.nlm.nih.gov/13937884/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov ↗</a><span class="sb"><a href="#r21-1" aria-label="回到正文第1处">↑</a></span></li><li id="s22" data-k="dm_ukpds80"><span class="sk">学术研究</span><span class="sd">Holman RR, et al. 10-year follow-up of intensive glucose control in type 2 diabetes (UKPDS 80). N Engl J Med 2008;359(15):1577-89（PubMed 18784090）</span><a class="su" href="https://doi.org/10.1056/NEJMoa0806470" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r22-1" aria-label="回到正文第1处">↑</a></span></li><li id="s23" data-k="dm_empa15"><span class="sk">学术研究</span><span class="sd">Zinman B, et al. Empagliflozin, Cardiovascular Outcomes, and Mortality in Type 2 Diabetes (EMPA-REG OUTCOME). N Engl J Med 2015;373(22):2117-28（7,020 人；药厂资助；PubMed 26378978）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1504720" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r23-1" aria-label="回到正文第1处">↑</a></span></li><li id="s24" data-k="dm_leader16"><span class="sk">学术研究</span><span class="sd">Marso SP, et al. Liraglutide and Cardiovascular Outcomes in Type 2 Diabetes (LEADER). N Engl J Med 2016;375(4):311-22（9,340 人；药厂和美国国立卫生研究院资助；PubMed 27295427）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1603827" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r24-1" aria-label="回到正文第1处">↑</a></span></li><li id="s25" data-k="dm_dejager10"><span class="sk">学术研究</span><span class="sd">de Jager J, et al. Long term treatment with metformin in patients with type 2 diabetes and risk of vitamin B-12 deficiency: randomised placebo controlled trial. BMJ 2010;340:c2181（PubMed 20488910）</span><a class="su" href="https://doi.org/10.1136/bmj.c2181" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r25-1" aria-label="回到正文第1处">↑</a><a href="#r25-2" aria-label="回到正文第2处">↑</a></span></li><li id="s26" data-k="dm_chalmers09"><span class="sk">学术研究</span><span class="sd">Chalmers I, Glasziou P. Avoidable waste in the production and reporting of research evidence. Lancet 2009;374(9683):86-9（PubMed 19525005）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(09)60329-9" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r26-1" aria-label="回到正文第1处">↑</a></span></li><li id="s27" data-k="dm_direct18"><span class="sk">学术研究</span><span class="sd">Lean MEJ, et al. Primary care-led weight management for remission of type 2 diabetes (DiRECT): an open-label, cluster-randomised trial. Lancet 2018;391(10120):541-51（PubMed 29221645）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(17)33102-1" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r27-1" aria-label="回到正文第1处">↑</a><a href="#r27-2" aria-label="回到正文第2处">↑</a><a href="#r27-3" aria-label="回到正文第3处">↑</a><a href="#r27-4" aria-label="回到正文第4处">↑</a></span></li><li id="s28" data-k="dm_direct19"><span class="sk">学术研究</span><span class="sd">Lean MEJ, et al. Durability of a primary care-led weight-management intervention for remission of type 2 diabetes: 2-year results of the DiRECT trial. Lancet Diabetes Endocrinol 2019;7(5):344-55（PubMed 30852132）</span><a class="su" href="https://doi.org/10.1016/S2213-8587(19)30068-3" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r28-1" aria-label="回到正文第1处">↑</a></span></li><li id="s29" data-k="dm_taylor18"><span class="sk">学术研究</span><span class="sd">Taylor R, et al. Remission of Human Type 2 Diabetes Requires Decrease in Liver and Pancreas Fat Content but Is Dependent upon Capacity for β Cell Recovery. Cell Metab 2018;28(4):547-56（PubMed 30078554）</span><a class="su" href="https://doi.org/10.1016/j.cmet.2018.07.003" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r29-1" aria-label="回到正文第1处">↑</a><a href="#r29-2" aria-label="回到正文第2处">↑</a></span></li><li id="s30" data-k="dm_riddle21"><span class="sk">学术研究</span><span class="sd">Riddle MC, et al. Consensus Report: Definition and Interpretation of Remission in Type 2 Diabetes. Diabetes Care 2021;44(10):2438-44（美国糖尿病协会等国际专家共识；PubMed 34462270）</span><a class="su" href="https://doi.org/10.2337/dci21-0034" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r30-1" aria-label="回到正文第1处">↑</a><a href="#r30-2" aria-label="回到正文第2处">↑</a></span></li><li id="s31" data-k="dm_direct24"><span class="sk">学术研究</span><span class="sd">Lean MEJ, et al. 5-year follow-up of the randomised Diabetes Remission Clinical Trial (DiRECT). Lancet Diabetes Endocrinol 2024;12(4):233-46（PubMed 38423026）</span><a class="su" href="https://doi.org/10.1016/S2213-8587(23)00385-6" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r31-1" aria-label="回到正文第1处">↑</a></span></li><li id="s32" data-k="dm_gregg12"><span class="sk">学术研究</span><span class="sd">Gregg EW, et al. Association of an intensive lifestyle intervention with remission of type 2 diabetes (Look AHEAD). JAMA 2012;308(23):2489-96（4,503 人；PubMed 23288372）</span><a class="su" href="https://doi.org/10.1001/jama.2012.67929" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r32-1" aria-label="回到正文第1处">↑</a></span></li><li id="s33" data-k="dm_tianqi14"><span class="sk">学术研究</span><span class="sd">Lian F, et al. Chinese herbal medicine Tianqi reduces progression from impaired glucose tolerance to diabetes: a double-blind, randomized, placebo-controlled, multicenter trial. J Clin Endocrinol Metab 2014;99(2):648-55（PubMed 24432995）</span><a class="su" href="https://doi.org/10.1210/jc.2013-3276" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r33-1" aria-label="回到正文第1处">↑</a></span></li><li id="s34" data-k="dm_ching12"><span class="sk">学术研究</span><span class="sd">Ching CK, et al. Adulteration of herbal antidiabetic products with undeclared pharmaceuticals: a case series in Hong Kong. Br J Clin Pharmacol 2012;73(5):795-800（PubMed 22034838）</span><a class="su" href="https://doi.org/10.1111/j.1365-2125.2011.04135.x" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r34-1" aria-label="回到正文第1处">↑</a></span></li><li id="s35" data-k="dm_ada24old"><span class="sk">学术研究</span><span class="sd">American Diabetes Association. 13. Older Adults: Standards of Care in Diabetes—2024. Diabetes Care 2024;47(Suppl 1):S244-S257（PubMed 38078580）</span><a class="su" href="https://doi.org/10.2337/dc24-S013" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r35-1" aria-label="回到正文第1处">↑</a></span></li><li id="s36" data-k="dm_daqing97"><span class="sk">学术研究</span><span class="sd">Pan XR, et al. Effects of diet and exercise in preventing NIDDM in people with impaired glucose tolerance. The Da Qing IGT and Diabetes Study. Diabetes Care 1997;20(4):537-44（大庆研究；PubMed 9096977）</span><a class="su" href="https://doi.org/10.2337/diacare.20.4.537" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r36-1" aria-label="回到正文第1处">↑</a></span></li><li id="s37" data-k="dm_daqing19"><span class="sk">学术研究</span><span class="sd">Gong Q, et al. Morbidity and mortality after lifestyle intervention for people with impaired glucose tolerance: 30-year results of the Da Qing Diabetes Prevention Outcome Study. Lancet Diabetes Endocrinol 2019;7(6):452-61（PubMed 31036503）</span><a class="su" href="https://doi.org/10.1016/S2213-8587(19)30093-2" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r37-1" aria-label="回到正文第1处">↑</a></span></li><li id="s38" data-k="dm_dps01"><span class="sk">学术研究</span><span class="sd">Tuomilehto J, et al. Prevention of type 2 diabetes mellitus by changes in lifestyle among subjects with impaired glucose tolerance. N Engl J Med 2001;344(18):1343-50（芬兰糖尿病预防研究，522 人；PubMed 11333990）</span><a class="su" href="https://doi.org/10.1056/NEJM200105033441801" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r38-1" aria-label="回到正文第1处">↑</a></span></li><li id="s39" data-k="dm_dpp02"><span class="sk">学术研究</span><span class="sd">Diabetes Prevention Program Research Group (Knowler WC, et al). Reduction in the incidence of type 2 diabetes with lifestyle intervention or metformin. N Engl J Med 2002;346(6):393-403（3,234 人；PubMed 11832527）</span><a class="su" href="https://doi.org/10.1056/NEJMoa012512" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r39-1" aria-label="回到正文第1处">↑</a></span></li><li id="s40" data-k="dm_dppos15"><span class="sk">学术研究</span><span class="sd">Diabetes Prevention Program Research Group. Long-term effects of lifestyle intervention or metformin on diabetes development and microvascular complications over 15-year follow-up: the DPPOS. Lancet Diabetes Endocrinol 2015;3(11):866-75（PubMed 26377054）</span><a class="su" href="https://doi.org/10.1016/S2213-8587(15)00291-0" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r40-1" aria-label="回到正文第1处">↑</a></span></li><li id="s41" data-k="dm_satija16"><span class="sk">学术研究</span><span class="sd">Satija A, et al. Plant-Based Dietary Patterns and Incidence of Type 2 Diabetes in US Men and Women: Results from Three Prospective Cohort Studies. PLoS Med 2016;13(6):e1002039（20 万人；PubMed 27299701）</span><a class="su" href="https://doi.org/10.1371/journal.pmed.1002039" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r41-1" aria-label="回到正文第1处">↑</a><a href="#r41-2" aria-label="回到正文第2处">↑</a><a href="#r41-3" aria-label="回到正文第3处">↑</a></span></li><li id="s42" data-k="dm_tonstad09"><span class="sk">学术研究</span><span class="sd">Tonstad S, et al. Type of vegetarian diet, body weight, and prevalence of type 2 diabetes. Diabetes Care 2009;32(5):791-6（复临信徒健康研究 2，60,903 人；PubMed 19351712）</span><a class="su" href="https://doi.org/10.2337/dc08-1886" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r42-1" aria-label="回到正文第1处">↑</a></span></li><li id="s43" data-k="dm_colberg16"><span class="sk">学术研究</span><span class="sd">Colberg SR, et al. Physical Activity/Exercise and Diabetes: A Position Statement of the American Diabetes Association. Diabetes Care 2016;39(11):2065-79（PubMed 27926890）</span><a class="su" href="https://doi.org/10.2337/dc16-1728" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r43-1" aria-label="回到正文第1处">↑</a></span></li><li id="s44" data-k="dm_reynolds16"><span class="sk">学术研究</span><span class="sd">Reynolds AN, et al. Advice to walk after meals is more effective for lowering postprandial glycaemia in type 2 diabetes mellitus than advice that does not specify timing: a randomised crossover study. Diabetologia 2016;59(12):2572-8（PubMed 27747394）</span><a class="su" href="https://doi.org/10.1007/s00125-016-4085-2" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r44-1" aria-label="回到正文第1处">↑</a></span></li></ol>
+</section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="health.html"><span class="reln">问题彩蛋 21</span><b>抽烟、喝酒、吃什么，和信仰有关系吗？</b><small>复临信徒为什么不抽烟、不喝酒、不吃猪肉？耶稣不是把水变成酒吗？</small></a><a class="relc" href="joy.html"><span class="reln">问题彩蛋 14</span><b>喜乐的心，为什么是良药？</b><small>“忧伤的灵使骨枯干”是什么意思？想得多会长结节、得癌吗？为什么我们总往坏处想？写给姐妹和妈妈们</small></a></div></section><div class="scene"><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p><div class="stage"><svg class="sky" viewBox="0 0 180 56" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="km" d="M26 8h3v1h-3zM24 9h2v1h-2zM23 10h2v1h-2zM26 10h1v1h-1zM22 11h2v1h-2zM25 11h1v1h-1zM22 12h3v1h-3zM21 13h3v1h-3zM25 13h1v1h-1zM21 14h4v1h-4zM21 15h3v1h-3zM21 16h4v1h-4zM21 17h3v1h-3zM25 17h1v1h-1zM21 18h4v1h-4zM26 18h1v1h-1zM21 19h3v1h-3zM25 19h1v1h-1zM27 19h1v1h-1zM21 20h6v1h-6zM28 20h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM29 21h1v1h-1zM22 22h7v1h-7zM30 22h1v1h-1zM32 22h1v1h-1zM36 22h2v1h-2zM23 23h5v1h-5zM29 23h1v1h-1zM31 23h1v1h-1zM33 23h1v1h-1zM35 23h2v1h-2zM24 24h12v1h-12zM26 25h8v1h-8z"/><path class="kg" d="M122 0h1v1h-1zM121 1h3v1h-3zM122 2h1v1h-1zM139 4h1v1h-1zM82 5h1v1h-1zM138 5h3v1h-3zM81 6h3v1h-3zM139 6h1v1h-1zM82 7h1v1h-1zM144 8h1v1h-1zM146 8h1v1h-1zM148 8h1v1h-1zM109 9h1v1h-1zM146 9h1v1h-1zM108 10h3v1h-3zM142 10h1v1h-1zM145 10h3v1h-3zM150 10h1v1h-1zM109 11h1v1h-1zM143 11h7v1h-7zM145 12h3v1h-3zM146 13h1v1h-1zM65 14h1v1h-1zM146 14h1v1h-1zM64 15h3v1h-3zM65 16h1v1h-1zM144 16h1v1h-1zM148 16h1v1h-1zM164 18h1v1h-1zM163 19h3v1h-3zM164 20h1v1h-1zM2 28h1v1h-1zM1 29h3v1h-3zM2 30h1v1h-1z"/><path class="ks" d="M103 0h1v1h-1zM151 0h1v1h-1zM3 1h1v1h-1zM12 1h1v1h-1zM20 1h1v1h-1zM45 1h1v1h-1zM92 2h1v1h-1zM64 3h1v1h-1zM178 3h1v1h-1zM166 4h1v1h-1zM57 8h1v1h-1zM124 10h1v1h-1zM155 10h1v1h-1zM9 11h1v1h-1zM93 13h1v1h-1zM84 18h1v1h-1zM102 18h1v1h-1zM7 21h1v1h-1zM50 21h1v1h-1zM59 21h1v1h-1zM71 21h1v1h-1zM179 23h1v1h-1zM105 27h1v1h-1zM91 28h1v1h-1zM79 29h1v1h-1zM169 29h1v1h-1zM65 31h1v1h-1zM120 31h1v1h-1zM11 32h1v1h-1zM42 35h1v1h-1zM163 37h1v1h-1zM28 38h1v1h-1zM63 40h1v1h-1zM104 40h1v1h-1zM91 42h1v1h-1zM10 43h1v1h-1zM46 43h1v1h-1zM70 45h1v1h-1z"/><path class="kd" d="M52 44h1v1h-1zM56 44h1v1h-1zM60 44h1v1h-1zM64 44h1v1h-1zM68 44h1v1h-1zM72 44h1v1h-1zM76 44h1v1h-1zM80 44h1v1h-1zM84 44h1v1h-1zM88 44h1v1h-1zM92 44h1v1h-1zM96 44h1v1h-1zM100 44h1v1h-1zM104 44h1v1h-1zM108 44h1v1h-1zM112 44h1v1h-1zM116 44h1v1h-1zM120 44h1v1h-1zM124 44h1v1h-1zM128 44h1v1h-1zM132 44h1v1h-1zM136 44h1v1h-1zM140 44h1v1h-1zM144 44h1v1h-1zM148 44h1v1h-1zM152 44h1v1h-1zM156 44h1v1h-1zM160 44h1v1h-1zM164 44h1v1h-1zM168 44h1v1h-1zM172 44h1v1h-1zM74 46h1v1h-1zM78 46h1v1h-1zM82 46h1v1h-1zM86 46h1v1h-1zM90 46h1v1h-1zM94 46h1v1h-1zM98 46h1v1h-1zM102 46h1v1h-1zM106 46h1v1h-1zM110 46h1v1h-1zM114 46h1v1h-1zM118 46h1v1h-1zM122 46h1v1h-1zM126 46h1v1h-1zM130 46h1v1h-1zM134 46h1v1h-1zM138 46h1v1h-1zM142 46h1v1h-1zM146 46h1v1h-1zM150 46h1v1h-1zM32 48h1v1h-1zM36 48h1v1h-1zM40 48h1v1h-1zM44 48h1v1h-1zM48 48h1v1h-1zM52 48h1v1h-1zM56 48h1v1h-1zM60 48h1v1h-1zM64 48h1v1h-1zM68 48h1v1h-1zM72 48h1v1h-1zM76 48h1v1h-1zM78 48h1v1h-1zM80 48h1v1h-1zM82 48h1v1h-1zM84 48h1v1h-1zM86 48h1v1h-1zM88 48h1v1h-1zM90 48h1v1h-1zM92 48h1v1h-1zM94 48h1v1h-1zM96 48h1v1h-1zM98 48h1v1h-1zM100 48h1v1h-1zM102 48h1v1h-1zM104 48h1v1h-1zM106 48h1v1h-1zM108 48h1v1h-1zM110 48h1v1h-1zM112 48h1v1h-1zM114 48h1v1h-1zM116 48h1v1h-1zM118 48h1v1h-1zM120 48h1v1h-1zM122 48h1v1h-1zM124 48h1v1h-1zM126 48h1v1h-1zM128 48h1v1h-1zM130 48h1v1h-1zM132 48h1v1h-1zM134 48h1v1h-1zM136 48h1v1h-1zM138 48h1v1h-1zM140 48h1v1h-1zM142 48h1v1h-1zM144 48h1v1h-1zM148 48h1v1h-1zM152 48h1v1h-1zM156 48h1v1h-1zM160 48h1v1h-1zM164 48h1v1h-1zM168 48h1v1h-1zM172 48h1v1h-1zM176 48h1v1h-1zM105 49h1v1h-1zM109 49h1v1h-1zM113 49h1v1h-1zM117 49h1v1h-1z"/><path class="kh" d="M0 50h1v1h-1zM2 50h1v1h-1zM4 50h1v1h-1zM6 50h1v1h-1zM8 50h1v1h-1zM10 50h1v1h-1zM12 50h1v1h-1zM14 50h1v1h-1zM16 50h1v1h-1zM18 50h1v1h-1zM20 50h1v1h-1zM22 50h1v1h-1zM24 50h1v1h-1zM26 50h1v1h-1zM28 50h1v1h-1zM30 50h1v1h-1zM32 50h1v1h-1zM34 50h1v1h-1zM36 50h1v1h-1zM38 50h1v1h-1zM40 50h1v1h-1zM42 50h1v1h-1zM44 50h1v1h-1zM46 50h1v1h-1zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM54 50h1v1h-1zM56 50h1v1h-1zM58 50h1v1h-1zM60 50h1v1h-1zM62 50h1v1h-1zM64 50h1v1h-1zM66 50h1v1h-1zM68 50h1v1h-1zM70 50h1v1h-1zM72 50h1v1h-1zM74 50h1v1h-1zM76 50h1v1h-1zM78 50h1v1h-1zM80 50h1v1h-1zM82 50h1v1h-1zM84 50h1v1h-1zM86 50h1v1h-1zM88 50h1v1h-1zM90 50h1v1h-1zM92 50h1v1h-1zM94 50h1v1h-1zM96 50h1v1h-1zM98 50h1v1h-1zM100 50h1v1h-1zM102 50h1v1h-1zM104 50h1v1h-1zM106 50h1v1h-1zM108 50h1v1h-1zM110 50h1v1h-1zM112 50h1v1h-1zM114 50h1v1h-1zM116 50h1v1h-1zM118 50h1v1h-1zM120 50h1v1h-1zM122 50h1v1h-1zM124 50h1v1h-1zM126 50h1v1h-1zM128 50h1v1h-1zM130 50h1v1h-1zM132 50h1v1h-1zM134 50h1v1h-1zM136 50h1v1h-1zM138 50h1v1h-1zM140 50h1v1h-1zM142 50h1v1h-1zM144 50h1v1h-1zM146 50h1v1h-1zM148 50h1v1h-1zM150 50h1v1h-1zM152 50h1v1h-1zM154 50h1v1h-1zM156 50h1v1h-1zM158 50h1v1h-1zM160 50h1v1h-1zM162 50h1v1h-1zM164 50h1v1h-1zM166 50h1v1h-1zM168 50h1v1h-1zM170 50h1v1h-1zM172 50h1v1h-1zM174 50h1v1h-1zM176 50h1v1h-1zM178 50h1v1h-1z"/></svg><svg class="lamb" data-on="eo ld rd" data-enter="joy" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></div></div>
+<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　健康栏目 · 健康科普，不能代替医生的诊断和处方</p><p><a href="./#health">← 回到健康</a>　<a href="./#home">学课目录</a></p></footer>
+</main>
+</div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一张化验单之后</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li></ol></li><li><span class="tp">第二部分 · 血糖是怎样管住的</span><ol><li><a href="#sugar"><span class="tn">03</span>血液里只有一茶匙糖</a></li><li><a href="#two"><span class="tn">04</span>锁生了锈，钥匙又不够</a></li></ol></li><li><span class="tp">第三部分 · 为什么年纪越大越容易得</span><ol><li><a href="#muscle"><span class="tn">05</span>最大的“糖仓库”在缩水</a></li><li><a href="#fat"><span class="tn">06</span>脂肪放错了地方</a></li><li><a href="#beta"><span class="tn">07</span>β细胞会累，也会“退休”</a></li><li><a href="#life"><span class="tn">08</span>几十年的生活，一点一点积累</a></li><li><a href="#mismatch"><span class="tn">09</span>透过现象看本质：老设计，新环境</a></li></ol></li><li><span class="tp">第四部分 · 为什么吃药似乎“断不了根”</span><ol><li><a href="#drugs"><span class="tn">10</span>降糖药各在哪里用力</a></li><li><a href="#cure"><span class="tn">11</span>“只是压血糖”，为什么还要吃</a></li><li><a href="#more"><span class="tn">12</span>为什么药越吃越多</a></li><li><a href="#research"><span class="tn">13</span>研究都是“为了研究而研究”吗</a></li></ol></li><li><span class="tp">第五部分 · 能不能扭转：缓解</span><ol><li><a href="#remit"><span class="tn">14</span>从“不可逆”到“可以缓解”</a></li><li><a href="#how"><span class="tn">15</span>谁更有希望，要怎样做才安全</a></li><li><a href="#tcm"><span class="tn">16</span>中药和保健品，怎样看</a></li><li><a href="#old"><span class="tn">17</span>老年人：目标不一样</a></li></ol></li><li><span class="tp">第六部分 · 年轻人怎样从根上预防</span><ol><li><a href="#prevent"><span class="tn">18</span>证据最硬的一件事：生活方式真的有用</a></li><li><a href="#eat"><span class="tn">19</span>吃：七条朴素的原则</a></li><li><a href="#move"><span class="tn">20</span>动：坐少一点，饭后走一走，练练肌肉</a></li><li><a href="#rest"><span class="tn">21</span>睡、烟和压力</a></li><li><a href="#check"><span class="tn">22</span>早一点知道：查什么，多久查一次</a></li><li><a href="#plan"><span class="tn">23</span>一张给不同的人的行动表</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#hope"><span class="tn">24</span>带着盼望，而不是带着恐惧</a></li><li><a href="#faq"><span class="tn">25</span>常见问题</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 55 分钟读完<span data-left></span></p></div></div></div>
+<div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
+<p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
+<p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
+<p class="note2">和学课网站的设置是同一套。</p></div></div>
+<div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
+<script type="application/json" id="srcdata">{"1": ["Wang L, et al. Prevalence and Treatment of Diabetes in China, 2013-2018. JAMA 2021;326(24):2498-2506（全国 17 万多名成年人；PubMed 34962526）", "https://doi.org/10.1001/jama.2021.22208", "doi.org", "学术研究", ""], "2": ["Li Y, et al. Prevalence of diabetes recorded in mainland China using 2018 diagnostic criteria from the ADA. BMJ 2020;369:m997（31 个省 75,880 人；PubMed 32345662）", "https://doi.org/10.1136/bmj.m997", "doi.org", "学术研究", ""], "3": ["DeFronzo RA, Tripathy D. Skeletal muscle insulin resistance is the primary defect in type 2 diabetes. Diabetes Care 2009;32(Suppl 2):S157-63（综述；PubMed 19875544）", "https://doi.org/10.2337/dc09-S302", "doi.org", "学术研究", ""], "4": ["UK Prospective Diabetes Study Group. UKPDS 16: Overview of 6 years’ therapy of type II diabetes: a progressive disease. Diabetes 1995;44(11):1249-58（4,209 名新诊断病人；PubMed 7589820）", "https://pubmed.ncbi.nlm.nih.gov/7589820/", "pubmed.ncbi.nlm.nih.gov", "官方网站", ""], "5": ["American Diabetes Association. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2024. Diabetes Care 2024;47(Suppl 1):S20-S42（PubMed 38078589）", "https://doi.org/10.2337/dc24-S002", "doi.org", "学术研究", ""], "6": ["Srikanthan P, Hevener AL, Karlamangla AS. Sarcopenia exacerbates obesity-associated insulin resistance and dysglycemia. PLoS One 2010;5(5):e10805（美国 14,528 人横断面研究；PubMed 22421977）", "https://doi.org/10.1371/journal.pone.0010805", "doi.org", "学术研究", ""], "7": ["Petersen KF, et al. Mitochondrial dysfunction in the elderly: possible role in insulin resistance. Science 2003;300(5622):1140-2（PubMed 12750520）", "https://doi.org/10.1126/science.1082889", "doi.org", "学术研究", ""], "8": ["Taylor R. Pathogenesis of type 2 diabetes: tracing the reverse route from cure to cause. Diabetologia 2008;51(10):1781-9（“双循环”假说；PubMed 18726585）", "https://doi.org/10.1007/s00125-008-1116-7", "doi.org", "学术研究", ""], "9": ["Taylor R, Holman RR. Normal weight individuals who develop type 2 diabetes: the personal fat threshold. Clin Sci 2015;128(7):405-10（“个人脂肪阈值”假说；PubMed 25515001）", "https://doi.org/10.1042/CS20140553", "doi.org", "学术研究", ""], "10": ["Ma RCW, Chan JCN. Type 2 diabetes in East Asians: similarities and differences with populations in Europe and the United States. Ann N Y Acad Sci 2013;1281:64-91（PubMed 23551121）", "https://doi.org/10.1111/nyas.12098", "doi.org", "学术研究", ""], "11": ["Yoon KH, et al. Epidemic obesity and type 2 diabetes in Asia. Lancet 2006;368(9548):1681-8（PubMed 17098087）", "https://doi.org/10.1016/S0140-6736(06)69703-1", "doi.org", "学术研究", ""], "12": ["Chang AM, Halter JB. Aging and insulin secretion. Am J Physiol Endocrinol Metab 2003;284(1):E7-12（综述；PubMed 12485807）", "https://doi.org/10.1152/ajpendo.00366.2002", "doi.org", "学术研究", ""], "13": ["Butler AE, et al. Beta-cell deficit and increased beta-cell apoptosis in humans with type 2 diabetes. Diabetes 2003;52(1):102-10（124 例尸检；PubMed 12502499）", "https://doi.org/10.2337/diabetes.52.1.102", "doi.org", "学术研究", ""], "14": ["Spiegel K, Leproult R, Van Cauter E. Impact of sleep debt on metabolic and endocrine function. Lancet 1999;354(9188):1435-9（PubMed 10543671）", "https://doi.org/10.1016/S0140-6736(99)01376-8", "doi.org", "学术研究", ""], "15": ["Shan Z, et al. Sleep duration and risk of type 2 diabetes: a meta-analysis of prospective studies. Diabetes Care 2015;38(3):529-37（48 万多人；PubMed 25715415）", "https://doi.org/10.2337/dc14-2073", "doi.org", "学术研究", ""], "16": ["Hall KD, et al. Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial. Cell Metab 2019;30(1):67-77（PubMed 31105044）", "https://doi.org/10.1016/j.cmet.2019.05.008", "doi.org", "学术研究", ""], "17": ["Malik VS, et al. Sugar-sweetened beverages and risk of metabolic syndrome and type 2 diabetes: a meta-analysis. Diabetes Care 2010;33(11):2477-83（31 万人；PubMed 20693348）", "https://doi.org/10.2337/dc10-1079", "doi.org", "学术研究", ""], "18": ["Hu EA, Pan A, Malik V, Sun Q. White rice consumption and risk of type 2 diabetes: meta-analysis and systematic review. BMJ 2012;344:e1454（35 万人；PubMed 22422870）", "https://doi.org/10.1136/bmj.e1454", "doi.org", "学术研究", ""], "19": ["Pan A, et al. Relation of active, passive, and quitting smoking with incident type 2 diabetes: a systematic review and meta-analysis. Lancet Diabetes Endocrinol 2015;3(12):958-67（88 项研究、590 万人；PubMed 26388413）", "https://doi.org/10.1016/S2213-8587(15)00316-2", "doi.org", "学术研究", ""], "20": ["Ravelli AC, et al. Glucose tolerance in adults after prenatal exposure to famine. Lancet 1998;351(9097):173-7（荷兰 1944—1945 年饥荒；PubMed 9449872）", "https://doi.org/10.1016/s0140-6736(97)07244-9", "doi.org", "学术研究", ""], "21": ["Neel JV. Diabetes mellitus: a “thrifty” genotype rendered detrimental by “progress”? Am J Hum Genet 1962;14:353-62（“节俭基因”假说；PubMed 13937884）", "https://pubmed.ncbi.nlm.nih.gov/13937884/", "pubmed.ncbi.nlm.nih.gov", "官方网站", ""], "22": ["Holman RR, et al. 10-year follow-up of intensive glucose control in type 2 diabetes (UKPDS 80). N Engl J Med 2008;359(15):1577-89（PubMed 18784090）", "https://doi.org/10.1056/NEJMoa0806470", "doi.org", "学术研究", ""], "23": ["Zinman B, et al. Empagliflozin, Cardiovascular Outcomes, and Mortality in Type 2 Diabetes (EMPA-REG OUTCOME). N Engl J Med 2015;373(22):2117-28（7,020 人；药厂资助；PubMed 26378978）", "https://doi.org/10.1056/NEJMoa1504720", "doi.org", "学术研究", ""], "24": ["Marso SP, et al. Liraglutide and Cardiovascular Outcomes in Type 2 Diabetes (LEADER). N Engl J Med 2016;375(4):311-22（9,340 人；药厂和美国国立卫生研究院资助；PubMed 27295427）", "https://doi.org/10.1056/NEJMoa1603827", "doi.org", "学术研究", ""], "25": ["de Jager J, et al. Long term treatment with metformin in patients with type 2 diabetes and risk of vitamin B-12 deficiency: randomised placebo controlled trial. BMJ 2010;340:c2181（PubMed 20488910）", "https://doi.org/10.1136/bmj.c2181", "doi.org", "学术研究", ""], "26": ["Chalmers I, Glasziou P. Avoidable waste in the production and reporting of research evidence. Lancet 2009;374(9683):86-9（PubMed 19525005）", "https://doi.org/10.1016/S0140-6736(09)60329-9", "doi.org", "学术研究", ""], "27": ["Lean MEJ, et al. Primary care-led weight management for remission of type 2 diabetes (DiRECT): an open-label, cluster-randomised trial. Lancet 2018;391(10120):541-51（PubMed 29221645）", "https://doi.org/10.1016/S0140-6736(17)33102-1", "doi.org", "学术研究", ""], "28": ["Lean MEJ, et al. Durability of a primary care-led weight-management intervention for remission of type 2 diabetes: 2-year results of the DiRECT trial. Lancet Diabetes Endocrinol 2019;7(5):344-55（PubMed 30852132）", "https://doi.org/10.1016/S2213-8587(19)30068-3", "doi.org", "学术研究", ""], "29": ["Taylor R, et al. Remission of Human Type 2 Diabetes Requires Decrease in Liver and Pancreas Fat Content but Is Dependent upon Capacity for β Cell Recovery. Cell Metab 2018;28(4):547-56（PubMed 30078554）", "https://doi.org/10.1016/j.cmet.2018.07.003", "doi.org", "学术研究", ""], "30": ["Riddle MC, et al. Consensus Report: Definition and Interpretation of Remission in Type 2 Diabetes. Diabetes Care 2021;44(10):2438-44（美国糖尿病协会等国际专家共识；PubMed 34462270）", "https://doi.org/10.2337/dci21-0034", "doi.org", "学术研究", ""], "31": ["Lean MEJ, et al. 5-year follow-up of the randomised Diabetes Remission Clinical Trial (DiRECT). Lancet Diabetes Endocrinol 2024;12(4):233-46（PubMed 38423026）", "https://doi.org/10.1016/S2213-8587(23)00385-6", "doi.org", "学术研究", ""], "32": ["Gregg EW, et al. Association of an intensive lifestyle intervention with remission of type 2 diabetes (Look AHEAD). JAMA 2012;308(23):2489-96（4,503 人；PubMed 23288372）", "https://doi.org/10.1001/jama.2012.67929", "doi.org", "学术研究", ""], "33": ["Lian F, et al. Chinese herbal medicine Tianqi reduces progression from impaired glucose tolerance to diabetes: a double-blind, randomized, placebo-controlled, multicenter trial. J Clin Endocrinol Metab 2014;99(2):648-55（PubMed 24432995）", "https://doi.org/10.1210/jc.2013-3276", "doi.org", "学术研究", ""], "34": ["Ching CK, et al. Adulteration of herbal antidiabetic products with undeclared pharmaceuticals: a case series in Hong Kong. Br J Clin Pharmacol 2012;73(5):795-800（PubMed 22034838）", "https://doi.org/10.1111/j.1365-2125.2011.04135.x", "doi.org", "学术研究", ""], "35": ["American Diabetes Association. 13. Older Adults: Standards of Care in Diabetes—2024. Diabetes Care 2024;47(Suppl 1):S244-S257（PubMed 38078580）", "https://doi.org/10.2337/dc24-S013", "doi.org", "学术研究", ""], "36": ["Pan XR, et al. Effects of diet and exercise in preventing NIDDM in people with impaired glucose tolerance. The Da Qing IGT and Diabetes Study. Diabetes Care 1997;20(4):537-44（大庆研究；PubMed 9096977）", "https://doi.org/10.2337/diacare.20.4.537", "doi.org", "学术研究", ""], "37": ["Gong Q, et al. Morbidity and mortality after lifestyle intervention for people with impaired glucose tolerance: 30-year results of the Da Qing Diabetes Prevention Outcome Study. Lancet Diabetes Endocrinol 2019;7(6):452-61（PubMed 31036503）", "https://doi.org/10.1016/S2213-8587(19)30093-2", "doi.org", "学术研究", ""], "38": ["Tuomilehto J, et al. Prevention of type 2 diabetes mellitus by changes in lifestyle among subjects with impaired glucose tolerance. N Engl J Med 2001;344(18):1343-50（芬兰糖尿病预防研究，522 人；PubMed 11333990）", "https://doi.org/10.1056/NEJM200105033441801", "doi.org", "学术研究", ""], "39": ["Diabetes Prevention Program Research Group (Knowler WC, et al). Reduction in the incidence of type 2 diabetes with lifestyle intervention or metformin. N Engl J Med 2002;346(6):393-403（3,234 人；PubMed 11832527）", "https://doi.org/10.1056/NEJMoa012512", "doi.org", "学术研究", ""], "40": ["Diabetes Prevention Program Research Group. Long-term effects of lifestyle intervention or metformin on diabetes development and microvascular complications over 15-year follow-up: the DPPOS. Lancet Diabetes Endocrinol 2015;3(11):866-75（PubMed 26377054）", "https://doi.org/10.1016/S2213-8587(15)00291-0", "doi.org", "学术研究", ""], "41": ["Satija A, et al. Plant-Based Dietary Patterns and Incidence of Type 2 Diabetes in US Men and Women: Results from Three Prospective Cohort Studies. PLoS Med 2016;13(6):e1002039（20 万人；PubMed 27299701）", "https://doi.org/10.1371/journal.pmed.1002039", "doi.org", "学术研究", ""], "42": ["Tonstad S, et al. Type of vegetarian diet, body weight, and prevalence of type 2 diabetes. Diabetes Care 2009;32(5):791-6（复临信徒健康研究 2，60,903 人；PubMed 19351712）", "https://doi.org/10.2337/dc08-1886", "doi.org", "学术研究", ""], "43": ["Colberg SR, et al. Physical Activity/Exercise and Diabetes: A Position Statement of the American Diabetes Association. Diabetes Care 2016;39(11):2065-79（PubMed 27926890）", "https://doi.org/10.2337/dc16-1728", "doi.org", "学术研究", ""], "44": ["Reynolds AN, et al. Advice to walk after meals is more effective for lowering postprandial glycaemia in type 2 diabetes mellitus than advice that does not specify timing: a randomised crossover study. Diabetologia 2016;59(12):2572-8（PubMed 27747394）", "https://doi.org/10.1007/s00125-016-4085-2", "doi.org", "学术研究", ""]}</script>
+<script>
+(function(){
+  var de=document.documentElement;
+  /* 在学课网站里用浮层打开时（iframe）：回到网站的链接交给网站处理，不重新加载整个网站 */
+  if(de.classList.contains('emb'))document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="./#"],a[href="./"]');if(!a)return;
+    e.preventDefault();var h=(a.getAttribute('href').split('#')[1])||'home';
+    try{parent.postMessage({q4:'nav',hash:h},location.origin);}catch(err){top.location.href=a.href;}
+  },true);
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  /* 阅读进度 */
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
+  /* 弹出层 */
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;de.classList.remove('sheetopen');}
+  document.querySelectorAll('.sheet').forEach(function(s){
+    s.addEventListener('click',function(e){if(e.target.closest('[data-close]')||e.target.closest('a[href^="#"]'))close(s);});
+  });
+  var TS=document.getElementById('tocsheet'),AS=document.getElementById('aasheet');
+  document.querySelector('[data-tocopen]').addEventListener('click',function(){open(TS);var a=TS.querySelector('a.on');if(a)a.scrollIntoView({block:'center'});});
+  document.querySelector('[data-aa]').addEventListener('click',function(){paint();open(AS);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'){close(TS);close(AS);hidePop();}});
+  /* 字号、夜间模式（与学课网站共用设置） */
+  function paint(){
+    var f=+(get('fs')||1),t=get('theme')||'auto';
+    AS.querySelectorAll('[data-fs]').forEach(function(b){b.classList.toggle('on',+b.dataset.fs===f);});
+    AS.querySelectorAll('[data-th]').forEach(function(b){b.classList.toggle('on',b.dataset.th===t);});
+  }
+  AS.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.fs){set('fs',b.dataset.fs);if(+b.dataset.fs===1)de.style.removeProperty('--fs');else de.style.setProperty('--fs',b.dataset.fs);}
+    if(b.dataset.th){set('theme',b.dataset.th);if(b.dataset.th==='auto')de.removeAttribute('data-theme');else de.setAttribute('data-theme',b.dataset.th);}
+    paint();
+  });
+  /* 目录：标出正在读的章 */
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));
+  var links={};document.querySelectorAll('.toc-l a').forEach(function(a){var id=a.getAttribute('href').slice(1);(links[id]=links[id]||[]).push(a);});
+  var cur=null;
+  function mark(){
+    var y=innerHeight*0.3,id=null;
+    for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<y)id=secs[i].id;else break;}
+    if(id===cur)return;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
+    cur=id;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
+    var side=document.querySelector('.toc-side a.on');
+    if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
+  }
+  var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 教派名片：全部展开 */
+  var ab=document.querySelector('[data-allopen]');
+  if(ab)ab.addEventListener('click',function(){
+    var ds=document.querySelectorAll('.dn'),all=[].every.call(ds,function(d){return d.open;});
+    ds.forEach(function(d){d.open=!all;});ab.textContent=all?'全部展开':'全部收起';
+  });
+  /* 并排对比 */
+  var sel=document.querySelector('[data-vs]');
+  if(sel){
+    var VD=JSON.parse(document.getElementById('vsdata').textContent);
+    sel.addEventListener('change',function(){
+      var v=VD[sel.value];document.querySelector('[data-vsname]').textContent=sel.value;
+      document.querySelectorAll('.vs-t tbody td.a').forEach(function(td,i){td.textContent=v[i];});
+    });
+  }
+  /* 出处小数字：点了先弹出说明，再决定打开网页还是看资料列表 */
+  var SD=JSON.parse(document.getElementById('srcdata').textContent),P=document.getElementById('pop'),pfrom=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function hidePop(){P.hidden=true;pfrom=null;}
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('a.cite');
+    if(c&&!c.classList.contains('demo')){
+      e.preventDefault();
+      if(pfrom===c){hidePop();return;}
+      var n=c.dataset.n,s=SD[n];if(!s)return;
+      P.innerHTML='<p class="pk">资料 '+n+' · '+esc(s[3])+'</p><p class="pd">'+esc(s[0])+'</p><p class="pa">'+(s[1]?'<a class="go" href="'+esc(s[1])+'" target="_blank" rel="noopener">打开网页 ↗</a>':'<span class="pbook">书籍，可查阅纸本或电子版</span>')+(s[4]?'<a href="'+esc(s[4])+'" target="_blank" rel="noopener">网页存档</a>':'')+'<a href="#s'+n+'" data-golist>在资料列表中看</a></p>';
+      P.hidden=false;pfrom=c;
+      var r=c.getBoundingClientRect(),w=P.offsetWidth,x=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2)),y=r.bottom+8;
+      if(y+P.offsetHeight>innerHeight-12)y=r.top-P.offsetHeight-8;
+      P.style.left=(x+scrollX)+'px';P.style.top=(y+scrollY)+'px';
+      return;
+    }
+    if(c&&c.classList.contains('demo')){return;}
+    if(!e.target.closest('#pop'))hidePop();
+    else if(e.target.closest('[data-golist]'))setTimeout(hidePop,0);
+  });
+  addEventListener('resize',hidePop);
+  /* 从资料列表点 ↑ 回到正文时，闪一下那个数字 */
+  addEventListener('hashchange',function(){var t=document.getElementById(location.hash.slice(1));if(t&&t.classList.contains('cite')){t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});
+})();
+/* 上次读到哪里（2026-10-26 用户要的）：每篇记下“读到第几章、这一章读了多少”，下次打开回到那里。
+   存在本机 q4:tpos（{网页: [章id, 这一章读到的比例, 时间]}）；网站登录账号后随“继续阅读”一起同步（app.js 的 tp）。
+   网址带 #章 时（目录、分享的链接）不跳；读到最后（98% 以后）或回到开头时不记，下次从头读。 */
+(function(){
+  var de=document.documentElement,PG=(location.pathname.split('/').pop()||'').replace(/\?.*$/,'');if(!PG)return;
+  function get(){try{return JSON.parse(localStorage.getItem('q4:tpos')||'{}')||{};}catch(e){return {};}}
+  function put(a){try{var ks=Object.keys(a).sort(function(x,y){return a[y][2]-a[x][2];});ks.slice(60).forEach(function(k){delete a[k];});localStorage.setItem('q4:tpos',JSON.stringify(a));}catch(e){}}
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));if(!secs.length)return;
+  function where(){var y=innerHeight*0.25,s=null;for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<=y)s=secs[i];else break;}
+    if(!s)return null;var r=s.getBoundingClientRect();return [s.id,Math.round(Math.min(1,Math.max(0,(y-r.top)/Math.max(1,r.height)))*1000)/1000];}
+  var ready=false,t=null;
+  function save(){if(!ready||!innerHeight)return;var h=de.scrollHeight-innerHeight;if(h<innerHeight)return;   // 在网站的浮层里被藏起来时，页面高度会塌下来：这时不记
+    var p=scrollY/h,a=get(),w=where();
+    if(p<0.02||p>0.98||!w){if(a[PG]&&a[PG][0]){a[PG]=['',0,Date.now()];put(a);}return;}   // 留一条空记录（带时间），别的设备同步过来的旧位置不会再“复活”
+    a[PG]=[w[0],w[1],Date.now()];put(a);}
+  addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(save,700);},{passive:true});
+  addEventListener('pagehide',save);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)save();});
+  function tip(n,title){
+    var d=document.createElement('div');d.className='rtip';d.setAttribute('role','status');
+    d.innerHTML='<span>已回到上次读到的地方：第 '+n+' 章</span><button type="button">从头读</button>';
+    document.body.appendChild(d);requestAnimationFrame(function(){d.classList.add('on');});
+    var gone=setTimeout(hide,6000);
+    function hide(){d.classList.remove('on');setTimeout(function(){d.remove();},400);}
+    d.querySelector('button').addEventListener('click',function(){clearTimeout(gone);scrollTo(0,0);var a=get();a[PG]=['',0,Date.now()];put(a);hide();});
+  }
+  function restore(){
+    var a=get(),r=a[PG];
+    if(r&&r[0]&&!location.hash){var s=document.getElementById(r[0]);
+      if(s){var y=s.getBoundingClientRect().top+scrollY+r[1]*s.offsetHeight-innerHeight*0.25;scrollTo(0,Math.max(0,y));
+        tip(secs.indexOf(s)+1);}}
+    setTimeout(function(){ready=true;},800);   // 刚跳过去时的滚动不算“读到”
+  }
+  if(document.readyState==='complete')setTimeout(restore,60);else addEventListener('load',function(){setTimeout(restore,60);});
+  // 在网站里关掉浮层时，这一页被藏起来（高度变成 0，滚动位置也没了）；再打开同一篇时页面不重新载入：显示出来那一刻回到记下的位置
+  function again(){if(scrollY>50)return;var old=document.querySelector('.rtip');if(old)old.remove();ready=false;restore();}   // 位置还在就不动
+  var hid=false;addEventListener('resize',function(){if(!innerHeight){hid=true;ready=false;return;}if(hid){hid=false;again();}});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='shown')setTimeout(again,30);});   // 网站又把这一页显示出来（app.js）
+})();
+
+(function(){var F={"idle":"eo ld rd","blink":"ec ld rd","left":"el ld rd","right":"er ld rd","wave1":"eh ld ru","wave2":"eh ld rv","joy1":"eh lu ru s1","joy2":"eh lu ru s2","sleep1":"ec ld rd z1","sleep2":"ec ld rd z2"},S={"idle":[["idle",0]],"blink":[["blink",140],["idle",0]],"look":[["left",420],["idle",160],["right",420],["idle",0]],"wave":[["wave1",200],["wave2",200],["wave1",200],["wave2",200],["idle",0]],"joy":[["joy1",220],["joy2",220],["joy1",220],["joy2",220],["joy1",220],["joy2",220],["idle",0]],"sleep":[["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",0]]};var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function night(){var h=(new Date().getUTCHours()+8)%24;return h>=23||h<5;}
+function Lamb(el){var t=null,busy=false,seen=false,vis=false,cur='';
+ function set(f){if(f===cur)return;cur=f;el.setAttribute('data-on',F[f]);el.classList.toggle('hop',f==='joy1'&&!RM);}
+ function rest(){set(night()?'sleep1':'idle');}
+ function stop(){clearTimeout(t);t=null;busy=false;}
+ function play(name){if(!vis)return;stop();var s=S[name];
+  if(RM){set(s[s.length-1][0]);return;}
+  busy=true;var i=0;(function step(){var p=s[i++];set(p[0]);if(p[1]&&i<s.length)t=setTimeout(step,p[1]);else{busy=false;if(name!=='sleep')rest();}})();}
+ el.q4play=play;
+ if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;
+   if(!vis){stop();rest();return;}
+   if(night()){play('sleep');return;}
+   if(!seen){seen=true;var en=el.getAttribute('data-enter')||'look';play(en);if(en==='look')setTimeout(function(){if(!busy)play('blink');},1500);}});}).observe(el);
+ else{vis=true;rest();}
+ el.addEventListener('mouseenter',function(){if(!busy)play('wave');});
+ el.addEventListener('mouseleave',function(){if(!busy)play('blink');});
+ el.addEventListener('click',function(e){e.preventDefault();play('wave');});
+ /* 电脑上：眼睛跟着鼠标往左、往右看（读者自己移动鼠标时才动） */
+ if(matchMedia('(hover: hover)').matches&&!RM)addEventListener('pointermove',function(e){if(busy||!vis||night())return;
+   var r=el.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2);set(dx<-60?'left':dx>60?'right':'idle');},{passive:true});
+ rest();}
+document.querySelectorAll('.lamb').forEach(Lamb);
+window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEach(function(el){el.q4play&&el.q4play('joy');});}};
+})();</script>
+<div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">“糖尿病，真的只能吃一辈子药吗？”</p>
+<div class="tsh-main"><button type="button" class="tile" data-twx><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 4C5.2 4 2 6.7 2 10c0 1.9 1 3.6 2.7 4.7L4 17l2.6-1.4c.8.2 1.7.4 2.6.4h.5a5.6 5.6 0 0 1-.2-1.5C9.5 11.4 12.6 9 16.4 9h.4C16 6.1 12.9 4 9.2 4Zm-2.4 3.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM22 14.4c0-2.8-2.7-5-6-5s-6 2.2-6 5 2.7 5 6 5c.7 0 1.4-.1 2-.3l2.1 1.1-.6-1.9c1.5-.9 2.5-2.3 2.5-3.9Zm-8-.8a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" fill="currentColor"/></svg><span>微信分享</span></button><button type="button" class="tile" data-tcopy><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>复制链接</span></button><button type="button" class="tile" data-tsys hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>更多方式</span></button></div>
+<div class="tsh-qr" hidden><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM12,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM16,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM11,4h1v1h-1zM12,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM24,4h1v1h-1zM25,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM11,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM24,5h1v1h-1zM25,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM15,6h1v1h-1zM16,6h1v1h-1zM20,6h1v1h-1zM21,6h1v1h-1zM22,6h1v1h-1zM25,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM20,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM24,7h1v1h-1zM26,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM22,9h1v1h-1zM23,9h1v1h-1zM24,9h1v1h-1zM25,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM10,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM27,10h1v1h-1zM29,10h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM5,11h1v1h-1zM7,11h1v1h-1zM12,11h1v1h-1zM14,11h1v1h-1zM15,11h1v1h-1zM16,11h1v1h-1zM19,11h1v1h-1zM22,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM33,11h1v1h-1zM34,11h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM16,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM24,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM34,12h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM7,13h1v1h-1zM13,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM23,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM34,13h1v1h-1zM2,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM11,14h1v1h-1zM13,14h1v1h-1zM14,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM18,14h1v1h-1zM20,14h1v1h-1zM22,14h1v1h-1zM23,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM28,14h1v1h-1zM31,14h1v1h-1zM34,14h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM5,15h1v1h-1zM9,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM26,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM2,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM22,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM26,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM31,16h1v1h-1zM33,16h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM6,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM18,17h1v1h-1zM19,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM33,17h1v1h-1zM4,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM9,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM13,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM19,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM27,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM33,18h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM5,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM23,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM13,20h1v1h-1zM14,20h1v1h-1zM19,20h1v1h-1zM22,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM34,20h1v1h-1zM7,21h1v1h-1zM9,21h1v1h-1zM13,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM18,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM26,21h1v1h-1zM29,21h1v1h-1zM2,22h1v1h-1zM3,22h1v1h-1zM4,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM11,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM19,22h1v1h-1zM21,22h1v1h-1zM23,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM29,22h1v1h-1zM34,22h1v1h-1zM3,23h1v1h-1zM4,23h1v1h-1zM5,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM12,23h1v1h-1zM14,23h1v1h-1zM15,23h1v1h-1zM17,23h1v1h-1zM19,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM32,23h1v1h-1zM33,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM18,24h1v1h-1zM21,24h1v1h-1zM22,24h1v1h-1zM24,24h1v1h-1zM27,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM31,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM20,25h1v1h-1zM21,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM27,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM33,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM7,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM22,26h1v1h-1zM23,26h1v1h-1zM24,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM33,26h1v1h-1zM34,26h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM13,28h1v1h-1zM18,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM16,29h1v1h-1zM18,29h1v1h-1zM19,29h1v1h-1zM20,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM23,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM33,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM20,30h1v1h-1zM21,30h1v1h-1zM23,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM15,31h1v1h-1zM17,31h1v1h-1zM18,31h1v1h-1zM20,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM28,31h1v1h-1zM30,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM11,32h1v1h-1zM12,32h1v1h-1zM13,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM30,32h1v1h-1zM34,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM14,33h1v1h-1zM15,33h1v1h-1zM19,33h1v1h-1zM23,33h1v1h-1zM24,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM28,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM17,34h1v1h-1zM18,34h1v1h-1zM20,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM30,34h1v1h-1zM31,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><p><b>用手机微信扫一扫</b>打开后点右上角 ··· 就能转发；也可以复制链接，粘贴到电脑版微信的聊天框。</p></div>
+<p class="tsh-done" aria-live="polite"></p><button type="button" class="tsh-sent" data-tsent hidden>✓ 我已经分享好了</button><p class="tsh-url">https://2377568565.github.io/Ethan_bay/diabetes.html</p></div></div>
+<div class="twg" id="twg" role="dialog" aria-modal="true" aria-label="微信转发提示" hidden><p class="twg-t">点右上角 <span>···</span><br>选择“转发给朋友”</p>
+<div class="twg-box"><p>选好群或朋友、发送之后，回到这里点一下：</p><div class="twg-btns"><button type="button" class="ok" data-twdone>✓ 我已转发</button><button type="button" data-twno>先不转发</button></div></div></div>
+<div class="sheet" id="tdlsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card quiz" role="dialog" aria-modal="true" aria-labelledby="tdl-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tdl-h">下载 PDF 学习版</p>
+<p class="qz-intro">先答 3 道小题，答对 2 道就可以下载。题目都来自这一页的内容。</p><ol class="qz"></ol>
+<div class="qz-res" aria-live="polite"></div>
+<div class="qz-btns"><button type="button" class="tbtn" data-qretry hidden>换 3 道题再答一次</button><a class="tbtn solid" data-qdl hidden href="lessons/2026-Q4/qa/%E5%81%A5%E5%BA%B701-%E7%B3%96%E5%B0%BF%E7%97%85%E7%9C%9F%E7%9A%84%E5%8F%AA%E8%83%BD%E5%90%83%E4%B8%80%E8%BE%88%E5%AD%90%E8%8D%AF%E5%90%97.pdf" download="健康01-糖尿病真的只能吃一辈子药吗.pdf"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></a></div>
+<p class="qz-wx note2" hidden>微信里会先打开 PDF 预览：点右上角 ··· 选“用其他应用打开”或“在浏览器打开”，就能保存到手机。</p></div></div>
+<div class="tgift" id="tgift" hidden><div class="sh-bg" data-gclose></div><div class="tg-card" role="dialog" aria-modal="true" aria-label="谢谢分享"><p class="tg-k">谢谢你的分享</p>
+<p class="tg-m">一个小小的转发，也许正好是别人心里在找的答案。</p><blockquote class="tg-v"></blockquote><button type="button" class="tbtn solid" data-gclose>阿们，收下</button></div></div>
+<script type="application/json" id="tcfg">{"id": "h1", "title": "糖尿病，真的只能吃一辈子药吗？", "url": "https://2377568565.github.io/Ethan_bay/diabetes.html", "pdf": "lessons/2026-Q4/qa/%E5%81%A5%E5%BA%B701-%E7%B3%96%E5%B0%BF%E7%97%85%E7%9C%9F%E7%9A%84%E5%8F%AA%E8%83%BD%E5%90%83%E4%B8%80%E8%BE%88%E5%AD%90%E8%8D%AF%E5%90%97.pdf", "name": "健康01-糖尿病真的只能吃一辈子药吗.pdf", "col": "健康"}</script>
+<script type="application/json" id="tquiz">[{"q": "健康人吃完饭后，血液里多出来的糖，最大的去处是哪里？", "o": ["大脑", "肌肉", "皮肤", "骨头"], "a": 1, "why": "饭后的糖大多要靠肌肉收进去，而且要胰岛素来“开门”；大脑用糖不需要胰岛素。", "go": "<a class=\"xref\" href=\"#sugar\">第 3 章《血液里只有一茶匙糖》</a>"}, {"q": "按本篇的说法，2 型糖尿病真正发病，需要哪两个环节一起出问题？", "o": ["只要吃糖太多", "胰岛素抵抗，加上β细胞跟不上", "只要年纪够大", "只要体重超标"], "a": 1, "why": "锁生了锈（胰岛素抵抗），钥匙又不够（β细胞分泌跟不上），两个环节缺一不可。", "go": "<a class=\"xref\" href=\"#two\">第 4 章《锁生了锈，钥匙又不够》</a>"}, {"q": "英国 DiRECT 研究中，一年后糖尿病缓解的比例大约是多少？", "o": ["4%", "46%", "86%", "100%"], "a": 1, "why": "干预组 46% 缓解，对照组 4%；减重 15 公斤以上的人 86% 缓解。", "go": "<a class=\"xref\" href=\"#remit\">第 14 章《从“不可逆”到“可以缓解”》</a>"}, {"q": "DiRECT 的研究者发现，决定能不能缓解的关键是什么？", "o": ["吃了什么保健品", "β细胞第一时相的胰岛素分泌有没有恢复", "每天喝多少水", "血压降了多少"], "a": 1, "why": "肝脏和胰腺的脂肪都下降了，但只有β细胞第一时相分泌恢复的人才缓解；他们的病程也更短。", "go": "<a class=\"xref\" href=\"#remit\">第 14 章《从“不可逆”到“可以缓解”》</a>"}, {"q": "美国 DPP 研究中，哪一组预防糖尿病的效果最好？", "o": ["安慰剂组", "二甲双胍组", "生活方式组", "三组一样"], "a": 2, "why": "生活方式组发病减少 58%，二甲双胍组减少 31%，生活方式比吃药更有效。", "go": "<a class=\"xref\" href=\"#prevent\">第 18 章《证据最硬的一件事：生活方式真的有用》</a>"}, {"q": "大庆研究 30 年随访，生活方式干预组得到了什么好处？", "o": ["完全不会得糖尿病", "发病推迟近 4 年，死亡减少、寿命延长", "只是体重轻了", "没有任何好处"], "a": 1, "why": "发病平均推迟 3.96 年，心血管死亡少 33%，全因死亡少 26%，平均多活 1.44 年。", "go": "<a class=\"xref\" href=\"#prevent\">第 18 章《证据最硬的一件事：生活方式真的有用》</a>"}, {"q": "新西兰的研究比较了两种走路方式，哪一种饭后血糖更低？", "o": ["每天一次走 30 分钟", "每顿饭后走 10 分钟", "不走路", "只在周末走"], "a": 1, "why": "总时间一样，每顿饭后走 10 分钟的那两周，饭后血糖低 12%，晚饭后低 22%。", "go": "<a class=\"xref\" href=\"#move\">第 20 章《动：坐少一点，饭后走一走，练练肌肉》</a>"}, {"q": "正在用胰岛素或磺脲类药的人，想学 DiRECT 的方法大幅少吃，应该怎样做？", "o": ["自己照着做就行", "先停药再说", "一定在医生指导下调整用药", "多吃保健品代替"], "a": 2, "why": "突然大幅少吃可能引起严重低血糖；DiRECT 是在医生安排下先停药、再开始配方餐的。", "go": "<a class=\"xref\" href=\"#how\">第 15 章《谁更有希望，要怎样做才安全》</a>"}]</script>
+<script type="application/json" id="tgifts">[["那报佳音，传平安， 报好信，传救恩的， 对锡安说：你的上帝作王了！ 这人的脚登山何等佳美！", "以赛亚书 52:7"], ["好施舍的，必得丰裕； 滋润人的，必得滋润。", "箴言 11:25"], ["我们行善，不可丧志；若不灰心，到了时候就要收成。", "加拉太书 6:9"], ["又要彼此相顾，激发爱心，勉励行善。", "希伯来书 10:24"], ["所以，你们该彼此劝慰，互相建立，正如你们素常所行的。", "帖撒罗尼迦前书 5:11"], ["你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。", "马太福音 5:16"], ["在列邦中述说他的荣耀！ 在万民中述说他的奇事！", "诗篇 96:3"], ["口善应对，自觉喜乐； 话合其时，何等美好。", "箴言 15:23"], ["你的话是我脚前的灯， 是我路上的光。", "诗篇 119:105"], ["所以，我亲爱的弟兄们，你们务要坚固，不可摇动，常常竭力多做主工；因为知道，你们的劳苦在主里面不是徒然的。", "哥林多前书 15:58"]]</script>
+<style>
+.tend{border-top:1px solid var(--rule);margin:36px 0 8px;padding:18px 0 0}
+.tend p{color:var(--ink-2);font-size:.95rem;margin:0}
+.ib{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.ib .ic{width:17px;height:17px}
+.ic{width:18px;height:18px;flex:none}
+.tacts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.tbtn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:.92rem;font-weight:650;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;flex:1 1 9em}
+.tbtn.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.tsh-t{color:var(--ink-2);margin:0 0 12px;font-weight:600}
+.tsh-main{display:flex;gap:10px;margin:0 0 10px}
+.tile{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:.86rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 4px;cursor:pointer}
+.tile .ic{width:26px;height:26px}
+.tile[data-twx] .ic{color:#07C160}
+.tsh-qr{display:flex;gap:12px;align-items:center;margin:6px 0 8px;font-size:.84rem;color:var(--ink-2)}
+.tsh-qr svg{width:120px;height:120px;flex:none;border-radius:8px}
+.tsh-done{font-size:.9rem;color:var(--ink-2);margin:6px 0}
+.tsh-sent{font:inherit;font-size:.9rem;width:100%;padding:9px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);cursor:pointer;margin:0 0 8px}
+.tsh-url{font-size:.78rem;color:var(--muted);word-break:break-all;margin:4px 0 0;user-select:all;-webkit-user-select:all}
+.twg{position:fixed;inset:0;z-index:60;background:rgba(10,12,18,.86);color:#fff;padding:calc(70px + env(safe-area-inset-top)) 24px 24px;text-align:center}
+.twg-t{font-size:1.25rem;font-weight:700;line-height:1.6;margin:0 0 24px;text-align:right;padding-right:6px}
+.twg-t span{letter-spacing:.1em}
+.twg-t::before{content:"↗";display:block;font-size:2.6rem;line-height:1;color:#FCE7B0}
+.twg-box{background:rgba(255,255,255,.1);border-radius:16px;padding:14px}
+.twg-btns{display:flex;gap:10px;margin-top:10px}
+.twg-btns button{flex:1;font:inherit;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;cursor:pointer}
+.twg-btns .ok{background:#07C160;border-color:#07C160;font-weight:700}
+.sh-card.quiz{max-height:88vh}
+.qz-intro{font-size:.9rem;color:var(--ink-2);margin:0 0 10px}
+.qz{list-style:none;margin:0;padding:0;counter-reset:q}
+.qz>li{counter-increment:q;border:1px solid var(--rule);border-radius:14px;padding:12px 12px 6px;margin:0 0 10px;background:var(--paper)}
+.qq{font-weight:650;margin:0 0 8px}
+.qq::before{content:counter(q) ". ";color:var(--accent)}
+.qo{display:grid;gap:7px;margin:0 0 8px}
+.qo button{font:inherit;font-size:.92rem;text-align:left;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;line-height:1.5}
+.qo button:disabled{cursor:default;opacity:1}
+.qo button.ok{border-color:#2f8f57;background:color-mix(in srgb,#2f8f57 12%,var(--surface));color:var(--ink);font-weight:650}
+.qo button.no{border-color:#cf4a43;background:color-mix(in srgb,#cf4a43 12%,var(--surface))}
+.qo button.ok::after{content:" ✓";color:#2f8f57;font-weight:800}
+.qo button.no::after{content:" ✗";color:#cf4a43;font-weight:800}
+.qw{font-size:.86rem;color:var(--ink-2);margin:0 0 6px}
+.qw b.y{color:#2f8f57}.qw b.n{color:#cf4a43}
+.qz-res{font-weight:650;margin:4px 0 10px}
+.qz-res.pass{color:#2f8f57}.qz-res.fail{color:#cf4a43}
+.qz-btns{display:flex;gap:10px;flex-wrap:wrap}
+.tgift{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:20px}
+.tg-card{position:relative;max-width:420px;width:100%;background:var(--surface);border-radius:20px;padding:22px 20px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.tg-k{font-weight:800;font-size:1.15rem;color:var(--gold);margin:0 0 6px}
+.tg-m{font-size:.92rem;color:var(--ink-2)}
+.tg-v{margin:12px 0 16px;padding:12px 14px;background:var(--gold-soft);border-radius:14px;font-family:var(--serif);font-size:1.02rem;line-height:1.8}
+.tg-v cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:4px}
+html.emb .bar{padding-top:8px}
+/* 2026-10 新设计：和学课网站一致（米白纸色、墨蓝字、金色点缀；面板从底部升起） */
+.prog i{background:linear-gradient(90deg,#C9A45C,var(--gold))}
+.bar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.bar .back{color:var(--ink);font-weight:500}
+.bar .aa{font-family:var(--serif);font-weight:900}
+.tbtn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s;box-shadow:0 1px 2px rgba(26,33,50,.04)}
+.tbtn:active{transform:scale(.97)}
+.tbtn .ic{color:var(--gold)}
+.tbtn.solid{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);box-shadow:0 6px 18px -8px rgba(164,124,51,.65)}
+.tbtn.solid .ic{color:inherit}
+.tile{border-color:transparent;background:var(--band);border-radius:16px;font-weight:650}
+.tile[data-twx]{background:#07C160;border-color:#07A355;color:#fff;box-shadow:0 8px 20px -10px rgba(7,160,85,.7)}
+.tile[data-twx] .ic{color:#fff}
+.tsh{font-family:var(--serif);font-weight:900}
+.tsh-sent{border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold);background:var(--gold-soft)}
+.sh-bg{background:rgba(8,12,20,.45)}
+.sh-card{border-radius:24px 24px 0 0;border:1px solid var(--rule);border-bottom:0;padding-top:26px}
+.sh-card::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.3;transform:translateX(-50%)}
+.sheet:not([hidden]) .sh-card{animation:shup .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes shup{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:700px){.sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}.sh-card::before{content:none}.sheet:not([hidden]) .sh-card{animation:shpop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes shpop{from{opacity:0;transform:translate(-50%,12px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.sh-x{top:10px;right:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--band);font-size:1.2rem}
+.qq::before{color:var(--gold)}
+.tg-card{border:1px solid var(--rule);border-radius:24px}
+.fab-toc{background:#141B2A;color:#F3EBDA;border:1px solid rgba(233,214,163,.3)}
+@media (prefers-reduced-motion:reduce){.sheet:not([hidden]) .sh-card{animation:none}}
+@media print{.ib,.tacts,.sheet,.twg,.tgift,.howto,.toc-in .tsrc{display:none!important}
+  :root{color-scheme:light}body{background:#fff}.bar,.fab-toc{display:none!important}
+  .part{break-before:page;break-after:avoid}.ch h2{break-after:avoid}table,figure,.answer,blockquote{break-inside:avoid}
+  a{color:inherit;text-decoration:none}.foot{padding-bottom:0}}
+</style>
+<script>
+(function(){
+  var de=document.documentElement,C=JSON.parse(document.getElementById('tcfg').textContent),Q=JSON.parse(document.getElementById('tquiz').textContent),
+      G=JSON.parse(document.getElementById('tgifts').textContent);
+  var SH=document.getElementById('tshsheet'),WG=document.getElementById('twg'),DL=document.getElementById('tdlsheet'),GF=document.getElementById('tgift');
+  var UA=navigator.userAgent,inWx=/MicroMessenger/i.test(UA),mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(UA);
+  var emb=de.classList.contains('emb'),TOP=emb?window.top:window;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;if(![SH,DL].some(function(x){return !x.hidden;}))de.classList.remove('sheetopen');}
+  function copy(t){
+    function legacy(){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(a);a.focus();a.select();try{a.setSelectionRange(0,t.length);}catch(e){}var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(a);return ok;}
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},function(){return legacy();});
+    return Promise.resolve(legacy());
+  }
+  /* ---------- 分享 ---------- */
+  var text='【'+(C.col||'问题彩蛋')+'】'+C.title+'\n'+C.url,pending=false;
+  function done(h,sent){SH.querySelector('.tsh-done').innerHTML=h;SH.querySelector('.tsh-sent').hidden=!sent;}
+  function shOpen(){
+    SH.querySelector('[data-tsys]').hidden=!(navigator.share&&!inWx);
+    var qr=SH.querySelector('.tsh-qr');if(qr)qr.hidden=mobile;
+    done('',false);open(SH);
+  }
+  function gift(){
+    pending=false;close(SH);WG.hidden=true;
+    var n=(+get('shares')||0)+1;set('shares',String(n));
+    var v=G[Math.floor(Math.random()*G.length)];
+    GF.querySelector('.tg-v').innerHTML=esc(v[0])+'<cite>'+esc(v[1])+'</cite>';
+    setTimeout(function(){GF.hidden=false;},250);
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.closest('[data-tshare]')){shOpen();return;}
+    if(t.closest('[data-tdl]')){qOpen();return;}
+    if(t.closest('[data-gclose]')){GF.hidden=true;return;}
+    if(t.closest('[data-twdone]')){gift();return;}
+    if(t.closest('[data-twno]')){pending=false;WG.hidden=true;return;}
+    if(t.closest('[data-twx]')){
+      if(inWx){pending=true;close(SH);WG.hidden=false;return;}
+      copy(text).then(function(ok){
+        if(mobile){pending=true;done(ok?'✓ 链接已复制，正在打开微信……<br>在聊天框里<b>长按 → 粘贴</b>，发送即可':'正在打开微信……请回来长按下面的链接复制',true);
+          setTimeout(function(){try{TOP.location.href='weixin://';}catch(err){location.href='weixin://';}},450);}
+        else done(ok?'✓ 链接已复制，粘贴到<b>电脑版微信</b>的聊天框发送即可；也可以用手机微信扫上面的二维码':'复制没有成功，请用手机微信扫上面的二维码',ok);
+      });return;
+    }
+    if(t.closest('[data-tcopy]')){copy(text).then(function(ok){done(ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按下面的链接手动复制',ok);});return;}
+    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【'+(C.col||'问题彩蛋')+'】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
+    if(t.closest('[data-tsent]')){gift();return;}
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending&&!SH.hidden)setTimeout(function(){done(SH.querySelector('.tsh-done').innerHTML,true);},200);});
+  [SH,DL].forEach(function(s){s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});});
+  /* ---------- 下载：先答 3 题，答对 2 题就能下载 ---------- */
+  var OL=DL.querySelector('.qz'),RES=DL.querySelector('.qz-res'),RT=DL.querySelector('[data-qretry]'),DB=DL.querySelector('[data-qdl]'),WXN=DL.querySelector('.qz-wx'),
+      KEY='quiz:'+C.id,cur=[],got=0,left=0,last=[];
+  if(inWx){DB.removeAttribute('download');DB.target=emb?'_top':'_self';}
+  function pick(){   // 随机抽 3 题，尽量不和上一次重复
+    var idx=Q.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+    idx.sort(function(a,b){return (last.indexOf(a)>=0)-(last.indexOf(b)>=0);});
+    return idx.slice(0,3);
+  }
+  function ready(msg){RES.className='qz-res pass';RES.innerHTML=msg;DB.hidden=false;WXN.hidden=!inWx;}
+  function qOpen(){
+    if(get(KEY)==='1'&&!cur.length){OL.innerHTML='';RT.hidden=false;RT.textContent='再答一次题';ready('你已经答对过题目，可以直接下载。');open(DL);return;}
+    if(!cur.length||!left)build();
+    open(DL);
+  }
+  function build(){
+    cur=pick();last=cur.slice();got=0;left=3;RES.className='qz-res';RES.textContent='';DB.hidden=true;RT.hidden=true;WXN.hidden=true;
+    OL.innerHTML=cur.map(function(i,n){var x=Q[i];return '<li data-i="'+i+'"><p class="qq">'+esc(x.q)+'</p><div class="qo">'+
+      x.o.map(function(o,j){return '<button type="button" data-o="'+j+'">'+'ABCD'[j]+'. '+esc(o)+'</button>';}).join('')+'</div><p class="qw" hidden></p></li>';}).join('');
+    DL.querySelector('.sh-card').scrollTop=0;
+  }
+  OL.addEventListener('click',function(e){
+    var b=e.target.closest('.qo button');if(!b)return;
+    var li=b.closest('li'),x=Q[+li.dataset.i],j=+b.dataset.o,bs=li.querySelectorAll('.qo button');
+    if(li.dataset.done)return;li.dataset.done='1';left--;
+    bs.forEach(function(y){y.disabled=true;});
+    bs[x.a].classList.add('ok');
+    var ok=j===x.a,w=li.querySelector('.qw');
+    if(ok)got++;else b.classList.add('no');
+    w.innerHTML=(ok?'<b class="y">答对了！</b>':'<b class="n">答错了。</b>正确答案是 '+'ABCD'[x.a]+'。')+esc(x.why)+' '+x.go;
+    w.hidden=false;
+    if(!left){
+      if(got>=2){set(KEY,'1');ready('答对 '+got+' 题，可以下载了！');RT.hidden=false;RT.textContent='再答一次题';}
+      else{RES.className='qz-res fail';RES.textContent='答对 '+got+' 题，还差一点。可以回到正文再读一读，然后换 3 道题再试一次。';RT.hidden=false;RT.textContent='换 3 道题再答一次';}
+      setTimeout(function(){RES.scrollIntoView({block:'nearest',behavior:'smooth'});},50);
+    }
+  });
+  OL.addEventListener('click',function(e){var a=e.target.closest('.qw a');if(a)close(DL);});
+  RT.addEventListener('click',function(){build();});
+})();
+</script>
+</body>
+</html>

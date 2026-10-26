@@ -322,9 +322,14 @@ def page():
     return doc('基督教两千年家谱', '从耶稣到今天：基督复临安息日会从哪里来？各大教派怎样分出来、核心教义有什么不同？有图有表，每个说法都附出处。', main, srcs, toc_html, cites, tools)
 
 
-def doc(title, desc, main, srcs, toc_html, cites, tools=None):
+COL_QA = dict(name='问题彩蛋', hash='qa', foot='安息日学2026年第4季《预言的恩赐》问题彩蛋')
+
+
+def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
     """专题网页的外壳（顶栏、目录、阅读设置、出处弹窗）：家谱和其他问题彩蛋专题共用。
-    tools：topic_tools.build(...) 的结果（分享、答题后下载 PDF）。每个问题彩蛋都要有。"""
+    tools：topic_tools.build(...) 的结果（分享、答题后下载 PDF）。每个问题彩蛋都要有。
+    col：属于哪个栏目（默认问题彩蛋；健康栏目 2026-10-26 起用 dict(name='健康', hash='health', foot=…)），决定返回链接、标题后缀和页尾。"""
+    col = col or COL_QA
     if tools:
         main = main.replace('</header>', '</header>' + tools['row'], 1)
         srcs = (f'<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p>{tools["row"]}</div>') + srcs
@@ -337,27 +342,27 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None):
     words = len(re.sub(r'<[^>]+>|\s', '', main + srcs))
     mins = max(5, round(words / 450 / 5) * 5)
     pxw = f'<div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 {mins} 分钟读完<span data-left></span></p></div>'
-    rel = related(title)
+    rel = related(title) if col is COL_QA else (col.get('related') or '')
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title} · 问题彩蛋</title>
+<title>{title} · {col['name']}</title>
 <meta name="description" content="{desc}">
 <script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}try{{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}}catch(e){{}}</script>
 <style>{CSS}</style>
 </head>
 <body data-mins="{mins}">
 <div class="prog" aria-hidden="true"><i></i></div>
-<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">{title}</span>{tb}<button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<header class="bar"><a class="back" href="./#{col['hash']}">← {col['name']}</a><span class="bt">{title}</span>{tb}<button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
 <div class="wrap">
 <aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p>{pxw}</aside>
 <main>
 {main}
 {srcs}
 {rel}{SCENE}
-<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
+<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　{col['foot']}</p><p><a href="./#{col['hash']}">← 回到{col['name']}</a>　<a href="./#home">学课目录</a></p></footer>
 </main>
 </div>
 <button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>

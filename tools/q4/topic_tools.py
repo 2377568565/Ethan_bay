@@ -48,7 +48,7 @@ def pdf_url(pdf):
     return PDF_DIR + urllib.parse.quote(pdf)
 
 
-def build(id, title, page, pdf, quiz, ref):
+def build(id, title, page, pdf, quiz, ref, col=None):
     """返回 doc() 要放进页面的几段 HTML：顶栏按钮、正文里的按钮行、弹出层和脚本。ref(章id) 给出“第 N 章”的链接文字。"""
     assert len(quiz) >= 5, '至少 5 题（每次随机抽 3 题）'
     for x in quiz:
@@ -56,6 +56,8 @@ def build(id, title, page, pdf, quiz, ref):
     url = ONLINE + page
     qz = [dict(q=x['q'], o=x['o'], a=x['a'], why=x['why'], go=ref(x['ch'])) for x in quiz]
     cfg = dict(id=id, title=title, url=url, pdf=pdf_url(pdf), name=pdf)
+    if col:
+        cfg['col'] = col          # 栏目名（分享文字里的【…】），默认“问题彩蛋”
     bar = (f'<button type="button" class="ib" data-tshare aria-label="分享">{SHAREIC}</button>'
            f'<button type="button" class="ib" data-tdl aria-label="下载 PDF">{DLIC}</button>')
     row = (f'<div class="tacts"><button type="button" class="tbtn" data-tshare>{SHAREIC}<span>分享这一篇</span></button>'
@@ -188,7 +190,7 @@ JS = r'''
     return Promise.resolve(legacy());
   }
   /* ---------- 分享 ---------- */
-  var text='【问题彩蛋】'+C.title+'\n'+C.url,pending=false;
+  var text='【'+(C.col||'问题彩蛋')+'】'+C.title+'\n'+C.url,pending=false;
   function done(h,sent){SH.querySelector('.tsh-done').innerHTML=h;SH.querySelector('.tsh-sent').hidden=!sent;}
   function shOpen(){
     SH.querySelector('[data-tsys]').hidden=!(navigator.share&&!inWx);
@@ -218,7 +220,7 @@ JS = r'''
       });return;
     }
     if(t.closest('[data-tcopy]')){copy(text).then(function(ok){done(ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按下面的链接手动复制',ok);});return;}
-    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【问题彩蛋】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
+    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【'+(C.col||'问题彩蛋')+'】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
     if(t.closest('[data-tsent]')){gift();return;}
   });
   document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending&&!SH.hidden)setTimeout(function(){done(SH.querySelector('.tsh-done').innerHTML,true);},200);});
@@ -266,10 +268,10 @@ JS = r'''
 '''
 
 
-def make_pdf(html_path, pdf, title):
+def make_pdf(html_path, pdf, title, col=None):
     """把生成好的专题网页打印成 PDF 学习版（lessons/2026-Q4/qa/<pdf>）。需要 node + Playwright 和 .work/fonts。"""
     import subprocess
     root = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
     out = os.path.join(root, PDF_DIR, pdf)
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    subprocess.run(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'topic_pdf.js'), html_path, out, title], check=True)
+    subprocess.run(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'topic_pdf.js'), html_path, out, title] + ([col] if col else []), check=True)

@@ -129,7 +129,7 @@ def welcome_html(titles, ui):
   <nav class="wtiles" aria-label="栏目">
     <a class="wtile" href="#home">{ui['book']}<b>学课目录</b><small>导言 + 13 课</small></a>
     <a class="wtile egg" href="#qa">{ui['spark']}<b>问题彩蛋</b><small>{ui['nqa']} 篇深度解答</small></a>
-    <a class="wtile" href="#music">{ui['note']}<b>音乐</b><small>{ui['nsongs']} 首诗歌</small></a>
+    <a class="wtile" href="#health">{ui['heart']}<b>健康</b><small>{ui['nhealth']} 篇科学分析</small></a>
     <a class="wtile" href="#ask">{ui['chat']}<b>提问区</b><small>一起问，一起查考</small></a>
   </nav>
   <div class="wnews" hidden></div>

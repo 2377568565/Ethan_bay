@@ -4,7 +4,7 @@
 const path = require('path'), fs = require('fs');
 let pw;
 try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/node_modules/playwright'); }
-const [src, out, title = ''] = process.argv.slice(2);
+const [src, out, title = '', col = '问题彩蛋'] = process.argv.slice(2);   // col：栏目名（健康栏目 2026-10-26）
 if (!src || !out) { console.log('用法：node topic_pdf.js 网页.html 输出.pdf [标题]'); process.exit(2); }
 const W = process.env.Q4_WORK || path.join(__dirname, '.work');
 const F = n => 'file://' + path.join(W, 'fonts', n);
@@ -32,7 +32,7 @@ body{font-size:10.5pt!important}
   await p.evaluate(() => document.fonts.ready);
   const miss = await p.evaluate(() => [...document.fonts].filter(f => f.status === 'error').map(f => f.family + ' ' + f.weight));
   const foot = `<div style="width:100%;font-size:7.5pt;color:#8a8f9c;padding:0 15mm;display:flex;justify-content:space-between;font-family:'WenQuanYi Zen Hei',sans-serif">
-    <span>${title ? title + ' · ' : ''}问题彩蛋 · 整理制作 · Ethan（HangZhou_XG）</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`;
+    <span>${title ? title + ' · ' : ''}${col} · 整理制作 · Ethan（HangZhou_XG）</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`;
   await p.pdf({ path: out, format: 'A4', printBackground: true, preferCSSPageSize: true, outline: true, tagged: true,
     displayHeaderFooter: true, headerTemplate: '<span></span>', footerTemplate: foot });
   await b.close();

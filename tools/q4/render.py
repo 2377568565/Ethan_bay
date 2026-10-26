@@ -3,7 +3,7 @@
 用法：python3 render.py [课号...]      只生成指定课的单课文件
       python3 render.py all            生成全部单课文件 + 全季合集
 """
-import welcome, intro, bible, qa_data
+import welcome, intro, bible, qa_data, health_data
 import lamb
 import urllib.parse
 import re, sys, os, html, datetime, importlib, subprocess, json
@@ -451,6 +451,7 @@ def ic(d, extra=''):
     return f'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"{extra}>{d}</svg>'
 I_HOME = ic('<path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/>')
 I_BOOK = ic('<path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2zm0 0v14"/>')
+I_HEART = ic('<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/><path d="M7.5 12.5h2.6l1.2-2.4 1.8 4.6 1.2-2.2h2.2"/>')   # 健康栏目（2026-10-26）
 I_SPARK = ic('<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7zM18.5 15.5c.3 1.9 1 2.6 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.4 2.7-1.1 3-3z"/>')
 I_BIBLE = ic('<path d="M6.5 3.5H18a1 1 0 0 1 1 1V20H6.5A1.5 1.5 0 0 1 5 18.5v-13a2 2 0 0 1 1.5-2z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H19"/><path d="M12 6.5v6.5M9.5 9h5"/>')   # 圣经（2026-10-26）
 I_NOTE = ic('<path d="M9 18.5V5.5l11-2v13"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="16.5" r="2.5"/>')
@@ -552,6 +553,7 @@ def homeui():
             f'<button class="sbtn sfind" type="button" data-rsearch data-tip="搜索（Ctrl K）">{I_SEARCH}<span class="lbl">搜索</span><kbd>Ctrl K</kbd></button>'
             '<nav class="snav">' + sl('#welcome', I_HOME, '首页', 'welcome', ' data-gohome') + sl('#home', I_BOOK, '学课', 'home') + sl('#bible', I_BIBLE, '圣经', 'bible') +
             f'<a href="#qa" data-t="qa" data-tip="问题彩蛋" data-egg>{I_SPARK}<span class="lbl">问题彩蛋</span><em class="lbl cnt">{nqa}</em></a>' +
+            f'<a href="#health" data-t="health" data-tip="健康">{I_HEART}<span class="lbl">健康</span><em class="lbl cnt">{len(health_data.ITEMS)}</em></a>' +
             f'<a href="#ask" data-t="ask" data-tip="提问区">{I_CHAT}<i class="sdot" aria-hidden="true"></i><span class="lbl">提问区</span></a>' + sl('#music', I_NOTE, '音乐', 'music') +
             f'<button type="button" data-me data-t="me" data-tip="我的">{I_USER}<span class="lbl">我的</span></button></nav>'
             '<a class="sweek" href="#home" hidden><span class="label sw-k"></span><b class="sw-t"></b><span class="bar"><i></i></span><small class="sw-m"></small></a>'
@@ -758,6 +760,7 @@ def qa_pages():
   <div class="qshelves">{shelves}</div>
   <a class="qidxlink" href="qa-index.html"><span class="ae-ic" aria-hidden="true">✦</span><span class="ae-t"><b>经文索引</b><small>按圣经书卷查：哪几篇问题彩蛋讲过这一章</small></span><span class="ae-go">打开 →</span></a>
   <div class="qsoon"><span>✦</span>更多问题陆续加入</div>
+  <a class="askentry" href="#health"><span class="ae-ic" aria-hidden="true">✚</span><span class="ae-t"><b>健康栏目</b><small>常见健康问题的科学分析：糖尿病等，研究都在 PubMed 核对过</small></span><span class="ae-go">去看看 →</span></a>
   <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>我也有问题想问</b><small>进入提问区：写下你的问题，大家一起讨论；整理者会挑选问题做成完整解答</small></span><span class="ae-go">去提问 →</span></a>
 </section>
 </div>''']
@@ -812,6 +815,34 @@ def qa_new_html():
             f'    </header>\n    <div class="qn-list">{items}</div>\n'
             '    <div class="qn-ft"><a class="qn-all" href="#qa">看全部问题彩蛋 →</a><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>\n'
             '  </div>\n</div>')
+
+def health_page():
+    """健康栏目（2026-10-26 用户要的）：网站里的 #health 页，列出各篇健康文章；文章是独立网页，用浮层打开（和问题彩蛋专题页一样，data-art）。"""
+    import qa_catalog
+    E = lambda x: html.escape(x, quote=True)
+    def card(it):
+        m = qa_catalog.meta(it)
+        return (f'<a class="qcard qrow qext" href="{it["url"]}" data-art="{it["id"]}" data-title="{E(it["q"])}">'
+                  f'<span class="qno">No.<b>{it["no"]:02d}</b></span>'
+                  f'<span class="qb"><span class="qq">{it["q"]}</span><span class="qs">{it["sub"]}</span>'
+                  f'<span class="qm">约 {m["mins"]} 分钟 · {m["chs"]} 章 · {m["figs"]} 张图</span></span><span class="qgo" aria-hidden="true">→</span></a>')
+    shelves = ''
+    for k_i, c in enumerate(health_data.CATS, 1):
+        its = [it for it in health_data.ITEMS if it['cat'] == c]
+        shelves += (f'<section class="qshelf" style="--qc:var(--c1)"><header class="qsh"><span class="qsn">{k_i:02d}</span><h2>{c}</h2><span class="qsc">{len(its)} 篇</span></header>'
+                    f'<div class="qlist">{"".join(card(it) for it in its)}</div></section>')
+    return f'''<div class="lesson" id="health" data-title="健康 · 预言的恩赐">
+<section class="qahome">
+  <p class="eyebrow">健康栏目 · 陆续更新</p>
+  <h1>健康</h1>
+  <p class="lead">常见健康问题的科学分析：从生理学、病理学讲起，看清来龙去脉；研究都在 PubMed 上核对过，分清证据的强弱；最后落到生活里能做的事。每篇都可以转发，也可以答题后下载 PDF。</p>
+  <p class="lead" style="font-size:.86rem;color:var(--muted)">健康科普，不能代替医生的诊断和处方；换药、停药一定先问医生。</p>
+  <div class="qshelves">{shelves}</div>
+  <div class="qsoon"><span>✚</span>更多健康问题陆续加入</div>
+  <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>想了解哪个健康问题？</b><small>进入提问区写下来，整理者会挑选问题做成完整的分析</small></span><span class="ae-go">去提问 →</span></a>
+</section>
+</div>'''
+
 
 def bible_page():
     """“圣经”栏目（2026-10-26）：网站里的 #bible 页；内容由 bible.js 第一次打开时再装（数据在 site/bible/，biblesite.py 生成）。"""
@@ -895,9 +926,9 @@ def build_combined(nos):
         bottom = f'<nav class="lnext" aria-label="上一课下一课">{pn(n - 1, -1)}{pn(n + 1, 1)}</nav>'
         ptitle = '本季导言' if n == 0 else f'第{n}课《{titles[n]}》'
         lessons.append(f'<div class="lesson" id="l{n}" data-title="{ptitle} · 预言的恩赐">\n{modernize(frags[n], n, titles[n])}\n{bottom}\n</div>')
-    ui = dict(logo=lamb.logo(32), user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, note=I_NOTE, chat=I_CHAT,
+    ui = dict(logo=lamb.logo(32), user=I_USER, down=I_DOWN, search=I_SEARCH, aa=AA, refresh=I_REFRESH, image=I_IMAGE, book=I_BOOK, spark=I_SPARK, heart=I_HEART, nhealth=len(health_data.ITEMS), note=I_NOTE, chat=I_CHAT,
               nqa=len(qa_data.ITEMS), nsongs=len(songs()))
-    body = welcome.welcome_html(titles, ui) + '\n' + qa_new_html() + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page()) + '\n' + bible_page()
+    body = welcome.welcome_html(titles, ui) + '\n' + qa_new_html() + '\n' + homeui() + audio_cfg() + '\n' + gift_html() + '\n' + with_bible(home + '\n' + '\n'.join(lessons) + '\n' + qa_pages() + '\n' + music_page() + '\n' + ask_page()) + '\n' + bible_page() + '\n' + health_page()
     out = shell('预言的恩赐 · 全季研读', '安息日学2026年第4季《预言的恩赐》全季十三课逐日研读与学课原文合集。', body, True)
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)

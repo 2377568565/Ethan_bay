@@ -389,3 +389,11 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
 - 本机存储：`q4:bplan` 读经计划 {id, s:开始日期, d:{天: [读完的段落序号]}, t}（账号同步 `pl`，同一计划两边合并）；`q4:bset` 设置、`q4:bpos` [卷,章,节,时间] 读到哪里、`q4:brecent` 最近读过、`q4:bsrch` 搜索记录、`q4:bmarks` {"卷.章.节":[颜色0—4,笔记,书签0/1,时间]}（删掉的留空记录，好同步）。
   账号同步（`app.js`）：`bm`（划线笔记，每节按时间合并，总是同步）、`bp`（读到哪里，和 `r`、`tp` 一样只在“同步阅读位置”时同步）。
 - 数据存在手机的 IndexedDB “q4bible”（和网站的 q4keep 分开，免得被它清掉）。
+
+
+## 健康栏目（2026-10-26）
+- 登记：`health_data.py` 的 `ITEMS`（id 用 `h编号`，url、cat、at、q、sub、teaser）、`CATS`。网站里的列表页是 `render.health_page()`（`#health`），卡片用问题彩蛋同样的 `.qcard.qrow.qext` 样式，阅读时间、章数、图数由 `qa_catalog.meta()` 从网页里读出。
+- 文章：照问题彩蛋专题页的写法（例 `diabetes.py`、`diabetes_text.py`、`diabetes_svg.py`），外壳用 `history.doc(..., col=dict(name='健康', hash='health', foot=…, related=…))`；
+  分享和下载用 `topic_tools.build(..., col='健康')`（分享文字是【健康】），PDF 用 `topic_tools.make_pdf(OUT, PDF, TITLE, '健康')`（页脚写“健康”），存在 `lessons/2026-Q4/qa/健康NN-….pdf`。
+- 浮层：`app.js` 的路由认 `health` 和 `h\d+`；文章 id 以 h 开头时，下面垫着健康列表，标题后缀是“ · 健康”。
+- 新增一篇：写 `xxx.py` 等 → `python3 tools/q4/xxx.py --pdf` → 在 `health_data.ITEMS` 加一条 → `_combined_only.py` → `cols.js`、`overflow.js` 检查 → 发布。
