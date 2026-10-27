@@ -16,7 +16,7 @@ TITLE = IT['q']
 PDF = '健康03-高血脂为什么总和高血压高血糖一起来.pdf'
 NO = {cid: i + 1 for i, (_, cid, _, _) in enumerate(T.CHAPTERS)}
 NAME = {cid: t for _, cid, t, _ in T.CHAPTERS}
-FIGS = {k: getattr(G, k) for k in ('boats', 'plaque', 'tree', 'young', 'lifetime', 'statin', 'portfolio')}
+FIGS = {k: getattr(G, k) for k in ('boats', 'plaque', 'tree', 'young', 'lifetime', 'statin', 'portfolio', 'others')}
 EXTRA_CSS = r'''
 .deep{margin:1em 0 1.2em;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
 .deep>summary{cursor:pointer;padding:10px 14px;font-size:.92rem;font-weight:650;color:var(--ink-2);list-style:none}
@@ -89,7 +89,7 @@ def page():
     hero = f'''<header class="hero">
 <p class="eyebrow">健康 · 03 · {IT["cat"]}</p>
 <h1>{TITLE}<small class="h1s">{IT["sub"]}</small></h1>
-<p class="hsub">体检单上，血压、血糖、血脂三个箭头常常一起出现。这是巧合吗？血脂到底是什么，“好胆固醇”“坏胆固醇”怎么分？为什么年纪大了容易高？降脂药治的是什么、副作用有多大？这一篇往下挖，看看三高是不是长在同一个根上，再老老实实地看药物、饮食和预防的证据。</p>
+<p class="hsub">体检单上，血压、血糖、血脂三个箭头常常一起出现。血脂到底是什么，“好胆固醇”“坏胆固醇”怎么分？为什么年纪大了容易高？降脂药治的是什么、副作用有多大、降到多少才够？已经长了的斑块能不能退回去？这一篇把高血脂本身讲透，也往下挖一层，看看三高是不是长在同一个根上。</p>
 <div class="answer"><p class="lab">先说结论</p>
 <ol class="lineage">{steps}</ol>
 <p>下面先讲血脂是什么、斑块怎样长出来，再往下挖三高共同的根，然后看药物在做什么、饭桌和运动能做多少、年轻人怎样预防。医学研究都在 PubMed 上核对过摘要；“编者的理解”只供参考。<b>本篇不能代替医生的诊断和处方，换药、停药一定先问医生。</b></p></div>
