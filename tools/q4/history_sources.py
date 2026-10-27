@@ -918,6 +918,7 @@ DM = {
  'dm_tonstad09':('Tonstad S, et al. Type of vegetarian diet, body weight, and prevalence of type 2 diabetes. Diabetes Care 2009;32(5):791-6（复临信徒健康研究 2，60,903 人；PubMed 19351712）', 'https://doi.org/10.2337/dc08-1886'),
  'dm_reynolds16':('Reynolds AN, et al. Advice to walk after meals is more effective for lowering postprandial glycaemia in type 2 diabetes mellitus than advice that does not specify timing: a randomised crossover study. Diabetologia 2016;59(12):2572-8（PubMed 27747394）', 'https://doi.org/10.1007/s00125-016-4085-2'),
  'dm_colberg16':('Colberg SR, et al. Physical Activity/Exercise and Diabetes: A Position Statement of the American Diabetes Association. Diabetes Care 2016;39(11):2065-79（PubMed 27926890）', 'https://doi.org/10.2337/dc16-1728'),
+ 'dm_zhou25': ('Zhou YC, et al. The national and provincial prevalence and non-fatal burdens of diabetes in China from 2005 to 2023 with projections of prevalence to 2050. Mil Med Res 2025;12(1):28（中国疾控中心慢病中心；模型估计；PubMed 40457495）', 'https://doi.org/10.1186/s40779-025-00615-1'),
 }
 SRC.update({k: (d, u, []) for k, (d, u) in DM.items()})
 
@@ -963,6 +964,8 @@ HT = {
  'ht_yokoyama14': ('Yokoyama Y, et al. Vegetarian diets and blood pressure: a meta-analysis. JAMA Intern Med 2014;174(4):577-87（PubMed 24566947）', 'https://doi.org/10.1001/jamainternmed.2013.14547'),
  'ht_buettner25': ('Buettner D. Lessons From the Blue Zones: There is No Silver Bullet (or Magic Pill) for a Long, Healthy Life. Am J Lifestyle Med 2025;19(7):1052-62（PubMed 40322661）', 'https://doi.org/10.1177/15598276251334310'),
  'ht_candal25': ('Candal-Pedreira C, et al. Blue Zones, an Analysis of Existing Evidence through a Scoping Review. Aging Dis 2025;17(3):1335-46（PubMed 40479568）', 'https://doi.org/10.14336/AD.2025.0461'),
+ 'ht_cao25': ('Cao X, et al. Trends and sociodemographic patterns in hypertension prevalence and treatment in China. Med 2025;6(11):100808（国家心血管病中心，2012—2015 与 2021—2022 两次全国代表性调查，共 750,208 人；PubMed 40865522）', 'https://doi.org/10.1016/j.medj.2025.100808'),
+ 'ht_zhang23': ('Zhang M, et al. Prevalence, awareness, treatment, and control of hypertension in China, 2004-18: findings from six rounds of a national survey. BMJ 2023;380:e071952（中国疾控中心慢性病及危险因素监测，642,523 人；PubMed 36631148）', 'https://doi.org/10.1136/bmj-2022-071952'),
 }
 SRC.update({k: (d, u, []) for k, (d, u) in HT.items()})
 
@@ -1016,5 +1019,7 @@ LP = {
  'lp_prominent22': ('Das Pradhan A, et al. Triglyceride Lowering with Pemafibrate to Reduce Cardiovascular Risk (PROMINENT). N Engl J Med 2022;387(21):1923-34（10,497 人；兴和资助；PubMed 36342113）', 'https://doi.org/10.1056/NEJMoa2210645'),
  'lp_whitehead14': ('Whitehead A, et al. Cholesterol-lowering effects of oat β-glucan: a meta-analysis of randomized controlled trials. Am J Clin Nutr 2014;100(6):1413-21（28 个试验；PubMed 25411276）', 'https://doi.org/10.3945/ajcn.114.086108'),
  'lp_lai23': ('Lai T, et al. Etiological Changes and Prognosis of Hospitalized Patients with Acute Pancreatitis Over a 15-Year Period. Dig Dis Sci 2024;69(1):56-65（南昌 10,071 人；PubMed 37943383）', 'https://doi.org/10.1007/s10620-023-08172-0'),
+ 'lp_peng23': ('Peng W, et al. Trends in major non-communicable diseases and related risk factors in China 2002-2019: an analysis of nationally representative survey data. Lancet Reg Health West Pac 2023;43:100809（PubMed 38456095）', 'https://doi.org/10.1016/j.lanwpc.2023.100809'),
+ 'lp_huang22': ('Huang Y, et al. The prevalence and characteristics of metabolic syndrome according to different definitions in China: a nationwide cross-sectional study, 2012-2015. BMC Public Health 2022;22(1):1869（28,717 人；PubMed 36207719）', 'https://doi.org/10.1186/s12889-022-14263-w'),
 }
 SRC.update({k: (d, u, []) for k, (d, u) in LP.items()})

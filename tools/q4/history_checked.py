@@ -554,4 +554,9 @@ CHECKED = {
  'lp_prominent22': ('https://doi.org/10.1056/NEJMoa2210645', 'live'),   # PubMed 核对摘要（2026-10-27）
  'lp_whitehead14': ('https://doi.org/10.3945/ajcn.114.086108', 'live'),   # PubMed 核对摘要（2026-10-27）
  'lp_lai23': ('https://doi.org/10.1007/s10620-023-08172-0', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'ht_cao25': ('https://doi.org/10.1016/j.medj.2025.100808', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
+ 'ht_zhang23': ('https://doi.org/10.1136/bmj-2022-071952', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
+ 'dm_zhou25': ('https://doi.org/10.1186/s40779-025-00615-1', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
+ 'lp_peng23': ('https://doi.org/10.1016/j.lanwpc.2023.100809', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
+ 'lp_huang22': ('https://doi.org/10.1186/s12889-022-14263-w', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
 }

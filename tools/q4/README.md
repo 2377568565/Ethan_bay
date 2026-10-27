@@ -396,4 +396,5 @@ git 里单个文件不能超过 100 MB，网页上传不能超过 25 MB；GitHub
 - 文章：照问题彩蛋专题页的写法（例 `diabetes.py`、`diabetes_text.py`、`diabetes_svg.py`；`hypertension.py` 同样写法，正文里可用 `{{deep:标题|<p>…</p>}}` 写展开框），外壳用 `history.doc(..., col=dict(name='健康', hash='health', foot=…, related=…))`；
   分享和下载用 `topic_tools.build(..., col='健康')`（分享文字是【健康】），PDF 用 `topic_tools.make_pdf(OUT, PDF, TITLE, '健康')`（页脚写“健康”），存在 `lessons/2026-Q4/qa/健康NN-….pdf`。
 - 浮层：`app.js` 的路由认 `health` 和 `h\d+`；文章 id 以 h 开头时，下面垫着健康列表，标题后缀是“ · 健康”。
+- 数字要新：患病率等先找最新的全国代表性调查（写明调查年份），模型估计要注明；见 CLAUDE.md 第 4 节“数据要新、来源要高质量”。
 - 新增一篇：写 `xxx.py` 等 → `python3 tools/q4/xxx.py --pdf` → 在 `health_data.ITEMS` 加一条 → `_combined_only.py` → `cols.js`、`overflow.js` 检查 → 发布。
