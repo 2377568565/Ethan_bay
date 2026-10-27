@@ -59,8 +59,14 @@ jobs:
           python-version: '3.10'
       - name: 基础工具
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg sox libsox-dev > /dev/null
-          pip install -q --upgrade pip
+          # ffmpeg 用 pip 包自带的（apt 镜像在很多台机器同时装时会卡十几分钟）；sox 只有 CosyVoice 需要
+          pip install -q --upgrade pip imageio-ffmpeg
+          mkdir -p "$HOME/bin" && ln -sf "$(python -c 'import imageio_ffmpeg as f; print(f.get_ffmpeg_exe())')" "$HOME/bin/ffmpeg"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+          if [ "${{ matrix.job.engine }}" != voxcpm ] && [ "${{ matrix.job.engine }}" != kokoro ]; then
+            timeout 600 sudo apt-get install -y -qq --no-install-recommends sox libsox-dev > /dev/null \
+              || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends sox libsox-dev > /dev/null)
+          fi
       - name: 安装 Kokoro
         if: matrix.job.engine == 'kokoro'
         run: |
@@ -132,8 +138,9 @@ jobs:
       - name: 拼接并行合成的分片
         run: |
           if ls art/"$OUT"/*.part >/dev/null 2>&1; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
-            pip install -q numpy
+            pip install -q numpy imageio-ffmpeg
+            mkdir -p "$HOME/bin" && ln -sf "$(python -c 'import imageio_ffmpeg as f; print(f.get_ffmpeg_exe())')" "$HOME/bin/ffmpeg"
+            export PATH="$HOME/bin:$PATH"
             python tools/q4/tts/gen.py --engine cosy3 --merge --out "art/$OUT"
           fi
       - name: 放进仓库
