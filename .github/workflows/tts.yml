@@ -81,18 +81,19 @@ jobs:
           PY
         env:
           ENGINE: ${{ matrix.job.engine }}
-      - name: 男声提示音
-        if: matrix.job.engine != 'kokoro' && matrix.job.voice == 'm' && hashFiles('tools/q4/tts/voices/m.wav') == ''
+      - name: 提示音（男声 m、女声 w）
+        if: matrix.job.engine != 'kokoro' && ((matrix.job.voice == 'm' && hashFiles('tools/q4/tts/voices/m.wav') == '') || (matrix.job.voice == 'w' && hashFiles('tools/q4/tts/voices/w.wav') == ''))
         run: |
           python -c "from huggingface_hub import snapshot_download; snapshot_download('FunAudioLLM/CosyVoice-300M-SFT', local_dir='/tmp/sft')"
-          python tools/q4/tts/gen.py --engine cosy3 --repo-dir /tmp/cv --make-male-prompt /tmp/sft --out x
+          python tools/q4/tts/gen.py --engine cosy3 --voice "${{ matrix.job.voice }}" --repo-dir /tmp/cv --make-prompt /tmp/sft --out x
       - name: 合成
         run: |
           python tools/q4/tts/gen.py --engine "${{ matrix.job.engine }}" --voice "${{ matrix.job.voice }}" \
             --instruct "${{ matrix.job.instruct }}" --ids "${{ matrix.job.ids }}" --kinds "${{ matrix.job.kinds }}" \
             --lessons "${{ matrix.job.lessons }}" --maxblocks "${{ matrix.job.maxblocks || 0 }}" --name "${{ matrix.job.name }}" \
+            --script "${{ matrix.job.script || 'script.json' }}" --speed "${{ matrix.job.speed || 1 }}" --pauses "${{ matrix.job.pauses }}" \
             --out "art/$OUT" --model-dir /tmp/model --repo-dir /tmp/cv
-          if [ -f tools/q4/tts/voices/m.wav ]; then mkdir -p art/tools/q4/tts/voices && cp tools/q4/tts/voices/m.wav art/tools/q4/tts/voices/; fi
+          mkdir -p art/tools/q4/tts/voices && cp tools/q4/tts/voices/*.wav art/tools/q4/tts/voices/ 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: tts-${{ strategy.job-index }}

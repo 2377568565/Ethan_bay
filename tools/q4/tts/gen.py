@@ -56,9 +56,11 @@ class Cosy:
     PROMPTS = {
         'f': ('asset/zero_shot_prompt.wav', '希望你以后能够做的比我还好呦。'),
         'm': (os.path.join(HERE, 'voices', 'm.wav'), '在上帝的话语里，我们找到安慰和盼望，也找到前行的力量。'),
+        'w': (os.path.join(HERE, 'voices', 'w.wav'), '各位弟兄姊妹，今天我们一起来认识自己的身体，学习怎样好好照顾它。'),
     }
+    SFT_SPK = {'m': '中文男', 'w': '中文女'}   # 用 CosyVoice-300M-SFT 内置的声音先合成一句话，当作提示音
 
-    def __init__(self, voice, model_dir, repo_dir, v3=True, instruct=''):
+    def __init__(self, voice, model_dir, repo_dir, v3=True, instruct='', speed=1.0):
         sys.path.insert(0, repo_dir)
         sys.path.insert(0, os.path.join(repo_dir, 'third_party', 'Matcha-TTS'))
         import torch
@@ -70,35 +72,40 @@ class Cosy:
         wav, text = self.PROMPTS[voice]
         if not os.path.isabs(wav):
             wav = os.path.join(repo_dir, wav)
-        if voice == 'm' and not os.path.exists(wav):
-            raise SystemExit('缺少男声提示音 voices/m.wav：先用 --make-male-prompt 生成')
+        if voice in self.SFT_SPK and not os.path.exists(wav):
+            raise SystemExit(f'缺少提示音 voices/{voice}.wav：先用 --make-prompt 生成')
         self.prompt_wav = wav
         self.prompt_text = ('You are a helpful assistant.<|endofprompt|>' + text) if v3 else text
         self.instruct = instruct
         self.v3 = v3
+        self.speed = speed
 
     def __call__(self, text):
         if self.instruct:
-            it = self.m.inference_instruct2(text, 'You are a helpful assistant. ' + self.instruct + '<|endofprompt|>', self.prompt_wav, stream=False)
+            ins = 'You are a helpful assistant. ' + self.instruct + '<|endofprompt|>'
+            call = lambda **k: self.m.inference_instruct2(text, ins, self.prompt_wav, stream=False, **k)
         else:
-            it = self.m.inference_zero_shot(text, self.prompt_text, self.prompt_wav, stream=False)
-        parts = [j['tts_speech'].squeeze(0).cpu().numpy() for j in it]
+            call = lambda **k: self.m.inference_zero_shot(text, self.prompt_text, self.prompt_wav, stream=False, **k)
+        try:
+            parts = [j['tts_speech'].squeeze(0).cpu().numpy() for j in call(speed=self.speed)]
+        except TypeError:            # 旧版接口没有 speed 参数
+            parts = [j['tts_speech'].squeeze(0).cpu().numpy() for j in call()]
         return np.concatenate(parts) if parts else np.zeros(0, np.float32)
 
 
-def make_male_prompt(repo_dir, sft_dir):
-    """用 CosyVoice-300M-SFT 内置的“中文男”合成一句话，当作 CosyVoice3 的男声提示音"""
+def make_prompt(repo_dir, sft_dir, voice='m'):
+    """用 CosyVoice-300M-SFT 内置的“中文男”/“中文女”合成一句话，当作 CosyVoice3 的提示音（voices/m.wav、voices/w.wav）"""
     sys.path.insert(0, repo_dir)
     sys.path.insert(0, os.path.join(repo_dir, 'third_party', 'Matcha-TTS'))
     from cosyvoice.cli.cosyvoice import AutoModel
     import soundfile as sf
     m = AutoModel(model_dir=sft_dir)
-    text = Cosy.PROMPTS['m'][1]
-    a = np.concatenate([j['tts_speech'].squeeze(0).numpy() for j in m.inference_sft(text, '中文男', stream=False)])
-    out = Cosy.PROMPTS['m'][0]
+    text = Cosy.PROMPTS[voice][1]
+    a = np.concatenate([j['tts_speech'].squeeze(0).numpy() for j in m.inference_sft(text, Cosy.SFT_SPK[voice], stream=False)])
+    out = Cosy.PROMPTS[voice][0]
     os.makedirs(os.path.dirname(out), exist_ok=True)
     sf.write(out, a, m.sample_rate)
-    print('男声提示音', out, round(len(a) / m.sample_rate, 1), '秒')
+    print('提示音', voice, out, round(len(a) / m.sample_rate, 1), '秒')
 
 
 # ---------------- 合成一个单位 ----------------
@@ -115,6 +122,23 @@ def sentences(t, limit=120):
     return out
 
 
+PAUSE = None   # 逐句合成时的停顿（秒）：{'sent': 句与句, 'para': 段与段, 'head': 章节标题后}；None＝旧做法（学课录音不变）
+
+
+def split_sent(t):
+    """逐句切开（句号、问号、叹号、分号；破折号后面的补充也算一句的一部分），太短的并到前一句"""
+    out = []
+    for x in re.split(r'(?<=[。！？；])', t):
+        x = x.strip()
+        if not x:
+            continue
+        if out and len(x) < 6:
+            out[-1] += x
+        else:
+            out.append(x)
+    return out
+
+
 def render(unit, tts, outdir, maxblocks=0, bitrate='32k'):
     t0 = time.time()
     chunks, starts, fps, pos = [], [], [], 0
@@ -125,11 +149,23 @@ def render(unit, tts, outdir, maxblocks=0, bitrate='32k'):
             starts.append(-1)
             continue
         starts.append(round(pos / SR, 2))
-        for s in sentences(b['say']):
-            a = tts(s).astype(np.float32)
-            chunks.append(a)
-            pos += len(a)
-        gap = PAUSE_HEAD if (i == 0 or len(b['say']) < 24) else PAUSE_PARA
+        if PAUSE:
+            ss = split_sent(b['say'])
+            for k, s in enumerate(ss):
+                a = tts(s).astype(np.float32)
+                chunks.append(a)
+                pos += len(a)
+                if k < len(ss) - 1:
+                    z = np.zeros(int(PAUSE['sent'] * SR), np.float32)
+                    chunks.append(z)
+                    pos += len(z)
+            gap = PAUSE['head'] if (i == 0 or b.get('head')) else PAUSE['para']
+        else:
+            for s in sentences(b['say']):
+                a = tts(s).astype(np.float32)
+                chunks.append(a)
+                pos += len(a)
+            gap = PAUSE_HEAD if (i == 0 or len(b['say']) < 24) else PAUSE_PARA
         z = np.zeros(int(gap * SR), np.float32)
         chunks.append(z)
         pos += len(z)
@@ -165,12 +201,19 @@ def main():
     ap.add_argument('--model-dir', default='')
     ap.add_argument('--repo-dir', default='')
     ap.add_argument('--bitrate', default='32k')
-    ap.add_argument('--make-male-prompt', default='', help='CosyVoice-300M-SFT 模型目录')
+    ap.add_argument('--make-prompt', default='', help='CosyVoice-300M-SFT 模型目录（配合 --voice m 或 w）')
+    ap.add_argument('--script', default='script.json', help='朗读稿：script.json（学课）或 script-health.json（健康栏目）')
+    ap.add_argument('--speed', type=float, default=1.0, help='CosyVoice 语速，1＝正常')
+    ap.add_argument('--pauses', default='', help='逐句合成并加停顿：句,段,标题（秒），例如 0.35,0.8,1.1')
     a = ap.parse_args()
-    if a.make_male_prompt:
-        make_male_prompt(a.repo_dir, a.make_male_prompt)
+    if a.make_prompt:
+        make_prompt(a.repo_dir, a.make_prompt, a.voice)
         return
-    units = json.load(open(os.path.join(HERE, 'script.json'), encoding='utf-8'))
+    global PAUSE
+    if a.pauses:
+        x = [float(v) for v in a.pauses.split(',')]
+        PAUSE = {'sent': x[0], 'para': x[1], 'head': x[2]}
+    units = json.load(open(os.path.join(HERE, a.script or 'script.json'), encoding='utf-8'))
     if a.ids:
         want = a.ids.split(',')
         units = [u for u in units if u['id'] in want]
@@ -184,7 +227,7 @@ def main():
     if a.engine == 'kokoro':
         tts = Kokoro(a.voice)
     else:
-        tts = Cosy(a.voice, a.model_dir, a.repo_dir, v3=a.engine == 'cosy3', instruct=a.instruct)
+        tts = Cosy(a.voice, a.model_dir, a.repo_dir, v3=a.engine == 'cosy3', instruct=a.instruct, speed=a.speed or 1.0)
     stats = []
     for u in units:
         if a.name:

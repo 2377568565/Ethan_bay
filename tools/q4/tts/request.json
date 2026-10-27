@@ -1,15 +1,31 @@
 {
- "note": "补录：第4课星期日解读（标题区加了问题彩蛋《耶稣是人还是神？》入口，段落多了一段）。声音 D：Kokoro 女声 zf_001。全季重录时把 jobs 改回每课一个任务（kinds: yw,jd,qa；lessons: 0—13）。",
- "out": "audio/kk-f",
+ "note": "健康栏目朗读试听（2026-10-27 用户要“拟人”的声音，注意断句和语速，先做两个 demo）：高血压开头两章，CosyVoice3 女声 w、男声 m，逐句合成、句间 0.35 秒、段间 0.8 秒、标题后 1.1 秒，语速 0.92。朗读稿由 tools/q4/tts/health_speech.py --demo 生成。",
+ "out": "audio/try",
  "check": false,
  "jobs": [
   {
-   "name": "",
-   "engine": "kokoro",
-   "voice": "zf_001",
-   "ids": "l4-sun",
+   "name": "h-w",
+   "engine": "cosy3",
+   "voice": "w",
+   "ids": "h2-demo",
    "kinds": "",
-   "lessons": ""
+   "lessons": "",
+   "script": "script-health.json",
+   "speed": "0.92",
+   "pauses": "0.35,0.8,1.1",
+   "instruct": "请用温和亲切、不急不慢的语气，像给家里的长辈讲解健康知识一样说话。"
+  },
+  {
+   "name": "h-m",
+   "engine": "cosy3",
+   "voice": "m",
+   "ids": "h2-demo",
+   "kinds": "",
+   "lessons": "",
+   "script": "script-health.json",
+   "speed": "0.92",
+   "pauses": "0.35,0.8,1.1",
+   "instruct": "请用沉稳亲切、不急不慢的语气，像给家里的长辈讲解健康知识一样说话。"
   }
  ]
 }
