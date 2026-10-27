@@ -60,6 +60,8 @@ def year_cn(y):
 
 def say_numbers(t):
     t = t.replace('mmHg', '毫米汞柱')
+    # 急救电话 120 读“一二零”（“中风 120”、“打 120”），不读“一百二十”
+    t = re.sub(r'(中风|打了|打|拨打|告诉|急救电话)\s*120(?![\d/])', lambda m: m[1] + '一二零', t)
     # 年份段：2021—2022 年、2012 到 2015 年
     t = re.sub(r'(\d{4})\s*[—–-]\s*(\d{4})\s*年', lambda m: year_cn(m[1]) + '到' + year_cn(m[2]) + '年', t)
     t = re.sub(r'(?<![\d.])(\d{4})\s*年', lambda m: year_cn(m[1]) + '年', t)
@@ -166,7 +168,7 @@ def units_all():
     import history as H
     import health_data
     import importlib
-    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text'}
+    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text'}
     out = []
     for it in health_data.ITEMS:
         T = importlib.import_module(mods[it['url']])

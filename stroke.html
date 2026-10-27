@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>中风，真的是突然来的吗？ · 健康</title>
+<meta name="description" content="中风真的是突然来的吗？怎样认出中风、发病时怎样抢时间；它的上游（高血压、房颤、三高、烟酒）和上游的上游（盐、饭桌、运动、腰围、压力）；中国的预防试验 CRHCP、SSaSS、CSPPT；中医药和自然疗法的证据（都在 PubMed 核对过）">
+<script>try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}try{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
+[hidden]{display:none!important}
+:root{
+  --paper:#F5F1E8;--surface:#FFFDF8;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--link:#3D5672;--gold:#9A742C;--gold-soft:#F3E9D2;--band:#EFE9DD;
+  --c0:#8A8F9C;--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;
+  --c6-soft:#F7E8EB;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}
+.f0{--c:var(--c0)}.f1{--c:var(--c1)}.f2{--c:var(--c2)}.f3{--c:var(--c3)}.f4{--c:var(--c4)}.f5{--c:var(--c5)}.f6{--c:var(--c6)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+p{margin:0 0 .9em}
+a{color:var(--link)}
+b,strong{font-weight:650}
+h1,h2,h3,h4,h5{line-height:1.4;margin:0}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:8px 16px;padding-top:max(8px,env(safe-area-inset-top));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .back{color:var(--accent);text-decoration:none;font-size:.9rem;white-space:nowrap}
+.bar .bt{flex:1;text-align:center;font-weight:650;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .aa,.btn{font:inherit;font-size:.86rem;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+.btn.sm{font-size:.82rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+main{max-width:720px;margin:0 auto;min-width:0}
+.toc-side{display:none}
+@media (min-width:1080px){
+  .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px}
+  .toc-side{display:block;position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:20px 0 40px;font-size:.86rem}
+  .fab-toc,.toc-in{display:none}
+}
+/* 封面 */
+.hero{padding:28px 0 8px}
+.eyebrow{color:var(--accent);font-size:.82rem;letter-spacing:.06em;margin:0 0 6px}
+.hero h1{font-family:var(--serif);font-size:2.1rem;letter-spacing:.04em;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.82rem;margin:0 0 12px}
+.hsub{font-size:1.06rem;color:var(--ink-2);margin:0 0 18px}
+.answer{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:16px 16px 6px;margin:0 0 16px}
+.lab{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin:0 0 6px}
+.lineage{list-style:none;margin:6px 0 14px;padding:0}
+.lineage li{position:relative;padding:0 0 12px 26px}
+.lineage li::before{content:"";position:absolute;left:6px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--surface)}
+.lineage li::after{content:"";position:absolute;left:11px;top:20px;bottom:-6px;width:2px;background:var(--rule)}
+.lineage li:last-child::after{display:none}
+.lineage .ly{display:block;font-size:.76rem;line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}
+.lineage b{font-size:.98rem}
+.lineage small{display:block;color:var(--muted);font-size:.82rem;line-height:1.5}
+.lineage li.f6 b{color:var(--c6)}
+.howto{font-size:.88rem;color:var(--ink-2);background:var(--gold-soft);border-radius:12px;padding:10px 14px}
+.howto span{font-weight:650}
+/* 目录 */
+.toc-in{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px 16px 8px;margin:8px 0 8px}
+.toc-in h2{font-size:1rem;margin:0 0 6px}
+.toc-l,.toc-l ol{list-style:none;margin:0;padding:0}
+.toc-l>li{margin:0 0 8px}
+.tp{display:block;font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:6px 0 2px}
+.toc-l a{display:flex;gap:8px;padding:4px 6px;border-radius:8px;color:var(--ink);text-decoration:none;line-height:1.5}
+.toc-l a:hover{background:var(--band)}
+.toc-l a.on{background:var(--accent-soft);color:var(--accent);font-weight:650}
+.toc-l .tn{flex:none;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.86em;padding-top:.08em}
+.tsh{font-weight:700;font-size:.9rem;margin:0 0 8px}
+.tsrc a{color:var(--accent);text-decoration:none;font-size:.9rem}
+/* 部分、章 */
+.part{margin:48px 0 0;padding:18px 0 0;border-top:2px solid var(--ink)}
+.part span{display:block;font-size:.8rem;letter-spacing:.14em;color:var(--accent);font-weight:700}
+.part b{font-family:var(--serif);font-size:1.5rem}
+.ch{padding:26px 0 8px;scroll-margin-top:56px}
+.ch h2{font-family:var(--serif);font-size:1.42rem;display:flex;gap:10px;align-items:baseline;margin:0 0 14px}
+.ch h2 .no{flex:none;font-family:var(--sans);font-size:.8rem;font-weight:700;color:var(--surface);background:var(--accent);border-radius:6px;padding:1px 7px;transform:translateY(-3px)}
+.ch h3{font-size:1.1rem;margin:22px 0 8px;scroll-margin-top:56px}
+.ch ul,.ch ol{padding-left:1.3em;margin:0 0 1em}
+.ch li{margin:0 0 .4em}
+.xref{color:var(--link);text-decoration:none;border-bottom:1px dashed currentColor}
+/* 出处小数字 */
+.cite{display:inline-block;min-width:1.45em;height:1.45em;line-height:1.45em;margin:0 1px;padding:0 3px;border-radius:5px;font-size:.66em;font-weight:700;text-align:center;vertical-align:.45em;text-decoration:none;color:var(--accent);background:var(--accent-soft);font-variant-numeric:tabular-nums}
+.cite:target,.cite.flash{outline:2px solid var(--accent)}
+/* 经文 */
+.verse{margin:12px 0 16px;padding:10px 14px 10px 16px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0}
+.verse p{font-family:var(--serif);font-size:1.02rem;margin:0 0 2px}
+.verse sup{font-family:var(--sans);font-size:.65em;color:var(--gold);margin:0 2px 0 4px}
+.verse cite{display:block;text-align:right;font-style:normal;font-size:.8rem;color:var(--gold)}
+/* 提示框 */
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.box.sda{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.sda .lab{color:var(--c6)}
+.keys{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+.keys ol{padding-left:1.2em}
+.note2{font-size:.82rem;color:var(--muted)}
+.cap{font-size:.84rem;color:var(--muted);margin:-4px 0 18px}
+/* 图 */
+.fig{margin:14px -12px 10px;padding:12px 6px;background:var(--surface);border:1px solid var(--rule);border-radius:16px}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (min-width:600px){.fig{margin:16px 0 10px;padding:16px}}
+.dg{font-family:var(--sans)}
+.dg .band0{fill:var(--band)}.dg .band1{fill:none}
+.dg .tb{font-size:9px;fill:var(--muted);letter-spacing:.04em}
+.dg .ln{fill:none;stroke:var(--c);stroke-width:5;stroke-linecap:round}
+.dg .dot{fill:var(--surface);stroke:var(--ink);stroke-width:1.8}
+.dg .root{fill:var(--ink)}
+.dg .ty{font-weight:800;fill:var(--ink-2)}
+.dg .tn{font-size:11px;font-weight:650;fill:var(--ink)}
+.dg .tn.hi{font-weight:800}
+.dg .ts{font-size:9px;fill:var(--muted)}
+.dg .tw{font-size:9px;fill:var(--ink-2)}
+.dg .ax{stroke:var(--muted);stroke-width:1;fill:none}
+.dg .ta{font-size:9px;fill:var(--muted)}
+.dg .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.dg .cn{stroke:var(--c);stroke-width:1.6;fill:none}
+.dg .bar{stroke:var(--c);stroke-width:7;stroke-linecap:round;fill:none}
+.dg .bar.hi{stroke-width:10}
+.dg .dash{stroke-dasharray:4 4}
+.dg .bar.dash{stroke-dasharray:6 4;stroke-width:6;stroke-linecap:butt}
+.dg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.dg .flow{fill:none;stroke:var(--rule);stroke-width:1.6}
+.dg .box{fill:var(--paper);stroke:var(--rule);stroke-width:1}
+.dg .fillc{fill:var(--c);stroke:none}
+.dg .tnode{font-size:13px;font-weight:800;fill:#fff}
+.dg .tnode2{font-size:11px;font-weight:600;fill:#fff;opacity:.92}
+/* 六个原因、三项发现、七个独特之处 */
+.causes,.disc3{display:grid;gap:10px;margin:12px 0 16px}
+@media (min-width:600px){.causes{grid-template-columns:1fr 1fr}}
+.cause,.disc3>div,.dist .d{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 4px}
+.cause h4,.disc3 h4,.dist h4{font-size:1rem;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.cause p{font-size:.92rem}
+.cause .eg{font-size:.8rem;color:var(--accent);margin:-4px 0 8px}
+.ci{flex:none;display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:var(--surface);font-size:.78rem;font-weight:700}
+.cause .ci,.disc3 .ci{position:absolute;top:12px;right:12px}
+.disc3>div{border-left:4px solid var(--c6)}
+.disc3 .ci{background:var(--c6)}
+.dist{display:grid;gap:12px;margin:12px 0}
+.dist .d{border-top:4px solid var(--c6)}
+.dist .ci{background:var(--c6)}
+.dist .also{font-size:.84rem;color:var(--muted)}
+/* 年份步骤 */
+.steps{list-style:none;padding:0!important;margin:12px 0 16px!important;border-left:2px solid var(--rule)}
+.steps li{position:relative;padding:0 0 4px 16px;margin:0 0 10px!important}
+.steps li::before{content:"";position:absolute;left:-6px;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.steps .yr{display:inline-block;font-weight:700;color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+/* 小表格 */
+.mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top;min-width:4.5em}
+.mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
+/* 年表 */
+.tl{margin:10px 0}
+.era{position:relative;padding:0 0 6px 18px;border-left:3px solid var(--rule)}
+.era.era-f{border-left-color:var(--c6)}
+.era h4{font-size:.98rem;margin:0 0 6px;padding-top:6px}
+.era h4 small{font-weight:400;color:var(--muted);font-size:.8rem;margin-left:8px}
+.era h4::before{content:"";position:absolute;left:-8px;margin-top:.45em;width:13px;height:13px;border-radius:50%;background:var(--ink)}
+.era.era-f h4::before{background:var(--c6)}
+.era ol{list-style:none;padding:0!important;margin:0 0 12px!important}
+.era li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;font-size:.92rem;line-height:1.7;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.era li:last-child{border-bottom:0}
+.era .y{font-variant-numeric:tabular-nums;color:var(--accent)}
+.era.era-f .y{color:var(--c6)}
+/* 教派名片 */
+.dn-tools{text-align:right;margin:0 0 8px}
+.dns{display:grid;gap:10px}
+.dn{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:14px}
+.dn summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative}
+.dn summary::-webkit-details-marker{display:none}
+.dn summary::after{content:"＋";position:absolute;right:14px;top:12px;color:var(--muted);font-weight:700}
+.dn[open] summary::after{content:"－"}
+.dn-fam{display:inline-block;font-size:.72rem;font-weight:700;color:var(--ink-2);border:1px solid var(--c);border-radius:999px;padding:0 8px;margin-right:8px;vertical-align:.12em}
+.dn-n{font-weight:700;font-size:1.06rem}
+.dn-w{display:block;color:var(--muted);font-size:.84rem;line-height:1.6;margin-top:2px}
+.dn-b{padding:0 14px 10px;font-size:.93rem}
+.dn-m{margin:0 0 4px}.dn-m b{display:inline-block;min-width:5em;color:var(--muted);font-weight:600}
+.dn h5{font-size:.88rem;margin:12px 0 4px}
+.dn ul{margin:0 0 6px;padding-left:1.2em}
+.dn-cmp{display:grid;gap:8px;margin-top:8px}
+@media (min-width:600px){.dn-cmp{grid-template-columns:1fr 1fr}}
+.dn-cmp>div{border-radius:10px;padding:2px 12px 6px}
+.dn-cmp .same{background:color-mix(in srgb,var(--c1) 10%,transparent)}
+.dn-cmp .diff{background:var(--c6-soft)}
+.dn-cmp .same h5{color:var(--c1)}.dn-cmp .diff h5{color:var(--c6)}
+.dn-src{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+#d-sda{border-color:color-mix(in srgb,var(--c6) 50%,var(--rule));border-left-color:var(--c6)}
+/* 对照 */
+.vs{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:12px 12px 4px;margin:12px 0 18px}
+.vs-pick{display:block;font-size:.9rem;margin:0 0 10px}
+.vs-pick span{display:block;color:var(--ink-2);margin-bottom:4px}
+.vs-pick select{font:inherit;font-size:1rem;padding:6px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+.vs-t{width:100%;border-collapse:collapse;font-size:.88rem;table-layout:fixed}
+.vs-t th,.vs-t td{padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6}
+.vs-t tbody th{width:4.6em;color:var(--muted);font-weight:600;font-size:.82rem}
+.vs-t thead th{font-size:.86rem}
+.vs-t .s{background:var(--c6-soft)}
+.vs-t thead .s{color:var(--c6)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:14px;background:var(--surface);margin:8px 0 6px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:.84rem;min-width:1060px}
+.cmp th,.cmp td{padding:8px 8px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6;width:115px}
+.cmp thead th{background:var(--band);font-size:.82rem;white-space:nowrap}
+.cmp .c0{position:sticky;left:0;z-index:1;background:var(--surface);width:76px;min-width:76px;box-shadow:1px 0 0 var(--rule);font-weight:650}
+.cmp thead .c0{background:var(--band)}
+.cmp .s{background:var(--c6-soft)}
+.cmp thead .s{color:var(--c6)}
+/* 光谱 */
+.specs{display:grid;gap:10px;margin:10px 0}
+.spec{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 10px 8px}
+.spec figcaption{font-weight:700;font-size:.96rem;margin:0 4px 2px}
+.sp-ends{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--muted);margin:0 4px 0}
+.spec svg{display:block;width:100%;height:auto}
+.dg .trk{stroke:var(--rule);stroke-width:4;stroke-linecap:round}
+.dg .ldr{stroke:var(--muted);stroke-width:1}
+.dg .sp-d{fill:var(--ink-2);stroke:var(--surface);stroke-width:2}
+.dg .sp-s{fill:var(--c6);stroke:var(--surface);stroke-width:2}
+.dg .sp-t{font-size:11px;fill:var(--ink-2)}
+.dg .sp-ts{font-size:11.5px;font-weight:800;fill:var(--ink)}
+/* 组织 */
+.org{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.org ol{list-style:none;padding:0!important;margin:6px 0 12px!important;display:grid;gap:6px}
+.org li{background:var(--c6-soft);border-radius:10px;padding:6px 12px;margin:0!important;position:relative}
+.org li:nth-child(1){margin:0 0 0 0!important}.org li:nth-child(2){margin-left:10px!important}.org li:nth-child(3){margin-left:20px!important}.org li:nth-child(4){margin-left:30px!important}.org li:nth-child(5){margin-left:40px!important}
+.org b{color:var(--c6)}.org small{display:block;color:var(--ink-2);font-size:.8rem;line-height:1.5}
+/* 图表 */
+.chart{margin:14px 0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 8px}
+.chart figcaption b{display:block;font-size:.96rem}
+.chart figcaption small{display:block;color:var(--muted);font-size:.78rem;line-height:1.55;margin:2px 0 10px}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:6.4em 1fr auto;align-items:center;gap:8px;font-size:.86rem}
+.bl{line-height:1.3}
+.bt{display:flex;align-items:center;gap:6px;min-width:0}
+.bt i{display:block;height:14px;min-width:4px;background:var(--c);border-radius:0 4px 4px 0}
+.bt em{font-style:normal;font-size:.8rem;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* 人物 */
+.ppl{display:grid;gap:12px}
+.pe{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 2px}
+.pe.era-f{border-top:4px solid var(--c6)}
+.pe h4{font-size:.98rem;margin:0 0 6px}
+.pe ul{list-style:none;padding:0!important;margin:0!important}
+.pe li{padding:7px 0;border-top:1px dashed var(--rule);margin:0!important}
+.pe li:first-child{border-top:0}
+.pn{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0}
+.pn span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pr{font-size:.88rem;color:var(--ink-2);margin:0}
+/* 常见问题 */
+.faq{display:grid;gap:8px;margin:10px 0}
+.faq details{background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.faq summary{cursor:pointer;padding:10px 36px 10px 14px;font-weight:650;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:12px;top:10px;color:var(--muted)}
+.faq details[open] summary::after{content:"－"}
+.faq details>div{padding:0 14px 4px;font-size:.94rem}
+/* 人物特写 */
+.prof{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--c);border-radius:16px;padding:14px 16px 4px;margin:0 0 18px}
+.pf-n{font-family:var(--serif);font-size:1.45rem;font-weight:700;line-height:1.35;margin:0 0 2px}
+.pf-n small{display:block;font-family:var(--sans);font-size:.8rem;font-weight:400;color:var(--muted)}
+.pf-y{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin:0 0 8px;padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.pf-s{font-size:.96rem}
+.quote{margin:12px 0 16px;padding:12px 16px;background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.quote p{font-family:var(--serif);font-size:1.03rem;margin:0 0 6px}
+.quote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+.box .quote{background:var(--paper)}
+.mini.two td:first-child{white-space:nowrap;color:var(--muted);font-weight:600;font-size:.82rem}
+.box .mini{background:var(--paper)}
+/* 怀爱伦引文 */
+.egw{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--rule)}
+.egw p{font-family:var(--serif);font-size:1.04rem}
+.egw cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+/* 资料 */
+.srcs{padding-left:2.2em!important;font-size:.86rem}
+.srcs li{margin:0 0 10px!important;line-height:1.6;scroll-margin-top:60px}
+.srcs li:target{background:var(--accent-soft);border-radius:8px}
+.sk{display:inline-block;font-size:.7rem;font-weight:700;border-radius:4px;padding:0 5px;margin-right:6px;background:var(--band);color:var(--ink-2)}
+.su{display:inline-block;margin-left:6px;word-break:break-all}
+.sb a{margin-left:6px;text-decoration:none;color:var(--muted)}
+.su2{display:inline-block;margin-left:8px;font-size:.8rem;color:var(--muted)}
+.foot{border-top:1px solid var(--rule);margin:40px 0 0;padding:16px 0 120px;font-size:.84rem;color:var(--muted)}
+/* 浮动按钮、弹出层 */
+.fab-toc{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;font:inherit;font-size:.9rem;font-weight:650;color:var(--surface);background:var(--ink);border:0;border-radius:999px;padding:9px 16px;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:40}
+.sh-bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sh-card{position:absolute;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));font-size:.94rem}
+.sh-card.small{max-height:60vh}
+@media (min-width:700px){.sh-card{left:50%;right:auto;width:560px;transform:translateX(-50%);bottom:40px;border-radius:18px}}
+.sh-x{position:absolute;right:10px;top:8px;font-size:1.5rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.seg button{font:inherit;font-size:.88rem;flex:1;min-width:4em;padding:7px 4px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pop{position:absolute;z-index:35;width:min(330px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:12px 14px;font-size:.88rem;line-height:1.65}
+.pop .pk{font-size:.72rem;font-weight:700;color:var(--muted);margin:0 0 4px}
+.pop .pd{margin:0 0 8px}
+.pop .pa{display:flex;gap:8px;flex-wrap:wrap}
+.pop .pa a{font-size:.84rem;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:3px 10px}
+.pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
+html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:0;top:6px;width:48px;height:48px}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:40px -16px 0;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 16px 14px;text-align:center}
+/* 回到上次读到的地方：底部一条小提示（6 秒后收起） */
+.rtip{position:fixed;z-index:60;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);padding:9px 10px 9px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translate(-50%,12px);transition:opacity .25s,transform .25s}
+.rtip.on{opacity:1;transform:translate(-50%,0)}
+.rtip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtip button{flex:none;border:0;border-radius:999px;padding:6px 12px;background:color-mix(in srgb,var(--paper) 18%,transparent);color:var(--paper);font:inherit;font-weight:700;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.rtip{transition:none}}
+
+.scene .stage{position:relative;flex:none;width:360px;height:112px}.scene .lamb{position:absolute;left:252px;top:52px;width:48px;height:48px}@media (min-width:600px){.scene .stage{position:relative;flex:none;width:540px;height:168px}.scene .lamb{position:absolute;left:378px;top:78px;width:72px;height:72px}}.scene .sky{display:block;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
+.lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.sky .km,.sky .kg{fill:var(--gold)}.sky .ks,.sky .kh{fill:var(--muted)}.sky .kd{fill:var(--gold);opacity:.55}
+@media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
+
+.deep{margin:1em 0 1.2em;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+.deep>summary{cursor:pointer;padding:10px 14px;font-size:.92rem;font-weight:650;color:var(--ink-2);list-style:none}
+.deep>summary::-webkit-details-marker{display:none}
+.deep>summary::before{content:"＋";display:inline-block;width:1.4em;color:var(--gold)}
+.deep[open]>summary::before{content:"－"}
+.deep>div{padding:0 14px 6px}
+.box.warn{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.warn .lab{color:var(--c6)}
+.hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
+.dg .ahd{fill:var(--muted)}
+.dg .flow{stroke:var(--muted)}
+.dg .tnode2.b{font-size:11px;font-weight:700;opacity:1}
+.dg .tnode2.s{font-size:9px;font-weight:600}
+.dg .cn{stroke-width:1.8}
+.ch .ctbl{width:100%}
+.ch .ctbl td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
+.ch .ctbl td:first-child{width:34%}
+.ch .ptbl{width:100%}
+.ch .ptbl td:first-child{width:28%;font-weight:650}
+.srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+.dg .tbig{font-size:34px;font-weight:800;fill:#fff}
+.ch .stbl{width:100%}
+.ch .stbl td:first-child{width:30%;font-weight:650;min-width:6.5em}
+
+.lsn{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:14px 0 4px}
+.lsn-go{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:1rem;font-weight:650;color:var(--surface);background:var(--accent);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
+.lsn-go .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lsn-d{font-weight:400;font-size:.86rem;opacity:.9}
+.lsn-note{font-size:.84rem;color:var(--muted);flex:1 1 220px}
+.lp-chgo{display:inline-flex;align-items:center;gap:4px;margin:4px 0 0;font:inherit;font-size:.82rem;color:var(--accent);background:var(--accent-soft);border:0;border-radius:999px;padding:3px 11px;cursor:pointer}
+.lp-chgo svg{width:13px;height:13px;fill:currentColor}
+.lp{position:fixed;left:0;right:0;bottom:0;z-index:28;background:var(--surface);border-top:1px solid var(--rule);box-shadow:0 -6px 20px rgba(0,0,0,.08);padding:8px 16px calc(8px + env(safe-area-inset-bottom))}
+.lp>*{max-width:640px;margin-left:auto;margin-right:auto}
+.lp-top{display:flex;align-items:center;gap:10px;font-size:.86rem}
+.lp-ch{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650;color:var(--ink)}
+.lp-t{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lp-x{font:inherit;font-size:1.3rem;line-height:1;color:var(--muted);background:none;border:0;padding:2px 4px;cursor:pointer}
+.lp-bar{position:relative;height:22px;cursor:pointer;touch-action:none}
+.lp-bar::before{content:"";position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--rule)}
+.lp-bar i{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.lp-row{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.lp-row button{flex:0 0 auto;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:inherit;color:var(--ink);background:none;border:0;border-radius:50%;cursor:pointer;padding:0}
+.lp-row button:disabled{opacity:.3;cursor:default}
+.lp-row svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lp-row .lp-pp{width:54px;height:54px;color:var(--surface);background:var(--accent)}
+.lp-row .lp-pp svg{width:26px;height:26px}
+.lp-pp .i-play{fill:currentColor;stroke:none}.lp-pp .i-pause{display:none;stroke-width:2.6}
+.lp.playing .lp-pp .i-play{display:none}.lp.playing .lp-pp .i-pause{display:inline}
+.lp-row .lp-sp{width:auto;min-width:52px;padding:0 8px;border-radius:999px;border:1px solid var(--rule);height:34px;font-size:.86rem;font-variant-numeric:tabular-nums}
+@media (max-width:360px){.lp-row button{width:40px;height:40px}.lp-row .lp-pp{width:50px;height:50px}.lp-row .lp-sp{min-width:46px;padding:0 6px;font-size:.8rem}}
+.lp-msg{margin:4px 0 0;font-size:.84rem;color:var(--ink-2);text-align:center}
+.lp-msg button{font:inherit;color:var(--accent);background:none;border:0;text-decoration:underline;cursor:pointer;padding:0 4px}
+html.lpon body{padding-bottom:150px}
+html.lpon .fab-toc{bottom:calc(150px + env(safe-area-inset-bottom))}
+@media print{.lp,.lsn,.lp-chgo{display:none!important}}
+</style>
+</head>
+<body data-mins="65">
+<div class="prog" aria-hidden="true"><i></i></div>
+<header class="bar"><a class="back" href="./#health">← 健康</a><span class="bt">中风，真的是突然来的吗？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<div class="wrap">
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一个平常的早晨</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li><li><a href="#what"><span class="tn">03</span>中风是什么：堵了，或者破了</a></li><li><a href="#minute"><span class="tn">04</span>每一分钟，都在失去</a></li></ol></li><li><span class="tp">第二部分 · 发病的那一刻：和时间赛跑</span><ol><li><a href="#signs"><span class="tn">05</span>认出中风：“中风 120”</a></li><li><a href="#call"><span class="tn">06</span>第一件事：打 120</a></li><li><a href="#myths"><span class="tn">07</span>这些做法，只会耽误时间</a></li><li><a href="#hospital"><span class="tn">08</span>到了医院：溶栓和取栓</a></li><li><a href="#bleed"><span class="tn">09</span>如果是脑出血</a></li><li><a href="#tia"><span class="tn">10</span>“小中风”：最响的一次警报</a></li></ol></li><li><span class="tp">第三部分 · 上游：把人推向中风的几种病</span><ol><li><a href="#river"><span class="tn">11</span>一条河：下游、上游、上游的上游</a></li><li><a href="#ninety"><span class="tn">12</span>九成和这十件事有关</a></li><li><a href="#bp"><span class="tn">13</span>第一大上游：高血压</a></li><li><a href="#af"><span class="tn">14</span>心脏里的血块：房颤</a></li><li><a href="#vessel"><span class="tn">15</span>血管里的“垢”：血脂、血糖、吸烟</a></li><li><a href="#alcohol"><span class="tn">16</span>喝点酒，能“活血”吗</a></li></ol></li><li><span class="tp">第四部分 · 上游的上游：几十年的生活和环境</span><ol><li><a href="#roots"><span class="tn">17</span>上游的上游：几十年的生活</a></li><li><a href="#salt"><span class="tn">18</span>中国人的盐</a></li><li><a href="#food"><span class="tn">19</span>饭桌：水果、蔬菜、坚果和好油</a></li><li><a href="#veg"><span class="tn">20</span>吃素的人，要注意什么</a></li><li><a href="#move"><span class="tn">21</span>动起来、管住腰围、放下重担</a></li><li><a href="#young"><span class="tn">22</span>年轻人和中年人：从现在开始</a></li></ol></li><li><span class="tp">第五部分 · 中风以后：不再中第二次，慢慢走回来</span><ol><li><a href="#again"><span class="tn">23</span>不再中第二次</a></li><li><a href="#rehab"><span class="tn">24</span>康复：慢慢走回来</a></li></ol></li><li><span class="tp">第六部分 · 中医和自然疗法：哪些有证据</span><ol><li><a href="#tcm"><span class="tn">25</span>中医药：安宫牛黄丸、针灸和中成药</a></li><li><a href="#natural"><span class="tn">26</span>自然疗法：哪些真的有用</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#plan"><span class="tn">27</span>一张预防中风的清单</a></li><li><a href="#bible"><span class="tn">28</span>通达人见祸藏躲</a></li><li><a href="#hope"><span class="tn">29</span>回到那个早晨</a></li><li><a href="#faq"><span class="tn">30</span>常见问题</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 65 分钟读完<span data-left></span></p></div></aside>
+<main>
+<header class="hero"><span class="orn"><svg class="lamb" data-on="eo ld rd" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></span>
+<p class="eyebrow">健康 · 04 · 心脑血管</p>
+<h1>中风，真的是突然来的吗？<small class="h1s">怎样认出、怎样抢时间；上游和上游的上游；中医和自然疗法</small></h1><p class="meta">约 2.1 万字 · 细读约 45 分钟 · 30 章 · 45 条资料出处</p>
+<p class="hsub">中风看起来总是突然来的：前一天还好好的，第二天早上就拿不住筷子、说不清话。它真的是突然的吗？发病的那一刻，家里人该做什么、不该做什么？医生说中风是“下游”，那上游是什么，上游的上游又是什么？中医、安宫牛黄丸、针灸和各种自然疗法，到底有没有用？这一篇从大脑怎样受伤讲起，顺着这条河一路往上走，重点讲怎样在上游把它挡住。</p>
+<div class="answer"><p class="lab">先说结论</p>
+<ol class="lineage"><li class="f1"><span class="ly">看着突然</span><b>中风往往在几分钟里发生，可是把人推到那一步的，是十几年、几十年慢慢积累的高血压、斑块和生活</b><small></small></li><li class="f1"><span class="ly">九成可以改变</span><b>全世界 32 个国家的研究：十项可以改变的危险因素，和约九成的中风有关；第一大的是高血压</b><small>INTERSTROKE</small></li><li class="f1"><span class="ly">认出它</span><b>“中风 120”：看一张脸歪不歪，查两只胳膊有没有一边没力，听说话清不清；有一项就打 120</b><small></small></li><li class="f1"><span class="ly">抢时间</span><b>发病后 4.5 小时内溶栓、部分病人 24 小时内取栓，越早越好；掐人中、放血、等一等，只会耽误</b><small></small></li><li class="f1"><span class="ly">中国的试验</span><b>村医帮农村高血压病人把血压降下来，三年里中风少了约三分之一；换代用盐、降压药加叶酸，也都减少了中风</b><small>CRHCP 等</small></li><li class="f1"><span class="ly">中医和偏方</span><b>安宫牛黄丸、针灸、丹参，现有试验没有确认能改善结局；少数中成药有大型试验支持，还要更多验证</b><small></small></li></ol>
+<p>下面先讲中风是什么、发病时怎样和时间赛跑，再顺着河往上走：上游的几种病、上游的上游的生活和环境；然后讲中风以后怎样不再中第二次，最后按证据看中医和自然疗法。医学研究都在 PubMed 上核对过摘要；“编者的理解”只供参考。<b>本篇不能代替医生的诊断和处方，换药、停药一定先问医生。</b></p></div>
+<p class="howto"><span>怎样读这一页：</span>点正文里<a class="cite demo" href="#sources">1</a>这样的小数字，可以看到出处；点<a class="xref" href="#signs">第 5 章《认出中风：“中风 120”》</a>之类的蓝色字，可以跳到相关的章节；右下角的“目录”按钮随时可以跳到任何一章。</p>
+</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div><div class="lsn" data-lsn hidden><button type="button" class="lsn-go" data-lsngo><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6.5" rx="1.6"/><rect x="16.5" y="13.5" width="4" height="6.5" rx="1.6"/></svg><span>听朗读</span><span class="lsn-d" data-lsnd></span></button><span class="lsn-note">温和的女声朗读全文（开源语音模型合成）。可以边听边做别的事。</span></div>
+<nav class="toc-in" aria-label="目录"><h2>目录</h2><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一个平常的早晨</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li><li><a href="#what"><span class="tn">03</span>中风是什么：堵了，或者破了</a></li><li><a href="#minute"><span class="tn">04</span>每一分钟，都在失去</a></li></ol></li><li><span class="tp">第二部分 · 发病的那一刻：和时间赛跑</span><ol><li><a href="#signs"><span class="tn">05</span>认出中风：“中风 120”</a></li><li><a href="#call"><span class="tn">06</span>第一件事：打 120</a></li><li><a href="#myths"><span class="tn">07</span>这些做法，只会耽误时间</a></li><li><a href="#hospital"><span class="tn">08</span>到了医院：溶栓和取栓</a></li><li><a href="#bleed"><span class="tn">09</span>如果是脑出血</a></li><li><a href="#tia"><span class="tn">10</span>“小中风”：最响的一次警报</a></li></ol></li><li><span class="tp">第三部分 · 上游：把人推向中风的几种病</span><ol><li><a href="#river"><span class="tn">11</span>一条河：下游、上游、上游的上游</a></li><li><a href="#ninety"><span class="tn">12</span>九成和这十件事有关</a></li><li><a href="#bp"><span class="tn">13</span>第一大上游：高血压</a></li><li><a href="#af"><span class="tn">14</span>心脏里的血块：房颤</a></li><li><a href="#vessel"><span class="tn">15</span>血管里的“垢”：血脂、血糖、吸烟</a></li><li><a href="#alcohol"><span class="tn">16</span>喝点酒，能“活血”吗</a></li></ol></li><li><span class="tp">第四部分 · 上游的上游：几十年的生活和环境</span><ol><li><a href="#roots"><span class="tn">17</span>上游的上游：几十年的生活</a></li><li><a href="#salt"><span class="tn">18</span>中国人的盐</a></li><li><a href="#food"><span class="tn">19</span>饭桌：水果、蔬菜、坚果和好油</a></li><li><a href="#veg"><span class="tn">20</span>吃素的人，要注意什么</a></li><li><a href="#move"><span class="tn">21</span>动起来、管住腰围、放下重担</a></li><li><a href="#young"><span class="tn">22</span>年轻人和中年人：从现在开始</a></li></ol></li><li><span class="tp">第五部分 · 中风以后：不再中第二次，慢慢走回来</span><ol><li><a href="#again"><span class="tn">23</span>不再中第二次</a></li><li><a href="#rehab"><span class="tn">24</span>康复：慢慢走回来</a></li></ol></li><li><span class="tp">第六部分 · 中医和自然疗法：哪些有证据</span><ol><li><a href="#tcm"><span class="tn">25</span>中医药：安宫牛黄丸、针灸和中成药</a></li><li><a href="#natural"><span class="tn">26</span>自然疗法：哪些真的有用</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#plan"><span class="tn">27</span>一张预防中风的清单</a></li><li><a href="#bible"><span class="tn">28</span>通达人见祸藏躲</a></li><li><a href="#hope"><span class="tn">29</span>回到那个早晨</a></li><li><a href="#faq"><span class="tn">30</span>常见问题</a></li></ol></li></ol></nav><div class="part" id="part1"><span>第一部分</span><b>先把问题摆上桌</b></div><section class="ch" id="q"><h2><span class="no">01</span>一个平常的早晨</h2>
+<p>王阿姨六十七岁，有高血压好些年了，药是“想起来就吃，忘了就算”。一天早上起床，她发现右手拿不住筷子，说话也有点含糊。老伴说：“昨晚没睡好吧？再躺一会儿。”儿子在外地，打电话来说：“先掐掐人中，再给她吃颗安宫牛黄丸。”</p>
+<p>折腾了快三个小时，女儿下班回来，一看妈妈的嘴角歪了，才叫了救护车。</p>
+<p>医生说：是中风。能不能用最有效的治疗，就差在这几个小时上。</p>
+<p>这样的早晨，在中国每天都在发生。很多家庭事后都会问同样的问题：</p>
+<ul>
+<li>中风怎么来得这么突然？前一天还好好的。</li>
+<li>发病的时候，家里人到底该做什么、不该做什么？</li>
+<li>医生说中风是“下游”，那上游是什么？上游的上游又是什么？到底能不能预防？</li>
+<li>中风以后，怎样不再中第二次？中医、针灸、安宫牛黄丸，还有各种“自然疗法”，到底有没有用？</li>
+</ul>
+<p>这一篇是健康栏目的第四篇。前三篇讲了<a href="hypertension.html">高血压</a>、<a href="diabetes.html">糖尿病</a>和<a href="lipid.html">高血脂</a>，它们正是中风的“上游”。这一篇顺着这条河往下走，看看它们最后会流到哪里，也看看怎样在上游把它挡住。</p>
+<p>先说结论：<b>中风看起来是突然来的，其实大多是一条走了几十年的路。</b>到了下游，只能和时间赛跑；越往上游出手，能挡住的越多。</p>
+<div class="box"><p class="lab">这一篇怎样读</p><ul>
+<li><b>第二部分最要紧。</b>如果你没有时间读完整篇，请先读<a class="xref" href="#signs">第 5 章《认出中风：“中风 120”》</a>和<a class="xref" href="#call">第 6 章《第一件事：打 120》</a>：认出中风、立刻打 120。这可能救一个人。</li>
+<li><b>资料都有出处。</b>医学研究都在 PubMed（美国国家医学图书馆的文献库）上核对过摘要，点正文里的小数字可以看到出处和链接。</li>
+<li><b>分清证据的分量。</b>“随机对照试验”是把人随机分成两组来比，最有说服力；“观察研究”只能看出“有关联”，不一定是“因为所以”。文中会说明是哪一种。</li>
+<li><b>编者的理解</b>会标出来。<b>这一篇不能代替医生的诊断和处方</b>；任何用药、换药、停药，都要先问医生。</li>
+</ul></div>
+</section><section class="ch" id="scale"><h2><span class="no">02</span>中国有多少人在这条路上</h2>
+<p>先看看这件事有多大。</p>
+<p>从 2015 年起，<b>中风就是中国人死亡和残疾的第一位原因</b><a class="cite" id="r1-1" href="#s1" data-n="1">1</a>。全球疾病负担研究也显示，2017 年中国人的死因里，排在最前面的是中风和冠心病<a class="cite" id="r2-1" href="#s2" data-n="2">2</a>。</p>
+<p>目前最新的全国数据来自 2020 年。研究者在全国 31 个省，调查了 67 万多名 40 岁以上的成年人，2023 年发表：<b>40 岁以上的中国人里，约 2.6% 得过中风</b>。按这个比例推算，那一年全国约有 1780 万中风病人，新发生的约 340 万，因中风去世的约 230 万<a class="cite" id="r3-1" href="#s3" data-n="3">3</a>。</p>
+<p>还有两个值得注意的地方：</p>
+<ul>
+<li><b>农村比城市更重。</b>城市里得过中风的人稍多一点，但农村每年新发中风和因中风去世的比例都比城市高<a class="cite" id="r3-2" href="#s3" data-n="3">3</a>。</li>
+<li><b>北方比南方更重。</b>2013 年一项 48 万人的全国调查发现，中风有明显的“北高南低”：每年新发中风最多的是东北，最少的是西南<a class="cite" id="r4-1" href="#s4" data-n="4">4</a>。</li>
+</ul>
+<p>2013 年那次调查还和 30 年前比了一下：中风的患病率比三十年前更高了，农村尤其明显<a class="cite" id="r4-2" href="#s4" data-n="4">4</a>。</p>
+<details class="deep"><summary>世界上的情况怎样？年轻人呢？</summary><div><p>全球疾病负担研究 2024 年发表的分析显示：2021 年，全世界约有 1190 万人新发中风，730 万人因中风去世；中风是全球第三位的死亡原因。研究者特别提到，从 2015 年起，全球中风发病率的下降停滞了，而东亚、东南亚和 70 岁以下的人群，有些指标还在上升<a class="cite" id="r5-1" href="#s5" data-n="5">5</a>。</p><p>也就是说，中风不再只是“老年人的病”。后面会讲到，年轻人身上最常见的几个危险因素，恰恰是腰围、少动和高血压（见<a class="xref" href="#young">第 22 章《年轻人和中年人：从现在开始》</a>）。</p></div></details>
+<p>中风留下的，不只是死亡。2020 年的全国数据里，中风幸存者中约八分之一留下了残疾<a class="cite" id="r1-2" href="#s1" data-n="1">1</a>；一年之内，约每 18 个出院的病人里，就有一个再次中风<a class="cite" id="r1-3" href="#s1" data-n="1">1</a>。</p>
+<p>这就是为什么这一篇要花最多的篇幅讲预防。</p>
+</section><section class="ch" id="what"><h2><span class="no">03</span>中风是什么：堵了，或者破了</h2>
+<p>“中风”是老百姓的说法，医学上叫“脑卒中”。“卒”就是“突然”的意思。</p>
+<p>大脑只占体重的百分之二左右，却要用掉全身很大一部分血液和氧气。它自己几乎没有储备，一旦断了血，几分钟就开始受伤。</p>
+<p>中风有两大类：</p>
+<ul>
+<li><b>缺血性中风</b>，也叫脑梗死：脑子里的一根血管被<b>堵住</b>了。堵它的，可能是血管壁上的斑块长大破裂后形成的血块，也可能是从心脏里冲上来的血块。</li>
+<li><b>出血性中风</b>：脑子里的血管<b>破了</b>。血流进脑组织，叫脑出血；流到脑子表面的腔隙里，叫蛛网膜下腔出血。</li>
+</ul>
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>两种中风：血管堵了，或者血管破了</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="sttt sttd">
+<title id="sttt">两种中风：血管堵了，或者血管破了</title>
+<desc id="sttd">左边是缺血性中风（脑梗死）：血块或斑块把脑子里的一根血管堵住，下游的脑组织得不到血。堵住的中心很快坏死；周围一圈叫“半暗带”，还靠旁边的小血管勉强供着血，暂时没死，是抢救的对象。右边是出血性中风：脑子里的血管破了，血流进脑组织（脑出血），或流到脑子表面的腔隙里（蛛网膜下腔出血）。两种中风的治疗正好相反：一种要把血管打通，一种要止血、降压。只有做了脑部 CT 或核磁共振才能分清，所以在医院做检查以前，不要给病人乱吃药。中国 2020 年住院的中风病人里，约八成是缺血性的。</desc>
+<rect x="8" y="8" width="184" height="236" rx="12" class="cn f3" style="--c:var(--c3);fill:none"/>
+<text x="100.0" y="30.0" class="tn" text-anchor="middle">缺血性中风（脑梗死）</text>
+<text x="100.0" y="46.0" class="ts" text-anchor="middle">血管堵了</text>
+<rect x="208" y="8" width="184" height="236" rx="12" class="cn f6" style="--c:var(--c6);fill:none"/>
+<text x="300.0" y="30.0" class="tn" text-anchor="middle">出血性中风</text>
+<text x="300.0" y="46.0" class="ts" text-anchor="middle">血管破了</text>
+<path d="M24 92 C60 92 70 92 98 100" class="cn f3" style="--c:var(--c3);stroke-width:7;fill:none"/>
+<circle cx="100" cy="101" r="7" class="f6 fillc"/>
+<text x="100.0" y="84.0" class="tw" text-anchor="middle">血块</text>
+<path d="M107 104 C126 112 140 124 150 140" class="cn dash" style="--c:var(--muted);stroke-width:4;fill:none"/>
+<ellipse cx="128" cy="168" rx="58" ry="44" class="f4 fillc" opacity=".35"/>
+<ellipse cx="128" cy="168" rx="28" ry="21" class="f6 fillc"/>
+<text x="128.0" y="172.0" class="tnode2 b" text-anchor="middle">核心：坏死</text>
+<text x="128.0" y="206.0" class="tw" text-anchor="middle">半暗带：还能救</text>
+<text x="100.0" y="232.0" class="ts" text-anchor="middle">治疗：尽快打通血管</text>
+<path d="M224 92 C262 92 272 92 300 100 C320 106 330 118 340 132" class="cn f6" style="--c:var(--c6);stroke-width:7;fill:none"/>
+<path d="M300 100 l-6 -10 l12 4 z" class="f6 fillc"/>
+<ellipse cx="300" cy="160" rx="40" ry="30" class="f6 fillc" opacity=".55"/>
+<text x="300.0" y="164.0" class="tw" text-anchor="middle">流出的血</text>
+<text x="300.0" y="204.0" class="tw" text-anchor="middle">压迫、损伤脑组织</text>
+<text x="300.0" y="232.0" class="ts" text-anchor="middle">治疗：止血、降压，必要时手术</text>
+<text x="200.0" y="266.0" class="tw" text-anchor="middle">两种的治疗正好相反——只有脑部 CT 或核磁共振才能分清</text>
+<text x="200.0" y="288.0" class="ts" text-anchor="middle">中国 2020 年住院病人：缺血性约 82%，脑出血约 15%，蛛网膜下腔出血约 3%</text>
+</svg></figure>
+<p>在中国，缺血性的占大多数。2020 年全国一千五百多家医院收治的约 340 万中风病人里，缺血性的约占 82%，脑出血约 15%，蛛网膜下腔出血约 3%<a class="cite" id="r1-4" href="#s1" data-n="1">1</a>。出血性的虽然少，却更凶险：住院期间死亡或放弃治疗出院的比例，缺血性约 6.4%，脑出血约 21.8%<a class="cite" id="r1-5" href="#s1" data-n="1">1</a>。</p>
+<div class="box warn"><p class="lab">为什么这一点要先讲</p><p>两种中风，治疗正好相反：一种要尽快把血管打通，一种要止血、降压。<b>从外表看，分不出是哪一种</b>，只有脑部 CT 或核磁共振才能分清。所以在医院做检查以前，不要给病人自己吃任何“通血管”或“活血”的药。（编者的理解）</p></div>
+<p>还有一种情况叫<b>“小中风”</b>，医学上叫短暂性脑缺血发作：症状和中风一样，却在几分钟到几小时内自己好了。很多人因此松了一口气，不去看医生。其实，这是最响的一次警报，<a class="xref" href="#tia">第 10 章《“小中风”：最响的一次警报》</a>会专门讲。</p>
+</section><section class="ch" id="minute"><h2><span class="no">04</span>每一分钟，都在失去</h2>
+<p>为什么中风一定要快？</p>
+<p>2006 年，美国的一位神经科医生做了一个计算：一次典型的大血管堵塞，没有治疗的话，<b>每过一分钟，大约有 190 万个神经细胞死去</b>，同时失去约 140 亿个神经连接；每过一小时，大脑相当于老了 3.6 岁<a class="cite" id="r6-1" href="#s6" data-n="6">6</a>。</p>
+<p>这当然是估算，但它说明了一件事：中风的时候，时间就是大脑。</p>
+<p>前面图里那一圈“半暗带”，就是抢救的对象。堵住的中心很快坏死，救不回来；可周围那一圈，还靠旁边的小血管勉强撑着。血管打通得越早，能救回来的就越多；拖得越久，这一圈也一点一点变成坏死。</p>
+<div class="box"><p class="lab">编者的理解</p><p>所以，中风发作的那一刻，家里人能做的最重要的一件事，不是找药、不是按穴位，而是<b>不耽误一分钟，把病人送到能治中风的医院</b>。下一部分专门讲这件事。</p></div>
+</section><div class="part" id="part2"><span>第二部分</span><b>发病的那一刻：和时间赛跑</b></div><section class="ch" id="signs"><h2><span class="no">05</span>认出中风：“中风 120”</h2>
+<p>中风常常不痛不痒，病人自己也说不清楚，所以要靠身边的人认出来。</p>
+<p>中国的医生为普通人设计了一个好记的口诀，叫<b>“中风 120”</b>，和急救电话 120 正好一样<a class="cite" id="r7-1" href="#s7" data-n="7">7</a>：</p>
+<ul>
+<li><b>1：看 1 张脸。</b>让他笑一笑，看嘴角是不是一边歪、两边不对称。</li>
+<li><b>2：查 2 只胳膊。</b>让他把两只胳膊平举起来，看是不是有一边没力气、慢慢往下掉。</li>
+<li><b>0：（聆）听讲话。</b>听他说话是不是含糊不清、说不出来，或者听不懂别人的话。</li>
+</ul>
+<p>有任何一项，<b>立刻拨打 120</b>。</p>
+<p>还要补充两种常被忽略的表现。美国一家医院回顾了 700 多名缺血性中风病人，发现只看脸、胳膊和说话，会漏掉约 14% 的人；这些被漏掉的人，很多是<b>突然走路不稳、站不住</b>，或者<b>突然一只眼或两眼看不清</b>。把这两项加上，漏掉的降到约 4%<a class="cite" id="r8-1" href="#s8" data-n="8">8</a>。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>认出中风：“中风 120”，再加上走路不稳、眼睛看不清</span></figcaption><svg viewBox="0 0 400 262" class="dg" role="img" aria-labelledby="st120t st120d">
+<title id="st120t">认出中风：“中风 120”，再加上走路不稳、眼睛看不清</title>
+<desc id="st120d">“中风 120”是中国医生为普通人设计的口诀：1 看 1 张脸，口角歪不歪、两边对不对称；2 查 2 只胳膊，平举时有没有一边无力、往下掉；0（聆）听讲话，有没有说不清、说不出、听不懂。有任何一项，立刻拨打 120。美国的研究发现，只看脸、胳膊、说话，会漏掉约 14% 的缺血性中风；再加上突然走路不稳、头晕站不住，和突然一只眼或两眼看不清，漏掉的降到约 4%。</desc>
+<rect x="8" y="10" width="124" height="96" rx="12" class="f6 fillc"/>
+<text x="70.0" y="50.0" class="tbig" text-anchor="middle">1</text>
+<text x="70.0" y="76.0" class="tnode2 b" text-anchor="middle">看 1 张脸</text>
+<text x="70.0" y="94.0" class="tnode2 s" text-anchor="middle">口角歪斜、两边不对称</text>
+<rect x="138" y="10" width="124" height="96" rx="12" class="f6 fillc"/>
+<text x="200.0" y="50.0" class="tbig" text-anchor="middle">2</text>
+<text x="200.0" y="76.0" class="tnode2 b" text-anchor="middle">查 2 只胳膊</text>
+<text x="200.0" y="94.0" class="tnode2 s" text-anchor="middle">平举时一边无力、往下掉</text>
+<rect x="268" y="10" width="124" height="96" rx="12" class="f6 fillc"/>
+<text x="330.0" y="50.0" class="tbig" text-anchor="middle">0</text>
+<text x="330.0" y="76.0" class="tnode2 b" text-anchor="middle">（聆）听讲话</text>
+<text x="330.0" y="94.0" class="tnode2 s" text-anchor="middle">说不清、说不出、听不懂</text>
+<rect x="8" y="118" width="189" height="44" rx="9" class="f4 fillc"/><text x="102.5" y="138.0" class="tnode2 b" text-anchor="middle">还要留意：突然走路不稳</text><text x="102.5" y="151.0" class="tnode2 s" text-anchor="middle">头晕站不住、一边腿软</text>
+<rect x="203" y="118" width="189" height="44" rx="9" class="f4 fillc"/><text x="297.5" y="138.0" class="tnode2 b" text-anchor="middle">还要留意：眼睛突然看不清</text><text x="297.5" y="151.0" class="tnode2 s" text-anchor="middle">一只眼或两眼、看东西重影</text>
+<rect x="60" y="176" width="280" height="44" rx="22" class="f5 fillc"/>
+<text x="200.0" y="204.0" class="tnode2 b" text-anchor="middle">有任何一项：立刻拨打 120</text>
+<text x="200.0" y="238.0" class="tw" text-anchor="middle">记下“最后一次看到他正常”的时间，告诉医生</text>
+<text x="200.0" y="256.0" class="ts" text-anchor="middle">口诀：中国“中风 120”；补充两项据 BE-FAST 研究</text>
+</svg></figure>
+<p>还有一种表现也要留意：突然出现从来没有过的、非常剧烈的头痛。这可能是蛛网膜下腔出血，同样要马上打 120。（编者的理解，依据常见的临床表现）</p>
+<div class="box"><p class="lab">给家里人的提醒</p><p>很多中风发生在夜里或清晨，病人醒来才发现。中国 2022 年的一项登记研究发现，<b>睡醒才发现的中风、以头晕开始的中风</b>，更容易送晚了<a class="cite" id="r9-1" href="#s9" data-n="9">9</a>。早上起来如果家里老人说话、拿东西和平时不一样，不要以为“没睡醒”，先按上面三步看一看。</p></div>
+</section><section class="ch" id="call"><h2><span class="no">06</span>第一件事：打 120</h2>
+<p>认出了中风，下一步就是打 120。不要自己开车先去附近的小诊所，也不要先打电话问亲戚。</p>
+<p>为什么一定要叫救护车？中国卒中中心联盟分析了 2015 到 2018 年的 56 万多名缺血性中风病人：<b>坐救护车来的只有 12.5%</b>，大多数人是家里人自己送来的。坐救护车来的人，到医院明显更早；在符合条件的病人里，也明显更容易得到溶栓治疗<a class="cite" id="r10-1" href="#s10" data-n="10">10</a>。</p>
+<p>2022 年的另一项研究还发现：<b>中途换医院</b>，是送晚的最大原因之一——先去了一家不能治的医院，再转院，就明显更容易拖过 3 小时。研究里只有约五分之一的病人或家属知道本地的“卒中急救地图”（标出哪些医院能做溶栓取栓），真正按地图送医的更少<a class="cite" id="r9-2" href="#s9" data-n="9">9</a>。</p>
+<div class="box"><p class="lab">等救护车的时候，可以做这几件事（编者整理）</p><ul>
+<li><b>记下时间。</b>记住“最后一次看到他正常”是几点钟。医生决定能不能溶栓、取栓，首先看这个时间。睡醒才发现的，就是前一晚睡前的时间。</li>
+<li><b>让他躺下或靠坐着</b>，松开衣领；如果呕吐，让他侧过头或侧躺，免得呛进气管。</li>
+<li><b>不要给他吃东西、喝水、吃药。</b>中风的人常常吞咽不好，容易呛着；而在分清是梗死还是出血以前，任何药都可能帮倒忙。</li>
+<li>把平时吃的药、病历带上，告诉医生他有什么病。</li>
+<li>可以提前问清楚本地哪家医院有卒中中心，告诉 120。</li>
+</ul></div>
+</section><section class="ch" id="myths"><h2><span class="no">07</span>这些做法，只会耽误时间</h2>
+<p>回到开头的王阿姨。那三个小时里，家里人做的几件事，都很常见，也都是好心，但都在耽误时间。</p>
+<ul>
+<li><b>“再躺一会儿、睡一觉就好了。”</b>中风不会睡一觉就好。症状自己消失的，也可能是小中风，更要马上看医生（见<a class="xref" href="#tia">第 10 章《“小中风”：最响的一次警报》</a>）。</li>
+<li><b>掐人中、按穴位。</b>没有研究证明掐人中能治中风；病人如果意识不清，掐人中也不能把堵住的血管打通，只是拖延了出门的时间。（编者的理解）</li>
+<li><b>十指放血、扎耳朵放血。</b>同样没有可靠的研究支持。缺血性中风是血管里堵了血块，从手指放几滴血，改变不了脑子里那根血管。（编者的理解）</li>
+<li><b>先喂一颗安宫牛黄丸、降压药或阿司匹林。</b>前面说过，在 CT 分清是梗死还是出血以前，吃药可能帮倒忙；病人吞咽不好，还可能呛着。安宫牛黄丸本身的证据怎样，<a class="xref" href="#tcm">第 25 章《中医药：安宫牛黄丸、针灸和中成药》</a>会讲。</li>
+<li><b>自己开车，先去附近的小诊所。</b>如果那里不能做溶栓、取栓，还要再转院，时间就这样流走了<a class="cite" id="r9-3" href="#s9" data-n="9">9</a>。</li>
+</ul>
+<div class="box"><p class="lab">编者的理解</p><p>这些做法背后，是一片爱心，也是一种“先想办法自己处理”的习惯。可是中风不是可以在家处理的病。<b>对中风来说，最有爱心的做法，就是最快地把人交给能治的医生。</b>如果家里有高血压、糖尿病、房颤的老人，不妨今天就把这一章讲给全家人听一听。</p></div>
+</section><section class="ch" id="hospital"><h2><span class="no">08</span>到了医院：溶栓和取栓</h2>
+<p>到了医院，医生会先做脑部 CT 或核磁共振，分清是梗死还是出血。如果是缺血性中风，而且时间来得及，有两种能把血管打通的办法。</p>
+<p><b>第一种是静脉溶栓</b>，就是打一针能把血块溶掉的药。英国牛津的研究者把 9 个随机试验、6756 名病人的资料放在一起分析<a class="cite" id="r11-1" href="#s11" data-n="11">11</a>：</p>
+<ul>
+<li>发病 <b>3 小时内</b>用药，三到六个月后没有明显残疾的人，用药组 32.9%，对照组 23.1%；</li>
+<li><b>3 到 4.5 小时</b>用药，是 35.3% 对 30.1%；</li>
+<li>超过 4.5 小时，差别就不再明显。</li>
+</ul>
+<p>溶栓也有风险：它会增加脑出血。在这项汇总里，用药后头几天因脑出血死亡的，用药组 2.7%，对照组 0.4%。但把好处和风险放在一起算，3 小时内用药的人，三到六个月后没有残疾地活着的，平均多了约 10%；3 到 4.5 小时内用药的，多了约 5%<a class="cite" id="r11-2" href="#s11" data-n="11">11</a>。所以医生会仔细判断谁能用。</p>
+<p>中国也做了自己的试验。2023 年发表的 TRACE-2 研究，在全国 53 家医院比较了两种溶栓药：国产的替奈普酶和传统的阿替普酶，效果相当，出血风险也差不多<a class="cite" id="r12-1" href="#s12" data-n="12">12</a>。替奈普酶只要推注一次，用起来更方便。</p>
+<p><b>第二种是取栓</b>：医生从大腿根部的动脉送进一根细导管，一直到脑子里，把堵住大血管的血块拉出来。五个大型随机试验的汇总显示：对大血管堵塞的病人，<b>平均每治疗 2.6 个人，就有一个人的残疾程度至少减轻一级</b>；80 岁以上的老人同样受益<a class="cite" id="r13-1" href="#s13" data-n="13">13</a>。</p>
+<p>取栓原来一般要在 6 小时内做。2018 年的 DAWN 研究发现：对经过特殊影像检查挑选出来的病人，6 到 24 小时内取栓，三个月后生活能自理的，取栓组 49%，对照组只有 13%<a class="cite" id="r14-1" href="#s14" data-n="14">14</a>。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 3</b><span>和时间赛跑：溶栓、取栓的时间窗，越早越好</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="stwt stwd">
+<title id="stwt">和时间赛跑：溶栓、取栓的时间窗，越早越好</title>
+<desc id="stwd">横轴是从发病（或最后一次看到病人正常）开始的小时数。静脉溶栓：9 个随机试验、6756 人的汇总显示，3 小时内用药，三到六个月后没有明显残疾的人，用药组 32.9%，对照组 23.1%；3 到 4.5 小时内是 35.3% 对 30.1%；超过 4.5 小时，差别不再明显。取栓（用导管把大血管里的血块拉出来）：一般在 6 小时内；经过特殊的影像评估，部分病人到 24 小时内仍然受益，例如 DAWN 研究里，取栓组 49% 生活能自理，对照组 13%。脑子每过一分钟，大约损失 190 万个神经细胞。</desc>
+<path d="M30 168 L382 168" class="ax"/>
+<path d="M30.0 168 L30.0 173" class="ax"/>
+<text x="30.0" y="185.0" class="ta" text-anchor="middle">0</text>
+<path d="M74.0 168 L74.0 173" class="ax"/>
+<text x="74.0" y="185.0" class="ta" text-anchor="middle">3</text>
+<path d="M96.0 168 L96.0 173" class="ax"/>
+<text x="96.0" y="185.0" class="ta" text-anchor="middle">4.5</text>
+<path d="M118.0 168 L118.0 173" class="ax"/>
+<text x="118.0" y="185.0" class="ta" text-anchor="middle">6</text>
+<path d="M206.0 168 L206.0 173" class="ax"/>
+<text x="206.0" y="185.0" class="ta" text-anchor="middle">12</text>
+<path d="M382.0 168 L382.0 173" class="ax"/>
+<text x="382.0" y="185.0" class="ta" text-anchor="middle">24</text>
+<text x="200.0" y="202.0" class="ta" text-anchor="middle">从发病（最后一次看到他正常）算起的小时数</text>
+<text x="30.0" y="22.0" class="tn" text-anchor="start">静脉溶栓（打一针“溶血块”的药）</text>
+<rect x="30.0" y="30" width="44.0" height="26" rx="6" class="f1 fillc"/>
+<rect x="74.0" y="30" width="22.0" height="26" rx="6" class="f1 fillc" opacity=".55"/>
+<text x="52.0" y="47.0" class="tnode2 s" text-anchor="middle">0—3 小时</text>
+<text x="102.0" y="41.0" class="ts" text-anchor="start">3 小时内：无残疾 32.9% 对 23.1%</text>
+<text x="102.0" y="54.0" class="ts" text-anchor="start">3—4.5 小时：35.3% 对 30.1%；再晚没有明显好处</text>
+<text x="30.0" y="92.0" class="tn" text-anchor="start">取栓（导管把大血管里的血块拉出来）</text>
+<rect x="30.0" y="100" width="88.0" height="26" rx="6" class="f5 fillc"/>
+<rect x="118.0" y="100" width="264.0" height="26" rx="6" class="f5 fillc" opacity=".45"/>
+<text x="74.0" y="117.0" class="tnode2 b" text-anchor="middle">6 小时内</text>
+<text x="250.0" y="117.0" class="tw" text-anchor="middle">6—24 小时：经影像挑选的部分病人</text>
+<text x="30.0" y="142.0" class="ts" text-anchor="start">只适合大血管堵塞；DAWN 研究（6—24 小时）：生活能自理 49% 对 13%</text>
+<rect x="30" y="218" width="352" height="50" rx="10" class="f4 fillc"/>
+<text x="206.0" y="240.0" class="tnode2 b" text-anchor="middle">每拖一分钟：大约 190 万个脑细胞死去</text>
+<text x="206.0" y="258.0" class="tnode2 s" text-anchor="middle">能不能用这些治疗，由医生判断；家属能做的，是不耽误一分钟</text>
+<text x="200.0" y="292.0" class="ts" text-anchor="middle">数据：Emberson 2014（溶栓汇总）、DAWN 2018、Saver 2006</text>
+</svg></figure>
+<details class="deep"><summary>这些研究是谁资助的？</summary><div><p>溶栓、取栓的试验，很多有药厂或器械公司的资助，我们照实注明：HERMES 汇总由一家取栓器械公司资助，DAWN 研究也是<a class="cite" id="r13-2" href="#s13" data-n="13">13</a><a class="cite" id="r14-2" href="#s14" data-n="14">14</a>；中国的 TRACE-2 由国家科技项目和生产替奈普酶的公司共同资助<a class="cite" id="r12-2" href="#s12" data-n="12">12</a>。溶栓的汇总分析由英国医学研究理事会等公共机构资助<a class="cite" id="r11-3" href="#s11" data-n="11">11</a>。这些研究都是随机对照试验，结论也被后来的研究反复确认，但读者知道资助方，是应该的。</p></div></details>
+<div class="box"><p class="lab">编者的理解</p><p>能不能溶栓、取栓，要医生根据时间、影像和病人的情况来判断，家属不必自己去记这些数字。家属要记住的只有一件事：<b>越早到医院，这扇门开得越大；晚了，门就关上了。</b></p></div>
+</section><section class="ch" id="bleed"><h2><span class="no">09</span>如果是脑出血</h2>
+<p>脑出血没有“打通血管”的问题，治疗的重点是：控制血压、防止血肿继续扩大、处理脑子里的压力，必要时做手术。具体怎样做，要由神经科和神经外科的医生决定。</p>
+<p>前面说过，脑出血比脑梗死更凶险<a class="cite" id="r1-6" href="#s1" data-n="1">1</a>。而它最主要的上游，就是高血压：国际研究发现，高血压和脑出血的关系，比和脑梗死的关系更强<a class="cite" id="r15-1" href="#s15" data-n="15">15</a>。2019 年全国 1600 多家三级公立医院的住院资料里，脑出血病人约七成有高血压<a class="cite" id="r16-1" href="#s16" data-n="16">16</a>。</p>
+<p>喝酒也是脑出血的重要上游。中国 50 万人的研究发现，酒喝得越多，脑出血的风险越高，而且比脑梗死升得更快<a class="cite" id="r17-1" href="#s17" data-n="17">17</a>（见<a class="xref" href="#alcohol">第 16 章《喝点酒，能“活血”吗》</a>）。</p>
+<div class="box"><p class="lab">编者的理解</p><p>脑出血一旦发生，医生能做的有限；能做最多的，是在它发生以前，把血压管好、把酒戒掉。这又回到了上游。</p></div>
+</section><section class="ch" id="tia"><h2><span class="no">10</span>“小中风”：最响的一次警报</h2>
+<p>有时候，中风的症状来了又走：嘴歪了十几分钟，又好了；一只手麻了半小时，又恢复了。医学上叫短暂性脑缺血发作，老百姓叫“小中风”。</p>
+<p>很多人会想：好了就好了，不用去医院了吧？</p>
+<p><b>恰恰相反，这是最需要马上看医生的时候。</b>小中风说明脑子里的血管已经出了问题，只是这一次血块自己溶开了、或者被冲走了。下一次，可能就不走了。</p>
+<p>英国牛津的 EXPRESS 研究，比较了两种做法<a class="cite" id="r18-1" href="#s18" data-n="18">18</a>：</p>
+<ul>
+<li>原来的做法：病人先看社区医生，通常要等约 20 天才开始用预防的药。<b>90 天内再次中风的有 10.3%。</b></li>
+<li>改进以后：病人当天或第二天就在专科门诊评估，当场开始用药。<b>90 天内再次中风降到 2.1%</b>，少了约八成，出血也没有增加。</li>
+</ul>
+<p>中国的 CHANCE 研究，在全国 114 家医院、5170 名轻微中风或高危小中风的病人身上，比较了两种用药方法：发病 24 小时内开始，阿司匹林加氯吡格雷的组，90 天内中风 8.2%；只用阿司匹林的组，11.7%。出血没有增加，两组都是 0.3%<a class="cite" id="r19-1" href="#s19" data-n="19">19</a>。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 4</b><span>小中风以后：越快看医生、越快用药，再次中风越少</span></figcaption><svg viewBox="0 0 400 186" class="dg" role="img" aria-labelledby="stit stid">
+<title id="stit">小中风以后：越快看医生、越快用药，再次中风越少</title>
+<desc id="stid">英国牛津的 EXPRESS 研究：短暂性脑缺血发作（小中风）或轻微中风以后，原来平均要等 20 天才开始用药，90 天内再次中风 10.3%；改成当天或第二天就评估、立即用药以后，降到 2.1%，减少约八成。中国的 CHANCE 研究：轻微中风或高危小中风 24 小时内开始治疗，阿司匹林加氯吡格雷的组 90 天内中风 8.2%，只用阿司匹林的组 11.7%，出血没有增加（两组都是 0.3%）。</desc>
+<text x="8.0" y="26.0" class="tn" text-anchor="start">EXPRESS（英国）：90 天内再次中风</text>
+<text x="122.0" y="47.0" class="tw" text-anchor="end">等约 20 天才用药</text>
+<rect x="128" y="38" width="175.9" height="13" rx="4" class="f6 fillc"/>
+<text x="308.9" y="48.0" class="tw" text-anchor="start">10.3%</text>
+<text x="122.0" y="69.0" class="tw" text-anchor="end">当天就评估、用药</text>
+<rect x="128" y="60" width="35.9" height="13" rx="4" class="f1 fillc"/>
+<text x="168.9" y="70.0" class="tw" text-anchor="start">2.1%</text>
+<text x="8.0" y="96.0" class="tn" text-anchor="start">CHANCE（中国）：90 天内中风</text>
+<text x="122.0" y="117.0" class="tw" text-anchor="end">只用阿司匹林</text>
+<rect x="128" y="108" width="199.8" height="13" rx="4" class="f6 fillc"/>
+<text x="332.8" y="118.0" class="tw" text-anchor="start">11.7%</text>
+<text x="122.0" y="139.0" class="tw" text-anchor="end">阿司匹林加氯吡格雷</text>
+<rect x="128" y="130" width="140.0" height="13" rx="4" class="f1 fillc"/>
+<text x="273.0" y="140.0" class="tw" text-anchor="start">8.2%</text>
+<text x="200.0" y="178.0" class="ts" text-anchor="middle">数据：Rothwell 2007；Wang 2013（具体用哪种药，由医生决定）</text>
+</svg></figure>
+<p>一项在 21 个国家做的研究也显示：在能快速评估的医疗体系里，小中风或轻微中风以后，第 2 天再中风的约 1.5%，第 7 天 2.1%，一年 5.1%<a class="cite" id="r20-1" href="#s20" data-n="20">20</a>。风险最集中在头几天。</p>
+<div class="box warn"><p class="lab">请记住</p><p>“中风 120”的症状，哪怕几分钟就消失了，也要<b>当天去医院</b>，最好就打 120。用哪种药、用多久，由医生决定，不要自己在家吃阿司匹林了事。</p></div>
+</section><div class="part" id="part3"><span>第三部分</span><b>上游：把人推向中风的几种病</b></div><section class="ch" id="river"><h2><span class="no">11</span>一条河：下游、上游、上游的上游</h2>
+<p>现在，我们从下游往上走。</p>
+<p>中风常被说成“突然”的病。可是如果把一个人的一生摊开来看，它更像一条河的下游。</p>
+<ul>
+<li><b>下游</b>，是中风本身。到了这里，只能和时间赛跑：溶栓、取栓、止血、康复。</li>
+<li><b>上游</b>，是把人推向中风的几种病和状态：高血压、房颤、血脂异常、糖尿病、血管里的斑块、吸烟、大量喝酒。它们往往要十几年才把人推到下游。</li>
+<li><b>上游的上游</b>，是造成这些病的生活和环境：盐多钾少、饭桌不合宜、动得少、腹部肥胖、睡不好、长期的压力和忧虑，还有空气污染。它们要几十年才显出后果。</li>
+</ul>
+<figure class="fig"><figcaption class="fgl"><b>图 5</b><span>中风是一条河的下游：上游是几种病，上游的上游是几十年的生活和环境</span></figcaption><svg viewBox="0 0 400 394" class="dg" role="img" aria-labelledby="strt strd">
+<title id="strt">中风是一条河的下游：上游是几种病，上游的上游是几十年的生活和环境</title>
+<desc id="strd">最下面是中风本身。往上一层是直接把人推向中风的几种病和状态：高血压（最大的一个）、房颤、血脂异常、糖尿病、颈动脉和脑动脉的斑块、吸烟、大量喝酒。再往上一层，是造成这些病的生活和环境：盐多钾少、吃得不合宜、动得少、腹部肥胖、睡不好、长期的压力和忧虑、空气污染；还有年龄、遗传这些改不了的因素。越往上游出手，能挡住的越多；到了下游，只能和时间赛跑。研究估计，十项可以改变的危险因素加起来，和全世界约九成的中风有关。</desc>
+<rect x="8" y="8" width="384" height="96" rx="12" class="f1 fillc" opacity=".22"/>
+<rect x="8" y="8" width="384" height="96" rx="12" class="cn f1" style="--c:var(--c1);fill:none"/>
+<text x="20.0" y="28.0" class="tn" text-anchor="start">上游的上游：几十年的生活和环境</text>
+<rect x="20" y="42" width="72" height="24" rx="12" class="f1 fillc"/>
+<text x="56.0" y="58.0" class="tnode2 b" text-anchor="middle">盐多钾少</text>
+<rect x="98" y="42" width="86" height="24" rx="12" class="f1 fillc"/>
+<text x="141.0" y="58.0" class="tnode2 b" text-anchor="middle">饭桌不合宜</text>
+<rect x="190" y="42" width="58" height="24" rx="12" class="f1 fillc"/>
+<text x="219.0" y="58.0" class="tnode2 b" text-anchor="middle">动得少</text>
+<rect x="254" y="42" width="72" height="24" rx="12" class="f1 fillc"/>
+<text x="290.0" y="58.0" class="tnode2 b" text-anchor="middle">腹部肥胖</text>
+<rect x="20" y="72" width="58" height="24" rx="12" class="f1 fillc"/>
+<text x="49.0" y="88.0" class="tnode2 b" text-anchor="middle">睡不好</text>
+<rect x="84" y="72" width="86" height="24" rx="12" class="f1 fillc"/>
+<text x="127.0" y="88.0" class="tnode2 b" text-anchor="middle">压力和忧虑</text>
+<rect x="176" y="72" width="72" height="24" rx="12" class="f1 fillc"/>
+<text x="212.0" y="88.0" class="tnode2 b" text-anchor="middle">空气污染</text>
+<rect x="8" y="138" width="384" height="96" rx="12" class="f4 fillc" opacity=".22"/>
+<rect x="8" y="138" width="384" height="96" rx="12" class="cn f4" style="--c:var(--c4);fill:none"/>
+<text x="20.0" y="158.0" class="tn" text-anchor="start">上游：把人推向中风的几种病</text>
+<rect x="20" y="172" width="58" height="24" rx="12" class="f4 fillc"/>
+<text x="49.0" y="188.0" class="tnode2 b" text-anchor="middle">高血压</text>
+<rect x="84" y="172" width="44" height="24" rx="12" class="f4 fillc"/>
+<text x="106.0" y="188.0" class="tnode2 b" text-anchor="middle">房颤</text>
+<rect x="134" y="172" width="72" height="24" rx="12" class="f4 fillc"/>
+<text x="170.0" y="188.0" class="tnode2 b" text-anchor="middle">血脂异常</text>
+<rect x="212" y="172" width="58" height="24" rx="12" class="f4 fillc"/>
+<text x="241.0" y="188.0" class="tnode2 b" text-anchor="middle">糖尿病</text>
+<rect x="276" y="172" width="100" height="24" rx="12" class="f4 fillc"/>
+<text x="326.0" y="188.0" class="tnode2 b" text-anchor="middle">血管里的斑块</text>
+<rect x="20" y="202" width="44" height="24" rx="12" class="f4 fillc"/>
+<text x="42.0" y="218.0" class="tnode2 b" text-anchor="middle">吸烟</text>
+<rect x="70" y="202" width="72" height="24" rx="12" class="f4 fillc"/>
+<text x="106.0" y="218.0" class="tnode2 b" text-anchor="middle">大量喝酒</text>
+<rect x="8" y="268" width="384" height="74" rx="12" class="f6 fillc" opacity=".22"/>
+<rect x="8" y="268" width="384" height="74" rx="12" class="cn f6" style="--c:var(--c6);fill:none"/>
+<text x="20.0" y="288.0" class="tn" text-anchor="start">下游：中风</text>
+<text x="20.0" y="310.0" class="tw" text-anchor="start">缺血性中风（约八成）· 出血性中风</text>
+<text x="20.0" y="328.0" class="tw" text-anchor="start">只能和时间赛跑：溶栓、取栓、止血、康复</text>
+<path d="M60.0 106.0 L60.0 130.0" class="flow"/><path d="M60.0 136.0 L63.3 130.0 L56.7 130.0 Z" class="ahd"/>
+<path d="M60.0 236.0 L60.0 260.0" class="flow"/><path d="M60.0 266.0 L63.3 260.0 L56.7 260.0 Z" class="ahd"/>
+<path d="M140.0 106.0 L140.0 130.0" class="flow"/><path d="M140.0 136.0 L143.3 130.0 L136.7 130.0 Z" class="ahd"/>
+<path d="M140.0 236.0 L140.0 260.0" class="flow"/><path d="M140.0 266.0 L143.3 260.0 L136.7 260.0 Z" class="ahd"/>
+<path d="M220.0 106.0 L220.0 130.0" class="flow"/><path d="M220.0 136.0 L223.3 130.0 L216.7 130.0 Z" class="ahd"/>
+<path d="M220.0 236.0 L220.0 260.0" class="flow"/><path d="M220.0 266.0 L223.3 260.0 L216.7 260.0 Z" class="ahd"/>
+<text x="392.0" y="124.0" class="ts" text-anchor="end">越往上游出手，挡住的越多</text>
+<text x="392.0" y="254.0" class="ts" text-anchor="end">到了下游，只能和时间赛跑</text>
+<text x="200.0" y="364.0" class="tw" text-anchor="middle">还有改不了的：年龄、性别、家族史——它们是更要小心的理由</text>
+<text x="200.0" y="384.0" class="ts" text-anchor="middle">编者整理的示意，依据 INTERSTROKE 和全球疾病负担研究</text>
+</svg></figure>
+<p>还有一些改不了的：年龄、性别、家族史。它们不是放弃的理由，而是更要小心的理由。</p>
+<div class="box"><p class="lab">编者的理解</p><p>越往上游出手，挡住的越多，花的力气也越小。到了下游，即使有最好的医院，也有很多人救不回来，或者留下残疾。所以这一篇接下来的两部分，会用最多的篇幅讲上游和上游的上游。</p></div>
+</section><section class="ch" id="ninety"><h2><span class="no">12</span>九成和这十件事有关</h2>
+<p>中风到底有多少是可以预防的？</p>
+<p>国际 INTERSTROKE 研究在 32 个国家，比较了约 1.3 万名首次中风的病人和同样多的、年龄性别相当的没有中风的人。研究者找到了十项可以改变的危险因素，<b>合起来和全世界约 90% 的中风有关</b><a class="cite" id="r15-2" href="#s15" data-n="15">15</a>。</p>
+<p>这十项是：高血压、缺少规律运动、血脂（载脂蛋白的比例）、饮食不合宜、腹部肥胖（腰臀比大）、心理社会压力、吸烟、心脏病（主要是房颤）、喝酒、糖尿病。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 6</b><span>十项可以改变的危险因素，和多少中风有关（INTERSTROKE，32 个国家）</span></figcaption><svg viewBox="0 0 400 292" class="dg" role="img" aria-labelledby="stxt stxd">
+<title id="stxt">十项可以改变的危险因素，和多少中风有关（INTERSTROKE，32 个国家）</title>
+<desc id="stxd">国际 INTERSTROKE 研究比较了 32 个国家约 1.3 万名首次中风的病人和同样多的没有中风的人。下面是每一项的“人群归因风险”，意思是：如果这一项在人群里消失，理论上能少多少中风。高血压 47.9%，不规律运动 35.8%，载脂蛋白比例（血脂）26.8%，饮食不合宜 23.2%，腰臀比大（腹部肥胖）18.6%，心理社会压力 17.4%，吸烟 12.4%，心脏病（主要是房颤）9.1%，喝酒 5.8%，糖尿病 3.9%。各项之间有重叠，不能直接相加；十项合起来约 90.7%。</desc>
+<text x="8.0" y="26.0" class="tn" text-anchor="start">如果这一项消失，理论上能少多少中风</text>
+<text x="122.0" y="47.0" class="tw" text-anchor="end">高血压</text>
+<rect x="128" y="38" width="193.3" height="13" rx="4" class="f6 fillc"/>
+<text x="326.3" y="48.0" class="tw" text-anchor="start">47.9%</text>
+<text x="122.0" y="69.0" class="tw" text-anchor="end">不规律运动</text>
+<rect x="128" y="60" width="144.5" height="13" rx="4" class="f4 fillc"/>
+<text x="277.5" y="70.0" class="tw" text-anchor="start">35.8%</text>
+<text x="122.0" y="91.0" class="tw" text-anchor="end">血脂（载脂蛋白比例）</text>
+<rect x="128" y="82" width="108.2" height="13" rx="4" class="f4 fillc"/>
+<text x="241.2" y="92.0" class="tw" text-anchor="start">26.8%</text>
+<text x="122.0" y="113.0" class="tw" text-anchor="end">饮食不合宜</text>
+<rect x="128" y="104" width="93.6" height="13" rx="4" class="f4 fillc"/>
+<text x="226.6" y="114.0" class="tw" text-anchor="start">23.2%</text>
+<text x="122.0" y="135.0" class="tw" text-anchor="end">腹部肥胖</text>
+<rect x="128" y="126" width="75.1" height="13" rx="4" class="f4 fillc"/>
+<text x="208.1" y="136.0" class="tw" text-anchor="start">18.6%</text>
+<text x="122.0" y="157.0" class="tw" text-anchor="end">压力、忧虑</text>
+<rect x="128" y="148" width="70.2" height="13" rx="4" class="f4 fillc"/>
+<text x="203.2" y="158.0" class="tw" text-anchor="start">17.4%</text>
+<text x="122.0" y="179.0" class="tw" text-anchor="end">吸烟</text>
+<rect x="128" y="170" width="50.1" height="13" rx="4" class="f4 fillc"/>
+<text x="183.1" y="180.0" class="tw" text-anchor="start">12.4%</text>
+<text x="122.0" y="201.0" class="tw" text-anchor="end">心脏病（主要是房颤）</text>
+<rect x="128" y="192" width="36.7" height="13" rx="4" class="f4 fillc"/>
+<text x="169.7" y="202.0" class="tw" text-anchor="start">9.1%</text>
+<text x="122.0" y="223.0" class="tw" text-anchor="end">喝酒</text>
+<rect x="128" y="214" width="23.4" height="13" rx="4" class="f4 fillc"/>
+<text x="156.4" y="224.0" class="tw" text-anchor="start">5.8%</text>
+<text x="122.0" y="245.0" class="tw" text-anchor="end">糖尿病</text>
+<rect x="128" y="236" width="15.7" height="13" rx="4" class="f4 fillc"/>
+<text x="148.7" y="246.0" class="tw" text-anchor="start">3.9%</text>
+<text x="200.0" y="284.0" class="ts" text-anchor="middle">各项有重叠，不能相加；十项合起来约 90.7%（O’Donnell 等，《柳叶刀》2016）</text>
+</svg></figure>
+<p>这个比例在各个地区都差不多，从非洲的约 83% 到东南亚的约 97%；男女一样，55 岁以下和以上也一样<a class="cite" id="r15-3" href="#s15" data-n="15">15</a>。2025 年同一个研究团队又按年龄分析：不管哪个年龄段，影响最大的都是三项——<b>高血压、腹部肥胖、缺少运动</b><a class="cite" id="r21-1" href="#s21" data-n="21">21</a>。</p>
+<details class="deep"><summary>“和九成有关”是什么意思？</summary><div><p>这里用的是“人群归因风险”：如果某一项危险因素在人群里完全消失，理论上能少多少中风。各项之间有重叠（例如肥胖的人常常也有高血压），所以不能把十项直接相加；研究者用专门的方法算出十项合起来约 90.7%<a class="cite" id="r15-4" href="#s15" data-n="15">15</a>。</p><p>还要说明：这是一项“病例对照研究”，比较的是已经中风的人和没有中风的人，属于观察研究。它告诉我们“有关”，不能单独证明“因为所以”。但其中最重要的几项，例如血压，已经有大量随机试验证明：降下来，中风就少了。</p></div></details>
+<div class="box"><p class="lab">编者的理解</p><p>九成，这是一个充满盼望的数字。它的意思不是“九成的人都能保证不中风”，而是：中风最主要的原因，大多在我们可以做点什么的范围之内。</p></div>
+</section><section class="ch" id="bp"><h2><span class="no">13</span>第一大上游：高血压</h2>
+<p>十项里，高血压排第一。在 INTERSTROKE 研究里，它一项就和约一半的中风有关<a class="cite" id="r15-5" href="#s15" data-n="15">15</a>。中国 2020 年的全国调查也显示，高血压是中风最主要的危险因素：有高血压的人，中风的可能是没有的人的约 3 倍<a class="cite" id="r3-3" href="#s3" data-n="3">3</a>。2013 年的全国调查里，中风幸存者有高血压的高达 88%<a class="cite" id="r4-3" href="#s4" data-n="4">4</a>。</p>
+<p>为什么血压对脑子特别要紧？</p>
+<ul>
+<li>长期高压冲击，让大血管壁变厚、长斑块，斑块破裂就形成血块，堵住血管；</li>
+<li>脑子深处有很多细小的穿通动脉，长期高压让它们变脆、变窄：窄了，形成小的梗死；脆了，一破就是脑出血。</li>
+</ul>
+<p>好消息是，降压对中风的效果，是所有预防方法里证据最硬的之一。汇总 61 万多人的分析显示：<b>收缩压每降低 10 毫米汞柱，中风减少 27%</b><a class="cite" id="r22-1" href="#s22" data-n="22">22</a>。</p>
+<p>中国自己的试验更让人振奋。<b>中国农村高血压控制项目</b>（CRHCP）在 326 个村子里做了一个整群随机试验：一半的村子，由经过培训的村医按照一个简单的流程，给 40 岁以上的高血压病人开药、调药，目标是收缩压低于 130、舒张压低于 80，药品打折或免费，还有健康指导；另一半照常。三年下来，两组的收缩压相差约 23 毫米汞柱；<b>干预组的中风少了 34%</b>，心血管病死亡少了 30%，全因死亡少了 15%<a class="cite" id="r23-1" href="#s23" data-n="23">23</a>。</p>
+<p>代价是：血压过低的情况多了一点（1.75% 对 0.89%）<a class="cite" id="r23-2" href="#s23" data-n="23">23</a>。所以降压要在医生的指导下进行，起身时头晕要告诉医生。</p>
+<div class="box"><p class="lab">编者的理解</p><p>这个试验最打动人的地方是：它没有用什么新药，靠的是村医、简单的流程和坚持。它说明，在中国农村，把已经有的降压药真正用到病人身上，就能挡住三分之一的中风。如果你的家人有高血压，最实在的一件事，就是让他按时吃药、定期量血压。高血压怎样从根上管，请看<a href="hypertension.html">《高血压，真的要吃一辈子药吗？》</a>。</p></div>
+</section><section class="ch" id="af"><h2><span class="no">14</span>心脏里的血块：房颤</h2>
+<p>有一种中风，血块不是在脑子里长的，而是从心脏里来的。最常见的原因，是<b>心房颤动</b>，简称房颤。</p>
+<p>房颤的时候，心房不再整齐地收缩，而是快速乱颤。血在心房的一个小角落里流得很慢，容易凝成血块；血块被冲出来，顺着血管上到脑子，就把一根大血管堵住了。这样的中风往往很重。</p>
+<p>房颤在中国并不少见。2014 到 2016 年的一项全国调查，给 4.7 万多名 45 岁以上的人做了心电图：<b>约 1.8% 有房颤</b>，相当于全国约 790 万人；75 岁以上的人里，约每 20 个就有 1 个。可是农村的房颤病人里，只有约三分之一知道自己有；<b>高危的房颤病人里，只有 6% 在用抗凝药</b><a class="cite" id="r24-1" href="#s24" data-n="24">24</a>。</p>
+<p>抗凝药有多重要？一项汇总 29 个随机试验、2.8 万人的分析显示：房颤病人用华法林这类抗凝药，<b>中风减少约 64%</b>；只用阿司匹林这类抗血小板药，只减少约 22%<a class="cite" id="r25-1" href="#s25" data-n="25">25</a>。现在还有更方便的新型口服抗凝药。</p>
+<details class="deep"><summary>怎样发现房颤？</summary><div><p>房颤有时会心慌、乏力，但很多人一点感觉都没有。在家量血压时，如果电子血压计提示“心律不齐”，或者自己摸脉搏时快时慢、强弱不一，就应该去做一个心电图。上面的全国调查也提醒：农村居民和高龄老人，知道自己有房颤的比例更低<a class="cite" id="r24-2" href="#s24" data-n="24">24</a>。（编者整理）</p></div></details>
+<div class="box"><p class="lab">编者的理解</p><p>很多老人听说“抗凝药会出血”，就不敢吃，宁愿吃阿司匹林。可是对房颤来说，阿司匹林挡住中风的作用小得多。吃不吃、吃哪一种，要由医生按中风和出血两方面的风险来判断；但不要因为害怕，就放弃一个能挡住大半中风的办法。</p></div>
+</section><section class="ch" id="vessel"><h2><span class="no">15</span>血管里的“垢”：血脂、血糖、吸烟</h2>
+<p>还有几条上游，会让血管壁上慢慢长出斑块：</p>
+<ul>
+<li><b>血脂异常。</b>“坏胆固醇”LDL 会钻进血管壁，一点点堆成斑块。降低 LDL，能减少缺血性中风<a class="cite" id="r26-1" href="#s26" data-n="26">26</a>。已经中过风的人，用他汀把 LDL 降下来，再次中风也少了：国际 SPARCL 研究里，五年再次中风 11.2% 对 13.1%<a class="cite" id="r27-1" href="#s27" data-n="27">27</a>。详细的请看<a href="lipid.html">《高血脂》</a>那一篇。</li>
+<li><b>糖尿病。</b>长期高血糖伤害大小血管，也常和高血压、血脂异常一起出现<a class="cite" id="r15-6" href="#s15" data-n="15">15</a>。请看<a href="diabetes.html">《糖尿病》</a>那一篇。</li>
+<li><b>吸烟。</b>在 INTERSTROKE 研究里，现在吸烟的人中风的可能是不吸烟的人的约 1.7 倍<a class="cite" id="r15-7" href="#s15" data-n="15">15</a>。2013 年中国的全国调查里，中风幸存者中约一半有吸烟史<a class="cite" id="r4-4" href="#s4" data-n="4">4</a>。</li>
+</ul>
+<p>前一篇讲过，血压、血糖、血脂常常长在同一个根上：腹部的脂肪放错了地方、身体对胰岛素不灵。所以这几条上游，常常一起流向下游。</p>
+<div class="box"><p class="lab">编者的理解</p><p>这正是为什么健康栏目先写了三高，再写中风。三高管好了，中风这条下游的水就少了一大半。</p></div>
+</section><section class="ch" id="alcohol"><h2><span class="no">16</span>喝点酒，能“活血”吗</h2>
+<p>很多人相信：少喝一点酒能“活血”、软化血管，对心脑血管有好处。过去确实有不少观察研究发现，少量喝酒的人，心脑血管病比不喝的人还少一点。</p>
+<p>可是，这是真的因果吗？还是因为不喝酒的人里，本来就有不少是因为生了病才戒酒的？</p>
+<p>中国的研究给了一个很有力的回答。中国慢性病前瞻性研究跟踪了 50 多万人约十年。研究者利用了东亚人特有的两个基因：有些人天生喝了酒就脸红、难受，所以喝得少；这些基因是出生时随机分配的，就像老天爷替我们做了一个“随机试验”<a class="cite" id="r17-2" href="#s17" data-n="17">17</a>。</p>
+<p>结果是：</p>
+<ul>
+<li>按自己报告的喝酒量看，确实是“少量喝的人风险最低”；</li>
+<li>可是按基因推算的喝酒量看，<b>这个“保护作用”消失了</b>：酒喝得越多，中风风险就一直往上升，脑出血升得更快，血压也跟着升高<a class="cite" id="r17-3" href="#s17" data-n="17">17</a>。</li>
+</ul>
+<p>研究者的结论是：<b>少量喝酒能预防中风的说法，很大程度上不是真的因果；喝酒会持续地升高血压和中风风险</b><a class="cite" id="r17-4" href="#s17" data-n="17">17</a>。</p>
+<div class="box"><p class="lab">编者的理解</p><p>为了血管去喝酒，是没有根据的。不喝的，不必开始；在喝的，少喝或不喝，血压和中风风险都会跟着下来。</p></div>
+</section><div class="part" id="part4"><span>第四部分</span><b>上游的上游：几十年的生活和环境</b></div><section class="ch" id="roots"><h2><span class="no">17</span>上游的上游：几十年的生活</h2>
+<p>高血压、糖尿病、血脂异常、房颤，又是从哪里来的？</p>
+<p>除了年龄和遗传，大部分来自几十年一天天的生活，还有我们生活的环境。全球疾病负担研究对中国的分析发现，造成中国人死亡和疾病负担的前四位危险因素是：<b>收缩压高、吸烟、高盐饮食、室外的颗粒物空气污染</b><a class="cite" id="r2-2" href="#s2" data-n="2">2</a>。</p>
+<p>2021 年的全球分析还发现，和 1990 年相比，与中风有关的疾病负担里，增长最快的几项是：<b>体重指数高、气温过高、空腹血糖高、喝含糖饮料多、活动少</b><a class="cite" id="r5-2" href="#s5" data-n="5">5</a>。</p>
+<p>INTERSTROKE 研究里的那十项，有一半以上就是生活方式本身：缺少运动、饮食不合宜、腹部肥胖、压力和忧虑、吸烟、喝酒<a class="cite" id="r15-8" href="#s15" data-n="15">15</a>。</p>
+<p>下面几章，一项一项地看：盐、饭桌、运动和腰围、压力和睡眠，还有素食者特别要注意的事。</p>
+<div class="box"><p class="lab">编者的理解</p><p>上游的上游，有的在个人手里，例如吃什么、动不动；有的不全在个人手里，例如空气、天气、工作的压力、能不能看得起病。前一种，每个人都可以从今天开始；后一种，需要家庭、教会和社会一起关心。</p></div>
+</section><section class="ch" id="salt"><h2><span class="no">18</span>中国人的盐</h2>
+<p>中国人吃的盐，是世界卫生组织建议量的两倍多，而且大部分是做饭时自己加进去的（详见<a href="hypertension.html">《高血压》</a>那一篇）。盐多，血压就高；血压高，中风就多。</p>
+<p>直接证明“少盐能减少中风”的，是中国自己的一个大型试验：<b>代用盐研究</b>（SSaSS）。它在中国农村的 600 个村子里，找了约 2.1 万名得过中风、或者 60 岁以上有高血压的人。一半的村子把家里的盐换成一种“代用盐”（75% 氯化钠、25% 氯化钾），另一半照常用普通盐<a class="cite" id="r28-1" href="#s28" data-n="28">28</a>。</p>
+<p>平均将近五年下来，<b>换了代用盐的村子，中风少了 14%</b>，主要心血管病事件少了 13%，死亡少了 12%；大家担心的高血钾，严重的不良事件两组差不多<a class="cite" id="r28-2" href="#s28" data-n="28">28</a>。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 7</b><span>在中国做的预防试验：中风减少了多少</span></figcaption><svg viewBox="0 0 400 138" class="dg" role="img" aria-labelledby="stct stcd">
+<title id="stct">在中国做的预防试验：中风减少了多少</title>
+<desc id="stcd">三个在中国做的大型随机对照试验。农村高血压控制项目（CRHCP，326 个村、约 3.4 万人）：由村医按简单的流程给高血压病人用药、调药，目标收缩压低于 130，三年里中风减少 34%（风险比 0.66）。代用盐试验（SSaSS，600 个村、约 2.1 万名中风或高危老人）：中风减少 14%。中国脑卒中一级预防试验（CSPPT，约 2.1 万名高血压病人）：降压药里加叶酸，首次中风减少 21%（风险比 0.79）。</desc>
+<text x="8.0" y="26.0" class="tn" text-anchor="start">中风减少的比例</text>
+<text x="122.0" y="47.0" class="tw" text-anchor="end">村医强化降压（CRHCP）</text>
+<rect x="128" y="38" width="188.7" height="13" rx="4" class="f1 fillc"/>
+<text x="321.7" y="48.0" class="tw" text-anchor="start">34%</text>
+<text x="122.0" y="69.0" class="tw" text-anchor="end">降压药加叶酸（CSPPT）</text>
+<rect x="128" y="60" width="116.5" height="13" rx="4" class="f1 fillc"/>
+<text x="249.6" y="70.0" class="tw" text-anchor="start">21%</text>
+<text x="122.0" y="91.0" class="tw" text-anchor="end">换用代用盐（SSaSS）</text>
+<rect x="128" y="82" width="77.7" height="13" rx="4" class="f1 fillc"/>
+<text x="210.7" y="92.0" class="tw" text-anchor="start">14%</text>
+<text x="200.0" y="130.0" class="ts" text-anchor="middle">数据：He 2023、Huo 2015、Neal 2021（三个都是随机对照试验）</text>
+</svg></figure>
+<div class="box"><p class="lab">谁要先问医生</p><p>肾功能不好的人，或者正在吃某些会升高血钾的药（例如部分降压药、保钾利尿剂）的人，用代用盐以前要先问医生。（编者的理解）</p></div>
+<p>少盐还有很多不花钱的办法：做菜晚放盐；少用酱油、蚝油、豆瓣酱、味精这些“隐形的盐”；少吃咸菜、腌肉、腊肠、方便面、加工肉；在外面吃饭时请厨师少放盐。</p>
+</section><section class="ch" id="food"><h2><span class="no">19</span>饭桌：水果、蔬菜、坚果和好油</h2>
+<p>除了盐，饭桌上还有几样东西和中风关系很大。</p>
+<p><b>新鲜水果。</b>中国慢性病前瞻性研究跟踪了 45 万多名没有心血管病的成年人。那时只有 18% 的人每天吃新鲜水果。和几乎不吃的人相比，每天吃的人收缩压低约 4 毫米汞柱；<b>缺血性中风少约 25%，出血性中风少约 36%</b>，心血管病死亡少约 40%；吃得越多，风险越低<a class="cite" id="r29-1" href="#s29" data-n="29">29</a>。这是观察研究，不能完全证明因果，但在中国人身上这么一致，很值得重视。</p>
+<p><b>地中海式饮食。</b>西班牙的 PREDIMED 是一个随机试验，找了约 7400 名心血管病高风险的人：一组吃地中海饮食并额外提供特级初榨橄榄油，一组吃地中海饮食并额外提供坚果，一组只被建议少吃脂肪。约五年下来，两个地中海饮食组的心梗、中风和心血管病死亡加起来，<b>比对照组少了约三成</b><a class="cite" id="r30-1" href="#s30" data-n="30">30</a>。</p>
+<details class="deep"><summary>PREDIMED 为什么“撤回又重新发表”？</summary><div><p>这个试验 2013 年首次发表后，研究者自己发现有些地方没有严格随机：例如有的家庭成员被安排在同一组、有一个研究点没有按随机表分组。他们主动撤回了原来的论文，2018 年用更严格的方法重新分析后再次发表，结论基本不变<a class="cite" id="r30-2" href="#s30" data-n="30">30</a>。编者特别提这件事，是因为这正是科学自我纠错的样子：发现问题，公开承认，重新检验。</p></div></details>
+<p>把这些放在一起，对中风有保护作用的饭桌，大致是：<b>多吃新鲜蔬菜水果、豆类、全谷物和坚果；用植物油代替动物油；少盐、少加工肉、少含糖饮料</b>。这和前三篇讲的方向完全一致。（编者整理）</p>
+</section><section class="ch" id="veg"><h2><span class="no">20</span>吃素的人，要注意什么</h2>
+<p>本站的不少读者吃素或基本吃素。前几篇讲过，复临信徒健康研究里，吃素的人血压、血糖、血脂都较好<a class="cite" id="r31-1" href="#s31" data-n="31">31</a><a class="cite" id="r32-1" href="#s32" data-n="32">32</a>。那么吃素对中风也一定好吗？</p>
+<p>这里要老老实实地说，研究结果并不完全一致。</p>
+<p>英国的 EPIC-牛津研究跟踪了 4.8 万人约 18 年：吃素的人冠心病少了 22%，<b>可是中风反而多了 20%</b>，主要是出血性中风多了；换算成绝对数字，每 1000 人十年里约多 3 例<a class="cite" id="r33-1" href="#s33" data-n="33">33</a>。</p>
+<p>台湾慈济的两个研究队列却得出相反的结果：吃素的人，缺血性和出血性中风都比较少<a class="cite" id="r34-1" href="#s34" data-n="34">34</a>。</p>
+<p>为什么会不一样？研究者提出了一些可能的解释。台湾的研究发现，吃素的人<b>维生素 B12 偏低、同型半胱氨酸偏高</b>，而 B12 的摄入可能会影响吃素和中风的关系<a class="cite" id="r34-2" href="#s34" data-n="34">34</a>。</p>
+<p>中国还有一个相关的随机试验：<b>中国脑卒中一级预防试验</b>（CSPPT）在江苏、安徽找了约 2 万名高血压病人，一组吃降压药依那普利，一组吃依那普利加叶酸（0.8 毫克）。四年半下来，加叶酸的组首次中风少了 21%；研究者认为，这和中国人群原来叶酸水平偏低有关<a class="cite" id="r35-1" href="#s35" data-n="35">35</a>。</p>
+<div class="box"><p class="lab">编者的理解</p><p>这一章不是要劝人不吃素，而是提醒：<b>吃素要吃得均衡</b>。多吃新鲜蔬菜水果、豆类和全谷物；纯素食者要注意补充维生素 B12（可以问医生是否需要检查或补充）；蛋白质和各种营养要吃够。至于叶酸片，要不要吃、吃多少，请问医生，不要自己大量补充各种维生素。</p></div>
+</section><section class="ch" id="move"><h2><span class="no">21</span>动起来、管住腰围、放下重担</h2>
+<p>在 INTERSTROKE 研究里，<b>有规律运动的人，中风的可能比不运动的人低约四成</b>；缺少运动这一项，和约三分之一的中风有关，排在第二位<a class="cite" id="r15-9" href="#s15" data-n="15">15</a>。</p>
+<p>同一项研究里，<b>腰臀比大</b>（也就是腹部肥胖）和约五分之一的中风有关；而且不管哪个年龄段，高血压、腹部肥胖、缺少运动都是影响最大的三项<a class="cite" id="r21-2" href="#s21" data-n="21">21</a>。</p>
+<p>还有一项常被忽略的：<b>心理社会压力</b>。INTERSTROKE 研究把工作和家庭的压力、经济压力、重大的生活变故、抑郁等放在一起看，有这些压力的人，中风的可能约是没有的人的 2.2 倍<a class="cite" id="r15-10" href="#s15" data-n="15">15</a>。这是观察研究，不能证明压力本身直接引起中风，但它提醒我们：心里的重担，也会压在血管上。</p>
+<div class="box"><p class="lab">可以从今天开始的几件事（编者整理）</p><ul>
+<li><b>每天动一动。</b>快走、骑车、太极、广场舞、做家务都算；每周加起来两个半小时左右的中等强度活动，是常见的建议。老人要防跌倒，量力而行。</li>
+<li><b>量一量腰围。</b>腰围比体重更能看出腹部的脂肪。腰围变小，血压、血糖、血脂常常一起变好。</li>
+<li><b>睡好觉。</b>长期睡不好、打鼾憋气，都可能推高血压；打鼾很响、白天总犯困的，可以请医生看看有没有睡眠呼吸暂停。</li>
+<li><b>放下重担。</b>和信得过的人说说心里的事；安息日好好休息；有长期的抑郁、焦虑，要像看身体的病一样去看医生。</li>
+</ul></div>
+</section><section class="ch" id="young"><h2><span class="no">22</span>年轻人和中年人：从现在开始</h2>
+<p>很多年轻人觉得，中风是爷爷奶奶的事。可是前面说过，全球的研究发现，东亚和 70 岁以下人群的中风，有些指标还在上升<a class="cite" id="r5-3" href="#s5" data-n="5">5</a>。</p>
+<p>年轻人的中风，上游常常是同样的几样：高血压、腹部肥胖、不运动、吸烟、喝酒和压力<a class="cite" id="r21-3" href="#s21" data-n="21">21</a><a class="cite" id="r15-11" href="#s15" data-n="15">15</a>。而且，年纪较轻的高血压病人，更不知道自己有高血压，也更少治疗<a class="cite" id="r36-1" href="#s36" data-n="36">36</a>。</p>
+<p>年轻时打下的底子，几十年后才显出来。血管不会记得你哪一天吃了什么，但它会记住几十年加起来的账。</p>
+<div class="box"><p class="lab">给年轻人和中年人的清单（编者整理）</p><ul>
+<li>每年至少量一次血压；超过 35 岁，按医生建议查血脂、血糖。</li>
+<li>不吸烟；已经吸的，越早戒越好。</li>
+<li>少喝酒或不喝；不喝含糖饮料。</li>
+<li>管住腰围，规律运动，少坐多走。</li>
+<li>少熬夜；工作再忙，也给身体和心灵留出休息的日子。</li>
+<li>家里有人很早得了中风或心梗，自己更要早检查。</li>
+<li>学会“中风 120”，也教给父母。</li>
+</ul></div>
+</section><div class="part" id="part5"><span>第五部分</span><b>中风以后：不再中第二次，慢慢走回来</b></div><section class="ch" id="again"><h2><span class="no">23</span>不再中第二次</h2>
+<p>得过一次中风的人，再次中风的风险比一般人高。2019 到 2020 年中国三级医院的资料显示：出院后 3 个月内再次中风的约 3.6%，一年内约 5.6%<a class="cite" id="r1-7" href="#s1" data-n="1">1</a>。而第二次中风，往往比第一次更重。</p>
+<p>好在，预防第二次的办法，大多有随机试验的证据：</p>
+<ul>
+<li><b>降压。</b>PROGRESS 研究在 6105 名中风或小中风病人身上，用降压药培哚普利（必要时加吲达帕胺）治疗四年，再次中风从 14% 降到 10%，减少 28%；两种药合用的，血压降得更多，中风减少 43%。不管原来有没有高血压，都有好处<a class="cite" id="r37-1" href="#s37" data-n="37">37</a>。</li>
+<li><b>降脂。</b>他汀减少再次中风（SPARCL 研究，见<a class="xref" href="#vessel">第 15 章《血管里的“垢”：血脂、血糖、吸烟》</a>）<a class="cite" id="r27-2" href="#s27" data-n="27">27</a>。</li>
+<li><b>抗血小板。</b>缺血性中风以后，医生通常会让病人长期吃阿司匹林或氯吡格雷这类药；刚发病的轻微中风，短期两种合用效果更好（CHANCE 研究，见<a class="xref" href="#tia">第 10 章《“小中风”：最响的一次警报》</a>）<a class="cite" id="r19-2" href="#s19" data-n="19">19</a>。</li>
+<li><b>房颤抗凝。</b>心脏来的血块引起的中风，要用抗凝药，阿司匹林代替不了<a class="cite" id="r25-2" href="#s25" data-n="25">25</a>。</li>
+<li><b>生活方式。</b>戒烟、戒酒、少盐、运动、管住腰围——上游的上游，一样都不能少。</li>
+</ul>
+<div class="box warn"><p class="lab">请不要自己停药</p><p>很多病人出院后觉得好了，药就慢慢不吃了；也有人一听说“阿司匹林伤胃”“他汀伤肝”就停掉。药有副作用，要和医生商量怎样处理，而不是自己停。停药的那一天，保护也就停了。（编者的理解）</p></div>
+</section><section class="ch" id="rehab"><h2><span class="no">24</span>康复：慢慢走回来</h2>
+<p>中风以后，很多人要面对说话、走路、吃饭、穿衣的困难。康复是一条长路，需要病人、家属和医生一起走。</p>
+<p>康复要早，但不是越早、越猛越好。2015 年的 AVERT 研究在 5 个国家、2104 名中风病人身上，比较了两种做法：一组在发病 24 小时内就开始频繁、大量地下床活动，另一组按常规的护理。结果，<b>“越早越猛”的那一组，三个月后恢复得好的反而少了</b>（46% 对 50%）<a class="cite" id="r38-1" href="#s38" data-n="38">38</a>。所以什么时候开始、练多少，要听康复医生的安排。</p>
+<p>中风以后，心也会受伤。一项汇总 61 个研究、2.5 万人的分析发现：<b>中风以后约三分之一的人会出现抑郁</b><a class="cite" id="r39-1" href="#s39" data-n="39">39</a>。病人变得不爱说话、不想吃饭、不愿意练习，不一定是“懒”或“想不开”，可能是抑郁，需要告诉医生。</p>
+<div class="box"><p class="lab">给照顾的家人（编者整理）</p><ul>
+<li>照顾中风的病人，是一件很累的事。照顾的人也需要休息、需要别人帮忙。</li>
+<li>多鼓励，少替他做他自己还能做的事；一点一点的进步，都值得高兴。</li>
+<li>留意吞咽：吃饭喝水容易呛的，要请医生或康复师指导吃什么、怎样吃。</li>
+<li>家里防跌倒：走道通畅、浴室防滑、夜里留一盏小灯。</li>
+<li>教会的弟兄姊妹可以轮流探访、帮忙，让照顾的人喘一口气。</li>
+</ul></div>
+<blockquote class="verse"><p>你们各人的重担要互相担当，如此，就完全了基督的律法。</p><cite>加拉太书 6:2</cite></blockquote>
+</section><div class="part" id="part6"><span>第六部分</span><b>中医和自然疗法：哪些有证据</b></div><section class="ch" id="tcm"><h2><span class="no">25</span>中医药：安宫牛黄丸、针灸和中成药</h2>
+<p>在中国，中风以后用中药、针灸的人非常多。它们到底有没有用？我们按证据一个个看。</p>
+<p><b>安宫牛黄丸。</b>很多家庭把它当作中风的“救命药”，有的人甚至平时就买来备着。研究的情况是这样的：</p>
+<ul>
+<li>中文期刊里有不少小型试验和汇总分析，报告它能改善“有效率”和神经功能评分，但汇总的作者自己也说，这些研究的方法学质量不高，结论需要更多高质量研究来验证<a class="cite" id="r40-1" href="#s40" data-n="40">40</a><a class="cite" id="r41-1" href="#s41" data-n="41">41</a>。</li>
+<li>2021 到 2022 年，中国 17 家医院做了一个随机、双盲、有安慰剂对照的试点试验（ANGONG 试验），给 117 名中重度缺血性中风的病人连用 5 天：14 天时，脑梗死和脑水肿的体积，两组没有显著差别；血里的汞和砷的变化两组差不多<a class="cite" id="r40-2" href="#s40" data-n="40">40</a>。</li>
+<li>2026 年一篇按国际标准（GRADE）评价中药随机试验的系统综述认为：安宫牛黄丸<b>没有显示出明确的差别</b><a class="cite" id="r41-2" href="#s41" data-n="41">41</a>。</li>
+</ul>
+<p>安宫牛黄丸的传统配方里含有朱砂和雄黄，也就是含汞、含砷的矿物。上面那个试验用了 5 天，没有看到汞和砷明显升高<a class="cite" id="r40-3" href="#s40" data-n="40">40</a>，但长期或反复服用是否安全，还缺少研究。（编者的理解）</p>
+<p><b>针灸。</b>国际循证医学协作组织（Cochrane）2018 年的系统综述，汇总了 33 个随机试验、近 4000 名急性中风病人。和“不扎针”的对照比，针灸组看起来好一些；可是<b>和“假针刺”比较时，这些好处都没有得到确认</b>，证据质量为低或很低。针灸的副作用一般较轻<a class="cite" id="r42-1" href="#s42" data-n="42">42</a>。</p>
+<p><b>丹参类制剂。</b>Cochrane 的系统综述只找到 6 个质量很差的试验，认为不能得出可靠的结论<a class="cite" id="r43-1" href="#s43" data-n="43">43</a>。</p>
+<p><b>NeuroAiD（一种中成药胶囊）。</b>在亚洲多国做的 CHIMES 研究，1100 名病人随机双盲，三个月后和安慰剂没有差别<a class="cite" id="r44-1" href="#s44" data-n="44">44</a>。</p>
+<p>也有一些中成药有了较大的随机试验支持。前面那篇 2026 年的综述，找到 9 个随机试验、1.2 万多名病人：例如<b>通心络</b>和<b>三七总皂苷</b>，在急性期的单个大型试验里改善了三个月时的功能；<b>脑心通</b>和<b>灯盏生脉</b>在预防复发的试验里减少了再次中风。但综述的作者强调：这些结果各自只有一个试验，还没有被重复验证，证据确定性从中等到很低，安全性报告也不完整，<b>还不足以支持常规使用</b>，更不能说明“中药”整体有效<a class="cite" id="r41-3" href="#s41" data-n="41">41</a>。</p>
+<p>还有一个值得一提的例子：<b>丁苯酞</b>。它最初来自芹菜籽里的一种成分，现在是人工合成的药。2023 年的 BAST 研究在中国 59 家医院、1216 名接受了溶栓或取栓的病人身上做了随机、双盲、安慰剂对照试验：三个月后恢复良好的，丁苯酞组 56.7%，安慰剂组 44.0%<a class="cite" id="r45-1" href="#s45" data-n="45">45</a>。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 8</b><span>各种治疗和做法，证据有多硬：一级一级的台阶</span></figcaption><svg viewBox="0 0 400 392" class="dg" role="img" aria-labelledby="stlt stld">
+<title id="stlt">各种治疗和做法，证据有多硬：一级一级的台阶</title>
+<desc id="stld">编者按本篇引用的研究整理。最上面一级，是大型随机对照试验反复证实的：发病后及时溶栓、取栓；控制血压；房颤用抗凝药；他汀和抗血小板药预防再次中风；少盐、不吸烟、多动这些生活方式。第二级，是有一个或几个大型随机试验支持、但还需要更多验证的：例如丁苯酞、通心络、三七总皂苷；降压药加叶酸（在叶酸偏低的中国人群）。第三级，是试验质量偏低、结论不确定的：针灸（和假针刺比较时没有确认效果）、丹参制剂、安宫牛黄丸。最下面一级，是没有可靠证据、而且可能耽误抢救的：掐人中、十指放血、等一等看看、春秋两季“输液通血管”。</desc>
+<rect x="8" y="12" width="384" height="70" rx="12" class="f1 fillc" opacity=".3"/>
+<rect x="8" y="12" width="384" height="70" rx="12" class="cn f1" style="--c:var(--c1);fill:none"/>
+<text x="22.0" y="34.0" class="tn" text-anchor="start">1　反复证实（多个大型随机试验）</text>
+<text x="22.0" y="54.0" class="tw" text-anchor="start">及时溶栓、取栓 · 控制血压 · 房颤抗凝</text>
+<text x="22.0" y="70.0" class="tw" text-anchor="start">他汀和抗血小板 · 少盐、不吸烟、多动</text>
+<rect x="26" y="94" width="348" height="70" rx="12" class="f3 fillc" opacity=".3"/>
+<rect x="26" y="94" width="348" height="70" rx="12" class="cn f3" style="--c:var(--c3);fill:none"/>
+<text x="40.0" y="116.0" class="tn" text-anchor="start">2　有大型试验支持，还要更多验证</text>
+<text x="40.0" y="136.0" class="tw" text-anchor="start">丁苯酞 · 通心络、三七总皂苷</text>
+<text x="40.0" y="152.0" class="tw" text-anchor="start">降压药加叶酸（叶酸偏低的人群）</text>
+<rect x="44" y="176" width="312" height="70" rx="12" class="f4 fillc" opacity=".3"/>
+<rect x="44" y="176" width="312" height="70" rx="12" class="cn f4" style="--c:var(--c4);fill:none"/>
+<text x="58.0" y="198.0" class="tn" text-anchor="start">3　试验质量偏低，结论不确定</text>
+<text x="58.0" y="218.0" class="tw" text-anchor="start">针灸（对照假针刺时没有确认）· 丹参制剂</text>
+<text x="58.0" y="234.0" class="tw" text-anchor="start">安宫牛黄丸</text>
+<rect x="62" y="258" width="276" height="70" rx="12" class="f6 fillc" opacity=".3"/>
+<rect x="62" y="258" width="276" height="70" rx="12" class="cn f6" style="--c:var(--c6);fill:none"/>
+<text x="76.0" y="280.0" class="tn" text-anchor="start">4　没有可靠证据，还会耽误时间</text>
+<text x="76.0" y="300.0" class="tw" text-anchor="start">掐人中 · 十指放血 · 等等看、睡一觉</text>
+<text x="76.0" y="316.0" class="tw" text-anchor="start">春秋“输液通血管”</text>
+<text x="200.0" y="352.0" class="tw" text-anchor="middle">评价一种疗法，不看它是“中”是“西”、“天然”还是“化学”，</text>
+<text x="200.0" y="370.0" class="tw" text-anchor="middle">只看它有没有经过公平的比较、对病人有没有真实的好处</text>
+<text x="200.0" y="388.0" class="ts" text-anchor="middle">编者按本篇引用的研究整理</text>
+</svg></figure>
+<div class="box"><p class="lab">编者的理解</p><p>这一章想说的不是“中医好”或“中医不好”，而是：<b>评价一种疗法，不看它是“中”是“西”、“天然”还是“化学”，只看它有没有经过公平的比较、对病人有没有真实的好处。</b>丁苯酞从芹菜籽来，经过严格的试验，就有了证据；而一些用了几百年的方子，在严格的试验里还没有显出明确的效果。</p><p>所以，如果医生在规范治疗的基础上给你开了中成药，可以问一问：这个药有没有大型随机试验？会不会和我的抗血小板药、抗凝药相互作用？<b>任何中药，都不能代替溶栓、取栓、降压、抗血小板这些已经证实有效的治疗。</b></p></div>
+</section><section class="ch" id="natural"><h2><span class="no">26</span>自然疗法：哪些真的有用</h2>
+<p>“自然疗法”这四个字，在中国很受欢迎，意思却很杂。有的是真正有证据的生活方式，有的是没有根据、甚至有害的偏方。我们把它分成两类来看。</p>
+<p><b>有证据的“自然疗法”</b>，其实就是前面讲过的那些：</p>
+<ul>
+<li>少盐，换用代用盐：中风少 14%<a class="cite" id="r28-3" href="#s28" data-n="28">28</a>。</li>
+<li>多吃新鲜水果蔬菜、豆类、坚果，用好的植物油：观察研究和随机试验都支持<a class="cite" id="r29-2" href="#s29" data-n="29">29</a><a class="cite" id="r30-3" href="#s30" data-n="30">30</a>。</li>
+<li>规律运动、管住腰围：和中风风险降低有关<a class="cite" id="r15-12" href="#s15" data-n="15">15</a>。</li>
+<li>不吸烟、不喝酒<a class="cite" id="r17-5" href="#s17" data-n="17">17</a>。</li>
+<li>叶酸偏低的高血压病人，在医生指导下补充叶酸<a class="cite" id="r35-2" href="#s35" data-n="35">35</a>。</li>
+</ul>
+<p>它们不花钱或很少花钱，副作用很小，而且一样做下去，血压、血糖、血脂常常一起变好。<b>这才是最值得推荐的“自然疗法”。</b></p>
+<p><b>没有可靠证据的</b>，常见的有：</p>
+<ul>
+<li><b>每年春秋两季去“输液通血管”。</b>在中国一些地方，很多老人每年定时去输几天“活血化瘀”的液体，说是能预防中风。编者在 PubMed 上没有找到支持这种做法的随机对照试验；输液本身还有过敏、感染等风险，也给心脏增加负担。预防中风，靠的是每天的降压药、降脂药和生活方式，而不是一年输几天液。（编者的理解）</li>
+<li><b>放血、拍打、刮痧“通经络”治中风。</b>没有可靠的研究支持；对正在吃抗血小板药、抗凝药的人，还可能引起出血或淤青。（编者的理解）</li>
+<li><b>各种“通血管”“溶血栓”的保健品。</b>它们不是药，没有经过像药物那样的试验；有的还可能非法添加药物成分。</li>
+</ul>
+<div class="box"><p class="lab">编者的理解</p><p>“天然”不等于“安全”，也不等于“有效”。同样，“有效”的东西，常常就藏在最平凡的地方：一把盐少放一点，一顿饭多一份蔬菜，一天多走半小时。上帝赐给我们的“自然疗法”，大多就在饭桌上和脚底下。</p></div>
+</section><div class="part" id="part7"><span>第七部分</span><b>结语与问答</b></div><section class="ch" id="plan"><h2><span class="no">27</span>一张预防中风的清单</h2>
+<p>把前面讲的放在一起，按你现在所处的位置，大致可以这样做（编者整理；已经在用药的人，请和医生一起调整）：</p>
+<div class="tblwrap"><table class="mini stbl"><thead><tr><th>你现在</th><th>最重要的几件事</th></tr></thead><tbody>
+<tr><td>年轻、各项正常</td><td>每年量一次血压；不吸烟、少喝酒；少盐、多吃蔬菜水果；规律运动、管住腰围；学会“中风 120”</td></tr>
+<tr><td>有高血压</td><td>按时吃药、在家量血压，把血压控制到医生定的目标；少盐或用代用盐（先问医生）；减重、运动、戒酒</td></tr>
+<tr><td>有糖尿病、高血脂</td><td>按医生意见控制血糖、血脂；三高往往同一个根，生活方式一起改</td></tr>
+<tr><td>65 岁以上，或有心慌、脉搏不齐</td><td>请医生查一次心电图，看有没有房颤；有房颤的，和医生商量抗凝</td></tr>
+<tr><td>吃素或基本吃素</td><td>吃得均衡；纯素食者注意维生素 B12；营养吃够</td></tr>
+<tr><td>出现过“小中风”</td><td>当天去医院；按医生意见用药；之后按二级预防长期管理</td></tr>
+<tr><td>得过中风</td><td>长期按时吃药，不自己停药；按康复医生的安排练习；留意情绪和吞咽；全家学会“中风 120”</td></tr>
+</tbody></table></div>
+<div class="box warn"><p class="lab">无论哪一种，都要记住</p><p>看一张脸、查两只胳膊、听说话，再加上走路不稳、眼睛看不清：<b>有一项，就打 120。</b></p></div>
+</section><section class="ch" id="bible"><h2><span class="no">28</span>通达人见祸藏躲</h2>
+<p>箴言里有一句话，很像是为预防写的：</p>
+<blockquote class="verse"><p>通达人见祸藏躲；愚蒙人前往受害。</p><cite>箴言 22:3</cite></blockquote>
+<p>“见祸藏躲”，不是害怕，而是看得见远处的危险，提前绕开。中风的“祸”，往往在几十年前就已经露出了苗头：一个偏高的血压，一根戒不掉的烟，一个越来越粗的腰围。通达的人，看得见这些苗头。</p>
+<p>摩西在诗篇里祷告说：</p>
+<blockquote class="verse"><p>求你指教我们怎样数算自己的日子，好叫我们得着智慧的心。</p><cite>诗篇 90:12</cite></blockquote>
+<p>数算自己的日子，不是为了怕死，而是为了好好地用上帝所赐的每一天。照顾身体，也是数算日子的一部分。（编者的理解）</p>
+<p>保罗提醒哥林多的信徒，身体是圣灵的殿：</p>
+<blockquote class="verse"><p><sup>19</sup>岂不知你们的身子就是圣灵的殿吗？这圣灵是从上帝而来，住在你们里头的；并且你们不是自己的人，<sup>20</sup>因为你们是重价买来的。所以，要在你们的身子上荣耀上帝。</p><cite>哥林多前书 6:19—20</cite></blockquote>
+<p>这一篇讲了很多数字。但这些数字背后，是一个个家庭：一位不能再叫出孙子名字的爷爷，一位每天给老伴喂饭的奶奶。愿我们在还来得及的时候，在上游多做一点；也愿我们在下游的家庭里，多伸出一双手。</p>
+</section><section class="ch" id="hope"><h2><span class="no">29</span>回到那个早晨</h2>
+<p>回到开头的王阿姨。</p>
+<p>如果那天早上，家里人知道“中风 120”，看到她拿不住筷子、说话含糊，马上打了 120，告诉医生“早上六点半起床时就这样了”；如果她平时把降压药按时吃、把盐少放一点；如果几个月前那次手麻了半小时，她就去了医院——事情也许会很不一样。</p>
+<p>这就是本篇想说的全部：</p>
+<ul>
+<li>中风看起来突然，其实大多是一条走了几十年的路。它是下游。</li>
+<li>上游是高血压、房颤、血脂异常、糖尿病、吸烟和喝酒；上游的上游是盐、饭桌、运动、腰围、睡眠和压力。约九成的中风，和这些可以改变的因素有关。</li>
+<li>发病时，认出“中风 120”，立刻打 120，记下时间；不要掐人中、放血、喂药、等一等。</li>
+<li>小中风是最响的警报，当天就要去医院。</li>
+<li>中风以后，按时吃药，耐心康复，也照顾好心情。</li>
+<li>中医药和各种自然疗法，要看证据：最有证据的“自然疗法”，就是少盐、多蔬果、多动、不吸烟、不喝酒。</li>
+</ul>
+<p>如果你家里有高血压的老人，今天就可以做两件事：帮他量一次血压，教全家人学会“中风 120”。</p>
+<p class="note2">本篇是健康科普，不能代替医生的诊断和处方。文中的研究结论都转述自已发表的论文摘要，出处见文末。</p>
+</section><section class="ch" id="faq"><h2><span class="no">30</span>常见问题</h2><div class="faq"><details><summary>怀疑家里人中风，能先给他吃一片阿司匹林吗？</summary><div><p>不要自己给。中风分堵了和破了两种，从外表分不出来，只有 CT 或核磁共振才能分清；如果是脑出血，吃阿司匹林可能加重出血。病人吞咽不好，还可能呛着。正确的做法是立刻打 120，记下发病时间。中国医院收治的中风里，约 15% 是脑出血<a class="cite" id="r1-8" href="#s1" data-n="1">1</a>。</p></div></details><details><summary>安宫牛黄丸要不要在家里备着，中风时先吃一颗？</summary><div><p>现有的随机试验没有确认它能改善中风的结局<a class="cite" id="r41-4" href="#s41" data-n="41">41</a><a class="cite" id="r40-4" href="#s40" data-n="40">40</a>；在 CT 以前给病人吃任何药都可能帮倒忙，还会耽误时间。比备药更重要的，是全家学会“中风 120”。</p></div></details><details><summary>“小中风”几分钟就好了，还要去医院吗？</summary><div><p>一定要，而且最好当天。小中风以后头几天再中风的风险最高；英国的研究显示，当天评估、立即用药，90 天内再次中风从 10.3% 降到 2.1%<a class="cite" id="r18-2" href="#s18" data-n="18">18</a>。</p></div></details><details><summary>每年春秋去医院输几天液，能预防中风吗？</summary><div><p>编者没有找到支持这种做法的随机对照试验。预防中风靠的是长期控制血压、血脂、血糖，治疗房颤，加上少盐、运动、戒烟限酒这些每天的功课。</p></div></details><details><summary>降压药吃了好几年，血压正常了，能停吗？</summary><div><p>不要自己停。血压正常，很可能正是药在起作用。中国农村的试验里，把血压降下来的村子，中风少了约三分之一<a class="cite" id="r23-3" href="#s23" data-n="23">23</a>。想减药，要和医生一起观察调整。</p></div></details><details><summary>听说抗凝药容易出血，房颤病人能不能只吃阿司匹林？</summary><div><p>对房颤来说，抗凝药减少中风约 64%，阿司匹林这类药只减少约 22%<a class="cite" id="r25-3" href="#s25" data-n="25">25</a>。出血风险需要医生评估、定期复查，但不要因为害怕就放弃更有效的保护。</p></div></details><details><summary>针灸对中风后的恢复有没有用？</summary><div><p>和假针刺比较的试验里，针灸改善急性中风结局的效果没有得到确认，证据质量为低或很低<a class="cite" id="r42-2" href="#s42" data-n="42">42</a>。想做针灸，可以在规范的康复治疗之外，和医生商量，但不要用它代替康复训练和药物。</p></div></details><details><summary>吃素的人是不是更不容易中风？</summary><div><p>研究结果不完全一致：台湾慈济的研究里，吃素的人中风较少<a class="cite" id="r34-3" href="#s34" data-n="34">34</a>；英国的研究里，吃素的人出血性中风反而多一点<a class="cite" id="r33-2" href="#s33" data-n="33">33</a>。吃素要吃得均衡，纯素食者注意维生素 B12。</p></div></details></div></section>
+<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div></div><section class="ch" id="sources"><h2><span class="no">✦</span>资料出处</h2>
+<p>本页引用的医学研究和指南，都在 PubMed（美国国家医学图书馆的文献库）上核对过摘要，附 DOI 或 PubMed 链接；本页只转述摘要和指南里的结论，数字以原文为准。外文引文的中文都是编者所译。经文用和合本。</p>
+<p class="note2">资料在 2026 年 10 月逐一核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
+<ol class="srcs"><li id="s1" data-k="st_tu23r"><span class="sk">学术研究</span><span class="sd">Tu WJ, Wang LD; Special Writing Group of China Stroke Surveillance Report. China stroke surveillance report 2021. Mil Med Res 2023;10(1):33（PubMed 37468952）</span><a class="su" href="https://doi.org/10.1186/s40779-023-00463-x" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a><a href="#r1-3" aria-label="回到正文第3处">↑</a><a href="#r1-4" aria-label="回到正文第4处">↑</a><a href="#r1-5" aria-label="回到正文第5处">↑</a><a href="#r1-6" aria-label="回到正文第6处">↑</a><a href="#r1-7" aria-label="回到正文第7处">↑</a><a href="#r1-8" aria-label="回到正文第8处">↑</a></span></li><li id="s2" data-k="st_zhou19"><span class="sk">学术研究</span><span class="sd">Zhou M, et al. Mortality, morbidity, and risk factors in China and its provinces, 1990-2017: a systematic analysis for the Global Burden of Disease Study 2017. Lancet 2019;394(10204):1145-58（PubMed 31248666）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(19)30427-1" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a><a href="#r2-2" aria-label="回到正文第2处">↑</a></span></li><li id="s3" data-k="st_tu23"><span class="sk">学术研究</span><span class="sd">Tu WJ, et al. Estimated Burden of Stroke in China in 2020. JAMA Netw Open 2023;6(3):e231455（2020 年全国 31 省 676,394 名 40 岁以上成年人；PubMed 36862407）</span><a class="su" href="https://doi.org/10.1001/jamanetworkopen.2023.1455" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a><a href="#r3-2" aria-label="回到正文第2处">↑</a><a href="#r3-3" aria-label="回到正文第3处">↑</a></span></li><li id="s4" data-k="st_wang17"><span class="sk">学术研究</span><span class="sd">Wang W, et al (NESS-China). Prevalence, Incidence, and Mortality of Stroke in China: Results from a Nationwide Population-Based Survey of 480 687 Adults. Circulation 2017;135(8):759-71（2013 年全国调查；PubMed 28052979）</span><a class="su" href="https://doi.org/10.1161/CIRCULATIONAHA.116.025250" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a><a href="#r4-2" aria-label="回到正文第2处">↑</a><a href="#r4-3" aria-label="回到正文第3处">↑</a><a href="#r4-4" aria-label="回到正文第4处">↑</a></span></li><li id="s5" data-k="st_gbd21"><span class="sk">学术研究</span><span class="sd">GBD 2021 Stroke Risk Factor Collaborators. Global, regional, and national burden of stroke and its risk factors, 1990-2021. Lancet Neurol 2024;23(10):973-1003（PubMed 39304265）</span><a class="su" href="https://doi.org/10.1016/S1474-4422(24)00369-7" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a><a href="#r5-2" aria-label="回到正文第2处">↑</a><a href="#r5-3" aria-label="回到正文第3处">↑</a></span></li><li id="s6" data-k="st_saver06"><span class="sk">学术研究</span><span class="sd">Saver JL. Time is brain—quantified. Stroke 2006;37(1):263-6（PubMed 16339467）</span><a class="su" href="https://doi.org/10.1161/01.STR.0000196957.55928.ab" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a></span></li><li id="s7" data-k="st_zhao17"><span class="sk">学术研究</span><span class="sd">Zhao J, Liu R. Stroke 1-2-0: a rapid response programme for stroke in China. Lancet Neurol 2017;16(1):27-8（PubMed 28029517）</span><a class="su" href="https://doi.org/10.1016/S1474-4422(16)30283-6" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="st_aroor17"><span class="sk">学术研究</span><span class="sd">Aroor S, Singh R, Goldstein LB. BE-FAST (Balance, Eyes, Face, Arm, Speech, Time): Reducing the Proportion of Strokes Missed Using the FAST Mnemonic. Stroke 2017;48(2):479-81（PubMed 28082668）</span><a class="su" href="https://doi.org/10.1161/STROKEAHA.116.015169" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li><li id="s9" data-k="st_su25"><span class="sk">学术研究</span><span class="sd">Su Y, et al. Analysis of prehospital delay in acute ischaemic stroke and its influencing factors: a multicentre prospective case registry study in China. Stroke Vasc Neurol 2025;10(5):637-47（2022 年 21 家医院、12,484 人；PubMed 40037663）</span><a class="su" href="https://doi.org/10.1136/svn-2024-003535" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a><a href="#r9-2" aria-label="回到正文第2处">↑</a><a href="#r9-3" aria-label="回到正文第3处">↑</a></span></li><li id="s10" data-k="st_gu19"><span class="sk">学术研究</span><span class="sd">Gu HQ, et al (Chinese Stroke Center Alliance). Use of Emergency Medical Services and Timely Treatment Among Ischemic Stroke. Stroke 2019;50(4):1013-6（560,447 人；PubMed 30841820）</span><a class="su" href="https://doi.org/10.1161/STROKEAHA.118.024232" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a></span></li><li id="s11" data-k="st_emberson14"><span class="sk">学术研究</span><span class="sd">Emberson J, et al. Effect of treatment delay, age, and stroke severity on the effects of intravenous thrombolysis with alteplase for acute ischaemic stroke: a meta-analysis of individual patient data from randomised trials. Lancet 2014;384(9958):1929-35（9 个试验、6756 人；PubMed 25106063）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(14)60584-5" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a><a href="#r11-2" aria-label="回到正文第2处">↑</a><a href="#r11-3" aria-label="回到正文第3处">↑</a></span></li><li id="s12" data-k="st_wang23trace"><span class="sk">学术研究</span><span class="sd">Wang Y, et al. Tenecteplase versus alteplase in acute ischaemic cerebrovascular events (TRACE-2): a phase 3, multicentre, open-label, randomised controlled, non-inferiority trial. Lancet 2023;401(10377):645-54（中国 53 家医院、1430 人；PubMed 36774935）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(22)02600-9" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a><a href="#r12-2" aria-label="回到正文第2处">↑</a></span></li><li id="s13" data-k="st_goyal16"><span class="sk">学术研究</span><span class="sd">Goyal M, et al (HERMES). Endovascular thrombectomy after large-vessel ischaemic stroke: a meta-analysis of individual patient data from five randomised trials. Lancet 2016;387(10029):1723-31（1287 人；器械公司资助；PubMed 26898852）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(16)00163-X" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r13-1" aria-label="回到正文第1处">↑</a><a href="#r13-2" aria-label="回到正文第2处">↑</a></span></li><li id="s14" data-k="st_nogueira18"><span class="sk">学术研究</span><span class="sd">Nogueira RG, et al (DAWN). Thrombectomy 6 to 24 Hours after Stroke with a Mismatch between Deficit and Infarct. N Engl J Med 2018;378(1):11-21（206 人；器械公司资助；PubMed 29129157）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1706442" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r14-1" aria-label="回到正文第1处">↑</a><a href="#r14-2" aria-label="回到正文第2处">↑</a></span></li><li id="s15" data-k="st_odonnell16"><span class="sk">学术研究</span><span class="sd">O&#x27;Donnell MJ, et al. Global and regional effects of potentially modifiable risk factors associated with acute stroke in 32 countries (INTERSTROKE): a case-control study. Lancet 2016;388(10046):761-75（26,919 人；PubMed 27431356）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(16)30506-2" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r15-1" aria-label="回到正文第1处">↑</a><a href="#r15-2" aria-label="回到正文第2处">↑</a><a href="#r15-3" aria-label="回到正文第3处">↑</a><a href="#r15-4" aria-label="回到正文第4处">↑</a><a href="#r15-5" aria-label="回到正文第5处">↑</a><a href="#r15-6" aria-label="回到正文第6处">↑</a><a href="#r15-7" aria-label="回到正文第7处">↑</a><a href="#r15-8" aria-label="回到正文第8处">↑</a><a href="#r15-9" aria-label="回到正文第9处">↑</a><a href="#r15-10" aria-label="回到正文第10处">↑</a><a href="#r15-11" aria-label="回到正文第11处">↑</a><a href="#r15-12" aria-label="回到正文第12处">↑</a></span></li><li id="s16" data-k="st_wang22"><span class="sk">学术研究</span><span class="sd">Wang YJ, et al. China Stroke Statistics: an update on the 2019 report. Stroke Vasc Neurol 2022;7(5):415-50（PubMed 35443985）</span><a class="su" href="https://doi.org/10.1136/svn-2021-001374" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r16-1" aria-label="回到正文第1处">↑</a></span></li><li id="s17" data-k="st_millwood19"><span class="sk">学术研究</span><span class="sd">Millwood IY, et al (China Kadoorie Biobank). Conventional and genetic evidence on alcohol and vascular disease aetiology: a prospective study of 500 000 men and women in China. Lancet 2019;393(10183):1831-42（PubMed 30955975）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(18)31772-0" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r17-1" aria-label="回到正文第1处">↑</a><a href="#r17-2" aria-label="回到正文第2处">↑</a><a href="#r17-3" aria-label="回到正文第3处">↑</a><a href="#r17-4" aria-label="回到正文第4处">↑</a><a href="#r17-5" aria-label="回到正文第5处">↑</a></span></li><li id="s18" data-k="st_rothwell07"><span class="sk">学术研究</span><span class="sd">Rothwell PM, et al (EXPRESS). Effect of urgent treatment of transient ischaemic attack and minor stroke on early recurrent stroke: a prospective population-based sequential comparison. Lancet 2007;370(9596):1432-42（PubMed 17928046）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(07)61448-2" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r18-1" aria-label="回到正文第1处">↑</a><a href="#r18-2" aria-label="回到正文第2处">↑</a></span></li><li id="s19" data-k="st_wang13"><span class="sk">学术研究</span><span class="sd">Wang Y, et al (CHANCE). Clopidogrel with aspirin in acute minor stroke or transient ischemic attack. N Engl J Med 2013;369(1):11-9（中国 114 家医院、5170 人；PubMed 23803136）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1215340" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r19-1" aria-label="回到正文第1处">↑</a><a href="#r19-2" aria-label="回到正文第2处">↑</a></span></li><li id="s20" data-k="st_amarenco16"><span class="sk">学术研究</span><span class="sd">Amarenco P, et al (TIAregistry.org). One-Year Risk of Stroke after Transient Ischemic Attack or Minor Stroke. N Engl J Med 2016;374(16):1533-42（21 国 4789 人；药厂资助；PubMed 27096581）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1412981" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r20-1" aria-label="回到正文第1处">↑</a></span></li><li id="s21" data-k="st_reddin25"><span class="sk">学术研究</span><span class="sd">Reddin C, et al. Influence of age on the association of vascular risk factors with acute stroke (INTERSTROKE): a case-control study. Lancet Healthy Longev 2025;6(6):100709（PubMed 40617250）</span><a class="su" href="https://doi.org/10.1016/j.lanhl.2025.100709" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r21-1" aria-label="回到正文第1处">↑</a><a href="#r21-2" aria-label="回到正文第2处">↑</a><a href="#r21-3" aria-label="回到正文第3处">↑</a></span></li><li id="s22" data-k="ht_ettehad16"><span class="sk">学术研究</span><span class="sd">Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. Lancet 2016;387(10022):957-67（123 项研究 613,815 人；PubMed 26724178）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(15)01225-8" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r22-1" aria-label="回到正文第1处">↑</a></span></li><li id="s23" data-k="st_he23"><span class="sk">学术研究</span><span class="sd">He J, et al. Effectiveness of a non-physician community health-care provider-led intensive blood pressure intervention versus usual care on cardiovascular disease (CRHCP): an open-label, blinded-endpoint, cluster-randomised trial. Lancet 2023;401(10380):928-38（326 个村、33,995 人；PubMed 36871573）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(22)02603-4" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r23-1" aria-label="回到正文第1处">↑</a><a href="#r23-2" aria-label="回到正文第2处">↑</a><a href="#r23-3" aria-label="回到正文第3处">↑</a></span></li><li id="s24" data-k="st_du21"><span class="sk">学术研究</span><span class="sd">Du X, et al. Atrial fibrillation prevalence, awareness and management in a nationwide survey of adults in China. Heart 2021;107(7):535-41（2014—2016 年，47,841 名 45 岁以上成年人；PubMed 33509976）</span><a class="su" href="https://doi.org/10.1136/heartjnl-2020-317915" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r24-1" aria-label="回到正文第1处">↑</a><a href="#r24-2" aria-label="回到正文第2处">↑</a></span></li><li id="s25" data-k="st_hart07"><span class="sk">学术研究</span><span class="sd">Hart RG, Pearce LA, Aguilar MI. Meta-analysis: antithrombotic therapy to prevent stroke in patients who have nonvalvular atrial fibrillation. Ann Intern Med 2007;146(12):857-67（29 个试验、28,044 人；PubMed 17577005）</span><a class="su" href="https://doi.org/10.7326/0003-4819-146-12-200706190-00007" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r25-1" aria-label="回到正文第1处">↑</a><a href="#r25-2" aria-label="回到正文第2处">↑</a><a href="#r25-3" aria-label="回到正文第3处">↑</a></span></li><li id="s26" data-k="lp_ctt10"><span class="sk">学术研究</span><span class="sd">Cholesterol Treatment Trialists&#x27; (CTT) Collaboration. Efficacy and safety of more intensive lowering of LDL cholesterol: a meta-analysis of data from 170,000 participants in 26 randomised trials. Lancet 2010;376(9753):1670-81（PubMed 21067804）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(10)61350-5" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r26-1" aria-label="回到正文第1处">↑</a></span></li><li id="s27" data-k="st_sparcl06"><span class="sk">学术研究</span><span class="sd">Amarenco P, et al (SPARCL). High-dose atorvastatin after stroke or transient ischemic attack. N Engl J Med 2006;355(6):549-59（4731 人；PubMed 16899775）</span><a class="su" href="https://doi.org/10.1056/NEJMoa061894" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r27-1" aria-label="回到正文第1处">↑</a><a href="#r27-2" aria-label="回到正文第2处">↑</a></span></li><li id="s28" data-k="ht_neal21"><span class="sk">学术研究</span><span class="sd">Neal B, et al. Effect of Salt Substitution on Cardiovascular Events and Death (SSaSS). N Engl J Med 2021;385(12):1067-77（中国农村 600 个村 20,995 人；PubMed 34459569）</span><a class="su" href="https://doi.org/10.1056/NEJMoa2105675" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r28-1" aria-label="回到正文第1处">↑</a><a href="#r28-2" aria-label="回到正文第2处">↑</a><a href="#r28-3" aria-label="回到正文第3处">↑</a></span></li><li id="s29" data-k="st_du16"><span class="sk">学术研究</span><span class="sd">Du H, et al (China Kadoorie Biobank). Fresh Fruit Consumption and Major Cardiovascular Disease in China. N Engl J Med 2016;374(14):1332-43（451,665 人；PubMed 27050205）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1501451" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r29-1" aria-label="回到正文第1处">↑</a><a href="#r29-2" aria-label="回到正文第2处">↑</a></span></li><li id="s30" data-k="st_estruch18"><span class="sk">学术研究</span><span class="sd">Estruch R, et al (PREDIMED). Primary Prevention of Cardiovascular Disease with a Mediterranean Diet Supplemented with Extra-Virgin Olive Oil or Nuts. N Engl J Med 2018;378(25):e34（撤回 2013 年原文后重新分析发表，7447 人；PubMed 29897866）</span><a class="su" href="https://doi.org/10.1056/NEJMoa1800389" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r30-1" aria-label="回到正文第1处">↑</a><a href="#r30-2" aria-label="回到正文第2处">↑</a><a href="#r30-3" aria-label="回到正文第3处">↑</a></span></li><li id="s31" data-k="ht_pettersen12"><span class="sk">学术研究</span><span class="sd">Pettersen BJ, et al. Vegetarian diets and blood pressure among white subjects: results from the Adventist Health Study-2 (AHS-2). Public Health Nutr 2012;15(10):1909-16（PubMed 22230619）</span><a class="su" href="https://doi.org/10.1017/S1368980011003454" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r31-1" aria-label="回到正文第1处">↑</a></span></li><li id="s32" data-k="lp_orlich13"><span class="sk">学术研究</span><span class="sd">Orlich MJ, et al. Vegetarian dietary patterns and mortality in Adventist Health Study 2. JAMA Intern Med 2013;173(13):1230-8（73,308 人；PubMed 23836264）</span><a class="su" href="https://doi.org/10.1001/jamainternmed.2013.6473" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r32-1" aria-label="回到正文第1处">↑</a></span></li><li id="s33" data-k="st_tong19"><span class="sk">学术研究</span><span class="sd">Tong TYN, et al. Risks of ischaemic heart disease and stroke in meat eaters, fish eaters, and vegetarians over 18 years of follow-up: results from the prospective EPIC-Oxford study. BMJ 2019;366:l4897（48,188 人；PubMed 31484644）</span><a class="su" href="https://doi.org/10.1136/bmj.l4897" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r33-1" aria-label="回到正文第1处">↑</a><a href="#r33-2" aria-label="回到正文第2处">↑</a></span></li><li id="s34" data-k="st_chiu20"><span class="sk">学术研究</span><span class="sd">Chiu THT, et al. Vegetarian diet and incidence of total, ischemic, and hemorrhagic stroke in 2 cohorts in Taiwan. Neurology 2020;94(11):e1112-21（慈济两个队列；PubMed 32102976）</span><a class="su" href="https://doi.org/10.1212/WNL.0000000000009093" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r34-1" aria-label="回到正文第1处">↑</a><a href="#r34-2" aria-label="回到正文第2处">↑</a><a href="#r34-3" aria-label="回到正文第3处">↑</a></span></li><li id="s35" data-k="st_huo15"><span class="sk">学术研究</span><span class="sd">Huo Y, et al. Efficacy of folic acid therapy in primary prevention of stroke among adults with hypertension in China: the CSPPT randomized clinical trial. JAMA 2015;313(13):1325-35（20,702 人；PubMed 25771069）</span><a class="su" href="https://doi.org/10.1001/jama.2015.2274" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r35-1" aria-label="回到正文第1处">↑</a><a href="#r35-2" aria-label="回到正文第2处">↑</a></span></li><li id="s36" data-k="ht_lu17"><span class="sk">学术研究</span><span class="sd">Lu J, et al. Prevalence, awareness, treatment, and control of hypertension in China: data from 1·7 million adults (China PEACE Million Persons Project). Lancet 2017;390(10112):2549-58（PubMed 29102084）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(17)32478-9" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r36-1" aria-label="回到正文第1处">↑</a></span></li><li id="s37" data-k="st_progress01"><span class="sk">学术研究</span><span class="sd">PROGRESS Collaborative Group. Randomised trial of a perindopril-based blood-pressure-lowering regimen among 6,105 individuals with previous stroke or transient ischaemic attack. Lancet 2001;358(9287):1033-41（PubMed 11589932）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(01)06178-5" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r37-1" aria-label="回到正文第1处">↑</a></span></li><li id="s38" data-k="st_avert15"><span class="sk">学术研究</span><span class="sd">AVERT Trial Collaboration group. Efficacy and safety of very early mobilisation within 24 h of stroke onset (AVERT): a randomised controlled trial. Lancet 2015;386(9988):46-55（2104 人；PubMed 25892679）</span><a class="su" href="https://doi.org/10.1016/S0140-6736(15)60690-0" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r38-1" aria-label="回到正文第1处">↑</a></span></li><li id="s39" data-k="st_hackett14"><span class="sk">学术研究</span><span class="sd">Hackett ML, Pickles K. Part I: frequency of depression after stroke: an updated systematic review and meta-analysis of observational studies. Int J Stroke 2014;9(8):1017-25（61 项研究、25,488 人；PubMed 25117911）</span><a class="su" href="https://doi.org/10.1111/ijs.12357" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r39-1" aria-label="回到正文第1处">↑</a></span></li><li id="s40" data-k="st_li25ang"><span class="sk">学术研究</span><span class="sd">Li, et al. Safety and efficacy of Angong Niuhuang Pills in patients with moderate-to-severe acute ischemic stroke (ANGONG TRIAL): A randomized double-blind placebo-controlled pilot clinical trial. Chin Med J (Engl) 2025;138(5):579-88（17 家医院、117 人；PubMed 39501831）</span><a class="su" href="https://doi.org/10.1097/CM9.0000000000003133" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r40-1" aria-label="回到正文第1处">↑</a><a href="#r40-2" aria-label="回到正文第2处">↑</a><a href="#r40-3" aria-label="回到正文第3处">↑</a><a href="#r40-4" aria-label="回到正文第4处">↑</a></span></li><li id="s41" data-k="st_liu26"><span class="sk">学术研究</span><span class="sd">Liu, et al. Adjunctive traditional Chinese medicine for ischemic stroke: a systematic review with structured narrative synthesis and GRADE assessment of randomized controlled trials. Front Med (Lausanne) 2026;13:1884399（9 个随机试验、12,348 人；PubMed 42761006）</span><a class="su" href="https://doi.org/10.3389/fmed.2026.1884399" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r41-1" aria-label="回到正文第1处">↑</a><a href="#r41-2" aria-label="回到正文第2处">↑</a><a href="#r41-3" aria-label="回到正文第3处">↑</a><a href="#r41-4" aria-label="回到正文第4处">↑</a></span></li><li id="s42" data-k="st_xu18"><span class="sk">学术研究</span><span class="sd">Xu M, Li D, Zhang S. Acupuncture for acute stroke. Cochrane Database Syst Rev 2018;3:CD003317（33 个随机试验、3946 人；PubMed 29607495）</span><a class="su" href="https://doi.org/10.1002/14651858.CD003317.pub3" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r42-1" aria-label="回到正文第1处">↑</a><a href="#r42-2" aria-label="回到正文第2处">↑</a></span></li><li id="s43" data-k="st_wu07"><span class="sk">学术研究</span><span class="sd">Wu B, Liu M, Zhang S. Dan Shen agents for acute ischaemic stroke. Cochrane Database Syst Rev 2007;(2):CD004295（PubMed 17443544）</span><a class="su" href="https://doi.org/10.1002/14651858.CD004295.pub3" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r43-1" aria-label="回到正文第1处">↑</a></span></li><li id="s44" data-k="st_chen13"><span class="sk">学术研究</span><span class="sd">Chen CL, et al (CHIMES). Chinese medicine neuroaid efficacy on stroke recovery: a double-blind, placebo-controlled, randomized study. Stroke 2013;44(8):2093-100（1100 人；PubMed 23780952）</span><a class="su" href="https://doi.org/10.1161/STROKEAHA.113.002055" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r44-1" aria-label="回到正文第1处">↑</a></span></li><li id="s45" data-k="st_wang23nbp"><span class="sk">学术研究</span><span class="sd">Wang A, et al (BAST). Efficacy and Safety of Butylphthalide in Patients With Acute Ischemic Stroke: A Randomized Clinical Trial. JAMA Neurol 2023;80(8):851-9（中国 59 家医院、1216 人；PubMed 37358859）</span><a class="su" href="https://doi.org/10.1001/jamaneurol.2023.1871" target="_blank" rel="noopener">doi.org ↗</a><span class="sb"><a href="#r45-1" aria-label="回到正文第1处">↑</a></span></li></ol>
+</section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="hypertension.html"><span class="reln">健康 02</span><b>高血压，真的要吃一辈子药吗？</b><small>为什么老了血压高、为什么难断根、怎样少吃药和预防</small></a><a class="relc" href="lipid.html"><span class="reln">健康 03</span><b>高血脂，为什么总和高血压、高血糖一起来？</b><small>血脂是什么、三高共同的根、降脂药治什么、怎样预防</small></a><a class="relc" href="health.html"><span class="reln">问题彩蛋 21</span><b>抽烟、喝酒、吃什么，和信仰有关系吗？</b><small>复临信徒为什么不抽烟、不喝酒、不吃猪肉？耶稣不是把水变成酒吗？</small></a><a class="relc" href="joy.html"><span class="reln">问题彩蛋 14</span><b>喜乐的心，为什么是良药？</b><small>“忧伤的灵使骨枯干”是什么意思？想得多会长结节、得癌吗？为什么我们总往坏处想？写给姐妹和妈妈们</small></a></div></section><div class="scene"><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p><div class="stage"><svg class="sky" viewBox="0 0 180 56" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="km" d="M26 8h3v1h-3zM24 9h2v1h-2zM23 10h2v1h-2zM26 10h1v1h-1zM22 11h2v1h-2zM25 11h1v1h-1zM22 12h3v1h-3zM21 13h3v1h-3zM25 13h1v1h-1zM21 14h4v1h-4zM21 15h3v1h-3zM21 16h4v1h-4zM21 17h3v1h-3zM25 17h1v1h-1zM21 18h4v1h-4zM26 18h1v1h-1zM21 19h3v1h-3zM25 19h1v1h-1zM27 19h1v1h-1zM21 20h6v1h-6zM28 20h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM29 21h1v1h-1zM22 22h7v1h-7zM30 22h1v1h-1zM32 22h1v1h-1zM36 22h2v1h-2zM23 23h5v1h-5zM29 23h1v1h-1zM31 23h1v1h-1zM33 23h1v1h-1zM35 23h2v1h-2zM24 24h12v1h-12zM26 25h8v1h-8z"/><path class="kg" d="M122 0h1v1h-1zM121 1h3v1h-3zM122 2h1v1h-1zM139 4h1v1h-1zM82 5h1v1h-1zM138 5h3v1h-3zM81 6h3v1h-3zM139 6h1v1h-1zM82 7h1v1h-1zM144 8h1v1h-1zM146 8h1v1h-1zM148 8h1v1h-1zM109 9h1v1h-1zM146 9h1v1h-1zM108 10h3v1h-3zM142 10h1v1h-1zM145 10h3v1h-3zM150 10h1v1h-1zM109 11h1v1h-1zM143 11h7v1h-7zM145 12h3v1h-3zM146 13h1v1h-1zM65 14h1v1h-1zM146 14h1v1h-1zM64 15h3v1h-3zM65 16h1v1h-1zM144 16h1v1h-1zM148 16h1v1h-1zM164 18h1v1h-1zM163 19h3v1h-3zM164 20h1v1h-1zM2 28h1v1h-1zM1 29h3v1h-3zM2 30h1v1h-1z"/><path class="ks" d="M103 0h1v1h-1zM151 0h1v1h-1zM3 1h1v1h-1zM12 1h1v1h-1zM20 1h1v1h-1zM45 1h1v1h-1zM92 2h1v1h-1zM64 3h1v1h-1zM178 3h1v1h-1zM166 4h1v1h-1zM57 8h1v1h-1zM124 10h1v1h-1zM155 10h1v1h-1zM9 11h1v1h-1zM93 13h1v1h-1zM84 18h1v1h-1zM102 18h1v1h-1zM7 21h1v1h-1zM50 21h1v1h-1zM59 21h1v1h-1zM71 21h1v1h-1zM179 23h1v1h-1zM105 27h1v1h-1zM91 28h1v1h-1zM79 29h1v1h-1zM169 29h1v1h-1zM65 31h1v1h-1zM120 31h1v1h-1zM11 32h1v1h-1zM42 35h1v1h-1zM163 37h1v1h-1zM28 38h1v1h-1zM63 40h1v1h-1zM104 40h1v1h-1zM91 42h1v1h-1zM10 43h1v1h-1zM46 43h1v1h-1zM70 45h1v1h-1z"/><path class="kd" d="M52 44h1v1h-1zM56 44h1v1h-1zM60 44h1v1h-1zM64 44h1v1h-1zM68 44h1v1h-1zM72 44h1v1h-1zM76 44h1v1h-1zM80 44h1v1h-1zM84 44h1v1h-1zM88 44h1v1h-1zM92 44h1v1h-1zM96 44h1v1h-1zM100 44h1v1h-1zM104 44h1v1h-1zM108 44h1v1h-1zM112 44h1v1h-1zM116 44h1v1h-1zM120 44h1v1h-1zM124 44h1v1h-1zM128 44h1v1h-1zM132 44h1v1h-1zM136 44h1v1h-1zM140 44h1v1h-1zM144 44h1v1h-1zM148 44h1v1h-1zM152 44h1v1h-1zM156 44h1v1h-1zM160 44h1v1h-1zM164 44h1v1h-1zM168 44h1v1h-1zM172 44h1v1h-1zM74 46h1v1h-1zM78 46h1v1h-1zM82 46h1v1h-1zM86 46h1v1h-1zM90 46h1v1h-1zM94 46h1v1h-1zM98 46h1v1h-1zM102 46h1v1h-1zM106 46h1v1h-1zM110 46h1v1h-1zM114 46h1v1h-1zM118 46h1v1h-1zM122 46h1v1h-1zM126 46h1v1h-1zM130 46h1v1h-1zM134 46h1v1h-1zM138 46h1v1h-1zM142 46h1v1h-1zM146 46h1v1h-1zM150 46h1v1h-1zM32 48h1v1h-1zM36 48h1v1h-1zM40 48h1v1h-1zM44 48h1v1h-1zM48 48h1v1h-1zM52 48h1v1h-1zM56 48h1v1h-1zM60 48h1v1h-1zM64 48h1v1h-1zM68 48h1v1h-1zM72 48h1v1h-1zM76 48h1v1h-1zM78 48h1v1h-1zM80 48h1v1h-1zM82 48h1v1h-1zM84 48h1v1h-1zM86 48h1v1h-1zM88 48h1v1h-1zM90 48h1v1h-1zM92 48h1v1h-1zM94 48h1v1h-1zM96 48h1v1h-1zM98 48h1v1h-1zM100 48h1v1h-1zM102 48h1v1h-1zM104 48h1v1h-1zM106 48h1v1h-1zM108 48h1v1h-1zM110 48h1v1h-1zM112 48h1v1h-1zM114 48h1v1h-1zM116 48h1v1h-1zM118 48h1v1h-1zM120 48h1v1h-1zM122 48h1v1h-1zM124 48h1v1h-1zM126 48h1v1h-1zM128 48h1v1h-1zM130 48h1v1h-1zM132 48h1v1h-1zM134 48h1v1h-1zM136 48h1v1h-1zM138 48h1v1h-1zM140 48h1v1h-1zM142 48h1v1h-1zM144 48h1v1h-1zM148 48h1v1h-1zM152 48h1v1h-1zM156 48h1v1h-1zM160 48h1v1h-1zM164 48h1v1h-1zM168 48h1v1h-1zM172 48h1v1h-1zM176 48h1v1h-1zM105 49h1v1h-1zM109 49h1v1h-1zM113 49h1v1h-1zM117 49h1v1h-1z"/><path class="kh" d="M0 50h1v1h-1zM2 50h1v1h-1zM4 50h1v1h-1zM6 50h1v1h-1zM8 50h1v1h-1zM10 50h1v1h-1zM12 50h1v1h-1zM14 50h1v1h-1zM16 50h1v1h-1zM18 50h1v1h-1zM20 50h1v1h-1zM22 50h1v1h-1zM24 50h1v1h-1zM26 50h1v1h-1zM28 50h1v1h-1zM30 50h1v1h-1zM32 50h1v1h-1zM34 50h1v1h-1zM36 50h1v1h-1zM38 50h1v1h-1zM40 50h1v1h-1zM42 50h1v1h-1zM44 50h1v1h-1zM46 50h1v1h-1zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM54 50h1v1h-1zM56 50h1v1h-1zM58 50h1v1h-1zM60 50h1v1h-1zM62 50h1v1h-1zM64 50h1v1h-1zM66 50h1v1h-1zM68 50h1v1h-1zM70 50h1v1h-1zM72 50h1v1h-1zM74 50h1v1h-1zM76 50h1v1h-1zM78 50h1v1h-1zM80 50h1v1h-1zM82 50h1v1h-1zM84 50h1v1h-1zM86 50h1v1h-1zM88 50h1v1h-1zM90 50h1v1h-1zM92 50h1v1h-1zM94 50h1v1h-1zM96 50h1v1h-1zM98 50h1v1h-1zM100 50h1v1h-1zM102 50h1v1h-1zM104 50h1v1h-1zM106 50h1v1h-1zM108 50h1v1h-1zM110 50h1v1h-1zM112 50h1v1h-1zM114 50h1v1h-1zM116 50h1v1h-1zM118 50h1v1h-1zM120 50h1v1h-1zM122 50h1v1h-1zM124 50h1v1h-1zM126 50h1v1h-1zM128 50h1v1h-1zM130 50h1v1h-1zM132 50h1v1h-1zM134 50h1v1h-1zM136 50h1v1h-1zM138 50h1v1h-1zM140 50h1v1h-1zM142 50h1v1h-1zM144 50h1v1h-1zM146 50h1v1h-1zM148 50h1v1h-1zM150 50h1v1h-1zM152 50h1v1h-1zM154 50h1v1h-1zM156 50h1v1h-1zM158 50h1v1h-1zM160 50h1v1h-1zM162 50h1v1h-1zM164 50h1v1h-1zM166 50h1v1h-1zM168 50h1v1h-1zM170 50h1v1h-1zM172 50h1v1h-1zM174 50h1v1h-1zM176 50h1v1h-1zM178 50h1v1h-1z"/></svg><svg class="lamb" data-on="eo ld rd" data-enter="joy" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></div></div>
+<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　健康栏目 · 健康科普，不能代替医生的诊断和处方</p><p><a href="./#health">← 回到健康</a>　<a href="./#home">学课目录</a></p></footer>
+</main>
+</div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>一个平常的早晨</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li><li><a href="#what"><span class="tn">03</span>中风是什么：堵了，或者破了</a></li><li><a href="#minute"><span class="tn">04</span>每一分钟，都在失去</a></li></ol></li><li><span class="tp">第二部分 · 发病的那一刻：和时间赛跑</span><ol><li><a href="#signs"><span class="tn">05</span>认出中风：“中风 120”</a></li><li><a href="#call"><span class="tn">06</span>第一件事：打 120</a></li><li><a href="#myths"><span class="tn">07</span>这些做法，只会耽误时间</a></li><li><a href="#hospital"><span class="tn">08</span>到了医院：溶栓和取栓</a></li><li><a href="#bleed"><span class="tn">09</span>如果是脑出血</a></li><li><a href="#tia"><span class="tn">10</span>“小中风”：最响的一次警报</a></li></ol></li><li><span class="tp">第三部分 · 上游：把人推向中风的几种病</span><ol><li><a href="#river"><span class="tn">11</span>一条河：下游、上游、上游的上游</a></li><li><a href="#ninety"><span class="tn">12</span>九成和这十件事有关</a></li><li><a href="#bp"><span class="tn">13</span>第一大上游：高血压</a></li><li><a href="#af"><span class="tn">14</span>心脏里的血块：房颤</a></li><li><a href="#vessel"><span class="tn">15</span>血管里的“垢”：血脂、血糖、吸烟</a></li><li><a href="#alcohol"><span class="tn">16</span>喝点酒，能“活血”吗</a></li></ol></li><li><span class="tp">第四部分 · 上游的上游：几十年的生活和环境</span><ol><li><a href="#roots"><span class="tn">17</span>上游的上游：几十年的生活</a></li><li><a href="#salt"><span class="tn">18</span>中国人的盐</a></li><li><a href="#food"><span class="tn">19</span>饭桌：水果、蔬菜、坚果和好油</a></li><li><a href="#veg"><span class="tn">20</span>吃素的人，要注意什么</a></li><li><a href="#move"><span class="tn">21</span>动起来、管住腰围、放下重担</a></li><li><a href="#young"><span class="tn">22</span>年轻人和中年人：从现在开始</a></li></ol></li><li><span class="tp">第五部分 · 中风以后：不再中第二次，慢慢走回来</span><ol><li><a href="#again"><span class="tn">23</span>不再中第二次</a></li><li><a href="#rehab"><span class="tn">24</span>康复：慢慢走回来</a></li></ol></li><li><span class="tp">第六部分 · 中医和自然疗法：哪些有证据</span><ol><li><a href="#tcm"><span class="tn">25</span>中医药：安宫牛黄丸、针灸和中成药</a></li><li><a href="#natural"><span class="tn">26</span>自然疗法：哪些真的有用</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#plan"><span class="tn">27</span>一张预防中风的清单</a></li><li><a href="#bible"><span class="tn">28</span>通达人见祸藏躲</a></li><li><a href="#hope"><span class="tn">29</span>回到那个早晨</a></li><li><a href="#faq"><span class="tn">30</span>常见问题</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 65 分钟读完<span data-left></span></p></div></div></div>
+<div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
+<p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
+<p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
+<p class="note2">和学课网站的设置是同一套。</p></div></div>
+<div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
+<script type="application/json" id="srcdata">{"1": ["Tu WJ, Wang LD; Special Writing Group of China Stroke Surveillance Report. China stroke surveillance report 2021. Mil Med Res 2023;10(1):33（PubMed 37468952）", "https://doi.org/10.1186/s40779-023-00463-x", "doi.org", "学术研究", ""], "2": ["Zhou M, et al. Mortality, morbidity, and risk factors in China and its provinces, 1990-2017: a systematic analysis for the Global Burden of Disease Study 2017. Lancet 2019;394(10204):1145-58（PubMed 31248666）", "https://doi.org/10.1016/S0140-6736(19)30427-1", "doi.org", "学术研究", ""], "3": ["Tu WJ, et al. Estimated Burden of Stroke in China in 2020. JAMA Netw Open 2023;6(3):e231455（2020 年全国 31 省 676,394 名 40 岁以上成年人；PubMed 36862407）", "https://doi.org/10.1001/jamanetworkopen.2023.1455", "doi.org", "学术研究", ""], "4": ["Wang W, et al (NESS-China). Prevalence, Incidence, and Mortality of Stroke in China: Results from a Nationwide Population-Based Survey of 480 687 Adults. Circulation 2017;135(8):759-71（2013 年全国调查；PubMed 28052979）", "https://doi.org/10.1161/CIRCULATIONAHA.116.025250", "doi.org", "学术研究", ""], "5": ["GBD 2021 Stroke Risk Factor Collaborators. Global, regional, and national burden of stroke and its risk factors, 1990-2021. Lancet Neurol 2024;23(10):973-1003（PubMed 39304265）", "https://doi.org/10.1016/S1474-4422(24)00369-7", "doi.org", "学术研究", ""], "6": ["Saver JL. Time is brain—quantified. Stroke 2006;37(1):263-6（PubMed 16339467）", "https://doi.org/10.1161/01.STR.0000196957.55928.ab", "doi.org", "学术研究", ""], "7": ["Zhao J, Liu R. Stroke 1-2-0: a rapid response programme for stroke in China. Lancet Neurol 2017;16(1):27-8（PubMed 28029517）", "https://doi.org/10.1016/S1474-4422(16)30283-6", "doi.org", "学术研究", ""], "8": ["Aroor S, Singh R, Goldstein LB. BE-FAST (Balance, Eyes, Face, Arm, Speech, Time): Reducing the Proportion of Strokes Missed Using the FAST Mnemonic. Stroke 2017;48(2):479-81（PubMed 28082668）", "https://doi.org/10.1161/STROKEAHA.116.015169", "doi.org", "学术研究", ""], "9": ["Su Y, et al. Analysis of prehospital delay in acute ischaemic stroke and its influencing factors: a multicentre prospective case registry study in China. Stroke Vasc Neurol 2025;10(5):637-47（2022 年 21 家医院、12,484 人；PubMed 40037663）", "https://doi.org/10.1136/svn-2024-003535", "doi.org", "学术研究", ""], "10": ["Gu HQ, et al (Chinese Stroke Center Alliance). Use of Emergency Medical Services and Timely Treatment Among Ischemic Stroke. Stroke 2019;50(4):1013-6（560,447 人；PubMed 30841820）", "https://doi.org/10.1161/STROKEAHA.118.024232", "doi.org", "学术研究", ""], "11": ["Emberson J, et al. Effect of treatment delay, age, and stroke severity on the effects of intravenous thrombolysis with alteplase for acute ischaemic stroke: a meta-analysis of individual patient data from randomised trials. Lancet 2014;384(9958):1929-35（9 个试验、6756 人；PubMed 25106063）", "https://doi.org/10.1016/S0140-6736(14)60584-5", "doi.org", "学术研究", ""], "12": ["Wang Y, et al. Tenecteplase versus alteplase in acute ischaemic cerebrovascular events (TRACE-2): a phase 3, multicentre, open-label, randomised controlled, non-inferiority trial. Lancet 2023;401(10377):645-54（中国 53 家医院、1430 人；PubMed 36774935）", "https://doi.org/10.1016/S0140-6736(22)02600-9", "doi.org", "学术研究", ""], "13": ["Goyal M, et al (HERMES). Endovascular thrombectomy after large-vessel ischaemic stroke: a meta-analysis of individual patient data from five randomised trials. Lancet 2016;387(10029):1723-31（1287 人；器械公司资助；PubMed 26898852）", "https://doi.org/10.1016/S0140-6736(16)00163-X", "doi.org", "学术研究", ""], "14": ["Nogueira RG, et al (DAWN). Thrombectomy 6 to 24 Hours after Stroke with a Mismatch between Deficit and Infarct. N Engl J Med 2018;378(1):11-21（206 人；器械公司资助；PubMed 29129157）", "https://doi.org/10.1056/NEJMoa1706442", "doi.org", "学术研究", ""], "15": ["O'Donnell MJ, et al. Global and regional effects of potentially modifiable risk factors associated with acute stroke in 32 countries (INTERSTROKE): a case-control study. Lancet 2016;388(10046):761-75（26,919 人；PubMed 27431356）", "https://doi.org/10.1016/S0140-6736(16)30506-2", "doi.org", "学术研究", ""], "16": ["Wang YJ, et al. China Stroke Statistics: an update on the 2019 report. Stroke Vasc Neurol 2022;7(5):415-50（PubMed 35443985）", "https://doi.org/10.1136/svn-2021-001374", "doi.org", "学术研究", ""], "17": ["Millwood IY, et al (China Kadoorie Biobank). Conventional and genetic evidence on alcohol and vascular disease aetiology: a prospective study of 500 000 men and women in China. Lancet 2019;393(10183):1831-42（PubMed 30955975）", "https://doi.org/10.1016/S0140-6736(18)31772-0", "doi.org", "学术研究", ""], "18": ["Rothwell PM, et al (EXPRESS). Effect of urgent treatment of transient ischaemic attack and minor stroke on early recurrent stroke: a prospective population-based sequential comparison. Lancet 2007;370(9596):1432-42（PubMed 17928046）", "https://doi.org/10.1016/S0140-6736(07)61448-2", "doi.org", "学术研究", ""], "19": ["Wang Y, et al (CHANCE). Clopidogrel with aspirin in acute minor stroke or transient ischemic attack. N Engl J Med 2013;369(1):11-9（中国 114 家医院、5170 人；PubMed 23803136）", "https://doi.org/10.1056/NEJMoa1215340", "doi.org", "学术研究", ""], "20": ["Amarenco P, et al (TIAregistry.org). One-Year Risk of Stroke after Transient Ischemic Attack or Minor Stroke. N Engl J Med 2016;374(16):1533-42（21 国 4789 人；药厂资助；PubMed 27096581）", "https://doi.org/10.1056/NEJMoa1412981", "doi.org", "学术研究", ""], "21": ["Reddin C, et al. Influence of age on the association of vascular risk factors with acute stroke (INTERSTROKE): a case-control study. Lancet Healthy Longev 2025;6(6):100709（PubMed 40617250）", "https://doi.org/10.1016/j.lanhl.2025.100709", "doi.org", "学术研究", ""], "22": ["Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. Lancet 2016;387(10022):957-67（123 项研究 613,815 人；PubMed 26724178）", "https://doi.org/10.1016/S0140-6736(15)01225-8", "doi.org", "学术研究", ""], "23": ["He J, et al. Effectiveness of a non-physician community health-care provider-led intensive blood pressure intervention versus usual care on cardiovascular disease (CRHCP): an open-label, blinded-endpoint, cluster-randomised trial. Lancet 2023;401(10380):928-38（326 个村、33,995 人；PubMed 36871573）", "https://doi.org/10.1016/S0140-6736(22)02603-4", "doi.org", "学术研究", ""], "24": ["Du X, et al. Atrial fibrillation prevalence, awareness and management in a nationwide survey of adults in China. Heart 2021;107(7):535-41（2014—2016 年，47,841 名 45 岁以上成年人；PubMed 33509976）", "https://doi.org/10.1136/heartjnl-2020-317915", "doi.org", "学术研究", ""], "25": ["Hart RG, Pearce LA, Aguilar MI. Meta-analysis: antithrombotic therapy to prevent stroke in patients who have nonvalvular atrial fibrillation. Ann Intern Med 2007;146(12):857-67（29 个试验、28,044 人；PubMed 17577005）", "https://doi.org/10.7326/0003-4819-146-12-200706190-00007", "doi.org", "学术研究", ""], "26": ["Cholesterol Treatment Trialists' (CTT) Collaboration. Efficacy and safety of more intensive lowering of LDL cholesterol: a meta-analysis of data from 170,000 participants in 26 randomised trials. Lancet 2010;376(9753):1670-81（PubMed 21067804）", "https://doi.org/10.1016/S0140-6736(10)61350-5", "doi.org", "学术研究", ""], "27": ["Amarenco P, et al (SPARCL). High-dose atorvastatin after stroke or transient ischemic attack. N Engl J Med 2006;355(6):549-59（4731 人；PubMed 16899775）", "https://doi.org/10.1056/NEJMoa061894", "doi.org", "学术研究", ""], "28": ["Neal B, et al. Effect of Salt Substitution on Cardiovascular Events and Death (SSaSS). N Engl J Med 2021;385(12):1067-77（中国农村 600 个村 20,995 人；PubMed 34459569）", "https://doi.org/10.1056/NEJMoa2105675", "doi.org", "学术研究", ""], "29": ["Du H, et al (China Kadoorie Biobank). Fresh Fruit Consumption and Major Cardiovascular Disease in China. N Engl J Med 2016;374(14):1332-43（451,665 人；PubMed 27050205）", "https://doi.org/10.1056/NEJMoa1501451", "doi.org", "学术研究", ""], "30": ["Estruch R, et al (PREDIMED). Primary Prevention of Cardiovascular Disease with a Mediterranean Diet Supplemented with Extra-Virgin Olive Oil or Nuts. N Engl J Med 2018;378(25):e34（撤回 2013 年原文后重新分析发表，7447 人；PubMed 29897866）", "https://doi.org/10.1056/NEJMoa1800389", "doi.org", "学术研究", ""], "31": ["Pettersen BJ, et al. Vegetarian diets and blood pressure among white subjects: results from the Adventist Health Study-2 (AHS-2). Public Health Nutr 2012;15(10):1909-16（PubMed 22230619）", "https://doi.org/10.1017/S1368980011003454", "doi.org", "学术研究", ""], "32": ["Orlich MJ, et al. Vegetarian dietary patterns and mortality in Adventist Health Study 2. JAMA Intern Med 2013;173(13):1230-8（73,308 人；PubMed 23836264）", "https://doi.org/10.1001/jamainternmed.2013.6473", "doi.org", "学术研究", ""], "33": ["Tong TYN, et al. Risks of ischaemic heart disease and stroke in meat eaters, fish eaters, and vegetarians over 18 years of follow-up: results from the prospective EPIC-Oxford study. BMJ 2019;366:l4897（48,188 人；PubMed 31484644）", "https://doi.org/10.1136/bmj.l4897", "doi.org", "学术研究", ""], "34": ["Chiu THT, et al. Vegetarian diet and incidence of total, ischemic, and hemorrhagic stroke in 2 cohorts in Taiwan. Neurology 2020;94(11):e1112-21（慈济两个队列；PubMed 32102976）", "https://doi.org/10.1212/WNL.0000000000009093", "doi.org", "学术研究", ""], "35": ["Huo Y, et al. Efficacy of folic acid therapy in primary prevention of stroke among adults with hypertension in China: the CSPPT randomized clinical trial. JAMA 2015;313(13):1325-35（20,702 人；PubMed 25771069）", "https://doi.org/10.1001/jama.2015.2274", "doi.org", "学术研究", ""], "36": ["Lu J, et al. Prevalence, awareness, treatment, and control of hypertension in China: data from 1·7 million adults (China PEACE Million Persons Project). Lancet 2017;390(10112):2549-58（PubMed 29102084）", "https://doi.org/10.1016/S0140-6736(17)32478-9", "doi.org", "学术研究", ""], "37": ["PROGRESS Collaborative Group. Randomised trial of a perindopril-based blood-pressure-lowering regimen among 6,105 individuals with previous stroke or transient ischaemic attack. Lancet 2001;358(9287):1033-41（PubMed 11589932）", "https://doi.org/10.1016/S0140-6736(01)06178-5", "doi.org", "学术研究", ""], "38": ["AVERT Trial Collaboration group. Efficacy and safety of very early mobilisation within 24 h of stroke onset (AVERT): a randomised controlled trial. Lancet 2015;386(9988):46-55（2104 人；PubMed 25892679）", "https://doi.org/10.1016/S0140-6736(15)60690-0", "doi.org", "学术研究", ""], "39": ["Hackett ML, Pickles K. Part I: frequency of depression after stroke: an updated systematic review and meta-analysis of observational studies. Int J Stroke 2014;9(8):1017-25（61 项研究、25,488 人；PubMed 25117911）", "https://doi.org/10.1111/ijs.12357", "doi.org", "学术研究", ""], "40": ["Li, et al. Safety and efficacy of Angong Niuhuang Pills in patients with moderate-to-severe acute ischemic stroke (ANGONG TRIAL): A randomized double-blind placebo-controlled pilot clinical trial. Chin Med J (Engl) 2025;138(5):579-88（17 家医院、117 人；PubMed 39501831）", "https://doi.org/10.1097/CM9.0000000000003133", "doi.org", "学术研究", ""], "41": ["Liu, et al. Adjunctive traditional Chinese medicine for ischemic stroke: a systematic review with structured narrative synthesis and GRADE assessment of randomized controlled trials. Front Med (Lausanne) 2026;13:1884399（9 个随机试验、12,348 人；PubMed 42761006）", "https://doi.org/10.3389/fmed.2026.1884399", "doi.org", "学术研究", ""], "42": ["Xu M, Li D, Zhang S. Acupuncture for acute stroke. Cochrane Database Syst Rev 2018;3:CD003317（33 个随机试验、3946 人；PubMed 29607495）", "https://doi.org/10.1002/14651858.CD003317.pub3", "doi.org", "学术研究", ""], "43": ["Wu B, Liu M, Zhang S. Dan Shen agents for acute ischaemic stroke. Cochrane Database Syst Rev 2007;(2):CD004295（PubMed 17443544）", "https://doi.org/10.1002/14651858.CD004295.pub3", "doi.org", "学术研究", ""], "44": ["Chen CL, et al (CHIMES). Chinese medicine neuroaid efficacy on stroke recovery: a double-blind, placebo-controlled, randomized study. Stroke 2013;44(8):2093-100（1100 人；PubMed 23780952）", "https://doi.org/10.1161/STROKEAHA.113.002055", "doi.org", "学术研究", ""], "45": ["Wang A, et al (BAST). Efficacy and Safety of Butylphthalide in Patients With Acute Ischemic Stroke: A Randomized Clinical Trial. JAMA Neurol 2023;80(8):851-9（中国 59 家医院、1216 人；PubMed 37358859）", "https://doi.org/10.1001/jamaneurol.2023.1871", "doi.org", "学术研究", ""]}</script>
+<script>
+(function(){
+  var de=document.documentElement;
+  /* 在学课网站里用浮层打开时（iframe）：回到网站的链接交给网站处理，不重新加载整个网站 */
+  if(de.classList.contains('emb'))document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="./#"],a[href="./"]');if(!a)return;
+    e.preventDefault();var h=(a.getAttribute('href').split('#')[1])||'home';
+    try{parent.postMessage({q4:'nav',hash:h},location.origin);}catch(err){top.location.href=a.href;}
+  },true);
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  /* 阅读进度 */
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
+  /* 弹出层 */
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;de.classList.remove('sheetopen');}
+  document.querySelectorAll('.sheet').forEach(function(s){
+    s.addEventListener('click',function(e){if(e.target.closest('[data-close]')||e.target.closest('a[href^="#"]'))close(s);});
+  });
+  var TS=document.getElementById('tocsheet'),AS=document.getElementById('aasheet');
+  document.querySelector('[data-tocopen]').addEventListener('click',function(){open(TS);var a=TS.querySelector('a.on');if(a)a.scrollIntoView({block:'center'});});
+  document.querySelector('[data-aa]').addEventListener('click',function(){paint();open(AS);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'){close(TS);close(AS);hidePop();}});
+  /* 字号、夜间模式（与学课网站共用设置） */
+  function paint(){
+    var f=+(get('fs')||1),t=get('theme')||'auto';
+    AS.querySelectorAll('[data-fs]').forEach(function(b){b.classList.toggle('on',+b.dataset.fs===f);});
+    AS.querySelectorAll('[data-th]').forEach(function(b){b.classList.toggle('on',b.dataset.th===t);});
+  }
+  AS.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.fs){set('fs',b.dataset.fs);if(+b.dataset.fs===1)de.style.removeProperty('--fs');else de.style.setProperty('--fs',b.dataset.fs);}
+    if(b.dataset.th){set('theme',b.dataset.th);if(b.dataset.th==='auto')de.removeAttribute('data-theme');else de.setAttribute('data-theme',b.dataset.th);}
+    paint();
+  });
+  /* 目录：标出正在读的章 */
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));
+  var links={};document.querySelectorAll('.toc-l a').forEach(function(a){var id=a.getAttribute('href').slice(1);(links[id]=links[id]||[]).push(a);});
+  var cur=null;
+  function mark(){
+    var y=innerHeight*0.3,id=null;
+    for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<y)id=secs[i].id;else break;}
+    if(id===cur)return;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
+    cur=id;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
+    var side=document.querySelector('.toc-side a.on');
+    if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
+  }
+  var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 教派名片：全部展开 */
+  var ab=document.querySelector('[data-allopen]');
+  if(ab)ab.addEventListener('click',function(){
+    var ds=document.querySelectorAll('.dn'),all=[].every.call(ds,function(d){return d.open;});
+    ds.forEach(function(d){d.open=!all;});ab.textContent=all?'全部展开':'全部收起';
+  });
+  /* 并排对比 */
+  var sel=document.querySelector('[data-vs]');
+  if(sel){
+    var VD=JSON.parse(document.getElementById('vsdata').textContent);
+    sel.addEventListener('change',function(){
+      var v=VD[sel.value];document.querySelector('[data-vsname]').textContent=sel.value;
+      document.querySelectorAll('.vs-t tbody td.a').forEach(function(td,i){td.textContent=v[i];});
+    });
+  }
+  /* 出处小数字：点了先弹出说明，再决定打开网页还是看资料列表 */
+  var SD=JSON.parse(document.getElementById('srcdata').textContent),P=document.getElementById('pop'),pfrom=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function hidePop(){P.hidden=true;pfrom=null;}
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('a.cite');
+    if(c&&!c.classList.contains('demo')){
+      e.preventDefault();
+      if(pfrom===c){hidePop();return;}
+      var n=c.dataset.n,s=SD[n];if(!s)return;
+      P.innerHTML='<p class="pk">资料 '+n+' · '+esc(s[3])+'</p><p class="pd">'+esc(s[0])+'</p><p class="pa">'+(s[1]?'<a class="go" href="'+esc(s[1])+'" target="_blank" rel="noopener">打开网页 ↗</a>':'<span class="pbook">书籍，可查阅纸本或电子版</span>')+(s[4]?'<a href="'+esc(s[4])+'" target="_blank" rel="noopener">网页存档</a>':'')+'<a href="#s'+n+'" data-golist>在资料列表中看</a></p>';
+      P.hidden=false;pfrom=c;
+      var r=c.getBoundingClientRect(),w=P.offsetWidth,x=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2)),y=r.bottom+8;
+      if(y+P.offsetHeight>innerHeight-12)y=r.top-P.offsetHeight-8;
+      P.style.left=(x+scrollX)+'px';P.style.top=(y+scrollY)+'px';
+      return;
+    }
+    if(c&&c.classList.contains('demo')){return;}
+    if(!e.target.closest('#pop'))hidePop();
+    else if(e.target.closest('[data-golist]'))setTimeout(hidePop,0);
+  });
+  addEventListener('resize',hidePop);
+  /* 从资料列表点 ↑ 回到正文时，闪一下那个数字 */
+  addEventListener('hashchange',function(){var t=document.getElementById(location.hash.slice(1));if(t&&t.classList.contains('cite')){t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});
+})();
+/* 上次读到哪里（2026-10-26 用户要的）：每篇记下“读到第几章、这一章读了多少”，下次打开回到那里。
+   存在本机 q4:tpos（{网页: [章id, 这一章读到的比例, 时间]}）；网站登录账号后随“继续阅读”一起同步（app.js 的 tp）。
+   网址带 #章 时（目录、分享的链接）不跳；读到最后（98% 以后）或回到开头时不记，下次从头读。 */
+(function(){
+  var de=document.documentElement,PG=(location.pathname.split('/').pop()||'').replace(/\?.*$/,'');if(!PG)return;
+  function get(){try{return JSON.parse(localStorage.getItem('q4:tpos')||'{}')||{};}catch(e){return {};}}
+  function put(a){try{var ks=Object.keys(a).sort(function(x,y){return a[y][2]-a[x][2];});ks.slice(60).forEach(function(k){delete a[k];});localStorage.setItem('q4:tpos',JSON.stringify(a));}catch(e){}}
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));if(!secs.length)return;
+  function where(){var y=innerHeight*0.25,s=null;for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<=y)s=secs[i];else break;}
+    if(!s)return null;var r=s.getBoundingClientRect();return [s.id,Math.round(Math.min(1,Math.max(0,(y-r.top)/Math.max(1,r.height)))*1000)/1000];}
+  var ready=false,t=null;
+  function save(){if(!ready||!innerHeight)return;var h=de.scrollHeight-innerHeight;if(h<innerHeight)return;   // 在网站的浮层里被藏起来时，页面高度会塌下来：这时不记
+    var p=scrollY/h,a=get(),w=where();
+    if(p<0.02||p>0.98||!w){if(a[PG]&&a[PG][0]){a[PG]=['',0,Date.now()];put(a);}return;}   // 留一条空记录（带时间），别的设备同步过来的旧位置不会再“复活”
+    a[PG]=[w[0],w[1],Date.now()];put(a);}
+  addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(save,700);},{passive:true});
+  addEventListener('pagehide',save);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)save();});
+  function tip(n,title){
+    var d=document.createElement('div');d.className='rtip';d.setAttribute('role','status');
+    d.innerHTML='<span>已回到上次读到的地方：第 '+n+' 章</span><button type="button">从头读</button>';
+    document.body.appendChild(d);requestAnimationFrame(function(){d.classList.add('on');});
+    var gone=setTimeout(hide,6000);
+    function hide(){d.classList.remove('on');setTimeout(function(){d.remove();},400);}
+    d.querySelector('button').addEventListener('click',function(){clearTimeout(gone);scrollTo(0,0);var a=get();a[PG]=['',0,Date.now()];put(a);hide();});
+  }
+  function restore(){
+    var a=get(),r=a[PG];
+    if(r&&r[0]&&!location.hash){var s=document.getElementById(r[0]);
+      if(s){var y=s.getBoundingClientRect().top+scrollY+r[1]*s.offsetHeight-innerHeight*0.25;scrollTo(0,Math.max(0,y));
+        tip(secs.indexOf(s)+1);}}
+    setTimeout(function(){ready=true;},800);   // 刚跳过去时的滚动不算“读到”
+  }
+  if(document.readyState==='complete')setTimeout(restore,60);else addEventListener('load',function(){setTimeout(restore,60);});
+  // 在网站里关掉浮层时，这一页被藏起来（高度变成 0，滚动位置也没了）；再打开同一篇时页面不重新载入：显示出来那一刻回到记下的位置
+  function again(){if(scrollY>50)return;var old=document.querySelector('.rtip');if(old)old.remove();ready=false;restore();}   // 位置还在就不动
+  var hid=false;addEventListener('resize',function(){if(!innerHeight){hid=true;ready=false;return;}if(hid){hid=false;again();}});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='shown')setTimeout(again,30);});   // 网站又把这一页显示出来（app.js）
+})();
+
+(function(){var F={"idle":"eo ld rd","blink":"ec ld rd","left":"el ld rd","right":"er ld rd","wave1":"eh ld ru","wave2":"eh ld rv","joy1":"eh lu ru s1","joy2":"eh lu ru s2","sleep1":"ec ld rd z1","sleep2":"ec ld rd z2"},S={"idle":[["idle",0]],"blink":[["blink",140],["idle",0]],"look":[["left",420],["idle",160],["right",420],["idle",0]],"wave":[["wave1",200],["wave2",200],["wave1",200],["wave2",200],["idle",0]],"joy":[["joy1",220],["joy2",220],["joy1",220],["joy2",220],["joy1",220],["joy2",220],["idle",0]],"sleep":[["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",0]]};var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function night(){var h=(new Date().getUTCHours()+8)%24;return h>=23||h<5;}
+function Lamb(el){var t=null,busy=false,seen=false,vis=false,cur='';
+ function set(f){if(f===cur)return;cur=f;el.setAttribute('data-on',F[f]);el.classList.toggle('hop',f==='joy1'&&!RM);}
+ function rest(){set(night()?'sleep1':'idle');}
+ function stop(){clearTimeout(t);t=null;busy=false;}
+ function play(name){if(!vis)return;stop();var s=S[name];
+  if(RM){set(s[s.length-1][0]);return;}
+  busy=true;var i=0;(function step(){var p=s[i++];set(p[0]);if(p[1]&&i<s.length)t=setTimeout(step,p[1]);else{busy=false;if(name!=='sleep')rest();}})();}
+ el.q4play=play;
+ if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;
+   if(!vis){stop();rest();return;}
+   if(night()){play('sleep');return;}
+   if(!seen){seen=true;var en=el.getAttribute('data-enter')||'look';play(en);if(en==='look')setTimeout(function(){if(!busy)play('blink');},1500);}});}).observe(el);
+ else{vis=true;rest();}
+ el.addEventListener('mouseenter',function(){if(!busy)play('wave');});
+ el.addEventListener('mouseleave',function(){if(!busy)play('blink');});
+ el.addEventListener('click',function(e){e.preventDefault();play('wave');});
+ /* 电脑上：眼睛跟着鼠标往左、往右看（读者自己移动鼠标时才动） */
+ if(matchMedia('(hover: hover)').matches&&!RM)addEventListener('pointermove',function(e){if(busy||!vis||night())return;
+   var r=el.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2);set(dx<-60?'left':dx>60?'right':'idle');},{passive:true});
+ rest();}
+document.querySelectorAll('.lamb').forEach(Lamb);
+window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEach(function(el){el.q4play&&el.q4play('joy');});}};
+})();</script>
+<div class="lp" id="lp" hidden role="region" aria-label="朗读播放器"><div class="lp-top"><span class="lp-ch" data-lpch>正在加载声音……</span><span class="lp-t" data-lpt>0:00</span><button type="button" class="lp-x" data-lpx aria-label="关闭朗读">×</button></div><div class="lp-bar" data-lpbar role="slider" aria-label="播放进度" tabindex="0"><i></i></div><div class="lp-row"><button type="button" data-lpprev aria-label="上一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M18 5 9 12l9 7z"/></svg></button><button type="button" data-lpback aria-label="后退 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" class="lp-pp" data-lppp aria-label="播放"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l11-6.5z"/><path class="i-pause" d="M8 5v14M16 5v14"/></svg></button><button type="button" data-lpfwd aria-label="前进 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" data-lpnext aria-label="下一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M6 5l9 7-9 7z"/></svg></button><button type="button" class="lp-sp" data-lpsp aria-label="语速">1.0×</button></div><p class="lp-msg" data-lpmsg hidden></p></div><script type="application/json" id="lpcfg">{"id": "h4", "dir": "audio/vx-w/", "heads": [[1, "q"], [17, "scale"], [27, "what"], [37, "minute"], [44, "signs"], [55, "call"], [65, "myths"], [74, "hospital"], [86, "bleed"], [92, "tia"], [103, "river"], [112, "ninety"], [119, "bp"], [129, "af"], [136, "vessel"], [144, "alcohol"], [154, "roots"], [162, "salt"], [169, "food"], [174, "veg"], [183, "move"], [192, "young"], [204, "again"], [214, "rehab"], [225, "tcm"], [240, "natural"], [255, "plan"], [259, "bible"], [269, "hope"]], "h": "16b935ee", "n": 281, "title": "中风，真的是突然来的吗？"}</script><script>
+(function(){
+  var C=JSON.parse(document.getElementById('lpcfg').textContent),de=document.documentElement;
+  var P=document.getElementById('lp'),BTN=document.querySelector('[data-lsn]');if(!P||!BTN||!window.fetch)return;
+  function q(s){return P.querySelector(s);}
+  var A=null,M=null,ST=[],cur=-2,lastSave=0,userScroll=0,RATES=[0.8,0.9,1,1.15,1.3];
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function fmt(t){t=Math.max(0,Math.floor(t||0));var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+(m<10?'0':''):'')+m+':'+(s<10?'0':'')+s;}
+  function name(i){var sec=document.getElementById(C.heads[i][1]),h=sec&&sec.querySelector('h2');return h?h.textContent.replace(/^0*(\d+)/,'第$1章 · '):'';}
+  fetch(C.dir+'index.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null;}).then(function(ix){
+    M=ix&&ix[C.id];if(!M||!M.d)return;
+    if(M.h===C.h&&M.t&&M.t.length===C.n)ST=C.heads.map(function(x){return M.t[x[0]];});   // 录音和文章对得上，才能按章跳转
+    BTN.hidden=false;BTN.querySelector('[data-lsnd]').textContent='约 '+Math.max(1,Math.round(M.d/60))+' 分钟';
+    if(ST.length)C.heads.forEach(function(x,i){var sec=document.getElementById(x[1]),h=sec&&sec.querySelector('h2');if(!h)return;
+      var b=document.createElement('button');b.type='button';b.className='lp-chgo';b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l12-7z"/></svg>听这一章';
+      b.addEventListener('click',function(){start(ST[i]);});h.insertAdjacentElement('afterend',b);});
+    else{q('[data-lpprev]').hidden=true;q('[data-lpnext]').hidden=true;}
+  }).catch(function(){});
+  function rate(){var r=+(get('lprate')||1);return RATES.indexOf(r)>=0?r:1;}
+  function msg(h,ms){var m=q('[data-lpmsg]');m.innerHTML=h;m.hidden=!h;clearTimeout(msg.t);if(h&&ms)msg.t=setTimeout(function(){m.hidden=true;},ms);}
+  function save(){if(A&&A.currentTime>3)set('lpos:'+C.id,A.ended?'0':String(Math.floor(A.currentTime)));}
+  function ensure(){
+    if(A)return;
+    A=new Audio();A.preload='auto';A.src=C.dir+C.id+'.mp3';
+    A.addEventListener('timeupdate',paint);A.addEventListener('durationchange',paint);
+    A.addEventListener('play',function(){P.classList.add('playing');q('[data-lppp]').setAttribute('aria-label','暂停');try{parent!==window&&parent.postMessage({q4:'tts'},location.origin);}catch(e){}});
+    A.addEventListener('pause',function(){P.classList.remove('playing');q('[data-lppp]').setAttribute('aria-label','播放');save();});
+    A.addEventListener('waiting',function(){q('[data-lpch]').textContent='正在加载声音……';cur=-2;});
+    A.addEventListener('playing',function(){cur=-2;paint();});
+    A.addEventListener('ended',function(){set('lpos:'+C.id,'0');msg('这一篇听完了。',6000);});
+    A.addEventListener('error',function(){msg('声音没有加载成功，请检查网络后再点一次播放。');});
+    if('mediaSession' in navigator)try{
+      navigator.mediaSession.metadata=new MediaMetadata({title:C.title,artist:'健康 · 听朗读',album:'预言的恩赐 · 研读网站'});
+      var MS=navigator.mediaSession;MS.setActionHandler('play',function(){A.play();});MS.setActionHandler('pause',function(){A.pause();});
+      MS.setActionHandler('seekbackward',function(){seek(A.currentTime-15);});MS.setActionHandler('seekforward',function(){seek(A.currentTime+15);});
+      if(ST.length){MS.setActionHandler('previoustrack',function(){chap(-1);});MS.setActionHandler('nexttrack',function(){chap(1);});}
+    }catch(e){}
+  }
+  function open(){P.hidden=false;de.classList.add('lpon');var r=rate();q('[data-lpsp]').textContent=(r%1?String(r):r.toFixed(1))+'×';}
+  function start(t,resume){ensure();open();A.playbackRate=rate();try{A.defaultPlaybackRate=rate();}catch(e){}
+    var go=function(){try{A.currentTime=t||0;}catch(e){}};
+    if(A.readyState>=1)go();else A.addEventListener('loadedmetadata',go,{once:true});
+    var p=A.play();if(p&&p.catch)p.catch(function(){});
+    if(resume)msg('已从上次听到的地方继续 <button type="button" data-lpfrom0>从头听</button>',9000);else msg('');}
+  function seek(t){if(!A)return;var d=A.duration||M.d;try{A.currentTime=Math.max(0,Math.min(d-0.5,t));}catch(e){}paint();}
+  function idx(t){var i=-1;for(var k=0;k<ST.length;k++){if(ST[k]<=t+0.3)i=k;else break;}return i;}
+  function chap(dir){if(!A||!ST.length)return;var t=A.currentTime,i=idx(t);
+    if(dir<0&&i>=0&&t-ST[i]>4)seek(ST[i]);else{var j=Math.max(0,Math.min(ST.length-1,i+dir));seek(ST[j]);}}
+  function paint(){if(!A)return;var d=A.duration||M.d||1,t=A.currentTime||0;
+    q('.lp-bar i').style.transform='scaleX('+Math.min(1,t/d).toFixed(4)+')';
+    q('[data-lpt]').textContent=fmt(t)+' / '+fmt(d);
+    var i=ST.length?idx(t):-1;
+    if(i!==cur&&!A.paused){var first=cur===-2;cur=i;q('[data-lpch]').textContent=i>=0?name(i):C.title;
+      if(i>=0&&!first&&Date.now()-userScroll>12000){var sec=document.getElementById(C.heads[i][1]);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}}   // 跟着声音翻到这一章（刚自己翻过页面就不打扰）
+    else if(A.paused&&cur===-2){q('[data-lpch]').textContent=i>=0?name(i):C.title;}
+    if(Date.now()-lastSave>5000){lastSave=Date.now();save();}
+  }
+  addEventListener('touchmove',function(){userScroll=Date.now();},{passive:true});addEventListener('wheel',function(){userScroll=Date.now();},{passive:true});
+  BTN.querySelector('[data-lsngo]').addEventListener('click',function(){
+    if(A&&!A.paused){open();return;}
+    var s=+(get('lpos:'+C.id)||0);if(A&&A.currentTime>1){open();A.play();return;}
+    start(s>10&&s<(M.d-15)?s:0,s>10&&s<(M.d-15));});
+  q('[data-lppp]').addEventListener('click',function(){if(!A){start(0);return;}if(A.paused){A.playbackRate=rate();A.play();}else A.pause();});
+  q('[data-lpback]').addEventListener('click',function(){seek((A?A.currentTime:0)-15);});
+  q('[data-lpfwd]').addEventListener('click',function(){seek((A?A.currentTime:0)+15);});
+  q('[data-lpprev]').addEventListener('click',function(){chap(-1);});
+  q('[data-lpnext]').addEventListener('click',function(){chap(1);});
+  q('[data-lpsp]').addEventListener('click',function(){var r=RATES[(RATES.indexOf(rate())+1)%RATES.length];set('lprate',String(r));if(A)A.playbackRate=r;this.textContent=(r%1?String(r):r.toFixed(1))+'×';});
+  q('[data-lpx]').addEventListener('click',function(){if(A)A.pause();P.hidden=true;de.classList.remove('lpon');});
+  P.addEventListener('click',function(e){if(e.target.closest('[data-lpfrom0]')){seek(0);msg('');}});
+  var bar=q('[data-lpbar]');
+  function barSeek(e){var r=bar.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;seek(Math.max(0,Math.min(1,x/r.width))*((A&&A.duration)||M.d));}
+  bar.addEventListener('pointerdown',function(e){if(!A)return;barSeek(e);bar.setPointerCapture&&bar.setPointerCapture(e.pointerId);bar.onpointermove=barSeek;});
+  bar.addEventListener('pointerup',function(){bar.onpointermove=null;});bar.addEventListener('pointercancel',function(){bar.onpointermove=null;});
+  bar.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')seek(A.currentTime-15);if(e.key==='ArrowRight')seek(A.currentTime+15);});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='hidden'&&A)A.pause();});   // 网站把这一页收起来了
+  addEventListener('pagehide',save);
+})();
+</script>
+<div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">“中风，真的是突然来的吗？”</p>
+<div class="tsh-main"><button type="button" class="tile" data-twx><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 4C5.2 4 2 6.7 2 10c0 1.9 1 3.6 2.7 4.7L4 17l2.6-1.4c.8.2 1.7.4 2.6.4h.5a5.6 5.6 0 0 1-.2-1.5C9.5 11.4 12.6 9 16.4 9h.4C16 6.1 12.9 4 9.2 4Zm-2.4 3.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM22 14.4c0-2.8-2.7-5-6-5s-6 2.2-6 5 2.7 5 6 5c.7 0 1.4-.1 2-.3l2.1 1.1-.6-1.9c1.5-.9 2.5-2.3 2.5-3.9Zm-8-.8a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" fill="currentColor"/></svg><span>微信分享</span></button><button type="button" class="tile" data-tcopy><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>复制链接</span></button><button type="button" class="tile" data-tsys hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>更多方式</span></button></div>
+<div class="tsh-qr" hidden><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM13,2h1v1h-1zM14,2h1v1h-1zM15,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM11,3h1v1h-1zM15,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM24,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM10,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM14,4h1v1h-1zM15,4h1v1h-1zM18,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM13,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM11,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM17,6h1v1h-1zM20,6h1v1h-1zM23,6h1v1h-1zM25,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM12,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM18,7h1v1h-1zM22,7h1v1h-1zM24,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM11,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM20,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM13,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM17,10h1v1h-1zM19,10h1v1h-1zM25,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM3,11h1v1h-1zM5,11h1v1h-1zM6,11h1v1h-1zM9,11h1v1h-1zM10,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM16,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM17,12h1v1h-1zM18,12h1v1h-1zM20,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM32,12h1v1h-1zM33,12h1v1h-1zM6,13h1v1h-1zM7,13h1v1h-1zM11,13h1v1h-1zM16,13h1v1h-1zM18,13h1v1h-1zM21,13h1v1h-1zM22,13h1v1h-1zM23,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM33,13h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM14,14h1v1h-1zM20,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM3,15h1v1h-1zM5,15h1v1h-1zM7,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM22,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM31,15h1v1h-1zM33,15h1v1h-1zM34,15h1v1h-1zM2,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM10,16h1v1h-1zM11,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM16,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM23,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM33,16h1v1h-1zM4,17h1v1h-1zM6,17h1v1h-1zM7,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM15,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM5,18h1v1h-1zM8,18h1v1h-1zM11,18h1v1h-1zM16,18h1v1h-1zM19,18h1v1h-1zM21,18h1v1h-1zM25,18h1v1h-1zM29,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM4,19h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM24,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM27,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM31,19h1v1h-1zM32,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM11,20h1v1h-1zM16,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM23,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM4,21h1v1h-1zM9,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM19,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM23,21h1v1h-1zM25,21h1v1h-1zM27,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM2,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM11,22h1v1h-1zM14,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM18,22h1v1h-1zM21,22h1v1h-1zM24,22h1v1h-1zM26,22h1v1h-1zM27,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM6,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM11,23h1v1h-1zM13,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM20,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM2,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM12,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM17,24h1v1h-1zM18,24h1v1h-1zM23,24h1v1h-1zM24,24h1v1h-1zM26,24h1v1h-1zM31,24h1v1h-1zM33,24h1v1h-1zM2,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM9,25h1v1h-1zM12,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM22,25h1v1h-1zM23,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM34,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM7,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM19,26h1v1h-1zM21,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM18,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM32,27h1v1h-1zM34,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM13,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM20,28h1v1h-1zM22,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM16,29h1v1h-1zM18,29h1v1h-1zM22,29h1v1h-1zM23,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM20,30h1v1h-1zM24,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM31,30h1v1h-1zM33,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM17,31h1v1h-1zM18,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM23,31h1v1h-1zM25,31h1v1h-1zM30,31h1v1h-1zM32,31h1v1h-1zM33,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM11,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM22,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM12,33h1v1h-1zM14,33h1v1h-1zM18,33h1v1h-1zM20,33h1v1h-1zM22,33h1v1h-1zM23,33h1v1h-1zM25,33h1v1h-1zM27,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM16,34h1v1h-1zM19,34h1v1h-1zM20,34h1v1h-1zM21,34h1v1h-1zM22,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM29,34h1v1h-1zM33,34h1v1h-1z" fill="#111"/></svg><p><b>用手机微信扫一扫</b>打开后点右上角 ··· 就能转发；也可以复制链接，粘贴到电脑版微信的聊天框。</p></div>
+<p class="tsh-done" aria-live="polite"></p><button type="button" class="tsh-sent" data-tsent hidden>✓ 我已经分享好了</button><p class="tsh-url">https://2377568565.github.io/Ethan_bay/stroke.html</p></div></div>
+<div class="twg" id="twg" role="dialog" aria-modal="true" aria-label="微信转发提示" hidden><p class="twg-t">点右上角 <span>···</span><br>选择“转发给朋友”</p>
+<div class="twg-box"><p>选好群或朋友、发送之后，回到这里点一下：</p><div class="twg-btns"><button type="button" class="ok" data-twdone>✓ 我已转发</button><button type="button" data-twno>先不转发</button></div></div></div>
+<div class="sheet" id="tdlsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card quiz" role="dialog" aria-modal="true" aria-labelledby="tdl-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tdl-h">下载 PDF 学习版</p>
+<p class="qz-intro">先答 3 道小题，答对 2 道就可以下载。题目都来自这一页的内容。</p><ol class="qz"></ol>
+<div class="qz-res" aria-live="polite"></div>
+<div class="qz-btns"><button type="button" class="tbtn" data-qretry hidden>换 3 道题再答一次</button><a class="tbtn solid" data-qdl hidden href="lessons/2026-Q4/qa/%E5%81%A5%E5%BA%B704-%E4%B8%AD%E9%A3%8E%E7%9C%9F%E7%9A%84%E6%98%AF%E7%AA%81%E7%84%B6%E6%9D%A5%E7%9A%84%E5%90%97.pdf" download="健康04-中风真的是突然来的吗.pdf"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></a></div>
+<p class="qz-wx note2" hidden>微信里会先打开 PDF 预览：点右上角 ··· 选“用其他应用打开”或“在浏览器打开”，就能保存到手机。</p></div></div>
+<div class="tgift" id="tgift" hidden><div class="sh-bg" data-gclose></div><div class="tg-card" role="dialog" aria-modal="true" aria-label="谢谢分享"><p class="tg-k">谢谢你的分享</p>
+<p class="tg-m">一个小小的转发，也许正好是别人心里在找的答案。</p><blockquote class="tg-v"></blockquote><button type="button" class="tbtn solid" data-gclose>阿们，收下</button></div></div>
+<script type="application/json" id="tcfg">{"id": "h4", "title": "中风，真的是突然来的吗？", "url": "https://2377568565.github.io/Ethan_bay/stroke.html", "pdf": "lessons/2026-Q4/qa/%E5%81%A5%E5%BA%B704-%E4%B8%AD%E9%A3%8E%E7%9C%9F%E7%9A%84%E6%98%AF%E7%AA%81%E7%84%B6%E6%9D%A5%E7%9A%84%E5%90%97.pdf", "name": "健康04-中风真的是突然来的吗.pdf", "col": "健康"}</script>
+<script type="application/json" id="tquiz">[{"q": "“中风 120”里的“0”是什么意思？", "o": ["零点以后才会发病", "（聆）听讲话清不清楚", "血压降到零", "不要做任何事"], "a": 1, "why": "1 看 1 张脸，2 查 2 只胳膊，0（聆）听讲话；有一项就打 120。", "go": "<a class=\"xref\" href=\"#signs\">第 5 章《认出中风：“中风 120”》</a>"}, {"q": "怀疑家里老人中风，下面哪一个做法是对的？", "o": ["先掐人中、十指放血", "先喂一颗安宫牛黄丸", "马上打 120，记下最后一次看到他正常的时间", "让他睡一觉再看"], "a": 2, "why": "在 CT 分清堵了还是破了以前，任何药都可能帮倒忙；最重要的是不耽误时间。", "go": "<a class=\"xref\" href=\"#call\">第 6 章《第一件事：打 120》</a>"}, {"q": "静脉溶栓的汇总分析显示，什么时候用药效果最好？", "o": ["发病 3 小时内", "发病 12 小时以后", "第二天", "什么时候都一样"], "a": 0, "why": "3 小时内用药，没有明显残疾的 32.9% 对 23.1%；3—4.5 小时 35.3% 对 30.1%；更晚就不再明显。", "go": "<a class=\"xref\" href=\"#hospital\">第 8 章《到了医院：溶栓和取栓》</a>"}, {"q": "英国 EXPRESS 研究里，小中风以后改成当天评估、立即用药，90 天内再次中风怎样变化？", "o": ["没有变化", "从 10.3% 降到 2.1%", "反而增加", "降到零"], "a": 1, "why": "减少约八成，出血也没有增加。", "go": "<a class=\"xref\" href=\"#tia\">第 10 章《“小中风”：最响的一次警报》</a>"}, {"q": "INTERSTROKE 研究里，和中风关系最大的一项可以改变的危险因素是什么？", "o": ["喝咖啡", "高血压", "吃鸡蛋", "天气冷"], "a": 1, "why": "高血压一项就和约一半的中风有关；十项合起来约九成。", "go": "<a class=\"xref\" href=\"#ninety\">第 12 章《九成和这十件事有关》</a>"}, {"q": "中国农村高血压控制项目（CRHCP）里，由村医帮病人把血压降下来，三年里中风怎样？", "o": ["减少了约三分之一", "没有变化", "增加了", "只减少了 1%"], "a": 0, "why": "中风的风险比 0.66，也就是少了 34%；全因死亡也少了 15%。", "go": "<a class=\"xref\" href=\"#bp\">第 13 章《第一大上游：高血压》</a>"}, {"q": "中国 50 万人的基因研究，对“少量喝酒能预防中风”的说法得出了什么结论？", "o": ["完全正确", "少量喝酒的保护作用基本不是真的因果，喝得越多中风风险越高", "只对女性有效", "喝白酒才有用"], "a": 1, "why": "按基因推算，喝酒越多，中风风险一直上升，脑出血升得更快。", "go": "<a class=\"xref\" href=\"#alcohol\">第 16 章《喝点酒，能“活血”吗》</a>"}, {"q": "关于安宫牛黄丸、针灸，本篇根据研究得出的看法是什么？", "o": ["已被证明能代替溶栓", "现有严格的试验没有确认它们能改善中风的结局", "一定有害", "只要是传统的就有效"], "a": 1, "why": "安宫牛黄丸的双盲试点试验和 2026 年的系统综述都没有显示明确差别；针灸和假针刺比较时，效果没有得到确认。", "go": "<a class=\"xref\" href=\"#tcm\">第 25 章《中医药：安宫牛黄丸、针灸和中成药》</a>"}]</script>
+<script type="application/json" id="tgifts">[["那报佳音，传平安， 报好信，传救恩的， 对锡安说：你的上帝作王了！ 这人的脚登山何等佳美！", "以赛亚书 52:7"], ["好施舍的，必得丰裕； 滋润人的，必得滋润。", "箴言 11:25"], ["我们行善，不可丧志；若不灰心，到了时候就要收成。", "加拉太书 6:9"], ["又要彼此相顾，激发爱心，勉励行善。", "希伯来书 10:24"], ["所以，你们该彼此劝慰，互相建立，正如你们素常所行的。", "帖撒罗尼迦前书 5:11"], ["你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。", "马太福音 5:16"], ["在列邦中述说他的荣耀！ 在万民中述说他的奇事！", "诗篇 96:3"], ["口善应对，自觉喜乐； 话合其时，何等美好。", "箴言 15:23"], ["你的话是我脚前的灯， 是我路上的光。", "诗篇 119:105"], ["所以，我亲爱的弟兄们，你们务要坚固，不可摇动，常常竭力多做主工；因为知道，你们的劳苦在主里面不是徒然的。", "哥林多前书 15:58"]]</script>
+<style>
+.tend{border-top:1px solid var(--rule);margin:36px 0 8px;padding:18px 0 0}
+.tend p{color:var(--ink-2);font-size:.95rem;margin:0}
+.ib{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.ib .ic{width:17px;height:17px}
+.ic{width:18px;height:18px;flex:none}
+.tacts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.tbtn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:.92rem;font-weight:650;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;flex:1 1 9em}
+.tbtn.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.tsh-t{color:var(--ink-2);margin:0 0 12px;font-weight:600}
+.tsh-main{display:flex;gap:10px;margin:0 0 10px}
+.tile{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:.86rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 4px;cursor:pointer}
+.tile .ic{width:26px;height:26px}
+.tile[data-twx] .ic{color:#07C160}
+.tsh-qr{display:flex;gap:12px;align-items:center;margin:6px 0 8px;font-size:.84rem;color:var(--ink-2)}
+.tsh-qr svg{width:120px;height:120px;flex:none;border-radius:8px}
+.tsh-done{font-size:.9rem;color:var(--ink-2);margin:6px 0}
+.tsh-sent{font:inherit;font-size:.9rem;width:100%;padding:9px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);cursor:pointer;margin:0 0 8px}
+.tsh-url{font-size:.78rem;color:var(--muted);word-break:break-all;margin:4px 0 0;user-select:all;-webkit-user-select:all}
+.twg{position:fixed;inset:0;z-index:60;background:rgba(10,12,18,.86);color:#fff;padding:calc(70px + env(safe-area-inset-top)) 24px 24px;text-align:center}
+.twg-t{font-size:1.25rem;font-weight:700;line-height:1.6;margin:0 0 24px;text-align:right;padding-right:6px}
+.twg-t span{letter-spacing:.1em}
+.twg-t::before{content:"↗";display:block;font-size:2.6rem;line-height:1;color:#FCE7B0}
+.twg-box{background:rgba(255,255,255,.1);border-radius:16px;padding:14px}
+.twg-btns{display:flex;gap:10px;margin-top:10px}
+.twg-btns button{flex:1;font:inherit;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;cursor:pointer}
+.twg-btns .ok{background:#07C160;border-color:#07C160;font-weight:700}
+.sh-card.quiz{max-height:88vh}
+.qz-intro{font-size:.9rem;color:var(--ink-2);margin:0 0 10px}
+.qz{list-style:none;margin:0;padding:0;counter-reset:q}
+.qz>li{counter-increment:q;border:1px solid var(--rule);border-radius:14px;padding:12px 12px 6px;margin:0 0 10px;background:var(--paper)}
+.qq{font-weight:650;margin:0 0 8px}
+.qq::before{content:counter(q) ". ";color:var(--accent)}
+.qo{display:grid;gap:7px;margin:0 0 8px}
+.qo button{font:inherit;font-size:.92rem;text-align:left;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;line-height:1.5}
+.qo button:disabled{cursor:default;opacity:1}
+.qo button.ok{border-color:#2f8f57;background:color-mix(in srgb,#2f8f57 12%,var(--surface));color:var(--ink);font-weight:650}
+.qo button.no{border-color:#cf4a43;background:color-mix(in srgb,#cf4a43 12%,var(--surface))}
+.qo button.ok::after{content:" ✓";color:#2f8f57;font-weight:800}
+.qo button.no::after{content:" ✗";color:#cf4a43;font-weight:800}
+.qw{font-size:.86rem;color:var(--ink-2);margin:0 0 6px}
+.qw b.y{color:#2f8f57}.qw b.n{color:#cf4a43}
+.qz-res{font-weight:650;margin:4px 0 10px}
+.qz-res.pass{color:#2f8f57}.qz-res.fail{color:#cf4a43}
+.qz-btns{display:flex;gap:10px;flex-wrap:wrap}
+.tgift{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:20px}
+.tg-card{position:relative;max-width:420px;width:100%;background:var(--surface);border-radius:20px;padding:22px 20px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.tg-k{font-weight:800;font-size:1.15rem;color:var(--gold);margin:0 0 6px}
+.tg-m{font-size:.92rem;color:var(--ink-2)}
+.tg-v{margin:12px 0 16px;padding:12px 14px;background:var(--gold-soft);border-radius:14px;font-family:var(--serif);font-size:1.02rem;line-height:1.8}
+.tg-v cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:4px}
+html.emb .bar{padding-top:8px}
+/* 2026-10 新设计：和学课网站一致（米白纸色、墨蓝字、金色点缀；面板从底部升起） */
+.prog i{background:linear-gradient(90deg,#C9A45C,var(--gold))}
+.bar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.bar .back{color:var(--ink);font-weight:500}
+.bar .aa{font-family:var(--serif);font-weight:900}
+.tbtn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s;box-shadow:0 1px 2px rgba(26,33,50,.04)}
+.tbtn:active{transform:scale(.97)}
+.tbtn .ic{color:var(--gold)}
+.tbtn.solid{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);box-shadow:0 6px 18px -8px rgba(164,124,51,.65)}
+.tbtn.solid .ic{color:inherit}
+.tile{border-color:transparent;background:var(--band);border-radius:16px;font-weight:650}
+.tile[data-twx]{background:#07C160;border-color:#07A355;color:#fff;box-shadow:0 8px 20px -10px rgba(7,160,85,.7)}
+.tile[data-twx] .ic{color:#fff}
+.tsh{font-family:var(--serif);font-weight:900}
+.tsh-sent{border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold);background:var(--gold-soft)}
+.sh-bg{background:rgba(8,12,20,.45)}
+.sh-card{border-radius:24px 24px 0 0;border:1px solid var(--rule);border-bottom:0;padding-top:26px}
+.sh-card::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.3;transform:translateX(-50%)}
+.sheet:not([hidden]) .sh-card{animation:shup .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes shup{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:700px){.sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}.sh-card::before{content:none}.sheet:not([hidden]) .sh-card{animation:shpop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes shpop{from{opacity:0;transform:translate(-50%,12px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.sh-x{top:10px;right:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--band);font-size:1.2rem}
+.qq::before{color:var(--gold)}
+.tg-card{border:1px solid var(--rule);border-radius:24px}
+.fab-toc{background:#141B2A;color:#F3EBDA;border:1px solid rgba(233,214,163,.3)}
+@media (prefers-reduced-motion:reduce){.sheet:not([hidden]) .sh-card{animation:none}}
+@media print{.ib,.tacts,.sheet,.twg,.tgift,.howto,.toc-in .tsrc{display:none!important}
+  :root{color-scheme:light}body{background:#fff}.bar,.fab-toc{display:none!important}
+  .part{break-before:page;break-after:avoid}.ch h2{break-after:avoid}table,figure,.answer,blockquote{break-inside:avoid}
+  a{color:inherit;text-decoration:none}.foot{padding-bottom:0}}
+</style>
+<script>
+(function(){
+  var de=document.documentElement,C=JSON.parse(document.getElementById('tcfg').textContent),Q=JSON.parse(document.getElementById('tquiz').textContent),
+      G=JSON.parse(document.getElementById('tgifts').textContent);
+  var SH=document.getElementById('tshsheet'),WG=document.getElementById('twg'),DL=document.getElementById('tdlsheet'),GF=document.getElementById('tgift');
+  var UA=navigator.userAgent,inWx=/MicroMessenger/i.test(UA),mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(UA);
+  var emb=de.classList.contains('emb'),TOP=emb?window.top:window;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;if(![SH,DL].some(function(x){return !x.hidden;}))de.classList.remove('sheetopen');}
+  function copy(t){
+    function legacy(){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(a);a.focus();a.select();try{a.setSelectionRange(0,t.length);}catch(e){}var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(a);return ok;}
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},function(){return legacy();});
+    return Promise.resolve(legacy());
+  }
+  /* ---------- 分享 ---------- */
+  var text='【'+(C.col||'问题彩蛋')+'】'+C.title+'\n'+C.url,pending=false;
+  function done(h,sent){SH.querySelector('.tsh-done').innerHTML=h;SH.querySelector('.tsh-sent').hidden=!sent;}
+  function shOpen(){
+    SH.querySelector('[data-tsys]').hidden=!(navigator.share&&!inWx);
+    var qr=SH.querySelector('.tsh-qr');if(qr)qr.hidden=mobile;
+    done('',false);open(SH);
+  }
+  function gift(){
+    pending=false;close(SH);WG.hidden=true;
+    var n=(+get('shares')||0)+1;set('shares',String(n));
+    var v=G[Math.floor(Math.random()*G.length)];
+    GF.querySelector('.tg-v').innerHTML=esc(v[0])+'<cite>'+esc(v[1])+'</cite>';
+    setTimeout(function(){GF.hidden=false;},250);
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.closest('[data-tshare]')){shOpen();return;}
+    if(t.closest('[data-tdl]')){qOpen();return;}
+    if(t.closest('[data-gclose]')){GF.hidden=true;return;}
+    if(t.closest('[data-twdone]')){gift();return;}
+    if(t.closest('[data-twno]')){pending=false;WG.hidden=true;return;}
+    if(t.closest('[data-twx]')){
+      if(inWx){pending=true;close(SH);WG.hidden=false;return;}
+      copy(text).then(function(ok){
+        if(mobile){pending=true;done(ok?'✓ 链接已复制，正在打开微信……<br>在聊天框里<b>长按 → 粘贴</b>，发送即可':'正在打开微信……请回来长按下面的链接复制',true);
+          setTimeout(function(){try{TOP.location.href='weixin://';}catch(err){location.href='weixin://';}},450);}
+        else done(ok?'✓ 链接已复制，粘贴到<b>电脑版微信</b>的聊天框发送即可；也可以用手机微信扫上面的二维码':'复制没有成功，请用手机微信扫上面的二维码',ok);
+      });return;
+    }
+    if(t.closest('[data-tcopy]')){copy(text).then(function(ok){done(ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按下面的链接手动复制',ok);});return;}
+    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【'+(C.col||'问题彩蛋')+'】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
+    if(t.closest('[data-tsent]')){gift();return;}
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending&&!SH.hidden)setTimeout(function(){done(SH.querySelector('.tsh-done').innerHTML,true);},200);});
+  [SH,DL].forEach(function(s){s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});});
+  /* ---------- 下载：先答 3 题，答对 2 题就能下载 ---------- */
+  var OL=DL.querySelector('.qz'),RES=DL.querySelector('.qz-res'),RT=DL.querySelector('[data-qretry]'),DB=DL.querySelector('[data-qdl]'),WXN=DL.querySelector('.qz-wx'),
+      KEY='quiz:'+C.id,cur=[],got=0,left=0,last=[];
+  if(inWx){DB.removeAttribute('download');DB.target=emb?'_top':'_self';}
+  function pick(){   // 随机抽 3 题，尽量不和上一次重复
+    var idx=Q.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+    idx.sort(function(a,b){return (last.indexOf(a)>=0)-(last.indexOf(b)>=0);});
+    return idx.slice(0,3);
+  }
+  function ready(msg){RES.className='qz-res pass';RES.innerHTML=msg;DB.hidden=false;WXN.hidden=!inWx;}
+  function qOpen(){
+    if(get(KEY)==='1'&&!cur.length){OL.innerHTML='';RT.hidden=false;RT.textContent='再答一次题';ready('你已经答对过题目，可以直接下载。');open(DL);return;}
+    if(!cur.length||!left)build();
+    open(DL);
+  }
+  function build(){
+    cur=pick();last=cur.slice();got=0;left=3;RES.className='qz-res';RES.textContent='';DB.hidden=true;RT.hidden=true;WXN.hidden=true;
+    OL.innerHTML=cur.map(function(i,n){var x=Q[i];return '<li data-i="'+i+'"><p class="qq">'+esc(x.q)+'</p><div class="qo">'+
+      x.o.map(function(o,j){return '<button type="button" data-o="'+j+'">'+'ABCD'[j]+'. '+esc(o)+'</button>';}).join('')+'</div><p class="qw" hidden></p></li>';}).join('');
+    DL.querySelector('.sh-card').scrollTop=0;
+  }
+  OL.addEventListener('click',function(e){
+    var b=e.target.closest('.qo button');if(!b)return;
+    var li=b.closest('li'),x=Q[+li.dataset.i],j=+b.dataset.o,bs=li.querySelectorAll('.qo button');
+    if(li.dataset.done)return;li.dataset.done='1';left--;
+    bs.forEach(function(y){y.disabled=true;});
+    bs[x.a].classList.add('ok');
+    var ok=j===x.a,w=li.querySelector('.qw');
+    if(ok)got++;else b.classList.add('no');
+    w.innerHTML=(ok?'<b class="y">答对了！</b>':'<b class="n">答错了。</b>正确答案是 '+'ABCD'[x.a]+'。')+esc(x.why)+' '+x.go;
+    w.hidden=false;
+    if(!left){
+      if(got>=2){set(KEY,'1');ready('答对 '+got+' 题，可以下载了！');RT.hidden=false;RT.textContent='再答一次题';}
+      else{RES.className='qz-res fail';RES.textContent='答对 '+got+' 题，还差一点。可以回到正文再读一读，然后换 3 道题再试一次。';RT.hidden=false;RT.textContent='换 3 道题再答一次';}
+      setTimeout(function(){RES.scrollIntoView({block:'nearest',behavior:'smooth'});},50);
+    }
+  });
+  OL.addEventListener('click',function(e){var a=e.target.closest('.qw a');if(a)close(DL);});
+  RT.addEventListener('click',function(){build();});
+})();
+</script>
+</body>
+</html>

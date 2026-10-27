@@ -38,5 +38,6 @@ description: 网站“🎧 听朗读”的预录人声（微信里也能听）�
     "pauses": "0.25,0.6,0.9", "chunk": "150", "parts": 6, "speed": "1", "design": "", "kinds": "", "lessons": "", "name": "", "maxblocks": "0", "instruct": ""}]}
   ```
   `parts`：一篇拆成几份并行（大约每 2,000—2,500 字一份；VoxCPM2 在 GitHub 的 CPU 上大约要音频长度的 10 倍时间）。全部任务最多 20 台同时跑，拼接在 publish 那一步（`gen.py --merge`）。
+- 改 `health_speech.py` 的读法规则时，先确认已录好的几篇段落指纹没变（`page_audio(id)['h']` 和 `audio/vx-w/index.json` 里的 `h` 一样），否则它们的“听这一章”会失效。
 - 只改了一篇，就只重录那一篇（`ids` 写那一篇）。改了文章没重录：还能听，但“听这一章”和上一章/下一章会隐藏（段落指纹对不上）。
 - 本机测试播放器要用支持 Range 的服务器（`python3 -m http.server` 不支持，拖进度会跳回开头）；测试用的假录音别提交。

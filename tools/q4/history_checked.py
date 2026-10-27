@@ -559,4 +559,43 @@ CHECKED = {
  'dm_zhou25': ('https://doi.org/10.1186/s40779-025-00615-1', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
  'lp_peng23': ('https://doi.org/10.1016/j.lanwpc.2023.100809', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
  'lp_huang22': ('https://doi.org/10.1186/s12889-022-14263-w', 'live'),   # PubMed 核对摘要（2026-10-27，更新为最新全国数据）
+ 'st_tu23': ('https://doi.org/10.1001/jamanetworkopen.2023.1455', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_tu23r': ('https://doi.org/10.1186/s40779-023-00463-x', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wang22': ('https://doi.org/10.1136/svn-2021-001374', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wang17': ('https://doi.org/10.1161/CIRCULATIONAHA.116.025250', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_zhou19': ('https://doi.org/10.1016/S0140-6736(19)30427-1', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_gbd21': ('https://doi.org/10.1016/S1474-4422(24)00369-7', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_odonnell16': ('https://doi.org/10.1016/S0140-6736(16)30506-2', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_reddin25': ('https://doi.org/10.1016/j.lanhl.2025.100709', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_he23': ('https://doi.org/10.1016/S0140-6736(22)02603-4', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_huo15': ('https://doi.org/10.1001/jama.2015.2274', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_hart07': ('https://doi.org/10.7326/0003-4819-146-12-200706190-00007', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_du21': ('https://doi.org/10.1136/heartjnl-2020-317915', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_sparcl06': ('https://doi.org/10.1056/NEJMoa061894', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_tong19': ('https://doi.org/10.1136/bmj.l4897', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_chiu20': ('https://doi.org/10.1212/WNL.0000000000009093', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_estruch18': ('https://doi.org/10.1056/NEJMoa1800389', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_du16': ('https://doi.org/10.1056/NEJMoa1501451', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_millwood19': ('https://doi.org/10.1016/S0140-6736(18)31772-0', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_emberson14': ('https://doi.org/10.1016/S0140-6736(14)60584-5', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_goyal16': ('https://doi.org/10.1016/S0140-6736(16)00163-X', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_nogueira18': ('https://doi.org/10.1056/NEJMoa1706442', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wang23trace': ('https://doi.org/10.1016/S0140-6736(22)02600-9', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_saver06': ('https://doi.org/10.1161/01.STR.0000196957.55928.ab', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_rothwell07': ('https://doi.org/10.1016/S0140-6736(07)61448-2', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_amarenco16': ('https://doi.org/10.1056/NEJMoa1412981', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wang13': ('https://doi.org/10.1056/NEJMoa1215340', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_progress01': ('https://doi.org/10.1016/S0140-6736(01)06178-5', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_avert15': ('https://doi.org/10.1016/S0140-6736(15)60690-0', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_hackett14': ('https://doi.org/10.1111/ijs.12357', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_chen13': ('https://doi.org/10.1161/STROKEAHA.113.002055', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wang23nbp': ('https://doi.org/10.1001/jamaneurol.2023.1871', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_aroor17': ('https://doi.org/10.1161/STROKEAHA.116.015169', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_zhao17': ('https://doi.org/10.1016/S1474-4422(16)30283-6', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_gu19': ('https://doi.org/10.1161/STROKEAHA.118.024232', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_su25': ('https://doi.org/10.1136/svn-2024-003535', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_xu18': ('https://doi.org/10.1002/14651858.CD003317.pub3', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_wu07': ('https://doi.org/10.1002/14651858.CD004295.pub3', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_liu26': ('https://doi.org/10.3389/fmed.2026.1884399', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'st_li25ang': ('https://doi.org/10.1097/CM9.0000000000003133', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
 }
