@@ -506,4 +506,35 @@ CHECKED = {
  'ht_yokoyama14': ('https://doi.org/10.1001/jamainternmed.2013.14547', 'live'),   # PubMed 核对摘要（2026-10-26）
  'ht_buettner25': ('https://doi.org/10.1177/15598276251334310', 'live'),   # PubMed 核对摘要（2026-10-26）
  'ht_candal25': ('https://doi.org/10.14336/AD.2025.0461', 'live'),   # PubMed 核对摘要（2026-10-26）
+ 'lp_lu21': ('https://doi.org/10.1001/jamanetworkopen.2021.27573', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_lu17ms': ('https://doi.org/10.1210/jc.2016-2477', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_li23': ('https://doi.org/10.26599/1671-5411.2023.09.008', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_ference17': ('https://doi.org/10.1093/eurheartj/ehx144', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_hu20fh': ('https://doi.org/10.1161/CIRCULATIONAHA.119.044795', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_berenson98': ('https://doi.org/10.1056/NEJM199806043382302', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_cohen06': ('https://doi.org/10.1056/NEJMoa054013', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_ference12': ('https://doi.org/10.1016/j.jacc.2012.09.017', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_adiels06': ('https://doi.org/10.1007/s00125-005-0125-z', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_alberti09': ('https://doi.org/10.1161/CIRCULATIONAHA.109.192644', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_kodama07': ('https://doi.org/10.1001/archinte.167.10.999', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_reaven88': ('https://doi.org/10.2337/diab.37.12.1595', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_petersen18': ('https://doi.org/10.1152/physrev.00063.2017', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_hall15': ('https://doi.org/10.1161/CIRCRESAHA.116.305697', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_zhou20': ('https://doi.org/10.1002/hep.31150', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_kaplan17': ('https://doi.org/10.1016/S0140-6736(17)30752-3', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_ctt10': ('https://doi.org/10.1016/S0140-6736(10)61350-5', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_ctt19old': ('https://doi.org/10.1016/S0140-6736(18)31942-1', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_ctt22': ('https://doi.org/10.1016/S0140-6736(22)01545-8', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_sattar10': ('https://doi.org/10.1016/S0140-6736(09)61965-6', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_lu08': ('https://doi.org/10.1016/j.amjcard.2008.02.056', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_gordon10': ('https://doi.org/10.1001/archinternmed.2010.382', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_abdelhamid20': ('https://doi.org/10.1002/14651858.CD003177.pub5', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_sacks17': ('https://doi.org/10.1161/CIR.0000000000000510', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_carson20': ('https://doi.org/10.1161/CIR.0000000000000743', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_zhong19': ('https://doi.org/10.1001/jama.2019.1572', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_qin18': ('https://doi.org/10.1136/heartjnl-2017-312651', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_jenkins03': ('https://doi.org/10.1001/jama.290.4.502', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_orchard05': ('https://doi.org/10.7326/0003-4819-142-8-200504190-00009', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_wang15veg': ('https://doi.org/10.1161/JAHA.115.002408', 'live'),   # PubMed 核对摘要（2026-10-27）
+ 'lp_orlich13': ('https://doi.org/10.1001/jamainternmed.2013.6473', 'live'),   # PubMed 核对摘要（2026-10-27）
 }
