@@ -93,6 +93,55 @@ class Cosy:
         return np.concatenate(parts) if parts else np.zeros(0, np.float32)
 
 
+
+class Vox:
+    """VoxCPM2（OpenBMB 开源，Apache-2.0，2B）。两种用法：
+    voice=f：照着官方真人提示音（voices/f.wav，来自 CosyVoice 仓库）说话；
+    design='一段声音描述'：先按描述“设计”一个声音说一句开场白（固定随机种子，各台机器得到同一个声音），再照着它读全文。"""
+    DESIGN_TEXT = '各位弟兄姊妹，大家好。今天我们一起来聊一聊身体的健康，学一学怎样好好照顾自己。'
+
+    def __init__(self, voice, model_dir, design='', seed=2026):
+        import torch, random, hashlib
+        torch.set_num_threads(os.cpu_count() or 4)
+        cfg = os.path.join(model_dir, 'config.json')
+        c = json.load(open(cfg))
+        if c.get('dtype') != 'float32':          # CPU 上用 float32 更快、更稳
+            c['dtype'] = 'float32'
+            json.dump(c, open(cfg, 'w'))
+        from voxcpm import VoxCPM
+        self.m = VoxCPM(voxcpm_model_path=model_dir, zipenhancer_model_path=None, enable_denoiser=False,
+                        optimize=False, device='cpu')
+        global SR
+        SR = self.m.tts_model.sample_rate
+        if design:
+            torch.manual_seed(seed); random.seed(seed); np.random.seed(seed)
+            a = self.m.generate(text=f'({design}){self.DESIGN_TEXT}', cfg_value=2.0, inference_timesteps=10)
+            import soundfile as sf
+            path = os.path.join(HERE, 'voices', f'vx-{voice}.wav')
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            sf.write(path, a, SR)
+            print('设计的声音', voice, round(len(a) / SR, 1), '秒，指纹', hashlib.md5(np.round(a, 3).tobytes()).hexdigest()[:10], flush=True)
+            self.prompt = (path, self.DESIGN_TEXT)
+        else:
+            self.prompt = (os.path.join(HERE, 'voices', 'f.wav'), '希望你以后能够做的比我还好呦。')
+
+    def __call__(self, text):
+        return self.m.generate(text=text, prompt_wav_path=self.prompt[0], prompt_text=self.prompt[1],
+                               cfg_value=2.0, inference_timesteps=10).astype(np.float32)
+
+
+def trim(a, keep_head=0.03, keep_tail=0.08):
+    """去掉模型输出前后多余的静音，句间停顿才能统一由我们控制"""
+    if not len(a):
+        return a
+    thr = max(float(np.max(np.abs(a))) * 0.02, 1e-4)
+    idx = np.nonzero(np.abs(a) > thr)[0]
+    if not len(idx):
+        return a[:0]
+    lo = max(0, idx[0] - int(keep_head * SR))
+    hi = min(len(a), idx[-1] + int(keep_tail * SR))
+    return a[lo:hi]
+
 def make_prompt(repo_dir, sft_dir, voice='m'):
     """用 CosyVoice-300M-SFT 内置的“中文男”/“中文女”合成一句话，当作 CosyVoice3 的提示音（voices/m.wav、voices/w.wav）"""
     sys.path.insert(0, repo_dir)
@@ -122,6 +171,7 @@ def sentences(t, limit=120):
     return out
 
 
+CHUNK = 0      # 逐句合成时，每次最多合成多少字（0＝一句一句；大一点语调更连贯）
 PAUSE = None   # 逐句合成时的停顿（秒）：{'sent': 句与句, 'para': 段与段, 'head': 章节标题后}；None＝旧做法（学课录音不变）
 
 
@@ -164,9 +214,9 @@ def synth(blocks, tts, lo=0):
             continue
         starts.append(round(pos / SR, 2))
         if PAUSE:
-            ss = split_sent(b['say'])
+            ss = sentences(b['say'], CHUNK) if CHUNK else split_sent(b['say'])
             for k, s in enumerate(ss):
-                a = tts(s).astype(np.float32)
+                a = trim(tts(s).astype(np.float32))
                 chunks.append(a)
                 pos += len(a)
                 if k < len(ss) - 1:
@@ -259,7 +309,7 @@ def merge(outdir, bitrate='32k'):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--engine', required=True, choices=['kokoro', 'cosy3', 'cosy2'])
+    ap.add_argument('--engine', required=True, choices=['kokoro', 'cosy3', 'cosy2', 'voxcpm'])
     ap.add_argument('--voice', default='f')
     ap.add_argument('--instruct', default='')
     ap.add_argument('--ids', default='')
@@ -276,6 +326,8 @@ def main():
     ap.add_argument('--speed', type=float, default=1.0, help='CosyVoice 语速，1＝正常')
     ap.add_argument('--pauses', default='', help='逐句合成并加停顿：句,段,标题（秒），例如 0.35,0.8,1.1')
     ap.add_argument('--part', default='', help='并行合成：k/n 只合成第 k 份（从 0 数），之后用 --merge 拼')
+    ap.add_argument('--chunk', type=int, default=0, help='配合 --pauses：每次合成最多多少字（按句号合并），0＝一句一句')
+    ap.add_argument('--design', default='', help='VoxCPM2：用文字描述设计声音')
     ap.add_argument('--merge', action='store_true', help='把 --out 里的分片拼成完整的声音')
     a = ap.parse_args()
     if a.merge:
@@ -284,7 +336,8 @@ def main():
     if a.make_prompt:
         make_prompt(a.repo_dir, a.make_prompt, a.voice)
         return
-    global PAUSE
+    global PAUSE, CHUNK
+    CHUNK = a.chunk
     if a.pauses:
         x = [float(v) for v in a.pauses.split(',')]
         PAUSE = {'sent': x[0], 'para': x[1], 'head': x[2]}
@@ -301,6 +354,8 @@ def main():
         raise SystemExit('没有要合成的内容')
     if a.engine == 'kokoro':
         tts = Kokoro(a.voice)
+    elif a.engine == 'voxcpm':
+        tts = Vox(a.voice, a.model_dir, a.design)
     else:
         tts = Cosy(a.voice, a.model_dir, a.repo_dir, v3=a.engine == 'cosy3', instruct=a.instruct, speed=a.speed or 1.0)
     stats = []

@@ -67,8 +67,14 @@ jobs:
           pip install -q torch --index-url https://download.pytorch.org/whl/cpu
           pip install -q "kokoro==0.9.4" "misaki[zh]==0.9.4" soundfile huggingface_hub
           python -c "import torch, transformers; print('torch', torch.__version__, 'transformers', transformers.__version__)"
+      - name: 安装 VoxCPM2
+        if: matrix.job.engine == 'voxcpm'
+        run: |
+          pip install -q torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q voxcpm==2.0.3 soundfile
+          python -c "from huggingface_hub import snapshot_download; snapshot_download('openbmb/VoxCPM2', local_dir='/tmp/model')"
       - name: 安装 CosyVoice
-        if: matrix.job.engine != 'kokoro'
+        if: startsWith(matrix.job.engine, 'cosy')
         run: |
           git clone -q https://github.com/FunAudioLLM/CosyVoice /tmp/cv
           cd /tmp/cv && git checkout -q "$CV_COMMIT" && git submodule update --init --recursive -q
@@ -86,7 +92,7 @@ jobs:
         env:
           ENGINE: ${{ matrix.job.engine }}
       - name: 提示音（男声 m、女声 w）
-        if: matrix.job.engine != 'kokoro' && ((matrix.job.voice == 'm' && hashFiles('tools/q4/tts/voices/m.wav') == '') || (matrix.job.voice == 'w' && hashFiles('tools/q4/tts/voices/w.wav') == ''))
+        if: startsWith(matrix.job.engine, 'cosy') && ((matrix.job.voice == 'm' && hashFiles('tools/q4/tts/voices/m.wav') == '') || (matrix.job.voice == 'w' && hashFiles('tools/q4/tts/voices/w.wav') == ''))
         run: |
           python -c "from huggingface_hub import snapshot_download; snapshot_download('FunAudioLLM/CosyVoice-300M-SFT', local_dir='/tmp/sft')"
           python tools/q4/tts/gen.py --engine cosy3 --voice "${{ matrix.job.voice }}" --repo-dir /tmp/cv --make-prompt /tmp/sft --out x
@@ -96,7 +102,7 @@ jobs:
             --instruct "${{ matrix.job.instruct }}" --ids "${{ matrix.job.ids }}" --kinds "${{ matrix.job.kinds }}" \
             --lessons "${{ matrix.job.lessons }}" --maxblocks "${{ matrix.job.maxblocks || 0 }}" --name "${{ matrix.job.name }}" \
             --script "${{ matrix.job.script || 'script.json' }}" --speed "${{ matrix.job.speed || 1 }}" --pauses "${{ matrix.job.pauses }}" \
-            --part "${{ matrix.job.part }}" --out "art/$OUT" --model-dir /tmp/model --repo-dir /tmp/cv
+            --part "${{ matrix.job.part }}" --chunk "${{ matrix.job.chunk || 0 }}" --design "${{ matrix.job.design }}" --out "art/$OUT" --model-dir /tmp/model --repo-dir /tmp/cv
           mkdir -p art/tools/q4/tts/voices && cp tools/q4/tts/voices/*.wav art/tools/q4/tts/voices/ 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
