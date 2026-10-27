@@ -139,12 +139,26 @@ def split_sent(t):
     return out
 
 
-def render(unit, tts, outdir, maxblocks=0, bitrate='32k'):
-    t0 = time.time()
-    chunks, starts, fps, pos = [], [], [], 0
-    blocks = unit['blocks'][:maxblocks] if maxblocks else unit['blocks']
+def ranges(blocks, n):
+    """按字数把段落平均分成 n 份（连续的几段一份），给并行合成用"""
+    total = sum(len(b['say']) for b in blocks) or 1
+    cuts, acc, k = [0], 0, 1
     for i, b in enumerate(blocks):
-        fps.append(b['fp'])
+        acc += len(b['say'])
+        while k < n and acc >= total * k / n and i + 1 > cuts[-1]:
+            cuts.append(i + 1)
+            k += 1
+    while len(cuts) < n:
+        cuts.append(len(blocks))
+    cuts.append(len(blocks))
+    return [(cuts[j], cuts[j + 1]) for j in range(n)]
+
+
+def synth(blocks, tts, lo=0):
+    """合成第 lo 段起的这些段落，返回（声音、每段开始的秒数）。停顿也算在里面"""
+    chunks, starts, pos = [], [], 0
+    for j, b in enumerate(blocks):
+        i = lo + j
         if not b['say']:
             starts.append(-1)
             continue
@@ -169,22 +183,78 @@ def render(unit, tts, outdir, maxblocks=0, bitrate='32k'):
         z = np.zeros(int(gap * SR), np.float32)
         chunks.append(z)
         pos += len(z)
-    audio = np.concatenate(chunks) if chunks else np.zeros(SR, np.float32)
+    audio = np.concatenate(chunks) if chunks else np.zeros(0, np.float32)
+    return audio, starts
+
+
+def finish(uid, src, audio, starts, fps, outdir, bitrate='32k'):
+    """整条声音：统一音量，存成 mp3 和 json"""
+    if not len(audio):
+        audio = np.zeros(SR, np.float32)
     peak = float(np.max(np.abs(audio))) or 1.0
     audio = audio / peak * 0.89
     dur = len(audio) / SR
     os.makedirs(outdir, exist_ok=True)
-    mp3 = os.path.join(outdir, unit['id'] + '.mp3')
+    mp3 = os.path.join(outdir, uid + '.mp3')
     pcm = (np.clip(audio, -1, 1) * 32767).astype('<i2').tobytes()
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 's16le', '-ar', str(SR), '-ac', '1', '-i', '-',
                     '-ar', '24000', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', bitrate, mp3], input=pcm, check=True)
-    meta = {'d': round(dur, 2), 'h': fphash(fps), 'n': len(blocks), 't': starts, 'src': unit.get('src', unit['id'])}
-    with open(os.path.join(outdir, unit['id'] + '.json'), 'w') as f:
+    meta = {'d': round(dur, 2), 'h': fphash(fps), 'n': len(fps), 't': starts, 'src': src}
+    with open(os.path.join(outdir, uid + '.json'), 'w') as f:
         json.dump(meta, f)
+    return dur, mp3
+
+
+def render(unit, tts, outdir, maxblocks=0, bitrate='32k', part=None):
+    """合成一个朗读单位。part=(k, n)：只合成第 k 份（共 n 份），存成 <id>.partK.npy/.json，最后用 --merge 拼起来"""
+    t0 = time.time()
+    blocks = unit['blocks'][:maxblocks] if maxblocks else unit['blocks']
+    lo, hi = ranges(blocks, part[1])[part[0]] if part else (0, len(blocks))
+    audio, starts = synth(blocks[lo:hi], tts, lo)
+    chars = sum(len(b['say']) for b in blocks[lo:hi])
+    if part:
+        os.makedirs(outdir, exist_ok=True)
+        base = os.path.join(outdir, f"{unit['id']}.part{part[0]:02d}")
+        np.save(base + '.npy', audio.astype(np.float16))
+        with open(base + '.part', 'w') as f:
+            json.dump({'k': part[0], 'n': part[1], 'sr': SR, 'lo': lo, 'hi': hi, 't': starts,
+                       'fp': [b['fp'] for b in blocks[lo:hi]], 'src': unit.get('src', unit['id'])}, f, ensure_ascii=False)
+        dur, took = len(audio) / SR, time.time() - t0
+        print(f"{unit['id']} 第 {part[0] + 1}/{part[1]} 份（第 {lo + 1}—{hi} 段）：{chars} 字，{dur:.0f} 秒，用时 {took:.0f} 秒", flush=True)
+        return {'id': f"{unit['id']}#{part[0]}", 'chars': chars, 'dur': round(dur, 1), 'took': round(took, 1)}
+    dur, mp3 = finish(unit['id'], unit.get('src', unit['id']), audio, starts, [b['fp'] for b in blocks], outdir, bitrate)
     took = time.time() - t0
-    chars = sum(len(b['say']) for b in blocks)
     print(f"{unit['id']}: {chars} 字，{dur:.0f} 秒音频，用时 {took:.0f} 秒（实时率 {took / max(dur, 1):.2f}），{os.path.getsize(mp3) // 1024} KB", flush=True)
     return {'id': unit['id'], 'chars': chars, 'dur': round(dur, 1), 'took': round(took, 1)}
+
+
+def merge(outdir, bitrate='32k'):
+    """把并行合成的几份（<id>.partK.npy/.part）按次序拼成一条，存 mp3 和 json，删掉分片"""
+    import glob
+    global SR
+    groups = {}
+    for f in sorted(glob.glob(os.path.join(outdir, '*.part'))):
+        uid = re.sub(r'\.part\d+\.part$', '', os.path.basename(f))
+        groups.setdefault(uid, []).append(f)
+    for uid, fs in groups.items():
+        ps = sorted(((json.load(open(f, encoding='utf-8')), f) for f in fs), key=lambda x: x[0]['k'])
+        n = ps[0][0]['n']
+        if [p['k'] for p, _ in ps] != list(range(n)):
+            print(f'{uid}: 分片不全（{[p["k"] for p, _ in ps]} / {n}），先不拼', flush=True)
+            continue
+        SR = ps[0][0]['sr']
+        chunks, starts, fps, pos = [], [], [], 0
+        for p, f in ps:
+            a = np.load(f[:-5] + '.npy').astype(np.float32)
+            starts += [-1 if t < 0 else round(t + pos / SR, 2) for t in p['t']]
+            fps += p['fp']
+            chunks.append(a)
+            pos += len(a)
+        dur, mp3 = finish(uid, ps[0][0]['src'], np.concatenate(chunks), starts, fps, outdir, bitrate)
+        for _, f in ps:
+            os.remove(f)
+            os.remove(f[:-5] + '.npy')
+        print(f'{uid}: {n} 份拼好，{dur:.0f} 秒，{os.path.getsize(mp3) // 1024} KB', flush=True)
 
 
 def main():
@@ -205,7 +275,12 @@ def main():
     ap.add_argument('--script', default='script.json', help='朗读稿：script.json（学课）或 script-health.json（健康栏目）')
     ap.add_argument('--speed', type=float, default=1.0, help='CosyVoice 语速，1＝正常')
     ap.add_argument('--pauses', default='', help='逐句合成并加停顿：句,段,标题（秒），例如 0.35,0.8,1.1')
+    ap.add_argument('--part', default='', help='并行合成：k/n 只合成第 k 份（从 0 数），之后用 --merge 拼')
+    ap.add_argument('--merge', action='store_true', help='把 --out 里的分片拼成完整的声音')
     a = ap.parse_args()
+    if a.merge:
+        merge(a.out, a.bitrate)
+        return
     if a.make_prompt:
         make_prompt(a.repo_dir, a.make_prompt, a.voice)
         return
@@ -232,8 +307,10 @@ def main():
     for u in units:
         if a.name:
             u = dict(u, id=a.name, src=u['id'])
-        stats.append(render(u, tts, a.out, a.maxblocks, a.bitrate))
-    with open(os.path.join(a.out, f'stats-{a.engine}-{a.voice}-{a.name or "x"}-{int(time.time())}.json'), 'w') as f:
+        part = tuple(int(x) for x in a.part.split('/')) if a.part else None
+        stats.append(render(u, tts, a.out, a.maxblocks, a.bitrate, part))
+    tag = a.part.replace('/', 'of') if a.part else 'all'
+    with open(os.path.join(a.out, f'stats-{a.engine}-{a.voice}-{a.name or "x"}-{tag}-{int(time.time())}.json'), 'w') as f:
         json.dump(stats, f, ensure_ascii=False)
 
 
