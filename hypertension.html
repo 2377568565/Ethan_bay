@@ -383,6 +383,38 @@ html.sheetopen{overflow:hidden}
 .ch .ptbl{width:100%}
 .ch .ptbl td:first-child{width:28%;font-weight:650}
 .srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+
+.lsn{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:14px 0 4px}
+.lsn-go{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:1rem;font-weight:650;color:var(--surface);background:var(--accent);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
+.lsn-go .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lsn-d{font-weight:400;font-size:.86rem;opacity:.9}
+.lsn-note{font-size:.84rem;color:var(--muted);flex:1 1 220px}
+.lp-chgo{display:inline-flex;align-items:center;gap:4px;margin:4px 0 0;font:inherit;font-size:.82rem;color:var(--accent);background:var(--accent-soft);border:0;border-radius:999px;padding:3px 11px;cursor:pointer}
+.lp-chgo svg{width:13px;height:13px;fill:currentColor}
+.lp{position:fixed;left:0;right:0;bottom:0;z-index:28;background:var(--surface);border-top:1px solid var(--rule);box-shadow:0 -6px 20px rgba(0,0,0,.08);padding:8px 16px calc(8px + env(safe-area-inset-bottom))}
+.lp>*{max-width:640px;margin-left:auto;margin-right:auto}
+.lp-top{display:flex;align-items:center;gap:10px;font-size:.86rem}
+.lp-ch{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650;color:var(--ink)}
+.lp-t{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lp-x{font:inherit;font-size:1.3rem;line-height:1;color:var(--muted);background:none;border:0;padding:2px 4px;cursor:pointer}
+.lp-bar{position:relative;height:22px;cursor:pointer;touch-action:none}
+.lp-bar::before{content:"";position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--rule)}
+.lp-bar i{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.lp-row{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.lp-row button{flex:0 0 auto;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:inherit;color:var(--ink);background:none;border:0;border-radius:50%;cursor:pointer;padding:0}
+.lp-row button:disabled{opacity:.3;cursor:default}
+.lp-row svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lp-row .lp-pp{width:54px;height:54px;color:var(--surface);background:var(--accent)}
+.lp-row .lp-pp svg{width:26px;height:26px}
+.lp-pp .i-play{fill:currentColor;stroke:none}.lp-pp .i-pause{display:none;stroke-width:2.6}
+.lp.playing .lp-pp .i-play{display:none}.lp.playing .lp-pp .i-pause{display:inline}
+.lp-row .lp-sp{width:auto;min-width:52px;padding:0 8px;border-radius:999px;border:1px solid var(--rule);height:34px;font-size:.86rem;font-variant-numeric:tabular-nums}
+@media (max-width:360px){.lp-row button{width:40px;height:40px}.lp-row .lp-pp{width:50px;height:50px}.lp-row .lp-sp{min-width:46px;padding:0 6px;font-size:.8rem}}
+.lp-msg{margin:4px 0 0;font-size:.84rem;color:var(--ink-2);text-align:center}
+.lp-msg button{font:inherit;color:var(--accent);background:none;border:0;text-decoration:underline;cursor:pointer;padding:0 4px}
+html.lpon body{padding-bottom:150px}
+html.lpon .fab-toc{bottom:calc(150px + env(safe-area-inset-bottom))}
+@media print{.lp,.lsn,.lp-chgo{display:none!important}}
 </style>
 </head>
 <body data-mins="60">
@@ -399,7 +431,7 @@ html.sheetopen{overflow:hidden}
 <ol class="lineage"><li class="f1"><span class="ly">不是宿命</span><b>血压随年龄升高，在现代生活里很常见，但不是人类的必然：吃盐少、身材精瘦、活动多的人群，老了血压也升得很慢</b><small>齐马内人研究</small></li><li class="f1"><span class="ly">病根在哪里</span><b>长期管血压的是肾脏；盐多钾少、体重增加、动得少、喝酒多，再加上大动脉变硬，把肾脏的“设定点”一点点调高</b><small></small></li><li class="f1"><span class="ly">药物在做什么</span><b>降压药不负责清走盐、体重和变硬的血管，但收缩压每降 10，中风少四分之一以上；不能自己停药</b><small>61 万人的汇总</small></li><li class="f1"><span class="ly">中国人的功课</span><b>我们吃的盐是世界卫生组织建议的两倍多；中国农村 2 万人的试验里，换成代用盐，中风和死亡都减少了</b><small>SSaSS</small></li><li class="f1"><span class="ly">可以少吃药</span><b>少吃盐、减重、多动，血压能降的幅度不比一种药小；在医生指导下，一部分人可以减药</b><small>DASH、TONE</small></li><li class="f1"><span class="ly">年轻人怎样做</span><b>每年量一次血压；少盐、多吃蔬菜水果、保持体重、规律运动、少喝或不喝酒、睡好觉</b><small></small></li></ol>
 <p>下面先讲血压是怎样管住的，再看衰老和生活怎样把它推高，然后看药物在做什么、生活方式能做多少、年轻人怎样预防。医学研究都在 PubMed 上核对过摘要；“编者的理解”只供参考。<b>本篇不能代替医生的诊断和处方，换药、停药一定先问医生。</b></p></div>
 <p class="howto"><span>怎样读这一页：</span>点正文里<a class="cite demo" href="#sources">1</a>这样的小数字，可以看到出处；点<a class="xref" href="#ssass">第 18 章《一包代用盐：中国农村两万人的试验》</a>之类的蓝色字，可以跳到相关的章节；右下角的“目录”按钮随时可以跳到任何一章。</p>
-</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div>
+</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div><div class="lsn" data-lsn hidden><button type="button" class="lsn-go" data-lsngo><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6.5" rx="1.6"/><rect x="16.5" y="13.5" width="4" height="6.5" rx="1.6"/></svg><span>听朗读</span><span class="lsn-d" data-lsnd></span></button><span class="lsn-note">温和的女声朗读全文（开源语音模型合成）。可以边听边做别的事。</span></div>
 <nav class="toc-in" aria-label="目录"><h2>目录</h2><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆上桌</span><ol><li><a href="#q"><span class="tn">01</span>量了一次血压之后</a></li><li><a href="#scale"><span class="tn">02</span>中国有多少人在这条路上</a></li><li><a href="#silent"><span class="tn">03</span>不痛不痒，为什么要管</a></li></ol></li><li><span class="tp">第二部分 · 血压是怎样管住的</span><ol><li><a href="#what"><span class="tn">04</span>血压到底是什么</a></li><li><a href="#kidney"><span class="tn">05</span>长期管血压的，是肾脏</a></li><li><a href="#types"><span class="tn">06</span>原发和继发：有的高血压真有“病根”可找</a></li></ol></li><li><span class="tp">第三部分 · 为什么年纪越大血压越高</span><ol><li><a href="#stiff"><span class="tn">07</span>血管变硬：老年人“高压高、低压不高”的原因</a></li><li><a href="#notage"><span class="tn">08</span>年纪是原因吗？世界上有血压不随年龄升高的人</a></li><li><a href="#salt"><span class="tn">09</span>盐：中国人特别的一门功课</a></li><li><a href="#many"><span class="tn">10</span>几股力量一起：体重、酒、睡眠、压力</a></li></ol></li><li><span class="tp">第四部分 · 为什么吃药似乎“断不了根”</span><ol><li><a href="#drugs"><span class="tn">11</span>降压药在做什么</a></li><li><a href="#root"><span class="tn">12</span>为什么一停药，血压又高了</a></li><li><a href="#worth"><span class="tn">13</span>吃药值不值？六十万人的答案</a></li><li><a href="#target"><span class="tn">14</span>降到多少合适？老人呢</a></li><li><a href="#research"><span class="tn">15</span>研究那么多，是“为了研究而研究”吗？</a></li><li><a href="#tcm"><span class="tn">16</span>中药降压，怎么看</a></li></ol></li><li><span class="tp">第五部分 · 能不能少吃药、甚至不吃药</span><ol><li><a href="#life"><span class="tn">17</span>不吃药，能把血压降多少</a></li><li><a href="#ssass"><span class="tn">18</span>一包代用盐：中国农村两万人的试验</a></li><li><a href="#less"><span class="tn">19</span>能减药、甚至停药吗？</a></li><li><a href="#adventist"><span class="tn">20</span>复临信徒的血压，和“蓝区”</a></li></ol></li><li><span class="tp">第六部分 · 年轻人怎样从根上预防</span><ol><li><a href="#young"><span class="tn">21</span>年轻人：高血压的路，从年轻时开始</a></li><li><a href="#measure"><span class="tn">22</span>在家怎样量血压</a></li><li><a href="#plan"><span class="tn">23</span>一张给不同的人的行动表</a></li></ol></li><li><span class="tp">第七部分 · 结语与问答</span><ol><li><a href="#hope"><span class="tn">24</span>心中安静是肉体的生命</a></li><li><a href="#faq"><span class="tn">25</span>常见问题</a></li></ol></li></ol></nav><div class="part" id="part1"><span>第一部分</span><b>先把问题摆上桌</b></div><section class="ch" id="q"><h2><span class="no">01</span>量了一次血压之后</h2>
 <p>李叔叔五十八岁，单位体检，血压 158/96。他自己一点感觉都没有，头不晕、不痛，吃饭睡觉都好。医生让他回去在家里量一周，结果差不多，就开了一种降压药。</p>
 <p>他把药放在桌上，很犹豫：“没病没痛的，干嘛吃药？听说降压药一吃就停不了，要吃一辈子。吃药也只是把数字压下去，病根还在，这算什么治疗？”</p>
@@ -1036,6 +1068,86 @@ function Lamb(el){var t=null,busy=false,seen=false,vis=false,cur='';
 document.querySelectorAll('.lamb').forEach(Lamb);
 window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEach(function(el){el.q4play&&el.q4play('joy');});}};
 })();</script>
+<div class="lp" id="lp" hidden role="region" aria-label="朗读播放器"><div class="lp-top"><span class="lp-ch" data-lpch>正在加载声音……</span><span class="lp-t" data-lpt>0:00</span><button type="button" class="lp-x" data-lpx aria-label="关闭朗读">×</button></div><div class="lp-bar" data-lpbar role="slider" aria-label="播放进度" tabindex="0"><i></i></div><div class="lp-row"><button type="button" data-lpprev aria-label="上一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M18 5 9 12l9 7z"/></svg></button><button type="button" data-lpback aria-label="后退 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" class="lp-pp" data-lppp aria-label="播放"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l11-6.5z"/><path class="i-pause" d="M8 5v14M16 5v14"/></svg></button><button type="button" data-lpfwd aria-label="前进 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" data-lpnext aria-label="下一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M6 5l9 7-9 7z"/></svg></button><button type="button" class="lp-sp" data-lpsp aria-label="语速">1.0×</button></div><p class="lp-msg" data-lpmsg hidden></p></div><script type="application/json" id="lpcfg">{"id": "h2", "dir": "audio/vx-w/", "heads": [[1, "q"], [16, "scale"], [23, "silent"], [30, "what"], [39, "kidney"], [47, "types"], [63, "stiff"], [73, "notage"], [84, "salt"], [91, "many"], [100, "drugs"], [111, "root"], [120, "worth"], [129, "target"], [139, "research"], [146, "tcm"], [153, "life"], [162, "ssass"], [171, "less"], [183, "adventist"], [193, "young"], [208, "measure"], [219, "plan"], [221, "hope"]], "h": "d061084e", "n": 236, "title": "高血压，真的要吃一辈子药吗？"}</script><script>
+(function(){
+  var C=JSON.parse(document.getElementById('lpcfg').textContent),de=document.documentElement;
+  var P=document.getElementById('lp'),BTN=document.querySelector('[data-lsn]');if(!P||!BTN||!window.fetch)return;
+  function q(s){return P.querySelector(s);}
+  var A=null,M=null,ST=[],cur=-2,lastSave=0,userScroll=0,RATES=[0.8,0.9,1,1.15,1.3];
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function fmt(t){t=Math.max(0,Math.floor(t||0));var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+(m<10?'0':''):'')+m+':'+(s<10?'0':'')+s;}
+  function name(i){var sec=document.getElementById(C.heads[i][1]),h=sec&&sec.querySelector('h2');return h?h.textContent.replace(/^0*(\d+)/,'第$1章 · '):'';}
+  fetch(C.dir+'index.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null;}).then(function(ix){
+    M=ix&&ix[C.id];if(!M||!M.d)return;
+    if(M.h===C.h&&M.t&&M.t.length===C.n)ST=C.heads.map(function(x){return M.t[x[0]];});   // 录音和文章对得上，才能按章跳转
+    BTN.hidden=false;BTN.querySelector('[data-lsnd]').textContent='约 '+Math.max(1,Math.round(M.d/60))+' 分钟';
+    if(ST.length)C.heads.forEach(function(x,i){var sec=document.getElementById(x[1]),h=sec&&sec.querySelector('h2');if(!h)return;
+      var b=document.createElement('button');b.type='button';b.className='lp-chgo';b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l12-7z"/></svg>听这一章';
+      b.addEventListener('click',function(){start(ST[i]);});h.insertAdjacentElement('afterend',b);});
+    else{q('[data-lpprev]').hidden=true;q('[data-lpnext]').hidden=true;}
+  }).catch(function(){});
+  function rate(){var r=+(get('lprate')||1);return RATES.indexOf(r)>=0?r:1;}
+  function msg(h,ms){var m=q('[data-lpmsg]');m.innerHTML=h;m.hidden=!h;clearTimeout(msg.t);if(h&&ms)msg.t=setTimeout(function(){m.hidden=true;},ms);}
+  function save(){if(A&&A.currentTime>3)set('lpos:'+C.id,A.ended?'0':String(Math.floor(A.currentTime)));}
+  function ensure(){
+    if(A)return;
+    A=new Audio();A.preload='auto';A.src=C.dir+C.id+'.mp3';
+    A.addEventListener('timeupdate',paint);A.addEventListener('durationchange',paint);
+    A.addEventListener('play',function(){P.classList.add('playing');q('[data-lppp]').setAttribute('aria-label','暂停');try{parent!==window&&parent.postMessage({q4:'tts'},location.origin);}catch(e){}});
+    A.addEventListener('pause',function(){P.classList.remove('playing');q('[data-lppp]').setAttribute('aria-label','播放');save();});
+    A.addEventListener('waiting',function(){q('[data-lpch]').textContent='正在加载声音……';cur=-2;});
+    A.addEventListener('playing',function(){cur=-2;paint();});
+    A.addEventListener('ended',function(){set('lpos:'+C.id,'0');msg('这一篇听完了。',6000);});
+    A.addEventListener('error',function(){msg('声音没有加载成功，请检查网络后再点一次播放。');});
+    if('mediaSession' in navigator)try{
+      navigator.mediaSession.metadata=new MediaMetadata({title:C.title,artist:'健康 · 听朗读',album:'预言的恩赐 · 研读网站'});
+      var MS=navigator.mediaSession;MS.setActionHandler('play',function(){A.play();});MS.setActionHandler('pause',function(){A.pause();});
+      MS.setActionHandler('seekbackward',function(){seek(A.currentTime-15);});MS.setActionHandler('seekforward',function(){seek(A.currentTime+15);});
+      if(ST.length){MS.setActionHandler('previoustrack',function(){chap(-1);});MS.setActionHandler('nexttrack',function(){chap(1);});}
+    }catch(e){}
+  }
+  function open(){P.hidden=false;de.classList.add('lpon');var r=rate();q('[data-lpsp]').textContent=(r%1?String(r):r.toFixed(1))+'×';}
+  function start(t,resume){ensure();open();A.playbackRate=rate();try{A.defaultPlaybackRate=rate();}catch(e){}
+    var go=function(){try{A.currentTime=t||0;}catch(e){}};
+    if(A.readyState>=1)go();else A.addEventListener('loadedmetadata',go,{once:true});
+    var p=A.play();if(p&&p.catch)p.catch(function(){});
+    if(resume)msg('已从上次听到的地方继续 <button type="button" data-lpfrom0>从头听</button>',9000);else msg('');}
+  function seek(t){if(!A)return;var d=A.duration||M.d;try{A.currentTime=Math.max(0,Math.min(d-0.5,t));}catch(e){}paint();}
+  function idx(t){var i=-1;for(var k=0;k<ST.length;k++){if(ST[k]<=t+0.3)i=k;else break;}return i;}
+  function chap(dir){if(!A||!ST.length)return;var t=A.currentTime,i=idx(t);
+    if(dir<0&&i>=0&&t-ST[i]>4)seek(ST[i]);else{var j=Math.max(0,Math.min(ST.length-1,i+dir));seek(ST[j]);}}
+  function paint(){if(!A)return;var d=A.duration||M.d||1,t=A.currentTime||0;
+    q('.lp-bar i').style.transform='scaleX('+Math.min(1,t/d).toFixed(4)+')';
+    q('[data-lpt]').textContent=fmt(t)+' / '+fmt(d);
+    var i=ST.length?idx(t):-1;
+    if(i!==cur&&!A.paused){var first=cur===-2;cur=i;q('[data-lpch]').textContent=i>=0?name(i):C.title;
+      if(i>=0&&!first&&Date.now()-userScroll>12000){var sec=document.getElementById(C.heads[i][1]);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}}   // 跟着声音翻到这一章（刚自己翻过页面就不打扰）
+    else if(A.paused&&cur===-2){q('[data-lpch]').textContent=i>=0?name(i):C.title;}
+    if(Date.now()-lastSave>5000){lastSave=Date.now();save();}
+  }
+  addEventListener('touchmove',function(){userScroll=Date.now();},{passive:true});addEventListener('wheel',function(){userScroll=Date.now();},{passive:true});
+  BTN.querySelector('[data-lsngo]').addEventListener('click',function(){
+    if(A&&!A.paused){open();return;}
+    var s=+(get('lpos:'+C.id)||0);if(A&&A.currentTime>1){open();A.play();return;}
+    start(s>10&&s<(M.d-15)?s:0,s>10&&s<(M.d-15));});
+  q('[data-lppp]').addEventListener('click',function(){if(!A){start(0);return;}if(A.paused){A.playbackRate=rate();A.play();}else A.pause();});
+  q('[data-lpback]').addEventListener('click',function(){seek((A?A.currentTime:0)-15);});
+  q('[data-lpfwd]').addEventListener('click',function(){seek((A?A.currentTime:0)+15);});
+  q('[data-lpprev]').addEventListener('click',function(){chap(-1);});
+  q('[data-lpnext]').addEventListener('click',function(){chap(1);});
+  q('[data-lpsp]').addEventListener('click',function(){var r=RATES[(RATES.indexOf(rate())+1)%RATES.length];set('lprate',String(r));if(A)A.playbackRate=r;this.textContent=(r%1?String(r):r.toFixed(1))+'×';});
+  q('[data-lpx]').addEventListener('click',function(){if(A)A.pause();P.hidden=true;de.classList.remove('lpon');});
+  P.addEventListener('click',function(e){if(e.target.closest('[data-lpfrom0]')){seek(0);msg('');}});
+  var bar=q('[data-lpbar]');
+  function barSeek(e){var r=bar.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;seek(Math.max(0,Math.min(1,x/r.width))*((A&&A.duration)||M.d));}
+  bar.addEventListener('pointerdown',function(e){if(!A)return;barSeek(e);bar.setPointerCapture&&bar.setPointerCapture(e.pointerId);bar.onpointermove=barSeek;});
+  bar.addEventListener('pointerup',function(){bar.onpointermove=null;});bar.addEventListener('pointercancel',function(){bar.onpointermove=null;});
+  bar.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')seek(A.currentTime-15);if(e.key==='ArrowRight')seek(A.currentTime+15);});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='hidden'&&A)A.pause();});   // 网站把这一页收起来了
+  addEventListener('pagehide',save);
+})();
+</script>
 <div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
 <button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">“高血压，真的要吃一辈子药吗？”</p>
 <div class="tsh-main"><button type="button" class="tile" data-twx><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 4C5.2 4 2 6.7 2 10c0 1.9 1 3.6 2.7 4.7L4 17l2.6-1.4c.8.2 1.7.4 2.6.4h.5a5.6 5.6 0 0 1-.2-1.5C9.5 11.4 12.6 9 16.4 9h.4C16 6.1 12.9 4 9.2 4Zm-2.4 3.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM22 14.4c0-2.8-2.7-5-6-5s-6 2.2-6 5 2.7 5 6 5c.7 0 1.4-.1 2-.3l2.1 1.1-.6-1.9c1.5-.9 2.5-2.3 2.5-3.9Zm-8-.8a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" fill="currentColor"/></svg><span>微信分享</span></button><button type="button" class="tile" data-tcopy><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>复制链接</span></button><button type="button" class="tile" data-tsys hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>更多方式</span></button></div>

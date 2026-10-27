@@ -2328,7 +2328,7 @@ window.Q4Hub=(function(){
   if(onMusic())refresh();
   window.addEventListener('hashchange',function(){if(onMusic())refresh();});
   // 电脑侧栏的小播放器：还没放音乐时，点一下就接着放上次那首（没有就从第一首开始）
-  window.Q4Music={start:function(){var id=get('mlast');if(id&&byId[id])makeQueue(id);else{makeQueue();id=queue[0];}if(id)play(id);},
+  window.Q4Music={pause:function(){try{A.pause();}catch(e){}},start:function(){var id=get('mlast');if(id&&byId[id])makeQueue(id);else{makeQueue();id=queue[0];}if(id)play(id);},
     last:function(){var x=byId[get('mlast')||''];return x?x.title:'';},count:function(){return SONGS.length;}};
 })();
 
@@ -2344,7 +2344,7 @@ window.Q4Hub=(function(){
   function open(id){
     var x=EXT[id];
     if(!OV){OV=document.createElement('div');OV.className='tov';OV.innerHTML='<div class="tov-load"><span class="tov-spin"></span><p>正在打开……</p></div>';document.body.appendChild(OV);}
-    for(var k in FR)FR[k].hidden=(k!==id);
+    for(var k in FR){if(k!==id&&!FR[k].hidden)hush(FR[k]);FR[k].hidden=(k!==id);}
     if(!FR[id]){
       var f=document.createElement('iframe');f.className='tov-f';f.title=x.title||'问题彩蛋';f.setAttribute('allow','clipboard-write; web-share');
       f.addEventListener('load',function(){f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · (问题彩蛋|健康)$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+suf(id);}});
@@ -2357,7 +2357,8 @@ window.Q4Hub=(function(){
     if(x.title)document.title=x.title+suf(id);
   }
   function suf(id){return /^h\d/.test(id)?' · 健康':' · 问题彩蛋';}
-  function close(){if(!OV||OV.hidden)return;OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}}
+  function hush(f){try{f.contentWindow.postMessage({q4:'hidden'},location.origin);}catch(e){}}   // 收起的专题页：停下朗读（健康栏目，2026-10-27）
+  function close(){if(!OV||OV.hidden)return;if(on&&FR[on])hush(FR[on]);OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}}
   function prefetch(){   // 在问题彩蛋列表停留时，先把专题网页悄悄下载好，点进去更快
     if(pf)return;pf=true;
     ids.forEach(function(id,i){setTimeout(function(){if(!FR[id])fetch(EXT[id].href,{credentials:'same-origin'}).catch(function(){});},2000+i*1500);});
@@ -2375,6 +2376,7 @@ window.Q4Hub=(function(){
     pushed=true;prev=location.hash;location.hash=id;
   });
   window.addEventListener('message',function(e){
+    if(e.origin===location.origin&&e.data&&e.data.q4==='tts'){if(window.Q4Music&&Q4Music.pause)Q4Music.pause();return;}   // 开始听朗读：先停下音乐
     if(e.origin!==location.origin||!e.data||e.data.q4!=='nav')return;
     var h='#'+String(e.data.hash||'home');
     if(pushed&&h===prev){pushed=false;history.back();return;}   // 从列表点进来的：退回去（不多留一条记录）

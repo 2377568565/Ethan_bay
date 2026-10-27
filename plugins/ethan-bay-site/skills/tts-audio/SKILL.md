@@ -26,3 +26,17 @@ description: 网站“🎧 听朗读”的预录人声（微信里也能听）�
      问答文章是 `kind: qa`。不确定时看 `script.json` 里的 `id`。全季重录时 `jobs` 改回每课一个任务（`kinds: "yw,jd,qa"`，`lessons` 0—13），约 40 分钟。
    - 在学课某天加了问题彩蛋入口，那天解读的段落会多一段，要补录那一天。
 4. 等任务跑完，`git pull`，确认 `audio/kk-f/index.json` 更新、网页上那部分有“🎧 听朗读”。
+
+## 健康栏目的朗读（2026-10-27 起）
+- 声音：**C —— VoxCPM2 设计的女声**（用户在两轮试听里选的；第一轮 CosyVoice3 逐句合成被说“怪怪的”：提示音不是真人、一句一句合成语调断开、人为放慢）。
+  提示音 `tools/q4/tts/voices/vx-dw.wav`（`gen.py --engine voxcpm --voice dw` 会直接用它，各台机器声音一致）。
+- 朗读稿：`python3 tools/q4/tts/health_speech.py` → `tools/q4/tts/script-health.json`（单位 `h1`、`h2`、`h3`；`--demo` 只出试听用的 h2-demo）。
+  新增健康文章时，把文件名和 `*_text` 模块加进 `health_speech.units_all()` 的 `mods`，生成器里 `col` 加 `audio=page_audio(IT['id'])`（见 `diabetes.py`）。
+- 合成：`request.json` 例子
+  ```json
+  {"out": "audio/vx-w", "check": false, "jobs": [{"engine": "voxcpm", "voice": "dw", "ids": "h2", "script": "script-health.json",
+    "pauses": "0.25,0.6,0.9", "chunk": "150", "parts": 6, "speed": "1", "design": "", "kinds": "", "lessons": "", "name": "", "maxblocks": "0", "instruct": ""}]}
+  ```
+  `parts`：一篇拆成几份并行（大约每 2,000—2,500 字一份；VoxCPM2 在 GitHub 的 CPU 上大约要音频长度的 10 倍时间）。全部任务最多 20 台同时跑，拼接在 publish 那一步（`gen.py --merge`）。
+- 只改了一篇，就只重录那一篇（`ids` 写那一篇）。改了文章没重录：还能听，但“听这一章”和上一章/下一章会隐藏（段落指纹对不上）。
+- 本机测试播放器要用支持 Range 的服务器（`python3 -m http.server` 不支持，拖进度会跳回开头）；测试用的假录音别提交。

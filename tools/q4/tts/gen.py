@@ -122,6 +122,8 @@ class Vox:
             sf.write(path, a, SR)
             print('设计的声音', voice, round(len(a) / SR, 1), '秒，指纹', hashlib.md5(np.round(a, 3).tobytes()).hexdigest()[:10], flush=True)
             self.prompt = (path, self.DESIGN_TEXT)
+        elif os.path.exists(os.path.join(HERE, 'voices', f'vx-{voice}.wav')):   # 以前设计好的声音（例如 dw＝健康栏目选定的女声 C）
+            self.prompt = (os.path.join(HERE, 'voices', f'vx-{voice}.wav'), self.DESIGN_TEXT)
         else:
             self.prompt = (os.path.join(HERE, 'voices', 'f.wav'), '希望你以后能够做的比我还好呦。')
 

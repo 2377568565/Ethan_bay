@@ -41,6 +41,13 @@ EXTRA_CSS = r'''
 '''
 
 
+def page_audio(uid):
+    """听朗读：录音的位置和每章从第几段开始（tools/q4/tts/health_speech.py）"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tts'))
+    import health_speech
+    return health_speech.page_audio(uid)
+
+
 def ref(cid):
     return f'<a class="xref" href="#{cid}">第 {NO[cid]} 章《{NAME[cid]}》</a>'
 
@@ -111,7 +118,7 @@ def page():
     H.CSS = css + EXTRA_CSS
     try:
         tools = topic_tools.build(id=IT['id'], title=TITLE, page=IT['url'], pdf=PDF, quiz=T.QUIZ, ref=ref, col='健康')
-        col = dict(name='健康', hash='health', foot='健康栏目 · 健康科普，不能代替医生的诊断和处方', related=related())
+        col = dict(name='健康', hash='health', foot='健康栏目 · 健康科普，不能代替医生的诊断和处方', related=related(), audio=page_audio(IT['id']))
         return H.doc(TITLE, '为什么年纪大了血压容易高？降压药治的是什么、为什么断不了根？能不能少吃药、怎样预防？从血压的生理、血管的衰老讲起，结合 DASH、中国代用盐研究 SSaSS、STEP 等研究（都在 PubMed 核对过）', main, srcs, toc_html, cites, tools, col)
     finally:
         H.CSS = css

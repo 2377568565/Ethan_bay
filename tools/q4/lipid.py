@@ -41,6 +41,13 @@ EXTRA_CSS = r'''
 '''
 
 
+def page_audio(uid):
+    """听朗读：录音的位置和每章从第几段开始（tools/q4/tts/health_speech.py）"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tts'))
+    import health_speech
+    return health_speech.page_audio(uid)
+
+
 def ref(cid):
     return f'<a class="xref" href="#{cid}">第 {NO[cid]} 章《{NAME[cid]}》</a>'
 
@@ -111,7 +118,7 @@ def page():
     H.CSS = css + EXTRA_CSS
     try:
         tools = topic_tools.build(id=IT['id'], title=TITLE, page=IT['url'], pdf=PDF, quiz=T.QUIZ, ref=ref, col='健康')
-        col = dict(name='健康', hash='health', foot='健康栏目 · 健康科普，不能代替医生的诊断和处方', related=related())
+        col = dict(name='健康', hash='health', foot='健康栏目 · 健康科普，不能代替医生的诊断和处方', related=related(), audio=page_audio(IT['id']))
         return H.doc(TITLE, '血脂是什么？为什么高血脂、高血压、高血糖总是一起来？降脂药治的是什么、副作用有多大？从脂肪放错了地方、胰岛素抵抗讲起，结合 CTT、孟德尔随机化、血脂康、组合饮食等研究（都在 PubMed 核对过）', main, srcs, toc_html, cites, tools, col)
     finally:
         H.CSS = css

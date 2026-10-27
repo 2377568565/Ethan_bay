@@ -343,6 +343,16 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
     mins = max(5, round(words / 450 / 5) * 5)
     pxw = f'<div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 {mins} 分钟读完<span data-left></span></p></div>'
     rel = related(title) if col is COL_QA else (col.get('related') or '')
+    au = col.get('audio')
+    lp_btn = lp_bar = lp_css = lp_js = ''
+    if au:   # 听朗读（健康栏目，2026-10-27）：录音在 GitHub 上合成好以后才显示，网页不用重新生成
+        lp_btn = ('<div class="lsn" data-lsn hidden><button type="button" class="lsn-go" data-lsngo>' + I_HP +
+                  '<span>听朗读</span><span class="lsn-d" data-lsnd></span></button><span class="lsn-note">温和的女声朗读全文（开源语音模型合成）。可以边听边做别的事。</span></div>')
+        main = main.replace(tools['row'], tools['row'] + lp_btn, 1) if tools else main.replace('</header>', '</header>' + lp_btn, 1)
+        lp_bar = LP_HTML
+        lp_css = LP_CSS
+        cfg = json.dumps(dict(id=au['id'], dir=au['dir'], heads=au['heads'], h=au['h'], n=au['n'], title=title), ensure_ascii=False)
+        lp_js = '<script type="application/json" id="lpcfg">' + cfg + '</script><script>' + LP_JS + '</script>'
     return f'''<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -351,7 +361,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <title>{title} · {col['name']}</title>
 <meta name="description" content="{desc}">
 <script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}try{{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}}catch(e){{}}</script>
-<style>{CSS}</style>
+<style>{CSS}{lp_css}</style>
 </head>
 <body data-mins="{mins}">
 <div class="prog" aria-hidden="true"><i></i></div>
@@ -374,6 +384,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
 <script>{JS}{LAMB_JS}</script>
+{lp_bar}{lp_js}
 {tail}
 </body>
 </html>
@@ -432,6 +443,137 @@ SCENE_CSS = ''.join(
     + f'.scene .lamb{{position:absolute;left:{_LX * k}px;top:{_LY * k}px;width:{24 * k}px;height:{24 * k}px}}'
     + ('}' if k == 3 else '') for k in (2, 3)) + '.scene .sky{display:block;width:100%;height:100%}\n'
 
+
+
+# ---------------- 听朗读（健康栏目，2026-10-27） ----------------
+I_HP = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6.5" rx="1.6"/><rect x="16.5" y="13.5" width="4" height="6.5" rx="1.6"/></svg>'
+_I = lambda d: '<svg viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>'
+LP_HTML = ('<div class="lp" id="lp" hidden role="region" aria-label="朗读播放器">'
+           '<div class="lp-top"><span class="lp-ch" data-lpch>正在加载声音……</span><span class="lp-t" data-lpt>0:00</span><button type="button" class="lp-x" data-lpx aria-label="关闭朗读">×</button></div>'
+           '<div class="lp-bar" data-lpbar role="slider" aria-label="播放进度" tabindex="0"><i></i></div>'
+           '<div class="lp-row">'
+           '<button type="button" data-lpprev aria-label="上一章">' + _I('<path d="M6 5v14"/><path d="M18 5 9 12l9 7z"/>') + '</button>'
+           '<button type="button" data-lpback aria-label="后退 15 秒">' + _I('<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text>') + '</button>'
+           '<button type="button" class="lp-pp" data-lppp aria-label="播放">' + _I('<path class="i-play" d="M8 5.5v13l11-6.5z"/><path class="i-pause" d="M8 5v14M16 5v14"/>') + '</button>'
+           '<button type="button" data-lpfwd aria-label="前进 15 秒">' + _I('<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text>') + '</button>'
+           '<button type="button" data-lpnext aria-label="下一章">' + _I('<path d="M18 5v14"/><path d="M6 5l9 7-9 7z"/>') + '</button>'
+           '<button type="button" class="lp-sp" data-lpsp aria-label="语速">1.0×</button>'
+           '</div><p class="lp-msg" data-lpmsg hidden></p></div>')
+
+LP_CSS = r"""
+.lsn{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:14px 0 4px}
+.lsn-go{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:1rem;font-weight:650;color:var(--surface);background:var(--accent);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
+.lsn-go .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lsn-d{font-weight:400;font-size:.86rem;opacity:.9}
+.lsn-note{font-size:.84rem;color:var(--muted);flex:1 1 220px}
+.lp-chgo{display:inline-flex;align-items:center;gap:4px;margin:4px 0 0;font:inherit;font-size:.82rem;color:var(--accent);background:var(--accent-soft);border:0;border-radius:999px;padding:3px 11px;cursor:pointer}
+.lp-chgo svg{width:13px;height:13px;fill:currentColor}
+.lp{position:fixed;left:0;right:0;bottom:0;z-index:28;background:var(--surface);border-top:1px solid var(--rule);box-shadow:0 -6px 20px rgba(0,0,0,.08);padding:8px 16px calc(8px + env(safe-area-inset-bottom))}
+.lp>*{max-width:640px;margin-left:auto;margin-right:auto}
+.lp-top{display:flex;align-items:center;gap:10px;font-size:.86rem}
+.lp-ch{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650;color:var(--ink)}
+.lp-t{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lp-x{font:inherit;font-size:1.3rem;line-height:1;color:var(--muted);background:none;border:0;padding:2px 4px;cursor:pointer}
+.lp-bar{position:relative;height:22px;cursor:pointer;touch-action:none}
+.lp-bar::before{content:"";position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--rule)}
+.lp-bar i{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.lp-row{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.lp-row button{flex:0 0 auto;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:inherit;color:var(--ink);background:none;border:0;border-radius:50%;cursor:pointer;padding:0}
+.lp-row button:disabled{opacity:.3;cursor:default}
+.lp-row svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lp-row .lp-pp{width:54px;height:54px;color:var(--surface);background:var(--accent)}
+.lp-row .lp-pp svg{width:26px;height:26px}
+.lp-pp .i-play{fill:currentColor;stroke:none}.lp-pp .i-pause{display:none;stroke-width:2.6}
+.lp.playing .lp-pp .i-play{display:none}.lp.playing .lp-pp .i-pause{display:inline}
+.lp-row .lp-sp{width:auto;min-width:52px;padding:0 8px;border-radius:999px;border:1px solid var(--rule);height:34px;font-size:.86rem;font-variant-numeric:tabular-nums}
+@media (max-width:360px){.lp-row button{width:40px;height:40px}.lp-row .lp-pp{width:50px;height:50px}.lp-row .lp-sp{min-width:46px;padding:0 6px;font-size:.8rem}}
+.lp-msg{margin:4px 0 0;font-size:.84rem;color:var(--ink-2);text-align:center}
+.lp-msg button{font:inherit;color:var(--accent);background:none;border:0;text-decoration:underline;cursor:pointer;padding:0 4px}
+html.lpon body{padding-bottom:150px}
+html.lpon .fab-toc{bottom:calc(150px + env(safe-area-inset-bottom))}
+@media print{.lp,.lsn,.lp-chgo{display:none!important}}
+"""
+
+LP_JS = r"""
+(function(){
+  var C=JSON.parse(document.getElementById('lpcfg').textContent),de=document.documentElement;
+  var P=document.getElementById('lp'),BTN=document.querySelector('[data-lsn]');if(!P||!BTN||!window.fetch)return;
+  function q(s){return P.querySelector(s);}
+  var A=null,M=null,ST=[],cur=-2,lastSave=0,userScroll=0,RATES=[0.8,0.9,1,1.15,1.3];
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function fmt(t){t=Math.max(0,Math.floor(t||0));var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+(m<10?'0':''):'')+m+':'+(s<10?'0':'')+s;}
+  function name(i){var sec=document.getElementById(C.heads[i][1]),h=sec&&sec.querySelector('h2');return h?h.textContent.replace(/^0*(\d+)/,'第$1章 · '):'';}
+  fetch(C.dir+'index.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null;}).then(function(ix){
+    M=ix&&ix[C.id];if(!M||!M.d)return;
+    if(M.h===C.h&&M.t&&M.t.length===C.n)ST=C.heads.map(function(x){return M.t[x[0]];});   // 录音和文章对得上，才能按章跳转
+    BTN.hidden=false;BTN.querySelector('[data-lsnd]').textContent='约 '+Math.max(1,Math.round(M.d/60))+' 分钟';
+    if(ST.length)C.heads.forEach(function(x,i){var sec=document.getElementById(x[1]),h=sec&&sec.querySelector('h2');if(!h)return;
+      var b=document.createElement('button');b.type='button';b.className='lp-chgo';b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l12-7z"/></svg>听这一章';
+      b.addEventListener('click',function(){start(ST[i]);});h.insertAdjacentElement('afterend',b);});
+    else{q('[data-lpprev]').hidden=true;q('[data-lpnext]').hidden=true;}
+  }).catch(function(){});
+  function rate(){var r=+(get('lprate')||1);return RATES.indexOf(r)>=0?r:1;}
+  function msg(h,ms){var m=q('[data-lpmsg]');m.innerHTML=h;m.hidden=!h;clearTimeout(msg.t);if(h&&ms)msg.t=setTimeout(function(){m.hidden=true;},ms);}
+  function save(){if(A&&A.currentTime>3)set('lpos:'+C.id,A.ended?'0':String(Math.floor(A.currentTime)));}
+  function ensure(){
+    if(A)return;
+    A=new Audio();A.preload='auto';A.src=C.dir+C.id+'.mp3';
+    A.addEventListener('timeupdate',paint);A.addEventListener('durationchange',paint);
+    A.addEventListener('play',function(){P.classList.add('playing');q('[data-lppp]').setAttribute('aria-label','暂停');try{parent!==window&&parent.postMessage({q4:'tts'},location.origin);}catch(e){}});
+    A.addEventListener('pause',function(){P.classList.remove('playing');q('[data-lppp]').setAttribute('aria-label','播放');save();});
+    A.addEventListener('waiting',function(){q('[data-lpch]').textContent='正在加载声音……';cur=-2;});
+    A.addEventListener('playing',function(){cur=-2;paint();});
+    A.addEventListener('ended',function(){set('lpos:'+C.id,'0');msg('这一篇听完了。',6000);});
+    A.addEventListener('error',function(){msg('声音没有加载成功，请检查网络后再点一次播放。');});
+    if('mediaSession' in navigator)try{
+      navigator.mediaSession.metadata=new MediaMetadata({title:C.title,artist:'健康 · 听朗读',album:'预言的恩赐 · 研读网站'});
+      var MS=navigator.mediaSession;MS.setActionHandler('play',function(){A.play();});MS.setActionHandler('pause',function(){A.pause();});
+      MS.setActionHandler('seekbackward',function(){seek(A.currentTime-15);});MS.setActionHandler('seekforward',function(){seek(A.currentTime+15);});
+      if(ST.length){MS.setActionHandler('previoustrack',function(){chap(-1);});MS.setActionHandler('nexttrack',function(){chap(1);});}
+    }catch(e){}
+  }
+  function open(){P.hidden=false;de.classList.add('lpon');var r=rate();q('[data-lpsp]').textContent=(r%1?String(r):r.toFixed(1))+'×';}
+  function start(t,resume){ensure();open();A.playbackRate=rate();try{A.defaultPlaybackRate=rate();}catch(e){}
+    var go=function(){try{A.currentTime=t||0;}catch(e){}};
+    if(A.readyState>=1)go();else A.addEventListener('loadedmetadata',go,{once:true});
+    var p=A.play();if(p&&p.catch)p.catch(function(){});
+    if(resume)msg('已从上次听到的地方继续 <button type="button" data-lpfrom0>从头听</button>',9000);else msg('');}
+  function seek(t){if(!A)return;var d=A.duration||M.d;try{A.currentTime=Math.max(0,Math.min(d-0.5,t));}catch(e){}paint();}
+  function idx(t){var i=-1;for(var k=0;k<ST.length;k++){if(ST[k]<=t+0.3)i=k;else break;}return i;}
+  function chap(dir){if(!A||!ST.length)return;var t=A.currentTime,i=idx(t);
+    if(dir<0&&i>=0&&t-ST[i]>4)seek(ST[i]);else{var j=Math.max(0,Math.min(ST.length-1,i+dir));seek(ST[j]);}}
+  function paint(){if(!A)return;var d=A.duration||M.d||1,t=A.currentTime||0;
+    q('.lp-bar i').style.transform='scaleX('+Math.min(1,t/d).toFixed(4)+')';
+    q('[data-lpt]').textContent=fmt(t)+' / '+fmt(d);
+    var i=ST.length?idx(t):-1;
+    if(i!==cur&&!A.paused){var first=cur===-2;cur=i;q('[data-lpch]').textContent=i>=0?name(i):C.title;
+      if(i>=0&&!first&&Date.now()-userScroll>12000){var sec=document.getElementById(C.heads[i][1]);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}}   // 跟着声音翻到这一章（刚自己翻过页面就不打扰）
+    else if(A.paused&&cur===-2){q('[data-lpch]').textContent=i>=0?name(i):C.title;}
+    if(Date.now()-lastSave>5000){lastSave=Date.now();save();}
+  }
+  addEventListener('touchmove',function(){userScroll=Date.now();},{passive:true});addEventListener('wheel',function(){userScroll=Date.now();},{passive:true});
+  BTN.querySelector('[data-lsngo]').addEventListener('click',function(){
+    if(A&&!A.paused){open();return;}
+    var s=+(get('lpos:'+C.id)||0);if(A&&A.currentTime>1){open();A.play();return;}
+    start(s>10&&s<(M.d-15)?s:0,s>10&&s<(M.d-15));});
+  q('[data-lppp]').addEventListener('click',function(){if(!A){start(0);return;}if(A.paused){A.playbackRate=rate();A.play();}else A.pause();});
+  q('[data-lpback]').addEventListener('click',function(){seek((A?A.currentTime:0)-15);});
+  q('[data-lpfwd]').addEventListener('click',function(){seek((A?A.currentTime:0)+15);});
+  q('[data-lpprev]').addEventListener('click',function(){chap(-1);});
+  q('[data-lpnext]').addEventListener('click',function(){chap(1);});
+  q('[data-lpsp]').addEventListener('click',function(){var r=RATES[(RATES.indexOf(rate())+1)%RATES.length];set('lprate',String(r));if(A)A.playbackRate=r;this.textContent=(r%1?String(r):r.toFixed(1))+'×';});
+  q('[data-lpx]').addEventListener('click',function(){if(A)A.pause();P.hidden=true;de.classList.remove('lpon');});
+  P.addEventListener('click',function(e){if(e.target.closest('[data-lpfrom0]')){seek(0);msg('');}});
+  var bar=q('[data-lpbar]');
+  function barSeek(e){var r=bar.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;seek(Math.max(0,Math.min(1,x/r.width))*((A&&A.duration)||M.d));}
+  bar.addEventListener('pointerdown',function(e){if(!A)return;barSeek(e);bar.setPointerCapture&&bar.setPointerCapture(e.pointerId);bar.onpointermove=barSeek;});
+  bar.addEventListener('pointerup',function(){bar.onpointermove=null;});bar.addEventListener('pointercancel',function(){bar.onpointermove=null;});
+  bar.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')seek(A.currentTime-15);if(e.key==='ArrowRight')seek(A.currentTime+15);});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='hidden'&&A)A.pause();});   // 网站把这一页收起来了
+  addEventListener('pagehide',save);
+})();
+"""
 
 CSS = r'''
 *,*::before,*::after{box-sizing:border-box}
