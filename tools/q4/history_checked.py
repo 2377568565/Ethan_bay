@@ -598,4 +598,49 @@ CHECKED = {
  'st_wu07': ('https://doi.org/10.1002/14651858.CD004295.pub3', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
  'st_liu26': ('https://doi.org/10.3389/fmed.2026.1884399', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
  'st_li25ang': ('https://doi.org/10.1097/CM9.0000000000003133', 'live'),   # PubMed 核对摘要（2026-10-27，健康 04 中风）
+ 'os_wang21': ('https://doi.org/10.1001/jamanetworkopen.2021.21106', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_zhang20': ('https://doi.org/10.1371/journal.pmed.1003180', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_zhang21': ('https://doi.org/10.1016/j.lanwpc.2021.100336', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_haentjens10': ('https://doi.org/10.7326/0003-4819-152-6-201003160-00008', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_klotz00': ('https://doi.org/10.1359/jbmr.2000.15.4.721', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_weaver16': ('https://doi.org/10.1007/s00198-015-3440-3', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_nagaraj19': ('https://doi.org/10.1016/j.bone.2019.02.016', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_greendale20': ('https://doi.org/10.1210/clinem/dgz056', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_shieh23': ('https://doi.org/10.1002/jbmr.4759', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_black96': ('https://doi.org/10.1016/s0140-6736(96)07088-2', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_black07': ('https://doi.org/10.1056/NEJMoa067312', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_lyles07': ('https://doi.org/10.1056/NEJMoa074941', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_cummings09': ('https://doi.org/10.1056/NEJMoa0809493', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_cummings18': ('https://doi.org/10.1002/jbmr.3337', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_saag17': ('https://doi.org/10.1056/NEJMoa1708322', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_black20': ('https://doi.org/10.1056/NEJMoa1916525', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_khan15': ('https://doi.org/10.1002/jbmr.2405', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_rossouw02': ('https://doi.org/10.1001/jama.288.3.321', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_sherrington19': ('https://doi.org/10.1002/14651858.CD012424.pub2', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_li18': ('https://doi.org/10.1001/jamainternmed.2018.3915', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_watson18': ('https://doi.org/10.1002/jbmr.3284', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_clemson23': ('https://doi.org/10.1002/14651858.CD013258.pub2', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_santesso14': ('https://doi.org/10.1002/14651858.CD001255.pub5', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_dyer25': ('https://doi.org/10.1002/14651858.CD016064', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_xu22': ('https://doi.org/10.3389/fpubh.2022.902599', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_yang23': ('https://doi.org/10.1007/s12603-023-1935-8', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_gao21': ('https://doi.org/10.3390/nu13124291', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_woolcott09': ('https://doi.org/10.1001/archinternmed.2009.357', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_kortebein08': ('https://doi.org/10.1093/gerona/63.10.1076', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_ren26': ('https://doi.org/10.1186/s12877-026-07490-y', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_li23ca': ('https://doi.org/10.19813/j.cnki.weishengyanjiu.2023.01.004', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_iuliano21': ('https://doi.org/10.1136/bmj.n2364', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_bolland15': ('https://doi.org/10.1136/bmj.h4580', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_chapuy92': ('https://doi.org/10.1056/NEJM199212033272305', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_jackson06': ('https://doi.org/10.1056/NEJMoa055218', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_zhao17': ('https://doi.org/10.1001/jama.2017.19344', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_leboff22': ('https://doi.org/10.1056/NEJMoa2202106', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_sanders10': ('https://doi.org/10.1001/jama.2010.594', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_bolland10': ('https://doi.org/10.1136/bmj.c3691', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_crandall25': ('https://doi.org/10.1093/jbmr/zjaf030', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_tong20': ('https://doi.org/10.1186/s12916-020-01815-3', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_thorpe21': ('https://doi.org/10.1093/ajcn/nqab095', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_li24xl': ('https://doi.org/10.1016/j.chmed.2023.10.005', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_piao22': ('https://doi.org/10.1186/s12906-022-03798-5', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
+ 'os_li20xl': ('https://doi.org/10.3389/fphar.2020.00810', 'live'),   # PubMed 核对摘要（2026-10-28，健康 05 骨质疏松与跌倒）
 }

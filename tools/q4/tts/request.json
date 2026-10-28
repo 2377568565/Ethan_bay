@@ -1,5 +1,5 @@
 {
- "note": "健康栏目 04《中风》全文朗读（2026-10-27，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.43 万字，分 7 份并行合成，拼好后存 audio/vx-w/h4。朗读稿由 tools/q4/tts/health_speech.py 生成。",
+ "note": "健康栏目 05《骨质疏松与跌倒》全文朗读（2026-10-28，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.75 万字，分 8 份并行合成，拼好后存 audio/vx-w/h5。朗读稿由 tools/q4/tts/health_speech.py 生成。",
  "out": "audio/vx-w",
  "check": false,
  "jobs": [
@@ -16,8 +16,8 @@
    "chunk": "150",
    "maxblocks": "0",
    "instruct": "",
-   "ids": "h4",
-   "parts": 7
+   "ids": "h5",
+   "parts": 8
   }
  ]
 }
