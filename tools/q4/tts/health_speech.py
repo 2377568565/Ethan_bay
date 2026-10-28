@@ -71,6 +71,7 @@ def say_numbers(t):
     t = re.sub(r'(?<![\d.,])((?:19|20)\d\d)\s*[—–]\s*((?:19|20)\d\d)(?![\d.,%])(?!\s*' + UNIT + ')',
                lambda m: year_cn(m[1]) + '到' + year_cn(m[2]) + '年', t)
     t = re.sub(r'(?<![\d.,])((?:19|20)\d\d)(?![\d.,%])(?!\s*' + UNIT + ')', lambda m: year_cn(m[1]), t)
+    t = t.replace('GV-971', 'GV九七一')   # 健康 06：药的研发代号逐字读
     t = t.replace('Lp(a)', '脂蛋白a').replace('β-', 'β').replace('β', '贝塔').replace(' ×', '乘以').replace('×', '乘以')
     # “2 个、2 次”读“两个、两次”（“第 2 年”“2 型”不变）
     t = re.sub(r'(?<![\d.,第])2(?![\d.,])(?=\s*' + TWO + ')', '两', t)
@@ -168,7 +169,7 @@ def units_all():
     import history as H
     import health_data
     import importlib
-    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text'}
+    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text', 'dementia.html': 'dementia_text'}
     out = []
     for it in health_data.ITEMS:
         T = importlib.import_module(mods[it['url']])
