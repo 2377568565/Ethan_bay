@@ -525,7 +525,7 @@ def music_page():
 </div>'''
 
 def qr_all():
-    ids = ['qa', 'ask', 'music', 'bible'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
+    ids = ['qa', 'ask', 'music', 'bible', 'health'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
             ''.join(qr_svg(ONLINE + '#' + i).replace('<svg ', f'<svg data-for="{i}" ', 1) for i in ids))
 
@@ -837,6 +837,7 @@ def health_page():
   <h1>健康</h1>
   <p class="lead">常见健康问题的科学分析：从生理学、病理学讲起，看清来龙去脉；研究都在 PubMed 上核对过，分清证据的强弱；最后落到生活里能做的事。每篇都可以转发，也可以答题后下载 PDF。</p>
   <p class="lead" style="font-size:.86rem;color:var(--muted)">健康科普，不能代替医生的诊断和处方；换药、停药一定先问医生。</p>
+  <p class="qshare qshare-l"><button class="btn share" type="button" data-share="health">{SHAREIC}分享健康栏目</button></p>
   <div class="qshelves">{shelves}</div>
   <div class="qsoon"><span>✚</span>更多健康问题陆续加入</div>
   <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>想了解哪个健康问题？</b><small>进入提问区写下来，整理者会挑选问题做成完整的分析</small></span><span class="ae-go">去提问 →</span></a>

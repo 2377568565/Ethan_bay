@@ -388,7 +388,7 @@ var q4keep=(function(){
   var shUrl='',shTitle='',shT=null;
   function markShared(){set('sharePending','1');}
   var shKind='';
-  function shText(){return (shKind==='music'?'【音乐】':shKind==='lesson'?'【学课】':'【问题彩蛋】')+shTitle+'\n'+shUrl;}
+  function shText(){return (shKind==='health'?'【健康】':shKind==='music'?'【音乐】':shKind==='lesson'?'【学课】':'【问题彩蛋】')+shTitle+'\n'+shUrl;}
   function shDone(html,sent){SH.querySelector('.sh-done').innerHTML=html;SH.querySelector('.sh-sent').hidden=!sent;}
   function shOpen(id){
     var pg=document.getElementById(id),isList=id==='qa';shKind=/^music/.test(id)?'music':'';
@@ -397,6 +397,7 @@ var q4keep=(function(){
     SH.querySelector('#sh-h').textContent=isList?'分享问题彩蛋':(id==='ask'?'分享提问区':'分享这篇问答');
     if(id==='ask')shTitle='提问区：读学课有问题，一起来问';
     if(shKind){SH.querySelector('#sh-h').textContent=id==='music'?'分享音乐栏目':'分享这首音乐';if(id==='music')shTitle='音乐：学课之余，听一首诗歌';}
+    if(id==='health'){shKind='health';SH.querySelector('#sh-h').textContent='分享健康栏目';shTitle='健康：常见健康问题的科学分析，研究都核对过';}
     if(/^l\d+-/.test(id)&&pg){   // 学课里的某一天：第2课《先知的呼召》· 星期一 · 以利亚的信息
       shKind='lesson';var L=pg.closest('.lesson'),dn=pg.querySelector('.when .dn'),h=pg.querySelector('.dayhead h2,.ywtitle');
       shTitle=((L&&L.dataset.title)||'').replace(/ · 预言的恩赐$/,'')+(dn?' · '+dn.textContent.trim():'')+(h?' · '+h.textContent.trim():'')+(pg.matches('.ywday')?'（学课原文）':'');
@@ -445,7 +446,7 @@ var q4keep=(function(){
         return;
       }
       if(e.target.closest('[data-shsys]')){
-        navigator.share({title:shTitle,text:(shKind==='lesson'?'【学课】':shKind==='music'?'【音乐】':'【问题彩蛋】')+shTitle,url:shUrl}).then(shared).catch(function(){});return;
+        navigator.share({title:shTitle,text:(shKind==='health'?'【健康】':shKind==='lesson'?'【学课】':shKind==='music'?'【音乐】':'【问题彩蛋】')+shTitle,url:shUrl}).then(shared).catch(function(){});return;
       }
       if(e.target.closest('[data-shsent]')){shared();return;}
       if(e.target.closest('[data-shclose]'))shClose();
