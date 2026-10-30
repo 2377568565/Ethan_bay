@@ -711,4 +711,32 @@ CHECKED = {
  'ct_meister26': ('https://doi.org/10.1186/s40942-025-00793-z', 'live'),   # 核对（2026-10-30，健康 07 白内障）
  'ct_cunha24': ('https://doi.org/10.1016/j.jcjo.2024.02.014', 'live'),   # 核对（2026-10-30，健康 07 白内障）
  'ct_kai23q': ('https://doi.org/10.1007/s00417-023-06034-z', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'mi_cvd21': ('https://doi.org/10.26599/1671-5411.2023.06.001', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_gbd23': ('https://doi.org/10.1016/S0140-6736(25)01917-8', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_chang16': ('https://doi.org/10.1016/j.ijcard.2016.11.130', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_li15': ('https://doi.org/10.1016/S0140-6736(14)60921-1', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_guan19': ('https://doi.org/10.1093/ehjqcco/qcy022', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_xie25': ('https://doi.org/10.1080/16549716.2025.2560711', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_sun25': ('https://doi.org/10.3389/fcvm.2025.1649408', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_yusuf04': ('https://doi.org/10.1016/S0140-6736(04)17018-9', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_lv17': ('https://doi.org/10.1016/j.jacc.2016.11.076', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_yang16': ('https://doi.org/10.1161/CIRCULATIONAHA.116.022367', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_clair13': ('https://doi.org/10.1001/jama.2013.1644', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_bennett17': ('https://doi.org/10.1001/jamacardio.2017.4069', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_fraser92': ('https://pubmed.ncbi.nlm.nih.gov/1627021/', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_tips3': ('https://doi.org/10.1056/NEJMoa2028220', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_zheng19': ('https://doi.org/10.1001/jama.2018.20578', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_vitalo3': ('https://doi.org/10.1056/NEJMoa1811403', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_vitald': ('https://doi.org/10.1056/NEJMoa1809944', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_uspstf22': ('https://doi.org/10.1001/jama.2022.8970', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_bolland10': ('https://doi.org/10.1136/bmj.c3691', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_cts23': ('https://doi.org/10.1001/jama.2023.19524', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_ge21': ('https://doi.org/10.1097/CM9.0000000000001257', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_wang26': ('https://doi.org/10.1016/j.jep.2026.121377', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_dibben21': ('https://doi.org/10.1002/14651858.CD001800.pub4', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_reduce24': ('https://doi.org/10.1056/NEJMoa2401479', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_secure22': ('https://doi.org/10.1056/NEJMoa2208275', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_suwen': ('https://www.aisixiang.com/data/139440.html', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_lingshu': ('https://www.commonhealth.com.tw/blog/6085', 'live'),   # 核对（2026-10-30，健康 08 心梗）
+ 'mi_liang26': ('https://doi.org/10.3389/fpubh.2026.1729653', 'live'),   # 核对（2026-10-30，健康 08 心梗）
 }

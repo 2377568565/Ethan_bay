@@ -1,5 +1,5 @@
 {
- "note": "健康栏目 07《白内障》全文朗读（2026-10-30，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.3 万字，分 7 份并行合成，拼好后存 audio/vx-w/h7。朗读稿由 tools/q4/tts/health_speech.py 生成。",
+ "note": "健康栏目 08《心梗》全文朗读（2026-10-30，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.4 万字，分 7 份并行合成，拼好后存 audio/vx-w/h8。朗读稿由 tools/q4/tts/health_speech.py 生成。",
  "out": "audio/vx-w",
  "check": false,
  "jobs": [
@@ -16,7 +16,7 @@
    "chunk": "150",
    "maxblocks": "0",
    "instruct": "",
-   "ids": "h7",
+   "ids": "h8",
    "parts": 7
   }
  ]
