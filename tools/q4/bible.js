@@ -28,12 +28,15 @@
       return fetch('site/bible/'+fn).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();}).then(function(t){idb('readwrite',function(s){return s.put(t,fn);});return JSON.parse(t);});
     }).catch(function(e){delete MEM[fn];throw e;});
   }
+  function baseName(u){return String(u).split('/').pop();}
+  function loadIndex(u){return /^site\/bible\/[^/]+$/.test(u)?load(baseName(u)):fetch(u).then(function(r){return r.json();});}
   function prune(keep){idb('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();q.onsuccess=function(){(q.result||[]).forEach(function(k){if(keep.indexOf(k)<0)s.delete(k);});};return q;});}
 
   /* ---------- 图标 ---------- */
   var IC={down:'<path d="m6 9 6 6 6-6"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',aa:'<path d="M4 18 9 6l5 12M5.8 14h6.4M15 18l3-7 3 7M15.9 16h4.2"/>',
     x:'<path d="M6 6l12 12M18 6 6 18"/>',back:'<path d="m15 18-6-6 6-6"/>',l:'<path d="m15 18-6-6 6-6"/>',r:'<path d="m9 18 6-6-6-6"/>',
     note:'<path d="M5 4.5h10l4 4V19.5H5z"/><path d="M15 4.5v4h4M8.5 12h7M8.5 15.5h5"/>',bm:'<path d="M7 4h10v16l-5-3.5L7 20z"/>',copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+    share:'<circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1"/>',
     img:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4"/>',org:'<path d="M5 6h14M5 12h9M5 18h12"/><path d="M18.5 10.5 21 13l-2.5 2.5"/>',
     cmp:'<rect x="3.5" y="5" width="7.5" height="14" rx="1.5"/><rect x="13" y="5" width="7.5" height="14" rx="1.5"/>',place:'<path d="M12 21s-6.5-5.4-6.5-11a6.5 6.5 0 0 1 13 0c0 5.6-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
     clear:'<path d="M5 19h14M7 15l7.5-7.5a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L12 16H7z"/>',
@@ -72,7 +75,7 @@
       '<div class="bb-act" hidden role="toolbar" aria-label="选中的经文"><div class="bb-ah"><b class="bb-at"></b><button class="bb-ib" type="button" data-a="unsel" aria-label="取消选择">'+ic('x')+'</button></div>'+
       '<div class="bb-ab"><span class="bb-sw">'+[1,2,3,4].map(function(i){return '<button type="button" class="bb-c'+i+'" data-h="'+i+'" aria-label="划线（颜色'+i+'）"></button>';}).join('')+'</span>'+
       '<button type="button" data-a="note">'+ic('note')+'笔记</button><button type="button" data-a="bm">'+ic('bm')+'书签</button><button type="button" data-a="copy">'+ic('copy')+'复制</button>'+
-      (SITE?'<button type="button" data-a="img">'+ic('img')+'图片</button>':'')+
+      (SITE?'<button type="button" data-a="img">'+ic('share')+'分享</button>':'')+
       '<button type="button" data-a="orgv">'+ic('org')+'原文</button><button type="button" data-a="cmpv">'+ic('cmp')+'对照</button><button type="button" data-a="places">'+ic('place')+'讲过</button><button type="button" data-a="xref">'+ic('xr')+'串珠</button>'+
       '<button type="button" data-a="clear">'+ic('clear')+'清除</button></div></div>'+
       sheet('pick','选择书卷','<div class="bb-seg"><button type="button" data-t="ot" aria-pressed="true">旧约</button><button type="button" data-t="nt" aria-pressed="false">新约</button></div>')+
@@ -291,7 +294,7 @@
       if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(ok,legacy);else legacy();
       function legacy(){var ta=document.createElement('textarea');ta.value=s;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){toast('复制没有成功，请长按文字复制');}ta.remove();}
     }
-    function shareImg(){if(!window.Q4Card)return;window.Q4Card({kind:'verse',text:selText('cuv'),ref:BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),''),qr:'bible'});unselect();}
+    function shareImg(){if(!window.Q4Card)return;window.Q4Card({kind:'quote',col:'bible',text:selText('cuv'),src:BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),'')+'（和合本）',qr:'bible',qrText:'打开圣经，接着读',head:'分享经文'});unselect();}   // 2026-10-30：改叫“分享”，按经文长短自动排版
 
     /* ---------- 面板 ---------- */
     function anyOpen(){return !!root.querySelector('.bb-sh:not([hidden])');}
@@ -645,9 +648,9 @@
 
     /* ---------- 开始 ---------- */
     applySet();
-    fetch(cfg.index).then(function(r){return r.json();}).then(function(ix){
+    loadIndex(cfg.index).then(function(ix){
       IX=ix;BK=ix.books.map(function(x){return {n:x[0],ab:x[1],en:x[2],code:x[3],ini:x[4],py:x[5],nc:x[6]};});
-      var keep=Object.keys(ix.files).map(function(k){return ix.files[k];});setTimeout(function(){prune(keep);},8000);
+      var keep=Object.keys(ix.files).map(function(k){return ix.files[k];});keep.push(baseName(cfg.index));setTimeout(function(){prune(keep);},8000);
       var r=readHash();
       if(r){render(r.b,r.c,r.v);return;}
       var p=jget('bpos',null);fromRestore=true;
@@ -658,5 +661,10 @@
       savePos:savePos
     };
   }
-  window.Q4Bible={mount:mount};
+  /* 2026-10-30 用户反映圣经页打开慢：目录文件也存进手机（文件名带哈希，内容不会变）；
+     网站打开后空闲时先悄悄下载目录和上次读到的那一卷（warm），点“圣经”时就不用再等两次下载 */
+  function warm(index){
+    return loadIndex(index).then(function(ix){var p=jget('bpos',null),b=p?p[0]:0,f=ix.files['cuv-'+('0'+b).slice(-2)];return f?load(f):null;}).catch(function(){});
+  }
+  window.Q4Bible={mount:mount,warm:warm};
 })();

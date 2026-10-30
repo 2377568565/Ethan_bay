@@ -240,7 +240,9 @@ var q4keep=(function(){
       setTimeout(function(){go();de.style.scrollBehavior='';},120);
     };
     var wl=W&&!W.hidden&&W.classList.contains('leaving');   // 从首页点进来：首页正在淡出
-    if(!first&&!reduced&&document.startViewTransition&&W&&(W.hidden||wl)){
+    // 底部标签栏换栏目不用“视图过渡”：它在排新页面时会把整个画面冻住，金色指示条停一下再跳（往右的栏目页面重，跳得更明显；2026-10-30 用户反映）
+    var tabNav=Date.now()-(window.q4tabNav||0)<900;
+    if(!first&&!reduced&&!tabNav&&document.startViewTransition&&W&&(W.hidden||wl)){
       var src=vtSrc&&Date.now()-vtAt<1500&&vtSrc.getClientRects().length?vtSrc:null,dst=null;
       if(src)src.style.viewTransitionName='q4t';
       try{
@@ -390,7 +392,21 @@ var q4keep=(function(){
   var shKind='';
   function shText(){return (shKind==='health'?'【健康】':shKind==='music'?'【音乐】':shKind==='lesson'?'【学课】':'【问题彩蛋】')+shTitle+'\n'+shUrl;}
   function shDone(html,sent){SH.querySelector('.sh-done').innerHTML=html;SH.querySelector('.sh-sent').hidden=!sent;}
+  /* 栏目分享（2026-10-30 用户要的）：健康、问题彩蛋分享出去的是“一张海报 + 一段文字”。
+     海报：栏目名、最新 7 篇、二维码（card.js 画）；文字：吸引人的介绍、最新 3 篇加“……”、最后单独一段链接（微信里点了直接打开这个栏目）。 */
+  var FEED={};try{FEED=JSON.parse(document.getElementById('colfeed').textContent)||{};}catch(err){}
+  var COLTXT={
+    health:{tag:'【健康】',head:'常见健康问题，一篇讲透',intro:'从身体的原理讲起，研究都在 PubMed 上核对过，分清哪些有证据、哪些没有，最后落到每天能做的事。适合自己读，也适合转给爸妈。',go:'点下面的链接，直接打开健康栏目：'},
+    qa:{tag:'【问题彩蛋】',head:'信徒和慕道朋友常问的问题，一篇讲透',intro:'以经解经，大量经文和资料，各方说法客观摆出来，判断留给你自己。罪与得救、安息日、死亡与末世、苦难、婚姻、教养孩子……',go:'点下面的链接，直接打开问题彩蛋：'}};
+  function colShare(id){
+    var F=FEED[id],T=COLTXT[id];if(!F||!T||!window.Q4Card)return false;
+    var url=(SH.dataset.base||location.href.split('#')[0])+'#'+id;
+    var txt=T.tag+T.head+'\n'+T.intro+'\n\n最新上架：\n'+F.items.slice(0,3).map(function(it,i){return (i+1)+'. '+it.q;}).join('\n')+'\n……共 '+F.total+' 篇，持续更新\n\n'+T.go+'\n'+url;
+    Q4Card({kind:'column',col:id,items:F.items,total:F.total,qr:id,head:id==='health'?'分享健康栏目':'分享问题彩蛋',copy:txt,onCopy:markShared});
+    return true;
+  }
   function shOpen(id){
+    if((id==='health'||id==='qa')&&colShare(id))return;
     var pg=document.getElementById(id),isList=id==='qa';shKind=/^music/.test(id)?'music':'';
     shTitle=isList?'学课问题深度解答合集':(pg&&pg.dataset.title||document.title).replace(/ · 问题彩蛋$/,'').replace(/ · 音乐$/,'');
     shUrl=(SH.dataset.base||location.href.split('#')[0])+'#'+id;
@@ -1070,7 +1086,6 @@ window.Q4Hub=(function(){
   if(!seenArts){seenArts=arts.slice();set('qaseen',JSON.stringify(seenArts));}   // 第一次来：现有的文章都不算“新”
   var unseen=[];
   function newArts(){return arts.filter(function(id){return seenArts.indexOf(id)<0;});}
-  function artTitle(id){if(EXT[id])return EXT[id].title;var x=document.getElementById(id);return x&&x.dataset.title?x.dataset.title.replace(/ · 问题彩蛋$/,''):'';}
   function markArt(id){if(arts.indexOf(id)>=0&&seenArts.indexOf(id)<0){seenArts.push(id);set('qaseen',JSON.stringify(seenArts));paint();}}
   function compute(S){
     unseen=[];if(!H.uid||!S)return;
@@ -1096,7 +1111,7 @@ window.Q4Hub=(function(){
     if(wn){
       var h='';
       if(nr)h+='<a class="wnew" href="#ask"><span class="st">✦</span>你的问题有 <b>'+nr+'</b> 条新回答'+(adm?'，管理员已回答':'')+' →</a>';
-      na.forEach(function(id){h+='<a class="wnew" href="'+(EXT[id]?esc(EXT[id].href)+'" data-art="'+id:'#'+id)+'"><span class="st">✦</span>问题彩蛋新文章《'+esc(artTitle(id))+'》→</a>';});
+      // 2026-10-30 用户：新文章不在这里逐条列出（太多、重复），由首页的“新上架”弹窗负责
       wn.innerHTML=h;wn.hidden=!h;
     }
     document.querySelectorAll('.snav a[data-t="ask"]').forEach(function(a){a.classList.toggle('hasnew',nr>0);});
@@ -1550,119 +1565,12 @@ window.Q4Hub=(function(){
   }
 })();
 
-/* ---------- 生成分享图片：经文 · 问题彩蛋文章 · 管理员回答（微信里长按图片即可保存或转发） ---------- */
+/* ---------- 分享图片的入口：经文 · 问题彩蛋文章 · 管理员回答（图由 card.js 画） ---------- */
 (function(){
   if(!document.body.classList.contains('combined'))return;
-  var cv=document.createElement('canvas');if(!cv.getContext||!cv.toDataURL)return;
-  var W=1080,HH=1440,PAD=120;
-  var SERIF='"LessonSerif","Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif';
-  var SANS=getComputedStyle(document.body).fontFamily||'sans-serif';
-  var mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(navigator.userAgent);
+  // 画图和面板在 card.js（2026-10-30 搬出去，专题页也要用）；这里只留各处的入口
   function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
-  function clean(t){return String(t||'').replace(/\s+/g,' ').replace(/\s*([，。、；：！？”’）》])\s*/g,'$1').trim();}
-
-  /* ---- 面板 ---- */
-  var SH=el('div','hconf rsheet imgsheet');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
-  SH.innerHTML='<div class="hconf-bg" data-close></div><div class="hconf-card"><button type="button" class="rs-x" data-close aria-label="关闭">×</button><div class="rs-body"><h3>分享图片</h3><p class="im-tip"></p><div class="im-box"><p class="im-wait">正在生成图片……</p><img class="im-img" alt="分享图片" hidden></div>'+
-    '<div class="hconf-btns"><a class="btn im-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div></div>';
-  document.body.appendChild(SH);
-  SH.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close();});
-  SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-  function open(){SH.querySelector('.im-img').hidden=true;SH.querySelector('.im-wait').hidden=false;SH.querySelector('.im-dl').hidden=true;
-    SH.querySelector('.im-tip').textContent=mobile?'图片生成后，长按图片就可以保存，或直接发送给朋友。':'图片生成后，点“保存图片”下载到电脑，再发到微信。';
-    SH.hidden=false;void SH.offsetWidth;SH.classList.add('open');document.documentElement.classList.add('sheetopen');}
-  function close(){SH.classList.remove('open');document.documentElement.classList.remove('sheetopen');setTimeout(function(){SH.hidden=true;},220);}
-
-  /* ---- 画布工具 ---- */
-  function qrImg(id){
-    var svg=document.querySelector('.sh-qrs svg[data-for="'+id+'"]')||document.querySelector('.sh-qrs svg[data-for="home"]');
-    if(!svg)return Promise.resolve(null);
-    var s=new XMLSerializer().serializeToString(svg);if(!/xmlns=/.test(s))s=s.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');
-    return new Promise(function(ok){var im=new Image();im.onload=function(){ok(im);};im.onerror=function(){ok(null);};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);});
-  }
-  var NOHEAD=/[，。、；：！？”’）》〉」』…·]/,NOTAIL=/[（“‘《〈「『]$/;
-  function wrap(ctx,text,maxW){
-    var lines=[],line='';
-    for(var i=0;i<text.length;i++){
-      var ch=text[i];if(ch==='\n'){lines.push(line);line='';continue;}
-      var t=line+ch;
-      if(line&&ctx.measureText(t).width>maxW){
-        if(NOHEAD.test(ch)){lines.push(t);line='';}
-        else{var carry='';while(NOTAIL.test(line)&&line.length>1){carry=line.slice(-1)+carry;line=line.slice(0,-1);}lines.push(line);line=carry+ch;}   // 开括号、前引号不留在行尾
-      }
-      else line=t;
-    }
-    if(line)lines.push(line);return lines;
-  }
-  function balance(ctx,text,ls,maxW){   // 标题：让各行长短均匀，避免最后一行只剩一两个字
-    if(ls.length<2||/\n/.test(text))return ls;var w=ctx.measureText(text).width/ls.length;
-    for(var k=0;k<12;k++){var t=wrap(ctx,text,Math.min(maxW,w+k*ctx.measureText('字').width*0.5));if(t.length===ls.length)return t;}return ls;
-  }
-  function fit(ctx,text,font,size,min,maxW,maxLines,bal){   // 字太多就缩小字号；再放不下就截断加省略号
-    for(var s=size;s>=min;s-=2){ctx.font=font(s);var ls=wrap(ctx,text,maxW);if(ls.length<=maxLines)return {s:s,lines:bal?balance(ctx,text,ls,maxW):ls};}
-    ctx.font=font(min);var all=wrap(ctx,text,maxW),cut=all.slice(0,maxLines);
-    cut[maxLines-1]=cut[maxLines-1].replace(/[，。、；：！？]?$/,'').slice(0,-1)+'……';return {s:min,lines:cut};
-  }
-  function rrect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-  function frame(ctx,eyebrow){
-    var g=ctx.createLinearGradient(0,0,0,HH);g.addColorStop(0,'#FCF7EB');g.addColorStop(1,'#F2E3C3');ctx.fillStyle=g;ctx.fillRect(0,0,W,HH);
-    var gl=ctx.createRadialGradient(W/2,180,20,W/2,180,620);gl.addColorStop(0,'rgba(255,236,170,.55)');gl.addColorStop(1,'rgba(255,236,170,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,HH);
-    ctx.strokeStyle='#C9A55A';ctx.lineWidth=3;rrect(ctx,44,44,W-88,HH-88,30);ctx.stroke();
-    ctx.strokeStyle='rgba(201,165,90,.45)';ctx.lineWidth=1.5;rrect(ctx,58,58,W-116,HH-116,24);ctx.stroke();
-    ctx.fillStyle='#B98E35';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font='600 30px '+SANS;ctx.fillText('✦  '+eyebrow+'  ✦',W/2,150);
-  }
-  function footer(ctx,qr,line1,line2){
-    var y=1120;ctx.strokeStyle='rgba(122,34,51,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(PAD,y);ctx.lineTo(W-PAD,y);ctx.stroke();
-    var q=200,qx=PAD,qy=y+44;ctx.fillStyle='#fff';rrect(ctx,qx-10,qy-10,q+20,q+20,16);ctx.fill();
-    if(qr)ctx.drawImage(qr,qx,qy,q,q);
-    ctx.textAlign='left';ctx.fillStyle='#7A2233';ctx.font='700 38px '+SANS;ctx.fillText(line1,qx+q+50,qy+60);
-    ctx.fillStyle='#5A4A36';ctx.font='400 28px '+SANS;ctx.fillText(line2,qx+q+50,qy+112);
-    ctx.fillStyle='#9A8A70';ctx.font='400 24px '+SANS;ctx.fillText('整理制作 · Ethan（HangZhou_XG）',qx+q+50,qy+170);
-  }
-  function block(ctx,lines,size,lh,x,y,align,color,font){ctx.textAlign=align;ctx.fillStyle=color;ctx.font=font;lines.forEach(function(l,i){ctx.fillText(l,x,y+i*size*lh);});return y+lines.length*size*lh;}
-
-  /* ---- 三种图片 ---- */
-  function drawVerse(ctx,c){
-    frame(ctx,'预言的恩赐 · 经文');
-    ctx.fillStyle='rgba(185,142,53,.3)';ctx.font='900 200px '+SERIF;ctx.textAlign='left';ctx.fillText('“',PAD-36,350);
-    var txt=clean(c.text).replace(/^“|”$/g,''),lh=1.7,f=null;
-    for(var s=66;s>=34;s-=2){ctx.font='600 '+s+'px '+SERIF;var ls=wrap(ctx,txt,W-2*PAD);if(ls.length*s*lh<=620){f={s:s,lines:ls};break;}}   // 经文区：360–980，下面留给出处
-    if(!f)f=fit(ctx,txt,function(s){return '600 '+s+'px '+SERIF;},34,34,W-2*PAD,Math.floor(620/(34*lh)));
-    var h=f.lines.length*f.s*lh,top=360+f.s+Math.max(0,(620-h)/2);
-    var end=block(ctx,f.lines,f.s,lh,PAD,top,'left','#2B2118','600 '+f.s+'px '+SERIF);
-    ctx.textAlign='right';ctx.fillStyle='#7A2233';ctx.font='600 36px '+SANS;ctx.fillText('—— '+c.ref,W-PAD,Math.min(end-f.s*lh+f.s+70,1070));
-  }
-  function drawArticle(ctx,c){
-    frame(ctx,'问题彩蛋 · 研经问答');
-    var t=fit(ctx,c.title.split('\n').map(clean).filter(Boolean).join('\n'),function(s){return '900 '+s+'px '+SERIF;},84,56,W-2*PAD,3,true);
-    var y=block(ctx,t.lines,t.s,1.35,W/2,300,'center','#2B2118','900 '+t.s+'px '+SERIF);
-    if(c.sub){ctx.font='500 32px '+SANS;var sl=wrap(ctx,clean(c.sub),W-2*PAD).slice(0,2);y=block(ctx,sl,32,1.6,W/2,y+30,'center','#7A2233','500 32px '+SANS);}
-    ctx.strokeStyle='#C9A55A';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-60,y+30);ctx.lineTo(W/2+60,y+30);ctx.stroke();
-    var b=fit(ctx,clean(c.text),function(s){return '400 '+s+'px '+SERIF;},42,34,W-2*PAD,Math.max(4,Math.floor((1060-(y+90))/(42*1.75))));
-    block(ctx,b.lines,b.s,1.75,PAD,y+100,'left','#3A2E22','400 '+b.s+'px '+SERIF);
-  }
-  function drawAnswer(ctx,c){
-    frame(ctx,'提问区 · 管理员回答');
-    ctx.textAlign='left';ctx.fillStyle='#7A2233';ctx.font='900 44px '+SERIF;ctx.fillText('问',PAD,290);
-    var q=fit(ctx,clean(c.q),function(s){return '700 '+s+'px '+SERIF;},50,38,W-2*PAD-80,5);
-    var y=block(ctx,q.lines,q.s,1.6,PAD+80,290,'left','#2B2118','700 '+q.s+'px '+SERIF);
-    y=Math.max(y+40,420);ctx.fillStyle='#B98E35';ctx.font='900 44px '+SERIF;ctx.fillText('答',PAD,y+20);
-    var a=fit(ctx,clean(c.a),function(s){return '400 '+s+'px '+SERIF;},42,32,W-2*PAD-80,Math.max(4,Math.floor((1070-y)/(42*1.7))));
-    block(ctx,a.lines,a.s,1.7,PAD+80,y+20,'left','#3A2E22','400 '+a.s+'px '+SERIF);
-  }
-  function make(card){
-    open();
-    var fonts=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('600 48px LessonSerif'),document.fonts.load('900 48px LessonSerif')]).catch(function(){}):Promise.resolve();
-    Promise.all([fonts,qrImg(card.qr)]).then(function(r){
-      cv.width=W;cv.height=HH;var ctx=cv.getContext('2d');
-      ({verse:drawVerse,article:drawArticle,answer:drawAnswer})[card.kind](ctx,card);
-      footer(ctx,r[1],'长按识别二维码',card.qrText||'阅读本季安息日学研读');
-      var url=cv.toDataURL('image/jpeg',0.92),img=SH.querySelector('.im-img');
-      img.src=url;img.hidden=false;SH.querySelector('.im-wait').hidden=true;
-      var dl=SH.querySelector('.im-dl');dl.href=url;dl.hidden=mobile;
-    }).catch(function(){SH.querySelector('.im-wait').textContent='图片没有生成成功，请再试一次。';});
-  }
-  window.Q4Card=make;
+  function make(card){if(window.Q4Card)window.Q4Card(card);}
 
   /* ---- 入口 ---- */
   document.addEventListener('click',function(e){
@@ -2433,9 +2341,9 @@ window.Q4Hub=(function(){
     if(!a||a.hasAttribute('data-gohome')||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     e.preventDefault();e.stopPropagation();
     var h=a.getAttribute('href'),wo=wOpen();
-    if(a.classList.contains('tab'))tabOn(a);
+    if(a.classList.contains('tab')){tabOn(a);window.q4tabNav=Date.now();}
     if((location.hash||'#home')===h){if(wo)Q4Welcome.close(h==='#home');else window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});}
-    else{var go=function(){if(wo)Q4Welcome.close(h==='#home');location.hash=h;};if(document.startViewTransition&&!wo)go();else q4afterPaint(go);}   // 先让按钮亮起来，再换页
+    else{var go=function(){if(wo)Q4Welcome.close(h==='#home');location.hash=h;};if(document.startViewTransition&&!wo&&!a.classList.contains('tab'))go();else q4afterPaint(go);}   // 先让按钮亮起来，再换页
   },true);
 
   /* ===== 往下读时标签栏收起，往上滑时出来；阅读进度 ===== */
@@ -2646,6 +2554,7 @@ window.Q4Hub=(function(){
   var I={note:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19.5h4L19.5 9a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4.5 15v4.5"/><path d="M13.5 6.5l4 4"/></svg>',
     copy:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></svg>',
     del:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7"/></svg>',
+    share:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1"/></svg>',
     pen:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19.5h4L19.5 9a2 2 0 0 0 0-2.8l-1.7-1.7a2 2 0 0 0-2.8 0L4.5 15v4.5"/></svg>'};
 
   /* ===== 数据 ===== */
@@ -2741,7 +2650,7 @@ window.Q4Hub=(function(){
   /* ===== 工具条 ===== */
   var bar=el('div','hlbar');bar.hidden=true;bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','划线与笔记');
   bar.innerHTML=COL.map(function(c){return '<button type="button" class="hl-c c-'+c[0]+'" data-c="'+c[0]+'" aria-label="用'+c[1]+'划线"><i></i></button>';}).join('')+
-    '<span class="hl-sep"></span><button type="button" class="hl-b" data-act="note">'+I.note+'<span>笔记</span></button><button type="button" class="hl-b" data-act="copy">'+I.copy+'<span>复制</span></button>'+
+    '<span class="hl-sep"></span><button type="button" class="hl-b" data-act="note">'+I.note+'<span>笔记</span></button><button type="button" class="hl-b" data-act="copy">'+I.copy+'<span>复制</span></button>'+'<button type="button" class="hl-b" data-act="share">'+I.share+'<span>分享</span></button>'+
     '<button type="button" class="hl-b hl-rm" data-act="del">'+I.del+'<span>删除</span></button>';
   document.body.appendChild(bar);
   var cur=null,press=0;   // cur：{mode:'new',S} 或 {mode:'edit',g}
@@ -2781,11 +2690,13 @@ window.Q4Hub=(function(){
       if(c){create(C.S,c);clearSel();hide();toast(firstTip()?'已划线。点“我的 → 我的划线与笔记”可以看到全部':'已划线');return;}
       if(act==='note'){var g=create(C.S,'y');clearSel();hide();openNote(g);return;}
       if(act==='copy'){copyText(C.S.segs.map(function(s){return s.t;}).join('……'),C.S.sec.id);clearSel();hide();return;}
+      if(act==='share'){shareCard(C.S.segs.map(function(s){return s.t;}).join('……'),C.S.sec.id);clearSel();hide();return;}
     }else{
       var G=group(C.g);if(!G){hide();return;}
       if(c){update(C.g,function(r){r.c=c;});hide();return;}
       if(act==='note'){hide();openNote(C.g);return;}
       if(act==='copy'){copyText(textOf(G.rs),G.rs[0].s);hide();return;}
+      if(act==='share'){shareCard(textOf(G.rs),G.rs[0].s);hide();return;}
       if(act==='del'){var keep=G.rs.map(function(r){return r.i;});remove(C.g);hide();toast('已删除这条标记','撤销',function(){undel(G.L,keep);});return;}
     }
   });
@@ -2814,6 +2725,9 @@ window.Q4Hub=(function(){
     requestAnimationFrame(function(){ts.classList.add('on');});clearTimeout(tsT);tsT=setTimeout(function(){ts.classList.remove('on');setTimeout(function(){ts.hidden=true;},250);},btn?5200:2600);}
   function firstTip(){if(get('hlfirst'))return false;set('hlfirst','1');return true;}
   function tipDone(){set('hltip','1');}
+  // 选中的文字做成卡片图（2026-10-30 用户要的）：出处写课次和日子（或问答题目），二维码通到网站
+  function shareCard(t,s){if(!window.Q4Card)return;var L=(document.getElementById(s)||{closest:function(){return null;}}).closest('.lesson'),qa=!!(L&&/^qa/.test(L.id));
+    Q4Card({kind:'quote',text:t,src:label(s),col:qa?'qa':'lesson',qr:qa?L.id:'home',qrText:qa?'阅读这篇问答的全文':'阅读本季安息日学研读',head:'分享这段文字'});}
   function copyText(t,s){var lb=label(s);var go=window.q4copy?q4copy('“'+t+'”'+(lb?'\n——'+lb:'')):Promise.resolve();
     (go&&go.then?go:Promise.resolve(true)).then(function(ok){toast(ok===false?'复制没有成功，请长按文字用手机自带的复制':'已复制，可以粘贴到微信');});}
   // 第一次打开学课：轻轻提示一次
@@ -2885,6 +2799,8 @@ window.Q4Hub=(function(){
   function chk(){if(!window.Q4Bible||document.documentElement.getAttribute('data-pg')!=='bible')return;
     if(!api)api=Q4Bible.mount(R,{index:R.dataset.index,prefix:'bible-',site:true});else api.show();}
   window.addEventListener('q4:route',chk);setTimeout(chk,0);   // bible.js 排在本文件后面，等它定义好 Q4Bible
+  // 网站开好 4 秒后、手机空闲时，先把圣经目录和上次读的那一卷存进手机（2026-10-30：点“圣经”时不用再等下载）
+  setTimeout(function(){(window.requestIdleCallback||function(f){setTimeout(f,300);})(function(){if(!api&&window.Q4Bible&&Q4Bible.warm)Q4Bible.warm(R.dataset.index);},{timeout:4000});},4000);
 })();
 
 /* ---------- 新上架弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开 ----------
@@ -2920,7 +2836,11 @@ window.Q4Hub=(function(){
   }
   function fill(){   // 只列出打开不到 3 次的；标题按剩下的算
     var nn=0,nu=0,i=0;
-    live.forEach(function(a){var on=count(a)<MAX;a.hidden=!on;if(on){a.style.setProperty('--i',i++);if(a.dataset.k==='new')nn++;else nu++;}});
+    [].forEach.call(Q.querySelectorAll('.qn-grp'),function(g){   // 问题彩蛋、健康两组分开（2026-10-30）：组里没有要显示的，整组藏起来
+      var gn=0;g.style.setProperty('--i',i++);
+      [].forEach.call(g.querySelectorAll('.qn-it'),function(a){if(live.indexOf(a)<0)return;var on=count(a)<MAX;a.hidden=!on;if(on){gn++;a.style.setProperty('--i',i++);if(a.dataset.k==='new')nn++;else nu++;}});
+      g.hidden=!gn;g.querySelector('.qn-gc').textContent=gn+' 篇';
+    });
     Q.querySelector('#qn-t').textContent=nn?'新上架 '+nn+' 篇'+(nu?'，更新 '+nu+' 篇':''):'更新了 '+nu+' 篇';
     return nn+nu;
   }
@@ -2938,7 +2858,7 @@ window.Q4Hub=(function(){
     if(e.target.closest('a')){hide();Q.hidden=true;}   // 点了一篇：弹窗马上让开，链接照常打开（专题网页在网站里的浮层打开）；次数在进入这一篇时记
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!Q.hidden){e.stopPropagation();close();}},true);   // Esc 只关弹窗，不连首页一起关
-  function onHash(){var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];if(/^qa\d+$/.test(h))opened(h);}
+  function onHash(){var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];if(/^(qa|h)\d+$/.test(h))opened(h);}
   window.addEventListener('hashchange',onHash);onHash();
   var h0=location.hash.slice(1);if(h0&&h0!=='home'&&h0!=='welcome')return;
   function busy(){return /(^| )(tovon|bopen|present)( |$)/.test(de.className)||!!document.querySelector('.hconf:not([hidden]),.shsheet:not([hidden]),#bpop:not([hidden])');}

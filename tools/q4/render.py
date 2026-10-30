@@ -348,7 +348,7 @@ THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css(
               + '.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}'
               + '.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}\n')
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
-JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
+JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'card.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
       + '\n' + lamb.sprite_js() + lamb.pop_js() + '\n' + open(os.path.join(Q4, 'bible.js'), encoding='utf-8').read())
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
@@ -524,6 +524,13 @@ def music_page():
 </section>
 </div>'''
 
+def col_feed():
+    """栏目分享（2026-10-30 用户要的）：海报和文字里列出的“最新上架”，健康和问题彩蛋各取最新 7 篇（按上架时间，从新到旧）。"""
+    def latest(items):
+        rows = sorted(items, key=lambda it: (it.get('at') or '', it['no']), reverse=True)
+        return dict(total=len(items), items=[dict(no=it['no'], q=it['q'], sub=it.get('sub', '')) for it in rows[:7]])
+    return json.dumps(dict(health=latest(health_data.ITEMS), qa=latest(qa_data.ITEMS)), ensure_ascii=False).replace('</', '<\\/')
+
 def qr_all():
     ids = ['qa', 'ask', 'music', 'bible', 'health'] + [it['id'] for it in qa_data.ITEMS if not it.get('url')]   # 单曲多了，电脑上分享单曲时不显示二维码，只给链接
     return (qr_svg(ONLINE).replace('<svg ', '<svg data-for="home" ', 1) +
@@ -588,7 +595,8 @@ def homeui():
     <div class="wg-btns"><button type="button" class="ok" data-wgdone>✓ 我已转发</button><button type="button" data-wgcancel>先不转发</button></div>
   </div>
 </div>
-<div class="sh-qrs" hidden>{qr_all()}</div>'''
+<div class="sh-qrs" hidden>{qr_all()}</div>
+<script type="application/json" id="colfeed">{col_feed()}</script>'''
 
 GIFT_REFS = [('以赛亚书 52:7', 22, 52, 7), ('箴言 11:25', 19, 11, 25), ('加拉太书 6:9', 47, 6, 9), ('希伯来书 10:24', 57, 10, 24),
              ('帖撒罗尼迦前书 5:11', 51, 5, 11), ('马太福音 5:14', 39, 5, 14), ('马太福音 5:16', 39, 5, 16), ('但以理书 12:3', 26, 12, 3),
@@ -778,42 +786,49 @@ def qa_pages():
 
 def qa_new_html():
     """首页“新上架”弹窗（2026-10-25 用户要的）：打开网站时，弹出最近 72 小时内上架或更新的问题彩蛋，点一篇直接打开。
-    这里只放候选：最新的一次上架或更新往前 10 天以内的几篇（按时间从新到旧）。
+    2026-10-30 用户要：健康栏目上新也在这里显示，和问题彩蛋分开（两组，各有小标题和“全部 →”）。
+    这里只放候选：每一组最新的一次上架或更新往前 10 天以内的几篇（按时间从新到旧）。
     真正显示哪几篇，由 app.js 按读者手机上“现在”的时间往前推 72 小时决定，所以网站很久不更新也不会弹出旧文章。"""
     import qa_catalog
     tz = datetime.timezone(datetime.timedelta(hours=8))
     def ms(s):
         return int(datetime.datetime.strptime(s, '%Y-%m-%d %H:%M').replace(tzinfo=tz).timestamp() * 1000)
-    rows = []
-    for it in qa_data.ITEMS:
-        if not it.get('at'):
-            continue
-        add = ms(it['at']); upd = ms(it['upd'][0]) if it.get('upd') else 0
-        rows.append((max(add, upd), add, upd, it))
-    if not rows:
-        return ''
-    top = max(r[0] for r in rows)
-    rows = sorted((r for r in rows if r[0] >= top - 10 * 86400000), key=lambda r: (-r[0], r[3]['no']))
     E = lambda x: html.escape(x, quote=True)
-    items = ''
-    for _, add, upd, it in rows:
-        link = (f'href="{it["url"]}" data-art="{it["id"]}" data-title="{E(it["q"])}"' if it.get('url') else f'href="#{it["id"]}" data-art="{it["id"]}"')
-        note = f'<span class="qn-note" hidden>更新：{E(it["upd"][1])}</span>' if it.get('upd') else ''
-        up = f' data-upd="{upd}"' if upd else ''
-        items += (f'<a class="qn-it" {link} data-add="{add}"{up}>'
-                  f'<span class="qn-no">No.<b>{it["no"]:02d}</b></span>'
-                  f'<span class="qn-b"><span class="qn-tag"></span><span class="qn-q">{E(it["q"])}</span><span class="qn-sub">{E(it["sub"])}</span>'
-                  f'<span class="qn-m">约 {qa_catalog.meta(it)["mins"]} 分钟读完</span>{note}</span>'
-                  f'<span class="qn-go" aria-hidden="true">→</span></a>')
+    def group(items, key, name, allhref, allname):
+        rows = []
+        for it in items:
+            if not it.get('at'):
+                continue
+            add = ms(it['at']); upd = ms(it['upd'][0]) if it.get('upd') else 0
+            rows.append((max(add, upd), add, upd, it))
+        if not rows:
+            return ''
+        top = max(r[0] for r in rows)
+        rows = sorted((r for r in rows if r[0] >= top - 10 * 86400000), key=lambda r: (-r[0], r[3]['no']))
+        out = ''
+        for _, add, upd, it in rows:
+            link = (f'href="{it["url"]}" data-art="{it["id"]}" data-title="{E(it["q"])}"' if it.get('url') else f'href="#{it["id"]}" data-art="{it["id"]}"')
+            note = f'<span class="qn-note" hidden>更新：{E(it["upd"][1])}</span>' if it.get('upd') else ''
+            up = f' data-upd="{upd}"' if upd else ''
+            out += (f'<a class="qn-it qn-{key}" {link} data-add="{add}"{up}>'
+                    f'<span class="qn-no">{"健康" if key == "h" else "No."}<b>{it["no"]:02d}</b></span>'
+                    f'<span class="qn-b"><span class="qn-tag"></span><span class="qn-q">{E(it["q"])}</span><span class="qn-sub">{E(it["sub"])}</span>'
+                    f'<span class="qn-m">约 {qa_catalog.meta(it)["mins"]} 分钟读完</span>{note}</span>'
+                    f'<span class="qn-go" aria-hidden="true">→</span></a>')
+        return (f'<section class="qn-grp qn-g{key}"><header class="qn-ghd"><span class="qn-gd" aria-hidden="true"></span><b>{name}</b><span class="qn-gc"></span>'
+                f'<a class="qn-gall" href="{allhref}">{allname} →</a></header>{out}</section>')
+    items = group(qa_data.ITEMS, 'q', '问题彩蛋', '#qa', '全部彩蛋') + group(health_data.ITEMS, 'h', '健康栏目', '#health', '全部健康')
+    if not items:
+        return ''
     lam = lamb.sprite(48, '小羊', enter='wave').replace('role="img" aria-label="小羊"', 'aria-hidden="true"')
     return ('<div id="qnew" class="qnew" hidden>\n  <div class="qn-bg" data-qnx></div>\n'
             '  <div class="qn-card" role="dialog" aria-modal="true" aria-labelledby="qn-t" tabindex="-1">\n'
             '    <header class="qn-hd"><span class="qn-sky" aria-hidden="true"></span>\n'
             '      <button class="qn-x" type="button" data-qnx aria-label="关闭">×</button>\n'
             f'      <span class="qn-lamb">{lam}</span>\n'
-            '      <p class="qn-k">问题彩蛋 · 最近三天</p>\n      <h3 id="qn-t">新上架的问题彩蛋</h3>\n      <p class="qn-s">点一篇，马上开始读</p>\n'
+            '      <p class="qn-k">最近三天 · 网站上新</p>\n      <h3 id="qn-t">新上架</h3>\n      <p class="qn-s">点一篇，马上开始读</p>\n'
             f'    </header>\n    <div class="qn-list">{items}</div>\n'
-            '    <div class="qn-ft"><a class="qn-all" href="#qa">看全部问题彩蛋 →</a><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>\n'
+            '    <div class="qn-ft"><span class="qn-fn">打开满 3 次的文章，就不再出现在这里</span><button type="button" class="btn solid qn-ok" data-qnx>知道了</button></div>\n'
             '  </div>\n</div>')
 
 def health_page():

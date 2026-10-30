@@ -354,7 +354,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
         cfg = json.dumps(dict(id=au['id'], dir=au['dir'], heads=au['heads'], h=au['h'], n=au['n'], title=title), ensure_ascii=False)
         lp_js = '<script type="application/json" id="lpcfg">' + cfg + '</script><script>' + LP_JS + '</script>'
     return f'''<!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-col="{col['hash']}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -383,7 +383,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <p class="note2">和学课网站的设置是同一套。</p></div></div>
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
-<script>{JS}{LAMB_JS}</script>
+<script>{JS}{LAMB_JS}{CARD_JS}{SEL_JS}</script>
 {lp_bar}{lp_js}
 {tail}
 </body>
@@ -933,6 +933,51 @@ html.sheetopen{overflow:hidden}
 '''
 
 LAMB_JS = lamb.sprite_js()   # 小羊的动作（开头和页尾两只）
+CARD_JS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'card.js'), encoding='utf-8').read()   # 分享图片（和网站共用，2026-10-30）
+# 选中文字：复制、分享成卡片图（2026-10-30 用户要的）。专题页没有划线功能，只放这两个按钮
+SEL_JS = r"""
+(function(){
+  var de=document.documentElement,col=de.getAttribute('data-col')||'qa';
+  var st=document.createElement('style');st.textContent='.tsel{position:fixed;z-index:90;left:0;top:0;display:flex;gap:2px;padding:5px 6px;border-radius:999px;background:var(--ink);color:var(--paper);'+
+    'box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .15s}.tsel.on{opacity:1}.tsel[hidden]{display:none}'+
+    '.tsel button{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:48px;height:40px;padding:0 6px;border:0;border-radius:12px;background:none;color:inherit;font:600 .68rem/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}'+
+    '.tsel button:active{background:rgba(255,255,255,.12)}.tsel svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'+
+    '.tsel-t{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:91;transform:translateX(-50%);padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;opacity:0;transition:opacity .2s;pointer-events:none}.tsel-t.on{opacity:1}';
+  document.head.appendChild(st);
+  var bar=document.createElement('div');bar.className='tsel';bar.hidden=true;bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','选中的文字');
+  bar.innerHTML='<button type="button" data-a="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></svg>复制</button>'+
+    '<button type="button" data-a="share"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1"/></svg>分享</button>';
+  document.body.appendChild(bar);
+  var tip=document.createElement('div');tip.className='tsel-t';tip.setAttribute('role','status');document.body.appendChild(tip);var tipT=null;
+  function toast(m){tip.textContent=m;tip.classList.add('on');clearTimeout(tipT);tipT=setTimeout(function(){tip.classList.remove('on');},2200);}
+  var cur=null,press=0;
+  function title(){var h=document.querySelector('.hero h1');if(!h)return document.title;var c=h.cloneNode(true),x=c.querySelector('.h1s,small,.meta');if(x)x.remove();return c.textContent.trim();}
+  function src(node){var ch=node&&node.closest&&node.closest('section.ch'),h=ch&&ch.querySelector('h2'),t='《'+title()+'》';
+    if(h){var c=h.cloneNode(true),n=c.querySelector('.no');var no=n?n.textContent.trim():'';if(n)n.remove();if(/^\d+$/.test(no))t+=' · 第 '+(+no)+' 章 '+c.textContent.trim();}
+    return (col==='health'?'健康':'问题彩蛋')+t;}
+  function ok(r){var a=r.commonAncestorContainer;if(a.nodeType!==1)a=a.parentNode;
+    return !!(a.closest&&a.closest('section.ch,header.hero')&&!a.closest('nav,.toc-in,#sources,.srcs,figure,svg,.tools,.trow,.tend,.faq summary,button,.pop,.sheet,.tsel,.lp'));}
+  function hide(){bar.classList.remove('on');bar.hidden=true;cur=null;}
+  function place(r){var rs=r.getClientRects(),f=rs[0]||r.getBoundingClientRect(),l=rs[rs.length-1]||f;
+    var bw=bar.offsetWidth||120,bh=bar.offsetHeight||50,top=l.bottom+14;if(top+bh>innerHeight-8)top=Math.max(8,f.top-bh-14);
+    var left=Math.min(innerWidth-bw-8,Math.max(8,(Math.min(f.left,l.left)+Math.max(f.right,l.right))/2-bw/2));bar.style.transform='translate3d('+Math.round(left)+'px,'+Math.round(top)+'px,0)';}
+  function check(){if(Date.now()-press<700)return;var s=getSelection();
+    if(!s||s.isCollapsed||!s.rangeCount){hide();return;}var r=s.getRangeAt(0),t=s.toString().replace(/\s+/g,' ').trim();
+    if(t.length<2||!ok(r)){hide();return;}
+    cur={t:t,node:r.startContainer.nodeType===1?r.startContainer:r.startContainer.parentNode};bar.hidden=false;place(r);requestAnimationFrame(function(){bar.classList.add('on');});}
+  var T=null;document.addEventListener('selectionchange',function(){clearTimeout(T);T=setTimeout(check,260);});
+  bar.addEventListener('pointerdown',function(e){press=Date.now();if(e.pointerType==='mouse')e.preventDefault();});
+  bar.addEventListener('touchstart',function(){press=Date.now();},{passive:true});
+  function copy(t){if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},legacy);return Promise.resolve(legacy());
+    function legacy(){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var k=false;try{k=document.execCommand('copy');}catch(e){}ta.remove();return k;}}
+  bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!cur)return;var c=cur;
+    try{getSelection().removeAllRanges();}catch(err){}hide();
+    if(b.dataset.a==='copy')copy('“'+c.t+'”\n——'+src(c.node)).then(function(k){toast(k===false?'复制没有成功，请用手机自带的复制':'已复制，可以粘贴到微信');});
+    else if(window.Q4Card)Q4Card({kind:'quote',text:c.t,src:src(c.node),col:col==='health'?'health':'qa',qrText:'阅读这一篇的全文',head:'分享这段文字'});
+  });
+  addEventListener('scroll',function(){if(!bar.hidden){var s=getSelection();if(s&&s.rangeCount&&!s.isCollapsed)place(s.getRangeAt(0));}},{passive:true});
+})();
+"""
 
 JS = r'''
 (function(){

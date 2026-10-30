@@ -1001,6 +1001,7 @@ mark.hl.flash2{animation:hlflash 1.8s ease-out}
 .hlbar .hl-c:active i{transform:scale(.88)}
 .hlbar .hl-sep{width:1px;height:22px;margin:0 4px;background:color-mix(in srgb,var(--paper) 25%,transparent)}
 .hlbar .hl-b{flex-direction:column;gap:2px;min-width:42px;height:40px;padding:0 4px;border-radius:12px;font-size:.68rem;font-weight:600}
+@media (max-width:359.98px){.hlbar .hl-c{width:30px;height:30px}.hlbar .hl-c i{width:18px;height:18px}.hlbar .hl-b{min-width:38px}.hlbar .hl-sep{margin:0 2px}}   /* 2026-10-30 加了“分享”：320 宽也放得下 */
 .hlbar .hl-b .ic{width:18px;height:18px;stroke-width:1.8}
 .hlbar .hl-b:active{background:color-mix(in srgb,var(--paper) 14%,transparent)}
 .hlbar[data-mode="new"] .hl-rm{display:none}
@@ -1141,6 +1142,20 @@ body:not(.combined) .hl-toast{bottom:24px}
 .qn-go{flex:none;color:var(--gold);font-size:1.1rem}
 .qn-ft{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rule)}
 .qn-all{font-size:.86rem;font-weight:600;color:var(--gold);text-decoration:none}
+.qn-grp{display:grid;gap:10px}
+.qn-grp[hidden]{display:none}
+.qn-grp+.qn-grp{margin-top:10px}
+.qn-ghd{display:flex;align-items:center;gap:8px;min-width:0;padding:2px 4px 0;font-size:.82rem;color:var(--ink-2)}
+.qn-gd{flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.qn-ghd b{font-size:.86rem;font-weight:800;letter-spacing:.08em;color:var(--ink);white-space:nowrap}
+.qn-gc{flex:none;font-size:.74rem;color:var(--muted);white-space:nowrap}
+.qn-gall{flex:none;margin-left:auto;padding:4px 2px;font-size:.78rem;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap}
+.qnew.on .qn-ghd{animation:qnin .45s var(--ease) both;animation-delay:calc(.14s + var(--i,0) * .07s)}
+.qn-gh .qn-gd{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
+.qn-gh .qn-gall{color:var(--ok)}
+.qn-h .qn-no{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok);font-size:.56rem}
+.qn-h .qn-go{color:var(--ok)}
+.qn-fn{font-size:.72rem;line-height:1.5;color:var(--muted)}
 .qn-ok{min-width:96px}
 .qnew.on .qn-it{animation:qnin .45s var(--ease) both;animation-delay:calc(.14s + var(--i,0) * .07s)}
 @keyframes qnin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
