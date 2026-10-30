@@ -678,4 +678,37 @@ CHECKED = {
  'ad_xiao21': ('https://doi.org/10.1186/s13195-021-00795-7', 'live'),   # 核对（2026-10-28，健康 06 老年痴呆）
  'ad_gv19': ('https://cn.chinadaily.com.cn/a/201911/04/WS5dbfea34a31099ab995e9cf4.html', 'live'),   # 核对（2026-10-28，健康 06 老年痴呆）
  'ad_gv25': ('https://m.huxiu.com/article/4695614.html', 'live'),   # 核对（2026-10-28，健康 06 老年痴呆）
+ 'ct_gbd20c': ('https://doi.org/10.1016/S2214-109X(20)30489-7', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_gbd20t': ('https://doi.org/10.1016/S2214-109X(20)30425-3', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_wu26': ('https://doi.org/10.7189/jogh.16.04176', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_cheng19': ('https://doi.org/10.1136/bjophthalmol-2018-313308', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_song18': ('https://doi.org/10.7189/jogh.08.010804', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_zhao18': ('https://doi.org/10.1016/j.ajo.2018.06.004', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_xh18': ('https://www.xinhuanet.com/politics/2018-04/14/c_1122680667.htm', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_plan22': ('https://www.gov.cn/zhengce/zhengceku/2022-01/17/content_5668951.htm', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_plan26': ('https://www.chinanews.com.cn/gn/2026/09-08/10692626.shtml', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_mccormick22': ('https://doi.org/10.1016/S2214-109X(22)00419-3', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_kai23': ('https://doi.org/10.1136/bjo-2022-322325', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_larsson22': ('https://doi.org/10.1016/j.ebiom.2022.104154', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_lindblad14': ('https://doi.org/10.1001/jamaophthalmol.2013.6669', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_li21': ('https://doi.org/10.1155/2021/8748463', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_li14': ('https://doi.org/10.1186/1471-2415-14-94', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_weatherall09': ('https://doi.org/10.1111/j.1440-1843.2009.01589.x', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_hap25': ('https://doi.org/10.1016/S0140-6736(24)02840-X', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_tan26': ('https://doi.org/10.3389/fpubh.2026.1842269', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_mathew12': ('https://doi.org/10.1002/14651858.CD004567.pub2', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_areds13': ('https://doi.org/10.1001/jamaophthalmol.2013.4412', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_christen14': ('https://doi.org/10.1016/j.ophtha.2013.09.038', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_zhao15': ('https://doi.org/10.1038/nature14650', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_uspstf22': ('https://doi.org/10.1001/jama.2022.7015', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_harwood05': ('https://doi.org/10.1136/bjo.2004.049478', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_owsley02': ('https://doi.org/10.1001/jama.288.7.841', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_tseng12': ('https://doi.org/10.1001/jama.2012.9014', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_haji25': ('https://doi.org/10.7759/cureus.96753', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_narayan23': ('https://doi.org/10.1002/14651858.CD010735.pub3', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_desilva16': ('https://doi.org/10.1002/14651858.CD003169.pub4', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_escrs07': ('https://doi.org/10.1016/j.jcrs.2007.02.032', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_meister26': ('https://doi.org/10.1186/s40942-025-00793-z', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_cunha24': ('https://doi.org/10.1016/j.jcjo.2024.02.014', 'live'),   # 核对（2026-10-30，健康 07 白内障）
+ 'ct_kai23q': ('https://doi.org/10.1007/s00417-023-06034-z', 'live'),   # 核对（2026-10-30，健康 07 白内障）
 }
