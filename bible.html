@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>圣经 · 预言的恩赐</title>
+<meta name="description" content="和合本、KJV 和原文（希伯来文、希腊文）圣经：切换、对照、划线笔记，搜书卷、人名地名、词语和经文。">
+<script>try{var t=localStorage.getItem('q4:theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>:root{
+  --paper:#F5F1E8;--surface:#FFFDF8;--surface-2:#EFE9DD;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--slate:#3D5672;--slate-soft:#E7ECF1;--gold:#9A742C;--gold-2:#C9A45C;--gold-soft:#F3E9D2;--ok:#2F7D5B;
+  --shadow:0 1px 2px rgba(26,33,50,.05),0 10px 30px rgba(26,33,50,.07);--shadow-2:0 2px 4px rgba(26,33,50,.05),0 18px 40px rgba(26,33,50,.11);
+  --sans:-apple-system,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);--sw:0px;--gut:16px;--tbh:calc(58px + env(safe-area-inset-bottom,0px));
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0C111C;--surface:#141B2A;--surface-2:#1B2335;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--slate:#9DB4CC;--slate-soft:#1A2433;--gold:#D3B06A;--gold-2:#E6C98B;--gold-soft:#2A2518;--ok:#5DBB8D;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);--shadow-2:0 2px 4px rgba(0,0,0,.35),0 18px 40px rgba(0,0,0,.45);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C111C;--surface:#141B2A;--surface-2:#1B2335;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--slate:#9DB4CC;--slate-soft:#1A2433;--gold:#D3B06A;--gold-2:#E6C98B;--gold-soft:#2A2518;--ok:#5DBB8D;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);--shadow-2:0 2px 4px rgba(0,0,0,.35),0 18px 40px rgba(0,0,0,.45);color-scheme:dark}
+:root{--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;--serif:"LessonSerif","Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78}}
+:root[data-theme="dark"]{--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78}
+:root{--tbh:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}html,body{margin:0;background:var(--paper);-webkit-text-size-adjust:100%}
+/* “圣经”栏目（2026-10-26 第一期）。所有名字都以 bb- 开头，和网站其他样式互不干扰；颜色用网站的主题变量（白天、夜间、护眼）。
+   排版原则：像一本印得好的书——按段落排，节号小而浅；诗歌书一行一节；手机每行约 18—22 字，电脑正文最宽约 36 字。 */
+.bb{--bfs:1.08rem;--blh:1.95;--bw:34em;position:relative;min-height:100vh;color:var(--ink);font-family:var(--sans)}
+.bb.sepia{--paper:#F4ECD8;--surface:#FBF5E6;--surface-2:#EDE3CC;--ink:#3B3226;--ink-2:#5A4E3D;--muted:#8A7C66;--rule:#E2D6BC;background:var(--paper)}
+.bb button{font:inherit;color:inherit}
+.bb .ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* ---------- 顶栏：往下读时收起，往上滑出来 ---------- */
+.bb-top{position:sticky;top:0;z-index:30;background:var(--paper);background:color-mix(in srgb,var(--paper) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+html.android .bb-top{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}
+.bb-top.away{transform:translateY(-100%)}
+.bb-bar{display:flex;align-items:center;gap:2px;max-width:58rem;margin:0 auto;padding:5px 6px}
+.bb-ib{display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:12px;background:none;color:var(--ink-2);cursor:pointer;flex:none;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.bb-ib:active{background:var(--surface-2)}
+.bb-where{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:42px;padding:0 6px;border:0;background:none;cursor:pointer;font-family:var(--serif);font-weight:800;font-size:1.1rem;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.bb-where span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bb-where .ic{width:17px;height:17px;color:var(--gold)}
+.bb-ver{display:flex;align-items:center;gap:2px;height:32px;padding:0 8px 0 11px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-2);flex:none;white-space:nowrap}
+.bb-ver .ic{width:15px;height:15px;color:var(--gold)}
+.bb-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none}
+.bb-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold-2),var(--gold))}
+/* ---------- 正文 ---------- */
+.bb-main{max-width:calc(var(--bw) + 40px);margin:0 auto;padding:22px 20px calc(var(--tbh,0px) + 120px)}
+.bb[data-mode="cmp"] .bb-main{max-width:68rem}
+.bb[data-mode="org"] .bb-main{max-width:44rem}
+.bb-ch{animation:bbIn .24s cubic-bezier(.2,.8,.2,1)}
+.bb-ch.fromL{animation-name:bbInL}.bb-ch.fromR{animation-name:bbInR}
+@keyframes bbIn{from{opacity:0}to{opacity:1}}
+@keyframes bbInL{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+@keyframes bbInR{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.bb-head{display:flex;align-items:flex-end;gap:14px;margin:6px 0 22px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+.bb-head b{font-family:var(--serif);font-weight:900;font-size:3.1rem;line-height:.9;color:var(--gold)}
+.bb-head span{display:grid;gap:3px}
+.bb-head h1{margin:0;font-family:var(--serif);font-weight:900;font-size:1.3rem;letter-spacing:.06em}
+.bb-head small{font-size:.76rem;color:var(--muted);letter-spacing:.08em}
+.bb-txt{font-family:var(--serif);font-size:var(--bfs);line-height:var(--blh);text-align:justify;text-justify:inter-ideograph;
+  line-break:strict;text-spacing-trim:space-first;text-autospace:normal;hanging-punctuation:allow-end;-webkit-font-smoothing:antialiased}
+.bb-txt.en{font-family:Georgia,"Times New Roman",serif;text-align:left;line-height:calc(var(--blh) - .25);hyphens:auto}
+.bb-p{margin:0 0 .85em;text-indent:2em}
+.bb-txt.en .bb-p{text-indent:1.5em}
+.bb-l{margin:0;padding-left:1.5em;text-indent:-1.5em}   /* 诗歌和“每节一行”：一节一行，折行时缩进 */
+.bb-l.gap{margin-bottom:.8em}
+.bb-v{border-radius:4px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .15s}
+.bb-n{font-family:var(--sans);font-size:.58em;font-weight:700;color:var(--gold);vertical-align:.5em;margin:0 .18em 0 .1em;letter-spacing:0;font-variant-numeric:tabular-nums;text-indent:0}
+.bb.nonum .bb-n{display:none}
+.bb-v.sel{background:color-mix(in srgb,var(--slate) 16%,transparent);box-shadow:0 2px 0 var(--slate)}
+.bb-v.h1{background:linear-gradient(transparent 52%,color-mix(in srgb,#E9C46A 60%,transparent) 52%)}
+.bb-v.h2{background:linear-gradient(transparent 52%,color-mix(in srgb,#8FD3A8 60%,transparent) 52%)}
+.bb-v.h3{background:linear-gradient(transparent 52%,color-mix(in srgb,#9DBDF2 60%,transparent) 52%)}
+.bb-v.h4{background:linear-gradient(transparent 52%,color-mix(in srgb,#F2A7B8 60%,transparent) 52%)}
+.bb-v.flash{animation:bbFl 1.8s ease-out}
+@keyframes bbFl{0%,35%{background-color:color-mix(in srgb,var(--gold-2) 40%,transparent)}100%{background-color:transparent}}
+.bb-mk{display:inline-grid;place-items:center;width:1.2em;height:1.2em;margin:0 .1em;border-radius:50%;background:var(--gold-soft);color:var(--gold);font-family:var(--sans);font-size:.62em;font-weight:800;vertical-align:.25em;text-indent:0;cursor:pointer}
+.bb-mk.bm{background:none;color:var(--accent)}
+.bb-mk svg{width:.95em;height:.95em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round}
+.bb-hint{margin:26px 0 0;font-size:.74rem;line-height:1.6;color:var(--muted)}
+/* 原文逐字：一个词一格；旧约从右往左 */
+.bb-ov{margin:0 0 14px;padding:6px 6px 8px;border-radius:12px;content-visibility:auto;contain-intrinsic-size:auto 140px}
+.bb-ov .bb-n{font-size:.72rem;vertical-align:0;display:block;margin:0 0 2px}
+.bb-ws{display:flex;flex-wrap:wrap;gap:2px 4px}
+.bb-ws[dir=rtl]{direction:rtl}
+.bb-w{display:flex;flex-direction:column;align-items:center;padding:3px 4px;border-radius:8px;cursor:pointer;min-width:2.2em}
+.bb-w:active,.bb-w.on{background:var(--slate-soft)}
+.bb-w .o{font-family:"SBL Hebrew","Ezra SIL","Times New Roman",serif;font-size:1.34rem;line-height:1.5;color:var(--ink)}
+.bb-ws.grk .bb-w .o{font-family:"SBL Greek","Gentium Plus","Times New Roman",serif;font-size:1.16rem}
+.bb-w .t{font-size:.64rem;line-height:1.3;color:var(--muted);direction:ltr}
+.bb-w .g{font-size:.68rem;line-height:1.3;color:var(--slate);direction:ltr;max-width:9em;text-align:center}
+.bb.plain .bb-w .t,.bb.plain .bb-w .g{display:none}
+/* 对照：手机上每节竖着排；电脑上并排，一节对一节 */
+.bb-cv{padding:10px 6px 12px;border-bottom:1px solid var(--rule);content-visibility:auto;contain-intrinsic-size:auto 160px}
+.bb-row{display:flex;gap:10px}
+.bb-row+.bb-row{margin-top:6px}
+.bb-lb{flex:none;width:2.4em;padding-top:.45em;font-size:.66rem;font-weight:700;color:var(--muted)}
+.bb-row>div{flex:1;min-width:0;font-family:var(--serif);font-size:var(--bfs);line-height:calc(var(--blh) - .1)}
+.bb-row.k>div{font-family:Georgia,"Times New Roman",serif;font-size:calc(var(--bfs) * .93);line-height:1.7;color:var(--ink-2)}
+.bb-cols{display:none}
+@media (min-width:900px){
+  .bb-cv{display:grid;grid-template-columns:var(--cols);gap:22px}
+  .bb-cv .bb-row{display:block}.bb-cv .bb-row+.bb-row{margin-top:0}.bb-cv .bb-lb{display:none}
+  .bb-cols{display:grid;grid-template-columns:var(--cols);gap:22px;padding:0 6px 8px;border-bottom:1px solid var(--rule);font-size:.78rem;font-weight:700;color:var(--muted)}
+}
+/* 上一章、下一章 */
+.bb-pn{display:flex;gap:10px;margin-top:30px}
+.bb-pn button{flex:1;min-width:0;min-height:54px;padding:6px 12px;border:1px solid var(--rule);border-radius:14px;background:var(--surface);cursor:pointer;font-size:.88rem;font-weight:600;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:6px}
+.bb-pn button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bb-pn button:disabled{opacity:.35}
+.bb-load{padding:48px 0;text-align:center;color:var(--muted);font-size:.9rem}
+/* ---------- 选中经文后的动作条 ---------- */
+.bb-act{position:fixed;z-index:104;left:50%;bottom:calc(var(--tbh,0px) + 10px);width:min(560px,calc(100% - 16px));transform:translateX(-50%);
+  border-radius:20px;background:var(--surface);border:1px solid var(--rule);box-shadow:0 12px 34px rgba(10,14,24,.22);padding:8px 8px 6px}
+.bb-act[hidden]{display:none}
+html.tbhide .bb-act{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+@media (min-width:1024px){.bb-act{bottom:18px;left:calc(50% + var(--sw,0px) / 2)}}
+.bb-ah{display:flex;align-items:center;gap:8px;padding:0 4px 6px 8px}
+.bb-ah b{flex:1;min-width:0;font-size:.86rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bb-ah .bb-ib{width:32px;height:32px}
+.bb-ab{display:flex;flex-wrap:wrap;gap:2px}   /* 手机上一行放不下就折成两行，不藏在屏幕外 */
+.bb-ab button{flex:1 0 52px;min-width:52px;display:grid;justify-items:center;gap:2px;padding:6px 4px;border:0;border-radius:12px;background:none;cursor:pointer;font-size:.68rem;color:var(--ink-2)}
+.bb-ab button:active{background:var(--surface-2)}
+.bb-ab .ic{width:21px;height:21px}
+.bb-sw{display:flex;gap:6px;align-items:center;padding:0 8px 0 4px;border-right:1px solid var(--rule);margin-right:2px;flex:none}
+.bb-sw button{flex:none;min-width:0;width:26px;height:26px;padding:0;border-radius:50%;border:2px solid var(--surface)}
+.bb-sw button.on{box-shadow:0 0 0 2px var(--ink-2)}
+.bb-c1{background:#E9C46A!important}.bb-c2{background:#8FD3A8!important}.bb-c3{background:#9DBDF2!important}.bb-c4{background:#F2A7B8!important}
+/* ---------- 弹出的面板 ---------- */
+.bb-sh{position:fixed;inset:0;z-index:120;display:flex;align-items:flex-end;justify-content:center}
+.bb-sh[hidden]{display:none}
+.bb-sh .bg{position:absolute;inset:0;background:rgba(8,12,20,.45);animation:bbIn .2s}
+.bb-sh .cd{position:relative;width:100%;max-width:720px;max-height:88vh;max-height:88dvh;display:flex;flex-direction:column;background:var(--surface);color:var(--ink);
+  border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.18);padding-bottom:env(safe-area-inset-bottom,0px);animation:bbUp .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes bbUp{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+@media (min-width:760px){.bb-sh{align-items:center}.bb-sh .cd{border-radius:22px;max-height:82vh}}
+.bb-sh .hd{display:flex;align-items:center;gap:8px;padding:10px 10px 8px 16px;border-bottom:1px solid var(--rule)}
+.bb-sh .hd h2{flex:1;min-width:0;margin:0;font-size:1rem}
+.bb-sh .bd{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:10px 14px 20px}
+.bb-seg{display:flex;gap:6px}
+.bb-seg button{height:32px;padding:0 14px;border:1px solid var(--rule);border-radius:999px;background:none;font-size:.86rem;font-weight:600;color:var(--ink-2);cursor:pointer}
+.bb-seg button[aria-pressed="true"]{background:var(--gold-soft);border-color:color-mix(in srgb,var(--gold) 40%,var(--rule));color:var(--gold)}
+.bb-grp{margin:14px 0 6px;font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--muted)}
+.bb-grp:first-child{margin-top:4px}
+.bb-bks{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:6px}
+.bb-bk{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:56px;padding:4px 2px;border:0;border-radius:12px;cursor:pointer;background:color-mix(in srgb,var(--c) 15%,var(--surface));color:var(--ink)}
+.bb-bk b{font-family:var(--serif);font-size:1.04rem;color:color-mix(in srgb,var(--c) 75%,var(--ink))}
+.bb-bk small{font-size:.6rem;line-height:1.2;color:var(--ink-2);text-align:center}
+.bb-bk.on{outline:2px solid var(--gold-2)}
+.bb-chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px}
+.bb-chs button{height:46px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);cursor:pointer;font-weight:600;font-variant-numeric:tabular-nums}
+.bb-chs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.bb-back{border:0;background:none;color:var(--gold);font-weight:700;cursor:pointer;padding:4px 0}
+/* 版本、阅读设置 */
+.bb-opt{display:flex;align-items:center;gap:12px;width:100%;padding:12px;margin:0 0 6px;border:1px solid var(--rule);border-radius:14px;background:var(--paper);cursor:pointer;text-align:left}
+.bb-opt b{display:block;font-size:.95rem}
+.bb-opt small{display:block;margin-top:2px;font-size:.76rem;color:var(--muted);line-height:1.5}
+.bb-opt[aria-pressed="true"]{border-color:var(--gold-2);background:var(--gold-soft)}
+.bb-opt .rd{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--rule)}
+.bb-opt[aria-pressed="true"] .rd{border:5px solid var(--gold)}
+.bb-chk{display:flex;flex-wrap:wrap;gap:14px;margin:4px 0 4px 4px;font-size:.88rem}
+.bb-chk label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.bb-srow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-bottom:1px solid var(--rule)}
+.bb-srow>span{font-size:.92rem}
+.bb-fs{display:flex;align-items:center;gap:6px}
+.bb-fs button{width:40px;height:36px;border:1px solid var(--rule);border-radius:10px;background:var(--paper);cursor:pointer;font-family:var(--serif);font-weight:800}
+.bb-fs i{min-width:3.5em;text-align:center;font-style:normal;font-size:.82rem;color:var(--muted)}
+.bb-prev{margin:12px 0 2px;padding:12px 14px;border-radius:12px;background:var(--paper);border:1px solid var(--rule)}
+/* 搜索 */
+.bb-q{display:flex;align-items:center;gap:8px;flex:1;height:42px;padding:0 12px;border:1px solid var(--rule);border-radius:12px;background:var(--paper)}
+.bb-q input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:16px;color:var(--ink)}
+.bb-q .ic{color:var(--muted);width:19px;height:19px}
+.bb-rs{display:block;width:100%;text-align:left;padding:11px 12px;margin:0 0 6px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);cursor:pointer;color:var(--ink)}
+.bb-rs b{font-family:var(--serif)}
+.bb-rs small{display:block;margin-top:2px;font-size:.76rem;color:var(--muted);line-height:1.5}
+.bb-rs.go{background:var(--gold-soft);border-color:color-mix(in srgb,var(--gold) 35%,var(--rule))}
+.bb-rs.go b{color:var(--gold)}
+.bb-chips{display:flex;flex-wrap:wrap;gap:6px}
+.bb-chip{display:inline-flex;align-items:baseline;gap:4px;padding:7px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);cursor:pointer;font-size:.9rem;color:var(--ink)}
+.bb-chip i{font-style:normal;font-size:.7rem;color:var(--muted)}
+.bb-hit{display:block;width:100%;text-align:left;padding:9px 4px;border:0;border-bottom:1px solid var(--rule);background:none;cursor:pointer;font-family:var(--serif);font-size:.95rem;line-height:1.75;color:var(--ink)}
+.bb-hit em{font-style:normal;font-family:var(--sans);font-size:.74rem;font-weight:700;color:var(--gold);margin-right:6px}
+.bb-hit mark{background:color-mix(in srgb,var(--gold-2) 45%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.bb-more{display:block;margin:12px auto 0;padding:9px 18px;border:1px solid var(--rule);border-radius:999px;background:none;cursor:pointer;color:var(--ink-2)}
+.bb-tip{font-size:.8rem;color:var(--muted);line-height:1.75}
+/* 经文详情（原文、对照、讲过的地方）、笔记 */
+.bb-dq{margin:0 0 8px;font-family:var(--serif);font-size:1rem;line-height:1.85}
+.bb-dq.en{font-family:Georgia,"Times New Roman",serif;color:var(--ink-2)}
+.bb-dq sup{font-family:var(--sans);font-size:.62em;color:var(--gold);font-weight:700;margin-right:2px}
+.bb-lex{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--slate-soft);font-size:.86rem;line-height:1.65}
+.bb-lex b{font-family:"SBL Hebrew","Times New Roman",serif;font-size:1.15rem}
+.bb-pl{display:block;padding:10px 12px;margin:0 0 6px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.55}
+.bb-pl small{display:block;color:var(--muted);font-size:.74rem}
+.bb-note{width:100%;min-height:140px;padding:12px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;line-height:1.7;resize:vertical}
+.bb-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.bb-btns button{height:40px;padding:0 18px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);cursor:pointer;font-weight:600}
+.bb-btns .ok{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}
+.bb-ml{display:block;width:100%;text-align:left;padding:10px 12px;margin:0 0 6px;border:1px solid var(--rule);border-left-width:5px;border-radius:12px;background:var(--paper);cursor:pointer;color:var(--ink);font-size:.88rem;line-height:1.6}
+.bb-ml em{display:block;font-style:normal;font-size:.74rem;font-weight:700;color:var(--gold)}
+.bb-toast{position:fixed;z-index:125;left:50%;bottom:calc(var(--tbh,0px) + 90px);transform:translate(-50%,10px);opacity:0;transition:opacity .2s,transform .2s;padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;pointer-events:none;white-space:nowrap}
+.bb-toast.on{opacity:1;transform:translate(-50%,0)}
+/* ---------- 第二期（2026-10-26）：小标题、诗行、原文中文、串珠、回到刚才、读经计划、下载到手机 ---------- */
+.bb-h{margin:1.5em 0 .55em;font-family:var(--sans);font-size:.86rem;font-weight:800;line-height:1.5;letter-spacing:.04em;color:var(--ink);text-align:left;text-indent:0}
+.bb-txt>.bb-h:first-child,.bb-h+.bb-h{margin-top:.2em}
+.bb-h.l0{margin-bottom:.9em;padding:6px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);text-align:center;font-family:var(--serif);font-size:.9rem;letter-spacing:.18em;color:var(--gold)}
+.bb-h.l2{font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.bb-h.l3{font-family:"SBL Hebrew","Times New Roman",serif;font-size:.95rem;color:var(--gold)}
+.bb-h[lang=en]{font-family:Georgia,"Times New Roman",serif;letter-spacing:0}
+.bb-hr{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:3px}
+.bb-hr button{padding:1px 8px;border:1px solid var(--rule);border-radius:999px;background:none;cursor:pointer;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.bb-hr button:active{background:var(--surface-2)}
+.bb-cv+.bb-h,.bb-ov+.bb-h{margin-top:1.3em}
+.bb-l.po{padding-left:2.4em;text-indent:-1.6em}                       /* 诗行：比“每节一行”多缩进一点，像印刷本的诗 */
+.bb-txt.en .bb-l.po{padding-left:2em;text-indent:-1.4em}
+.bb-p+.bb-l.po,.bb-h+.bb-l.po{margin-top:.2em}
+.bb-l.po+.bb-p{margin-top:.85em}
+.bb-w .z{font-size:.72rem;line-height:1.35;color:var(--gold);direction:ltr;max-width:7em;text-align:center;font-family:var(--serif)}
+.bb-w .z:empty{display:none}
+.bb.plain .bb-w .z{display:none}
+.bb-xr{display:block;width:100%;text-align:left;padding:10px 12px;margin:0 0 6px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);cursor:pointer;color:var(--ink);font-family:var(--serif);font-size:.93rem;line-height:1.7}
+.bb-xr em{display:block;font-style:normal;font-family:var(--sans);font-size:.74rem;font-weight:700;color:var(--gold)}
+.bb .bb-backp{position:fixed;z-index:31;left:50%;top:calc(env(safe-area-inset-top,0px) + 60px);transform:translateX(-50%);display:flex;align-items:center;gap:6px;height:36px;padding:0 14px 0 10px;
+  border:1px solid color-mix(in srgb,var(--gold) 35%,var(--rule));border-radius:999px;background:var(--surface);box-shadow:0 6px 18px rgba(10,14,24,.16);cursor:pointer;font-size:.84rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.bb-backp[hidden]{display:none}
+.bb-backp .ic{width:18px;height:18px}
+@media (min-width:1024px){.bb-backp{left:calc(50% + var(--sw,0px) / 2)}}
+.bb .bb-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:38px;padding:0 16px;border:1px solid transparent;border-radius:999px;cursor:pointer;font-size:.86rem;font-weight:700;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);white-space:nowrap;flex:none}
+.bb .bb-btn.ghost{background:none;border-color:var(--rule);color:var(--ink-2)}
+.bb-btn .ic{width:17px;height:17px}
+.bb .bb-lnk{display:block;padding:6px 0;border:0;background:none;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--gold);text-align:left}
+.bb-pc{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px;padding:12px;margin:0 0 8px;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.bb-pc b{font-size:.95rem}.bb-pc small{grid-column:1;font-size:.76rem;color:var(--muted);line-height:1.5}
+.bb-pc .bb-btn{grid-column:2;grid-row:1/3}
+.bb-ph{padding:4px 2px 10px}
+.bb-ph b{display:block;font-family:var(--serif);font-size:1.05rem}
+.bb-ph small{display:block;margin-top:2px;font-size:.78rem;color:var(--muted)}
+.bb-pbar{height:6px;margin:10px 0 4px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bb-pbar i{display:block;height:100%;transform-origin:0 50%;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:999px}
+.bb-pnav{display:flex;align-items:center;gap:6px;margin:8px 0 10px;padding:4px;border-radius:14px;background:var(--paper);border:1px solid var(--rule)}
+.bb-pnav span{flex:1;text-align:center;font-size:.84rem;color:var(--ink-2)}
+.bb-pnav span b{margin-right:8px;font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.bb-pnav .bb-ib:disabled{opacity:.3}
+.bb-pi{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px solid var(--rule)}
+.bb .bb-pk{display:grid;place-items:center;flex:none;width:34px;height:34px;border:2px solid var(--rule);border-radius:50%;background:none;cursor:pointer;color:transparent}
+.bb-pk .ic{width:18px;height:18px;stroke-width:2.4}
+.bb .bb-pi.ok .bb-pk{border-color:var(--ok);background:var(--ok);color:#fff}
+.bb-pg{flex:1;min-width:0;display:block;padding:4px 0;border:0;background:none;cursor:pointer;text-align:left;color:var(--ink)}
+.bb-pg b{display:block;font-family:var(--serif);font-size:1rem}
+.bb-pg small{display:block;font-size:.74rem;color:var(--muted)}
+.bb-pi.ok .bb-pg b{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
+.bb-pend{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;padding:12px;border-radius:12px;background:var(--paper);font-size:.86rem}
+.bb-pend span{flex:1 1 100%}
+.bb-plc{display:flex;align-items:center;gap:10px;margin-top:28px;padding:12px 12px 12px 14px;border:1px solid color-mix(in srgb,var(--gold) 30%,var(--rule));border-radius:14px;background:var(--gold-soft)}
+.bb-plc span{flex:1;min-width:0;font-family:var(--serif);font-size:.95rem}
+.bb-plc small{display:block;font-family:var(--sans);font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.bb-plc.ok{background:var(--paper)}
+.bb-dl{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid var(--rule)}
+.bb-dl>span:first-child{flex:1;min-width:0}
+.bb-dl b{display:block;font-size:.92rem}.bb-dl small{display:block;font-size:.74rem;color:var(--muted);line-height:1.5}
+.bb-dl .bb-btn{height:34px;padding:0 12px}
+.bb-dlp{font-size:.82rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bb-dlok{display:inline-flex;align-items:center;gap:3px;font-size:.8rem;font-weight:700;color:var(--ok);white-space:nowrap}
+.bb-dlok .ic{width:16px;height:16px}
+.bb .bb-dl .bb-lnk{padding:6px 2px;font-size:.78rem;color:var(--muted)}
+@media (max-width:359.98px){.bb-main{padding-left:14px;padding-right:14px}.bb-head b{font-size:2.6rem}.bb-ver{padding:0 9px}.bb-ver .ic{display:none}.bb-bar .bb-ib{width:36px}.bb-where{font-size:1rem;padding:0 2px}}
+@media (min-width:900px){.bb-main{padding-top:34px}}
+@media (prefers-reduced-motion:reduce){.bb-ch,.bb-sh .cd,.bb-sh .bg{animation:none}.bb-top,.bb-toast,.bb-v{transition:none}.bb-v.flash{animation:none}}
+</style></head>
+<body><div id="bbroot"></div>
+<script>/* “圣经”栏目（2026-10-26 第一期）：和合本、KJV、原文（旧约希伯来文、新约希腊文），切换和对照；书本式排版（按段落，诗歌一行一节）；
+   选中经文后的动作条（划线、笔记、书签、复制、分享图、原文、对照、讲过的地方）；阅读设置；记住读到哪一节；最近读过；搜索。
+   既能单独打开（bible.html，网址 #58.11.1），也能装进网站（index.html 的 #bible 页，网址 #bible-58.11.1）。
+   数据在 site/bible/（文件名带内容哈希），下载一次就存进手机（IndexedDB “q4bible”，和网站其他缓存分开）。
+   本机记录：q4:bset 阅读设置，q4:bpos 读到哪里，q4:brecent 最近读过，q4:bmarks 划线、笔记、书签，q4:bplan 读经计划（登录账号后由 app.js 同步 bp、bm、pl）。
+   第二期（2026-10-26）：小标题（位置参照 BSB，中文编者拟）和平行经文、诗歌分行（BSB 的诗行）、串珠（OpenBible.info）、
+   原文每个词下面的中文（和合本常见译法，依 FHL 标注的和合本 Strong 编号统计）、读经计划、下载到手机（离线阅读）、跳转后“回到刚才的地方”。 */
+(function(){
+  'use strict';
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{if(v==null||v==='')localStorage.removeItem('q4:'+k);else localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function jget(k,d){try{var v=JSON.parse(get(k)||'null');return v==null?d:v;}catch(e){return d;}}
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idle=window.requestIdleCallback||function(f){return setTimeout(f,200);};
+
+  /* ---------- 存在手机里的数据 ---------- */
+  var DB=null,MEM={};
+  function db(){if(!DB)DB=new Promise(function(ok){try{var r=indexedDB.open('q4bible',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
+    r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return DB;}
+  function idb(mode,fn){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
+    try{var t=d.transaction('f',mode),q=fn(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
+  function load(fn){
+    if(!fn)return Promise.reject(new Error('no file'));
+    if(MEM[fn])return MEM[fn];
+    return MEM[fn]=idb('readonly',function(s){return s.get(fn);}).then(function(v){
+      if(v!=null)return JSON.parse(v);
+      return fetch('site/bible/'+fn).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();}).then(function(t){idb('readwrite',function(s){return s.put(t,fn);});return JSON.parse(t);});
+    }).catch(function(e){delete MEM[fn];throw e;});
+  }
+  function baseName(u){return String(u).split('/').pop();}
+  function loadIndex(u){return /^site\/bible\/[^/]+$/.test(u)?load(baseName(u)):fetch(u).then(function(r){return r.json();});}
+  function prune(keep){idb('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();q.onsuccess=function(){(q.result||[]).forEach(function(k){if(keep.indexOf(k)<0)s.delete(k);});};return q;});}
+
+  /* ---------- 图标 ---------- */
+  var IC={down:'<path d="m6 9 6 6 6-6"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',aa:'<path d="M4 18 9 6l5 12M5.8 14h6.4M15 18l3-7 3 7M15.9 16h4.2"/>',
+    x:'<path d="M6 6l12 12M18 6 6 18"/>',back:'<path d="m15 18-6-6 6-6"/>',l:'<path d="m15 18-6-6 6-6"/>',r:'<path d="m9 18 6-6-6-6"/>',
+    note:'<path d="M5 4.5h10l4 4V19.5H5z"/><path d="M15 4.5v4h4M8.5 12h7M8.5 15.5h5"/>',bm:'<path d="M7 4h10v16l-5-3.5L7 20z"/>',copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+    share:'<circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1"/>',
+    img:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4"/>',org:'<path d="M5 6h14M5 12h9M5 18h12"/><path d="M18.5 10.5 21 13l-2.5 2.5"/>',
+    cmp:'<rect x="3.5" y="5" width="7.5" height="14" rx="1.5"/><rect x="13" y="5" width="7.5" height="14" rx="1.5"/>',place:'<path d="M12 21s-6.5-5.4-6.5-11a6.5 6.5 0 0 1 13 0c0 5.6-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+    clear:'<path d="M5 19h14M7 15l7.5-7.5a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L12 16H7z"/>',
+    xr:'<path d="M9.5 14.5l5-5"/><path d="M11 6.6l1.3-1.3a4 4 0 0 1 5.7 5.7L16.7 12.3"/><path d="M13 17.4l-1.3 1.3a4 4 0 0 1-5.7-5.7L7.3 11.7"/>',
+    plan:'<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M8 3.5v4M16 3.5v4M4 10.5h16M8.8 15l2.2 2.2 4.2-4.4"/>',
+    dl:'<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/>',ok:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',undo:'<path d="M9 14 4.5 9.5 9 5"/><path d="M5 9.5h9.5a5 5 0 0 1 0 10H11"/>'};
+  function ic(k){return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>';}
+
+  /* ---------- 书卷 ---------- */
+  var BK=[],IX=null;
+  var CAT=[[0,4,'律法书','--c4'],[5,16,'历史书','--c1'],[17,21,'诗歌智慧书','--c5'],[22,26,'大先知书','--c3'],[27,38,'小先知书','--c3'],
+           [39,42,'福音书','--c6'],[43,43,'历史书','--c1'],[44,56,'保罗书信','--c2'],[57,64,'其他书信','--c2'],[65,65,'预言书','--c5']];
+  function cat(i){for(var k=0;k<CAT.length;k++)if(i>=CAT[k][0]&&i<=CAT[k][1])return CAT[k];return CAT[0];}
+  function ab(i){return BK[i].ab[0];}
+  function poetic(b,c){return b===18||b===19||b===21||b===24||(b===17&&c>=3&&c<=42);}   // 诗篇、箴言、雅歌、哀歌、约伯记 3—42 章：一行一节
+  function files(b){var f=IX.files,p=('0'+b).slice(-2);return {cuv:f['cuv-'+p],kjv:f['kjv-'+p],org:f['org-'+p],xr:f['xr-'+p]};}
+
+  function mount(root,cfg){
+    if(!root||root._bb)return;root._bb=1;
+    var PRE=cfg.prefix||'',SITE=!!cfg.site;
+    var $=function(s){return root.querySelector(s);};
+    var S=jget('bset',{});   // 阅读设置
+    S.mode=S.mode||'cuv';S.cmp=S.cmp||{cuv:1,kjv:1,org:0};if(S.fs==null)S.fs=1;if(S.lh==null)S.lh=1;if(S.vn==null)S.vn=1;S.lay=S.lay||'para';if(S.og==null)S.og=1;if(S.hd==null)S.hd=1;
+    function saveSet(){set('bset',JSON.stringify(S));}
+    var FS=[.94,1.08,1.2,1.34,1.5],LH=[1.75,1.95,2.2];
+
+    root.className='bb';
+    root.innerHTML=
+      '<header class="bb-top"><div class="bb-bar">'+(SITE?'':'<a class="bb-ib" href="./#home" aria-label="回网站首页">'+ic('back')+'</a>')+
+      '<button class="bb-where" type="button" data-a="pick" aria-label="选择书卷和章"><span class="bb-wt">圣经</span>'+ic('down')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="find" aria-label="搜索">'+ic('search')+'</button>'+
+      '<button class="bb-ver" type="button" data-a="ver" aria-label="版本"><span class="bb-vt">和合本</span>'+ic('down')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="plan" aria-label="读经计划">'+ic('plan')+'</button>'+
+      '<button class="bb-ib" type="button" data-a="set" aria-label="阅读设置">'+ic('aa')+'</button></div><div class="bb-prog" aria-hidden="true"><i></i></div></header>'+
+      '<main class="bb-main"><p class="bb-load">正在打开……</p></main>'+
+      '<div class="bb-act" hidden role="toolbar" aria-label="选中的经文"><div class="bb-ah"><b class="bb-at"></b><button class="bb-ib" type="button" data-a="unsel" aria-label="取消选择">'+ic('x')+'</button></div>'+
+      '<div class="bb-ab"><span class="bb-sw">'+[1,2,3,4].map(function(i){return '<button type="button" class="bb-c'+i+'" data-h="'+i+'" aria-label="划线（颜色'+i+'）"></button>';}).join('')+'</span>'+
+      '<button type="button" data-a="note">'+ic('note')+'笔记</button><button type="button" data-a="bm">'+ic('bm')+'书签</button><button type="button" data-a="copy">'+ic('copy')+'复制</button>'+
+      (SITE?'<button type="button" data-a="img">'+ic('share')+'分享</button>':'')+
+      '<button type="button" data-a="orgv">'+ic('org')+'原文</button><button type="button" data-a="cmpv">'+ic('cmp')+'对照</button><button type="button" data-a="places">'+ic('place')+'讲过</button><button type="button" data-a="xref">'+ic('xr')+'串珠</button>'+
+      '<button type="button" data-a="clear">'+ic('clear')+'清除</button></div></div>'+
+      sheet('pick','选择书卷','<div class="bb-seg"><button type="button" data-t="ot" aria-pressed="true">旧约</button><button type="button" data-t="nt" aria-pressed="false">新约</button></div>')+
+      sheet('find','','<label class="bb-q">'+ic('search')+'<input type="search" enterkeyhint="search" autocomplete="off" placeholder="书卷、出处、人名或字句，如 xbl、来11:1、信心"></label>')+
+      sheet('ver','版本','')+sheet('set','阅读设置','')+sheet('det','','')+sheet('nt','笔记','')+sheet('plan','读经计划','')+
+      '<button class="bb-backp" type="button" data-a="back" hidden>'+ic('undo')+'<span></span></button>'+
+      '<div class="bb-toast" role="status"></div>';
+    function sheet(k,t,extra){return '<div class="bb-sh" data-sh="'+k+'" hidden><div class="bg" data-close></div><div class="cd" role="dialog" aria-modal="true" aria-label="'+(t||k)+'">'+
+      '<div class="hd">'+(t?'<h2>'+t+'</h2>':'<h2 class="bb-dt"></h2>')+extra+'<button class="bb-ib" type="button" data-close aria-label="关闭">'+ic('x')+'</button></div><div class="bd"></div></div></div>';}
+    function sh(k){return root.querySelector('[data-sh="'+k+'"]');}
+    sh('find').querySelector('.hd h2').remove();   // 搜索面板顶上放搜索框，不要标题
+    var main=$('.bb-main'),top=$('.bb-top'),prog=$('.bb-prog i'),act=$('.bb-act');
+    var toastT;function toast(m){var t=$('.bb-toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},1700);}
+    function visible(){if(SITE){var d=document.documentElement;if(d.getAttribute('data-pg')!=='bible'||d.classList.contains('wopen'))return false;}return !!root.getClientRects().length;}   // 网站里：只有正在看圣经页时才算
+
+    /* ---------- 阅读设置生效 ---------- */
+    function applySet(){
+      root.style.setProperty('--bfs',FS[S.fs]+'rem');root.style.setProperty('--blh',LH[S.lh]);
+      root.classList.toggle('nonum',!S.vn);root.classList.toggle('plain',!S.og);root.classList.toggle('sepia',!!S.sepia);
+      root.dataset.mode=S.mode;
+      $('.bb-vt').textContent={cuv:'和合本',kjv:'KJV',org:'原文',cmp:'对照'}[S.mode];
+    }
+
+    /* ---------- 划线、笔记、书签 ---------- */
+    function marks(){return jget('bmarks',{});}   // {"卷.章.节": [颜色0-4, 笔记, 书签0/1, 时间]}
+    function putMark(key,h,n,bm){var a=marks(),o=a[key]||[0,'',0,0];
+      if(h!=null)o[0]=h;if(n!=null)o[1]=n;if(bm!=null)o[2]=bm;o[3]=Date.now();a[key]=o;   // 删掉的也留一条（带时间），别的设备同步过来的旧记录不会“复活”
+      set('bmarks',JSON.stringify(a));try{window.dispatchEvent(new Event('q4:bmarks'));}catch(e){}}
+
+    /* ---------- 地址 ---------- */
+    var RE=new RegExp('^#'+PRE.replace('-','\\-')+'(\\d+)\\.(\\d+)(?:\\.(\\d+))?');
+    function readHash(){var m=RE.exec(location.hash);if(!m)return null;return {b:+m[1]-1,c:+m[2],v:m[3]?+m[3]:0};}
+    function hashOf(b,c,v){return '#'+PRE+(b+1)+'.'+c+(v?'.'+v:'');}
+    var dir=0;
+    function go(b,c,v,how){
+      b=Math.max(0,Math.min(65,b));c=Math.max(1,Math.min(BK[b].nc,c));
+      var h=hashOf(b,c,v);
+      if(location.hash===h){render(b,c,v);return;}
+      if(how==='replace'){try{history.replaceState(null,'',h);}catch(e){}render(b,c,v);}else location.hash=h;
+    }
+    window.addEventListener('hashchange',function(){if(!IX)return;var r=readHash();if(r)render(r.b,r.c,r.v);});
+
+    /* ---------- 显示一章 ---------- */
+    var C={},tok=0;
+    function need(){var m=S.mode;return {kjv:m==='kjv'||(m==='cmp'&&S.cmp.kjv),org:m==='org'||(m==='cmp'&&S.cmp.org)};}
+    function render(b,c,v){
+      unselect();closeAll();
+      var N=need(),F=files(b),my=++tok,same=C.b===b&&C.c===c;
+      $('.bb-wt').textContent=BK[b].n+' '+c;
+      if(SITE){if(visible())document.title=BK[b].n+' '+c+' · 圣经';}else document.title=BK[b].n+' '+c+' · 圣经';
+      var slow=setTimeout(function(){if(tok===my)main.innerHTML='<p class="bb-load">正在下载这一卷（下载一次以后就存在手机里）……</p>';},300);
+      Promise.all([load(F.cuv),N.kjv?load(F.kjv):null,N.org?load(F.org):null]).then(function(r){
+        clearTimeout(slow);if(tok!==my)return;
+        draw(b,c,r[0],r[1],r[2]);
+        var cls=RM||same?'':(dir<0?' fromL':dir>0?' fromR':'');dir=0;
+        if(cls){var ch=main.firstChild;if(ch)ch.className+=cls;}
+        if(v){var el=root.querySelector('[data-v="'+v+'"]');if(el){scrollToEl(el);if(!fromRestore){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
+        else if(!same)window.scrollTo(0,0);
+        fromRestore=false;
+        remember(b,c,v);
+        idle(function(){prefetch(b,c);});
+      },function(){clearTimeout(slow);if(tok===my)main.innerHTML='<p class="bb-load">下载失败，请检查网络后再点一次。</p>';});
+    }
+    var fromRestore=false;
+    function scrollToEl(el){var y=el.getBoundingClientRect().top+scrollY-(top.offsetHeight+18);window.scrollTo(0,Math.max(0,y));}
+    function numLabel(arr,v){var e=v;while(e<arr.length&&!arr[e])e++;return e>v?v+'-'+e:String(v);}
+    function words(ws,ot){
+      return '<div class="bb-ws'+(ot?'':' grk')+'"'+(ot?' dir="rtl" lang="he"':' lang="grc"')+'>'+ws.map(function(w,i){
+        return '<span class="bb-w" data-w="'+i+'"><span class="o">'+esc(w[0])+'</span><span class="t">'+esc(w[1])+'</span><span class="g">'+esc(w[2])+'</span><span class="z">'+esc(w[4]||'')+'</span></span>';}).join('')+'</div>';
+    }
+    function draw(b,c,cuv,kjv,org){
+      var ch=cuv.v[c-1]||[],kc=kjv?kjv[c-1]||[]:[],oc=org?org.v[c-1]||[]:[],ot=b<39,m=S.mode,h=[],mk=marks();
+      var pe={};(cuv.p||[]).forEach(function(x){pe[x]=1;});
+      var HD=S.hd&&cuv.h?cuv.h:{},PQ=cuv.q&&cuv.q[c],pset={},allPoe=!cuv.q&&poetic(b,c);   // 诗行：BSB 排成诗行的节（旧数据没有时，诗篇等整章按诗排）
+      if(PQ)PQ.forEach(function(x){pset[x]=1;});
+      C={b:b,c:c,cuv:ch,kjv:kc,org:oc,lx:org?org.x:null,cuvF:cuv};
+      function heads(v,en){var L=HD[c+'.'+v];if(!L)return '';
+        return L.map(function(x){var t=en?x[2]:x[1],rf=x[3]||[];
+          return '<h3 class="bb-h l'+x[0]+'"'+(en?' lang="en"':'')+'><span>'+esc(t)+'</span>'+(rf.length?'<span class="bb-hr">'+rf.map(function(r){
+            return '<button type="button" data-go="'+r[1]+'.'+r[2]+'.'+r[3]+'" data-xj>'+esc(r[0])+'</button>';}).join('')+'</span>':'')+'</h3>';}).join('');}
+      h.push('<div class="bb-ch"><div class="bb-head"><b>'+c+'</b><span><h1>'+esc(BK[b].n)+'</h1><small>'+esc(BK[b].en)+' · 第 '+c+' 章 / 共 '+BK[b].nc+' 章</small></span></div>');
+      function mkcls(v){var o=mk[b+'.'+c+'.'+v];return o&&o[0]?' h'+o[0]:'';}
+      function mkicons(v){var o=mk[b+'.'+c+'.'+v];if(!o)return '';return (o[2]?'<span class="bb-mk bm" data-mk="'+v+'" aria-label="书签"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z"/></svg></span>':'')+(o[1]?'<span class="bb-mk" data-mk="'+v+'" aria-label="笔记"><svg viewBox="0 0 24 24"><path d="M5 19.5h4L19.5 9 15 4.5 4.5 15z"/></svg></span>':'');}
+      function vspan(v,txt,lab){return '<span class="bb-v'+mkcls(v)+'" data-v="'+v+'"><sup class="bb-n">'+lab+'</sup>'+esc(txt)+'</span>'+mkicons(v);}
+      if(m==='cuv'||m==='kjv'){
+        var arr=m==='cuv'?ch:kc,para=[];
+        var flush=function(){if(para.length){h.push('<p class="bb-p">'+para.join('')+'</p>');para=[];}};
+        h.push('<div class="bb-txt'+(m==='kjv'?' en" lang="en':'')+'">');
+        for(var v=1;v<=arr.length;v++){
+          var hv=heads(v,m==='kjv');if(hv){flush();h.push(hv);}
+          var t=arr[v-1];if(!t)continue;
+          var lab=m==='cuv'?numLabel(arr,v):String(v),last=lab.indexOf('-')>0?+lab.split('-')[1]:v,end=pe[c+'.'+v]||pe[c+'.'+last];
+          var poe=allPoe||pset[v]||pset[last];
+          if(poe||S.lay==='verse'){flush();h.push('<p class="bb-l'+(poe?' po':'')+(end&&poe?' gap':'')+'">'+vspan(v,t,lab)+'</p>');continue;}
+          para.push(vspan(v,t,lab));
+          if(end)flush();
+        }
+        flush();
+        h.push('</div>');
+      }else if(m==='org'){
+        h.push('<div class="bb-txt">');
+        for(var v2=1;v2<=oc.length;v2++){var o=oc[v2-1];h.push(heads(v2));if(!o||!o.length)continue;
+          h.push('<div class="bb-ov bb-v'+mkcls(v2)+'" data-v="'+v2+'"><sup class="bb-n">'+v2+'</sup>'+words(o,ot)+'</div>');}
+        h.push('</div>');
+      }else{
+        var cols=[];if(S.cmp.cuv)cols.push('和合本');if(S.cmp.kjv)cols.push('KJV');if(S.cmp.org)cols.push(ot?'希伯来文':'希腊文');
+        if(!cols.length){S.cmp.cuv=1;cols=['和合本'];}
+        var st=' style="--cols:repeat('+cols.length+',minmax(0,1fr))"',nv=Math.max(ch.length,S.cmp.kjv?kc.length:0,S.cmp.org?oc.length:0);
+        h.push('<div class="bb-cols"'+st+'>'+cols.map(function(x){return '<span>'+x+'</span>';}).join('')+'</div><div class="bb-txt">');
+        for(var v3=1;v3<=nv;v3++){
+          h.push(heads(v3));
+          var rows='';
+          if(S.cmp.cuv)rows+='<div class="bb-row"><span class="bb-lb">和合</span><div>'+(ch[v3-1]?'<sup class="bb-n">'+numLabel(ch,v3)+'</sup>'+esc(ch[v3-1]):'<span class="bb-tip">（和上一节印在一起）</span>')+'</div></div>';
+          if(S.cmp.kjv)rows+='<div class="bb-row k" lang="en"><span class="bb-lb">KJV</span><div><sup class="bb-n">'+v3+'</sup>'+esc(kc[v3-1]||'')+'</div></div>';
+          if(S.cmp.org)rows+='<div class="bb-row"><span class="bb-lb">原文</span><div>'+(oc[v3-1]&&oc[v3-1].length?words(oc[v3-1],ot):'')+'</div></div>';
+          h.push('<div class="bb-cv bb-v'+mkcls(v3)+'" data-v="'+v3+'"'+st+'>'+rows+'</div>');
+        }
+        h.push('</div>');
+      }
+      if(m==='org'||(m==='cmp'&&S.cmp.org))h.push('<p class="bb-hint">原文据 STEPBible 的 TAHOT（希伯来文旧约）和 TAGNT（希腊文新约），CC BY 4.0。每个词下面依次是读音、英文直译和中文；中文是这个词在和合本里常见的译法（依信望爱 FHL 标注的和合本 Strong 编号统计，公有领域），不是逐字翻译。点一节，再点“原文”，可以看词典里的原形、字义和这一节和合本的译法。</p>');
+      if(m==='kjv'||(m==='cmp'&&S.cmp.kjv))h.push('<p class="bb-hint">英文是英王钦定本（KJV，公有领域）。分节偶尔和和合本不同。</p>');
+      if(m==='cuv')h.push('<p class="bb-hint">和合本（上帝版，公有领域）。分段依照原文抄本的分段记号（STEPBible）；诗行和小标题的位置参照 BSB（公有领域），小标题是编者拟的，不是经文。</p>');
+      if(m==='kjv'&&S.hd)h.push('<p class="bb-hint">小标题和平行经文出自 BSB（Berean Standard Bible，公有领域）。</p>');
+      h.push('<div class="bb-plb"></div>');
+      var pv=prev(b,c),nx=next(b,c);
+      h.push('<div class="bb-pn"><button type="button" data-go="'+(pv?pv.join('.'):'')+'" data-d="-1"'+(pv?'':' disabled')+'>'+ic('l')+'<span>'+(pv?esc(BK[pv[0]].n)+' '+pv[1]:'')+'</span></button>'+
+             '<button type="button" data-go="'+(nx?nx.join('.'):'')+'" data-d="1"'+(nx?'':' disabled')+'><span>'+(nx?esc(BK[nx[0]].n)+' '+nx[1]:'')+'</span>'+ic('r')+'</button></div></div>');
+      main.innerHTML=h.join('');
+      if(PLD)planBar();else if(pst())plansP().then(planBar,function(){});
+      onScroll();
+    }
+    function prev(b,c){return c>1?[b,c-1]:b>0?[b-1,BK[b-1].nc]:null;}
+    function next(b,c){return c<BK[b].nc?[b,c+1]:b<65?[b+1,1]:null;}
+    function prefetch(b,c){var N=need();[prev(b,c),next(b,c)].forEach(function(p){if(!p||p[0]===b)return;var F=files(p[0]);load(F.cuv).catch(function(){});if(N.kjv)load(F.kjv).catch(function(){});if(N.org)load(F.org).catch(function(){});});}
+
+    /* ---------- 读到哪里、最近读过 ---------- */
+    function remember(b,c,v){
+      var r=jget('brecent',[]).filter(function(x){return !(x[0]===b&&x[1]===c);});r.unshift([b,c]);set('brecent',JSON.stringify(r.slice(0,10)));
+      savePos(v);
+    }
+    function topVerse(){var lim=top.getBoundingClientRect().bottom+8,els=main.querySelectorAll('[data-v]');
+      for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();if(r.bottom>lim)return +els[i].dataset.v;}return 0;}
+    function savePos(v){if(C.b==null)return;if(v==null)v=topVerse();set('bpos',JSON.stringify([C.b,C.c,v||1,Date.now()]));}
+
+    /* ---------- 滚动：顶栏收起、进度条、记位置 ---------- */
+    var lastY=scrollY,ticking=false,posT=null;
+    function onScroll(){
+      ticking=false;if(!visible())return;
+      var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+      prog.style.transform='scaleX('+(h>0?Math.min(1,Math.max(0,y/h)):0).toFixed(3)+')';
+      if(Math.abs(y-lastY)>6){top.classList.toggle('away',y>lastY&&y>120&&!anyOpen());lastY=y;}
+      clearTimeout(posT);posT=setTimeout(function(){if(visible())savePos();},700);
+    }
+    addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll);}},{passive:true});
+
+    /* ---------- 选中经文 ---------- */
+    var SEL=[];
+    function refLabel(vs){vs=vs.slice().sort(function(a,b){return a-b;});var out=[],i=0;
+      while(i<vs.length){var j=i;while(j+1<vs.length&&vs[j+1]===vs[j]+1)j++;out.push(vs[i]+(j>i?'-'+vs[j]:''));i=j+1;}
+      return ab(C.b)+C.c+':'+out.join(',');}
+    function paintSel(){
+      root.querySelectorAll('.bb-v.sel').forEach(function(x){x.classList.remove('sel');});
+      SEL.forEach(function(v){root.querySelectorAll('[data-v="'+v+'"]').forEach(function(x){x.classList.add('sel');});});
+      if(!SEL.length){act.hidden=true;return;}
+      act.hidden=false;$('.bb-at').textContent=BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),'')+(SEL.length>1?' · '+SEL.length+' 节':'');
+      var mk=marks(),o=mk[C.b+'.'+C.c+'.'+SEL[0]]||[0];
+      act.querySelectorAll('[data-h]').forEach(function(x){x.classList.toggle('on',+x.dataset.h===o[0]&&SEL.every(function(v){var q=mk[C.b+'.'+C.c+'.'+v];return q&&q[0]===o[0];}));});
+    }
+    function unselect(){if(SEL.length){SEL=[];paintSel();}}
+    function selText(kind){
+      var arr=kind==='kjv'?C.kjv:C.cuv,vs=SEL.slice().sort(function(a,b){return a-b;});
+      return vs.map(function(v){return arr[v-1]||'';}).filter(Boolean).join(kind==='kjv'?' ':'');
+    }
+
+    /* ---------- 点击 ---------- */
+    root.addEventListener('click',function(e){
+      var t=e.target;
+      if(t.closest('[data-close]')){closeAll();return;}
+      var g=t.closest('[data-go]');if(g&&g.dataset.go){var p=g.dataset.go.split('.');
+        if(g.hasAttribute('data-xj')){jump(+p[0],+p[1],+p[2]||0);return;}   // 小标题下的平行经文：跳过去，可以再回来
+        dir=+g.dataset.d||0;go(+p[0],+p[1]);return;}
+      var pd=t.closest('[data-pdone]');if(pd){planMark(+pd.dataset.pdone,pd.dataset.pi);return;}
+      var mkb=t.closest('[data-mk]');if(mkb){SEL=[+mkb.dataset.mk];paintSel();openNote();return;}
+      var hb=t.closest('[data-h]');if(hb&&SEL.length){highlight(+hb.dataset.h);return;}
+      var a=t.closest('[data-a]');
+      if(a){var k=a.dataset.a;
+        if(k==='pick')openPick();else if(k==='find')openFind();else if(k==='ver')openVer();else if(k==='set')openSet();
+        else if(k==='plan')openPlan();else if(k==='back')goBack();else if(k==='xref')openXref();
+        else if(k==='unsel')unselect();else if(k==='note')openNote();else if(k==='bm')bookmark();else if(k==='copy')copy();
+        else if(k==='img')shareImg();else if(k==='orgv')openOrg();else if(k==='cmpv')openCmp();else if(k==='places')openPlaces();else if(k==='clear')clearMarks();
+        return;}
+      var v=t.closest('.bb-main [data-v]');
+      if(v&&!window.getSelection().toString()){var n=+v.dataset.v,i=SEL.indexOf(n);if(i>=0)SEL.splice(i,1);else SEL.push(n);paintSel();}
+    });
+    document.addEventListener('keydown',function(e){
+      if(!visible())return;
+      if(e.key==='Escape'){if(anyOpen())closeAll();else unselect();return;}
+      if(anyOpen()||/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||''))return;
+      if(e.key==='ArrowLeft'){var p=prev(C.b,C.c);if(p){dir=-1;go(p[0],p[1]);}}
+      else if(e.key==='ArrowRight'){var n=next(C.b,C.c);if(n){dir=1;go(n[0],n[1]);}}
+      else if(e.key==='/'){e.preventDefault();openFind();}
+    });
+
+    /* ---------- 动作 ---------- */
+    function highlight(h){
+      var mk=marks(),all=SEL.every(function(v){var o=mk[C.b+'.'+C.c+'.'+v];return o&&o[0]===h;});
+      SEL.forEach(function(v){putMark(C.b+'.'+C.c+'.'+v,all?0:h);});
+      repaintMarks();toast(all?'已取消划线':'已划线');unselect();
+    }
+    function clearMarks(){SEL.forEach(function(v){var o=marks()[C.b+'.'+C.c+'.'+v];if(o&&(o[0]||o[1]||o[2]))putMark(C.b+'.'+C.c+'.'+v,0,'',0);});repaintMarks();toast('已清除划线、笔记和书签');unselect();}
+    function bookmark(){var k=C.b+'.'+C.c+'.'+Math.min.apply(null,SEL),o=marks()[k];putMark(k,null,null,o&&o[2]?0:1);repaintMarks();toast(o&&o[2]?'已取消书签':'已加书签');unselect();}
+    function repaintMarks(){render(C.b,C.c,0);}   // 同一章重画：高度不变，停在原处
+    function copy(){
+      var en=S.mode==='kjv',txt=selText(en?'kjv':'cuv'),ref=refLabel(SEL),s=en?txt+' ('+BK[C.b].en+' '+ref.replace(ab(C.b),'')+' KJV)':'“'+txt+'”（'+ref+' 和合本）';
+      var ok=function(){toast('已复制');unselect();};
+      if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(ok,legacy);else legacy();
+      function legacy(){var ta=document.createElement('textarea');ta.value=s;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){toast('复制没有成功，请长按文字复制');}ta.remove();}
+    }
+    function shareImg(){if(!window.Q4Card)return;window.Q4Card({kind:'quote',col:'bible',text:selText('cuv'),src:BK[C.b].n+' '+refLabel(SEL).replace(ab(C.b),'')+'（和合本）',qr:'bible',qrText:'打开圣经，接着读',head:'分享经文'});unselect();}   // 2026-10-30：改叫“分享”，按经文长短自动排版
+
+    /* ---------- 面板 ---------- */
+    function anyOpen(){return !!root.querySelector('.bb-sh:not([hidden])');}
+    function openSh(k,title){closeAll(true);var s=sh(k);if(title!=null){var t=s.querySelector('.bb-dt');if(t)t.textContent=title;}s.hidden=false;top.classList.remove('away');return s.querySelector('.bd');}
+    function closeAll(keep){root.querySelectorAll('.bb-sh').forEach(function(s){s.hidden=true;});}
+
+    function openPick(){pickT=C.b<39?'ot':'nt';pickB=-1;drawPick();openSh('pick');var on=sh('pick').querySelector('.bb-bk.on');if(on)on.scrollIntoView({block:'center'});}
+    var pickT='ot',pickB=-1;
+    function drawPick(){
+      var s=sh('pick'),bd=s.querySelector('.bd'),h='';
+      s.querySelectorAll('[data-t]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.t===pickT?'true':'false');});
+      if(pickB<0){var lo=pickT==='ot'?0:39,hi=pickT==='ot'?38:65,last='';
+        for(var i=lo;i<=hi;i++){var ct=cat(i);if(ct[2]!==last){if(last)h+='</div>';h+='<p class="bb-grp">'+ct[2]+'</p><div class="bb-bks">';last=ct[2];}
+          h+='<button type="button" class="bb-bk'+(i===C.b?' on':'')+'" data-bk="'+i+'" style="--c:var('+ct[3]+')"><b>'+esc(ab(i))+'</b><small>'+esc(BK[i].n)+'</small></button>';}
+        h+='</div>';
+      }else{h+='<button type="button" class="bb-back" data-bk="-1">‹ 全部书卷</button><p class="bb-grp">'+esc(BK[pickB].n)+' · 共 '+BK[pickB].nc+' 章</p><div class="bb-chs">';
+        for(var c=1;c<=BK[pickB].nc;c++)h+='<button type="button" data-ch="'+c+'"'+(pickB===C.b&&c===C.c?' class="on"':'')+'>'+c+'</button>';h+='</div>';}
+      bd.innerHTML=h;bd.scrollTop=0;
+    }
+    sh('pick').addEventListener('click',function(e){
+      var t=e.target.closest('[data-t]');if(t){pickT=t.dataset.t;pickB=-1;drawPick();return;}
+      var b=e.target.closest('[data-bk]');if(b){pickB=+b.dataset.bk;if(pickB>=0&&BK[pickB].nc===1){closeAll();go(pickB,1);return;}drawPick();return;}
+      var c=e.target.closest('[data-ch]');if(c){closeAll();dropBack();go(pickB,+c.dataset.ch);}
+    });
+
+    function openVer(){
+      var bd=openSh('ver'),o=function(k,t,d){return '<button type="button" class="bb-opt" data-m="'+k+'" aria-pressed="'+(S.mode===k)+'"><span class="rd"></span><span><b>'+t+'</b><small>'+d+'</small></span></button>';};
+      bd.innerHTML=o('cuv','和合本','中文和合本（上帝版，1919 年）')+o('kjv','KJV','英王钦定本（1611 年译，公有领域）')+
+        o('org','原文','旧约希伯来文、新约希腊文，每个词附读音和英文意思')+
+        '<div class="bb-chk" style="margin:-2px 0 10px 40px"><label><input type="checkbox" data-og'+(S.og?' checked':'')+'>每个词下面显示读音和英文意思</label></div>'+
+        o('cmp','对照','同时看几个版本，一节对一节')+
+        '<div class="bb-chk" style="margin:-2px 0 4px 40px"><label><input type="checkbox" data-c="cuv"'+(S.cmp.cuv?' checked':'')+'>和合本</label><label><input type="checkbox" data-c="kjv"'+(S.cmp.kjv?' checked':'')+'>KJV</label><label><input type="checkbox" data-c="org"'+(S.cmp.org?' checked':'')+'>原文</label></div>';
+    }
+    sh('ver').addEventListener('click',function(e){var b=e.target.closest('[data-m]');if(!b)return;S.mode=b.dataset.m;saveSet();applySet();closeAll();render(C.b,C.c,topVerse());});
+    sh('ver').addEventListener('change',function(e){var x=e.target;
+      if(x.hasAttribute('data-og')){S.og=x.checked?1:0;}else if(x.dataset.c){S.cmp[x.dataset.c]=x.checked?1:0;if(S.mode!=='cmp')S.mode='cmp';}
+      saveSet();applySet();openVer();render(C.b,C.c,topVerse());});
+
+    function openSet(){
+      var bd=openSh('set'),th=get('theme')||'auto';
+      function seg(k,arr,cur){return '<span class="bb-seg">'+arr.map(function(x){return '<button type="button" data-s="'+k+'" data-val="'+x[0]+'" aria-pressed="'+(String(cur)===String(x[0]))+'">'+x[1]+'</button>';}).join('')+'</span>';}
+      bd.innerHTML='<div class="bb-srow"><span>字号</span><span class="bb-fs"><button type="button" data-fs="-1">A-</button><i>'+(S.fs+1)+' / '+FS.length+'</i><button type="button" data-fs="1">A+</button></span></div>'+
+        '<div class="bb-srow"><span>行距</span>'+seg('lh',[[0,'紧凑'],[1,'标准'],[2,'宽松']],S.lh)+'</div>'+
+        '<div class="bb-srow"><span>排版</span>'+seg('lay',[['para','按段落'],['verse','每节一行']],S.lay)+'</div>'+
+        '<div class="bb-srow"><span>节号</span>'+seg('vn',[[1,'显示'],[0,'隐藏']],S.vn)+'</div>'+
+        '<div class="bb-srow"><span>小标题</span>'+seg('hd',[[1,'显示'],[0,'隐藏']],S.hd)+'</div>'+
+        '<div class="bb-srow"><span>纸色</span>'+seg('th',[['auto','跟随系统'],['light','白天'],['sepia','护眼'],['dark','夜间']],S.sepia?'sepia':th)+'</div>'+
+        '<div class="bb-prev bb-txt"><p class="bb-p" style="margin:0"><span class="bb-v"><sup class="bb-n">1</sup>信就是所望之事的实底，是未见之事的确据。</span><span class="bb-v"><sup class="bb-n">2</sup>古人在这信上得了美好的证据。</span></p></div>'+
+        '<h3 class="bb-grp" style="margin:22px 0 4px">下载到手机</h3><p class="bb-tip" style="margin:0 0 8px">下载以后，读经、换章、搜索都直接用手机里的，不再下载；网络不好时也能读（打开网站本身仍要联网）。</p><div class="bb-dls"></div>';
+      drawDl();
+    }
+    /* ---------- 下载到手机（离线阅读） ---------- */
+    var PKG=[['cuv','和合本','含小标题、分段、搜索词语、读经计划',['cuv-','words','places','plans']],['xr','串珠','相关经文',['xr-']],
+             ['kjv','KJV','英文',['kjv-']],['org','原文','希伯来文、希腊文，附读音、英文和中文',['org-']]],DLING={};
+    function pkgFiles(pre){return Object.keys(IX.files).filter(function(k){return pre.some(function(p){return p.slice(-1)==='-'?k.indexOf(p)===0:k===p;});});}
+    function mb(n){return (n/1048576).toFixed(n<1048576*10?1:0)+' MB';}
+    function drawDl(){
+      var box=sh('set').querySelector('.bb-dls');if(!box)return;
+      idb('readonly',function(st){return st.getAllKeys?st.getAllKeys():null;}).then(function(keys){
+        keys=keys||[];var have={};keys.forEach(function(k){have[k]=1;});
+        box.innerHTML=PKG.map(function(p){var ks=pkgFiles(p[3]),n=ks.filter(function(k){return have[IX.files[k]];}).length,sz=ks.reduce(function(a,k){return a+((IX.sz||{})[k]||0);},0),dl=DLING[p[0]];
+          return '<div class="bb-dl"><span><b>'+p[1]+'</b><small>'+p[2]+' · 约 '+mb(sz)+'</small></span>'+
+            (dl?'<span class="bb-dlp">'+dl+'</span>':n===ks.length?'<span class="bb-dlok">'+ic('ok')+'已存好</span><button type="button" class="bb-lnk" data-dldel="'+p[0]+'">删除</button>'
+              :'<button type="button" class="bb-btn" data-dl="'+p[0]+'">'+ic('dl')+(n?'继续下载':'下载')+'</button>')+'</div>';}).join('');
+      });
+    }
+    function dlPkg(id){
+      var p=PKG.filter(function(x){return x[0]===id;})[0],ks=pkgFiles(p[3]),done=0,i=0;
+      try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
+      idb('readonly',function(st){return st.getAllKeys?st.getAllKeys():null;}).then(function(keys){
+        var have={};(keys||[]).forEach(function(k){have[k]=1;});var todo=ks.map(function(k){return IX.files[k];}).filter(function(f){return !have[f];}),N=todo.length,fail=0;
+        if(!N){drawDl();return;}
+        DLING[id]='0 / '+N;drawDl();
+        function one(){if(i>=N)return Promise.resolve();var f=todo[i++];
+          return fetch('site/bible/'+f).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){return idb('readwrite',function(st){return st.put(t,f);});},function(){fail++;})
+            .then(function(){done++;DLING[id]=done+' / '+N;var el=sh('set').querySelector('.bb-dlp');if(el&&!sh('set').hidden)drawDl();return one();});}
+        Promise.all([one(),one(),one()]).then(function(){delete DLING[id];drawDl();toast(fail?'有 '+fail+' 个文件没下载成功，请再点一次':p[1]+'已经存到手机里');});
+      });
+    }
+    function delPkg(id){var p=PKG.filter(function(x){return x[0]===id;})[0];
+      pkgFiles(p[3]).forEach(function(k){var f=IX.files[k];delete MEM[f];idb('readwrite',function(st){return st.delete(f);});});
+      setTimeout(drawDl,300);toast('已从手机里删除'+p[1]);}
+    sh('set').addEventListener('click',function(e){var a=e.target.closest('[data-dl]');if(a){dlPkg(a.dataset.dl);return;}var d=e.target.closest('[data-dldel]');if(d)delPkg(d.dataset.dldel);});
+    sh('set').addEventListener('click',function(e){
+      var f=e.target.closest('[data-fs]');if(f){S.fs=Math.max(0,Math.min(FS.length-1,S.fs+ +f.dataset.fs));}
+      var s=e.target.closest('[data-s]');
+      if(s){var k=s.dataset.s,v=s.dataset.val;
+        if(k==='th'){S.sepia=v==='sepia'?1:0;var th=v==='sepia'?'light':v;set('theme',th==='auto'?'':th);
+          if(window.Q4Reader&&Q4Reader.th)Q4Reader.th(th);else{if(th==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',th);}}
+        else S[k]=k==='lay'?v:+v;}
+      if(!f&&!s)return;
+      saveSet();applySet();openSet();if(s&&(s.dataset.s==='lay'||s.dataset.s==='hd'))render(C.b,C.c,topVerse());
+    });
+
+    function openNote(){
+      var v=Math.min.apply(null,SEL),k=C.b+'.'+C.c+'.'+v,o=marks()[k]||[0,'',0,0],bd=openSh('nt');
+      sh('nt').querySelector('.hd h2').textContent='笔记 · '+BK[C.b].n+' '+C.c+':'+v;
+      bd.innerHTML='<p class="bb-dq">'+esc(C.cuv[v-1]||'')+'</p><textarea class="bb-note" placeholder="写下你的感想、问题或祷告……">'+esc(o[1])+'</textarea>'+
+        '<div class="bb-btns">'+(o[1]?'<button type="button" data-n="del">删除笔记</button>':'')+'<button type="button" class="ok" data-n="ok">保存</button></div>'+
+        '<p class="bb-tip">笔记存在这台设备上；登录账号后会同步到你的其他设备。</p>';
+      bd.dataset.k=k;setTimeout(function(){var ta=bd.querySelector('textarea');if(ta&&!o[1])ta.focus();},80);
+    }
+    sh('nt').addEventListener('click',function(e){var b=e.target.closest('[data-n]');if(!b)return;var bd=sh('nt').querySelector('.bd'),k=bd.dataset.k;
+      putMark(k,null,b.dataset.n==='del'?'':bd.querySelector('textarea').value.trim());closeAll();unselect();repaintMarks();toast(b.dataset.n==='del'?'已删除笔记':'已保存笔记');});
+
+    function lex(w,lx){var x=lx&&lx[w[3]];return '<div class="bb-lex"><b>'+esc(w[0])+'</b> '+esc(w[1])+' · '+esc(w[2])+(w[4]?' · '+esc(w[4]):'')+
+      (x&&x[0]?'<br>词典原形：<b>'+esc(x[0])+'</b>（'+esc(w[3])+'）'+(x[1]?' · '+esc(x[1]):''):'')+
+      ((w.length>5?w[5]:w[4])?'<br>和合本这一节译作：'+esc(w.length>5?w[5]:w[4]):'')+(x&&x[2]?'<br>和合本常译作：'+esc(x[2]):'')+'</div>';}
+    function openOrg(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','原文逐字 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在打开原文……</p>';
+      load(files(b).org).then(function(org){
+        var oc=org.v[c-1]||[],h='';
+        vs.forEach(function(v){h+='<p class="bb-dq"><sup>'+v+'</sup>'+esc(C.cuv[v-1]||'')+'</p>'+'<div class="bb-ov" data-ov="'+v+'">'+words(oc[v-1]||[],b<39)+'</div>';});
+        h+='<p class="bb-tip">点一个词，可以看词典里的原形和字义。原文据 STEPBible（CC BY 4.0）。</p>';
+        bd.innerHTML=h;bd._oc=oc;bd._lx=org.x;
+      });
+    }
+    sh('det').addEventListener('click',function(e){var w=e.target.closest('.bb-w');if(!w)return;var bd=sh('det').querySelector('.bd'),ov=w.closest('[data-ov]');if(!ov||!bd._oc)return;
+      var x=(bd._oc[+ov.dataset.ov-1]||[])[+w.dataset.w];if(!x)return;var old=ov.querySelector('.bb-lex');if(old)old.remove();
+      bd.querySelectorAll('.bb-w.on').forEach(function(y){y.classList.remove('on');});w.classList.add('on');ov.insertAdjacentHTML('beforeend',lex(x,bd._lx));});
+    function openCmp(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','三版对照 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在打开……</p>';
+      Promise.all([load(files(b).kjv),load(files(b).org)]).then(function(r){
+        var kc=r[0][c-1]||[],oc=r[1].v[c-1]||[],h='';
+        vs.forEach(function(v){h+='<p class="bb-dq"><sup>'+v+'</sup>'+esc(C.cuv[v-1]||'')+'</p><p class="bb-dq en" lang="en"><sup>'+v+'</sup>'+esc(kc[v-1]||'')+'</p><div class="bb-ov" data-ov="'+v+'">'+words(oc[v-1]||[],b<39)+'</div>';});
+        bd.innerHTML=h;bd._oc=oc;bd._lx=r[1].x;
+      });
+    }
+    var PL=null;
+    function openPlaces(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','讲过的地方 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在查找……</p>';
+      (PL||(PL=load(IX.files.places))).then(function(P){
+        var seen={},h='';
+        vs.forEach(function(v){(P.v[b+'.'+c+'.'+v]||[]).forEach(function(i){if(seen[i])return;seen[i]=1;var s=P.s[i];
+          h+='<a class="bb-pl" href="'+esc(placeHref(s))+'" data-pl="'+i+'">'+esc(s[0])+'<small>'+(/^#/.test(s[1])?'学课':'问题彩蛋')+'</small></a>';});});
+        bd.innerHTML=h||'<p class="bb-tip">本季学课和问题彩蛋里还没有讲过这'+(vs.length>1?'几':'一')+'节。</p>';
+        bd._P=P;
+      });
+    }
+    function placeHref(s){return SITE?s[1]:(/^#/.test(s[1])?'./'+s[1]:s[1]);}
+    sh('det').addEventListener('click',function(e){
+      var a=e.target.closest('[data-pl]');if(!a||!SITE)return;
+      var s=sh('det').querySelector('.bd')._P.s[+a.dataset.pl],href=s[1];
+      if(/^#/.test(href)){e.preventDefault();closeAll();unselect();location.hash=href.slice(1);return;}
+      // 问题彩蛋：在网站的浮层里打开那一篇，再跳到那一章
+      var page=href.split('#')[0],sec=href.split('#')[1],art=document.querySelector('a[data-art][href="'+page+'"]');
+      if(!art)return;e.preventDefault();closeAll();unselect();
+      location.hash=art.dataset.art;
+      var tries=0;(function jump(){var f=document.querySelector('.tov iframe[src="'+page+'"]');
+        if(f&&f.dataset.ok==='1'){try{f.contentWindow.location.hash=sec;}catch(err){}return;}
+        if(++tries<40)setTimeout(jump,250);})();
+    });
+
+    /* ---------- 读经计划 ---------- */
+    var PLD=null,planView=0,planAsk=false;
+    function plansP(){return load(IX.files.plans).then(function(d){PLD=d;return d;});}
+    function pst(){var o=jget('bplan',null);return o&&o.id?o:null;}   // {id, s:开始日期, d:{"第几天":[读完的段落序号…]}, t:时间}
+    function savePlan(o){if(o){o.t=Date.now();set('bplan',JSON.stringify(o));}else set('bplan',JSON.stringify({id:'',t:Date.now()}));try{window.dispatchEvent(new Event('q4:bplan'));}catch(e){}}
+    function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+    function dayDate(o,k){var a=o.s.split('-');return new Date(+a[0],a[1]-1,+a[2]+k-1);}
+    function dayNo(o){var a=o.s.split('-'),st=new Date(+a[0],a[1]-1,+a[2]),n=new Date();n=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.round((n-st)/864e5)+1;}
+    function planOf(o){if(!PLD||!o)return null;for(var i=0;i<PLD.length;i++)if(PLD[i].id===o.id)return PLD[i];return null;}
+    function ilabel(it){var n=BK[it[0]].n;if(it.length>3)return n+' '+it[1]+':'+it[3]+'-'+it[4];if(BK[it[0]].nc===1)return n;return n+' '+it[1]+(it[2]>it[1]?'—'+it[2]:'')+' 章';}
+    function dayDone(o,P,k){var d=(o.d||{})[k]||[];return P.days[k-1]&&d.length>=P.days[k-1].length;}
+    function planMark(k,i){var o=pst();if(!o)return;o.d=o.d||{};var d=o.d[k]||[],j=d.indexOf(+i);
+      if(j>=0)d.splice(j,1);else d.push(+i);if(d.length)o.d[k]=d;else delete o.d[k];savePlan(o);
+      var P=planOf(o);if(P&&j<0&&dayDone(o,P,k))toast(k===dayNo(o)?'今天的经文读完了':'第 '+k+' 天读完了');
+      if(!sh('plan').hidden)drawPlan();planBar();}
+    function openPlan(){openSh('plan');sh('plan').querySelector('.bd').innerHTML='<p class="bb-load">正在打开……</p>';planAsk=false;
+      plansP().then(function(){var o=pst(),P=planOf(o);planView=P?Math.max(1,Math.min(P.days.length,dayNo(o))):0;drawPlan();},
+        function(){sh('plan').querySelector('.bd').innerHTML='<p class="bb-load">下载失败，请检查网络后再试。</p>';});}
+    function drawPlan(){
+      var bd=sh('plan').querySelector('.bd'),o=pst(),P=planOf(o),h='';
+      if(!P){
+        h='<p class="bb-tip" style="margin:0 0 12px">选一个计划，每天读一段。读完点“读完了”；进度存在这台设备上，登录账号后各设备同步。</p>';
+        PLD.forEach(function(p){h+='<div class="bb-pc"><b>'+esc(p.n)+'</b><small>'+esc(p.d)+' · 共 '+p.days.length+' 天</small><button type="button" class="bb-btn" data-pstart="'+p.id+'">从今天开始</button></div>';});
+        bd.innerHTML=h;return;
+      }
+      var D=P.days.length,today=dayNo(o),done=0,firstOpen=0;
+      for(var k=1;k<=D;k++){if(dayDone(o,P,k))done++;else if(!firstOpen&&k<today)firstOpen=k;}
+      var dt=dayDate(o,planView),items=P.days[planView-1]||[],dd=(o.d||{})[planView]||[];
+      h+='<div class="bb-ph"><b>'+esc(P.n)+'</b><small>'+(today>D?'计划已经到期':'今天是第 '+Math.max(1,today)+' 天')+' · 共 '+D+' 天 · 已读完 '+done+' 天</small>'+
+        '<div class="bb-pbar"><i style="transform:scaleX('+(done/D).toFixed(3)+')"></i></div>'+
+        (firstOpen?'<button type="button" class="bb-lnk" data-pday="'+firstOpen+'">前面还有没读完的日子，从第 '+firstOpen+' 天补读 ›</button>':'')+'</div>';
+      h+='<div class="bb-pnav"><button type="button" class="bb-ib" data-pday="'+(planView-1)+'"'+(planView>1?'':' disabled')+' aria-label="前一天">'+ic('l')+'</button>'+
+        '<span><b>第 '+planView+' 天</b>'+(dt.getMonth()+1)+' 月 '+dt.getDate()+' 日'+(planView===today?' · 今天':'')+'</span>'+
+        '<button type="button" class="bb-ib" data-pday="'+(planView+1)+'"'+(planView<D?'':' disabled')+' aria-label="后一天">'+ic('r')+'</button></div>';
+      items.forEach(function(it,i){var ok=dd.indexOf(i)>=0;
+        h+='<div class="bb-pi'+(ok?' ok':'')+'"><button type="button" class="bb-pk" data-pdone="'+planView+'" data-pi="'+i+'" aria-pressed="'+ok+'" aria-label="读完了">'+ic('ok')+'</button>'+
+          '<button type="button" class="bb-pg" data-pgo="'+planView+'.'+i+'"><b>'+esc(ilabel(it))+'</b><small>'+(ok?'读完了 · 再读一遍':'点这里开始读')+'</small></button></div>';});
+      if(dayDone(o,P,planView))h+='<p class="bb-tip" style="text-align:center">这一天的经文读完了。</p>';
+      h+=planAsk?'<div class="bb-pend"><span>结束这个计划？读过的记录会清空。</span><button type="button" class="bb-btn" data-pend="1">结束</button><button type="button" class="bb-btn ghost" data-pend="0">不结束</button></div>'
+               :'<button type="button" class="bb-lnk" data-pend="ask" style="margin-top:18px">换一个计划</button>';
+      bd.innerHTML=h;
+    }
+    sh('plan').addEventListener('click',function(e){
+      var t=e.target,x;
+      if((x=t.closest('[data-pstart]'))){savePlan({id:x.dataset.pstart,s:ymd(new Date()),d:{}});planView=1;drawPlan();planBar();toast('计划开始了：今天是第 1 天');return;}
+      if((x=t.closest('[data-pday]'))){var o=pst(),P=planOf(o);if(P){planView=Math.max(1,Math.min(P.days.length,+x.dataset.pday));drawPlan();}return;}
+      if((x=t.closest('[data-pgo]'))){var q=x.dataset.pgo.split('.'),P2=planOf(pst()),it=P2&&P2.days[+q[0]-1][+q[1]];if(!it)return;
+        planCtx=+q[0];closeAll();dropBack();go(it[0],it[1],it.length>3?it[3]:0);return;}
+      if((x=t.closest('[data-pend]'))){var v=x.dataset.pend;if(v==='ask'){planAsk=true;drawPlan();return;}if(v==='1'){savePlan(null);planAsk=false;toast('已结束这个计划');planBar();}else planAsk=false;drawPlan();}
+    });
+    // 读到计划里的一章：章末显示“读完了”
+    var planCtx=0;
+    function planBar(){
+      var el=root.querySelector('.bb-plb');if(!el)return;var o=pst(),P=planOf(o);el.innerHTML='';if(!P||C.b==null)return;
+      var D=P.days.length,ks=[];if(planCtx)ks.push(planCtx);var td=Math.max(1,Math.min(D,dayNo(o)));if(ks.indexOf(td)<0)ks.push(td);
+      for(var n=0;n<ks.length;n++){var k=ks[n],items=P.days[k-1]||[];
+        for(var i=0;i<items.length;i++){var it=items[i];if(it[0]!==C.b||C.c<it[1]||C.c>it[2])continue;
+          if(it.length<=3&&C.c<it[2]){                    // 跨几章的一段：读到最后一章再打勾，前面几章只提示接着读
+            el.innerHTML='<div class="bb-plc"><span><small>读经计划 · 第 '+k+' 天</small>'+esc(ilabel(it))+'</span>'+
+              '<button type="button" class="bb-btn ghost" data-go="'+C.b+'.'+(C.c+1)+'" data-d="1">接着读第 '+(C.c+1)+' 章</button></div>';return;}
+          var ok=((o.d||{})[k]||[]).indexOf(i)>=0;
+          el.innerHTML='<div class="bb-plc'+(ok?' ok':'')+'"><span><small>读经计划 · 第 '+k+' 天</small>'+esc(ilabel(it))+'</span>'+
+            '<button type="button" class="bb-btn'+(ok?' ghost':'')+'" data-pdone="'+k+'" data-pi="'+i+'">'+ic('ok')+(ok?'已读完':'读完了')+'</button></div>';return;}}
+    }
+
+    /* ---------- 跳到别处，再回来（串珠、平行经文、搜索结果） ---------- */
+    var backTo=null,backEl=$('.bb-backp');
+    function jump(b,c,v){
+      if(C.b!=null&&!(b===C.b&&c===C.c))backTo={b:C.b,c:C.c,v:SEL.length?Math.min.apply(null,SEL):topVerse()};
+      closeAll();unselect();go(b,c,v);showBack();
+    }
+    function showBack(){if(!backTo){backEl.hidden=true;return;}backEl.querySelector('span').textContent='回到 '+ab(backTo.b)+backTo.c+(backTo.v>1?':'+backTo.v:'');backEl.hidden=false;}
+    function goBack(){var t=backTo;backTo=null;backEl.hidden=true;if(t)go(t.b,t.c,t.v>1?t.v:0);}
+    function dropBack(){if(backTo){backTo=null;backEl.hidden=true;}}
+
+    /* ---------- 串珠（相关经文） ---------- */
+    function rlabel(r){return ab(r[0])+r[1]+':'+r[2]+(r[3]&&r[3]!==r[2]?'-'+r[3]:'');}
+    function openXref(){
+      var vs=SEL.slice().sort(function(a,b){return a-b;}),b=C.b,c=C.c,bd=openSh('det','串珠 · '+BK[b].n+' '+refLabel(SEL).replace(ab(b),''));
+      bd.innerHTML='<p class="bb-load">正在查找……</p>';
+      load(files(b).xr).then(function(X){
+        var seen={},refs=[];
+        vs.forEach(function(v){(X[c+'.'+v]||[]).forEach(function(r){var k=r.join('.');if(!seen[k]){seen[k]=1;refs.push(r);}});});
+        if(!refs.length){bd.innerHTML='<p class="bb-tip">这一节没有收录相关经文。</p>';return;}
+        bd.innerHTML=refs.map(function(r,i){return '<button type="button" class="bb-xr" data-xr="'+r.slice(0,3).join('.')+'"><em>'+esc(rlabel(r))+'</em><span data-xt="'+i+'" class="bb-tip">……</span></button>';}).join('')+
+          '<p class="bb-tip" style="margin-top:12px">按相关程度排列。串珠数据：OpenBible.info（CC BY），由读者投票整理。点一条，打开那一节；看完点上面的“回到”，回到这里。</p>';
+        var need={};refs.forEach(function(r){need[r[0]]=1;});
+        Object.keys(need).forEach(function(bb){load(files(+bb).cuv).then(function(cu){refs.forEach(function(r,i){if(r[0]!==+bb)return;
+          var chv=cu.v[r[1]-1]||[],t=[];for(var v=r[2];v<=(r[3]||r[2]);v++)if(chv[v-1])t.push(chv[v-1]);
+          var el=bd.querySelector('[data-xt="'+i+'"]');if(el){var x=t.join('');el.textContent=x.length>90?x.slice(0,88)+'……':x;el.className='';}});},function(){});});
+      },function(){bd.innerHTML='<p class="bb-load">下载失败，请检查网络后再试。</p>';});
+    }
+    sh('det').addEventListener('click',function(e){var x=e.target.closest('[data-xr]');if(!x)return;var p=x.dataset.xr.split('.');jump(+p[0],+p[1],+p[2]);});
+
+    /* ---------- 搜索 ---------- */
+    var WORDS=null,ALL=null,KALL=null,lastQ='';
+    var HAN=/[一-鿿]/,VAR={'借':'藉','祂':'他','妳':'你','著':'着','於':'于','裏':'里','裡':'里'};
+    function norm(s){return s.replace(/[借祂妳著於裏裡]/g,function(c){return VAR[c];});}
+    var inp=sh('find').querySelector('input'),res=sh('find').querySelector('.bd'),qt;
+    function openFind(){openSh('find');inp.value='';showRes('');setTimeout(function(){inp.focus();},60);
+      if(!WORDS)load(IX.files.words).then(function(w){WORDS=w;if(lastQ)showRes(lastQ);});}
+    inp.addEventListener('input',function(){clearTimeout(qt);var v=this.value;qt=setTimeout(function(){showRes(v);},120);});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var f=res.querySelector('.bb-rs');if(f)f.click();}});
+    function bookScore(q,i){
+      var b=BK[i],ql=q.toLowerCase().replace(/\s+/g,'');if(!ql)return 0;
+      if(b.n===q||b.ab.indexOf(q)>=0)return 100;
+      if(HAN.test(q))return b.n.indexOf(q)===0?90:b.n.indexOf(q)>0?60:0;
+      var en=b.en.toLowerCase().replace(/\s+/g,''),code=b.code.toLowerCase();
+      if(ql===code||ql===en)return 98;
+      if(b.ini.indexOf(ql)===0)return 85+Math.min(ql.length,4);
+      if(b.py.indexOf(ql)===0)return 84;
+      if(ql.length>=2&&en.indexOf(ql)===0)return 80;
+      if(ql.length>=2&&code.indexOf(ql)===0)return 79;
+      return 0;
+    }
+    function books(q){var r=[];for(var i=0;i<66;i++){var s=bookScore(q,i);if(s)r.push([s,i]);}r.sort(function(a,b){return b[0]-a[0]||a[1]-b[1];});return r.map(function(x){return x[1];});}
+    function parseRef(q){
+      var m=/^\s*((?:[1-3]\s*)?[A-Za-z]+|[一-鿿]+?)\s*(\d+)(?:\s*(?:章|[:：.,，\s])\s*(\d+)?)?\s*节?\s*(?:[-–—~]\s*\d+)?\s*$/.exec(q);
+      if(!m)return null;var bs=books(m[1].replace(/\s+/g,''));if(!bs.length)return null;
+      var b=bs[0],c=+m[2],v=m[3]?+m[3]:0;if(BK[b].nc===1&&!m[3]&&c>1){v=c;c=1;}
+      if(c<1||c>BK[b].nc)return null;return {b:b,c:c,v:v};
+    }
+    function wordsFor(q){
+      if(!WORDS)return [];var r=[],ql=q.toLowerCase(),han=HAN.test(q),nq=norm(q);
+      for(var i=0;i<WORDS.length&&r.length<24;i++){var w=WORDS[i];if(han?(w[0].indexOf(nq)>=0&&w[0]!==nq):(w[1].indexOf(ql)===0||ql.length>=3&&w[2].indexOf(ql)===0))r.push(w);}
+      r.sort(han?function(a,b){return (b[0].indexOf(nq)===0)-(a[0].indexOf(nq)===0)||b[3]-a[3];}:function(a,b){return (b[1]===ql)-(a[1]===ql)||b[3]-a[3];});
+      return r.slice(0,16);
+    }
+    function recentQ(){return jget('bsrch',[]);}
+    function rememberQ(q){q=q.trim();if(!q)return;var r=recentQ().filter(function(x){return x!==q;});r.unshift(q);set('bsrch',JSON.stringify(r.slice(0,8)));}
+    function showRes(q){
+      lastQ=q;q=q.trim();var h='';
+      if(!q){
+        var rc=jget('brecent',[]),rq=recentQ(),mk=marks(),ml=Object.keys(mk).filter(function(k){var o=mk[k];return o[0]||o[1]||o[2];}).sort(function(a,b){return mk[b][3]-mk[a][3];});
+        if(rc.length>1)h+='<p class="bb-grp">最近读过</p><div class="bb-chips">'+rc.slice(0,10).map(function(x){return '<button type="button" class="bb-chip" data-ref="'+x[0]+'.'+x[1]+'.0">'+esc(BK[x[0]].n)+' '+x[1]+'</button>';}).join('')+'</div>';
+        if(rq.length)h+='<p class="bb-grp">最近搜过</p><div class="bb-chips">'+rq.map(function(x){return '<button type="button" class="bb-chip" data-q="'+esc(x)+'">'+esc(x)+'</button>';}).join('')+'</div>';
+        if(ml.length){h+='<p class="bb-grp">书签、划线与笔记 · '+ml.length+'</p>';
+          ml.slice(0,60).forEach(function(k){var p=k.split('.'),o=mk[k],col=['','#E9C46A','#8FD3A8','#9DBDF2','#F2A7B8'][o[0]]||'var(--rule)';
+            h+='<button type="button" class="bb-ml" data-ref="'+k+'" style="border-left-color:'+col+'"><em>'+esc(BK[+p[0]].n)+' '+p[1]+':'+p[2]+(o[2]?' · 书签':'')+'</em>'+(o[1]?esc(o[1]):'<span class="bb-tip">（点开看这一节）</span>')+'</button>';});}
+        h+='<p class="bb-tip" style="margin-top:14px">可以搜：书卷（<b>xbl</b>、希伯、heb）· 经文出处（<b>来11:1</b>、希伯来书11章、Heb 11:1）· 人名地名和词语（<b>xbl</b> → 希伯仑、希伯来人）· 字句（<b>信心</b>）· 英文（<b>faith</b>）</p>';
+        res.innerHTML=h;return;
+      }
+      var ref=parseRef(q);
+      if(ref)h+='<button type="button" class="bb-rs go" data-ref="'+ref.b+'.'+ref.c+'.'+ref.v+'"><b>'+esc(BK[ref.b].n)+' '+ref.c+(ref.v?':'+ref.v:'')+'</b><small>直接打开</small></button>';
+      var bs=books(q),ws=[];
+      if(bs.length&&!ref){h+='<p class="bb-grp">书卷</p>';bs.slice(0,6).forEach(function(i){h+='<button type="button" class="bb-rs" data-ref="'+i+'.1.0"><b>'+esc(BK[i].n)+'</b><small>'+esc(ab(i))+' · '+esc(BK[i].en)+' · 共 '+BK[i].nc+' 章</small></button>';});}
+      if(!ref){
+        ws=wordsFor(q);
+        if(ws.length)h+='<p class="bb-grp">人名、地名和词语</p><div class="bb-chips">'+ws.map(function(w){return '<button type="button" class="bb-chip" data-q="'+esc(w[0])+'">'+esc(w[0])+'<i>'+w[3]+'</i></button>';}).join('')+'</div>';
+        if(HAN.test(q))h+='<div class="bb-full"><p class="bb-grp">经文</p><p class="bb-tip">正在查找……</p></div>';
+        else if(q.length>=3&&/[aeiouy]/i.test(q)&&!bs.length&&!ws.length)h+='<button type="button" class="bb-more" data-kjv="'+esc(q)+'">在 KJV 英文经文里搜“'+esc(q)+'”</button>';
+      }
+      if(!h)h='<p class="bb-tip">没有找到。可以换个写法，例如书卷的拼音首字母（xbl）、简称（来）或经文里的字词。</p>';
+      res.innerHTML=h;
+      if(!ref&&HAN.test(q))fullText(q,'cuv');
+    }
+    function loadAll(kind){var fs=[];for(var b=0;b<66;b++)fs.push(load(files(b)[kind]));return Promise.all(fs);}
+    function fullText(q,kind,lim){
+      var box=res.querySelector('.bb-full');if(!box)return;lim=lim||120;
+      var have=kind==='cuv'?ALL:KALL;
+      if(!have){box.querySelector('.bb-tip').textContent='第一次搜索全文，要下载整本'+(kind==='cuv'?'和合本（约 1.2 MB）':' KJV（约 1.4 MB）')+'，以后就存在手机里……';
+        loadAll(kind).then(function(a){if(kind==='cuv')ALL=a.map(function(x){return x.v;});else KALL=a;if(kind==='kjv'||lastQ.trim()===q)fullText(q,kind,lim);});return;}
+      var nq=kind==='cuv'?norm(q):q.toLowerCase(),hits=[],per={};
+      for(var b=0;b<66;b++){var bk=have[b];for(var c=0;c<bk.length;c++){var ch=bk[c];for(var v=0;v<ch.length;v++){var t=ch[v];if(!t)continue;
+        if((kind==='cuv'?norm(t):t.toLowerCase()).indexOf(nq)>=0){hits.push([b,c+1,v+1,t]);per[b]=(per[b]||0)+1;}}}}
+      var h='<p class="bb-grp">经文 · 共 '+hits.length+' 节</p>';
+      if(!hits.length)h+='<p class="bb-tip">经文里没有这个词。</p>';
+      var bsum=Object.keys(per).map(Number).sort(function(a,b){return a-b;});
+      if(bsum.length>1)h+='<div class="bb-chips" style="margin-bottom:8px">'+bsum.map(function(b){return '<button type="button" class="bb-chip" data-jb="'+b+'">'+esc(ab(b))+'<i>'+per[b]+'</i></button>';}).join('')+'</div>';
+      var reS=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),re=null;
+      try{re=new RegExp(kind==='cuv'?reS.replace(/./g,function(ch){var k=Object.keys(VAR).filter(function(x){return VAR[x]===ch||x===ch;});return k.length?'['+ch+k.join('')+']':ch;}):reS,'gi');}catch(e){}
+      hits.slice(0,lim).forEach(function(x){var s=esc(x[3]);if(re)s=s.replace(re,function(m){return '<mark>'+m+'</mark>';});
+        h+='<button type="button" class="bb-hit" data-ref="'+x[0]+'.'+x[1]+'.'+x[2]+'" data-b="'+x[0]+'"><em>'+esc(ab(x[0]))+x[1]+':'+x[2]+'</em>'+s+'</button>';});
+      if(hits.length>lim)h+='<button type="button" class="bb-more" data-moreq="'+esc(q)+'" data-kind="'+kind+'" data-lim="'+(lim+300)+'">再显示 300 节（还有 '+(hits.length-lim)+' 节）</button>';
+      box.innerHTML=h;
+    }
+    res.addEventListener('click',function(e){
+      var r=e.target.closest('[data-ref]');if(r){rememberQ(inp.value);var p=r.dataset.ref.split('.');jump(+p[0],+p[1],+p[2]);return;}
+      var q=e.target.closest('[data-q]');if(q){inp.value=q.dataset.q;showRes(q.dataset.q);return;}
+      var k=e.target.closest('[data-kjv]');if(k){rememberQ(k.dataset.kjv);res.innerHTML='<div class="bb-full"><p class="bb-grp">KJV 经文</p><p class="bb-tip">正在查找……</p></div>';fullText(k.dataset.kjv,'kjv');return;}
+      var m=e.target.closest('[data-moreq]');if(m){fullText(m.dataset.moreq,m.dataset.kind,+m.dataset.lim);return;}
+      var jb=e.target.closest('[data-jb]');if(jb){var el=res.querySelector('.bb-hit[data-b="'+jb.dataset.jb+'"]');if(el)el.scrollIntoView({block:'start'});else toast('这一卷的结果在后面，请点“再显示”');}
+    });
+
+    /* ---------- 手机上左右滑动换章 ---------- */
+    var tx0=0,ty0=0,tt0=0;
+    main.addEventListener('touchstart',function(e){var t=e.touches[0];tx0=t.clientX;ty0=t.clientY;tt0=Date.now();},{passive:true});
+    main.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-tx0,dy=t.clientY-ty0;
+      if(Date.now()-tt0<600&&Math.abs(dx)>80&&Math.abs(dy)<45&&!window.getSelection().toString()){var p=dx>0?prev(C.b,C.c):next(C.b,C.c);if(p){dir=dx>0?-1:1;go(p[0],p[1]);}}},{passive:true});
+
+    /* ---------- 别处改了划线（账号同步） ---------- */
+    window.addEventListener('q4:bmarks-sync',function(){if(C.b!=null&&visible())repaintMarks();});
+    window.addEventListener('q4:bplan',function(){if(C.b!=null&&PLD)planBar();});
+    window.addEventListener('pagehide',function(){if(visible())savePos();});
+
+    /* ---------- 开始 ---------- */
+    applySet();
+    loadIndex(cfg.index).then(function(ix){
+      IX=ix;BK=ix.books.map(function(x){return {n:x[0],ab:x[1],en:x[2],code:x[3],ini:x[4],py:x[5],nc:x[6]};});
+      var keep=Object.keys(ix.files).map(function(k){return ix.files[k];});keep.push(baseName(cfg.index));setTimeout(function(){prune(keep);},8000);
+      var r=readHash();
+      if(r){render(r.b,r.c,r.v);return;}
+      var p=jget('bpos',null);fromRestore=true;
+      if(p)go(p[0],p[1],p[2]>1?p[2]:0,'replace');else go(0,1,0,'replace');
+    },function(){main.innerHTML='<p class="bb-load">打开失败，请检查网络后重试。</p>';});
+    return {
+      show:function(){var r=readHash();if(r&&IX&&(r.b!==C.b||r.c!==C.c||r.v))render(r.b,r.c,r.v);else if(C.b!=null)document.title=BK[C.b].n+' '+C.c+' · 圣经';},
+      savePos:savePos
+    };
+  }
+  /* 2026-10-30 用户反映圣经页打开慢：目录文件也存进手机（文件名带哈希，内容不会变）；
+     网站打开后空闲时先悄悄下载目录和上次读到的那一卷（warm），点“圣经”时就不用再等两次下载 */
+  function warm(index){
+    return loadIndex(index).then(function(ix){var p=jget('bpos',null),b=p?p[0]:0,f=ix.files['cuv-'+('0'+b).slice(-2)];return f?load(f):null;}).catch(function(){});
+  }
+  window.Q4Bible={mount:mount,warm:warm};
+})();
+</script>
+<script>Q4Bible.mount(document.getElementById('bbroot'),{"index": "site/bible/index-b2ead00ddc.json", "prefix": "", "site": false});</script>
+</body></html>

@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="zh-CN" data-col="qa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>“我必快来”，为什么两千年了还没来？ · 问题彩蛋</title>
+<meta name="description" content="耶稣说“我必快来”，为什么两千年了还没来？用圣经年岁推算从亚当到今天约多少年（附四种算法和图），查“快”的原文，看彼得后书3章、马太福音24章给出的迟延原因，以及但以理书的历史框架、福音传遍天下的最新数据、知识增长与AI时代的机会和危险">
+<script>try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}try{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}catch(e){}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:calc(100% * var(--fs,1))}
+[hidden]{display:none!important}
+:root{
+  --paper:#F5F1E8;--surface:#FFFDF8;--ink:#1A2132;--ink-2:#454C5D;--muted:#767A86;--rule:#E3DCCD;
+  --accent:#8A2E3E;--accent-soft:#F6EAE6;--link:#3D5672;--gold:#9A742C;--gold-soft:#F3E9D2;--band:#EFE9DD;
+  --c0:#8A8F9C;--c1:#08968C;--c2:#B0631C;--c3:#3A5FC8;--c4:#B07F0E;--c5:#7B4FC4;--c6:#A8324A;
+  --c6-soft:#F7E8EB;
+  --sans:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--paper:#0C111C;--surface:#141B2A;--ink:#ECE6DA;--ink-2:#C3C0B7;--muted:#8D93A2;--rule:#263042;
+  --accent:#E08C9A;--accent-soft:#2B1B22;--link:#9DB4CC;--gold:#D3B06A;--gold-soft:#2A2518;--band:#1B2335;
+  --c0:#7D8494;--c1:#1A9C93;--c2:#C9722E;--c3:#5F82E0;--c4:#B5871A;--c5:#946FE0;--c6:#DB5F78;--c6-soft:#33202A}
+.f0{--c:var(--c0)}.f1{--c:var(--c1)}.f2{--c:var(--c2)}.f3{--c:var(--c3)}.f4{--c:var(--c4)}.f5{--c:var(--c5)}.f6{--c:var(--c6)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 calc(16.5px * var(--fs,1))/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+p{margin:0 0 .9em}
+a{color:var(--link)}
+b,strong{font-weight:650}
+h1,h2,h3,h4,h5{line-height:1.4;margin:0}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:8px 16px;padding-top:max(8px,env(safe-area-inset-top));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .back{color:var(--accent);text-decoration:none;font-size:.9rem;white-space:nowrap}
+.bar .bt{flex:1;text-align:center;font-weight:650;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .aa,.btn{font:inherit;font-size:.86rem;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+.btn.sm{font-size:.82rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+main{max-width:720px;margin:0 auto;min-width:0}
+.toc-side{display:none}
+@media (min-width:1080px){
+  .wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px}
+  .toc-side{display:block;position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:20px 0 40px;font-size:.86rem}
+  .fab-toc,.toc-in{display:none}
+}
+/* 封面 */
+.hero{padding:28px 0 8px}
+.eyebrow{color:var(--accent);font-size:.82rem;letter-spacing:.06em;margin:0 0 6px}
+.hero h1{font-family:var(--serif);font-size:2.1rem;letter-spacing:.04em;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.82rem;margin:0 0 12px}
+.hsub{font-size:1.06rem;color:var(--ink-2);margin:0 0 18px}
+.answer{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:16px 16px 6px;margin:0 0 16px}
+.lab{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin:0 0 6px}
+.lineage{list-style:none;margin:6px 0 14px;padding:0}
+.lineage li{position:relative;padding:0 0 12px 26px}
+.lineage li::before{content:"";position:absolute;left:6px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--surface)}
+.lineage li::after{content:"";position:absolute;left:11px;top:20px;bottom:-6px;width:2px;background:var(--rule)}
+.lineage li:last-child::after{display:none}
+.lineage .ly{display:block;font-size:.76rem;line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}
+.lineage b{font-size:.98rem}
+.lineage small{display:block;color:var(--muted);font-size:.82rem;line-height:1.5}
+.lineage li.f6 b{color:var(--c6)}
+.howto{font-size:.88rem;color:var(--ink-2);background:var(--gold-soft);border-radius:12px;padding:10px 14px}
+.howto span{font-weight:650}
+/* 目录 */
+.toc-in{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px 16px 8px;margin:8px 0 8px}
+.toc-in h2{font-size:1rem;margin:0 0 6px}
+.toc-l,.toc-l ol{list-style:none;margin:0;padding:0}
+.toc-l>li{margin:0 0 8px}
+.tp{display:block;font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:6px 0 2px}
+.toc-l a{display:flex;gap:8px;padding:4px 6px;border-radius:8px;color:var(--ink);text-decoration:none;line-height:1.5}
+.toc-l a:hover{background:var(--band)}
+.toc-l a.on{background:var(--accent-soft);color:var(--accent);font-weight:650}
+.toc-l .tn{flex:none;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.86em;padding-top:.08em}
+.tsh{font-weight:700;font-size:.9rem;margin:0 0 8px}
+.tsrc a{color:var(--accent);text-decoration:none;font-size:.9rem}
+/* 部分、章 */
+.part{margin:48px 0 0;padding:18px 0 0;border-top:2px solid var(--ink)}
+.part span{display:block;font-size:.8rem;letter-spacing:.14em;color:var(--accent);font-weight:700}
+.part b{font-family:var(--serif);font-size:1.5rem}
+.ch{padding:26px 0 8px;scroll-margin-top:56px}
+.ch h2{font-family:var(--serif);font-size:1.42rem;display:flex;gap:10px;align-items:baseline;margin:0 0 14px}
+.ch h2 .no{flex:none;font-family:var(--sans);font-size:.8rem;font-weight:700;color:var(--surface);background:var(--accent);border-radius:6px;padding:1px 7px;transform:translateY(-3px)}
+.ch h3{font-size:1.1rem;margin:22px 0 8px;scroll-margin-top:56px}
+.ch ul,.ch ol{padding-left:1.3em;margin:0 0 1em}
+.ch li{margin:0 0 .4em}
+.xref{color:var(--link);text-decoration:none;border-bottom:1px dashed currentColor}
+/* 出处小数字 */
+.cite{display:inline-block;min-width:1.45em;height:1.45em;line-height:1.45em;margin:0 1px;padding:0 3px;border-radius:5px;font-size:.66em;font-weight:700;text-align:center;vertical-align:.45em;text-decoration:none;color:var(--accent);background:var(--accent-soft);font-variant-numeric:tabular-nums}
+.cite:target,.cite.flash{outline:2px solid var(--accent)}
+/* 经文 */
+.verse{margin:12px 0 16px;padding:10px 14px 10px 16px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:0 12px 12px 0}
+.verse p{font-family:var(--serif);font-size:1.02rem;margin:0 0 2px}
+.verse sup{font-family:var(--sans);font-size:.65em;color:var(--gold);margin:0 2px 0 4px}
+.verse cite{display:block;text-align:right;font-style:normal;font-size:.8rem;color:var(--gold)}
+/* 提示框 */
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.box.sda{border-color:color-mix(in srgb,var(--c6) 45%,var(--rule));background:var(--c6-soft)}
+.box.sda .lab{color:var(--c6)}
+.keys{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+.keys ol{padding-left:1.2em}
+.note2{font-size:.82rem;color:var(--muted)}
+.cap{font-size:.84rem;color:var(--muted);margin:-4px 0 18px}
+/* 图 */
+.fig{margin:14px -12px 10px;padding:12px 6px;background:var(--surface);border:1px solid var(--rule);border-radius:16px}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+@media (min-width:600px){.fig{margin:16px 0 10px;padding:16px}}
+.dg{font-family:var(--sans)}
+.dg .band0{fill:var(--band)}.dg .band1{fill:none}
+.dg .tb{font-size:9px;fill:var(--muted);letter-spacing:.04em}
+.dg .ln{fill:none;stroke:var(--c);stroke-width:5;stroke-linecap:round}
+.dg .dot{fill:var(--surface);stroke:var(--ink);stroke-width:1.8}
+.dg .root{fill:var(--ink)}
+.dg .ty{font-weight:800;fill:var(--ink-2)}
+.dg .tn{font-size:11px;font-weight:650;fill:var(--ink)}
+.dg .tn.hi{font-weight:800}
+.dg .ts{font-size:9px;fill:var(--muted)}
+.dg .tw{font-size:9px;fill:var(--ink-2)}
+.dg .ax{stroke:var(--muted);stroke-width:1;fill:none}
+.dg .ta{font-size:9px;fill:var(--muted)}
+.dg .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.dg .cn{stroke:var(--c);stroke-width:1.6;fill:none}
+.dg .bar{stroke:var(--c);stroke-width:7;stroke-linecap:round;fill:none}
+.dg .bar.hi{stroke-width:10}
+.dg .dash{stroke-dasharray:4 4}
+.dg .bar.dash{stroke-dasharray:6 4;stroke-width:6;stroke-linecap:butt}
+.dg .halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.dg .flow{fill:none;stroke:var(--rule);stroke-width:1.6}
+.dg .box{fill:var(--paper);stroke:var(--rule);stroke-width:1}
+.dg .fillc{fill:var(--c);stroke:none}
+.dg .tnode{font-size:13px;font-weight:800;fill:#fff}
+.dg .tnode2{font-size:11px;font-weight:600;fill:#fff;opacity:.92}
+/* 六个原因、三项发现、七个独特之处 */
+.causes,.disc3{display:grid;gap:10px;margin:12px 0 16px}
+@media (min-width:600px){.causes{grid-template-columns:1fr 1fr}}
+.cause,.disc3>div,.dist .d{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 4px}
+.cause h4,.disc3 h4,.dist h4{font-size:1rem;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.cause p{font-size:.92rem}
+.cause .eg{font-size:.8rem;color:var(--accent);margin:-4px 0 8px}
+.ci{flex:none;display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:var(--surface);font-size:.78rem;font-weight:700}
+.cause .ci,.disc3 .ci{position:absolute;top:12px;right:12px}
+.disc3>div{border-left:4px solid var(--c6)}
+.disc3 .ci{background:var(--c6)}
+.dist{display:grid;gap:12px;margin:12px 0}
+.dist .d{border-top:4px solid var(--c6)}
+.dist .ci{background:var(--c6)}
+.dist .also{font-size:.84rem;color:var(--muted)}
+/* 年份步骤 */
+.steps{list-style:none;padding:0!important;margin:12px 0 16px!important;border-left:2px solid var(--rule)}
+.steps li{position:relative;padding:0 0 4px 16px;margin:0 0 10px!important}
+.steps li::before{content:"";position:absolute;left:-6px;top:.62em;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.steps .yr{display:inline-block;font-weight:700;color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.solas{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:14px 0}
+/* 小表格 */
+.mini{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0 16px;background:var(--surface);border-radius:12px;overflow:hidden}
+.mini th,.mini td{border-bottom:1px solid var(--rule);padding:7px 8px;text-align:left;vertical-align:top;min-width:4.5em}
+.mini th{background:var(--band);font-size:.82rem;white-space:nowrap}
+/* 年表 */
+.tl{margin:10px 0}
+.era{position:relative;padding:0 0 6px 18px;border-left:3px solid var(--rule)}
+.era.era-f{border-left-color:var(--c6)}
+.era h4{font-size:.98rem;margin:0 0 6px;padding-top:6px}
+.era h4 small{font-weight:400;color:var(--muted);font-size:.8rem;margin-left:8px}
+.era h4::before{content:"";position:absolute;left:-8px;margin-top:.45em;width:13px;height:13px;border-radius:50%;background:var(--ink)}
+.era.era-f h4::before{background:var(--c6)}
+.era ol{list-style:none;padding:0!important;margin:0 0 12px!important}
+.era li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;font-size:.92rem;line-height:1.7;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.era li:last-child{border-bottom:0}
+.era .y{font-variant-numeric:tabular-nums;color:var(--accent)}
+.era.era-f .y{color:var(--c6)}
+/* 教派名片 */
+.dn-tools{text-align:right;margin:0 0 8px}
+.dns{display:grid;gap:10px}
+.dn{background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--c);border-radius:14px}
+.dn summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative}
+.dn summary::-webkit-details-marker{display:none}
+.dn summary::after{content:"＋";position:absolute;right:14px;top:12px;color:var(--muted);font-weight:700}
+.dn[open] summary::after{content:"－"}
+.dn-fam{display:inline-block;font-size:.72rem;font-weight:700;color:var(--ink-2);border:1px solid var(--c);border-radius:999px;padding:0 8px;margin-right:8px;vertical-align:.12em}
+.dn-n{font-weight:700;font-size:1.06rem}
+.dn-w{display:block;color:var(--muted);font-size:.84rem;line-height:1.6;margin-top:2px}
+.dn-b{padding:0 14px 10px;font-size:.93rem}
+.dn-m{margin:0 0 4px}.dn-m b{display:inline-block;min-width:5em;color:var(--muted);font-weight:600}
+.dn h5{font-size:.88rem;margin:12px 0 4px}
+.dn ul{margin:0 0 6px;padding-left:1.2em}
+.dn-cmp{display:grid;gap:8px;margin-top:8px}
+@media (min-width:600px){.dn-cmp{grid-template-columns:1fr 1fr}}
+.dn-cmp>div{border-radius:10px;padding:2px 12px 6px}
+.dn-cmp .same{background:color-mix(in srgb,var(--c1) 10%,transparent)}
+.dn-cmp .diff{background:var(--c6-soft)}
+.dn-cmp .same h5{color:var(--c1)}.dn-cmp .diff h5{color:var(--c6)}
+.dn-src{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+#d-sda{border-color:color-mix(in srgb,var(--c6) 50%,var(--rule));border-left-color:var(--c6)}
+/* 对照 */
+.vs{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:12px 12px 4px;margin:12px 0 18px}
+.vs-pick{display:block;font-size:.9rem;margin:0 0 10px}
+.vs-pick span{display:block;color:var(--ink-2);margin-bottom:4px}
+.vs-pick select{font:inherit;font-size:1rem;padding:6px 10px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+.vs-t{width:100%;border-collapse:collapse;font-size:.88rem;table-layout:fixed}
+.vs-t th,.vs-t td{padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6}
+.vs-t tbody th{width:4.6em;color:var(--muted);font-weight:600;font-size:.82rem}
+.vs-t thead th{font-size:.86rem}
+.vs-t .s{background:var(--c6-soft)}
+.vs-t thead .s{color:var(--c6)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:14px;background:var(--surface);margin:8px 0 6px}
+.cmp{border-collapse:separate;border-spacing:0;font-size:.84rem;min-width:1060px}
+.cmp th,.cmp td{padding:8px 8px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left;line-height:1.6;width:115px}
+.cmp thead th{background:var(--band);font-size:.82rem;white-space:nowrap}
+.cmp .c0{position:sticky;left:0;z-index:1;background:var(--surface);width:76px;min-width:76px;box-shadow:1px 0 0 var(--rule);font-weight:650}
+.cmp thead .c0{background:var(--band)}
+.cmp .s{background:var(--c6-soft)}
+.cmp thead .s{color:var(--c6)}
+/* 光谱 */
+.specs{display:grid;gap:10px;margin:10px 0}
+.spec{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 10px 8px}
+.spec figcaption{font-weight:700;font-size:.96rem;margin:0 4px 2px}
+.sp-ends{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--muted);margin:0 4px 0}
+.spec svg{display:block;width:100%;height:auto}
+.dg .trk{stroke:var(--rule);stroke-width:4;stroke-linecap:round}
+.dg .ldr{stroke:var(--muted);stroke-width:1}
+.dg .sp-d{fill:var(--ink-2);stroke:var(--surface);stroke-width:2}
+.dg .sp-s{fill:var(--c6);stroke:var(--surface);stroke-width:2}
+.dg .sp-t{font-size:11px;fill:var(--ink-2)}
+.dg .sp-ts{font-size:11.5px;font-weight:800;fill:var(--ink)}
+/* 组织 */
+.org{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 4px;margin:16px 0}
+.org ol{list-style:none;padding:0!important;margin:6px 0 12px!important;display:grid;gap:6px}
+.org li{background:var(--c6-soft);border-radius:10px;padding:6px 12px;margin:0!important;position:relative}
+.org li:nth-child(1){margin:0 0 0 0!important}.org li:nth-child(2){margin-left:10px!important}.org li:nth-child(3){margin-left:20px!important}.org li:nth-child(4){margin-left:30px!important}.org li:nth-child(5){margin-left:40px!important}
+.org b{color:var(--c6)}.org small{display:block;color:var(--ink-2);font-size:.8rem;line-height:1.5}
+/* 图表 */
+.chart{margin:14px 0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 8px}
+.chart figcaption b{display:block;font-size:.96rem}
+.chart figcaption small{display:block;color:var(--muted);font-size:.78rem;line-height:1.55;margin:2px 0 10px}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:6.4em 1fr auto;align-items:center;gap:8px;font-size:.86rem}
+.bl{line-height:1.3}
+.bt{display:flex;align-items:center;gap:6px;min-width:0}
+.bt i{display:block;height:14px;min-width:4px;background:var(--c);border-radius:0 4px 4px 0}
+.bt em{font-style:normal;font-size:.8rem;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* 人物 */
+.ppl{display:grid;gap:12px}
+.pe{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 14px 2px}
+.pe.era-f{border-top:4px solid var(--c6)}
+.pe h4{font-size:.98rem;margin:0 0 6px}
+.pe ul{list-style:none;padding:0!important;margin:0!important}
+.pe li{padding:7px 0;border-top:1px dashed var(--rule);margin:0!important}
+.pe li:first-child{border-top:0}
+.pn{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0}
+.pn span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pr{font-size:.88rem;color:var(--ink-2);margin:0}
+/* 常见问题 */
+.faq{display:grid;gap:8px;margin:10px 0}
+.faq details{background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.faq summary{cursor:pointer;padding:10px 36px 10px 14px;font-weight:650;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:12px;top:10px;color:var(--muted)}
+.faq details[open] summary::after{content:"－"}
+.faq details>div{padding:0 14px 4px;font-size:.94rem}
+/* 人物特写 */
+.prof{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--c);border-radius:16px;padding:14px 16px 4px;margin:0 0 18px}
+.pf-n{font-family:var(--serif);font-size:1.45rem;font-weight:700;line-height:1.35;margin:0 0 2px}
+.pf-n small{display:block;font-family:var(--sans);font-size:.8rem;font-weight:400;color:var(--muted)}
+.pf-y{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums;margin:0 0 8px;padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.pf-s{font-size:.96rem}
+.quote{margin:12px 0 16px;padding:12px 16px;background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.quote p{font-family:var(--serif);font-size:1.03rem;margin:0 0 6px}
+.quote cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+.box .quote{background:var(--paper)}
+.mini.two td:first-child{white-space:nowrap;color:var(--muted);font-weight:600;font-size:.82rem}
+.box .mini{background:var(--paper)}
+/* 怀爱伦引文 */
+.egw{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--rule)}
+.egw p{font-family:var(--serif);font-size:1.04rem}
+.egw cite{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+/* 资料 */
+.srcs{padding-left:2.2em!important;font-size:.86rem}
+.srcs li{margin:0 0 10px!important;line-height:1.6;scroll-margin-top:60px}
+.srcs li:target{background:var(--accent-soft);border-radius:8px}
+.sk{display:inline-block;font-size:.7rem;font-weight:700;border-radius:4px;padding:0 5px;margin-right:6px;background:var(--band);color:var(--ink-2)}
+.su{display:inline-block;margin-left:6px;word-break:break-all}
+.sb a{margin-left:6px;text-decoration:none;color:var(--muted)}
+.su2{display:inline-block;margin-left:8px;font-size:.8rem;color:var(--muted)}
+.foot{border-top:1px solid var(--rule);margin:40px 0 0;padding:16px 0 120px;font-size:.84rem;color:var(--muted)}
+/* 浮动按钮、弹出层 */
+.fab-toc{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;font:inherit;font-size:.9rem;font-weight:650;color:var(--surface);background:var(--ink);border:0;border-radius:999px;padding:9px 16px;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:40}
+.sh-bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sh-card{position:absolute;left:0;right:0;bottom:0;max-height:82vh;overflow:auto;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));font-size:.94rem}
+.sh-card.small{max-height:60vh}
+@media (min-width:700px){.sh-card{left:50%;right:auto;width:560px;transform:translateX(-50%);bottom:40px;border-radius:18px}}
+.sh-x{position:absolute;right:10px;top:8px;font-size:1.5rem;line-height:1;border:0;background:none;color:var(--muted);cursor:pointer;padding:4px 8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.seg button{font:inherit;font-size:.88rem;flex:1;min-width:4em;padding:7px 4px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pop{position:absolute;z-index:35;width:min(330px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:12px 14px;font-size:.88rem;line-height:1.65}
+.pop .pk{font-size:.72rem;font-weight:700;color:var(--muted);margin:0 0 4px}
+.pop .pd{margin:0 0 8px}
+.pop .pa{display:flex;gap:8px;flex-wrap:wrap}
+.pop .pa a{font-size:.84rem;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:3px 10px}
+.pop .pa a.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.pop .pbook{font-size:.8rem;color:var(--muted);align-self:center}
+html.sheetopen{overflow:hidden}
+/* ===== 2026-10-22 新版式：树形目录、像素进度条、图编号、表格、装饰、相关阅读 ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK SC",monospace}
+.prog{height:4px}
+.prog i{background:conic-gradient(var(--accent) 25%,transparent 0 50%,var(--accent) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.toc-l .tp{position:relative;padding-left:1.35em;cursor:pointer;-webkit-user-select:none;user-select:none}
+.toc-l .tp::before{content:"└";position:absolute;left:.15em;color:var(--muted);font-family:var(--mono)}
+.toc-l>li.open>.tp{color:var(--ink)}
+.toc-l ol{margin-left:.9em!important}
+.toc-l ol a{position:relative;padding-left:1.55em}
+.toc-l ol a::before{content:"└";position:absolute;left:.35em;top:4px;color:var(--rule);font-family:var(--mono)}
+.toc-l ol a.on::before{color:var(--accent)}
+.toc-side .toc-l>li>ol,.sheet .toc-l>li>ol{display:none}
+.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{display:block;animation:tin .32s ease both}
+.toc-side .toc-l a.on{background:none;color:var(--ink);font-weight:700}
+@keyframes tin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pxw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;margin:14px 0 4px;padding:12px 0 6px;border-top:1px solid var(--rule)}
+.toc-side .pxw{position:sticky;bottom:0;background:var(--paper)}
+.px{position:relative;height:14px;overflow:hidden;background-image:radial-gradient(var(--muted) .9px,transparent 1.2px);background-size:4px 4px;opacity:.95}
+.px i{position:absolute;inset:0;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/4px 4px;transform:translateX(-100%);will-change:transform}
+.px i::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--ink)}
+.pxn{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.pxt{grid-column:1/-1;margin:0;font-size:.76rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.pxt span:not(:empty)::before{content:" · "}
+.fabp{font-family:var(--mono);font-size:.76em;opacity:.8;margin-left:6px;font-variant-numeric:tabular-nums}
+.fgl{display:flex;gap:8px;align-items:baseline;margin:0 4px 8px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.fgl b{flex:none;font-size:.74rem;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:0 5px}
+.mini th{color:var(--ink-2);letter-spacing:.03em}
+.mini tr:nth-child(even) td{background:color-mix(in srgb,var(--band) 55%,var(--surface))}
+.mini tr:hover td{background:var(--gold-soft)}
+.mini td:first-child{font-weight:600}
+.hero{position:relative;padding-top:58px}
+.orn{position:absolute;left:0;top:6px;width:48px;height:48px}
+.rel{margin:40px 0 0}
+.relh{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.relh::before{content:"└ ";font-family:var(--mono)}
+.relg{display:grid;gap:10px}
+@media (min-width:700px){.relg{grid-template-columns:repeat(3,1fr)}}
+.relc{display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;text-decoration:none;color:var(--ink);transition:transform .2s ease,border-color .2s ease}
+.relc:hover{transform:translateY(-2px);border-color:var(--gold)}
+.reln{font-size:.74rem;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.relc b{font-family:var(--serif);font-size:1.02rem;line-height:1.45}
+.relc small{color:var(--muted);font-size:.8rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scene{margin:40px -16px 0;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.scene .scv{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 16px 14px;text-align:center}
+/* 回到上次读到的地方：底部一条小提示（6 秒后收起） */
+.rtip{position:fixed;z-index:60;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);padding:9px 10px 9px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translate(-50%,12px);transition:opacity .25s,transform .25s}
+.rtip.on{opacity:1;transform:translate(-50%,0)}
+.rtip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtip button{flex:none;border:0;border-radius:999px;padding:6px 12px;background:color-mix(in srgb,var(--paper) 18%,transparent);color:var(--paper);font:inherit;font-weight:700;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.rtip{transition:none}}
+
+.scene .stage{position:relative;flex:none;width:360px;height:112px}.scene .lamb{position:absolute;left:252px;top:52px;width:48px;height:48px}@media (min-width:600px){.scene .stage{position:relative;flex:none;width:540px;height:168px}.scene .lamb{position:absolute;left:378px;top:78px;width:72px;height:72px}}.scene .sky{display:block;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){.toc-side .toc-l>li.open>ol,.sheet .toc-l>li.open>ol{animation:none}}
+@media print{.orn,.scene,.rel,.pxw{display:none!important}}
+.lamb .lw{fill:#FFFDF8}.lamb .ls{fill:#E3DCCD}.lamb .lk{fill:#1A2132}.lamb .lg{fill:#9A742C}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .lamb .lw{fill:#ECE6DA}:root:not([data-theme=light]) .lamb .ls{fill:#E3DCCD}:root:not([data-theme=light]) .lamb .lk{fill:#767A86}:root:not([data-theme=light]) .lamb .lg{fill:#9A742C}}:root[data-theme=dark] .lamb .lw{fill:#ECE6DA}:root[data-theme=dark] .lamb .ls{fill:#E3DCCD}:root[data-theme=dark] .lamb .lk{fill:#767A86}:root[data-theme=dark] .lamb .lg{fill:#9A742C}.lamb [data-l]{visibility:hidden}.lamb[data-on~="eo"] [data-l="eo"],.lamb[data-on~="ec"] [data-l="ec"],.lamb[data-on~="eh"] [data-l="eh"],.lamb[data-on~="el"] [data-l="el"],.lamb[data-on~="er"] [data-l="er"],.lamb[data-on~="ld"] [data-l="ld"],.lamb[data-on~="rd"] [data-l="rd"],.lamb[data-on~="lu"] [data-l="lu"],.lamb[data-on~="ru"] [data-l="ru"],.lamb[data-on~="rv"] [data-l="rv"],.lamb[data-on~="z1"] [data-l="z1"],.lamb[data-on~="z2"] [data-l="z2"],.lamb[data-on~="s1"] [data-l="s1"],.lamb[data-on~="s2"] [data-l="s2"]{visibility:visible}.lamb{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease-out}.lamb.hop{transform:translateY(-12%)}@media (prefers-reduced-motion:reduce){.lamb{transition:none}.lamb.hop{transform:none}}.sky .km,.sky .kg{fill:var(--gold)}.sky .ks,.sky .kh{fill:var(--muted)}.sky .kd{fill:var(--gold);opacity:.55}
+@media print{.bar,.prog,.fab-toc,.toc-side,.dn-tools{display:none!important}details>*{display:block!important}.fig,.box,.dn,.spec{break-inside:avoid}}
+
+.dg .dop{font-size:22px;font-weight:800;fill:var(--ink-2)}
+.tblwrap.two-col .dtbl{min-width:0;width:100%}
+.dtbl th,.dtbl td{width:50%}
+.srcs .sb{overflow-wrap:anywhere;word-break:break-all}
+.ch .mini{width:100%}
+.ch .mini th{white-space:normal}
+.ch .mini th,.ch .mini td{overflow-wrap:anywhere;word-break:break-word}
+.ch .mini td small{display:block;font-size:.8em;line-height:1.4;color:var(--muted)}
+.ch .ftbl td:first-child{width:22%;white-space:nowrap}
+.ch .atbl td:nth-child(2){white-space:nowrap}
+.ch .atbl td:first-child{width:30%}
+.tblwrap.two-col .stbl{min-width:0;width:100%}
+.stbl th,.stbl td{width:50%}
+.hero h1 .h1s{display:block;margin-top:.3em;font-size:.5em;letter-spacing:.04em;color:var(--ink-2)}
+.quote.big p{font-size:1.05em;line-height:1.85}
+.obj .o{margin:0 0 14px;padding:12px 14px;border:1px solid var(--rule);border-radius:14px;background:var(--surface)}
+.obj .o h4{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font-size:1rem;line-height:1.5}
+.obj .o h4 .ci{flex:none;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;display:grid;place-items:center;margin-top:1px}
+.obj .o p{margin:.4em 0}
+.ch .wtbl td:first-child small{overflow-wrap:normal;word-break:keep-all}
+.ch .wtbl td i{font-style:normal;font-weight:650}
+.vlist{padding-left:1.2em}
+.vlist li{margin:.35em 0}
+.egw{margin:1.2em 0;padding:10px 14px 4px;border-radius:12px;border:1px dashed var(--rule);background:color-mix(in srgb,var(--c4) 6%,transparent)}
+.egw .egwn{margin:0 0 6px;font-size:.82rem;color:var(--muted)}
+.egw .quote{margin:6px 0 8px}
+.sum7{counter-reset:s;list-style:none;padding:0!important}
+.sum7 li{counter-increment:s;position:relative;padding:10px 12px 10px 46px!important;margin:0 0 8px!important;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.sum7 li::before{content:counter(s);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--c6);color:#fff;font-size:.8rem;font-weight:700;display:grid;place-items:center}
+
+.tblwrap.two-col .ktbl2{min-width:0;width:100%}
+.ktbl2 th,.ktbl2 td{width:50%}
+.ktbl2 thead th{white-space:normal}
+.ch .ktbl td:first-child{width:38%}
+.ch .ltbl td:first-child{width:32%}
+.causes .cause h4{padding-right:30px}
+</style>
+</head>
+<body data-mins="25">
+<div class="prog" aria-hidden="true"><i></i></div>
+<header class="bar"><a class="back" href="./#qa">← 问题彩蛋</a><span class="bt">“我必快来”，为什么两千年了还没来？</span><button type="button" class="ib" data-tshare aria-label="分享"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="ib" data-tdl aria-label="下载 PDF"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="aa" data-aa aria-label="字号与夜间模式">Aa</button></header>
+<div class="wrap">
+<aside class="toc-side" aria-label="目录"><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>“我必快来”，已经两千年了</a></li></ol></li><li><span class="tp">第二部分 · 从亚当到今天，多少年？</span><ol><li><a href="#years"><span class="tn">02</span>按圣经的年岁推算</a></li><li><a href="#date"><span class="tn">03</span>为什么不能推算日期：1844年的教训</a></li></ol></li><li><span class="tp">第三部分 · 为什么还没来：圣经的回答</span><ol><li><a href="#quick"><span class="tn">04</span>“快”在原文里是什么意思？</a></li><li><a href="#why"><span class="tn">05</span>为什么还没来？圣经给出的四个原因</a></li></ol></li><li><span class="tp">第四部分 · 预言与今天的世界</span><ol><li><a href="#prophecy"><span class="tn">06</span>但以理书：历史的大框架</a></li><li><a href="#signs"><span class="tn">07</span>耶稣说的“预兆”，和今天的新闻</a></li></ol></li><li><span class="tp">第五部分 · 知识增长与AI时代</span><ol><li><a href="#knowledge"><span class="tn">08</span>“知识就必增长”：但以理书12:4 说的是什么？</a></li><li><a href="#ai"><span class="tn">09</span>AI时代：工具、机会和危险</a></li></ol></li><li><span class="tp">第六部分 · 等候的人怎样生活</span><ol><li><a href="#wait"><span class="tn">10</span>等候的人怎样生活</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">11</span>一页总结</a></li><li><a href="#faq"><span class="tn">12</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 25 分钟读完<span data-left></span></p></div></aside>
+<main>
+<header class="hero"><span class="orn"><svg class="lamb" data-on="eo ld rd" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></span>
+<p class="eyebrow">问题彩蛋 · 11 · 复临的应许与等候</p>
+<h1>“我必快来”，为什么两千年了还没来？<small class="h1s">从亚当到今天多少年、预言、时事与AI时代</small></h1><p class="meta">约 1.0 万字 · 细读约 25 分钟 · 12 章 · 12 条资料出处</p>
+<p class="hsub">“看哪，我必快来！”耶稣说了三次，可是两千年过去了。“快”是什么意思？上帝在等什么？从亚当到今天到底多少年？战争、灾难、知识爆炸、人工智能，说明了什么？我们用圣经自己的话、圣经里的年岁、核对过的数据，一件一件理清。</p>
+<div class="answer"><p class="lab">先说结论</p>
+<ol class="lineage"><li class="f6"><span class="ly">“快”是什么意思</span><b>“快”（tachy）是“迅速、忽然”；在主看来“千年如一日”</b><small>启22:20；彼后3:8</small></li><li class="f6"><span class="ly">为什么还没来</span><b>“不是耽延，乃是宽容你们……乃愿人人都悔改”</b><small>彼后3:9</small></li><li class="f6"><span class="ly">还要等什么</span><b>“这天国的福音要传遍天下……然后末期才来到”</b><small>太24:14</small></li><li class="f6"><span class="ly">从亚当到今天</span><b>按圣经年岁推算约6000年（不同算法约5900—6200年），但日子没有人知道</b><small>太24:36</small></li><li class="f6"><span class="ly">今天的世界</span><b>圣经翻译、知识增长都在加速；但不要把新闻对号入座</b><small>但12:4；太24:6</small></li><li class="f6"><span class="ly">怎样等候</span><b>警醒、做工、忍耐、盼望——“直等我回来”</b><small>路19:13；雅5:7-8</small></li></ol>
+<p>下面先按圣经年岁推算从亚当到今天的年数（列出每一个假设），再看“快”的原文和圣经给出的迟延原因，然后看预言与今天的世界、知识增长与AI时代，最后讲等候的人怎样生活。时事只用核对过的数据，不把新闻对号入座；“编者的理解”只供参考。</p></div>
+<p class="howto"><span>怎样读这一页：</span>点正文里<a class="cite demo" href="#sources">1</a>这样的小数字，可以看到出处；点<a class="xref" href="#why">第 5 章《为什么还没来？圣经给出的四个原因》</a>之类的蓝色字，可以跳到相关的章节；右下角的“目录”按钮随时可以跳到任何一章。</p>
+</header><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div>
+<nav class="toc-in" aria-label="目录"><h2>目录</h2><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>“我必快来”，已经两千年了</a></li></ol></li><li><span class="tp">第二部分 · 从亚当到今天，多少年？</span><ol><li><a href="#years"><span class="tn">02</span>按圣经的年岁推算</a></li><li><a href="#date"><span class="tn">03</span>为什么不能推算日期：1844年的教训</a></li></ol></li><li><span class="tp">第三部分 · 为什么还没来：圣经的回答</span><ol><li><a href="#quick"><span class="tn">04</span>“快”在原文里是什么意思？</a></li><li><a href="#why"><span class="tn">05</span>为什么还没来？圣经给出的四个原因</a></li></ol></li><li><span class="tp">第四部分 · 预言与今天的世界</span><ol><li><a href="#prophecy"><span class="tn">06</span>但以理书：历史的大框架</a></li><li><a href="#signs"><span class="tn">07</span>耶稣说的“预兆”，和今天的新闻</a></li></ol></li><li><span class="tp">第五部分 · 知识增长与AI时代</span><ol><li><a href="#knowledge"><span class="tn">08</span>“知识就必增长”：但以理书12:4 说的是什么？</a></li><li><a href="#ai"><span class="tn">09</span>AI时代：工具、机会和危险</a></li></ol></li><li><span class="tp">第六部分 · 等候的人怎样生活</span><ol><li><a href="#wait"><span class="tn">10</span>等候的人怎样生活</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">11</span>一页总结</a></li><li><a href="#faq"><span class="tn">12</span>问与答</a></li></ol></li></ol></nav><div class="part" id="part1"><span>第一部分</span><b>先把问题摆清楚</b></div><section class="ch" id="q"><h2><span class="no">01</span>“我必快来”，已经两千年了</h2>
+<p>圣经最后一章，耶稣说了三次同样的话：</p>
+<blockquote class="verse"><p>“看哪，我必快来！凡遵守这书上预言的有福了！”</p><cite>启示录 22:7</cite></blockquote>
+<blockquote class="verse"><p>看哪，我必快来！赏罚在我，要照各人所行的报应他。</p><cite>启示录 22:12</cite></blockquote>
+<blockquote class="verse"><p>证明这事的说：“是了，我必快来！”阿们！主耶稣啊，我愿你来！</p><cite>启示录 22:20</cite></blockquote>
+<p>从约翰写下这些话到今天，已经将近两千年。一代又一代的基督徒在盼望中去世。于是很多人心里有疑问：</p>
+<div class="causes">
+  <div class="cause"><span class="ci">1</span><h4>“快”是真的快吗？</h4><p>两千年还叫“快”吗？是不是圣经说错了？</p></div>
+  <div class="cause"><span class="ci">2</span><h4>为什么还没来？</h4><p>上帝在等什么？是不是有什么事拦阻了？</p></div>
+  <div class="cause"><span class="ci">3</span><h4>到底还有多久？</h4><p>有人推算“从亚当到现在快六千年了”，这有根据吗？</p></div>
+  <div class="cause"><span class="ci">4</span><h4>今天的世界说明什么？</h4><p>战争、灾难、知识爆炸、人工智能……是不是末日近了？</p></div>
+</div>
+<p>其实，“主为什么还没来”这个问题，<b>圣经自己就预先写下了</b>：</p>
+<blockquote class="verse"><p><sup>3</sup>第一要紧的，该知道在末世必有好讥诮的人随从自己的私欲出来讥诮说：<sup>4</sup>“主要降临的应许在哪里呢？因为从列祖睡了以来，万物与起初创造的时候仍是一样。”</p><cite>彼得后书 3:3—4</cite></blockquote>
+<p>彼得在两千年前就说：末世会有人这样问。这个问题出现，本身就应验了圣经。</p>
+</section><div class="part" id="part2"><span>第二部分</span><b>从亚当到今天，多少年？</b></div><section class="ch" id="years"><h2><span class="no">02</span>按圣经的年岁推算</h2>
+<p>圣经没有直接写“从创造到某年共多少年”，但创世记5章和11章给出了每一代人生下一代时的年岁，可以一代一代加起来。</p>
+<h3>第一段：从亚当到洪水（各家一致）</h3>
+<div class="tblwrap" tabindex="0" role="region" aria-label="从亚当到洪水"><table class="mini ktbl"><thead><tr><th>人物</th><th>生下一代时的年岁（经文）</th><th>创造纪年</th></tr></thead><tbody>
+<tr><td>亚当</td><td>130 岁生塞特（创5:3）</td><td>0 → 130</td></tr>
+<tr><td>塞特</td><td>105 岁生以挪士（创5:6）</td><td>235</td></tr>
+<tr><td>以挪士</td><td>90 岁生该南（创5:9）</td><td>325</td></tr>
+<tr><td>该南</td><td>70 岁生玛勒列（创5:12）</td><td>395</td></tr>
+<tr><td>玛勒列</td><td>65 岁生雅列（创5:15）</td><td>460</td></tr>
+<tr><td>雅列</td><td>162 岁生以诺（创5:18）</td><td>622</td></tr>
+<tr><td>以诺</td><td>65 岁生玛土撒拉（创5:21）</td><td>687</td></tr>
+<tr><td>玛土撒拉</td><td>187 岁生拉麦（创5:25）</td><td>874</td></tr>
+<tr><td>拉麦</td><td>182 岁生挪亚（创5:28-29）</td><td>1056</td></tr>
+<tr><td>挪亚</td><td>600 岁时洪水（创7:6）</td><td><b>1656</b></td></tr>
+</tbody></table></div>
+<p>“从创造到洪水 1656 年”，是希伯来文马所拉本的数字，西方圣经（和合本也是）都按这个本子。<a class="cite" id="r1-1" href="#s1" data-n="1">1</a></p>
+<h3>第二段：从洪水到亚伯兰</h3>
+<p>闪在洪水后二年生亚法撒（创11:10），之后亚法撒35、沙拉30、希伯34、法勒30、拉吴32、西鹿30、拿鹤29岁生下一代（创11:12-24），他拉生于创造纪年 1878 年。</p>
+<p>这里有第一个不确定：创世记11:26 说“他拉活到七十岁，生了亚伯兰、拿鹤、哈兰”；但他拉205岁死（创11:32），亚伯兰在父亲死后75岁离开哈兰（创12:4；徒7:4），所以亚伯兰可能是他拉130岁时生的。两种算法相差60年：亚伯兰生于 1948 年或 2008 年。</p>
+<h3>第三段：从亚伯兰到所罗门建殿</h3>
+<p>亚伯拉罕100岁生以撒（创21:5），以撒60岁生雅各（创25:26），雅各130岁下埃及（创47:9）。第二个不确定是“四百三十年”：出埃及记12:40 说以色列人“住在埃及共有四百三十年”；加拉太书3:17 说律法是在上帝向亚伯拉罕立约“四百三十年以后”。这四百三十年是全在埃及，还是从亚伯拉罕蒙召算起？两种理解都有人主张。出埃及以后到所罗门建殿是四百八十年（王上6:1）。</p>
+<h3>四种算法</h3>
+<div class="tblwrap" tabindex="0" role="region" aria-label="四种算法"><table class="mini ktbl"><thead><tr><th>算法</th><th>建殿时的创造纪年</th><th>到 2026 年约</th></tr></thead><tbody>
+<tr><td>他拉70岁生亚伯兰；430年全在埃及</td><td>3148</td><td>6,140 年</td></tr>
+<tr><td>他拉130岁生亚伯兰；430年全在埃及</td><td>3208</td><td>6,200 年</td></tr>
+<tr><td>他拉70岁生亚伯兰；430年从蒙召算</td><td>2933</td><td>5,920 年</td></tr>
+<tr><td>他拉130岁生亚伯兰；430年从蒙召算</td><td>2993</td><td>5,980 年</td></tr>
+</tbody></table></div>
+<p class="note2">说明：建殿以后要借助历史年代来换算。这里按所罗门在位约在公元前十世纪中叶（常见的一种推算是建殿约在公元前966年）计算，所以最后一栏只是“约数”。</p>
+<figure class="fig"><figcaption class="fgl"><b>图 1</b><span>按圣经年岁推算的时间线</span></figcaption><svg viewBox="0 0 400 300" class="dg" role="img" aria-labelledby="sf1t sf1d">
+<title id="sf1t">按圣经年岁推算的时间线</title>
+<desc id="sf1d">以亚当被造为第0年（创造纪年），按创世记5章、11章的年岁，洪水在1656年；采用“他拉130岁生亚伯兰、430年从亚伯拉罕蒙召算起”的一种算法，亚伯兰约生于2008年，出埃及约2513年，所罗门建殿约2993年；之后要用历史年代换算，耶稣降生约在3955年前后，到今天约5980年。不同算法得出的总数在约5900到6200年之间。</desc>
+<path d="M20.0 150 L20.0 156" class="ax"/>
+<text x="20.0" y="170.0" class="ta" text-anchor="middle">0</text>
+<path d="M80.0 150 L80.0 156" class="ax"/>
+<text x="80.0" y="170.0" class="ta" text-anchor="middle">1000</text>
+<path d="M140.0 150 L140.0 156" class="ax"/>
+<text x="140.0" y="170.0" class="ta" text-anchor="middle">2000</text>
+<path d="M200.0 150 L200.0 156" class="ax"/>
+<text x="200.0" y="170.0" class="ta" text-anchor="middle">3000</text>
+<path d="M260.0 150 L260.0 156" class="ax"/>
+<text x="260.0" y="170.0" class="ta" text-anchor="middle">4000</text>
+<path d="M320.0 150 L320.0 156" class="ax"/>
+<text x="320.0" y="170.0" class="ta" text-anchor="middle">5000</text>
+<path d="M380.0 150 L380.0 156" class="ax"/>
+<text x="380.0" y="170.0" class="ta" text-anchor="middle">6000</text>
+<text x="200.0" y="188.0" class="ts" text-anchor="middle">创造纪年（从亚当被造算起的年数，一种算法）</text>
+<path d="M20.0 150 L199.6 150" class="ln f2"/>
+<path d="M199.6 150 L378.8 150" class="ln f6 dash"/>
+<circle cx="20.0" cy="150" r="5" class="dot"/>
+<path d="M20.0 144 L20.0 116" class="ldr"/>
+<text x="20.0" y="96.0" class="tn" text-anchor="start">创造</text>
+<text x="20.0" y="110.0" class="ts" text-anchor="start">亚当</text>
+<circle cx="119.4" cy="150" r="5" class="dot"/>
+<path d="M119.4 144 L119.4 68" class="ldr"/>
+<text x="119.4" y="48.0" class="tn" text-anchor="middle">洪水</text>
+<text x="119.4" y="62.0" class="ts" text-anchor="middle">创7:6</text>
+<circle cx="140.5" cy="150" r="5" class="dot"/>
+<path d="M140.5 144 L140.5 116" class="ldr"/>
+<text x="140.5" y="96.0" class="tn" text-anchor="middle">亚伯兰</text>
+<text x="140.5" y="110.0" class="ts" text-anchor="middle">约2008</text>
+<circle cx="170.8" cy="150" r="5" class="dot"/>
+<path d="M170.8 144 L170.8 68" class="ldr"/>
+<text x="170.8" y="48.0" class="tn" text-anchor="middle">出埃及</text>
+<text x="170.8" y="62.0" class="ts" text-anchor="middle">约2513</text>
+<circle cx="199.6" cy="150" r="5" class="dot"/>
+<path d="M199.6 144 L199.6 116" class="ldr"/>
+<text x="199.6" y="96.0" class="tn" text-anchor="middle">建殿</text>
+<text x="199.6" y="110.0" class="ts" text-anchor="middle">约2993</text>
+<circle cx="257.3" cy="150" r="5" class="dot"/>
+<path d="M257.3 144 L257.3 68" class="ldr"/>
+<text x="257.3" y="48.0" class="tn" text-anchor="middle">耶稣降生</text>
+<text x="257.3" y="62.0" class="ts" text-anchor="middle">约3955</text>
+<circle cx="378.8" cy="150" r="5" class="dot"/>
+<path d="M378.8 144 L378.8 116" class="ldr"/>
+<text x="378.8" y="96.0" class="tn" text-anchor="end">今天</text>
+<text x="378.8" y="110.0" class="ts" text-anchor="end">约5980</text>
+<text x="20.0" y="218.0" class="tw" text-anchor="start">实线：圣经直接给出的年岁相加</text>
+<text x="20.0" y="236.0" class="tw" text-anchor="start">虚线：建殿以后要借历史年代换算（所罗门约在公元前十世纪）</text>
+<text x="20.0" y="262.0" class="tn" text-anchor="start">不同算法：约 5,900—6,200 年（见下表）</text>
+<text x="20.0" y="282.0" class="tw" text-anchor="start">耶稣说：“那日子，那时辰，没有人知道。”（太24:36）</text>
+</svg></figure>
+<h3>其他人的推算</h3>
+<ul class="vlist">
+<li>爱尔兰的乌雪大主教（1650年代）推算创造在公元前 4004 年，到今天约 6,030 年。<a class="cite" id="r2-1" href="#s2" data-n="2">2</a></li>
+<li>犹太人的希伯来历以公元前 3761 年为创造之年，2026年9月11日起是创世纪年 5787 年。<a class="cite" id="r3-1" href="#s3" data-n="3">3</a></li>
+<li>早期按希腊文七十士译本的年岁推算，大多在公元前 5500 年左右，比马所拉本早约1500年。<a class="cite" id="r1-2" href="#s1" data-n="1">1</a></li>
+</ul>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>基督与撒但之间的大斗争，已经进行了将近六千年，快要结束了。</p><cite>怀爱伦《善恶之争》第32章，英文原著第 518 页（编者译）<a class="cite" id="r4-1" href="#s4" data-n="4">4</a></cite></blockquote></div>
+<div class="box"><p class="lab">编者的理解：这个数字能说明什么？</p>
+<p>按马所拉本的数字，人类历史大约六千年，这和圣经整体的叙述一致，怀爱伦也用“将近六千年”来描述。但有两点要清楚：</p>
+<ol class="steps">
+<li><b>圣经没有说“满六千年就是末日”。</b>这种推算不是圣经的教导，而且各种算法本身就差了好几百年。</li>
+<li><b>耶稣明说：“那日子，那时辰，没有人知道……惟独父知道。”</b>（太24:36）任何根据年数推算复临日期的做法，都和这句话相违背（见<a class="xref" href="#date">第 3 章《为什么不能推算日期：1844年的教训》</a>）。</li>
+</ol></div>
+</section><section class="ch" id="date"><h2><span class="no">03</span>为什么不能推算日期：1844年的教训</h2>
+<p>复临信徒对这一点有特别深的体会。19世纪的米勒耳运动根据但以理书8:14 推算，以为主会在1844年10月22日复临；那一天过去了，主没有来，史称“大失望”。<a class="cite" id="r5-1" href="#s5" data-n="5">5</a>后来复临先驱们重新查考圣经，明白但以理书8:14 指的是基督在天上圣所里工作的新阶段，而不是复临的日子。</p>
+<p>从那以后，怀爱伦多次警告不要再定日期：</p>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>我一再受到关于定时间的警告。上帝的子民将永不再有以时间为根据的信息。我们不可知道圣灵沛降或基督复临的确切时间。</p><cite>怀爱伦《信息选粹》第1册“警惕定时间”，英文原著第 188 页（编者译）<a class="cite" id="r6-1" href="#s6" data-n="6">6</a></cite></blockquote></div>
+<blockquote class="verse"><p><sup>6</sup>他们聚集的时候，问耶稣说：“主啊，你复兴以色列国就在这时候吗？”<sup>7</sup>耶稣对他们说：“父凭着自己的权柄所定的时候、日期，不是你们可以知道的。<sup>8</sup>但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地，和撒马利亚，直到地极，作我的见证。”</p><cite>使徒行传 1:6—8</cite></blockquote>
+<p>耶稣把门徒的注意力从“什么时候”转向“你们要作我的见证”。这是理解整个问题的钥匙：<b>上帝不让我们知道日期，是要我们专心做工。</b></p>
+</section><div class="part" id="part3"><span>第三部分</span><b>为什么还没来：圣经的回答</b></div><section class="ch" id="quick"><h2><span class="no">04</span>“快”在原文里是什么意思？</h2>
+<p>启示录22章“我必快来”的“快”，希腊文是 tachy，意思是“迅速地、快快地”；启示录1:1“必要快成的事”用的是同一个字根的名词（en tachei）。这些词可以指“很快就要发生”，也可以指“发生的时候会很迅速、很突然”。</p>
+<p>耶稣也用“闪电”和“贼”来形容祂的复临：</p>
+<blockquote class="verse"><p>闪电从东边发出，直照到西边。人子降临也要这样。</p><cite>马太福音 24:27</cite></blockquote>
+<blockquote class="verse"><p><sup>2</sup>因为你们自己明明晓得，主的日子来到，好像夜间的贼一样。<sup>3</sup>人正说“平安稳妥”的时候，灾祸忽然临到他们，如同产难临到怀胎的妇人一样，他们绝不能逃脱。<sup>4</sup>弟兄们，你们却不在黑暗里，叫那日子临到你们像贼一样。<sup>5</sup>你们都是光明之子，都是白昼之子。我们不是属黑夜的，也不是属幽暗的。<sup>6</sup>所以，我们不要睡觉像别人一样，总要警醒谨守。</p><cite>帖撒罗尼迦前书 5:2—6</cite></blockquote>
+<h3>在上帝看来</h3>
+<blockquote class="verse"><p>亲爱的弟兄啊，有一件事你们不可忘记，就是主看一日如千年，千年如一日。</p><cite>彼得后书 3:8</cite></blockquote>
+<blockquote class="verse"><p>在你看来，千年如已过的昨日，又如夜间的一更。</p><cite>诗篇 90:4</cite></blockquote>
+<p>按“主看一日如千年”的尺度，耶稣升天到今天，还不到“两天”。<b>编者的理解：</b>“快”首先是从上帝永恒的眼光说的；同时，复临是“忽然”的，没有人能预先知道。</p>
+<h3>对每一个人来说</h3>
+<p>圣经说死了的人是“睡了”（帖前4:13-15）。对已经在主里睡了的人，从闭上眼睛到听见号筒复活，只是一刹那（参问题彩蛋05《根据圣经，人死了去哪里？》）。所以对每一个世代的信徒来说，主的再来都“近了”——人的一生本来就很短。</p>
+</section><section class="ch" id="why"><h2><span class="no">05</span>为什么还没来？圣经给出的四个原因</h2>
+<h3>一、因为上帝在忍耐，等人悔改</h3>
+<blockquote class="verse"><p>主所应许的尚未成就，有人以为他是耽延，其实不是耽延，乃是宽容你们，不愿有一人沉沦，乃愿人人都悔改。</p><cite>彼得后书 3:9</cite></blockquote>
+<p>这是圣经对“为什么还没来”最直接的回答：“不是耽延，乃是宽容你们。”每多一天，就多一些人有机会悔改。</p>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>漫长的黑夜令人难熬；但早晨因怜悯而延迟，因为主人若是来了，会有许多人还没有准备好。上帝不愿祂的子民灭亡，这就是迟延这么久的原因。</p><cite>怀爱伦《教会证言》第2卷，英文原著第 194 页（编者译）<a class="cite" id="r7-1" href="#s7" data-n="7">7</a></cite></blockquote></div>
+<h3>二、因为福音还要传遍天下</h3>
+<blockquote class="verse"><p>这天国的福音要传遍天下，对万民作见证，然后末期才来到。</p><cite>马太福音 24:14</cite></blockquote>
+<blockquote class="verse"><p><sup>6</sup>我又看见另有一位天使飞在空中，有永远的福音要传给住在地上的人，就是各国、各族、各方、各民。<sup>7</sup>他大声说：“应当敬畏上帝，将荣耀归给他！因他施行审判的时候已经到了。应当敬拜那创造天地海和众水泉源的。”</p><cite>启示录 14:6—7</cite></blockquote>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>借着把福音传给世界，我们有能力催促我们的主复临。我们不仅要仰望，也要催促上帝的日子来到（彼后3:12，小字）。基督的教会若照主所定的完成了她被指派的工作，全世界早就得到了警告，主耶稣早就带着能力和大荣耀降临到我们的世界了。</p><cite>怀爱伦《历代愿望》第69章，英文原著第 633—634 页（编者译）<a class="cite" id="r8-1" href="#s8" data-n="8">8</a></cite></blockquote></div>
+<p>彼得后书3:12 和合本译作“切切仰望上帝的日子来到”；“切切仰望”的希腊文 speudontas，基本意思是“催促、加快”。</p>
+<h3>三、因为上帝的子民还没有准备好</h3>
+<p>以色列人出埃及以后，本来可以很快进入迦南，却因为不信在旷野飘流了四十年（民14:33-34；来3:19）。</p>
+<div class="egw"><p class="egwn">怀爱伦著作只作补充，放在这样的框里；圣经才是标准（赛8:20）。</p><blockquote class="quote"><p>上帝的旨意本来不是要以色列人在旷野飘流四十年；祂愿意直接领他们进入迦南……照样，基督的复临这样久被迟延，祂的子民这么多年留在这充满罪恶和忧伤的世界上，也不是上帝的旨意。但是不信使他们与上帝隔绝了……基督因怜悯世人而延迟祂的复临，好叫罪人有机会听见警告，在上帝的忿怒倾倒以前，在祂里面找到避难所。</p><cite>怀爱伦《善恶之争》第26章，英文原著第 458 页（编者译）<a class="cite" id="r9-1" href="#s9" data-n="9">9</a></cite></blockquote></div>
+<h3>四、因为圣经早就预告了“迟延”</h3>
+<ul class="vlist">
+<li>十个童女的比喻：“新郎迟延的时候，她们都打盹，睡着了。”（太25:5）</li>
+<li>恶仆的比喻：“我的主人必来得迟。”（太24:48）路加福音12:45 也有同样的比喻。</li>
+<li>耶稣讲十锭银子的比喻，正“因他们以为上帝的国快要显出来”（路19:11）。</li>
+<li>哈巴谷书：“虽然迟延，还要等候；因为必然临到，不再迟延。”（哈2:3）希伯来书10:37 引用了这句话。</li>
+</ul>
+<p>耶稣在讲复临的比喻里，一再预备门徒面对“等得很久”的情况。<b>“迟延”不是计划失败，而是计划的一部分。</b></p>
+</section><div class="part" id="part4"><span>第四部分</span><b>预言与今天的世界</b></div><section class="ch" id="prophecy"><h2><span class="no">06</span>但以理书：历史的大框架</h2>
+<p>复临信徒读预言，采取“历史连续”的读法：预言从先知的时代一直延续到末了。最清楚的是但以理书2章的大像：</p>
+<blockquote class="verse"><p><sup>38</sup>凡世人所住之地的走兽，并天空的飞鸟，他都交付你手，使你掌管这一切。你就是那金头。<sup>39</sup>在你以后必另兴一国，不及于你；又有第三国，就是铜的，必掌管天下。<sup>40</sup>第四国，必坚壮如铁，铁能打碎克制百物，又能压碎一切，那国也必打碎压制列国。<sup>41</sup>你既见像的脚和脚指头，一半是窑匠的泥，一半是铁，那国将来也必分开。你既见铁与泥搀杂，那国也必有铁的力量。<sup>42</sup>那脚指头，既是半铁半泥，那国也必半强半弱。<sup>43</sup>你既见铁与泥搀杂，那国民也必与各种人搀杂，却不能彼此相合，正如铁与泥不能相合一样。<sup>44</sup>当那列王在位的时候，天上的上帝必另立一国，永不败坏，也不归别国的人，却要打碎灭绝那一切国，这国必存到永远。<sup>45</sup>你既看见非人手凿出来的一块石头从山而出，打碎金、银、铜、铁、泥，那就是至大的上帝把后来必有的事给王指明。这梦准是这样，这讲解也是确实的。</p><cite>但以理书 2:38—45</cite></blockquote>
+<div class="tblwrap" tabindex="0" role="region" aria-label="但以理书2章"><table class="mini ktbl"><thead><tr><th>大像</th><th>经文的解释</th><th>常见的历史对应</th></tr></thead><tbody>
+<tr><td>金头</td><td>“你就是那金头”（但2:38）</td><td>巴比伦</td></tr>
+<tr><td>银的胸膛</td><td>“另兴一国”</td><td>米底亚和波斯（但8:20 点名）</td></tr>
+<tr><td>铜的腹腰</td><td>“第三国”</td><td>希腊（但8:21 点名）</td></tr>
+<tr><td>铁的腿</td><td>“第四国，必坚壮如铁”</td><td>罗马</td></tr>
+<tr><td>半铁半泥的脚</td><td>“那国将来也必分开……却不能彼此相合”</td><td>罗马以后分裂的列国，至今没有再统一</td></tr>
+<tr><td>非人手凿出的石头</td><td>“天上的上帝必另立一国，永不败坏”</td><td>基督的国</td></tr>
+</tbody></table></div>
+<p>前三国，但以理书自己点了名；第四国以后的对应，是复临信徒和许多历来的解经家的理解。<b>编者的理解：</b>按这个框架，历史已经走到“脚指头”的阶段，下一件大事就是那块石头。这不告诉我们日期，但告诉我们方向。</p>
+</section><section class="ch" id="signs"><h2><span class="no">07</span>耶稣说的“预兆”，和今天的新闻</h2>
+<blockquote class="verse"><p>耶稣在橄榄山上坐着，门徒暗暗地来说：“请告诉我们，什么时候有这些事？你降临和世界的末了有什么预兆呢？”</p><cite>马太福音 24:3</cite></blockquote>
+<blockquote class="verse"><p><sup>6</sup>你们也要听见打仗和打仗的风声，总不要惊慌；因为这些事是必须有的，只是末期还没有到。<sup>7</sup>民要攻打民，国要攻打国；多处必有饥荒、地震。<sup>8</sup>这都是灾难的起头。</p><cite>马太福音 24:6—8</cite></blockquote>
+<p>注意耶稣的话：“这些事是必须有的，只是末期还没有到。”战争、饥荒、地震，历代都有。耶稣说它们是“灾难的起头”，是要门徒“总不要惊慌”，而不是让人每看到一次地震就宣布末日。</p>
+<h3>比天灾更清楚的预兆</h3>
+<p>耶稣把一个可以衡量的预兆放在最后：“这天国的福音要传遍天下，对万民作见证，然后末期才来到。”（太24:14）这个预兆，今天可以用数字看：</p>
+<figure class="fig"><figcaption class="fgl"><b>图 2</b><span>还在等待圣经翻译开始的语言数</span></figcaption><svg viewBox="0 0 400 250" class="dg" role="img" aria-labelledby="sf2t sf2d">
+<title id="sf2t">还在等待圣经翻译开始的语言数</title>
+<desc id="sf2d">据威克理夫全球联会的统计：1999年还有5000多种语言在等待圣经翻译开始；2020年还有2000多种；2024年还有985种；到2025年8月1日，全世界7396种语言中只剩544种。</desc>
+<text x="10.0" y="18.0" class="tn" text-anchor="start">还在等待圣经翻译开始的语言（全世界共 7,396 种）</text>
+<text x="10.0" y="59.0" class="tn hi" text-anchor="start">1999</text>
+<rect x="70" y="42" width="300.0" height="26" rx="4" class="f6 fillc"/>
+<text x="362.0" y="60.0" class="tnode2" text-anchor="end">5,000 多种</text>
+<text x="10.0" y="105.0" class="tn hi" text-anchor="start">2020</text>
+<rect x="70" y="88" width="120.0" height="26" rx="4" class="f6 fillc"/>
+<text x="198.0" y="106.0" class="tw" text-anchor="start">2,000 多种</text>
+<text x="10.0" y="151.0" class="tn hi" text-anchor="start">2024</text>
+<rect x="70" y="134" width="59.1" height="26" rx="4" class="f6 fillc"/>
+<text x="137.1" y="152.0" class="tw" text-anchor="start">985 种</text>
+<text x="10.0" y="197.0" class="tn hi" text-anchor="start">2025</text>
+<rect x="70" y="180" width="32.6" height="26" rx="4" class="f6 fillc"/>
+<text x="110.6" y="198.0" class="tw" text-anchor="start">544 种</text>
+<text x="10.0" y="232.0" class="ts" text-anchor="start">资料：威克理夫全球联会，2025年8月1日统计</text>
+</svg></figure>
+<p>据威克理夫全球联会统计，1999年还有5,000多种语言在等待圣经翻译开始；到2025年8月1日，全世界7,396种语言中只剩544种。目前在173个国家、3,526种语言里正在进行圣经翻译。<a class="cite" id="r10-1" href="#s10" data-n="10">10</a></p>
+<p><b>编者的理解：</b>“传遍天下，对万民作见证”不一定等于每一种语言都有完整的圣经，但福音传播的速度在这一代确实是前所未有的。</p>
+<h3>最需要警惕的预兆：迷惑</h3>
+<blockquote class="verse"><p>因为假基督、假先知将要起来，显大神迹、大奇事，倘若能行，连选民也就迷惑了。</p><cite>马太福音 24:24</cite></blockquote>
+<blockquote class="verse"><p><sup>9</sup>这不法的人来，是照撒但的运动，行各样的异能、神迹，和一切虚假的奇事，<sup>10</sup>并且在那沉沦的人身上行各样出于不义的诡诈；因他们不领受爱真理的心，使他们得救。</p><cite>帖撒罗尼迦后书 2:9—10</cite></blockquote>
+<p>耶稣在马太福音24章四次提到“迷惑”（24:4、5、11、24）。末世最大的危险，不是看不懂新闻，而是被假的东西迷惑——“倘若能行，连选民也就迷惑了”。</p>
+<div class="box"><p class="lab">为什么本页不把新闻对号入座</p><p>历史上，很多人把当时的战争、人物、事件直接对应到预言，后来证明是错的。复临运动在1844年就有过沉痛的经验（见<a class="xref" href="#date">第 3 章《为什么不能推算日期：1844年的教训》</a>）。圣经给我们的是方向和原则，不是新闻解码表。我们要留心观察时代，但更要记住耶稣说的：“你们要警醒，因为不知道你们的主是哪一天来到。”（太24:42）</p></div>
+</section><div class="part" id="part5"><span>第五部分</span><b>知识增长与AI时代</b></div><section class="ch" id="knowledge"><h2><span class="no">08</span>“知识就必增长”：但以理书12:4 说的是什么？</h2>
+<blockquote class="verse"><p>但以理啊，你要隐藏这话，封闭这书，直到末时。必有多人来往奔跑，知识就必增长。</p><cite>但以理书 12:4</cite></blockquote>
+<p>很多人把这节经文理解为：到了末时，交通发达（“来往奔跑”），科学知识爆炸。这种理解很流行。但读上下文：</p>
+<blockquote class="verse"><p><sup>9</sup>他说：但以理啊，你只管去；因为这话已经隐藏封闭，直到末时。<sup>10</sup>必有许多人使自己清净洁白，且被熬炼；但恶人仍必行恶，一切恶人都不明白，惟独智慧人能明白。</p><cite>但以理书 12:9—10</cite></blockquote>
+<p>“隐藏这话，封闭这书，直到末时”——被封闭的是<b>但以理书本身</b>。到了末时，人要“来往奔跑”地查考，对这些预言的认识就会增长，“惟独智慧人能明白”。复临运动在19世纪兴起，正是从查考但以理书的预言开始的。</p>
+<p><b>编者的理解：</b>但以理书12:4 首先讲的是对预言的理解要增长；至于一般知识和科技的增长，也确实是我们这个时代的特点，可以看作同一个时代的背景，但不宜把经文的重点放在科技上。</p>
+</section><section class="ch" id="ai"><h2><span class="no">09</span>AI时代：工具、机会和危险</h2>
+<p>我们这一代经历的知识增长速度，是前所未有的。以人工智能为例：一个对话式AI工具推出两个月，每月使用的人就达到一亿。<a class="cite" id="r11-1" href="#s11" data-n="11">11</a>以前要讲十篇道才讲清楚的问题，今天借着好的工具和资料，可能在一篇里整理清楚。</p>
+<h3>历史上有过类似的时候</h3>
+<p>五百年前，印刷术让圣经和宗教改革的著作迅速传开：约1520年，路德成了欧洲作品印行最多的作者，1518到1520年间他的作品印了约30万册。<a class="cite" id="r12-1" href="#s12" data-n="12">12</a>新的工具本身不是福音，但上帝可以使用它来传福音。</p>
+<h3>机会</h3>
+<ul class="vlist">
+<li>查考圣经更方便：原文、译本、对照、历史资料，以前只有少数学者能接触，现在普通信徒也能查（徒17:11“天天考查圣经”）。</li>
+<li>传福音更快：翻译、整理、分享的速度大大加快（太24:14）。</li>
+</ul>
+<h3>危险</h3>
+<ul class="vlist">
+<li><b>知识不等于智慧。</b>“敬畏耶和华是智慧的开端。”（箴9:10）“知识是叫人自高自大，惟有爱心能造就人。”（林前8:1）</li>
+<li><b>工具会出错，也会被用来迷惑。</b>AI可能编出看起来像真的引文和资料；末世的迷惑是“各样出于不义的诡诈”（帖后2:10）。所以本站每一处经文、每一句怀爱伦著作，都对照原文核对过；核对不到的就不用。</li>
+<li><b>不能把良心交给机器。</b>“一切的灵，你们不可都信，总要试验那些灵是出于上帝的不是。”（约壹4:1）属灵的判断，要回到圣经，回到圣灵的引导，回到和上帝的关系。</li>
+</ul>
+<p><b>编者的理解：</b>AI可以帮助我们查考、整理和传播，这是这个时代的恩赐，也是责任；但它不能代替祷告、读经和顺从。知识增长了，更要作“智慧人”（但12:10 说“惟独智慧人能明白”）。</p>
+</section><div class="part" id="part6"><span>第六部分</span><b>等候的人怎样生活</b></div><section class="ch" id="wait"><h2><span class="no">10</span>等候的人怎样生活</h2>
+<p>耶稣讲复临，总是落在“所以你们要……”上：</p>
+<div class="tblwrap" tabindex="0" role="region" aria-label="等候的生活"><table class="mini ktbl"><thead><tr><th>经文</th><th>怎样等候</th></tr></thead><tbody>
+<tr><td>路21:34-36</td><td><b>警醒</b>：“恐怕因贪食、醉酒，并今生的思虑累住你们的心。”</td></tr>
+<tr><td>路19:13</td><td><b>做工</b>：“你们去做生意，直等我回来。”</td></tr>
+<tr><td>雅5:7-8</td><td><b>忍耐</b>：“看哪，农夫忍耐等候地里宝贵的出产。”</td></tr>
+<tr><td>彼后3:11-12</td><td><b>圣洁</b>：“你们为人该当怎样圣洁，怎样敬虔。”</td></tr>
+<tr><td>多2:13</td><td><b>盼望</b>：“等候所盼望的福……耶稣基督的荣耀显现。”</td></tr>
+<tr><td>太28:19-20</td><td><b>传扬</b>：“使万民作我的门徒……我就常与你们同在，直到世界的末了。”</td></tr>
+</tbody></table></div>
+<p>耶稣警告的“恶仆”，问题不在于他相信主会晚来，而在于他因此“动手打他的同伴，又和酒醉的人一同吃喝”（太24:48-49）。<b>把“主还没来”当成放松的理由，才是真正的危险。</b></p>
+<blockquote class="verse"><p><sup>1</sup>你们心里不要忧愁；你们信上帝，也当信我。<sup>2</sup>在我父的家里有许多住处；若是没有，我就早已告诉你们了。我去原是为你们预备地方去。<sup>3</sup>我若去为你们预备了地方，就必再来接你们到我那里去，我在哪里，叫你们也在那里。</p><cite>约翰福音 14:1—3</cite></blockquote>
+<p>“我若去为你们预备了地方，就必再来接你们。”这不是一个会被忘记的应许。</p>
+<blockquote class="verse"><p><sup>35</sup>所以，你们不可丢弃勇敢的心；存这样的心必得大赏赐。<sup>36</sup>你们必须忍耐，使你们行完了上帝的旨意，就可以得着所应许的。</p><cite>希伯来书 10:35—36</cite></blockquote>
+</section><div class="part" id="part7"><span>第七部分</span><b>总结与问答</b></div><section class="ch" id="summary"><h2><span class="no">11</span>一页总结</h2>
+<div class="box sum"><p class="lab">十句话</p>
+<ol class="sum7">
+<li>“主为什么还没来”这个问题，彼得早就预告会有人问（彼后3:3-4）。</li>
+<li>“快”（tachy）可以指“很快”也可以指“迅速、忽然”；“主看一日如千年”（彼后3:8）。</li>
+<li>迟延的第一个原因是上帝的忍耐：“不愿有一人沉沦，乃愿人人都悔改”（彼后3:9）。</li>
+<li>第二个原因：福音要传遍天下，然后末期才来到（太24:14）；1999年还有5,000多种语言等待圣经翻译，2025年只剩544种。</li>
+<li>第三个原因：上帝的子民还没有准备好，像以色列在旷野多飘流四十年。</li>
+<li>耶稣的比喻早就预告了“新郎迟延”（太25:5）。</li>
+<li>按圣经年岁推算，从亚当到今天约6000年（不同算法约5,900—6,200年），但圣经没有说满六千年就是末日。</li>
+<li>“那日子，那时辰，没有人知道”（太24:36）；1844年的教训提醒我们永远不要定日期。</li>
+<li>但以理书给出历史的大框架；耶稣说战争地震是“灾难的起头”，最要警惕的是迷惑。</li>
+<li>知识增长、AI时代是机会也是试验；等候的人要警醒、做工、忍耐、圣洁、盼望。</li>
+</ol></div>
+<div class="box"><p class="lab">可以讲给别人听的话</p><p>“主说‘我必快来’，两千年了还没来，不是祂忘了，而是祂在忍耐，等更多的人悔改，也等福音传遍天下。我们不知道日子，所以每一天都要预备好；这样，不管祂什么时候来，都是我们最欢喜的一天。”</p></div>
+</section><section class="ch" id="faq"><h2><span class="no">12</span>问与答</h2>
+<p>点开问题就能看到简短的回答。</p>
+<div class="faq"><details><summary>两千年了还说“快”，圣经是不是说错了？</summary><div><p>“快”（tachy）也有“迅速、忽然”的意思；而且“主看一日如千年”（彼后3:8）。彼得早就说，有人会因为主还没来而讥诮（彼后3:3-4），并解释说“不是耽延，乃是宽容”。见<a class="xref" href="#quick">第 4 章《“快”在原文里是什么意思？》</a>、<a class="xref" href="#why">第 5 章《为什么还没来？圣经给出的四个原因》</a>。</p></div></details><details><summary>从亚当到今天到底多少年？</summary><div><p>按希伯来文马所拉本的年岁，从创造到洪水1656年；之后因为“他拉几岁生亚伯兰”“430年从哪里算”有不同理解，到今天约5,900—6,200年。乌雪推算的是公元前4004年，希伯来历今年是5787年。见<a class="xref" href="#years">第 2 章《按圣经的年岁推算》</a>。</p></div></details><details><summary>“满六千年就是末日”对吗？</summary><div><p>圣经没有这样说。耶稣说：“那日子，那时辰，没有人知道。”（太24:36）怀爱伦也说：“上帝的子民将永不再有以时间为根据的信息。”见<a class="xref" href="#date">第 3 章《为什么不能推算日期：1844年的教训》</a>。</p></div></details><details><summary>现在的战争、地震、疫情，是不是说明主马上要来？</summary><div><p>耶稣说这些事“是必须有的，只是末期还没有到”，是“灾难的起头”，要我们“总不要惊慌”（太24:6-8）。比天灾更清楚的预兆是福音传遍天下（太24:14），最要警惕的是迷惑（太24:24）。见<a class="xref" href="#signs">第 7 章《耶稣说的“预兆”，和今天的新闻》</a>。</p></div></details><details><summary>“知识就必增长”是指科技发达吗？</summary><div><p>上下文说的是“封闭这书，直到末时”，被封闭的是但以理书的预言；到了末时，人对这些预言的认识要增长，“惟独智慧人能明白”（但12:4、9-10）。科技增长是这个时代的背景，但不是这节经文的重点。见<a class="xref" href="#knowledge">第 8 章《“知识就必增长”：但以理书12:4 说的是什么？》</a>。</p></div></details><details><summary>基督徒可以用AI学习圣经吗？</summary><div><p>可以把它当工具：帮助查找、整理、翻译。但要像庇哩亚人一样“天天考查圣经，要晓得这道是与不是”（徒17:11）；AI会出错，引文一定要核对原文；属灵的判断不能交给机器。见<a class="xref" href="#ai">第 9 章《AI时代：工具、机会和危险》</a>。</p></div></details><details><summary>我们能“催促”主的复临吗？</summary><div><p>彼后3:12“切切仰望”的原文有“催促、加快”的意思。怀爱伦说：“借着把福音传给世界，我们有能力催促我们的主复临。”见<a class="xref" href="#why">第 5 章《为什么还没来？圣经给出的四个原因》</a>。</p></div></details><details><summary>等了这么久，我有时候灰心，怎么办？</summary><div><p>“你们必须忍耐，使你们行完了上帝的旨意，就可以得着所应许的。”（来10:36）主说：“我若去为你们预备了地方，就必再来接你们。”（约14:3）把等候变成做工和爱人：“你们去做生意，直等我回来。”（路19:13）见<a class="xref" href="#wait">第 10 章《等候的人怎样生活》</a>。</p></div></details></div>
+</section>
+<div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div></div><section class="ch" id="sources"><h2><span class="no">✦</span>资料出处</h2>
+<p>本页的依据是圣经，经文都用和合本原文。希腊文据 STEPBible 原文数据（CC BY 4.0）；年岁推算是编者用和合本经文相加的。其他资料有两类：<b>统计和百科资料</b>（年代学、圣经翻译统计、印刷术、人工智能）、<b>怀爱伦著作</b>（只作补充，按英文原著页码引用）。外文引文的中文都是编者所译。</p>
+<p class="note2">网页资料和怀爱伦著作的引文都在 2026 年 10 月逐一读取原文核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
+<ol class="srcs"><li id="s1" data-k="dating_w"><span class="sk">百科全书</span><span class="sd">推算创造的年代（Dating creation，维基百科英文版：马所拉本创造到洪水1656年；七十士译本推算约公元前5500年）</span><a class="su" href="https://en.wikipedia.org/wiki/Dating_creation" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r1-1" aria-label="回到正文第1处">↑</a><a href="#r1-2" aria-label="回到正文第2处">↑</a></span></li><li id="s2" data-k="ussher_w"><span class="sk">百科全书</span><span class="sd">乌雪年代学（Ussher chronology，维基百科英文版：创造之日推算为公元前4004年）</span><a class="su" href="https://en.wikipedia.org/wiki/Ussher_chronology" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r2-1" aria-label="回到正文第1处">↑</a></span></li><li id="s3" data-k="hebcal_w"><span class="sk">百科全书</span><span class="sd">希伯来历（维基百科英文版：创世纪年5787年始于2026年9月11日日落）</span><a class="su" href="https://en.wikipedia.org/wiki/Hebrew_calendar" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r3-1" aria-label="回到正文第1处">↑</a></span></li><li id="s4" data-k="gc518"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《善恶之争》第32章“撒但的罗网”，英文原著第518页</span><span class="sb"><a href="#r4-1" aria-label="回到正文第1处">↑</a></span></li><li id="s5" data-k="disappoint"><span class="sk">百科全书</span><span class="sd">1844年“大失望”（维基百科英文版）</span><a class="su" href="https://en.wikipedia.org/wiki/Great_Disappointment" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r5-1" aria-label="回到正文第1处">↑</a></span></li><li id="s6" data-k="sm1_188"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《信息选粹》（Selected Messages）第1册“警惕定时间”，英文原著第188页</span><span class="sb"><a href="#r6-1" aria-label="回到正文第1处">↑</a></span></li><li id="s7" data-k="t2_194"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《教会证言》第2卷，英文原著第194页</span><span class="sb"><a href="#r7-1" aria-label="回到正文第1处">↑</a></span></li><li id="s8" data-k="da633"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《历代愿望》第69章“在橄榄山上”，英文原著第633—634页</span><span class="sb"><a href="#r8-1" aria-label="回到正文第1处">↑</a></span></li><li id="s9" data-k="gc458"><span class="sk">怀爱伦著作</span><span class="sd">怀爱伦《善恶之争》第26章“改革的工作”，英文原著第458页</span><span class="sb"><a href="#r9-1" aria-label="回到正文第1处">↑</a></span></li><li id="s10" data-k="wycliffe_stat"><span class="sk">官方网站</span><span class="sd">威克理夫全球联会（Wycliffe Global Alliance）：2025年圣经翻译统计</span><a class="su" href="https://www.wycliffe.net/resources/statistics/" target="_blank" rel="noopener">wycliffe.net ↗</a><span class="sb"><a href="#r10-1" aria-label="回到正文第1处">↑</a></span></li><li id="s11" data-k="chatgpt_w"><span class="sk">百科全书</span><span class="sd">ChatGPT（维基百科英文版：推出两个月月活跃用户达1亿）</span><a class="su" href="https://en.wikipedia.org/wiki/ChatGPT" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r11-1" aria-label="回到正文第1处">↑</a></span></li><li id="s12" data-k="printing_w"><span class="sk">百科全书</span><span class="sd">印刷机（维基百科英文版：路德约1520年成为欧洲作品印行最多的作者）</span><a class="su" href="https://en.wikipedia.org/wiki/Printing_press" target="_blank" rel="noopener">en.wikipedia.org ↗</a><span class="sb"><a href="#r12-1" aria-label="回到正文第1处">↑</a></span></li></ol>
+</section>
+<section class="rel" aria-label="相关阅读"><p class="relh">相关阅读</p><div class="relg"><a class="relc" href="beast.html"><span class="reln">问题彩蛋 26</span><b>666 和兽的印记，到底是什么？</b><small>芯片、疫苗、条形码？用圣经解释圣经，读懂启示录13章的海兽、地兽、兽像、印记和数目</small></a><a class="relc" href="judgment.html"><span class="reln">问题彩蛋 27</span><b>1844 年，天上发生了什么？</b><small>圣所、二千三百日与“查案审判”：审什么、为谁审、是复临信徒独有的吗？</small></a><a class="relc" href="death.html"><span class="reln">问题彩蛋 05</span><b>根据圣经，人死了去哪里？</b><small>离世的亲人在天上看着我们吗？灵魂会回来吗？只用圣经一步一步找答案</small></a></div></section><div class="scene"><p class="scv">“在你的光中，我们必得见光。”（诗36:9）</p><div class="stage"><svg class="sky" viewBox="0 0 180 56" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="km" d="M26 8h3v1h-3zM24 9h2v1h-2zM23 10h2v1h-2zM26 10h1v1h-1zM22 11h2v1h-2zM25 11h1v1h-1zM22 12h3v1h-3zM21 13h3v1h-3zM25 13h1v1h-1zM21 14h4v1h-4zM21 15h3v1h-3zM21 16h4v1h-4zM21 17h3v1h-3zM25 17h1v1h-1zM21 18h4v1h-4zM26 18h1v1h-1zM21 19h3v1h-3zM25 19h1v1h-1zM27 19h1v1h-1zM21 20h6v1h-6zM28 20h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM29 21h1v1h-1zM22 22h7v1h-7zM30 22h1v1h-1zM32 22h1v1h-1zM36 22h2v1h-2zM23 23h5v1h-5zM29 23h1v1h-1zM31 23h1v1h-1zM33 23h1v1h-1zM35 23h2v1h-2zM24 24h12v1h-12zM26 25h8v1h-8z"/><path class="kg" d="M122 0h1v1h-1zM121 1h3v1h-3zM122 2h1v1h-1zM139 4h1v1h-1zM82 5h1v1h-1zM138 5h3v1h-3zM81 6h3v1h-3zM139 6h1v1h-1zM82 7h1v1h-1zM144 8h1v1h-1zM146 8h1v1h-1zM148 8h1v1h-1zM109 9h1v1h-1zM146 9h1v1h-1zM108 10h3v1h-3zM142 10h1v1h-1zM145 10h3v1h-3zM150 10h1v1h-1zM109 11h1v1h-1zM143 11h7v1h-7zM145 12h3v1h-3zM146 13h1v1h-1zM65 14h1v1h-1zM146 14h1v1h-1zM64 15h3v1h-3zM65 16h1v1h-1zM144 16h1v1h-1zM148 16h1v1h-1zM164 18h1v1h-1zM163 19h3v1h-3zM164 20h1v1h-1zM2 28h1v1h-1zM1 29h3v1h-3zM2 30h1v1h-1z"/><path class="ks" d="M103 0h1v1h-1zM151 0h1v1h-1zM3 1h1v1h-1zM12 1h1v1h-1zM20 1h1v1h-1zM45 1h1v1h-1zM92 2h1v1h-1zM64 3h1v1h-1zM178 3h1v1h-1zM166 4h1v1h-1zM57 8h1v1h-1zM124 10h1v1h-1zM155 10h1v1h-1zM9 11h1v1h-1zM93 13h1v1h-1zM84 18h1v1h-1zM102 18h1v1h-1zM7 21h1v1h-1zM50 21h1v1h-1zM59 21h1v1h-1zM71 21h1v1h-1zM179 23h1v1h-1zM105 27h1v1h-1zM91 28h1v1h-1zM79 29h1v1h-1zM169 29h1v1h-1zM65 31h1v1h-1zM120 31h1v1h-1zM11 32h1v1h-1zM42 35h1v1h-1zM163 37h1v1h-1zM28 38h1v1h-1zM63 40h1v1h-1zM104 40h1v1h-1zM91 42h1v1h-1zM10 43h1v1h-1zM46 43h1v1h-1zM70 45h1v1h-1z"/><path class="kd" d="M52 44h1v1h-1zM56 44h1v1h-1zM60 44h1v1h-1zM64 44h1v1h-1zM68 44h1v1h-1zM72 44h1v1h-1zM76 44h1v1h-1zM80 44h1v1h-1zM84 44h1v1h-1zM88 44h1v1h-1zM92 44h1v1h-1zM96 44h1v1h-1zM100 44h1v1h-1zM104 44h1v1h-1zM108 44h1v1h-1zM112 44h1v1h-1zM116 44h1v1h-1zM120 44h1v1h-1zM124 44h1v1h-1zM128 44h1v1h-1zM132 44h1v1h-1zM136 44h1v1h-1zM140 44h1v1h-1zM144 44h1v1h-1zM148 44h1v1h-1zM152 44h1v1h-1zM156 44h1v1h-1zM160 44h1v1h-1zM164 44h1v1h-1zM168 44h1v1h-1zM172 44h1v1h-1zM74 46h1v1h-1zM78 46h1v1h-1zM82 46h1v1h-1zM86 46h1v1h-1zM90 46h1v1h-1zM94 46h1v1h-1zM98 46h1v1h-1zM102 46h1v1h-1zM106 46h1v1h-1zM110 46h1v1h-1zM114 46h1v1h-1zM118 46h1v1h-1zM122 46h1v1h-1zM126 46h1v1h-1zM130 46h1v1h-1zM134 46h1v1h-1zM138 46h1v1h-1zM142 46h1v1h-1zM146 46h1v1h-1zM150 46h1v1h-1zM32 48h1v1h-1zM36 48h1v1h-1zM40 48h1v1h-1zM44 48h1v1h-1zM48 48h1v1h-1zM52 48h1v1h-1zM56 48h1v1h-1zM60 48h1v1h-1zM64 48h1v1h-1zM68 48h1v1h-1zM72 48h1v1h-1zM76 48h1v1h-1zM78 48h1v1h-1zM80 48h1v1h-1zM82 48h1v1h-1zM84 48h1v1h-1zM86 48h1v1h-1zM88 48h1v1h-1zM90 48h1v1h-1zM92 48h1v1h-1zM94 48h1v1h-1zM96 48h1v1h-1zM98 48h1v1h-1zM100 48h1v1h-1zM102 48h1v1h-1zM104 48h1v1h-1zM106 48h1v1h-1zM108 48h1v1h-1zM110 48h1v1h-1zM112 48h1v1h-1zM114 48h1v1h-1zM116 48h1v1h-1zM118 48h1v1h-1zM120 48h1v1h-1zM122 48h1v1h-1zM124 48h1v1h-1zM126 48h1v1h-1zM128 48h1v1h-1zM130 48h1v1h-1zM132 48h1v1h-1zM134 48h1v1h-1zM136 48h1v1h-1zM138 48h1v1h-1zM140 48h1v1h-1zM142 48h1v1h-1zM144 48h1v1h-1zM148 48h1v1h-1zM152 48h1v1h-1zM156 48h1v1h-1zM160 48h1v1h-1zM164 48h1v1h-1zM168 48h1v1h-1zM172 48h1v1h-1zM176 48h1v1h-1zM105 49h1v1h-1zM109 49h1v1h-1zM113 49h1v1h-1zM117 49h1v1h-1z"/><path class="kh" d="M0 50h1v1h-1zM2 50h1v1h-1zM4 50h1v1h-1zM6 50h1v1h-1zM8 50h1v1h-1zM10 50h1v1h-1zM12 50h1v1h-1zM14 50h1v1h-1zM16 50h1v1h-1zM18 50h1v1h-1zM20 50h1v1h-1zM22 50h1v1h-1zM24 50h1v1h-1zM26 50h1v1h-1zM28 50h1v1h-1zM30 50h1v1h-1zM32 50h1v1h-1zM34 50h1v1h-1zM36 50h1v1h-1zM38 50h1v1h-1zM40 50h1v1h-1zM42 50h1v1h-1zM44 50h1v1h-1zM46 50h1v1h-1zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM54 50h1v1h-1zM56 50h1v1h-1zM58 50h1v1h-1zM60 50h1v1h-1zM62 50h1v1h-1zM64 50h1v1h-1zM66 50h1v1h-1zM68 50h1v1h-1zM70 50h1v1h-1zM72 50h1v1h-1zM74 50h1v1h-1zM76 50h1v1h-1zM78 50h1v1h-1zM80 50h1v1h-1zM82 50h1v1h-1zM84 50h1v1h-1zM86 50h1v1h-1zM88 50h1v1h-1zM90 50h1v1h-1zM92 50h1v1h-1zM94 50h1v1h-1zM96 50h1v1h-1zM98 50h1v1h-1zM100 50h1v1h-1zM102 50h1v1h-1zM104 50h1v1h-1zM106 50h1v1h-1zM108 50h1v1h-1zM110 50h1v1h-1zM112 50h1v1h-1zM114 50h1v1h-1zM116 50h1v1h-1zM118 50h1v1h-1zM120 50h1v1h-1zM122 50h1v1h-1zM124 50h1v1h-1zM126 50h1v1h-1zM128 50h1v1h-1zM130 50h1v1h-1zM132 50h1v1h-1zM134 50h1v1h-1zM136 50h1v1h-1zM138 50h1v1h-1zM140 50h1v1h-1zM142 50h1v1h-1zM144 50h1v1h-1zM146 50h1v1h-1zM148 50h1v1h-1zM150 50h1v1h-1zM152 50h1v1h-1zM154 50h1v1h-1zM156 50h1v1h-1zM158 50h1v1h-1zM160 50h1v1h-1zM162 50h1v1h-1zM164 50h1v1h-1zM166 50h1v1h-1zM168 50h1v1h-1zM170 50h1v1h-1zM172 50h1v1h-1zM174 50h1v1h-1zM176 50h1v1h-1zM178 50h1v1h-1z"/></svg><svg class="lamb" data-on="eo ld rd" data-enter="joy" viewBox="0 0 24 24" width="48" height="48" shape-rendering="crispEdges" role="img" aria-label="小羊"><path class="lw" d="M7 3h3v1h-3zM11 3h2v1h-2zM14 3h3v1h-3zM6 4h12v1h-12zM5 5h14v1h-14zM4 6h16v1h-16zM4 7h16v1h-16zM4 8h16v1h-16zM4 9h16v1h-16zM4 10h16v1h-16zM4 11h7v1h-7zM13 11h7v1h-7zM5 12h14v1h-14zM6 13h12v1h-12zM8 14h3v1h-3zM13 14h3v1h-3zM6 15h5v1h-5zM13 15h5v1h-5zM6 16h12v1h-12zM6 17h12v1h-12zM7 18h11v1h-11z"/><path class="ls" d="M1 8h2v1h-2zM21 8h2v1h-2zM1 9h1v1h-1zM22 9h1v1h-1zM7 19h11v1h-11zM8 20h9v1h-9z"/><path class="lk" d="M7 2h3v1h-3zM11 2h2v1h-2zM14 2h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM5 4h1v1h-1zM18 4h1v1h-1zM4 5h1v1h-1zM19 5h1v1h-1zM3 6h1v1h-1zM20 6h1v1h-1zM1 7h3v1h-3zM20 7h3v1h-3zM0 8h1v1h-1zM3 8h1v1h-1zM20 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM2 9h2v1h-2zM20 9h2v1h-2zM23 9h1v1h-1zM0 10h2v1h-2zM3 10h1v1h-1zM20 10h1v1h-1zM22 10h2v1h-2zM3 11h1v1h-1zM11 11h2v1h-2zM20 11h1v1h-1zM4 12h1v1h-1zM19 12h1v1h-1zM5 13h1v1h-1zM18 13h1v1h-1zM6 14h2v1h-2zM16 14h2v1h-2zM5 15h1v1h-1zM18 15h1v1h-1zM5 16h1v1h-1zM18 16h1v1h-1zM5 17h1v1h-1zM18 17h1v1h-1zM6 18h1v1h-1zM18 18h1v1h-1zM6 19h1v1h-1zM18 19h1v1h-1zM7 20h1v1h-1zM17 20h1v1h-1zM8 21h9v1h-9zM8 22h2v1h-2zM15 22h2v1h-2zM7 23h3v1h-3zM15 23h3v1h-3z"/><path class="lg" d="M11 14h2v1h-2zM11 15h2v1h-2z"/><g data-l="eo" class="lk"><path d="M8 9h2v1h-2zM14 9h2v1h-2zM8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="ec" class="lk"><path d="M8 10h2v1h-2zM14 10h2v1h-2z"/></g><g data-l="eh" class="lk"><path d="M8 9h1v1h-1zM15 9h1v1h-1zM7 10h1v1h-1zM9 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1z"/></g><g data-l="el" class="lk"><path d="M7 9h2v1h-2zM13 9h2v1h-2zM7 10h2v1h-2zM13 10h2v1h-2z"/></g><g data-l="er" class="lk"><path d="M9 9h2v1h-2zM15 9h2v1h-2zM9 10h2v1h-2zM15 10h2v1h-2z"/></g><g data-l="ld" class="lk"><path d="M4 16h1v1h-1zM3 17h2v1h-2z"/></g><g data-l="rd" class="lk"><path d="M19 16h1v1h-1zM19 17h2v1h-2z"/></g><g data-l="lu" class="lk"><path d="M1 13h1v1h-1zM1 14h2v1h-2zM2 15h2v1h-2zM3 16h2v1h-2z"/></g><g data-l="ru" class="lk"><path d="M22 13h1v1h-1zM21 14h2v1h-2zM20 15h2v1h-2zM19 16h2v1h-2z"/></g><g data-l="rv" class="lk"><path d="M20 13h1v1h-1zM19 14h2v1h-2zM19 15h2v1h-2zM19 16h1v1h-1z"/></g><g data-l="z1" class="lk"><path d="M20 1h4v1h-4zM22 2h1v1h-1zM21 3h1v1h-1zM20 4h4v1h-4z"/></g><g data-l="z2" class="lk"><path d="M21 0h3v1h-3zM22 1h1v1h-1zM21 2h3v1h-3z"/></g><g data-l="s1" class="lg"><path d="M1 1h1v1h-1zM22 1h1v1h-1zM0 2h3v1h-3zM21 2h3v1h-3zM1 3h1v1h-1zM22 3h1v1h-1z"/></g><g data-l="s2" class="lg"><path d="M1 2h1v1h-1zM22 2h1v1h-1z"/></g></svg></div></div>
+<footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　安息日学2026年第4季《预言的恩赐》问题彩蛋</p><p><a href="./#qa">← 回到问题彩蛋</a>　<a href="./#home">学课目录</a></p></footer>
+</main>
+</div>
+<button type="button" class="fab-toc" data-tocopen aria-label="打开目录">☰ 目录<span class="fabp" data-pct>0%</span></button>
+<div class="sheet" id="tocsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card" role="dialog" aria-modal="true" aria-label="目录"><button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh">目录</p><ol class="toc-l"><li><span class="tp">第一部分 · 先把问题摆清楚</span><ol><li><a href="#q"><span class="tn">01</span>“我必快来”，已经两千年了</a></li></ol></li><li><span class="tp">第二部分 · 从亚当到今天，多少年？</span><ol><li><a href="#years"><span class="tn">02</span>按圣经的年岁推算</a></li><li><a href="#date"><span class="tn">03</span>为什么不能推算日期：1844年的教训</a></li></ol></li><li><span class="tp">第三部分 · 为什么还没来：圣经的回答</span><ol><li><a href="#quick"><span class="tn">04</span>“快”在原文里是什么意思？</a></li><li><a href="#why"><span class="tn">05</span>为什么还没来？圣经给出的四个原因</a></li></ol></li><li><span class="tp">第四部分 · 预言与今天的世界</span><ol><li><a href="#prophecy"><span class="tn">06</span>但以理书：历史的大框架</a></li><li><a href="#signs"><span class="tn">07</span>耶稣说的“预兆”，和今天的新闻</a></li></ol></li><li><span class="tp">第五部分 · 知识增长与AI时代</span><ol><li><a href="#knowledge"><span class="tn">08</span>“知识就必增长”：但以理书12:4 说的是什么？</a></li><li><a href="#ai"><span class="tn">09</span>AI时代：工具、机会和危险</a></li></ol></li><li><span class="tp">第六部分 · 等候的人怎样生活</span><ol><li><a href="#wait"><span class="tn">10</span>等候的人怎样生活</a></li></ol></li><li><span class="tp">第七部分 · 总结与问答</span><ol><li><a href="#summary"><span class="tn">11</span>一页总结</a></li><li><a href="#faq"><span class="tn">12</span>问与答</a></li></ol></li></ol><p class="tsrc"><a href="#sources">✦ 资料出处</a></p><div class="pxw"><div class="px"><i></i></div><span class="pxn" data-pct>0%</span><p class="pxt">约 25 分钟读完<span data-left></span></p></div></div></div>
+<div class="sheet" id="aasheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-label="阅读设置"><button type="button" class="sh-x" data-close aria-label="关闭">×</button>
+<p class="tsh">字号</p><div class="seg" data-segfs><button type="button" data-fs="0.9">小</button><button type="button" data-fs="1">标准</button><button type="button" data-fs="1.12">大</button><button type="button" data-fs="1.25">特大</button><button type="button" data-fs="1.4">超大</button></div>
+<p class="tsh">夜间模式</p><div class="seg" data-segth><button type="button" data-th="auto">跟随手机</button><button type="button" data-th="light">白天</button><button type="button" data-th="dark">夜间</button></div>
+<p class="note2">和学课网站的设置是同一套。</p></div></div>
+<div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
+<script type="application/json" id="srcdata">{"1": ["推算创造的年代（Dating creation，维基百科英文版：马所拉本创造到洪水1656年；七十士译本推算约公元前5500年）", "https://en.wikipedia.org/wiki/Dating_creation", "en.wikipedia.org", "百科全书", ""], "2": ["乌雪年代学（Ussher chronology，维基百科英文版：创造之日推算为公元前4004年）", "https://en.wikipedia.org/wiki/Ussher_chronology", "en.wikipedia.org", "百科全书", ""], "3": ["希伯来历（维基百科英文版：创世纪年5787年始于2026年9月11日日落）", "https://en.wikipedia.org/wiki/Hebrew_calendar", "en.wikipedia.org", "百科全书", ""], "4": ["怀爱伦《善恶之争》第32章“撒但的罗网”，英文原著第518页", "", "", "怀爱伦著作", ""], "5": ["1844年“大失望”（维基百科英文版）", "https://en.wikipedia.org/wiki/Great_Disappointment", "en.wikipedia.org", "百科全书", ""], "6": ["怀爱伦《信息选粹》（Selected Messages）第1册“警惕定时间”，英文原著第188页", "", "", "怀爱伦著作", ""], "7": ["怀爱伦《教会证言》第2卷，英文原著第194页", "", "", "怀爱伦著作", ""], "8": ["怀爱伦《历代愿望》第69章“在橄榄山上”，英文原著第633—634页", "", "", "怀爱伦著作", ""], "9": ["怀爱伦《善恶之争》第26章“改革的工作”，英文原著第458页", "", "", "怀爱伦著作", ""], "10": ["威克理夫全球联会（Wycliffe Global Alliance）：2025年圣经翻译统计", "https://www.wycliffe.net/resources/statistics/", "wycliffe.net", "官方网站", ""], "11": ["ChatGPT（维基百科英文版：推出两个月月活跃用户达1亿）", "https://en.wikipedia.org/wiki/ChatGPT", "en.wikipedia.org", "百科全书", ""], "12": ["印刷机（维基百科英文版：路德约1520年成为欧洲作品印行最多的作者）", "https://en.wikipedia.org/wiki/Printing_press", "en.wikipedia.org", "百科全书", ""]}</script>
+<script>
+(function(){
+  var de=document.documentElement;
+  /* 在学课网站里用浮层打开时（iframe）：回到网站的链接交给网站处理，不重新加载整个网站 */
+  if(de.classList.contains('emb'))document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="./#"],a[href="./"]');if(!a)return;
+    e.preventDefault();var h=(a.getAttribute('href').split('#')[1])||'home';
+    try{parent.postMessage({q4:'nav',hash:h},location.origin);}catch(err){top.location.href=a.href;}
+  },true);
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  /* 阅读进度 */
+  var pb=document.querySelector('.prog i'),tick=false,pxs=document.querySelectorAll('.px i'),pcts=document.querySelectorAll('[data-pct]'),lefts=document.querySelectorAll('[data-left]'),MINS=+document.body.dataset.mins||0,lastP=-1;
+  function prog(){tick=false;var h=de.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,tx='translateX('+((p-1)*100).toFixed(2)+'%)';
+    pb.style.transform=tx;for(var i=0;i<pxs.length;i++)pxs[i].style.transform=tx;
+    var n=Math.round(p*100);if(n!==lastP){lastP=n;var s=n+'%';pcts.forEach(function(e){e.textContent=s;});
+      var l=Math.ceil(MINS*(1-p));lefts.forEach(function(e){e.textContent=p>0.02&&l>0?'还剩约 '+l+' 分钟':(p>=0.99?'读完了':'');});}}
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(prog);}},{passive:true});prog();
+  /* 弹出层 */
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;de.classList.remove('sheetopen');}
+  document.querySelectorAll('.sheet').forEach(function(s){
+    s.addEventListener('click',function(e){if(e.target.closest('[data-close]')||e.target.closest('a[href^="#"]'))close(s);});
+  });
+  var TS=document.getElementById('tocsheet'),AS=document.getElementById('aasheet');
+  document.querySelector('[data-tocopen]').addEventListener('click',function(){open(TS);var a=TS.querySelector('a.on');if(a)a.scrollIntoView({block:'center'});});
+  document.querySelector('[data-aa]').addEventListener('click',function(){paint();open(AS);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'){close(TS);close(AS);hidePop();}});
+  /* 字号、夜间模式（与学课网站共用设置） */
+  function paint(){
+    var f=+(get('fs')||1),t=get('theme')||'auto';
+    AS.querySelectorAll('[data-fs]').forEach(function(b){b.classList.toggle('on',+b.dataset.fs===f);});
+    AS.querySelectorAll('[data-th]').forEach(function(b){b.classList.toggle('on',b.dataset.th===t);});
+  }
+  AS.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.fs){set('fs',b.dataset.fs);if(+b.dataset.fs===1)de.style.removeProperty('--fs');else de.style.setProperty('--fs',b.dataset.fs);}
+    if(b.dataset.th){set('theme',b.dataset.th);if(b.dataset.th==='auto')de.removeAttribute('data-theme');else de.setAttribute('data-theme',b.dataset.th);}
+    paint();
+  });
+  /* 目录：标出正在读的章 */
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));
+  var links={};document.querySelectorAll('.toc-l a').forEach(function(a){var id=a.getAttribute('href').slice(1);(links[id]=links[id]||[]).push(a);});
+  var cur=null;
+  function mark(){
+    var y=innerHeight*0.3,id=null;
+    for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<y)id=secs[i].id;else break;}
+    if(id===cur)return;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.remove('on');});
+    cur=id;
+    if(cur&&links[cur])links[cur].forEach(function(a){a.classList.add('on');});
+    document.querySelectorAll('.toc-l').forEach(function(l){var a=cur&&l.querySelector('a[href="#'+cur+'"]'),li=a?a.closest('.toc-l>li'):null;
+      [].forEach.call(l.children,function(x){x.classList.toggle('open',x===li);});});
+    var side=document.querySelector('.toc-side a.on');
+    if(side){var box=side.closest('.toc-side'),r=side.getBoundingClientRect(),br=box.getBoundingClientRect();if(r.top<br.top+40||r.bottom>br.bottom-40)box.scrollTop+=r.top-br.top-br.height/2;}
+  }
+  var mt=false;addEventListener('scroll',function(){if(!mt){mt=true;setTimeout(function(){mt=false;mark();},120);}},{passive:true});mark();
+  /* 树形目录：点“部分”展开或收起 */
+  document.addEventListener('click',function(e){var tp=e.target.closest('.toc-l .tp');if(tp)tp.parentNode.classList.toggle('open');});
+  /* 教派名片：全部展开 */
+  var ab=document.querySelector('[data-allopen]');
+  if(ab)ab.addEventListener('click',function(){
+    var ds=document.querySelectorAll('.dn'),all=[].every.call(ds,function(d){return d.open;});
+    ds.forEach(function(d){d.open=!all;});ab.textContent=all?'全部展开':'全部收起';
+  });
+  /* 并排对比 */
+  var sel=document.querySelector('[data-vs]');
+  if(sel){
+    var VD=JSON.parse(document.getElementById('vsdata').textContent);
+    sel.addEventListener('change',function(){
+      var v=VD[sel.value];document.querySelector('[data-vsname]').textContent=sel.value;
+      document.querySelectorAll('.vs-t tbody td.a').forEach(function(td,i){td.textContent=v[i];});
+    });
+  }
+  /* 出处小数字：点了先弹出说明，再决定打开网页还是看资料列表 */
+  var SD=JSON.parse(document.getElementById('srcdata').textContent),P=document.getElementById('pop'),pfrom=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function hidePop(){P.hidden=true;pfrom=null;}
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('a.cite');
+    if(c&&!c.classList.contains('demo')){
+      e.preventDefault();
+      if(pfrom===c){hidePop();return;}
+      var n=c.dataset.n,s=SD[n];if(!s)return;
+      P.innerHTML='<p class="pk">资料 '+n+' · '+esc(s[3])+'</p><p class="pd">'+esc(s[0])+'</p><p class="pa">'+(s[1]?'<a class="go" href="'+esc(s[1])+'" target="_blank" rel="noopener">打开网页 ↗</a>':'<span class="pbook">书籍，可查阅纸本或电子版</span>')+(s[4]?'<a href="'+esc(s[4])+'" target="_blank" rel="noopener">网页存档</a>':'')+'<a href="#s'+n+'" data-golist>在资料列表中看</a></p>';
+      P.hidden=false;pfrom=c;
+      var r=c.getBoundingClientRect(),w=P.offsetWidth,x=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2)),y=r.bottom+8;
+      if(y+P.offsetHeight>innerHeight-12)y=r.top-P.offsetHeight-8;
+      P.style.left=(x+scrollX)+'px';P.style.top=(y+scrollY)+'px';
+      return;
+    }
+    if(c&&c.classList.contains('demo')){return;}
+    if(!e.target.closest('#pop'))hidePop();
+    else if(e.target.closest('[data-golist]'))setTimeout(hidePop,0);
+  });
+  addEventListener('resize',hidePop);
+  /* 从资料列表点 ↑ 回到正文时，闪一下那个数字 */
+  addEventListener('hashchange',function(){var t=document.getElementById(location.hash.slice(1));if(t&&t.classList.contains('cite')){t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});
+})();
+/* 上次读到哪里（2026-10-26 用户要的）：每篇记下“读到第几章、这一章读了多少”，下次打开回到那里。
+   存在本机 q4:tpos（{网页: [章id, 这一章读到的比例, 时间]}）；网站登录账号后随“继续阅读”一起同步（app.js 的 tp）。
+   网址带 #章 时（目录、分享的链接）不跳；读到最后（98% 以后）或回到开头时不记，下次从头读。 */
+(function(){
+  var de=document.documentElement,PG=(location.pathname.split('/').pop()||'').replace(/\?.*$/,'');if(!PG)return;
+  function get(){try{return JSON.parse(localStorage.getItem('q4:tpos')||'{}')||{};}catch(e){return {};}}
+  function put(a){try{var ks=Object.keys(a).sort(function(x,y){return a[y][2]-a[x][2];});ks.slice(60).forEach(function(k){delete a[k];});localStorage.setItem('q4:tpos',JSON.stringify(a));}catch(e){}}
+  var secs=[].slice.call(document.querySelectorAll('section.ch'));if(!secs.length)return;
+  function where(){var y=innerHeight*0.25,s=null;for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top<=y)s=secs[i];else break;}
+    if(!s)return null;var r=s.getBoundingClientRect();return [s.id,Math.round(Math.min(1,Math.max(0,(y-r.top)/Math.max(1,r.height)))*1000)/1000];}
+  var ready=false,t=null;
+  function save(){if(!ready||!innerHeight)return;var h=de.scrollHeight-innerHeight;if(h<innerHeight)return;   // 在网站的浮层里被藏起来时，页面高度会塌下来：这时不记
+    var p=scrollY/h,a=get(),w=where();
+    if(p<0.02||p>0.98||!w){if(a[PG]&&a[PG][0]){a[PG]=['',0,Date.now()];put(a);}return;}   // 留一条空记录（带时间），别的设备同步过来的旧位置不会再“复活”
+    a[PG]=[w[0],w[1],Date.now()];put(a);}
+  addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(save,700);},{passive:true});
+  addEventListener('pagehide',save);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)save();});
+  function tip(n,title){
+    var d=document.createElement('div');d.className='rtip';d.setAttribute('role','status');
+    d.innerHTML='<span>已回到上次读到的地方：第 '+n+' 章</span><button type="button">从头读</button>';
+    document.body.appendChild(d);requestAnimationFrame(function(){d.classList.add('on');});
+    var gone=setTimeout(hide,6000);
+    function hide(){d.classList.remove('on');setTimeout(function(){d.remove();},400);}
+    d.querySelector('button').addEventListener('click',function(){clearTimeout(gone);scrollTo(0,0);var a=get();a[PG]=['',0,Date.now()];put(a);hide();});
+  }
+  function restore(){
+    var a=get(),r=a[PG];
+    if(r&&r[0]&&!location.hash){var s=document.getElementById(r[0]);
+      if(s){var y=s.getBoundingClientRect().top+scrollY+r[1]*s.offsetHeight-innerHeight*0.25;scrollTo(0,Math.max(0,y));
+        tip(secs.indexOf(s)+1);}}
+    setTimeout(function(){ready=true;},800);   // 刚跳过去时的滚动不算“读到”
+  }
+  if(document.readyState==='complete')setTimeout(restore,60);else addEventListener('load',function(){setTimeout(restore,60);});
+  // 在网站里关掉浮层时，这一页被藏起来（高度变成 0，滚动位置也没了）；再打开同一篇时页面不重新载入：显示出来那一刻回到记下的位置
+  function again(){if(scrollY>50)return;var old=document.querySelector('.rtip');if(old)old.remove();ready=false;restore();}   // 位置还在就不动
+  var hid=false;addEventListener('resize',function(){if(!innerHeight){hid=true;ready=false;return;}if(hid){hid=false;again();}});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='shown')setTimeout(again,30);});   // 网站又把这一页显示出来（app.js）
+})();
+
+(function(){var F={"idle":"eo ld rd","blink":"ec ld rd","left":"el ld rd","right":"er ld rd","wave1":"eh ld ru","wave2":"eh ld rv","joy1":"eh lu ru s1","joy2":"eh lu ru s2","sleep1":"ec ld rd z1","sleep2":"ec ld rd z2"},S={"idle":[["idle",0]],"blink":[["blink",140],["idle",0]],"look":[["left",420],["idle",160],["right",420],["idle",0]],"wave":[["wave1",200],["wave2",200],["wave1",200],["wave2",200],["idle",0]],"joy":[["joy1",220],["joy2",220],["joy1",220],["joy2",220],["joy1",220],["joy2",220],["idle",0]],"sleep":[["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",0]]};var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function night(){var h=(new Date().getUTCHours()+8)%24;return h>=23||h<5;}
+function Lamb(el){var t=null,busy=false,seen=false,vis=false,cur='';
+ function set(f){if(f===cur)return;cur=f;el.setAttribute('data-on',F[f]);el.classList.toggle('hop',f==='joy1'&&!RM);}
+ function rest(){set(night()?'sleep1':'idle');}
+ function stop(){clearTimeout(t);t=null;busy=false;}
+ function play(name){if(!vis)return;stop();var s=S[name];
+  if(RM){set(s[s.length-1][0]);return;}
+  busy=true;var i=0;(function step(){var p=s[i++];set(p[0]);if(p[1]&&i<s.length)t=setTimeout(step,p[1]);else{busy=false;if(name!=='sleep')rest();}})();}
+ el.q4play=play;
+ if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;
+   if(!vis){stop();rest();return;}
+   if(night()){play('sleep');return;}
+   if(!seen){seen=true;var en=el.getAttribute('data-enter')||'look';play(en);if(en==='look')setTimeout(function(){if(!busy)play('blink');},1500);}});}).observe(el);
+ else{vis=true;rest();}
+ el.addEventListener('mouseenter',function(){if(!busy)play('wave');});
+ el.addEventListener('mouseleave',function(){if(!busy)play('blink');});
+ el.addEventListener('click',function(e){e.preventDefault();play('wave');});
+ /* 电脑上：眼睛跟着鼠标往左、往右看（读者自己移动鼠标时才动） */
+ if(matchMedia('(hover: hover)').matches&&!RM)addEventListener('pointermove',function(e){if(busy||!vis||night())return;
+   var r=el.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2);set(dx<-60?'left':dx>60?'right':'idle');},{passive:true});
+ rest();}
+document.querySelectorAll('.lamb').forEach(Lamb);
+window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEach(function(el){el.q4play&&el.q4play('joy');});}};
+})();/* ---------- 分享图片（卡片）：网站和问题彩蛋、健康的专题页共用（2026-10-30 从 app.js 搬出来） ----------
+   window.Q4Card(card) 画一张图，放在弹出的面板里：手机上长按图片保存或发送，电脑上点“保存图片”。
+   card.kind：
+     verse   经文（文字 text、出处 ref）
+     article 问题彩蛋文章（title、sub、text）
+     answer  提问区管理员回答（q、a）
+     quote   选中的一段文字（text、出处 src、栏目 col：lesson / bible / qa / health）——按字数自动选字号、对齐和图片高度
+     column  栏目海报（col：health / qa；items：最新几篇 [{no,q,sub}]；total 共几篇）
+   card.qr：二维码（网页里 .sh-qrs svg[data-for=…] 的 id；专题页用 .tsh-qr 里的那个）；card.qrText：二维码旁边的话。
+   card.copy：附带一段可以复制的文字（栏目分享：介绍 + 最新 3 篇 + 单独一段链接）；card.onCopy：复制成功后调用。 */
+(function(){
+  if(window.Q4Card)return;
+  var cv=document.createElement('canvas');if(!cv.getContext||!cv.toDataURL)return;
+  var W=1080,PAD=120;
+  var root=getComputedStyle(document.documentElement);
+  var SERIF='"LessonSerif",'+((root.getPropertyValue('--serif')||'').trim()||'')+',"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif';
+  SERIF=SERIF.replace(/,,+/g,',');
+  var SANS=getComputedStyle(document.body).fontFamily||'sans-serif';
+  var mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(navigator.userAgent);
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function clean(t){return String(t||'').replace(/[ \t\r\f\v]+/g,' ').replace(/\s*\n\s*/g,'\n').replace(/\s*([，。、；：！？”’）》])\s*/g,'$1').trim();}
+  function copy(t){
+    if(window.q4copy)return q4copy(t);
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},legacy);
+    return Promise.resolve(legacy());
+    function legacy(){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+      var ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();return ok;}
+  }
+
+  /* ---- 面板（自带样式：网站和专题页都能用；颜色用页面的变量，夜间模式跟着变） ---- */
+  var st=el('style');st.textContent=
+    '.q4c{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:flex-end;justify-content:center}.q4c[hidden]{display:none}'+
+    '.q4c-bg{position:absolute;inset:0;background:rgba(8,12,20,.5);opacity:0;transition:opacity .25s}.q4c.open .q4c-bg{opacity:1}'+
+    '.q4c-card{position:relative;width:100%;max-width:460px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;'+
+      'padding:18px 18px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;background:var(--surface,#fff);color:var(--ink,#222);'+
+      'border:1px solid var(--rule,#ddd);border-bottom:0;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);font-family:'+SANS+'}'+
+    '.q4c.open .q4c-card{transform:none}'+
+    '@media (min-width:640px){.q4c{align-items:center}.q4c-card{border-radius:22px;border-bottom:1px solid var(--rule,#ddd);transform:translateY(24px);opacity:0;transition:transform .3s,opacity .25s}.q4c.open .q4c-card{opacity:1}}'+
+    '.q4c-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--muted,#888);font:400 26px/1 sans-serif;cursor:pointer}'+
+    '.q4c h3{margin:2px 40px 4px 2px;font-family:'+SERIF+';font-weight:900;font-size:1.15rem}'+
+    '.q4c-step{margin:10px 2px 6px;font-size:.84rem;font-weight:700;color:var(--ink,#222)}.q4c-step i{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:6px;border-radius:50%;background:var(--gold,#9A742C);color:#fff;font-style:normal;font-size:.72rem}'+
+    '.q4c-tip{margin:0 2px 8px;font-size:.8rem;line-height:1.6;color:var(--muted,#888)}'+
+    '.q4c-box{display:grid;place-items:center;min-height:200px;border-radius:14px;background:var(--paper,#f6f1e6);overflow:hidden}'+
+    '.q4c-box img{display:block;max-width:100%;width:auto;height:auto;max-height:min(560px,52vh);max-height:min(560px,52dvh);-webkit-touch-callout:default;user-select:auto}.q4c-box img[hidden],.q4c [hidden]{display:none!important}'+
+    '.q4c-wait{margin:0;font-size:.86rem;color:var(--muted,#888)}'+
+    '.q4c-txt{margin:0 0 10px;padding:12px 14px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;border-radius:12px;border:1px dashed var(--rule,#ddd);background:var(--paper,#f6f1e6);font:400 .84rem/1.7 '+SANS+';color:var(--ink-2,#444)}'+
+    '.q4c-btns{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom,0px));display:flex;gap:10px;margin:12px -18px 0;padding:10px 18px calc(16px + env(safe-area-inset-bottom,0px));background:var(--surface,#fff)}.q4c-btns>*{flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--rule,#ddd);'+
+      'background:var(--paper,#f6f1e6);color:var(--ink,#222);font:600 .92rem/1 '+SANS+';text-decoration:none;cursor:pointer;box-sizing:border-box}'+
+    '.q4c-btns .ok{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}'+
+    '.q4c-done{min-height:1.2em;margin:8px 2px 0;font-size:.82rem;color:var(--ok,#2F7D5B)}';
+  document.head.appendChild(st);
+  var SH=el('div','q4c');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
+  SH.innerHTML='<div class="q4c-bg" data-close></div><div class="q4c-card"><button type="button" class="q4c-x" data-close aria-label="关闭">×</button>'+
+    '<h3>分享图片</h3><p class="q4c-step q4c-s1" hidden><i>1</i>发图片</p><p class="q4c-tip"></p>'+
+    '<div class="q4c-box"><p class="q4c-wait">正在生成图片……</p><img alt="分享图片" hidden></div>'+
+    '<div class="q4c-cp" hidden><p class="q4c-step"><i>2</i>再发一段文字（点链接就能打开）</p><pre class="q4c-txt"></pre></div>'+
+    '<p class="q4c-done" aria-live="polite"></p>'+
+    '<div class="q4c-btns"><button type="button" class="ok q4c-cb" hidden>复制文字</button><a class="q4c-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div>';
+  function mount(){if(!SH.parentNode)document.body.appendChild(SH);}
+  if(document.body)mount();else document.addEventListener('DOMContentLoaded',mount);
+  var cur=null;
+  SH.addEventListener('click',function(e){
+    if(e.target.closest('[data-close]')){close();return;}
+    if(e.target.closest('.q4c-cb')&&cur&&cur.copy){var c=cur;copy(c.copy).then(function(ok){
+      SH.querySelector('.q4c-done').textContent=ok===false?'复制没有成功，请长按上面的文字手动复制':'✓ 文字已复制，粘贴到微信群里，和图片一起发';if(ok!==false&&c.onCopy)c.onCopy();});}
+  });
+  SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  function open(card){
+    mount();cur=card;var hasCp=!!card.copy;
+    SH.querySelector('h3').textContent=card.head||'分享图片';
+    SH.querySelector('img').hidden=true;SH.querySelector('.q4c-wait').hidden=false;SH.querySelector('.q4c-wait').textContent='正在生成图片……';SH.querySelector('.q4c-dl').hidden=true;
+    SH.querySelector('.q4c-s1').hidden=!hasCp;SH.querySelector('.q4c-cp').hidden=!hasCp;SH.querySelector('.q4c-cb').hidden=!hasCp;
+    SH.querySelector('.q4c-txt').textContent=card.copy||'';SH.querySelector('.q4c-done').textContent='';
+    SH.querySelector('.q4c-tip').textContent=mobile?'图片生成后，长按图片就可以保存，或直接发送给朋友、发到群里。':'图片生成后，点“保存图片”下载到电脑，再发到微信。';
+    SH.hidden=false;void SH.offsetWidth;SH.classList.add('open');document.documentElement.classList.add('sheetopen');
+  }
+  function close(){SH.classList.remove('open');document.documentElement.classList.remove('sheetopen');setTimeout(function(){SH.hidden=true;},260);}
+
+  /* ---- 画布工具 ---- */
+  function qrImg(id){
+    var svg=(id&&document.querySelector('.sh-qrs svg[data-for="'+id+'"]'))||document.querySelector('.tsh-qr svg')||document.querySelector('.sh-qrs svg[data-for="home"]');
+    if(!svg)return Promise.resolve(null);
+    var s=new XMLSerializer().serializeToString(svg);if(!/xmlns=/.test(s))s=s.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');
+    return new Promise(function(ok){var im=new Image();im.onload=function(){ok(im);};im.onerror=function(){ok(null);};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);});
+  }
+  var NOHEAD=/[，。、；：！？”’）》〉」』…·]/,NOTAIL=/[（“‘《〈「『]$/;
+  function wrap(ctx,text,maxW){
+    var lines=[],line='';
+    for(var i=0;i<text.length;i++){
+      var ch=text[i];if(ch==='\n'){lines.push(line);line='';continue;}
+      var t=line+ch;
+      if(line&&ctx.measureText(t).width>maxW){
+        if(NOHEAD.test(ch)){lines.push(t);line='';}
+        else{var carry='';while(NOTAIL.test(line)&&line.length>1){carry=line.slice(-1)+carry;line=line.slice(0,-1);}lines.push(line);line=carry+ch;}   // 开括号、前引号不留在行尾
+      }
+      else line=t;
+    }
+    if(line)lines.push(line);return lines;
+  }
+  function balance(ctx,text,ls,maxW){   // 标题：让各行长短均匀，避免最后一行只剩一两个字
+    if(ls.length<2||/\n/.test(text))return ls;var w=ctx.measureText(text).width/ls.length;
+    for(var k=0;k<12;k++){var t=wrap(ctx,text,Math.min(maxW,w+k*ctx.measureText('字').width*0.5));if(t.length===ls.length)return t;}return ls;
+  }
+  function cut(lines,n,ctx,maxW){var c=lines.slice(0,n),t=c[n-1].replace(/[，。、；：！？]?$/,'').slice(0,-1);while(ctx&&t.length>1&&ctx.measureText(t+'……').width>maxW)t=t.slice(0,-1);c[n-1]=t+'……';return c;}
+  function fit(ctx,text,font,size,min,maxW,maxLines,bal){   // 字太多就缩小字号；再放不下就截断加省略号
+    for(var s=size;s>=min;s-=2){ctx.font=font(s);var ls=wrap(ctx,text,maxW);if(ls.length<=maxLines)return {s:s,lines:bal?balance(ctx,text,ls,maxW):ls};}
+    ctx.font=font(min);return {s:min,lines:cut(wrap(ctx,text,maxW),maxLines,ctx,maxW)};
+  }
+  function rrect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function block(ctx,lines,size,lh,x,y,align,color,font){ctx.textAlign=align;ctx.fillStyle=color;ctx.font=font;lines.forEach(function(l,i){ctx.fillText(l,x,y+i*size*lh);});return y+lines.length*size*lh;}
+  // 每个栏目一种主色：学课、圣经、问题彩蛋用金和酒红；健康用绿
+  var PAL={lesson:{a:'#7A2233',g:'#B98E35',name:'安息日学 · 学课'},bible:{a:'#7A2233',g:'#B98E35',name:'圣经 · 和合本'},
+    qa:{a:'#7A2233',g:'#B98E35',name:'问题彩蛋 · 研经问答'},health:{a:'#1E7A5F',g:'#3E9C7C',name:'健康栏目'}};
+  function frame(ctx,H,eyebrow,p){
+    p=p||PAL.lesson;
+    var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#FCF7EB');g.addColorStop(1,'#F2E3C3');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    var gl=ctx.createRadialGradient(W/2,180,20,W/2,180,620);gl.addColorStop(0,'rgba(255,236,170,.55)');gl.addColorStop(1,'rgba(255,236,170,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='#C9A55A';ctx.lineWidth=3;rrect(ctx,44,44,W-88,H-88,30);ctx.stroke();
+    ctx.strokeStyle='rgba(201,165,90,.45)';ctx.lineWidth=1.5;rrect(ctx,58,58,W-116,H-116,24);ctx.stroke();
+    ctx.fillStyle=p.g;ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font='600 30px '+SANS;ctx.fillText('✦  '+eyebrow+'  ✦',W/2,150);
+  }
+  function footer(ctx,y,qr,line1,line2,p){
+    p=p||PAL.lesson;
+    ctx.strokeStyle='rgba(122,34,51,.22)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(PAD,y);ctx.lineTo(W-PAD,y);ctx.stroke();
+    var q=200,qx=PAD,qy=y+44;ctx.fillStyle='#fff';rrect(ctx,qx-10,qy-10,q+20,q+20,16);ctx.fill();
+    if(qr)ctx.drawImage(qr,qx,qy,q,q);
+    ctx.textAlign='left';ctx.fillStyle=p.a;ctx.font='700 38px '+SANS;ctx.fillText(line1,qx+q+50,qy+60);
+    ctx.fillStyle='#5A4A36';ctx.font='400 28px '+SANS;ctx.fillText(line2,qx+q+50,qy+112);
+    ctx.fillStyle='#9A8A70';ctx.font='400 24px '+SANS;ctx.fillText('整理制作 · Ethan（HangZhou_XG）',qx+q+50,qy+170);
+  }
+
+  /* ---- 原来的三种图（1080×1440） ---- */
+  function drawVerse(ctx,c){
+    frame(ctx,1440,'预言的恩赐 · 经文');
+    ctx.fillStyle='rgba(185,142,53,.3)';ctx.font='900 200px '+SERIF;ctx.textAlign='left';ctx.fillText('“',PAD-36,350);
+    var txt=clean(c.text).replace(/\n/g,'').replace(/^“|”$/g,''),lh=1.7,f=null;
+    for(var s=66;s>=34;s-=2){ctx.font='600 '+s+'px '+SERIF;var ls=wrap(ctx,txt,W-2*PAD);if(ls.length*s*lh<=620){f={s:s,lines:ls};break;}}   // 经文区：360–980，下面留给出处
+    if(!f)f=fit(ctx,txt,function(s){return '600 '+s+'px '+SERIF;},34,34,W-2*PAD,Math.floor(620/(34*lh)));
+    var h=f.lines.length*f.s*lh,top=360+f.s+Math.max(0,(620-h)/2);
+    var end=block(ctx,f.lines,f.s,lh,PAD,top,'left','#2B2118','600 '+f.s+'px '+SERIF);
+    ctx.textAlign='right';ctx.fillStyle='#7A2233';ctx.font='600 36px '+SANS;ctx.fillText('—— '+c.ref,W-PAD,Math.min(end-f.s*lh+f.s+70,1070));
+    return 1120;
+  }
+  function drawArticle(ctx,c){
+    frame(ctx,1440,'问题彩蛋 · 研经问答');
+    var t=fit(ctx,c.title.split('\n').map(clean).filter(Boolean).join('\n'),function(s){return '900 '+s+'px '+SERIF;},84,56,W-2*PAD,3,true);
+    var y=block(ctx,t.lines,t.s,1.35,W/2,300,'center','#2B2118','900 '+t.s+'px '+SERIF);
+    if(c.sub){ctx.font='500 32px '+SANS;var sl=wrap(ctx,clean(c.sub),W-2*PAD).slice(0,2);y=block(ctx,sl,32,1.6,W/2,y+30,'center','#7A2233','500 32px '+SANS);}
+    ctx.strokeStyle='#C9A55A';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-60,y+30);ctx.lineTo(W/2+60,y+30);ctx.stroke();
+    var b=fit(ctx,clean(c.text).replace(/\n/g,''),function(s){return '400 '+s+'px '+SERIF;},42,34,W-2*PAD,Math.max(4,Math.floor((1060-(y+90))/(42*1.75))));
+    block(ctx,b.lines,b.s,1.75,PAD,y+100,'left','#3A2E22','400 '+b.s+'px '+SERIF);
+    return 1120;
+  }
+  function drawAnswer(ctx,c){
+    frame(ctx,1440,'提问区 · 管理员回答');
+    ctx.textAlign='left';ctx.fillStyle='#7A2233';ctx.font='900 44px '+SERIF;ctx.fillText('问',PAD,290);
+    var q=fit(ctx,clean(c.q),function(s){return '700 '+s+'px '+SERIF;},50,38,W-2*PAD-80,5);
+    var y=block(ctx,q.lines,q.s,1.6,PAD+80,290,'left','#2B2118','700 '+q.s+'px '+SERIF);
+    y=Math.max(y+40,420);ctx.fillStyle='#B98E35';ctx.font='900 44px '+SERIF;ctx.fillText('答',PAD,y+20);
+    var a=fit(ctx,clean(c.a),function(s){return '400 '+s+'px '+SERIF;},42,32,W-2*PAD-80,Math.max(4,Math.floor((1070-y)/(42*1.7))));
+    block(ctx,a.lines,a.s,1.7,PAD+80,y+20,'left','#3A2E22','400 '+a.s+'px '+SERIF);
+    return 1120;
+  }
+
+  /* ---- 选中的一段文字（2026-10-30 用户要的）：按字数自动排版 ----
+     很短（一句话）：大字居中，像一句金句；中等：大字靠左；长：字号逐步变小、图片变高；太长截断加省略号。 */
+  function quoteLayout(ctx,txt){
+    var n=txt.replace(/\s/g,'').length,maxW=W-2*PAD;
+    var plan=n<=26?{s:76,min:64,lh:1.55,al:'center',w:'700'}:n<=70?{s:60,min:50,lh:1.62,al:'left',w:'600'}:n<=160?{s:48,min:42,lh:1.7,al:'left',w:'500'}:{s:42,min:34,lh:1.75,al:'left',w:'400'};
+    var maxH=1920-220-40-330-40-120-150;   // 图最高 1920：上面题头和引号、下面出处和二维码
+    for(var s=plan.s;s>=plan.min-8;s-=2){ctx.font=plan.w+' '+s+'px '+SERIF;var ls=wrap(ctx,txt,maxW);
+      if(plan.al==='center')ls=balance(ctx,txt,ls,maxW);
+      if(ls.length*s*plan.lh<=maxH)return {s:s,lines:ls,lh:plan.lh,al:plan.al,w:plan.w};}
+    var s2=plan.min-8;ctx.font=plan.w+' '+s2+'px '+SERIF;
+    return {s:s2,lines:cut(wrap(ctx,txt,maxW),Math.floor(maxH/(s2*plan.lh)),ctx,maxW),lh:plan.lh,al:plan.al,w:plan.w};
+  }
+  // 内容块从上到下：引号（120）、正文、分隔线和出处；整块在题头和二维码之间上下居中
+  function quoteBlock(ctx,c,L){
+    var sl=[];if(c.src){ctx.font='600 32px '+SANS;sl=wrap(ctx,'—— '+clean(c.src).replace(/\n/g,' '),W-2*PAD).slice(0,2);}
+    var body=L.lines.length*L.s*L.lh;return {sl:sl,body:body,h:120+body+(sl.length?40+50+(sl.length-1)*48+16:20)};
+  }
+  function drawQuote(ctx,c,H,L,B){
+    var p=PAL[c.col]||PAL.lesson,cx=L.al==='center'?W/2:PAD;
+    frame(ctx,H,'预言的恩赐 · '+p.name,p);
+    var top0=220,avail=H-330-40-top0,y0=top0+Math.max(0,(avail-B.h)/2);
+    ctx.fillStyle=p.g;ctx.globalAlpha=.28;ctx.font='900 200px '+SERIF;ctx.textAlign=L.al==='center'?'center':'left';ctx.fillText('“',L.al==='center'?W/2:PAD-24,y0+150);ctx.globalAlpha=1;
+    var end=block(ctx,L.lines,L.s,L.lh,cx,y0+120+L.s*0.95,L.al,'#2B2118',L.w+' '+L.s+'px '+SERIF);
+    var ty=y0+120+B.body;
+    if(B.sl.length){
+      ctx.strokeStyle=p.g;ctx.lineWidth=3;ctx.beginPath();
+      if(L.al==='center'){ctx.moveTo(W/2-50,ty+40);ctx.lineTo(W/2+50,ty+40);}else{ctx.moveTo(PAD,ty+40);ctx.lineTo(PAD+90,ty+40);}ctx.stroke();
+      block(ctx,B.sl,32,1.5,cx,ty+40+60,L.al,p.a,'600 32px '+SANS);
+    }
+    return H-330;
+  }
+
+  /* ---- 栏目海报（2026-10-30 用户要的，健康和问题彩蛋）：1080×1920，适合手机全屏看 ----
+     上：黎明的天空和栏目名；中：最新 7 篇（编号 + 题目，放得下就加一行副题）；下：二维码。 */
+  var COLS={health:{name:'健康',k:'HEALTH · 健康栏目',tag:['常见健康问题，一篇讲透','原理讲清楚 · 研究都核对过 · 落到每天能做的事'],a:'#1E7A5F',g:'#3E9C7C',soft:'rgba(62,156,124,.12)',
+      qr1:'长按识别二维码',qr2:'打开健康栏目，读全部文章'},
+    qa:{name:'问题彩蛋',k:'Q & A · 研经问答',tag:['信徒和慕道朋友常问的问题','以经解经 · 资料详实 · 各方说法客观摆出来'],a:'#7A2233',g:'#B98E35',soft:'rgba(185,142,53,.14)',
+      qr1:'长按识别二维码',qr2:'打开问题彩蛋，读全部文章'}};
+  function stars(ctx,n,h,seed){var s=seed||7;function r(){s=(s*9301+49297)%233280;return s/233280;}
+    for(var i=0;i<n;i++){var x=r()*W,y=r()*h*.72,a=.25+r()*.6,z=r()<.12?3:1.6;ctx.fillStyle='rgba(255,246,220,'+a.toFixed(2)+')';ctx.fillRect(x,y,z,z);}}
+  // 两行的标题：尽量在“：”“，”“？”后面换行（不在词中间断开）
+  function punctSplit(ctx,t,ls,maxW){if(ls.length!==2||/……$/.test(ls[1]))return ls;var best=null;
+    for(var i=1;i<t.length-1;i++){if(!/[：，？！；]/.test(t[i]))continue;var a=t.slice(0,i+1),b=t.slice(i+1);if(ctx.measureText(a).width<=maxW&&ctx.measureText(b).width<=maxW)best=[a,b];}
+    return best||ls;}
+  function drawColumn(ctx,c){
+    var C=COLS[c.col]||COLS.qa,H=1920,HB=600;
+    // 天空
+    var g=ctx.createLinearGradient(0,0,0,HB);g.addColorStop(0,'#111A2E');g.addColorStop(.55,'#2B3354');g.addColorStop(.86,'#8C6A55');g.addColorStop(1,'#E8BE7C');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,HB);stars(ctx,90,HB,c.col==='health'?11:5);
+    var gl=ctx.createRadialGradient(W/2,HB+40,10,W/2,HB+40,560);gl.addColorStop(0,'rgba(255,226,160,.85)');gl.addColorStop(.4,'rgba(255,214,140,.25)');gl.addColorStop(1,'rgba(255,214,140,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,HB);
+    ctx.textAlign='center';ctx.fillStyle='#E6C98B';ctx.font='700 28px '+SANS;ctx.fillText('预言的恩赐 · 安息日学研读',W/2,120);
+    ctx.fillStyle='rgba(230,201,139,.75)';ctx.font='600 24px '+SANS;ctx.fillText(C.k,W/2,166);
+    ctx.fillStyle='#FFF8E8';ctx.font='900 '+(C.name.length>2?132:168)+'px '+SERIF;ctx.fillText(C.name,W/2,350);
+    ctx.fillStyle='#FFF1D6';ctx.font='700 40px '+SERIF;ctx.fillText(C.tag[0],W/2,440);
+    ctx.fillStyle='rgba(255,241,214,.85)';ctx.font='400 28px '+SANS;ctx.fillText(C.tag[1],W/2,494);
+    // 纸
+    var pg=ctx.createLinearGradient(0,HB,0,H);pg.addColorStop(0,'#FCF7EB');pg.addColorStop(1,'#F3E6CA');ctx.fillStyle=pg;ctx.fillRect(0,HB,W,H-HB);
+    ctx.fillStyle='rgba(255,236,190,.9)';ctx.fillRect(0,HB,W,3);
+    // 最新几篇
+    var y0=HB+90,x0=88,xr=W-88;
+    ctx.textAlign='left';ctx.fillStyle=C.a;ctx.font='800 40px '+SERIF;ctx.fillText('最新上架',x0,y0);
+    ctx.textAlign='right';ctx.fillStyle='#8A7A60';ctx.font='500 28px '+SANS;ctx.fillText('共 '+c.total+' 篇 · 持续更新',xr,y0);
+    var items=(c.items||[]).slice(0,7),top=y0+36,bottom=H-330-30,avail=bottom-top,n=items.length||1;
+    var rowH=avail/n,tx=x0+104,tw=xr-tx;
+    items.forEach(function(it,i){
+      var ry=top+i*rowH;
+      if(i){ctx.strokeStyle='rgba(122,90,40,.16)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(tx,ry);ctx.lineTo(xr,ry);ctx.stroke();}
+      var tf=fit(ctx,clean(it.q),function(s){return '700 '+s+'px '+SERIF;},40,34,tw,2),lh=1.32;tf.lines=punctSplit(ctx,clean(it.q),tf.lines,tw);
+      var th=tf.lines.length*tf.s*lh,showSub=it.sub&&tf.lines.length===1&&rowH>=th+52;
+      var bodyH=th+(showSub?44:0),by=ry+(rowH-bodyH)/2;
+      // 编号
+      var cy=ry+rowH/2;ctx.fillStyle=C.soft;rrect(ctx,x0,cy-38,80,76,18);ctx.fill();
+      ctx.textAlign='center';ctx.fillStyle=C.a;ctx.font='800 38px '+SERIF;ctx.fillText(String(it.no).length<2?'0'+it.no:String(it.no),x0+40,cy+13);
+      if(i===0){ctx.fillStyle=C.g;rrect(ctx,x0+44,cy-50,52,28,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='700 18px '+SANS;ctx.fillText('最新',x0+70,cy-30);}
+      block(ctx,tf.lines,tf.s,lh,tx,by+tf.s*.95,'left','#2B2118','700 '+tf.s+'px '+SERIF);
+      if(showSub){ctx.font='400 26px '+SANS;var sl=fit(ctx,clean(it.sub),function(s){return '400 '+s+'px '+SANS;},26,24,tw,1);block(ctx,sl.lines,sl.s,1.4,tx,by+th+34,'left','#7A6A52','400 '+sl.s+'px '+SANS);}
+    });
+    return H-330;
+  }
+
+  function make(card){
+    open(card);
+    var fonts=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('600 48px LessonSerif'),document.fonts.load('900 48px LessonSerif')]).catch(function(){}):Promise.resolve();
+    Promise.all([fonts,qrImg(card.qr)]).then(function(r){
+      var H=1440,L=null,ctx=cv.getContext('2d');
+      if(card.kind==='column')H=1920;
+      var B=null;
+      if(card.kind==='quote'){cv.width=W;cv.height=10;L=quoteLayout(ctx,clean(card.text));B=quoteBlock(ctx,card,L);
+        H=Math.round(Math.min(1920,Math.max(1350,220+B.h+40+330+40)));}
+      cv.width=W;cv.height=H;ctx=cv.getContext('2d');
+      var fy=({verse:drawVerse,article:drawArticle,answer:drawAnswer,quote:function(x,c){return drawQuote(x,c,H,L,B);},column:drawColumn})[card.kind](ctx,card);
+      var p=card.kind==='column'?COLS[card.col]||COLS.qa:PAL[card.col]||PAL.lesson;
+      footer(ctx,fy,r[1],card.qr1||(card.kind==='column'?p.qr1:'长按识别二维码'),card.qrText||(card.kind==='column'?p.qr2:'阅读本季安息日学研读'),p);
+      var url=cv.toDataURL('image/jpeg',0.92),img=SH.querySelector('img');
+      img.src=url;img.hidden=false;SH.querySelector('.q4c-wait').hidden=true;
+      var dl=SH.querySelector('.q4c-dl');dl.href=url;dl.hidden=mobile;
+    }).catch(function(){SH.querySelector('.q4c-wait').textContent='图片没有生成成功，请再试一次。';});
+  }
+  window.Q4Card=make;
+})();
+
+(function(){
+  var de=document.documentElement,col=de.getAttribute('data-col')||'qa';
+  var st=document.createElement('style');st.textContent='.tsel{position:fixed;z-index:90;left:0;top:0;display:flex;gap:2px;padding:5px 6px;border-radius:999px;background:var(--ink);color:var(--paper);'+
+    'box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .15s}.tsel.on{opacity:1}.tsel[hidden]{display:none}'+
+    '.tsel button{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:48px;height:40px;padding:0 6px;border:0;border-radius:12px;background:none;color:inherit;font:600 .68rem/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}'+
+    '.tsel button:active{background:rgba(255,255,255,.12)}.tsel svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'+
+    '.tsel-t{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:91;transform:translateX(-50%);padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:.86rem;opacity:0;transition:opacity .2s;pointer-events:none}.tsel-t.on{opacity:1}';
+  document.head.appendChild(st);
+  var bar=document.createElement('div');bar.className='tsel';bar.hidden=true;bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','选中的文字');
+  bar.innerHTML='<button type="button" data-a="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></svg>复制</button>'+
+    '<button type="button" data-a="share"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1"/></svg>分享</button>';
+  document.body.appendChild(bar);
+  var tip=document.createElement('div');tip.className='tsel-t';tip.setAttribute('role','status');document.body.appendChild(tip);var tipT=null;
+  function toast(m){tip.textContent=m;tip.classList.add('on');clearTimeout(tipT);tipT=setTimeout(function(){tip.classList.remove('on');},2200);}
+  var cur=null,press=0;
+  function title(){var h=document.querySelector('.hero h1');if(!h)return document.title;var c=h.cloneNode(true),x=c.querySelector('.h1s,small,.meta');if(x)x.remove();return c.textContent.trim();}
+  function src(node){var ch=node&&node.closest&&node.closest('section.ch'),h=ch&&ch.querySelector('h2'),t='《'+title()+'》';
+    if(h){var c=h.cloneNode(true),n=c.querySelector('.no');var no=n?n.textContent.trim():'';if(n)n.remove();if(/^\d+$/.test(no))t+=' · 第 '+(+no)+' 章 '+c.textContent.trim();}
+    return (col==='health'?'健康':'问题彩蛋')+t;}
+  function ok(r){var a=r.commonAncestorContainer;if(a.nodeType!==1)a=a.parentNode;
+    return !!(a.closest&&a.closest('section.ch,header.hero')&&!a.closest('nav,.toc-in,#sources,.srcs,figure,svg,.tools,.trow,.tend,.faq summary,button,.pop,.sheet,.tsel,.lp'));}
+  function hide(){bar.classList.remove('on');bar.hidden=true;cur=null;}
+  function place(r){var rs=r.getClientRects(),f=rs[0]||r.getBoundingClientRect(),l=rs[rs.length-1]||f;
+    var bw=bar.offsetWidth||120,bh=bar.offsetHeight||50,top=l.bottom+14;if(top+bh>innerHeight-8)top=Math.max(8,f.top-bh-14);
+    var left=Math.min(innerWidth-bw-8,Math.max(8,(Math.min(f.left,l.left)+Math.max(f.right,l.right))/2-bw/2));bar.style.transform='translate3d('+Math.round(left)+'px,'+Math.round(top)+'px,0)';}
+  function check(){if(Date.now()-press<700)return;var s=getSelection();
+    if(!s||s.isCollapsed||!s.rangeCount){hide();return;}var r=s.getRangeAt(0),t=s.toString().replace(/\s+/g,' ').trim();
+    if(t.length<2||!ok(r)){hide();return;}
+    cur={t:t,node:r.startContainer.nodeType===1?r.startContainer:r.startContainer.parentNode};bar.hidden=false;place(r);requestAnimationFrame(function(){bar.classList.add('on');});}
+  var T=null;document.addEventListener('selectionchange',function(){clearTimeout(T);T=setTimeout(check,260);});
+  bar.addEventListener('pointerdown',function(e){press=Date.now();if(e.pointerType==='mouse')e.preventDefault();});
+  bar.addEventListener('touchstart',function(){press=Date.now();},{passive:true});
+  function copy(t){if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},legacy);return Promise.resolve(legacy());
+    function legacy(){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var k=false;try{k=document.execCommand('copy');}catch(e){}ta.remove();return k;}}
+  bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!cur)return;var c=cur;
+    try{getSelection().removeAllRanges();}catch(err){}hide();
+    if(b.dataset.a==='copy')copy('“'+c.t+'”\n——'+src(c.node)).then(function(k){toast(k===false?'复制没有成功，请用手机自带的复制':'已复制，可以粘贴到微信');});
+    else if(window.Q4Card)Q4Card({kind:'quote',text:c.t,src:src(c.node),col:col==='health'?'health':'qa',qrText:'阅读这一篇的全文',head:'分享这段文字'});
+  });
+  addEventListener('scroll',function(){if(!bar.hidden){var s=getSelection();if(s&&s.rangeCount&&!s.isCollapsed)place(s.getRangeAt(0));}},{passive:true});
+})();
+</script>
+
+<div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">““我必快来”，为什么两千年了还没来？”</p>
+<div class="tsh-main"><button type="button" class="tile" data-twx><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 4C5.2 4 2 6.7 2 10c0 1.9 1 3.6 2.7 4.7L4 17l2.6-1.4c.8.2 1.7.4 2.6.4h.5a5.6 5.6 0 0 1-.2-1.5C9.5 11.4 12.6 9 16.4 9h.4C16 6.1 12.9 4 9.2 4Zm-2.4 3.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM22 14.4c0-2.8-2.7-5-6-5s-6 2.2-6 5 2.7 5 6 5c.7 0 1.4-.1 2-.3l2.1 1.1-.6-1.9c1.5-.9 2.5-2.3 2.5-3.9Zm-8-.8a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" fill="currentColor"/></svg><span>微信分享</span></button><button type="button" class="tile" data-tcopy><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>复制链接</span></button><button type="button" class="tile" data-tsys hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>更多方式</span></button></div>
+<div class="tsh-qr" hidden><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="二维码"><rect width="37" height="37" fill="#fff"/><path d="M2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM5,2h1v1h-1zM6,2h1v1h-1zM7,2h1v1h-1zM8,2h1v1h-1zM10,2h1v1h-1zM15,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM19,2h1v1h-1zM21,2h1v1h-1zM22,2h1v1h-1zM24,2h1v1h-1zM25,2h1v1h-1zM26,2h1v1h-1zM28,2h1v1h-1zM29,2h1v1h-1zM30,2h1v1h-1zM31,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM2,3h1v1h-1zM8,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM13,3h1v1h-1zM14,3h1v1h-1zM15,3h1v1h-1zM18,3h1v1h-1zM20,3h1v1h-1zM25,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM34,3h1v1h-1zM2,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM8,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM21,4h1v1h-1zM24,4h1v1h-1zM26,4h1v1h-1zM28,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM34,4h1v1h-1zM2,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM6,5h1v1h-1zM8,5h1v1h-1zM10,5h1v1h-1zM12,5h1v1h-1zM13,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM24,5h1v1h-1zM26,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM31,5h1v1h-1zM32,5h1v1h-1zM34,5h1v1h-1zM2,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM11,6h1v1h-1zM12,6h1v1h-1zM13,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM19,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM34,6h1v1h-1zM2,7h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM12,7h1v1h-1zM14,7h1v1h-1zM15,7h1v1h-1zM16,7h1v1h-1zM20,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM28,7h1v1h-1zM34,7h1v1h-1zM2,8h1v1h-1zM3,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM12,8h1v1h-1zM14,8h1v1h-1zM16,8h1v1h-1zM18,8h1v1h-1zM20,8h1v1h-1zM22,8h1v1h-1zM24,8h1v1h-1zM26,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM31,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM10,9h1v1h-1zM12,9h1v1h-1zM14,9h1v1h-1zM19,9h1v1h-1zM22,9h1v1h-1zM26,9h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM31,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM7,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM31,11h1v1h-1zM32,11h1v1h-1zM34,11h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM13,12h1v1h-1zM14,12h1v1h-1zM16,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM27,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM34,12h1v1h-1zM5,13h1v1h-1zM6,13h1v1h-1zM7,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM16,13h1v1h-1zM17,13h1v1h-1zM20,13h1v1h-1zM22,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM26,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM4,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM9,14h1v1h-1zM10,14h1v1h-1zM12,14h1v1h-1zM13,14h1v1h-1zM20,14h1v1h-1zM24,14h1v1h-1zM26,14h1v1h-1zM27,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM2,15h1v1h-1zM9,15h1v1h-1zM13,15h1v1h-1zM15,15h1v1h-1zM18,15h1v1h-1zM20,15h1v1h-1zM23,15h1v1h-1zM27,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM14,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM24,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM32,16h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM4,17h1v1h-1zM6,17h1v1h-1zM7,17h1v1h-1zM9,17h1v1h-1zM12,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM22,17h1v1h-1zM23,17h1v1h-1zM25,17h1v1h-1zM27,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM32,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM17,18h1v1h-1zM20,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM3,19h1v1h-1zM6,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM11,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM28,19h1v1h-1zM30,19h1v1h-1zM31,19h1v1h-1zM33,19h1v1h-1zM34,19h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM14,20h1v1h-1zM17,20h1v1h-1zM18,20h1v1h-1zM19,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM32,20h1v1h-1zM33,20h1v1h-1zM4,21h1v1h-1zM6,21h1v1h-1zM7,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM16,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM26,21h1v1h-1zM27,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM5,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM12,22h1v1h-1zM14,22h1v1h-1zM15,22h1v1h-1zM17,22h1v1h-1zM20,22h1v1h-1zM22,22h1v1h-1zM23,22h1v1h-1zM29,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM34,22h1v1h-1zM2,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM12,23h1v1h-1zM17,23h1v1h-1zM20,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM18,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM24,24h1v1h-1zM25,24h1v1h-1zM26,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM3,25h1v1h-1zM6,25h1v1h-1zM9,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM18,25h1v1h-1zM20,25h1v1h-1zM21,25h1v1h-1zM25,25h1v1h-1zM26,25h1v1h-1zM27,25h1v1h-1zM28,25h1v1h-1zM30,25h1v1h-1zM31,25h1v1h-1zM33,25h1v1h-1zM2,26h1v1h-1zM4,26h1v1h-1zM7,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM16,26h1v1h-1zM17,26h1v1h-1zM19,26h1v1h-1zM25,26h1v1h-1zM26,26h1v1h-1zM27,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM15,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM26,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM11,28h1v1h-1zM13,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM18,28h1v1h-1zM21,28h1v1h-1zM22,28h1v1h-1zM25,28h1v1h-1zM26,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM2,29h1v1h-1zM8,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM18,29h1v1h-1zM22,29h1v1h-1zM23,29h1v1h-1zM26,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM2,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM11,30h1v1h-1zM13,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM17,30h1v1h-1zM19,30h1v1h-1zM22,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM29,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM33,30h1v1h-1zM34,30h1v1h-1zM2,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM15,31h1v1h-1zM16,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM27,31h1v1h-1zM29,31h1v1h-1zM34,31h1v1h-1zM2,32h1v1h-1zM4,32h1v1h-1zM5,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM27,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM2,33h1v1h-1zM8,33h1v1h-1zM12,33h1v1h-1zM13,33h1v1h-1zM14,33h1v1h-1zM17,33h1v1h-1zM18,33h1v1h-1zM19,33h1v1h-1zM21,33h1v1h-1zM25,33h1v1h-1zM26,33h1v1h-1zM27,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM34,33h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM17,34h1v1h-1zM18,34h1v1h-1zM19,34h1v1h-1zM22,34h1v1h-1zM23,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM28,34h1v1h-1zM30,34h1v1h-1zM32,34h1v1h-1z" fill="#111"/></svg><p><b>用手机微信扫一扫</b>打开后点右上角 ··· 就能转发；也可以复制链接，粘贴到电脑版微信的聊天框。</p></div>
+<p class="tsh-done" aria-live="polite"></p><button type="button" class="tsh-sent" data-tsent hidden>✓ 我已经分享好了</button><p class="tsh-url">https://2377568565.github.io/Ethan_bay/soon.html</p></div></div>
+<div class="twg" id="twg" role="dialog" aria-modal="true" aria-label="微信转发提示" hidden><p class="twg-t">点右上角 <span>···</span><br>选择“转发给朋友”</p>
+<div class="twg-box"><p>选好群或朋友、发送之后，回到这里点一下：</p><div class="twg-btns"><button type="button" class="ok" data-twdone>✓ 我已转发</button><button type="button" data-twno>先不转发</button></div></div></div>
+<div class="sheet" id="tdlsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card quiz" role="dialog" aria-modal="true" aria-labelledby="tdl-h">
+<button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tdl-h">下载 PDF 学习版</p>
+<p class="qz-intro">先答 3 道小题，答对 2 道就可以下载。题目都来自这一页的内容。</p><ol class="qz"></ol>
+<div class="qz-res" aria-live="polite"></div>
+<div class="qz-btns"><button type="button" class="tbtn" data-qretry hidden>换 3 道题再答一次</button><a class="tbtn solid" data-qdl hidden href="lessons/2026-Q4/qa/%E7%A0%94%E7%BB%8F%E9%97%AE%E7%AD%9411-%E6%88%91%E5%BF%85%E5%BF%AB%E6%9D%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E6%B2%A1%E6%9D%A5.pdf" download="研经问答11-我必快来为什么还没来.pdf"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></a></div>
+<p class="qz-wx note2" hidden>微信里会先打开 PDF 预览：点右上角 ··· 选“用其他应用打开”或“在浏览器打开”，就能保存到手机。</p></div></div>
+<div class="tgift" id="tgift" hidden><div class="sh-bg" data-gclose></div><div class="tg-card" role="dialog" aria-modal="true" aria-label="谢谢分享"><p class="tg-k">谢谢你的分享</p>
+<p class="tg-m">一个小小的转发，也许正好是别人心里在找的答案。</p><blockquote class="tg-v"></blockquote><button type="button" class="tbtn solid" data-gclose>阿们，收下</button></div></div>
+<script type="application/json" id="tcfg">{"id": "qa12", "title": "“我必快来”，为什么两千年了还没来？", "url": "https://2377568565.github.io/Ethan_bay/soon.html", "pdf": "lessons/2026-Q4/qa/%E7%A0%94%E7%BB%8F%E9%97%AE%E7%AD%9411-%E6%88%91%E5%BF%85%E5%BF%AB%E6%9D%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E6%B2%A1%E6%9D%A5.pdf", "name": "研经问答11-我必快来为什么还没来.pdf"}</script>
+<script type="application/json" id="tquiz">[{"q": "彼得后书3:9 说，主所应许的尚未成就，原因是什么？", "o": ["主忘记了", "主在耽延", "不是耽延，乃是宽容你们，不愿有一人沉沦", "时候还没有算准"], "a": 2, "why": "“其实不是耽延，乃是宽容你们，不愿有一人沉沦，乃愿人人都悔改。”", "go": "<a class=\"xref\" href=\"#why\">第 5 章《为什么还没来？圣经给出的四个原因》</a>"}, {"q": "马太福音24:14 说什么事以后，末期才来到？", "o": ["大地震以后", "天国的福音传遍天下，对万民作见证", "六千年满了", "所有人都信了"], "a": 1, "why": "“这天国的福音要传遍天下，对万民作见证，然后末期才来到。”", "go": "<a class=\"xref\" href=\"#why\">第 5 章《为什么还没来？圣经给出的四个原因》</a>"}, {"q": "按马所拉本的年岁，从创造到洪水共多少年？", "o": ["1000年", "1656年", "2000年", "4004年"], "a": 1, "why": "把创世记5章各代生子的年岁和挪亚600岁时洪水加起来，共1656年。", "go": "<a class=\"xref\" href=\"#years\">第 2 章《按圣经的年岁推算》</a>"}, {"q": "耶稣说那日子、那时辰谁知道？", "o": ["天使知道", "先知知道", "惟独父知道", "会推算的人知道"], "a": 2, "why": "“但那日子，那时辰，没有人知道，连天上的使者也不知道，子也不知道，惟独父知道。”（太24:36）", "go": "<a class=\"xref\" href=\"#date\">第 3 章《为什么不能推算日期：1844年的教训》</a>"}, {"q": "十个童女的比喻里，新郎来得怎样？", "o": ["提早来了", "迟延了", "没有来", "准时来了"], "a": 1, "why": "“新郎迟延的时候，她们都打盹，睡着了。”（太25:5）耶稣早就预告了“迟延”。", "go": "<a class=\"xref\" href=\"#why\">第 5 章《为什么还没来？圣经给出的四个原因》</a>"}, {"q": "据威克理夫全球联会统计，到2025年8月还在等待圣经翻译开始的语言约有多少种？", "o": ["5,000多种", "2,000多种", "544种", "0种"], "a": 2, "why": "1999年还有5,000多种；2025年8月1日，全世界7,396种语言中只剩544种。", "go": "<a class=\"xref\" href=\"#signs\">第 7 章《耶稣说的“预兆”，和今天的新闻》</a>"}, {"q": "耶稣说战争、饥荒、地震是什么？", "o": ["末期已经到了", "灾难的起头，总不要惊慌", "与复临无关", "要立刻推算日期"], "a": 1, "why": "“这些事是必须有的，只是末期还没有到……这都是灾难的起头。”（太24:6-8）", "go": "<a class=\"xref\" href=\"#signs\">第 7 章《耶稣说的“预兆”，和今天的新闻》</a>"}]</script>
+<script type="application/json" id="tgifts">[["那报佳音，传平安， 报好信，传救恩的， 对锡安说：你的上帝作王了！ 这人的脚登山何等佳美！", "以赛亚书 52:7"], ["好施舍的，必得丰裕； 滋润人的，必得滋润。", "箴言 11:25"], ["我们行善，不可丧志；若不灰心，到了时候就要收成。", "加拉太书 6:9"], ["又要彼此相顾，激发爱心，勉励行善。", "希伯来书 10:24"], ["所以，你们该彼此劝慰，互相建立，正如你们素常所行的。", "帖撒罗尼迦前书 5:11"], ["你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。", "马太福音 5:16"], ["在列邦中述说他的荣耀！ 在万民中述说他的奇事！", "诗篇 96:3"], ["口善应对，自觉喜乐； 话合其时，何等美好。", "箴言 15:23"], ["你的话是我脚前的灯， 是我路上的光。", "诗篇 119:105"], ["所以，我亲爱的弟兄们，你们务要坚固，不可摇动，常常竭力多做主工；因为知道，你们的劳苦在主里面不是徒然的。", "哥林多前书 15:58"]]</script>
+<style>
+.tend{border-top:1px solid var(--rule);margin:36px 0 8px;padding:18px 0 0}
+.tend p{color:var(--ink-2);font-size:.95rem;margin:0}
+.ib{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--rule);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.ib .ic{width:17px;height:17px}
+.ic{width:18px;height:18px;flex:none}
+.tacts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.tbtn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:.92rem;font-weight:650;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;flex:1 1 9em}
+.tbtn.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.tsh-t{color:var(--ink-2);margin:0 0 12px;font-weight:600}
+.tsh-main{display:flex;gap:10px;margin:0 0 10px}
+.tile{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:.86rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 4px;cursor:pointer}
+.tile .ic{width:26px;height:26px}
+.tile[data-twx] .ic{color:#07C160}
+.tsh-qr{display:flex;gap:12px;align-items:center;margin:6px 0 8px;font-size:.84rem;color:var(--ink-2)}
+.tsh-qr svg{width:120px;height:120px;flex:none;border-radius:8px}
+.tsh-done{font-size:.9rem;color:var(--ink-2);margin:6px 0}
+.tsh-sent{font:inherit;font-size:.9rem;width:100%;padding:9px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);cursor:pointer;margin:0 0 8px}
+.tsh-url{font-size:.78rem;color:var(--muted);word-break:break-all;margin:4px 0 0;user-select:all;-webkit-user-select:all}
+.twg{position:fixed;inset:0;z-index:60;background:rgba(10,12,18,.86);color:#fff;padding:calc(70px + env(safe-area-inset-top)) 24px 24px;text-align:center}
+.twg-t{font-size:1.25rem;font-weight:700;line-height:1.6;margin:0 0 24px;text-align:right;padding-right:6px}
+.twg-t span{letter-spacing:.1em}
+.twg-t::before{content:"↗";display:block;font-size:2.6rem;line-height:1;color:#FCE7B0}
+.twg-box{background:rgba(255,255,255,.1);border-radius:16px;padding:14px}
+.twg-btns{display:flex;gap:10px;margin-top:10px}
+.twg-btns button{flex:1;font:inherit;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;cursor:pointer}
+.twg-btns .ok{background:#07C160;border-color:#07C160;font-weight:700}
+.sh-card.quiz{max-height:88vh}
+.qz-intro{font-size:.9rem;color:var(--ink-2);margin:0 0 10px}
+.qz{list-style:none;margin:0;padding:0;counter-reset:q}
+.qz>li{counter-increment:q;border:1px solid var(--rule);border-radius:14px;padding:12px 12px 6px;margin:0 0 10px;background:var(--paper)}
+.qq{font-weight:650;margin:0 0 8px}
+.qq::before{content:counter(q) ". ";color:var(--accent)}
+.qo{display:grid;gap:7px;margin:0 0 8px}
+.qo button{font:inherit;font-size:.92rem;text-align:left;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;line-height:1.5}
+.qo button:disabled{cursor:default;opacity:1}
+.qo button.ok{border-color:#2f8f57;background:color-mix(in srgb,#2f8f57 12%,var(--surface));color:var(--ink);font-weight:650}
+.qo button.no{border-color:#cf4a43;background:color-mix(in srgb,#cf4a43 12%,var(--surface))}
+.qo button.ok::after{content:" ✓";color:#2f8f57;font-weight:800}
+.qo button.no::after{content:" ✗";color:#cf4a43;font-weight:800}
+.qw{font-size:.86rem;color:var(--ink-2);margin:0 0 6px}
+.qw b.y{color:#2f8f57}.qw b.n{color:#cf4a43}
+.qz-res{font-weight:650;margin:4px 0 10px}
+.qz-res.pass{color:#2f8f57}.qz-res.fail{color:#cf4a43}
+.qz-btns{display:flex;gap:10px;flex-wrap:wrap}
+.tgift{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:20px}
+.tg-card{position:relative;max-width:420px;width:100%;background:var(--surface);border-radius:20px;padding:22px 20px 18px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.tg-k{font-weight:800;font-size:1.15rem;color:var(--gold);margin:0 0 6px}
+.tg-m{font-size:.92rem;color:var(--ink-2)}
+.tg-v{margin:12px 0 16px;padding:12px 14px;background:var(--gold-soft);border-radius:14px;font-family:var(--serif);font-size:1.02rem;line-height:1.8}
+.tg-v cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:4px}
+html.emb .bar{padding-top:8px}
+/* 2026-10 新设计：和学课网站一致（米白纸色、墨蓝字、金色点缀；面板从底部升起） */
+.prog i{background:linear-gradient(90deg,#C9A45C,var(--gold))}
+.bar{background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+.bar .back{color:var(--ink);font-weight:500}
+.bar .aa{font-family:var(--serif);font-weight:900}
+.tbtn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s;box-shadow:0 1px 2px rgba(26,33,50,.04)}
+.tbtn:active{transform:scale(.97)}
+.tbtn .ic{color:var(--gold)}
+.tbtn.solid{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A);box-shadow:0 6px 18px -8px rgba(164,124,51,.65)}
+.tbtn.solid .ic{color:inherit}
+.tile{border-color:transparent;background:var(--band);border-radius:16px;font-weight:650}
+.tile[data-twx]{background:#07C160;border-color:#07A355;color:#fff;box-shadow:0 8px 20px -10px rgba(7,160,85,.7)}
+.tile[data-twx] .ic{color:#fff}
+.tsh{font-family:var(--serif);font-weight:900}
+.tsh-sent{border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold);background:var(--gold-soft)}
+.sh-bg{background:rgba(8,12,20,.45)}
+.sh-card{border-radius:24px 24px 0 0;border:1px solid var(--rule);border-bottom:0;padding-top:26px}
+.sh-card::before{content:"";position:absolute;left:50%;top:8px;width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.3;transform:translateX(-50%)}
+.sheet:not([hidden]) .sh-card{animation:shup .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes shup{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:700px){.sh-card{border-radius:24px;border-bottom:1px solid var(--rule)}.sh-card::before{content:none}.sheet:not([hidden]) .sh-card{animation:shpop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes shpop{from{opacity:0;transform:translate(-50%,12px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.sh-x{top:10px;right:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--band);font-size:1.2rem}
+.qq::before{color:var(--gold)}
+.tg-card{border:1px solid var(--rule);border-radius:24px}
+.fab-toc{background:#141B2A;color:#F3EBDA;border:1px solid rgba(233,214,163,.3)}
+@media (prefers-reduced-motion:reduce){.sheet:not([hidden]) .sh-card{animation:none}}
+@media print{.ib,.tacts,.sheet,.twg,.tgift,.howto,.toc-in .tsrc{display:none!important}
+  :root{color-scheme:light}body{background:#fff}.bar,.fab-toc{display:none!important}
+  .part{break-before:page;break-after:avoid}.ch h2{break-after:avoid}table,figure,.answer,blockquote{break-inside:avoid}
+  a{color:inherit;text-decoration:none}.foot{padding-bottom:0}}
+</style>
+<script>
+(function(){
+  var de=document.documentElement,C=JSON.parse(document.getElementById('tcfg').textContent),Q=JSON.parse(document.getElementById('tquiz').textContent),
+      G=JSON.parse(document.getElementById('tgifts').textContent);
+  var SH=document.getElementById('tshsheet'),WG=document.getElementById('twg'),DL=document.getElementById('tdlsheet'),GF=document.getElementById('tgift');
+  var UA=navigator.userAgent,inWx=/MicroMessenger/i.test(UA),mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(UA);
+  var emb=de.classList.contains('emb'),TOP=emb?window.top:window;
+  function get(k){try{return localStorage.getItem('q4:'+k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem('q4:'+k,v);}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function open(s){s.hidden=false;de.classList.add('sheetopen');}
+  function close(s){s.hidden=true;if(![SH,DL].some(function(x){return !x.hidden;}))de.classList.remove('sheetopen');}
+  function copy(t){
+    function legacy(){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(a);a.focus();a.select();try{a.setSelectionRange(0,t.length);}catch(e){}var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(a);return ok;}
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;},function(){return legacy();});
+    return Promise.resolve(legacy());
+  }
+  /* ---------- 分享 ---------- */
+  var text='【'+(C.col||'问题彩蛋')+'】'+C.title+'\n'+C.url,pending=false;
+  function done(h,sent){SH.querySelector('.tsh-done').innerHTML=h;SH.querySelector('.tsh-sent').hidden=!sent;}
+  function shOpen(){
+    SH.querySelector('[data-tsys]').hidden=!(navigator.share&&!inWx);
+    var qr=SH.querySelector('.tsh-qr');if(qr)qr.hidden=mobile;
+    done('',false);open(SH);
+  }
+  function gift(){
+    pending=false;close(SH);WG.hidden=true;
+    var n=(+get('shares')||0)+1;set('shares',String(n));
+    var v=G[Math.floor(Math.random()*G.length)];
+    GF.querySelector('.tg-v').innerHTML=esc(v[0])+'<cite>'+esc(v[1])+'</cite>';
+    setTimeout(function(){GF.hidden=false;},250);
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.closest('[data-tshare]')){shOpen();return;}
+    if(t.closest('[data-tdl]')){qOpen();return;}
+    if(t.closest('[data-gclose]')){GF.hidden=true;return;}
+    if(t.closest('[data-twdone]')){gift();return;}
+    if(t.closest('[data-twno]')){pending=false;WG.hidden=true;return;}
+    if(t.closest('[data-twx]')){
+      if(inWx){pending=true;close(SH);WG.hidden=false;return;}
+      copy(text).then(function(ok){
+        if(mobile){pending=true;done(ok?'✓ 链接已复制，正在打开微信……<br>在聊天框里<b>长按 → 粘贴</b>，发送即可':'正在打开微信……请回来长按下面的链接复制',true);
+          setTimeout(function(){try{TOP.location.href='weixin://';}catch(err){location.href='weixin://';}},450);}
+        else done(ok?'✓ 链接已复制，粘贴到<b>电脑版微信</b>的聊天框发送即可；也可以用手机微信扫上面的二维码':'复制没有成功，请用手机微信扫上面的二维码',ok);
+      });return;
+    }
+    if(t.closest('[data-tcopy]')){copy(text).then(function(ok){done(ok?'✓ 已复制，可以粘贴到微信群里了':'复制没有成功，请长按下面的链接手动复制',ok);});return;}
+    if(t.closest('[data-tsys]')){navigator.share({title:C.title,text:'【'+(C.col||'问题彩蛋')+'】'+C.title,url:C.url}).then(gift).catch(function(){});return;}
+    if(t.closest('[data-tsent]')){gift();return;}
+  });
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending&&!SH.hidden)setTimeout(function(){done(SH.querySelector('.tsh-done').innerHTML,true);},200);});
+  [SH,DL].forEach(function(s){s.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close(s);});});
+  /* ---------- 下载：先答 3 题，答对 2 题就能下载 ---------- */
+  var OL=DL.querySelector('.qz'),RES=DL.querySelector('.qz-res'),RT=DL.querySelector('[data-qretry]'),DB=DL.querySelector('[data-qdl]'),WXN=DL.querySelector('.qz-wx'),
+      KEY='quiz:'+C.id,cur=[],got=0,left=0,last=[];
+  if(inWx){DB.removeAttribute('download');DB.target=emb?'_top':'_self';}
+  function pick(){   // 随机抽 3 题，尽量不和上一次重复
+    var idx=Q.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+    idx.sort(function(a,b){return (last.indexOf(a)>=0)-(last.indexOf(b)>=0);});
+    return idx.slice(0,3);
+  }
+  function ready(msg){RES.className='qz-res pass';RES.innerHTML=msg;DB.hidden=false;WXN.hidden=!inWx;}
+  function qOpen(){
+    if(get(KEY)==='1'&&!cur.length){OL.innerHTML='';RT.hidden=false;RT.textContent='再答一次题';ready('你已经答对过题目，可以直接下载。');open(DL);return;}
+    if(!cur.length||!left)build();
+    open(DL);
+  }
+  function build(){
+    cur=pick();last=cur.slice();got=0;left=3;RES.className='qz-res';RES.textContent='';DB.hidden=true;RT.hidden=true;WXN.hidden=true;
+    OL.innerHTML=cur.map(function(i,n){var x=Q[i];return '<li data-i="'+i+'"><p class="qq">'+esc(x.q)+'</p><div class="qo">'+
+      x.o.map(function(o,j){return '<button type="button" data-o="'+j+'">'+'ABCD'[j]+'. '+esc(o)+'</button>';}).join('')+'</div><p class="qw" hidden></p></li>';}).join('');
+    DL.querySelector('.sh-card').scrollTop=0;
+  }
+  OL.addEventListener('click',function(e){
+    var b=e.target.closest('.qo button');if(!b)return;
+    var li=b.closest('li'),x=Q[+li.dataset.i],j=+b.dataset.o,bs=li.querySelectorAll('.qo button');
+    if(li.dataset.done)return;li.dataset.done='1';left--;
+    bs.forEach(function(y){y.disabled=true;});
+    bs[x.a].classList.add('ok');
+    var ok=j===x.a,w=li.querySelector('.qw');
+    if(ok)got++;else b.classList.add('no');
+    w.innerHTML=(ok?'<b class="y">答对了！</b>':'<b class="n">答错了。</b>正确答案是 '+'ABCD'[x.a]+'。')+esc(x.why)+' '+x.go;
+    w.hidden=false;
+    if(!left){
+      if(got>=2){set(KEY,'1');ready('答对 '+got+' 题，可以下载了！');RT.hidden=false;RT.textContent='再答一次题';}
+      else{RES.className='qz-res fail';RES.textContent='答对 '+got+' 题，还差一点。可以回到正文再读一读，然后换 3 道题再试一次。';RT.hidden=false;RT.textContent='换 3 道题再答一次';}
+      setTimeout(function(){RES.scrollIntoView({block:'nearest',behavior:'smooth'});},50);
+    }
+  });
+  OL.addEventListener('click',function(e){var a=e.target.closest('.qw a');if(a)close(DL);});
+  RT.addEventListener('click',function(){build();});
+})();
+</script>
+</body>
+</html>
