@@ -73,7 +73,7 @@ def say_numbers(t):
     t = re.sub(r'(?<![\d.,])((?:19|20)\d\d)(?![\d.,%])(?!\s*' + UNIT + ')', lambda m: year_cn(m[1]), t)
     t = t.replace('GV-971', 'GV九七一')
     t = t.replace('ω-3', '欧米伽三')   # 健康 07   # 健康 06：药的研发代号逐字读
-    t = t.replace('Lp(a)', '脂蛋白a').replace('TIPS-3', 'TIPS三').replace('β-', 'β').replace('β', '贝塔').replace(' ×', '乘以').replace('×', '乘以')
+    t = t.replace('Lp(a)', '脂蛋白a').replace('TIPS-3', 'TIPS三').replace('PG Ⅰ/Ⅱ', 'PG一和二的').replace('PG Ⅰ', 'PG一').replace('PG Ⅱ', 'PG二').replace('蛋白酶原 Ⅰ', '蛋白酶原一').replace('蛋白酶原 Ⅱ', '蛋白酶原二').replace('碳-1', '碳1').replace('胃泌素-17', '胃泌素17').replace('G-17', 'G17').replace('SHP2', 'SHP二').replace('β-', 'β').replace('β', '贝塔').replace(' ×', '乘以').replace('×', '乘以')
     # “2 个、2 次”读“两个、两次”（“第 2 年”“2 型”不变）
     t = re.sub(r'(?<![\d.,第])2(?![\d.,])(?=\s*' + TWO + ')', '两', t)
     # 百分比、范围
@@ -170,7 +170,7 @@ def units_all():
     import history as H
     import health_data
     import importlib
-    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text', 'dementia.html': 'dementia_text', 'cataract.html': 'cataract_text', 'mi.html': 'mi_text'}
+    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text', 'dementia.html': 'dementia_text', 'cataract.html': 'cataract_text', 'mi.html': 'mi_text', 'stomach.html': 'hp_text'}
     out = []
     for it in health_data.ITEMS:
         T = importlib.import_module(mods[it['url']])
