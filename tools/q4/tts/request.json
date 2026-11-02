@@ -1,5 +1,5 @@
 {
- "note": "健康栏目 09《幽门螺杆菌与胃癌》全文朗读（2026-11-02，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.6 万字，分 8 份并行合成，拼好后存 audio/vx-w/h9。朗读稿由 tools/q4/tts/health_speech.py 生成。",
+ "note": "健康栏目 10《肺结节与肺癌》全文朗读（2026-11-03，用户选定的 C 女声：VoxCPM2 设计的声音，提示音 voices/vx-dw.wav）。约 1.4 万字，分 7 份并行合成，拼好后存 audio/vx-w/h10。朗读稿由 tools/q4/tts/health_speech.py 生成。",
  "out": "audio/vx-w",
  "check": false,
  "jobs": [
@@ -16,8 +16,8 @@
    "chunk": "150",
    "maxblocks": "0",
    "instruct": "",
-   "ids": "h9",
-   "parts": 8
+   "ids": "h10",
+   "parts": 7
   }
  ]
 }
