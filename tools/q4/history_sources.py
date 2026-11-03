@@ -1316,3 +1316,39 @@ LC = {
  'lc_uspstf21': ('US Preventive Services Task Force (Krist AH, et al.). Screening for Lung Cancer: US Preventive Services Task Force Recommendation Statement. JAMA 2021;325(10):962-970（PubMed 33687470）', 'https://doi.org/10.1001/jama.2021.1117'),
 }
 SRC.update({k: (d, u, []) for k, (d, u) in LC.items()})
+
+# 健康栏目 11《痛风与高尿酸》（2026-11-03，PubMed 逐条核对摘要）
+GT = {
+ 'gt_zhang22': ('Zhang M, et al. Prevalence of Hyperuricemia Among Chinese Adults: Findings From Two Nationally Representative Cross-Sectional Surveys in 2015-16 and 2018-19. Front Immunol 2022;12:791983（中国慢性病与营养监测；PubMed 35197964）', 'https://doi.org/10.3389/fimmu.2021.791983'),
+ 'gt_gbd24': ('GBD 2021 Gout Collaborators. Global, regional, and national burden of gout, 1990-2020, and projections to 2050: a systematic analysis of the Global Burden of Disease Study 2021. Lancet Rheumatol 2024;6(8):e507-e517（模型估计；PubMed 38996590）', 'https://doi.org/10.1016/S2665-9913(24)00117-6'),
+ 'gt_dalbeth21': ('Dalbeth N, Gosling AL, Gaffo A, Abhishek A. Gout. Lancet 2021;397(10287):1843-1855（综述；PubMed 33798500）', 'https://doi.org/10.1016/S0140-6736(21)00569-9'),
+ 'gt_kratzer14': ('Kratzer JT, et al. Evolutionary history and metabolic insights of ancient mammalian uricases. Proc Natl Acad Sci U S A 2014;111(10):3763-3768（PubMed 24550457）', 'https://doi.org/10.1073/pnas.1320393111'),
+ 'gt_major18': ('Major TJ, Topless RK, Dalbeth N, Merriman TR. Evaluation of the diet wide contribution to serum urate levels: meta-analysis of population based cohorts. BMJ 2018;363:k3951（PubMed 30305269）', 'https://doi.org/10.1136/bmj.k3951'),
+ 'gt_martinon06': ('Martinon F, et al. Gout-associated uric acid crystals activate the NALP3 inflammasome. Nature 2006;440(7081):237-241（PubMed 16407889）', 'https://doi.org/10.1038/nature04516'),
+ 'gt_dalbeth18': ('Dalbeth N, et al. Relationship between serum urate concentration and clinically evident incident gout: an individual participant data analysis. Ann Rheum Dis 2018;77(7):1048-1052（PubMed 29463518）', 'https://doi.org/10.1136/annrheumdis-2017-212288'),
+ 'gt_choi04': ('Choi HK, et al. Purine-rich foods, dairy and protein intake, and the risk of gout in men. N Engl J Med 2004;350(11):1093-1103（PubMed 15014182）', 'https://doi.org/10.1056/NEJMoa035700'),
+ 'gt_choi04a': ('Choi HK, et al. Alcohol intake and risk of incident gout in men: a prospective study. Lancet 2004;363(9417):1277-1281（PubMed 15094272）', 'https://doi.org/10.1016/S0140-6736(04)16000-5'),
+ 'gt_choi08': ('Choi HK, Curhan G. Soft drinks, fructose consumption, and the risk of gout in men: prospective cohort study. BMJ 2008;336(7639):309-312（PubMed 18244959）', 'https://doi.org/10.1136/bmj.39449.819271.BE'),
+ 'gt_teng15': ('Teng GG, et al. Food Sources of Protein and Risk of Incident Gout in the Singapore Chinese Health Study. Arthritis Rheumatol 2015;67(7):1933-1942（PubMed 25808549）', 'https://doi.org/10.1002/art.39115'),
+ 'gt_coffee07': ('Choi HK, Willett W, Curhan G. Coffee consumption and risk of incident gout in men: a prospective study. Arthritis Rheum 2007;56(6):2049-2055（PubMed 17530645）', 'https://doi.org/10.1002/art.22712'),
+ 'gt_nielsen17': ('Nielsen SM, et al. Weight loss for overweight and obese individuals with gout: a systematic review of longitudinal studies. Ann Rheum Dis 2017;76(11):1870-1882（PubMed 28866649）', 'https://doi.org/10.1136/annrheumdis-2017-211472'),
+ 'gt_dash16': ('Juraschek SP, et al. Effects of the Dietary Approaches to Stop Hypertension (DASH) Diet and Sodium Intake on Serum Uric Acid. Arthritis Rheumatol 2016;68(12):3002-3009（随机交叉喂养试验；PubMed 27523583）', 'https://doi.org/10.1002/art.39813'),
+ 'gt_chiu20': ('Chiu THT, et al. Vegetarian diet and risk of gout in two separate prospective cohort studies. Clin Nutr 2020;39(3):837-844（台湾慈济；PubMed 30955983）', 'https://doi.org/10.1016/j.clnu.2019.03.016'),
+ 'gt_choi12': ('Choi HK, et al. Antihypertensive drugs and risk of incident gout among patients with hypertension: population based case-control study. BMJ 2012;344:d8190（PubMed 22240117）', 'https://doi.org/10.1136/bmj.d8190'),
+ 'gt_fralick20': ('Fralick M, et al. Assessing the Risk for Gout With Sodium-Glucose Cotransporter-2 Inhibitors in Patients With Type 2 Diabetes: A Population-Based Cohort Study. Ann Intern Med 2020;172(3):186-194（PubMed 31931526）', 'https://doi.org/10.7326/M19-2610'),
+ 'gt_stamp13': ('Stamp LK, et al. Clinically insignificant effect of supplemental vitamin C on serum urate in patients with gout: a pilot randomized controlled trial. Arthritis Rheum 2013;65(6):1636-1642（PubMed 23681955）', 'https://doi.org/10.1002/art.37925'),
+ 'gt_cherry12': ('Zhang Y, et al. Cherry consumption and decreased risk of recurrent gout attacks. Arthritis Rheum 2012;64(12):4004-4011（病例交叉研究；PubMed 23023818）', 'https://doi.org/10.1002/art.34677'),
+ 'gt_acr20': ('FitzGerald JD, et al. 2020 American College of Rheumatology Guideline for the Management of Gout. Arthritis Care Res (Hoboken) 2020;72(6):744-760（PubMed 32391934）', 'https://doi.org/10.1002/acr.24180'),
+ 'gt_cn25': ('Sun M, et al. 2024 Update of Chinese Guidelines for Diagnosis and Treatment of Hyperuricemia and Gout Part I: Recommendations for General Patients. Int J Rheum Dis 2025;28(7):e70375（中国内分泌学会；PubMed 40692263）', 'https://doi.org/10.1111/1756-185x.70375'),
+ 'gt_ckdfix20': ('Badve SV, et al. Effects of Allopurinol on the Progression of Chronic Kidney Disease. N Engl J Med 2020;382(26):2504-2513（CKD-FIX；PubMed 32579811）', 'https://doi.org/10.1056/NEJMoa1915833'),
+ 'gt_perl20': ('Doria A, et al. Serum Urate Lowering with Allopurinol and Kidney Function in Type 1 Diabetes. N Engl J Med 2020;382(26):2493-2503（PERL；PubMed 32579810）', 'https://doi.org/10.1056/NEJMoa1916624'),
+ 'gt_allheart22': ('Mackenzie IS, et al. Allopurinol versus usual care in UK patients with ischaemic heart disease (ALL-HEART): a multicentre, prospective, randomised, open-label, blinded-endpoint trial. Lancet 2022;400(10359):1195-1205（PubMed 36216006）', 'https://doi.org/10.1016/S0140-6736(22)01657-9'),
+ 'gt_freed19': ('Kojima S, et al. Febuxostat for Cerebral and CaRdiorenovascular Events PrEvEntion StuDy. Eur Heart J 2019;40(22):1778-1786（FREED；PubMed 30844048）', 'https://doi.org/10.1093/eurheartj/ehz119'),
+ 'gt_agree10': ('Terkeltaub RA, et al. High versus low dosing of oral colchicine for early acute gout flare. Arthritis Rheum 2010;62(4):1060-1068（AGREE；PubMed 20131255）', 'https://doi.org/10.1002/art.27327'),
+ 'gt_janssens08': ('Janssens HJ, et al. Use of oral prednisolone or naproxen for the treatment of gout arthritis: a double-blind, randomised equivalence trial. Lancet 2008;371(9627):1854-1860（PubMed 18514729）', 'https://doi.org/10.1016/S0140-6736(08)60799-0'),
+ 'gt_doherty18': ('Doherty M, et al. Efficacy and cost-effectiveness of nurse-led care involving education and engagement of patients and a treat-to-target urate-lowering strategy versus usual care for gout: a randomised controlled trial. Lancet 2018;392(10156):1403-1412（PubMed 30343856）', 'https://doi.org/10.1016/S0140-6736(18)32158-5'),
+ 'gt_ko15': ('Ko TM, et al. Use of HLA-B*58:01 genotyping to prevent allopurinol induced severe cutaneous adverse reactions in Taiwan: national prospective cohort study. BMJ 2015;351:h4848（PubMed 26399967）', 'https://doi.org/10.1136/bmj.h4848'),
+ 'gt_cares18': ('White WB, et al. Cardiovascular Safety of Febuxostat or Allopurinol in Patients with Gout. N Engl J Med 2018;378(13):1200-1210（CARES，武田资助；PubMed 29527974）', 'https://doi.org/10.1056/NEJMoa1710895'),
+ 'gt_fast20': ('Mackenzie IS, et al. Long-term cardiovascular safety of febuxostat compared with allopurinol in patients with gout (FAST). Lancet 2020;396(10264):1745-1757（PubMed 33181081）', 'https://doi.org/10.1016/S0140-6736(20)32234-0'),
+}
+SRC.update({k: (d, u, []) for k, (d, u) in GT.items()})

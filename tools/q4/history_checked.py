@@ -815,4 +815,35 @@ CHECKED = {
  'lc_talent24': ('https://doi.org/10.1016/S2213-2600(23)00338-7', 'live'),   # 核对（2026-11-03，健康 10 肺癌）
  'lc_nelson20': ('https://doi.org/10.1056/NEJMoa1911793', 'live'),   # 核对（2026-11-03，健康 10 肺癌）
  'lc_uspstf21': ('https://doi.org/10.1001/jama.2021.1117', 'live'),   # 核对（2026-11-03，健康 10 肺癌）
+ 'gt_zhang22': ('https://doi.org/10.3389/fimmu.2021.791983', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_gbd24': ('https://doi.org/10.1016/S2665-9913(24)00117-6', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_dalbeth21': ('https://doi.org/10.1016/S0140-6736(21)00569-9', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_kratzer14': ('https://doi.org/10.1073/pnas.1320393111', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_major18': ('https://doi.org/10.1136/bmj.k3951', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_martinon06': ('https://doi.org/10.1038/nature04516', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_dalbeth18': ('https://doi.org/10.1136/annrheumdis-2017-212288', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_choi04': ('https://doi.org/10.1056/NEJMoa035700', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_choi04a': ('https://doi.org/10.1016/S0140-6736(04)16000-5', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_choi08': ('https://doi.org/10.1136/bmj.39449.819271.BE', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_teng15': ('https://doi.org/10.1002/art.39115', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_coffee07': ('https://doi.org/10.1002/art.22712', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_nielsen17': ('https://doi.org/10.1136/annrheumdis-2017-211472', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_dash16': ('https://doi.org/10.1002/art.39813', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_chiu20': ('https://doi.org/10.1016/j.clnu.2019.03.016', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_choi12': ('https://doi.org/10.1136/bmj.d8190', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_fralick20': ('https://doi.org/10.7326/M19-2610', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_stamp13': ('https://doi.org/10.1002/art.37925', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_cherry12': ('https://doi.org/10.1002/art.34677', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_acr20': ('https://doi.org/10.1002/acr.24180', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_cn25': ('https://doi.org/10.1111/1756-185x.70375', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_ckdfix20': ('https://doi.org/10.1056/NEJMoa1915833', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_perl20': ('https://doi.org/10.1056/NEJMoa1916624', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_allheart22': ('https://doi.org/10.1016/S0140-6736(22)01657-9', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_freed19': ('https://doi.org/10.1093/eurheartj/ehz119', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_agree10': ('https://doi.org/10.1002/art.27327', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_janssens08': ('https://doi.org/10.1016/S0140-6736(08)60799-0', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_doherty18': ('https://doi.org/10.1016/S0140-6736(18)32158-5', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_ko15': ('https://doi.org/10.1136/bmj.h4848', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_cares18': ('https://doi.org/10.1056/NEJMoa1710895', 'live'),   # 核对（2026-11-03，健康 11 痛风）
+ 'gt_fast20': ('https://doi.org/10.1016/S0140-6736(20)32234-0', 'live'),   # 核对（2026-11-03，健康 11 痛风）
 }
