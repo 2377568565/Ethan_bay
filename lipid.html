@@ -384,6 +384,72 @@ html.sheetopen{overflow:hidden}
 .ch .ptbl td:first-child{width:28%;font-weight:650}
 .srcs .sb{overflow-wrap:anywhere;word-break:break-all}
 
+.rdone{position:relative;display:flex;gap:18px;align-items:center;margin:40px 0 28px;padding:22px 20px;border:1px solid var(--rule);border-radius:22px;background:var(--surface);overflow:hidden}
+.rdone::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(135deg,var(--gold),#F0D9A0 35%,transparent 55%,#F0D9A0 80%,var(--gold));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;transition:opacity .5s;pointer-events:none}
+.rdone.ready::before,.rdone.done::before{opacity:1}
+.rdone.done{background:linear-gradient(160deg,var(--gold-soft),var(--surface) 65%)}
+.rd-seal{position:relative;flex:0 0 auto;width:88px;height:88px}
+.rd-svg{width:100%;height:100%;overflow:visible}
+.rd-trk{fill:none;stroke:var(--rule);stroke-width:3}
+.rd-arc{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:var(--off,100);transition:stroke-dashoffset .8s ease}
+.rd-ros{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.2;transition:fill .5s}
+.rd-in{fill:var(--surface);stroke:var(--gold);stroke-width:1;stroke-dasharray:2 2.4;transition:fill .5s}
+.rd-ck{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.rd-lk{fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linejoin:round;transition:opacity .3s}
+.rdone.ready .rd-lk{opacity:0}
+.rdone.ready .rd-in{fill:var(--gold-soft)}
+.rdone.ready .rd-ck{opacity:.45;stroke:var(--gold);stroke-dashoffset:0;stroke-width:3.2}
+@media print{.rdone{display:none}}
+.rdone.done .rd-trk,.rdone.done .rd-arc{opacity:0}
+.rdone.done .rd-ros{fill:var(--gold)}
+.rdone.done .rd-in{fill:var(--gold);stroke:#F7E7BF;stroke-dasharray:none}
+.rdone.done .rd-lk{opacity:0}
+.rdone.done .rd-ck{opacity:1;stroke-dashoffset:0}
+.rdone.done .rd-svg{transform:rotate(-8deg)}
+.rdone.stamp .rd-svg{animation:rdstamp .7s cubic-bezier(.2,1.6,.4,1) both}
+.rdone.stamp .rd-ck{transition:stroke-dashoffset .5s .35s ease}
+@keyframes rdstamp{0%{transform:scale(1.6) rotate(-20deg);opacity:0}60%{transform:scale(.92) rotate(-6deg);opacity:1}100%{transform:scale(1) rotate(-8deg)}}
+.rd-fx{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.rd-fx i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0}
+.rd-fx i:nth-child(3n){background:#F0D9A0;width:5px;height:5px}
+.rd-fx i:nth-child(4n){border-radius:1px;transform:rotate(45deg)}
+.rdone.stamp .rd-fx i{animation:rdfx .9s .25s ease-out both}
+@keyframes rdfx{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(.4)}}
+.rd-b{min-width:0;flex:1}
+.rd-k{margin:0 0 2px;font:700 .72rem/1.2 var(--sans);letter-spacing:.2em;color:var(--gold)}
+.rd-h{margin:0 0 6px;font:800 1.12rem/1.4 var(--serif,serif);color:var(--ink)}
+.rd-m{margin:0 0 12px;font-size:.84rem;line-height:1.6;color:var(--ink-2)}
+.rd-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 22px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--muted);font:700 .92rem/1 var(--sans);cursor:not-allowed;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.rdone.ready .rd-btn{border-color:transparent;background:linear-gradient(135deg,#C9A45C,#9A742C);color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(154,116,44,.35)}
+.rdone.ready .rd-btn::after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-120%);animation:rdshine 2.8s ease-in-out infinite}
+@keyframes rdshine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+.rdone.ready .rd-btn:active{transform:scale(.97)}
+.rdone.done .rd-btn{border-color:transparent;background:none;color:var(--gold);cursor:default;padding:0;min-height:0}
+@media (max-width:420px){.rdone{padding:18px 14px;gap:14px}.rd-seal{width:72px;height:72px}.rd-h{font-size:1.02rem}}
+@media (prefers-reduced-motion:reduce){.rdone.stamp .rd-svg,.rdone.stamp .rd-fx i,.rdone.ready .rd-btn::after{animation:none}}
+/* 列表：读完的一篇 */
+.qdonebar{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:4px 12px;align-items:center;margin:14px 0 6px;padding:12px 16px;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(135deg,var(--gold-soft),transparent 75%)}
+.qdb-seal{grid-row:1/3;width:38px;height:38px}
+.qdb-seal svg,.qdn-seal svg{width:100%;height:100%;overflow:visible}
+.qdb-seal path,.qdn-seal path{fill:var(--gold)}
+.qdb-seal path.ck,.qdn-seal path.ck{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.qdonebar.zero .qdb-seal path{fill:none;stroke:var(--gold);stroke-width:2}
+.qdonebar.zero .qdb-seal path.ck{stroke:var(--gold);opacity:.35}
+.qdb-t{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;min-width:0}
+.qdb-n{font:600 .92rem/1.3 var(--sans);color:var(--ink)}
+.qdb-n b{font:800 1.3rem/1 var(--serif,serif);color:var(--gold);font-variant-numeric:tabular-nums}
+.qdb-t small{font-size:.76rem;color:var(--muted)}
+.qdb-bar{display:block;height:6px;border-radius:99px;background:var(--rule);overflow:hidden}
+.qdb-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#C9A45C,var(--gold));transform-origin:left;transform:scaleX(var(--p,0));transition:transform .8s ease}
+.qcard.qrow.qdone{background:linear-gradient(90deg,var(--gold-soft),transparent 80%);box-shadow:inset 3px 0 0 var(--gold);border-radius:0 14px 14px 0;padding-left:10px}
+.qcard.qrow.qdone .qno{position:relative}
+.qcard.qrow.qdone .qno b{color:var(--gold)}
+.qdn-seal{position:absolute;right:-8px;bottom:-12px;width:22px;height:22px;transform:rotate(-12deg)}
+.qcard.qrow.qdone.qfresh .qdn-seal{animation:qdnpop .7s .2s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes qdnpop{0%{transform:scale(0) rotate(-60deg)}100%{transform:scale(1) rotate(-12deg)}}
+.qdn-tag{display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:999px;background:var(--gold);color:#fff;font-style:normal;font-weight:700}
+@media (prefers-reduced-motion:reduce){.qcard.qrow.qdone.qfresh .qdn-seal{animation:none}}
+
 .lsn{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:14px 0 4px}
 .lsn-go{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:1rem;font-weight:650;color:var(--surface);background:var(--accent);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
 .lsn-go .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -924,6 +990,7 @@ html.lpon .fab-toc{bottom:calc(150px + env(safe-area-inset-bottom))}
 <p>愿你身体健壮，也愿你的灵魂兴盛。照顾身体，不是为了怕死，而是为了带着这份上帝所赐的生命，好好地去爱人、去服事。</p>
 <p class="note2">本篇是健康科普，不能代替医生的诊断和处方。文中的研究结论都转述自已发表的论文摘要和指南，出处见文末。</p>
 </section><section class="ch" id="faq"><h2><span class="no">34</span>常见问题</h2><div class="faq"><details><summary>我很瘦，血脂怎么也高？</summary><div><p>血脂高有几种原因。东亚人看起来不胖，腹部内脏脂肪也可能偏多<a class="cite" id="r25-3" href="#s25" data-n="25">25</a>；还有一部分人是遗传，比如家族性高胆固醇血症，大约每 311 人就有 1 个<a class="cite" id="r8-4" href="#s8" data-n="8">8</a>。瘦人血脂高，更要请医生看看原因。</p></div></details><details><summary>我平时不怎么吃肉，为什么血脂还高？</summary><div><p>身体里的胆固醇大部分是肝脏自己造的；甘油三酯高，又常常和肝脏里的脂肪、血糖高有关<a class="cite" id="r12-4" href="#s12" data-n="12">12</a>，精米白面、甜食、酒吃多了也会这样。所以不吃肉不等于血脂一定正常。</p></div></details><details><summary>他汀吃了以后血脂正常了，能停吗？</summary><div><p>不要自己停。血脂正常很可能正是药在起作用，停了 LDL 通常会回去。生活方式改好了，可以和医生商量能不能减量；得过心梗、中风的人，一般要长期吃<a class="cite" id="r5-10" href="#s5" data-n="5">5</a>。</p></div></details><details><summary>吃他汀腿疼，是不是药的问题？</summary><div><p>有可能，但大多数不是。双盲试验里，吃假药的人也有约四分之一报告肌肉痛；吃他汀的人报告的肌肉症状，九成以上不是他汀引起的<a class="cite" id="r41-4" href="#s41" data-n="41">41</a>。如果疼得明显、无力或小便颜色变深，要及时看医生；不要自己停药，可以和医生商量调整。</p></div></details><details><summary>鸡蛋还能吃吗？蛋黄要扔掉吗？</summary><div><p>研究结论不完全一致：美国的队列研究发现吃得越多风险越高<a class="cite" id="r47-2" href="#s47" data-n="47">47</a>，中国 46 万人的研究里每天吃不到一个鸡蛋的人风险反而较低<a class="cite" id="r48-2" href="#s48" data-n="48">48</a>。一般人每天一个以内问题不大；LDL 很高或有心血管病、糖尿病的人，请问医生。</p></div></details><details><summary>吃鱼油能降血脂、保护心脏吗？</summary><div><p>鱼油能让甘油三酯降约 15%，但汇总 86 个试验的结果显示，它对死亡和心血管事件几乎没有影响，对冠心病可能有很小的好处<a class="cite" id="r40-3" href="#s40" data-n="40">40</a>。不要用鱼油代替医生开的降脂药。</p></div></details><details><summary>红曲、血脂康能代替他汀吗？</summary><div><p>血脂康在中国心梗病人的试验里确实减少了冠脉事件<a class="cite" id="r43-2" href="#s43" data-n="43">43</a>，但红曲起作用的成分本身就是一种他汀，而且市售红曲产品含量差别很大，有的还含有毒素<a class="cite" id="r44-4" href="#s44" data-n="44">44</a>。要用，请在医生指导下用，不要和他汀同时乱吃。</p></div></details><details><summary>绝经以后血脂突然高了，正常吗？</summary><div><p>很常见。美国对三千多名中年女性（包括华裔）的追踪发现，最后一次月经前后一年，总胆固醇和 LDL 会明显跳升<a class="cite" id="r19-4" href="#s19" data-n="19">19</a>。这时候更要复查血脂，按医生的意见处理，不要以为“年纪到了就这样”。</p></div></details><details><summary>脂蛋白(a)是什么？要不要查？</summary><div><p>它是另一种会造成动脉粥样硬化的“小船”，LDL 很低时也照样增加风险。欧洲专家建议每个成年人一生至少查一次；家里有人很高或很早得心血管病的，家人也要查<a class="cite" id="r16-6" href="#s16" data-n="16">16</a>。</p></div></details><details><summary>LDL 降得很低，会不会对身体不好？</summary><div><p>目前的大型试验没有看到这样的问题：LDL 降到 0.78 毫摩尔每升，新发糖尿病和认知问题都没有增加<a class="cite" id="r35-4" href="#s35" data-n="35">35</a>；降得很低也没有增加癌症<a class="cite" id="r32-6" href="#s32" data-n="32">32</a>。具体目标按你的风险，由医生决定<a class="cite" id="r5-11" href="#s5" data-n="5">5</a>。</p></div></details><details><summary>“好胆固醇”越高越好吗？</summary><div><p>HDL 偏低常常是代谢综合征的一个信号<a class="cite" id="r14-3" href="#s14" data-n="14">14</a>，运动能让它小幅升高<a class="cite" id="r15-4" href="#s15" data-n="15">15</a>。但治疗的主要目标仍然是 LDL<a class="cite" id="r5-12" href="#s5" data-n="5">5</a>，不要只盯着把 HDL 往上拉。</p></div></details></div></section>
+<section class="rdone lock" data-rdone data-key="" data-mins="" data-col="health" aria-label="读完打卡"><div class="rd-seal"><svg class="rd-svg" viewBox="0 0 80 80" aria-hidden="true"><circle class="rd-trk" cx="40" cy="40" r="37"/><circle class="rd-arc" cx="40" cy="40" r="37" pathLength="100" transform="rotate(-90 40 40)"/><path class="rd-ros" d="M69.60,40.00L68.80,41.42L66.87,42.65L64.89,43.69L63.93,44.76L64.41,46.11L65.84,47.84L67.15,49.72L67.35,51.33L66.07,52.33L63.81,52.73L61.58,52.94L60.29,53.56L60.21,54.99L60.87,57.13L61.37,59.37L60.93,60.93L59.37,61.37L57.13,60.87L54.99,60.21L53.56,60.29L52.94,61.58L52.73,63.81L52.33,66.07L51.33,67.35L49.72,67.15L47.84,65.84L46.11,64.41L44.76,63.93L43.69,64.89L42.65,66.87L41.42,68.80L40.00,69.60L38.58,68.80L37.35,66.87L36.31,64.89L35.24,63.93L33.89,64.41L32.16,65.84L30.28,67.15L28.67,67.35L27.67,66.07L27.27,63.81L27.06,61.58L26.44,60.29L25.01,60.21L22.87,60.87L20.63,61.37L19.07,60.93L18.63,59.37L19.13,57.13L19.79,54.99L19.71,53.56L18.42,52.94L16.19,52.73L13.93,52.33L12.65,51.33L12.85,49.72L14.16,47.84L15.59,46.11L16.07,44.76L15.11,43.69L13.13,42.65L11.20,41.42L10.40,40.00L11.20,38.58L13.13,37.35L15.11,36.31L16.07,35.24L15.59,33.89L14.16,32.16L12.85,30.28L12.65,28.67L13.93,27.67L16.19,27.27L18.42,27.06L19.71,26.44L19.79,25.01L19.13,22.87L18.63,20.63L19.07,19.07L20.63,18.63L22.87,19.13L25.01,19.79L26.44,19.71L27.06,18.42L27.27,16.19L27.67,13.93L28.67,12.65L30.28,12.85L32.16,14.16L33.89,15.59L35.24,16.07L36.31,15.11L37.35,13.13L38.58,11.20L40.00,10.40L41.42,11.20L42.65,13.13L43.69,15.11L44.76,16.07L46.11,15.59L47.84,14.16L49.72,12.85L51.33,12.65L52.33,13.93L52.73,16.19L52.94,18.42L53.56,19.71L54.99,19.79L57.13,19.13L59.37,18.63L60.93,19.07L61.37,20.63L60.87,22.87L60.21,25.01L60.29,26.44L61.58,27.06L63.81,27.27L66.07,27.67L67.35,28.67L67.15,30.28L65.84,32.16L64.41,33.89L63.93,35.24L64.89,36.31L66.87,37.35L68.80,38.58Z"/><circle class="rd-in" cx="40" cy="40" r="20.5"/><path class="rd-ck" d="M30.5 40.5l6.5 6.5 13-14" pathLength="1"/><path class="rd-lk" d="M34 39v-3.2a6 6 0 0 1 12 0V39M32.5 39h15v10.5h-15z"/></svg><span class="rd-fx" aria-hidden="true"><i style="--a:0deg;--d:38px"></i><i style="--a:30deg;--d:48px"></i><i style="--a:60deg;--d:58px"></i><i style="--a:90deg;--d:38px"></i><i style="--a:120deg;--d:48px"></i><i style="--a:150deg;--d:58px"></i><i style="--a:180deg;--d:38px"></i><i style="--a:210deg;--d:48px"></i><i style="--a:240deg;--d:58px"></i><i style="--a:270deg;--d:38px"></i><i style="--a:300deg;--d:48px"></i><i style="--a:330deg;--d:58px"></i></span></div><div class="rd-b"><p class="rd-k">读完打卡</p><h3 class="rd-h" data-rdh>读到这里，辛苦了</h3><p class="rd-m" data-rdm>在这一篇读满预估时间的一半，就可以打卡</p><button type="button" class="rd-btn" data-rdbtn disabled><span data-rdbt>再读一会儿</span></button></div></section>
 <div class="tend"><p>读完了？把这一篇分享给需要的人，或者答 3 道小题，下载 PDF 留着慢慢读。</p><div class="tacts"><button type="button" class="tbtn" data-tshare><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.3 10.8 15.7 6.7M8.3 13.2l7.4 4.1" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>分享这一篇</span></button><button type="button" class="tbtn solid" data-tdl><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>下载 PDF</span></button></div></div><section class="ch" id="sources"><h2><span class="no">✦</span>资料出处</h2>
 <p>本页引用的医学研究和指南，都在 PubMed（美国国家医学图书馆的文献库）上核对过摘要，附 DOI 或 PubMed 链接；本页只转述摘要和指南里的结论，数字以原文为准。外文引文的中文都是编者所译。经文用和合本。</p>
 <p class="note2">资料在 2026 年 10 月逐一核对过；部分外国网站在中国大陆可能打不开。点 ↑ 回到正文引用的位置。</p>
@@ -1512,6 +1579,79 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
     else{var rs=[];[].forEach.call(marks(cur.g),function(x){rs=rs.concat(rectsOf(x));});place(rs);}},{passive:true});
   addEventListener('storage',function(e){if(e.key===KEY)paint();});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){paint();});else paint();
+})();
+
+(function(){
+  var K='q4:tdone',SEEN='q4:tdone-seen',IDLE=180000;
+  function load(){try{var o=JSON.parse(localStorage.getItem(K)||'{}');return o&&typeof o==='object'?o:{};}catch(e){return {};}}
+  function save(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
+  function count(col){var o=load(),n=0;Object.keys(o).forEach(function(k){if(o[k]&&o[k].d&&(o[k].c||'qa')===col)n++;});return n;}
+  function md(t){var d=new Date(t);return (d.getMonth()+1)+'月'+d.getDate()+'日';}
+  function keyOfHref(h){if(!h)return '';var m=/^#(qa\d+)$/.exec(h);if(m)return m[1];m=/([\w-]+)\.html(?:[?#].*)?$/.exec(h);return m?m[1]:'';}
+  var last=Date.now();
+  ['scroll','pointerdown','touchstart','keydown','wheel','mousemove'].forEach(function(e){addEventListener(e,function(){last=Date.now();},{passive:true,capture:true});});
+  function listening(){var a=document.querySelectorAll('audio');for(var i=0;i<a.length;i++)if(!a[i].paused)return true;return false;}
+  var cards=[];
+  function init(el){
+    if(el.q4done)return;el.q4done=1;
+    var key=el.getAttribute('data-key')||(location.pathname.split('/').pop()||'index').replace(/\.html?$/,'');
+    var col=el.getAttribute('data-col')||document.documentElement.getAttribute('data-col')||'qa';if(col!=='health')col='qa';
+    var mins=+el.getAttribute('data-mins');
+    if(!mins){var mt=document.querySelector('.hero .meta'),mm=mt&&/细读约\s*(\d+)\s*分钟/.exec(mt.textContent);mins=mm?+mm[1]:(+(document.body.getAttribute('data-mins'))||10);}
+    var need=Math.max(60,Math.round(mins*60/2)),r=load()[key]||{},secs=r.s||0,dirty=0,lastTxt='';
+    var lesson=el.closest('.lesson');
+    var h=el.querySelector('[data-rdh]'),m=el.querySelector('[data-rdm]'),bt=el.querySelector('[data-rdbt]'),btn=el.querySelector('[data-rdbtn]');
+    function flush(){if(!dirty)return;dirty=0;var o=load(),x=o[key]||{};x.s=Math.max(x.s||0,secs);x.m=mins;o[key]=x;save(o);}
+    function ui(force){
+      var x=load()[key]||{},st=x.d?'done':(secs>=need?'ready':'lock'),txt;
+      if(st==='done'){txt='d';
+        if(lastTxt!==txt||force){h.textContent='已读完 · '+md(x.d);m.textContent='这是你读完的第 '+count(x.c||col)+' 篇'+(col==='health'?'健康文章':'问题彩蛋')+'。愿所读的成为你生命里的亮光。';bt.textContent='✓ 已打卡';btn.disabled=true;}}
+      else if(st==='ready'){txt='r'+Math.floor(secs/60);
+        if(lastTxt!==txt||force){h.textContent='读到这里，辛苦了';m.textContent='已经认真读了 '+Math.max(1,Math.floor(secs/60))+' 分钟，可以打卡了';bt.textContent='我读完了';btn.disabled=false;}}
+      else{var left=Math.max(1,Math.ceil((need-secs)/60));txt='l'+left;
+        if(lastTxt!==txt||force){h.textContent='读到这里，辛苦了';m.textContent='这一篇预估 '+mins+' 分钟，读满一半就能打卡。已读 '+Math.floor(secs/60)+' 分钟，再读约 '+left+' 分钟';bt.textContent='再读约 '+left+' 分钟';btn.disabled=true;}}
+      if(lastTxt!==txt||force){el.classList.toggle('lock',st==='lock');el.classList.toggle('ready',st==='ready');el.classList.toggle('done',st==='done');
+        el.style.setProperty('--off',String(100-Math.min(100,Math.round(secs/need*100))));lastTxt=txt;}
+      return st;
+    }
+    function active(){if(document.visibilityState!=='visible')return false;if(lesson&&!lesson.classList.contains('show'))return false;return listening()||Date.now()-last<IDLE;}
+    setInterval(function(){if(!active())return;var x=load()[key];if(x&&x.d)return;secs++;dirty++;if(dirty>=10)flush();if(secs===need||secs%60===0)ui();},1000);
+    addEventListener('pagehide',flush);document.addEventListener('visibilitychange',function(){if(document.hidden)flush();});
+    btn.addEventListener('click',function(){if(ui()!=='ready')return;var o=load(),x=o[key]||{};x.s=Math.max(x.s||0,secs);x.d=Date.now();x.c=col;x.m=mins;o[key]=x;save(o);
+      el.classList.add('stamp');ui(true);try{window.q4lamb&&q4lamb.joy&&q4lamb.joy();}catch(e){}
+      try{if(window.parent!==window)parent.postMessage({q4:'tdone',k:key},location.origin);}catch(e){}
+      setTimeout(function(){el.classList.remove('stamp');},1800);paint();});
+    cards.push(ui);ui(true);
+  }
+  function paint(){
+    var o=load(),seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')||[];}catch(e){}var ns=seen.slice();
+    [].forEach.call(document.querySelectorAll('#qa .qcard,#health .qcard'),function(a){
+      var k=keyOfHref(a.getAttribute('href')),x=o[k],on=!!(x&&x.d);a.classList.toggle('qdone',on);
+      var s=a.querySelector('.qdn-seal'),t=a.querySelector('.qdn-tag');
+      if(on){if(!s){s=document.createElement('span');s.className='qdn-seal';s.innerHTML=MS;var q=a.querySelector('.qno');if(q)q.appendChild(s);}
+        if(!t){t=document.createElement('i');t.className='qdn-tag';var qm=a.querySelector('.qm');if(qm)qm.insertBefore(t,qm.firstChild);}
+        t.textContent='✓ 已读完 · '+md(x.d);
+        if(ns.indexOf(k)<0){a.classList.add('qfresh');ns.push(k);}}
+      else{if(s)s.remove();if(t)t.remove();a.classList.remove('qfresh');}
+    });
+    if(ns.length!==seen.length)try{localStorage.setItem(SEEN,JSON.stringify(ns));}catch(e){}
+    [].forEach.call(document.querySelectorAll('[data-donebar]'),function(b){
+      var col=b.getAttribute('data-donebar'),tot=+b.getAttribute('data-total')||1,n=0;
+      [].forEach.call(document.querySelectorAll('#'+(col==='health'?'health':'qa')+' .qshelves .qcard'),function(a){var x=o[keyOfHref(a.getAttribute('href'))];if(x&&x.d)n++;});
+      b.querySelector('[data-dbn]').textContent=n;b.classList.toggle('zero',!n);
+      b.querySelector('.qdb-bar i').style.setProperty('--p',String(Math.min(1,n/tot)));
+      var w=col==='health'?'篇健康文章':'篇问题彩蛋';
+      b.querySelector('[data-dbm]').textContent=!n?'读完一篇，在文末点“我读完了”打卡':n>=tot?'全部读完了！感谢你一路读下来':n<3?'好的开始，继续读下去':n<10?'已经读完 '+n+' '+w+'，一步一步来':'了不起，已经读完 '+n+' '+w;
+    });
+    cards.forEach(function(f){f(true);});
+  }
+  var MS='<svg viewBox="0 0 80 80" aria-hidden="true"><path d="M69.60,40.00L68.80,41.42L66.87,42.65L64.89,43.69L63.93,44.76L64.41,46.11L65.84,47.84L67.15,49.72L67.35,51.33L66.07,52.33L63.81,52.73L61.58,52.94L60.29,53.56L60.21,54.99L60.87,57.13L61.37,59.37L60.93,60.93L59.37,61.37L57.13,60.87L54.99,60.21L53.56,60.29L52.94,61.58L52.73,63.81L52.33,66.07L51.33,67.35L49.72,67.15L47.84,65.84L46.11,64.41L44.76,63.93L43.69,64.89L42.65,66.87L41.42,68.80L40.00,69.60L38.58,68.80L37.35,66.87L36.31,64.89L35.24,63.93L33.89,64.41L32.16,65.84L30.28,67.15L28.67,67.35L27.67,66.07L27.27,63.81L27.06,61.58L26.44,60.29L25.01,60.21L22.87,60.87L20.63,61.37L19.07,60.93L18.63,59.37L19.13,57.13L19.79,54.99L19.71,53.56L18.42,52.94L16.19,52.73L13.93,52.33L12.65,51.33L12.85,49.72L14.16,47.84L15.59,46.11L16.07,44.76L15.11,43.69L13.13,42.65L11.20,41.42L10.40,40.00L11.20,38.58L13.13,37.35L15.11,36.31L16.07,35.24L15.59,33.89L14.16,32.16L12.85,30.28L12.65,28.67L13.93,27.67L16.19,27.27L18.42,27.06L19.71,26.44L19.79,25.01L19.13,22.87L18.63,20.63L19.07,19.07L20.63,18.63L22.87,19.13L25.01,19.79L26.44,19.71L27.06,18.42L27.27,16.19L27.67,13.93L28.67,12.65L30.28,12.85L32.16,14.16L33.89,15.59L35.24,16.07L36.31,15.11L37.35,13.13L38.58,11.20L40.00,10.40L41.42,11.20L42.65,13.13L43.69,15.11L44.76,16.07L46.11,15.59L47.84,14.16L49.72,12.85L51.33,12.65L52.33,13.93L52.73,16.19L52.94,18.42L53.56,19.71L54.99,19.79L57.13,19.13L59.37,18.63L60.93,19.07L61.37,20.63L60.87,22.87L60.21,25.01L60.29,26.44L61.58,27.06L63.81,27.27L66.07,27.67L67.35,28.67L67.15,30.28L65.84,32.16L64.41,33.89L63.93,35.24L64.89,36.31L66.87,37.35L68.80,38.58Z"/><path class="ck" d="M29 41l8 8 15-17"/></svg>';
+  function boot(){[].forEach.call(document.querySelectorAll('[data-rdone]'),init);paint();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+  addEventListener('storage',function(e){if(!e.key||e.key===K)paint();});
+  addEventListener('hashchange',function(){setTimeout(boot,60);});
+  addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='tdone')paint();});
+  window.Q4Done={load:load,save:save,paint:paint,keyOfHref:keyOfHref};
 })();
 </script>
 <div class="lp" id="lp" hidden role="region" aria-label="朗读播放器"><div class="lp-top"><span class="lp-ch" data-lpch>正在加载声音……</span><span class="lp-t" data-lpt>0:00</span><button type="button" class="lp-x" data-lpx aria-label="关闭朗读">×</button></div><div class="lp-bar" data-lpbar role="slider" aria-label="播放进度" tabindex="0"><i></i></div><div class="lp-row"><button type="button" data-lpprev aria-label="上一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M18 5 9 12l9 7z"/></svg></button><button type="button" data-lpback aria-label="后退 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" class="lp-pp" data-lppp aria-label="播放"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l11-6.5z"/><path class="i-pause" d="M8 5v14M16 5v14"/></svg></button><button type="button" data-lpfwd aria-label="前进 15 秒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M20 4v4h-4"/><text x="12" y="15.2" text-anchor="middle" font-size="7.5" stroke="none" fill="currentColor" font-family="system-ui,sans-serif">15</text></svg></button><button type="button" data-lpnext aria-label="下一章"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M6 5l9 7-9 7z"/></svg></button><button type="button" class="lp-sp" data-lpsp aria-label="语速">1.0×</button></div><p class="lp-msg" data-lpmsg hidden></p></div><script type="application/json" id="lpcfg">{"id": "h3", "dir": "audio/vx-w/", "heads": [[1, "q"], [17, "scale"], [25, "what"], [33, "liver"], [38, "ldl"], [45, "plaque"], [53, "years"], [60, "tg"], [68, "lpa"], [75, "types"], [83, "aging"], [92, "china"], [99, "cluster"], [105, "root"], [112, "three"], [122, "tsimane"], [129, "statin"], [135, "history"], [146, "worth"], [156, "others"], [165, "fear"], [173, "target"], [186, "redrice"], [195, "food"], [207, "portfolio"], [215, "move"], [221, "regress"], [228, "adventist"], [238, "bible"], [247, "young"], [260, "check"], [269, "plan"], [271, "hope"]], "h": "4756d5f4", "n": 287, "title": "高血脂，为什么总和高血压、高血糖一起来？"}</script><script>

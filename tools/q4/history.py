@@ -3,6 +3,7 @@
 正文在 history_text.py，表格和名片在 history_data.py，三张图在 history_svg.py，资料出处在 history_sources.py。
 用法：Q4_WORK=<含 bible/ 的目录> python3 tools/q4/history.py [输出路径]
 文字里的记号：{{c:键}} 出处编号；{{v:徒2:42}} 整段经文（和合本）；{{ref:章id}} 跳到某一章；{{fig:名}} 图；其余见 BLOCKS。"""
+import done_ui
 import html, json, os, re, sys, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bible
@@ -361,7 +362,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <title>{title} · {col['name']}</title>
 <meta name="description" content="{desc}">
 <script>try{{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}}catch(e){{}}try{{if(window.top!==window&&top.location.host===location.host)document.documentElement.classList.add('emb');}}catch(e){{}}</script>
-<style>{CSS}{lp_css}</style>
+<style>{CSS}{done_ui.CSS}{lp_css}</style>
 </head>
 <body data-mins="{mins}">
 <div class="prog" aria-hidden="true"><i></i></div>
@@ -370,6 +371,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <aside class="toc-side" aria-label="目录"><p class="tsh">目录</p>{toc_html}<p class="tsrc"><a href="#sources">✦ 资料出处</a></p>{pxw}</aside>
 <main>
 {main}
+{done_ui.card(col='health' if col['hash'] == 'health' else 'qa')}
 {srcs}
 {rel}{SCENE}
 <footer class="foot"><p>整理制作 · Ethan（HangZhou_XG）　·　{col['foot']}</p><p><a href="./#{col['hash']}">← 回到{col['name']}</a>　<a href="./#home">学课目录</a></p></footer>
@@ -383,7 +385,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <p class="note2">和学课网站的设置是同一套。</p></div></div>
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
-<script>{JS}{LAMB_JS}{CARD_JS}{SEL_JS}</script>
+<script>{JS}{LAMB_JS}{CARD_JS}{SEL_JS}{done_ui.JS}</script>
 {lp_bar}{lp_js}
 {tail}
 </body>

@@ -341,14 +341,16 @@ def prefix(frag, no):
     return frag
 
 EXTRA_CSS = open(os.path.join(Q4, 'extra.css'), encoding='utf-8').read()
-THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
+THEME_CSS = open(os.path.join(Q4, 'theme.css'), encoding='utf-8').read()
+import done_ui
+THEME_CSS += done_ui.CSS   # 2026-11-03 读完打卡   # 2026-10 新设计（黎明的光）：配色、版式、导航、动效
 # 像素小羊（2026-10-22）：左上角标志（16×16，深色底上用夜间配色）、打卡时弹出的小卡片
 THEME_CSS += '\n' + open(os.path.join(Q4, 'bible.css'), encoding='utf-8').read()   # “圣经”栏目（2026-10-26）
 THEME_CSS += ('\n' + lamb.sprite_css() + lamb.dark_css('.mark') + lamb.dark_css('.wlogo') + lamb.dark_css('.qn-hd') + lamb.pop_css()
               + '.mark .lamb16{display:block;width:32px;height:32px}.wlogo{display:block;flex:none;width:32px;height:32px}.wlogo .lamb16{display:block}'
               + '.wtl{display:flex;align-items:center;gap:10px;min-width:0;max-width:66%}.wtl .wacct{max-width:none;min-width:0}@media (min-width:1024px){.wlogo{display:none}}\n')
 BASE_CSS = open(os.path.join(Q4, 'base.css'), encoding='utf-8').read()
-JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'card.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
+JS = (open(os.path.join(Q4, 'ask_core.js'), encoding='utf-8').read() + '\n' + open(os.path.join(Q4, 'card.js'), encoding='utf-8').read() + '\n' + done_ui.JS + '\n' + open(os.path.join(Q4, 'app.js'), encoding='utf-8').read()
       + '\n' + lamb.sprite_js() + lamb.pop_js() + '\n' + open(os.path.join(Q4, 'bible.js'), encoding='utf-8').read())
 FOOT = '''<footer>
   <p class="credit">整理制作：Ethan（HangZhou_XG） · © 2026　转发分享请保留出处，请勿修改后另行发布，或用于商业用途。</p>
@@ -763,6 +765,7 @@ def qa_pages():
   <h1>问题彩蛋</h1>
   <p class="lead">学课中常遇到的问题、信徒和慕道朋友常问的问题，结合全本圣经和怀爱伦著作逐一深入解答。共 {len(qa_data.ITEMS)} 篇，分 {len(qa_data.CATS)} 类；每篇都可以转发，也可以答题后下载 PDF。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="qa">{SHAREIC}分享问题彩蛋</button></p>
+  {done_ui.donebar('qa', len(qa_data.ITEMS))}
   <div class="qchips" role="group" aria-label="按类别查看">{chips}</div>
   <details class="qpaths"><summary><span>三条阅读路线</span><small>不知道从哪里读起？点开按顺序读：{" · ".join(t for t, _, _ in qa_data.PATHS)}</small><svg class="ic qpchev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="qpgrid">{paths}</div></details>
   <div class="qshelves">{shelves}</div>
@@ -776,7 +779,7 @@ def qa_pages():
         prev = (f'<a class="pncard prev" href="#{items[i-1]["id"]}"><small>上一题</small><b>{items[i-1]["q"]}</b>{I_LEFT}</a>') if i > 0 else '<span></span>'
         nxt = (f'<a class="pncard next" href="#{items[i+1]["id"]}"><small>下一题</small><b>{items[i+1]["q"]}</b>{I_RIGHT}</a>') if i + 1 < len(items) else '<span></span>'
         pdf = ONLINE + 'lessons/2026-Q4/qa/' + urllib.parse.quote(it['pdf'])
-        tail = (f'<p class="btnrow qaend"><button class="btn share" type="button" data-share="{it["id"]}">{SHAREIC}分享这篇</button><a class="btn solid" href="{pdf}" target="_blank" rel="noopener">下载 PDF 版（方便转发）</a>'
+        tail = done_ui.card(it['id'], qa_catalog.meta(it)['mins'], 'qa') + (f'<p class="btnrow qaend"><button class="btn share" type="button" data-share="{it["id"]}">{SHAREIC}分享这篇</button><a class="btn solid" href="{pdf}" target="_blank" rel="noopener">下载 PDF 版（方便转发）</a>'
                 f'<a class="btn" href="#l{it["lesson"]}-{it["day"]}">回到第{it["lesson"]}课 · {it["dayname"]}</a>'
                 f'<a class="btn egg" href="#qa">✦ 更多问题彩蛋</a></p>')
         top = pagebar(it['q'], shbtn(it['id'], '分享这篇'))
@@ -853,6 +856,7 @@ def health_page():
   <p class="lead">常见健康问题的科学分析：从生理学、病理学讲起，看清来龙去脉；研究都在 PubMed 上核对过，分清证据的强弱；最后落到生活里能做的事。每篇都可以转发，也可以答题后下载 PDF。</p>
   <p class="lead" style="font-size:.86rem;color:var(--muted)">健康科普，不能代替医生的诊断和处方；换药、停药一定先问医生。</p>
   <p class="qshare qshare-l"><button class="btn share" type="button" data-share="health">{SHAREIC}分享健康栏目</button></p>
+  {done_ui.donebar('health', len(health_data.ITEMS))}
   <div class="qshelves">{shelves}</div>
   <div class="qsoon"><span>✚</span>更多健康问题陆续加入</div>
   <a class="askentry" href="#ask" data-askform><span class="ae-ic" aria-hidden="true">?</span><span class="ae-t"><b>想了解哪个健康问题？</b><small>进入提问区写下来，整理者会挑选问题做成完整的分析</small></span><span class="ae-go">去提问 →</span></a>

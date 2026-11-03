@@ -1669,6 +1669,7 @@ window.Q4Hub=(function(){
     m.pl=get('bplan')||'';   // 圣经读经计划（2026-10-26）
     if(withResume){var tp={};try{tp=JSON.parse(get('tpos')||'{}')||{};}catch(e){}var tk=Object.keys(tp).sort();m.tp=tk.length?JSON.stringify(tk.reduce(function(o,k){o[k]=tp[k];return o;},{})):'';}   // 问题彩蛋读到哪里（2026-10-26）
     if(window.Q4Marks){Q4Marks.lessons().forEach(function(L){m['h:'+L]=Q4Marks.raw(L);});Object.keys(VS).forEach(function(k){if(k.indexOf('h:')===0&&m[k]==null)m[k]='';});}   // 划线与笔记（每课一项）
+    var tdo={};try{tdo=JSON.parse(get('tdone')||'{}')||{};}catch(e){}var tdk=Object.keys(tdo).filter(function(k){return tdo[k]&&tdo[k].d;}).sort();m.td=tdk.length?JSON.stringify(tdk.reduce(function(o,k){o[k]=[tdo[k].d,tdo[k].c||'qa'];return o;},{})):'';   // 问题彩蛋、健康文章读完打卡（2026-11-03；只同步打卡，不同步阅读秒数）
     var ck=lsKeys('ck:').filter(function(k){return get('ck:'+k)==='1';});m.c=ck.length?JSON.stringify(ck):'';   // 读完打卡
     var g=list(get('goals')).sort();m.g=g.length?JSON.stringify(g):'';   // 达到研读目标的周
     if(window.Q4Week){var s=Math.floor(Q4Week.secs()/300)*300,b=Q4Week.base?Q4Week.base():0;m['tm:'+DID]=(s||b)?JSON.stringify({w:Q4Week.key(),s:s,b:b}):'';}   // 本设备本周研读时间（按 5 分钟取整，免得传得太勤）；b 是本周以前累计的秒数（整周不变）
@@ -1708,6 +1709,10 @@ window.Q4Hub=(function(){
     }else if(k==='bp'){   // 圣经读到哪里：取较新的
       var lp=null,rp=null;try{lp=JSON.parse(get('bpos')||'null');}catch(e){}try{rp=JSON.parse(v||'null');}catch(e){}
       if(rp&&(!lp||rp[3]>lp[3]))set('bpos',JSON.stringify(rp));
+    }else if(k==='td'){   // 读完打卡：两边合起来，同一篇取较早的打卡时间
+      var lt={},rt={};try{lt=JSON.parse(get('tdone')||'{}')||{};}catch(e){}try{rt=JSON.parse(v||'{}')||{};}catch(e){}
+      Object.keys(rt).forEach(function(pg){var r=rt[pg];if(!r||!r[0])return;var x=lt[pg]||{};if(!x.d||r[0]<x.d){x.d=r[0];x.c=r[1]||'qa';}lt[pg]=x;});
+      set('tdone',JSON.stringify(lt));if(window.Q4Done)Q4Done.paint();
     }else if(k==='tp'){   // 问题彩蛋读到哪里：每篇取较新的那一份
       var lo={},ro={};try{lo=JSON.parse(get('tpos')||'{}')||{};}catch(e){}try{ro=JSON.parse(v||'{}')||{};}catch(e){}
       Object.keys(ro).forEach(function(pg){if(!lo[pg]||ro[pg][2]>lo[pg][2])lo[pg]=ro[pg];});
@@ -1755,7 +1760,7 @@ window.Q4Hub=(function(){
         if(k!=='tm:'+DID){try{OTHERS[k]=JSON.parse(r.v||'null');}catch(e){}}
         if(!st||r.t>st.t)VS[k]={h:fnv(r.v),t:r.t,n:r.n};return;
       }
-      if(k==='c'||k==='g'||k==='tp'||k==='bm'||k==='bp'||k==='pl'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
+      if(k==='c'||k==='g'||k==='td'||k==='tp'||k==='bm'||k==='bp'||k==='pl'||k.indexOf('h:')===0){if(!st||r.t>st.t){applyItem(k,r.v);VS[k]={h:fnv(r.v),t:r.t,n:r.n};}return;}   // 打卡、达标周：两边合并（合并后的结果稍后再传上去）
       if(st&&r.t<=st.t)return;   // 已经是最新
       var localEdited=st?fnv(lv)!==st.h:(!first&&lv!=='');
       if(localEdited&&st&&st.lt&&st.lt>r.t)return;   // 两边都改了：本机的更新，稍后上传
