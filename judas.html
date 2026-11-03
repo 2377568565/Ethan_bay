@@ -1280,7 +1280,8 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
 
   /* ===== 数据 ===== */
   function load(){try{var a=JSON.parse(lsGet(KEY)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
-  function save(a){lsSet(KEY,a.length?JSON.stringify(a):'');}
+  function save(a){var now=Date.now();a=a.filter(function(r){return !r.x||now-(r.u||0)<120*864e5;});lsSet(KEY,a.length?JSON.stringify(a):'');}   // 删掉的划线留个记号 120 天，好让别的设备也删掉
+  function live(){return load().filter(function(r){return !r.x;});}
   var BLK='p,li,td,th,blockquote,h2,h3',SKIP='nav,.toc-in,#sources,.srcs,figure,svg,.tools,.trow,.tend,.faq summary,.deep>summary,button,.pop,.sheet,.tsel,.lp,.no,.cite,sup,script,style';
   function blocks(sec){return [].slice.call(sec.querySelectorAll(BLK)).filter(function(b){return !b.closest(SKIP)&&!b.querySelector('p,li,blockquote');});}
   function off(b,node,o){var r=document.createRange();r.setStart(b,0);try{r.setEnd(node,o);}catch(e){return 0;}return r.toString().length;}
@@ -1294,7 +1295,7 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
       var m=document.createElement('mark');m.className='th c-'+r.c+' y-'+(r.y||'m')+(draw?' draw':'');m.dataset.g=r.g;t.parentNode.insertBefore(m,t);m.appendChild(t);
       if(draw)setTimeout(function(){m.classList.remove('draw');},900);});}
   function unpaint(){var ps=[];[].forEach.call(document.querySelectorAll('mark.th'),function(m){var p=m.parentNode;while(m.firstChild)p.insertBefore(m.firstChild,m);m.remove();if(ps.indexOf(p)<0)ps.push(p);});ps.forEach(function(p){p.normalize();});}
-  function paint(drawG){unpaint();load().forEach(function(r){var p=locate(r);if(p)wrap(p.b,p.a,p.e,r,r.g===drawG);});}
+  function paint(drawG){unpaint();live().forEach(function(r){var p=locate(r);if(p)wrap(p.b,p.a,p.e,r,r.g===drawG);});}
   function segsOf(range){var ca=range.commonAncestorContainer;if(ca.nodeType!==1)ca=ca.parentNode;
     var sec=ca.closest&&ca.closest('section.ch[id]');if(!sec||sec.id==='sources'||ca.closest(SKIP))return null;
     var out=[];blocks(sec).forEach(function(b,k){if(!range.intersectsNode(b))return;var tx=b.textContent,a=0,e=tx.length;
@@ -1303,13 +1304,13 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
       while(a<e&&/\s/.test(tx[a]))a++;while(e>a&&/\s/.test(tx[e-1]))e--;if(e>a)out.push({k:k,a:a,b:e,t:tx.slice(a,e)});});
     return out.length?{sec:sec,segs:out}:null;}
   function create(S,c){var all=load(),g=rid(),bl=blocks(S.sec);
-    S.segs.forEach(function(s){all=all.filter(function(r){if(r.s!==S.sec.id||r.k!==s.k||r.b<=s.a||r.a>=s.b)return true;
-        s.a=Math.min(s.a,r.a);s.b=Math.max(s.b,r.b);s.t=bl[s.k].textContent.slice(s.a,s.b);return false;});
+    S.segs.forEach(function(s){all.forEach(function(r){if(r.x||r.s!==S.sec.id||r.k!==s.k||r.b<=s.a||r.a>=s.b)return;
+        s.a=Math.min(s.a,r.a);s.b=Math.max(s.b,r.b);s.t=bl[s.k].textContent.slice(s.a,s.b);r.x=1;r.u=Date.now();});
       all.push({i:rid(),g:g,s:S.sec.id,k:s.k,a:s.a,b:s.b,t:s.t,c:c,y:sty,u:Date.now()});});
     save(all);return g;}
-  function update(g,f){var all=load();all.forEach(function(r){if(r.g===g){f(r);r.u=Date.now();}});save(all);}
-  function remove(g){save(load().filter(function(r){return r.g!==g;}));}
-  function textOf(g){return load().filter(function(r){return r.g===g;}).map(function(r){return r.t;}).join('……');}
+  function update(g,f){var all=load();all.forEach(function(r){if(r.g===g&&!r.x){f(r);r.u=Date.now();}});save(all);}
+  function remove(g){var all=load(),now=Date.now();all.forEach(function(r){if(r.g===g){r.x=1;r.u=now;}});save(all);}
+  function textOf(g){return live().filter(function(r){return r.g===g;}).map(function(r){return r.t;}).join('……');}
 
   /* ===== 工具条 ===== */
   var cur=null,press=0;
@@ -1361,7 +1362,7 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
     if(e.target.closest('.tsel'))return;
     var m=e.target.closest('mark.th');
     if(m){var s=getSelection();if(s&&!s.isCollapsed&&s.toString().trim())return;
-      var r=load().filter(function(x){return x.g===m.dataset.g;})[0];if(!r)return;
+      var r=live().filter(function(x){return x.g===m.dataset.g;})[0];if(!r)return;
       hide();cur={mode:'mark',g:r.g};var ms=[].slice.call(marks(r.g));ms.forEach(function(x){x.classList.add('sel');});
       var rs=[];ms.forEach(function(x){rs=rs.concat(rectsOf(x));});show(rs,'mark',r.c,r.y||'m');return;}
     if(cur&&cur.mode==='mark')hide();
