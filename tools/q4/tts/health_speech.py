@@ -170,7 +170,7 @@ def units_all():
     import history as H
     import health_data
     import importlib
-    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text', 'dementia.html': 'dementia_text', 'cataract.html': 'cataract_text', 'mi.html': 'mi_text', 'stomach.html': 'hp_text', 'lung.html': 'lung_text', 'gout.html': 'gout_text', 'postpartum.html': 'postpartum_text'}
+    mods = {'diabetes.html': 'diabetes_text', 'hypertension.html': 'hypertension_text', 'lipid.html': 'lipid_text', 'stroke.html': 'stroke_text', 'osteo.html': 'osteo_text', 'dementia.html': 'dementia_text', 'cataract.html': 'cataract_text', 'mi.html': 'mi_text', 'stomach.html': 'hp_text', 'lung.html': 'lung_text', 'gout.html': 'gout_text', 'postpartum.html': 'postpartum_text', 'crc.html': 'crc_text'}
     out = []
     for it in health_data.ITEMS:
         T = importlib.import_module(mods[it['url']])
