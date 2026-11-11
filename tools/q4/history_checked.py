@@ -920,4 +920,57 @@ CHECKED = {
  'cr_challenge25': ('https://doi.org/10.1056/NEJMoa2502760', 'live'),   # 核对（2026-11-04，健康 13 结直肠癌）
  'cr_cercek22': ('https://doi.org/10.1056/NEJMoa2201445', 'live'),   # 核对（2026-11-04，健康 13 结直肠癌）
  'cr_cercek25': ('https://doi.org/10.1056/NEJMoa2404512', 'live'),   # 核对（2026-11-04，健康 13 结直肠癌）
+ 'ty_tide20': ('https://doi.org/10.1089/thy.2019.0067', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_teng06': ('https://doi.org/10.1056/NEJMoa054022', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_zimm15': ('https://doi.org/10.1016/S2213-8587(14)70225-6', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_zimm15b': ('https://doi.org/10.1186/s13044-015-0020-8', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_sun17': ('https://doi.org/10.3390/nu9040361', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_iodguide18': ('https://www.nhc.gov.cn/ewebeditor/uploadfile/2018/05/20180515144010634.pdf', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_gdcdc': ('https://cdcp.gd.gov.cn/jkjy/jkzt/jcwsydfb/content/post_3440297.html', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_guth09': ('https://doi.org/10.1111/j.1365-2362.2009.02162.x', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_durante15': ('https://doi.org/10.1001/jama.2015.0956', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_haugen16': ('https://doi.org/10.1089/thy.2015.0020', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_tessler17': ('https://doi.org/10.1016/j.jacr.2017.01.046', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_zhou20': ('https://doi.org/10.1007/s12020-020-02441-y', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_cibas17': ('https://doi.org/10.1089/thy.2017.0500', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_park16': ('https://doi.org/10.1136/bmj.i5745', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_lin23': ('https://doi.org/10.1111/cas.15909', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_pizzato22': ('https://doi.org/10.1016/S2213-8587(22)00035-3', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_uspstf17': ('https://doi.org/10.1001/jama.2017.4011', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_furuya16': ('https://doi.org/10.1200/JCO.2016.67.7419', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_ito14': ('https://doi.org/10.1089/thy.2013.0367', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_ron95': ('https://pubmed.ncbi.nlm.nih.gov/7871153/', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_cardis05': ('https://doi.org/10.1093/jnci/dji129', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_kitahara16': ('https://doi.org/10.1089/thy.2015.0319', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_lebou22': ('https://doi.org/10.1056/NEJMoa2111953', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_vander95': ('https://doi.org/10.1111/j.1365-2265.1995.tb01894.x', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_wu15': ('https://doi.org/10.1210/jc.2015-2222', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_wichman16': ('https://doi.org/10.1089/thy.2016.0256', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_dhillon19': ('https://doi.org/10.1056/NEJMoa1812537', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_chaker17': ('https://doi.org/10.1016/S0140-6736(17)30703-1', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_jonk14': ('https://doi.org/10.1089/thy.2014.0028', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_flynn10': ('https://doi.org/10.1210/jc.2009-1625', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_meyer07': ('https://doi.org/10.1001/archinte.167.14.1533', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_surks07': ('https://doi.org/10.1210/jc.2007-1499', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_stott17': ('https://doi.org/10.1056/NEJMoa1603825', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_bekk19': ('https://doi.org/10.1136/bmj.l2006', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_rodondi10': ('https://doi.org/10.1001/jama.2010.1361', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_uspstf15': ('https://doi.org/10.7326/M15-0483', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_haddow99': ('https://doi.org/10.1056/NEJM199908193410801', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_lazarus12': ('https://doi.org/10.1056/NEJMoa1106104', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_casey17': ('https://doi.org/10.1056/NEJMoa1606205', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_alex17': ('https://doi.org/10.1089/thy.2016.0457', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_deng18': ('https://doi.org/10.1515/jpem-2017-0361', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_smith16': ('https://doi.org/10.1056/NEJMra1510030', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_ross16': ('https://doi.org/10.1089/thy.2016.0229', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_sund13': ('https://doi.org/10.1210/jc.2013-1954', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_naka13': ('https://doi.org/10.1210/jc.2013-2569', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_vest02': ('https://doi.org/10.1530/eje.0.1460153', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_marcocci11': ('https://doi.org/10.1056/NEJMoa1012985', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_sawin94': ('https://doi.org/10.1056/NEJM199411103311901', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_winsa91': ('https://doi.org/10.1016/0140-6736(91)92298-g', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_tonstad13': ('https://doi.org/10.3390/nu5114642', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_tonstad15': ('https://doi.org/10.1017/S1368980014002183', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_otun19': ('https://doi.org/10.1038/s41598-019-40647-x', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
+ 'ty_felker16': ('https://doi.org/10.1093/nutrit/nuv110', 'live'),   # 核对（2026-11-11，健康 14 甲状腺）
 }
