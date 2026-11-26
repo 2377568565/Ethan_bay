@@ -1823,7 +1823,7 @@ window.q4lamb={bind:Lamb,joy:function(){document.querySelectorAll('.lamb').forEa
   addEventListener('message',function(e){if(e.origin===location.origin&&e.data&&e.data.q4==='tdone')paint();});
   window.Q4Done={load:load,save:save,paint:paint,keyOfHref:keyOfHref};
 })();
-</script>
+if(!document.documentElement.classList.contains('emb')&&'serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='127.0.0.1'||location.hostname==='localhost'))setTimeout(function(){navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(function(){return navigator.serviceWorker.ready;}).then(function(){if(!sessionStorage.getItem('q4sw')){sessionStorage.setItem('q4sw','1');fetch(location.pathname,{cache:'force-cache',credentials:'same-origin'}).catch(function(){});}}).catch(function(){});},1500);</script>
 
 <div class="sheet" id="tshsheet" hidden><div class="sh-bg" data-close></div><div class="sh-card small" role="dialog" aria-modal="true" aria-labelledby="tsh-h">
 <button type="button" class="sh-x" data-close aria-label="关闭">×</button><p class="tsh" id="tsh-h">分享这一篇</p><p class="tsh-t">“基督教两千年家谱”</p>

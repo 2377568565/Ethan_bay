@@ -13060,6 +13060,15 @@ window.Q4Hub=(function(){
     var bd=document.getElementById('bdata');
     setTimeout(function(){q4keep.prune(list.map(function(f){return f[2];}).concat(bd&&bd.dataset.src?[bd.dataset.src]:[]));},20000);
   }
+  if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='127.0.0.1'||location.hostname==='localhost')){
+    setTimeout(function(){
+      navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(function(){
+        return navigator.serviceWorker.ready;
+      }).then(function(){
+        if(!sessionStorage.getItem('q4sw')){sessionStorage.setItem('q4sw','1');fetch('./',{cache:'force-cache',credentials:'same-origin'}).catch(function(){});}
+      }).catch(function(){});
+    },1500);
+  }
 })();
 
 (function(){var F={"idle":"eo ld rd","blink":"ec ld rd","left":"el ld rd","right":"er ld rd","wave1":"eh ld ru","wave2":"eh ld rv","joy1":"eh lu ru s1","joy2":"eh lu ru s2","sleep1":"ec ld rd z1","sleep2":"ec ld rd z2"},S={"idle":[["idle",0]],"blink":[["blink",140],["idle",0]],"look":[["left",420],["idle",160],["right",420],["idle",0]],"wave":[["wave1",200],["wave2",200],["wave1",200],["wave2",200],["idle",0]],"joy":[["joy1",220],["joy2",220],["joy1",220],["joy2",220],["joy1",220],["joy2",220],["idle",0]],"sleep":[["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",700],["sleep2",700],["sleep1",0]]};var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;

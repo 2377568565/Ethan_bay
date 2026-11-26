@@ -385,7 +385,7 @@ def doc(title, desc, main, srcs, toc_html, cites, tools=None, col=None):
 <p class="note2">和学课网站的设置是同一套。</p></div></div>
 <div class="pop" id="pop" role="dialog" aria-label="资料出处" hidden></div>
 <script type="application/json" id="srcdata">{cites.data()}</script>
-<script>{JS}{LAMB_JS}{CARD_JS}{SEL_JS}{done_ui.JS}</script>
+<script>{JS}{LAMB_JS}{CARD_JS}{SEL_JS}{done_ui.JS}if(!document.documentElement.classList.contains('emb')&&'serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='127.0.0.1'||location.hostname==='localhost'))setTimeout(function(){{navigator.serviceWorker.register('./sw.js',{{updateViaCache:'none'}}).then(function(){{return navigator.serviceWorker.ready;}}).then(function(){{if(!sessionStorage.getItem('q4sw')){{sessionStorage.setItem('q4sw','1');fetch(location.pathname,{{cache:'force-cache',credentials:'same-origin'}}).catch(function(){{}});}}}}).catch(function(){{}});}},1500);</script>
 {lp_bar}{lp_js}
 {tail}
 </body>

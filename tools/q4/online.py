@@ -43,7 +43,8 @@ jname = put(m.group(1).encode('utf-8'), 'js')
 h = h[:m.start()] + h[m.end():]
 boot = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boot.js'), encoding='utf-8').read()
 boot = re.sub(r'(?m)^\s*//.*\n', '', boot).replace('%B%', json.dumps(bname)).replace('%J%', json.dumps(jname))
-h = h.replace('</head>', '<script>' + boot + '</script>\n</head>', 1)
+assert '<style>' in h
+h = h.replace('<style>', '<script>' + boot + '</script>\n<style>', 1)
 open(os.path.join(root, 'index.html'), 'w', encoding='utf-8').write(h)
 keep = set(re.findall(r'site/[0-9a-f]{10}\.\w+', h))
 for f in os.listdir(os.path.join(root, 'site')):

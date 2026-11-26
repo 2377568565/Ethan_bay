@@ -7,6 +7,32 @@
 <meta name="theme-color" content="#0B1222">
 <title>预言的恩赐 · 全季研读</title>
 <script>document.documentElement.classList.add('jsok','js');try{var d=document.documentElement,f=localStorage.getItem('q4:fs'),t=localStorage.getItem('q4:theme');if(f)d.style.setProperty('--fs',f);if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}setTimeout(function(){document.documentElement.classList.add('ready');},25000);</script>
+<script>(function(){
+var B="site/1029a4f543.json",J="site/3a0acb4871.js",K=[B,J],P;
+function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
+ r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
+function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
+ try{var t=d.transaction('f',m),q=f(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
+function net(u,n){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.text();}).catch(function(e){
+ if(n>0)return new Promise(function(ok){setTimeout(ok,800);}).then(function(){return net(u,n-1);});throw e;});}
+function get(u){return tx('readonly',function(s){return s.get(u);}).then(function(v){if(typeof v==='string'&&v)return v;
+ return net(u,3).then(function(t){tx('readwrite',function(s){return s.put(t,u);});return t;});});}
+var st='',dn=0;
+function tip(t){st=t;var m=document.querySelector('#boot .m1');if(m)m.textContent=t;}
+var pb=get(B).then(function(t){dn++;tip(dn>1?'已就绪，正在打开…':'已拿到学课正文，正在启动…');return t;});
+var pj=get(J).then(function(t){dn++;tip(dn>1?'已就绪，正在打开…':'已拿到界面程序，正在加载正文…');return t;});
+function fail(){var m=document.querySelector('#boot .bt-m');if(m)m.innerHTML='网络不太好，<a href="" onclick="location.reload();return false" style="color:inherit;text-decoration:underline">点这里重新打开</a>';
+ var b=document.getElementById('boot');if(b)b.style.animation='none';}
+function run(){if(st)tip(st);Promise.all([pb,pj]).then(function(a){
+ var L;try{L=JSON.parse(a[0]);}catch(e){tx('readwrite',function(s){s.delete(B);return s.delete(J);});fail();return;}
+ for(var id in L){var m=document.querySelector('#'+id+' > .layout > main');if(m)m.innerHTML=L[id];}
+ var s=document.createElement('script');s.text=a[1];document.body.appendChild(s);
+ setTimeout(function(){tx('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();
+  q.onsuccess=function(){(q.result||[]).forEach(function(k){if(K.indexOf(k)<0)s.delete(k);});};return q;});},15000);
+},fail);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+</script>
 <style>
 
 
@@ -2688,29 +2714,6 @@ html.tbhide .bb-act{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 </style>
 <script type="application/json" id="wfonts">[["LessonSerif", "600", "site/252dbd982f.woff2"], ["LessonSerif", "900", "site/d4f8bc6932.woff2"]]</script>
 <style>html:not(.wf){--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif}</style>
-<script>(function(){
-var B="site/1029a4f543.json",J="site/39216208e4.js",K=[B,J],P;
-function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};
- r.onsuccess=function(){ok(r.result);};r.onerror=r.onblocked=function(){ok(null);};}catch(e){ok(null);}});return P;}
-function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
- try{var t=d.transaction('f',m),q=f(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
-function net(u,n){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.text();}).catch(function(e){
- if(n>0)return new Promise(function(ok){setTimeout(ok,2000);}).then(function(){return net(u,n-1);});throw e;});}
-function get(u){return tx('readonly',function(s){return s.get(u);}).then(function(v){if(typeof v==='string'&&v)return v;
- return net(u,3).then(function(t){tx('readwrite',function(s){return s.put(t,u);});return t;});});}
-var pb=get(B),pj=get(J);
-function fail(){var m=document.querySelector('#boot .bt-m');if(m)m.innerHTML='网络不太好，<a href="" onclick="location.reload();return false" style="color:inherit;text-decoration:underline">点这里重新打开</a>';
- var b=document.getElementById('boot');if(b)b.style.animation='none';}
-function run(){Promise.all([pb,pj]).then(function(a){
- var L;try{L=JSON.parse(a[0]);}catch(e){tx('readwrite',function(s){s.delete(B);return s.delete(J);});fail();return;}
- for(var id in L){var m=document.querySelector('#'+id+' > .layout > main');if(m)m.innerHTML=L[id];}
- var s=document.createElement('script');s.text=a[1];document.body.appendChild(s);
- setTimeout(function(){tx('readwrite',function(s){if(!s.getAllKeys)return null;var q=s.getAllKeys();
-  q.onsuccess=function(){(q.result||[]).forEach(function(k){if(K.indexOf(k)<0)s.delete(k);});};return q;});},15000);
-},fail);}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-})();
-</script>
 </head>
 <body class="combined">
 <div id="boot" aria-hidden="true"><div class="bt-in"><p class="bt-k">安息日学研经指引 · 2026年第4季</p><p class="bt-t">预言的恩赐</p>

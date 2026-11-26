@@ -2913,4 +2913,13 @@ window.Q4Hub=(function(){
     var bd=document.getElementById('bdata');
     setTimeout(function(){q4keep.prune(list.map(function(f){return f[2];}).concat(bd&&bd.dataset.src?[bd.dataset.src]:[]));},20000);
   }
+  if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='127.0.0.1'||location.hostname==='localhost')){
+    setTimeout(function(){
+      navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(function(){
+        return navigator.serviceWorker.ready;
+      }).then(function(){
+        if(!sessionStorage.getItem('q4sw')){sessionStorage.setItem('q4sw','1');fetch('./',{cache:'force-cache',credentials:'same-origin'}).catch(function(){});}
+      }).catch(function(){});
+    },1500);
+  }
 })();

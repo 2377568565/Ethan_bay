@@ -8,13 +8,16 @@ function db(){if(!P)P=new Promise(function(ok){try{var r=indexedDB.open('q4lz',1
 function tx(m,f){return db().then(function(d){if(!d)return null;return new Promise(function(ok){
  try{var t=d.transaction('f',m),q=f(t.objectStore('f'));t.oncomplete=function(){ok(q?q.result:null);};t.onerror=t.onabort=function(){ok(null);};}catch(e){ok(null);}});});}
 function net(u,n){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.text();}).catch(function(e){
- if(n>0)return new Promise(function(ok){setTimeout(ok,2000);}).then(function(){return net(u,n-1);});throw e;});}
+ if(n>0)return new Promise(function(ok){setTimeout(ok,800);}).then(function(){return net(u,n-1);});throw e;});}
 function get(u){return tx('readonly',function(s){return s.get(u);}).then(function(v){if(typeof v==='string'&&v)return v;
  return net(u,3).then(function(t){tx('readwrite',function(s){return s.put(t,u);});return t;});});}
-var pb=get(B),pj=get(J);
+var st='',dn=0;
+function tip(t){st=t;var m=document.querySelector('#boot .m1');if(m)m.textContent=t;}
+var pb=get(B).then(function(t){dn++;tip(dn>1?'已就绪，正在打开…':'已拿到学课正文，正在启动…');return t;});
+var pj=get(J).then(function(t){dn++;tip(dn>1?'已就绪，正在打开…':'已拿到界面程序，正在加载正文…');return t;});
 function fail(){var m=document.querySelector('#boot .bt-m');if(m)m.innerHTML='网络不太好，<a href="" onclick="location.reload();return false" style="color:inherit;text-decoration:underline">点这里重新打开</a>';
  var b=document.getElementById('boot');if(b)b.style.animation='none';}
-function run(){Promise.all([pb,pj]).then(function(a){
+function run(){if(st)tip(st);Promise.all([pb,pj]).then(function(a){
  var L;try{L=JSON.parse(a[0]);}catch(e){tx('readwrite',function(s){s.delete(B);return s.delete(J);});fail();return;}
  for(var id in L){var m=document.querySelector('#'+id+' > .layout > main');if(m)m.innerHTML=L[id];}
  var s=document.createElement('script');s.text=a[1];document.body.appendChild(s);
