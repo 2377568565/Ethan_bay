@@ -11,11 +11,7 @@
 (function(){
   if(window.Q4Card)return;
   var cv=document.createElement('canvas');if(!cv.getContext||!cv.toDataURL)return;
-  var W=1080,PAD=120;
-  var root=getComputedStyle(document.documentElement);
-  var SERIF='"LessonSerif",'+((root.getPropertyValue('--serif')||'').trim()||'')+',"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif';
-  SERIF=SERIF.replace(/,,+/g,',');
-  var SANS=getComputedStyle(document.body).fontFamily||'sans-serif';
+  var W=1080,PAD=120,SERIF='',SANS='';
   var mobile=/Android|iPhone|iPad|iPod|Mobile|HarmonyOS|OpenHarmony/i.test(navigator.userAgent);
   function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
   function clean(t){return String(t||'').replace(/[ \t\r\f\v]+/g,' ').replace(/\s*\n\s*/g,'\n').replace(/\s*([，。、；：！？”’）》])\s*/g,'$1').trim();}
@@ -27,46 +23,51 @@
       var ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();return ok;}
   }
 
-  /* ---- 面板（自带样式：网站和专题页都能用；颜色用页面的变量，夜间模式跟着变） ---- */
-  var st=el('style');st.textContent=
-    '.q4c{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:flex-end;justify-content:center}.q4c[hidden]{display:none}'+
-    '.q4c-bg{position:absolute;inset:0;background:rgba(8,12,20,.5);opacity:0;transition:opacity .25s}.q4c.open .q4c-bg{opacity:1}'+
-    '.q4c-card{position:relative;width:100%;max-width:460px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;'+
-      'padding:18px 18px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;background:var(--surface,#fff);color:var(--ink,#222);'+
-      'border:1px solid var(--rule,#ddd);border-bottom:0;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);font-family:'+SANS+'}'+
-    '.q4c.open .q4c-card{transform:none}'+
-    '@media (min-width:640px){.q4c{align-items:center}.q4c-card{border-radius:22px;border-bottom:1px solid var(--rule,#ddd);transform:translateY(24px);opacity:0;transition:transform .3s,opacity .25s}.q4c.open .q4c-card{opacity:1}}'+
-    '.q4c-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--muted,#888);font:400 26px/1 sans-serif;cursor:pointer}'+
-    '.q4c h3{margin:2px 40px 4px 2px;font-family:'+SERIF+';font-weight:900;font-size:1.15rem}'+
-    '.q4c-step{margin:10px 2px 6px;font-size:.84rem;font-weight:700;color:var(--ink,#222)}.q4c-step i{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:6px;border-radius:50%;background:var(--gold,#9A742C);color:#fff;font-style:normal;font-size:.72rem}'+
-    '.q4c-tip{margin:0 2px 8px;font-size:.8rem;line-height:1.6;color:var(--muted,#888)}'+
-    '.q4c-box{display:grid;place-items:center;min-height:200px;border-radius:14px;background:var(--paper,#f6f1e6);overflow:hidden}'+
-    '.q4c-box img{display:block;max-width:100%;width:auto;height:auto;max-height:min(560px,52vh);max-height:min(560px,52dvh);-webkit-touch-callout:default;user-select:auto}.q4c-box img[hidden],.q4c [hidden]{display:none!important}'+
-    '.q4c-wait{margin:0;font-size:.86rem;color:var(--muted,#888)}'+
-    '.q4c-txt{margin:0 0 10px;padding:12px 14px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;border-radius:12px;border:1px dashed var(--rule,#ddd);background:var(--paper,#f6f1e6);font:400 .84rem/1.7 '+SANS+';color:var(--ink-2,#444)}'+
-    '.q4c-btns{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom,0px));display:flex;gap:10px;margin:12px -18px 0;padding:10px 18px calc(16px + env(safe-area-inset-bottom,0px));background:var(--surface,#fff)}.q4c-btns>*{flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--rule,#ddd);'+
-      'background:var(--paper,#f6f1e6);color:var(--ink,#222);font:600 .92rem/1 '+SANS+';text-decoration:none;cursor:pointer;box-sizing:border-box}'+
-    '.q4c-btns .ok{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}'+
-    '.q4c-done{min-height:1.2em;margin:8px 2px 0;font-size:.82rem;color:var(--ok,#2F7D5B)}';
-  document.head.appendChild(st);
-  var SH=el('div','q4c');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
-  SH.innerHTML='<div class="q4c-bg" data-close></div><div class="q4c-card"><button type="button" class="q4c-x" data-close aria-label="关闭">×</button>'+
-    '<h3>分享图片</h3><p class="q4c-step q4c-s1" hidden><i>1</i>发图片</p><p class="q4c-tip"></p>'+
-    '<div class="q4c-box"><p class="q4c-wait">正在生成图片……</p><img alt="分享图片" hidden></div>'+
-    '<div class="q4c-cp" hidden><p class="q4c-step"><i>2</i>再发一段文字（点链接就能打开）</p><pre class="q4c-txt"></pre></div>'+
-    '<p class="q4c-done" aria-live="polite"></p>'+
-    '<div class="q4c-btns"><button type="button" class="ok q4c-cb" hidden>复制文字</button><a class="q4c-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div>';
-  function mount(){if(!SH.parentNode)document.body.appendChild(SH);}
-  if(document.body)mount();else document.addEventListener('DOMContentLoaded',mount);
-  var cur=null;
-  SH.addEventListener('click',function(e){
-    if(e.target.closest('[data-close]')){close();return;}
-    if(e.target.closest('.q4c-cb')&&cur&&cur.copy){var c=cur;copy(c.copy).then(function(ok){
-      SH.querySelector('.q4c-done').textContent=ok===false?'复制没有成功，请长按上面的文字手动复制':'✓ 文字已复制，粘贴到微信群里，和图片一起发';if(ok!==false&&c.onCopy)c.onCopy();});}
-  });
-  SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  /* ---- 面板（自带样式：网站和专题页都能用；首次点“分享”时才创建，打开网页时不拖慢首次排版） ---- */
+  var SH=null,cur=null;
+  function ensure(){
+    if(SH){if(!SH.parentNode&&document.body)document.body.appendChild(SH);return;}
+    var root=getComputedStyle(document.documentElement);
+    SERIF=('"LessonSerif",'+((root.getPropertyValue('--serif')||'').trim()||'')+',"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif').replace(/,,+/g,',');
+    SANS=(document.body&&getComputedStyle(document.body).fontFamily)||'sans-serif';
+    var st=el('style');st.textContent=
+      '.q4c{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:flex-end;justify-content:center}.q4c[hidden]{display:none}'+
+      '.q4c-bg{position:absolute;inset:0;background:rgba(8,12,20,.5);opacity:0;transition:opacity .25s}.q4c.open .q4c-bg{opacity:1}'+
+      '.q4c-card{position:relative;width:100%;max-width:460px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;'+
+        'padding:18px 18px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;background:var(--surface,#fff);color:var(--ink,#222);'+
+        'border:1px solid var(--rule,#ddd);border-bottom:0;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);font-family:'+SANS+'}'+
+      '.q4c.open .q4c-card{transform:none}'+
+      '@media (min-width:640px){.q4c{align-items:center}.q4c-card{border-radius:22px;border-bottom:1px solid var(--rule,#ddd);transform:translateY(24px);opacity:0;transition:transform .3s,opacity .25s}.q4c.open .q4c-card{opacity:1}}'+
+      '.q4c-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--muted,#888);font:400 26px/1 sans-serif;cursor:pointer}'+
+      '.q4c h3{margin:2px 40px 4px 2px;font-family:'+SERIF+';font-weight:900;font-size:1.15rem}'+
+      '.q4c-step{margin:10px 2px 6px;font-size:.84rem;font-weight:700;color:var(--ink,#222)}.q4c-step i{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:6px;border-radius:50%;background:var(--gold,#9A742C);color:#fff;font-style:normal;font-size:.72rem}'+
+      '.q4c-tip{margin:0 2px 8px;font-size:.8rem;line-height:1.6;color:var(--muted,#888)}'+
+      '.q4c-box{display:grid;place-items:center;min-height:200px;border-radius:14px;background:var(--paper,#f6f1e6);overflow:hidden}'+
+      '.q4c-box img{display:block;max-width:100%;width:auto;height:auto;max-height:min(560px,52vh);max-height:min(560px,52dvh);-webkit-touch-callout:default;user-select:auto}.q4c-box img[hidden],.q4c [hidden]{display:none!important}'+
+      '.q4c-wait{margin:0;font-size:.86rem;color:var(--muted,#888)}'+
+      '.q4c-txt{margin:0 0 10px;padding:12px 14px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;border-radius:12px;border:1px dashed var(--rule,#ddd);background:var(--paper,#f6f1e6);font:400 .84rem/1.7 '+SANS+';color:var(--ink-2,#444)}'+
+      '.q4c-btns{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom,0px));display:flex;gap:10px;margin:12px -18px 0;padding:10px 18px calc(16px + env(safe-area-inset-bottom,0px));background:var(--surface,#fff)}.q4c-btns>*{flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--rule,#ddd);'+
+        'background:var(--paper,#f6f1e6);color:var(--ink,#222);font:600 .92rem/1 '+SANS+';text-decoration:none;cursor:pointer;box-sizing:border-box}'+
+      '.q4c-btns .ok{border-color:transparent;color:#1A2132;background:linear-gradient(180deg,#F0D9A0,#D3B06A)}'+
+      '.q4c-done{min-height:1.2em;margin:8px 2px 0;font-size:.82rem;color:var(--ok,#2F7D5B)}';
+    document.head.appendChild(st);
+    SH=el('div','q4c');SH.setAttribute('role','dialog');SH.setAttribute('aria-modal','true');SH.setAttribute('aria-label','分享图片');SH.hidden=true;
+    SH.innerHTML='<div class="q4c-bg" data-close></div><div class="q4c-card"><button type="button" class="q4c-x" data-close aria-label="关闭">×</button>'+
+      '<h3>分享图片</h3><p class="q4c-step q4c-s1" hidden><i>1</i>发图片</p><p class="q4c-tip"></p>'+
+      '<div class="q4c-box"><p class="q4c-wait">正在生成图片……</p><img alt="分享图片" hidden></div>'+
+      '<div class="q4c-cp" hidden><p class="q4c-step"><i>2</i>再发一段文字（点链接就能打开）</p><pre class="q4c-txt"></pre></div>'+
+      '<p class="q4c-done" aria-live="polite"></p>'+
+      '<div class="q4c-btns"><button type="button" class="ok q4c-cb" hidden>复制文字</button><a class="q4c-dl" download="预言的恩赐.jpg" hidden>保存图片</a><button type="button" data-close>关闭</button></div></div>';
+    if(document.body)document.body.appendChild(SH);
+    SH.addEventListener('click',function(e){
+      if(e.target.closest('[data-close]')){close();return;}
+      if(e.target.closest('.q4c-cb')&&cur&&cur.copy){var c=cur;copy(c.copy).then(function(ok){
+        SH.querySelector('.q4c-done').textContent=ok===false?'复制没有成功，请长按上面的文字手动复制':'✓ 文字已复制，粘贴到微信群里，和图片一起发';if(ok!==false&&c.onCopy)c.onCopy();});}
+    });
+    SH.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  }
   function open(card){
-    mount();cur=card;var hasCp=!!card.copy;
+    ensure();cur=card;var hasCp=!!card.copy;
     SH.querySelector('h3').textContent=card.head||'分享图片';
     SH.querySelector('img').hidden=true;SH.querySelector('.q4c-wait').hidden=false;SH.querySelector('.q4c-wait').textContent='正在生成图片……';SH.querySelector('.q4c-dl').hidden=true;
     SH.querySelector('.q4c-s1').hidden=!hasCp;SH.querySelector('.q4c-cp').hidden=!hasCp;SH.querySelector('.q4c-cb').hidden=!hasCp;

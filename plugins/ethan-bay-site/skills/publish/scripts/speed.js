@@ -2,7 +2,7 @@
 // 用法（在仓库根目录，先启动 site-data 的 mock_ntfy.js）：NODE_PATH=/opt/node22/lib/node_modules node plugins/ethan-bay-site/skills/publish/scripts/speed.js
 //   NOVT=1 模拟不支持“视图过渡”的旧手机；RATE=6 降速更多；CV='css' 临时加一段样式做对比。
 // 参考（2026-10-06 优化后，降速 4 倍）：进一课约 200 ms，标签切换约 130–300 ms；优化前进一课约 1000 ms。
-const L=require('/home/user/Ethan_bay/plugins/ethan-bay-site/skills/site-data/scripts/lib_dev.js');
+const L=require(require('path').join(__dirname,'..','..','site-data','scripts','lib_dev.js'));
 const NOVT=process.env.NOVT==='1',RATE=+(process.env.RATE||4);
 (async()=>{const b=await L.launch();const errs=[];
  const p=await L.device(b,'A',errs,{userAgent:'Mozilla/5.0 (Linux; Android 14; V2405A) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0 Mobile Safari/537.36 MicroMessenger/8.0.50'});

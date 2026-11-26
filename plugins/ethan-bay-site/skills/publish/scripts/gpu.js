@@ -3,7 +3,7 @@
 // 用法（仓库根目录，先启动 site-data 的 mock_ntfy.js）：NODE_PATH=/opt/node22/lib/node_modules node plugins/ethan-bay-site/skills/publish/scripts/gpu.js
 // 结果“✓”= 全部交给显卡；“△”后面列出没交出去的（color / background-color 多半是测试里鼠标悬停造成的，手机上没有悬停，可以忽略；
 // 64、131104 之类是屏幕外或互相重叠的小动画，也可以忽略）。DBG=1 打印细节。测完 git checkout data/。
-const L=require('/home/user/Ethan_bay/plugins/ethan-bay-site/skills/site-data/scripts/lib_dev.js');
+const L=require(require('path').join(__dirname,'..','..','site-data','scripts','lib_dev.js'));
 (async()=>{const b=await L.launch();const errs=[];
  const p=await L.device(b,'A',errs,{userAgent:'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124.0 Mobile Safari/537.36'});
  const U=L.GH+'?today=2026-10-06';

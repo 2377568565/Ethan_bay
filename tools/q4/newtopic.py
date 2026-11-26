@@ -1,7 +1,7 @@
 # 用 listen.py 做模板，生成新专题的 X.py。用法：python3 newtopic.py spec.json
 import json, os, sys
-S = json.load(open(sys.argv[1]))
-src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'listen.py')).read()
+S = json.load(open(sys.argv[1], encoding='utf-8'))
+src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'listen.py'), encoding='utf-8').read()
 R = [
  ('"""生成《家人总在念叨，我为什么越听越烦？》专题网页（仓库根目录 listen.html，问题彩蛋 15）。', f'"""生成《{S["title"]}》专题网页（仓库根目录 {S["slug"]}.html，问题彩蛋 {S["no"]}）。'),
  ('正文在 listen_text.py，图在 listen_svg.py', f'正文在 {S["slug"]}_text.py，图在 {S["slug"]}_svg.py'),
@@ -27,5 +27,5 @@ src = swap(src, '<p>下面先说烦躁和', '</p></div>', f'<p>{S["intro"]}', in
 src = swap(src, '<p>本页的依据是圣经', '</p>', f'<p>{S["srcs"]}</p>')
 src = swap(src, "return H.doc(TITLE, '", "', main, srcs", f"return H.doc(TITLE, '{S['desc']}", inc=False)
 src = src.replace("return H.doc(TITLE, '" + S['desc'] + "', main", "return H.doc(TITLE, '" + S['desc'] + "', main")
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), S['slug'] + '.py'), 'w').write(src)
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), S['slug'] + '.py'), 'w', encoding='utf-8').write(src)
 print('ok', S['slug'])

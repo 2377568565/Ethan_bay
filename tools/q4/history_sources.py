@@ -871,6 +871,7 @@ EGW_KEYS |= {'sc13', 'sc35', 'pp63', 'pp66', 'pp68', 'pp68b', 'pp69', 'pp72', 'd
 EGW_KEYS |= {'gc644', 'gc645', 'gc661', 'gc674', 'gc674b', 'gc676', 'gc677a', 'gc677', 'gc678b', 'ed303', 'ed305', 'ed307', 'ed307b', 'ed308', 'pp50', 'sm1_172'}
 EGW_KEYS |= {'fa_da638'}
 EGW_KEYS |= {'un_pk371', 'un_pk376', 'un_pk188'}
+EGW_KEYS |= {'df_sg4_124', 'df_mh313'}
 
 # ---------- 健康栏目 01《糖尿病》（2026-10-26）：医学文献都在 PubMed 核对过摘要；只转述摘要里的结论 ----------
 DM = {
@@ -1542,3 +1543,31 @@ GI = {
  'gi_stor17': ('Storhaug CL, Fosse SK, Fadnes LT. Country, regional, and global estimates for lactose malabsorption in adults: a systematic review and meta-analysis. Lancet Gastroenterol Hepatol 2017;2(10):738-746（PubMed 28690131）', 'https://doi.org/10.1016/S2468-1253(17)30154-1'),
 }
 SRC.update({k: (d, u, []) for k, (d, u) in GI.items()})
+
+# 问题彩蛋 35《为什么基督徒不吃“不洁净的食物”，比如猪肉、虾？》（2026-11-27）：医学文献均在 PubMed 核对摘要与 DOI；宗教与世卫资料均经实况网页核对
+DIET = {
+ 'df_kashrut': ('犹太教饮食律法 Kashrut（维基百科英文版：依利未记11章与申命记14章，禁吃猪肉及所有无翅无鳞的水生动物即虾、蟹、贝类）', 'https://en.wikipedia.org/wiki/Kashrut', ['Leviticus']),
+ 'df_halal': ('伊斯兰教饮食律法（维基百科英文版：所有宗派皆禁猪肉；海鲜中沙斐仪、马立克、罕百里派允许虾蟹贝类，哈乃斐派对非鱼类海产通常限制）', 'https://en.wikipedia.org/wiki/Islamic_dietary_laws', ['pork']),
+ 'df_who_taenia': ('世界卫生组织（WHO）实况报道：带绦虫病与囊虫病（猪带绦虫 Taenia solium 神经囊虫病是流行区约 25%—70% 癫痫病例的病因）', 'https://www.who.int/news-room/fact-sheets/detail/taeniasis-cysticercosis', ['neurocysticercosis']),
+ 'df_delbrutto22': ('Del Brutto OH. Human Neurocysticercosis: An Overview. Pathogens 2022;11(10):1212（人脑囊虫病是全球最常见的人类中枢神经系统蠕虫感染；PubMed 36297269）', 'https://doi.org/10.3390/pathogens11101212', []),
+ 'df_hev23': ('Santos-Silva S, et al. Hepatitis E Virus in the Iberian Peninsula: A Systematic Review. Food Environ Virol 2023;15(3):193-211（戊肝全球每年约 2,000 万例感染、4.4 万例死亡，猪是人畜共患 HEV-3 的主要宿主；PubMed 37434079）', 'https://doi.org/10.1007/s12560-023-09560-5', []),
+ 'df_huang19': ('Huang X, et al. Hepatitis E virus infection in swine workers: A meta-analysis. Zoonoses Public Health 2019;66(1):155-163（16 国 32 项研究汇总：涉猪从业人员抗 HEV IgG 流行率为一般人群的 1.52 倍；PubMed 30548110）', 'https://doi.org/10.1111/zph.12548', []),
+ 'df_pozio01': ('Pozio E. New patterns of Trichinella infection. Vet Parasitol 2001;98(1-3):133-148（家猪和野猪肉引发旋毛虫感染流行病学综述；PubMed 11516583）', 'https://doi.org/10.1016/s0304-4017(01)00427-7', []),
+ 'df_candelli25': ('Candelli M, et al. Vibrio vulnificus—A Review with a Special Focus on Sepsis. Microorganisms 2025;13(1):128（创伤弧菌在高危人群败血症病死率可超 50%；PubMed 39858896）', 'https://doi.org/10.3390/microorganisms13010128', []),
+ 'df_coerdt21': ('Coerdt KM, Khachemoune A. Vibrio vulnificus: Review of Mild to Life-threatening Skin Infections. Cutis 2021;107(2):E12-E17（美国海产品相关死亡 95% 以上由创伤弧菌引起；PubMed 33891847）', 'https://doi.org/10.12788/cutis.0183', []),
+ 'df_yang22': ('Yang M, et al. Contamination, bioaccumulation mechanism, detection, and control of human norovirus in bivalve shellfish: A review. Crit Rev Food Sci Nutr 2022;62(32):8972-8985（双壳贝类通过组织配体主动生物富集人诺如病毒；PubMed 34184956）', 'https://doi.org/10.1080/10408398.2021.1937510', []),
+ 'df_vale20': ('Vale P. Shellfish contamination with marine biotoxins in Portugal and spring tides: a dangerous health coincidence. Environ Sci Pollut Res Int 2020;27(33):41143-41156（双壳贝类滤食产毒微藻富集腹泻性及麻痹性贝毒；PubMed 32809126）', 'https://doi.org/10.1007/s11356-020-10389-9', []),
+ 'df_kargar25': ('Kargar M, et al. A review on microplastics in bivalves: analysis, quantification, and effects. Environ Monit Assess 2025;198(1):70（汇总 56 篇研究：双壳贝类是水体微塑料生物富集指示物；PubMed 41454097）', 'https://doi.org/10.1007/s10661-025-14931-5', []),
+ 'df_xu24': ('Xu F, et al. Outbreak of Haff disease caused by crayfish in China: a systematic review. J Health Popul Nutr 2024;43(1):195（汇总中国 1,437 例小龙虾相关哈夫病横纹肌溶解患者，指向未知耐热毒素；PubMed 39587705）', 'https://doi.org/10.1186/s41043-024-00682-5', []),
+ 'df_singh12': ('Singh TS, et al. Paragonimus & paragonimiasis in India. Indian J Med Res 2012;136(2):192-204（并殖吸虫即肺吸虫经生食或未熟淡水蟹感染，影像学可酷似肺结核；PubMed 22960885）', 'https://pubmed.ncbi.nlm.nih.gov/22960885/', []),
+ 'df_lopata10': ('Lopata AL, O’Hehir RE, Lehrer SB. Shellfish allergy. Clin Exp Allergy 2010;40(6):850-858（甲壳与贝类核心致敏原原肌球蛋白引起交叉过敏与重度过敏性休克；PubMed 20412131）', 'https://doi.org/10.1111/j.1365-2222.2010.03513.x', []),
+ 'df_pedrosa15': ('Pedrosa M, et al. Shellfish Allergy: a Comprehensive Review. Clin Rev Allergy Immunol 2015;49(2):203-216（甲壳贝类原肌球蛋白具耐热与抗消化特性；PubMed 24870065）', 'https://doi.org/10.1007/s12016-014-8429-8', []),
+ 'df_shi23': ('Shi W, et al. Red meat consumption, cardiovascular diseases, and diabetes: a systematic review and meta-analysis. Eur Heart J 2023;44(28):2626-2635（心血管 43 项研究 446 万人、糖尿病 27 项 176 万人；PubMed 37264855）', 'https://doi.org/10.1093/eurheartj/ehad336', []),
+ 'df_guasch19': ('Guasch-Ferré M, et al. Meta-Analysis of Randomized Controlled Trials of Red Meat Consumption in Comparison With Various Comparison Diets on Cardiovascular Risk Factors. Circulation 2019;139(15):1828-1845（36 项 RCT 共 1,803 人：用优质植物蛋白代替红肉显著改善血脂；PubMed 30958719）', 'https://doi.org/10.1161/CIRCULATIONAHA.118.035225', []),
+ 'df_wang16': ('Wang X, et al. Red and processed meat consumption and mortality: dose-response meta-analysis of prospective cohort studies. Public Health Nutr 2016;19(5):893-905（17 项前瞻队列共 150,328 例死亡；PubMed 26143683）', 'https://doi.org/10.1017/S1368980015002062', []),
+ 'df_orlich13': ('Orlich MJ, et al. Vegetarian dietary patterns and mortality in Adventist Health Study 2. JAMA Intern Med 2013;173(13):1230-1238（复临信徒健康研究 2 共 73,308 人；PubMed 23836264）', 'https://doi.org/10.1001/jamainternmed.2013.6473', []),
+ 'df_le14': ('Le LT, Sabaté J. Beyond meatless, the health effects of vegan diets: findings from the Adventist cohorts. Nutrients 2014;6(6):2131-2147（复临健康队列综述；PubMed 24871675）', 'https://doi.org/10.3390/nu6062131', []),
+ 'df_sg4_124': ('怀爱伦《属灵的恩赐》（Spiritual Gifts）第4卷a英文原著第124页（1864年；亦见《饮食与食物的勉言》英文原著第392页）', None, []),
+ 'df_mh313': ('怀爱伦《服务真诠》（The Ministry of Healing）第24章“肉食”，英文原著第313—315页', None, []),
+}
+SRC.update(DIET)

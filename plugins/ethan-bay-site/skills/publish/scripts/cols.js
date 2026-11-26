@@ -2,7 +2,7 @@
 // 在手机和电脑几种宽度下，找出表格里被挤窄的格子：排成 3 行以上，而且平均每行不到 2 个字。
 // 用法（仓库根目录）：node plugins/ethan-bay-site/skills/publish/scripts/cols.js heaven.html blood.html
 // 全部 ✓ 才算过；✗ 后面列出表格和那一栏的内容开头。CSS='…' 可以临时加一段样式试验修法。
-const path = require('path');
+const path = require('path'), { pathToFileURL } = require('url');
 let pw;
 try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/node_modules/playwright'); }
 
@@ -12,7 +12,7 @@ try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/no
   const browser = await pw.chromium.launch();
   let bad = 0;
   for (const f of files) {
-    const url = 'file://' + path.resolve(f);
+    const url = pathToFileURL(path.resolve(f)).href;
     for (const width of [320, 390, 768, 1280, 1600]) {
       const mobile = width < 700;
       const ctx = await browser.newContext({ viewport: { width, height: 900 }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1 });

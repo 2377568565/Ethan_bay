@@ -1,10 +1,11 @@
-const {chromium}=require('/opt/node22/lib/node_modules/playwright');
+let pw;try{pw=require('playwright');}catch(e){pw=require('/opt/node22/lib/node_modules/playwright');}
+const {chromium}=pw,{pathToFileURL}=require('url');
 const path=require('path'),fs=require('fs');
 (async()=>{
   const jobs=JSON.parse(fs.readFileSync(path.join(__dirname,'_jobs.json'),'utf8'));
   const b=await chromium.launch();const p=await b.newPage();
   for(const [key,out] of jobs){
-    await p.goto('file://'+path.join(__dirname,'_'+key+'.html'),{waitUntil:'load'});
+    await p.goto(pathToFileURL(path.join(__dirname,'_'+key+'.html')).href,{waitUntil:'load'});
     await p.evaluate(()=>document.fonts.ready);
     const missing=await p.evaluate(()=>[...document.fonts].filter(f=>f.status!=='loaded').map(f=>f.family+' '+f.weight));
     await p.pdf({path:path.join(__dirname,out+'.pdf'),preferCSSPageSize:true,printBackground:true,displayHeaderFooter:true,

@@ -422,7 +422,7 @@ def build_single_intro():
                 with_bible(f'<div class="lesson" id="l0">{bar}\n{frag}\n</div>'), False)
     tmp = os.path.join(Q4, '_l00.html'); open(tmp, 'w', encoding='utf-8').write(out)
     dst = os.path.join(OUT, 'lesson-00-intro.html')
-    subprocess.run(['python3', os.path.join(Q4, 'build.py'), tmp, dst], check=True,
+    subprocess.run([sys.executable, os.path.join(Q4, 'build.py'), tmp, dst], check=True,
                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     return dst
 
@@ -436,7 +436,7 @@ def build_single(no):
     tmp = os.path.join(Q4, f'_l{no:02d}.html')
     open(tmp, 'w', encoding='utf-8').write(out)
     dst = os.path.join(OUT, f'lesson-{no:02d}.html')
-    subprocess.run(['python3', os.path.join(Q4, 'build.py'), tmp, dst], check=True,
+    subprocess.run([sys.executable, os.path.join(Q4, 'build.py'), tmp, dst], check=True,
                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     return dst, frag, mod
 
@@ -953,7 +953,7 @@ def build_combined(nos):
     tmp = os.path.join(Q4, '_all.html')
     open(tmp, 'w', encoding='utf-8').write(out)
     dst = os.path.join(OUT, 'gift-of-prophecy-all.html')
-    subprocess.run(['python3', os.path.join(Q4, 'build.py'), tmp, dst], check=True,
+    subprocess.run([sys.executable, os.path.join(Q4, 'build.py'), tmp, dst], check=True,
                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     return dst
 
@@ -964,6 +964,6 @@ if __name__ == '__main__':
         print(build_single_intro())
         for n in avail: print(build_single(n)[0])
         print(build_combined(avail))
-        subprocess.run(['python3', os.path.join(Q4, 'online.py'), os.path.join(OUT, 'gift-of-prophecy-all.html'), os.path.join(OUT, '..', '..')], check=True)
+        subprocess.run([sys.executable, os.path.join(Q4, 'online.py'), os.path.join(OUT, 'gift-of-prophecy-all.html'), os.path.join(OUT, '..', '..')], check=True)
     else:
         for a in args: print(build_single(int(a))[0])

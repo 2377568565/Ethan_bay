@@ -56,5 +56,5 @@ if __name__ == '__main__':
         bad += check(frag, key)
         open(os.path.join(HERE, f'_{key}.html'), 'w', encoding='utf-8').write(page(frag))
     if bad and '--force' not in sys.argv: sys.exit('经文核对未通过')
-    json.dump(jobs, open(os.path.join(HERE, '_jobs.json'), 'w'), ensure_ascii=False)
+    json.dump(jobs, open(os.path.join(HERE, '_jobs.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     subprocess.run(['node', os.path.join(HERE, 'pdf.js')], check=True)

@@ -2,7 +2,7 @@
 // 用法（仓库根目录）：node plugins/ethan-bay-site/skills/publish/scripts/overflow.js jesus.html history.html
 //   SHOT=目录  另存每种情况的整页截图（看排版用）
 // 结果每行一种情况：sw 是页面实际宽度，vw 是屏幕宽度；sw > vw 就是超出，后面列出超出的元素。
-const path = require('path'), fs = require('fs');
+const path = require('path'), fs = require('fs'), { pathToFileURL } = require('url');
 let pw;
 try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/node_modules/playwright'); }
 
@@ -14,7 +14,7 @@ try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/no
   const browser = await pw.chromium.launch();
   let bad = 0;
   for (const f of files) {
-    const url = 'file://' + path.resolve(f);
+    const url = pathToFileURL(path.resolve(f)).href;
     for (const width of [320, 360, 390]) for (const theme of ['light', 'dark']) for (const fsz of ['1', '1.25']) {
       const ctx = await browser.newContext({ viewport: { width, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2, colorScheme: theme });
       const p = await ctx.newPage();

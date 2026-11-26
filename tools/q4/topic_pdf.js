@@ -1,13 +1,13 @@
 // 把问题彩蛋专题网页（history.html、jesus.html……）打印成 PDF 学习版，存进 lessons/2026-Q4/qa/。
 // 用法：node tools/q4/topic_pdf.js <网页.html> <输出.pdf> [标题]
 // 字体：用 Q4_WORK（默认 tools/q4/.work）/fonts 里的思源黑体、思源宋体，PDF 里只嵌入用到的字。
-const path = require('path'), fs = require('fs');
+const path = require('path'), fs = require('fs'), { pathToFileURL } = require('url');
 let pw;
 try { pw = require('playwright'); } catch (e) { pw = require('/opt/node22/lib/node_modules/playwright'); }
 const [src, out, title = '', col = '问题彩蛋'] = process.argv.slice(2);   // col：栏目名（健康栏目 2026-10-26）
 if (!src || !out) { console.log('用法：node topic_pdf.js 网页.html 输出.pdf [标题]'); process.exit(2); }
 const W = process.env.Q4_WORK || path.join(__dirname, '.work');
-const F = n => 'file://' + path.join(W, 'fonts', n);
+const F = n => pathToFileURL(path.join(W, 'fonts', n)).href;
 for (const n of ['sans400.ttf', 'sans700.ttf', 'serif600.ttf', 'serif900.ttf'])
   if (!fs.existsSync(path.join(W, 'fonts', n))) { console.error('缺少字体 ' + n + '：先运行 python3 tools/q4/fetch_assets.py'); process.exit(1); }
 const FONTS = `
@@ -25,7 +25,7 @@ body{font-size:10.5pt!important}
   const b = await pw.chromium.launch();
   const p = await b.newPage({ colorScheme: 'light' });
   await p.addInitScript(() => { try { localStorage.setItem('q4:theme', 'light'); localStorage.removeItem('q4:fs'); } catch (e) {} });
-  await p.goto('file://' + path.resolve(src), { waitUntil: 'load' });
+  await p.goto(pathToFileURL(path.resolve(src)).href, { waitUntil: 'load' });
   await p.addStyleTag({ content: FONTS });
   await p.evaluate(() => { document.querySelectorAll('details').forEach(d => { d.open = true; }); });
   await p.emulateMedia({ media: 'print' });

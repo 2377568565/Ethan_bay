@@ -549,8 +549,9 @@ var q4keep=(function(){
       DATA=j; if(waiting&&!pop.hidden)build(parse(waiting.dataset.v)); waiting=null;
     }).catch(function(){fetching=null; if(waiting&&!pop.hidden)body.innerHTML='<p class="bload">经文加载失败，请检查网络后再点一次。</p>'; waiting=null;});
   }
-  // 经文数据有 2.6 MB：网页打开 10 秒后再在后台下载，不和打开网页抢网速；已经存在手机里的，马上就读
-  if(src.dataset.src)q4keep.has(src.dataset.src).then(function(y){setTimeout(fetchData,y?1500:10000);},function(){setTimeout(fetchData,10000);});
+  // 经文数据有 2.6 MB：网页打开 10 秒后再在后台下载，不和打开网页抢网速；若正在打开彩蛋/健康专题页就让路；已经存在手机里的，马上就读
+  function armFetch(ms){setTimeout(function(){if(window.__q4tovBusy){armFetch(2500);return;}fetchData();},ms);}
+  if(src.dataset.src)q4keep.has(src.dataset.src).then(function(y){armFetch(y?1500:10000);},function(){armFetch(10000);});
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function parse(code){
     var p=code.split('|'),b=+p[0],vs=p[1].split(';').map(function(x){var q=x.split('.');return [+q[0],+q[1]];});
@@ -2259,14 +2260,18 @@ window.Q4Hub=(function(){
   var EXT={};
   document.querySelectorAll('a[data-art]').forEach(function(a){var h=a.getAttribute('href')||'',x=EXT[a.dataset.art];if(!/\.html$/.test(h))return;if(!x)x=EXT[a.dataset.art]={href:h,title:''};if(!x.title&&a.dataset.title)x.title=a.dataset.title;});
   var ids=Object.keys(EXT);if(!ids.length)return;
-  var de=document.documentElement,OV=null,FR={},on='',pushed=false,prev='',T0=null,pf=false;
+  var de=document.documentElement,OV=null,FR={},on='',pushed=false,prev='',T0=null,busy=0,curTab='',pfDone={},pfTimer=null,pfRun=false;
+  function setBusy(n){busy=Math.max(0,n);window.__q4tovBusy=busy>0;}
   function open(id){
+    if(on===id&&OV&&!OV.hidden)return;
     var x=EXT[id];
     if(!OV){OV=document.createElement('div');OV.className='tov';OV.innerHTML='<div class="tov-load"><span class="tov-spin"></span><p>正在打开……</p></div>';document.body.appendChild(OV);}
     for(var k in FR){if(k!==id&&!FR[k].hidden)hush(FR[k]);FR[k].hidden=(k!==id);}
     if(!FR[id]){
-      var f=document.createElement('iframe');f.className='tov-f';f.title=x.title||'问题彩蛋';f.setAttribute('allow','clipboard-write; web-share');
-      f.addEventListener('load',function(){f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · (问题彩蛋|健康)$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+suf(id);}});
+      var f=document.createElement('iframe'),settled=false;f.className='tov-f';f.title=x.title||'问题彩蛋';f.setAttribute('allow','clipboard-write; web-share');
+      setBusy(busy+1);
+      function fin(){if(settled)return;settled=true;setBusy(busy-1);f.dataset.ok='1';try{if(!x.title)x.title=f.contentDocument.title.replace(/ · (问题彩蛋|健康)$/,'');}catch(e){}if(on===id){OV.classList.add('ok');if(x.title)document.title=x.title+suf(id);}schedulePf(1500);}
+      f.addEventListener('load',fin);f.addEventListener('error',fin);setTimeout(fin,15000);
       f.src=x.href;FR[id]=f;OV.appendChild(f);
     }
     OV.classList.toggle('ok',FR[id].dataset.ok==='1');
@@ -2277,22 +2282,34 @@ window.Q4Hub=(function(){
   }
   function suf(id){return /^h\d/.test(id)?' · 健康':' · 问题彩蛋';}
   function hush(f){try{f.contentWindow.postMessage({q4:'hidden'},location.origin);}catch(e){}}   // 收起的专题页：停下朗读（健康栏目，2026-10-27）
-  function close(){if(!OV||OV.hidden)return;if(on&&FR[on])hush(FR[on]);OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}}
-  function prefetch(){   // 在问题彩蛋列表停留时，先把专题网页悄悄下载好，点进去更快
-    if(pf)return;pf=true;
-    ids.forEach(function(id,i){setTimeout(function(){if(!FR[id])fetch(EXT[id].href,{credentials:'same-origin'}).catch(function(){});},2000+i*1500);});
+  function close(){if(!OV||OV.hidden)return;if(on&&FR[on])hush(FR[on]);OV.hidden=true;on='';de.classList.remove('tovon');if(T0!==null){document.title=T0;T0=null;}schedulePf(2000);}
+  // 只在停留在问题彩蛋/健康列表且当前没有文章正在加载时，按当前栏目逐篇悄悄缓存前几篇，避免一进列表就并发几十个请求把手机网速堵死
+  function canPf(){var c=navigator.connection;if(c&&(c.saveData||/2g/.test(c.effectiveType||'')))return false;return (curTab==='qa'||curTab==='health')&&!busy&&(!OV||OV.hidden)&&!document.hidden;}
+  function nextPfId(){
+    var wantH=curTab==='health',n=0;
+    for(var i=0;i<ids.length;i++){var id=ids[i];if((/^h\d/.test(id))!==wantH)continue;if(FR[id]||pfDone[id]){n++;continue;}if(n>=6)return '';return id;}
+    return '';
   }
+  function stepPf(){
+    pfTimer=null;if(pfRun||!canPf())return;
+    var id=nextPfId();if(!id)return;
+    pfDone[id]=1;pfRun=true;
+    fetch(EXT[id].href,{credentials:'same-origin'}).catch(function(){}).then(function(){pfRun=false;schedulePf(1200);});
+  }
+  function schedulePf(ms){clearTimeout(pfTimer);if(!canPf())return;pfTimer=setTimeout(stepPf,ms);}
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)schedulePf(2500);});
   function sync(){
     var h=decodeURIComponent(location.hash.slice(1)).split('-')[0];
+    curTab=h;
     if(EXT[h])open(h);else close();
-    if(h==='qa'||h==='health')prefetch();
+    if(h==='qa'||h==='health')schedulePf(3500);else clearTimeout(pfTimer);
   }
   document.addEventListener('click',function(e){
     if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var a=e.target.closest('a[data-art]');if(!a||!EXT[a.dataset.art]||!/\.html$/.test(a.getAttribute('href')||''))return;
     e.preventDefault();var id=a.dataset.art;
     if(location.hash==='#'+id){open(id);return;}
-    pushed=true;prev=location.hash;location.hash=id;
+    pushed=true;prev=location.hash;location.hash=id;open(id);
   });
   window.addEventListener('message',function(e){
     if(e.origin===location.origin&&e.data&&e.data.q4==='tts'){if(window.Q4Music&&Q4Music.pause)Q4Music.pause();return;}   // 开始听朗读：先停下音乐

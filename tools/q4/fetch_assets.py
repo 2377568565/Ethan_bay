@@ -117,7 +117,11 @@ def derived():
         s = subset.Subsetter(o); s.populate(text=text); s.subset(font); font.save(out)
     link = os.path.join(HERE, 'fonts')   # 问答 PDF 的样式按 ../fonts/ 找字体
     if not os.path.exists(link) and os.path.realpath(F) != os.path.realpath(link):
-        os.symlink(os.path.relpath(F, HERE), link)
+        try:
+            os.symlink(os.path.relpath(F, HERE), link)
+        except OSError:
+            import subprocess
+            subprocess.run(['cmd', '/c', 'mklink', '/J', link, os.path.abspath(F)], check=True)
 
 
 def main():

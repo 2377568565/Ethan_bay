@@ -1017,3 +1017,26 @@ CHECKED = {
  'gi_slater19': ('https://doi.org/10.3389/fnut.2019.00131', 'live'),   # 核对（2026-11-12，健康 15 胃不好吃不胖）
  'gi_stor17': ('https://doi.org/10.1016/S2468-1253(17)30154-1', 'live'),   # 核对（2026-11-12，健康 15 胃不好吃不胖）
 }
+CHECKED.update({
+ 'df_kashrut': ('https://en.wikipedia.org/wiki/Kashrut', 'live'),   # 核对（2026-11-27，问题彩蛋 35 洁净饮食）
+ 'df_halal': ('https://en.wikipedia.org/wiki/Islamic_dietary_laws', 'live'),   # 核对（2026-11-27，问题彩蛋 35 洁净饮食）
+ 'df_who_taenia': ('https://www.who.int/news-room/fact-sheets/detail/taeniasis-cysticercosis', 'live'),   # 核对（2026-11-27，问题彩蛋 35 洁净饮食）
+ 'df_delbrutto22': ('https://doi.org/10.3390/pathogens11101212', 'live'),   # PubMed 36297269 摘要核对（2026-11-27）
+ 'df_hev23': ('https://doi.org/10.1007/s12560-023-09560-5', 'live'),   # PubMed 37434079 摘要核对（2026-11-27）
+ 'df_huang19': ('https://doi.org/10.1111/zph.12548', 'live'),   # PubMed 30548110 摘要核对（2026-11-27）
+ 'df_pozio01': ('https://doi.org/10.1016/s0304-4017(01)00427-7', 'live'),   # PubMed 11516583 摘要核对（2026-11-27）
+ 'df_candelli25': ('https://doi.org/10.3390/microorganisms13010128', 'live'),   # PubMed 39858896 摘要核对（2026-11-27）
+ 'df_coerdt21': ('https://doi.org/10.12788/cutis.0183', 'live'),   # PubMed 33891847 摘要核对（2026-11-27）
+ 'df_yang22': ('https://doi.org/10.1080/10408398.2021.1937510', 'live'),   # PubMed 34184956 摘要核对（2026-11-27）
+ 'df_vale20': ('https://doi.org/10.1007/s11356-020-10389-9', 'live'),   # PubMed 32809126 摘要核对（2026-11-27）
+ 'df_kargar25': ('https://doi.org/10.1007/s10661-025-14931-5', 'live'),   # PubMed 41454097 摘要核对（2026-11-27）
+ 'df_xu24': ('https://doi.org/10.1186/s41043-024-00682-5', 'live'),   # PubMed 39587705 摘要核对（2026-11-27）
+ 'df_singh12': ('https://pubmed.ncbi.nlm.nih.gov/22960885/', 'live'),   # PubMed 22960885 摘要核对（2026-11-27）
+ 'df_lopata10': ('https://doi.org/10.1111/j.1365-2222.2010.03513.x', 'live'),   # PubMed 20412131 摘要核对（2026-11-27）
+ 'df_pedrosa15': ('https://doi.org/10.1007/s12016-014-8429-8', 'live'),   # PubMed 24870065 摘要核对（2026-11-27）
+ 'df_shi23': ('https://doi.org/10.1093/eurheartj/ehad336', 'live'),   # PubMed 37264855 摘要核对（2026-11-27）
+ 'df_guasch19': ('https://doi.org/10.1161/CIRCULATIONAHA.118.035225', 'live'),   # PubMed 30958719 摘要核对（2026-11-27）
+ 'df_wang16': ('https://doi.org/10.1017/S1368980015002062', 'live'),   # PubMed 26143683 摘要核对（2026-11-27）
+ 'df_orlich13': ('https://doi.org/10.1001/jamainternmed.2013.6473', 'live'),   # PubMed 23836264 摘要核对（2026-11-27）
+ 'df_le14': ('https://doi.org/10.3390/nu6062131', 'live'),   # PubMed 24871675 摘要核对（2026-11-27）
+})
