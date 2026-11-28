@@ -1,0 +1,51 @@
+name: music
+# 音乐栏目：把仓库 Releases 里标签为 music-src 的（草稿）附件压缩后收进 music/，并更新 music/list.json。
+# 改动 music/request.json 并推送就会运行（只收还没收过的歌）。
+on:
+  push:
+    branches: [claude/adventist-lesson-analysis-dhqrxg]
+    paths: ['music/request.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: music
+  cancel-in-progress: false
+env:
+  BRANCH: claude/adventist-lesson-analysis-dhqrxg
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+      - name: 工具
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fdkaac > /dev/null
+      - name: 编译完整版 fdk-aac（Ubuntu 自带的不含 HE-AAC）
+        continue-on-error: true
+        run: |
+          curl -sSL -m 300 -o /tmp/fdk.tgz https://downloads.sourceforge.net/project/opencore-amr/fdk-aac/fdk-aac-2.0.3.tar.gz
+          echo '829b6b89eef382409cda6857fd82af84fabb63417b08ede9ea7a553f811cb79e  /tmp/fdk.tgz' | sha256sum -c -
+          mkdir -p /tmp/fdk && tar xzf /tmp/fdk.tgz -C /tmp/fdk --strip-components=1
+          cd /tmp/fdk && ./configure --quiet --disable-static > /dev/null && make -j4 > /dev/null
+          echo "LD_LIBRARY_PATH=/tmp/fdk/.libs" >> "$GITHUB_ENV"
+      - name: 收歌
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 tools/q4/music_import.py --request music/request.json
+      - name: 提交
+        if: always()
+        run: |
+          git config user.name 'music'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A music
+          if git diff --cached --quiet; then echo '没有新歌'; exit 0; fi
+          git commit -q -m "音乐栏目：收入新歌"
+          for i in 1 2 3 4; do
+            git push origin HEAD:"$BRANCH" && exit 0
+            sleep $((i * 5)); git pull -q --rebase origin "$BRANCH"
+          done
+          exit 1
